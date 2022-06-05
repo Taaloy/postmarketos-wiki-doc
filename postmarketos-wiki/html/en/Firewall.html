@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Firewall - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Firewall rootpage-Firewall skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Firewall</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>postmarketOS edge and v21.06 or higher have <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/nftables">nftables</a> configured if the device's kernel has support for it.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Default_rules"><span class="tocnumber">1</span> <span class="toctext">Default rules</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Check_if_it_is_running"><span class="tocnumber">2</span> <span class="toctext">Check if it is running</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Usage"><span class="tocnumber">3</span> <span class="toctext">Usage</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Configuring_the_kernel_to_support_nftables"><span class="tocnumber">4</span> <span class="toctext">Configuring the kernel to support nftables</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Contributing_your_nftable_rules"><span class="tocnumber">5</span> <span class="toctext">Contributing your nftable rules</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Default_rules">Default rules</span></h2>
+<p>The following rules are enabled by default:
+</p>
+<dl>
+<dt>Allow incoming SSH on USB networking and WiFi interfaces</dt>
+<dt>Allow incoming DHCP requests on USB networking interface</dt>
+<dd>Without this, USB networking requires assigning a static IP address manually on the host, so this is included for convenience.</dd>
+<dt>Deny all incoming connections on wwan (cell data network)</dt>
+<dd>The assumption is no incoming connection on this network, which is owned/managed by cell carriers, should be trusted. Users aren't able to connect to their devices on this interface over the cell network.</dd>
+<dt>Allow all outgoing connections on all interfaces</dt>
+</dl>
+<h2><span class="mw-headline" id="Check_if_it_is_running">Check if it is running</span></h2>
+<p>Firewall service status can be viewed by querying openrc:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo rc-service nftables status
+<span class="go"> * status: started</span>
+</pre></div>
+<p>If the status is not <code>started</code>, the kernel may not have support for nftables (see <a href="#Configuring_the_kernel_to_support_nftables">#Configuring the kernel to support nftables</a>).
+</p>
+<p>The currently loaded set of rules can be viewed with:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo nft list ruleset
+<span class="go">table inet filter {</span>
+<span class="go">        chain input {</span>
+<span class="go">                type filter hook input priority filter; policy drop;</span>
+<span class="go">.....</span>
+</pre></div>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>The <code>nftables</code> openrc init script controls loading the firewall on boot. This service can be disabled to disable the firewall, or enabled to re-enable it:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo rc-update add nftables  <span class="c1"># enable firewall on boot</span>
+
+<span class="gp">$</span> sudo rc-update del nftables  <span class="c1"># disable firewall on boot</span>
+</pre></div>
+<p>Additional rules can be added in <code>/etc/nftables.d</code>. The following packages are available in pmaports to add additional rules/functionality:
+</p>
+<dl>
+<dt>* <code>postmarketos-config-nftables-openusb</code>
+</dt>
+<dd>Adds rule to allow all incoming connections over the USB networking interface, useful for debugging pmOS, but not recommended for normal use.</dd>
+<dt>* <code>postmarketos-config-nftables-log</code>
+</dt>
+<dd>Adds rules to enable logging of incoming and dropped connections to the firewall, useful for debugging firewall-related connection issues. This may generate a lot of messages in syslog.</dd>
+</dl>
+<h2><span class="mw-headline" id="Configuring_the_kernel_to_support_nftables">Configuring the kernel to support nftables</span></h2>
+<ul>
+<li>Run <code>pmbootstrap kconfig check --nftables kernel-package-name </code> to get a list of kernel config options that need to be changed</li>
+<li>Fix them up with <code>pmbootstrap kconfig edit</code>
+</li>
+<li>Add <code>pmb:kconfigcheck-nftables</code> to <code>options=</code> in your kernel's APKBUILD</li>
+<li>Create a test install with <code>pmbootstrap install</code>
+</li>
+<li>Boot it and verify that the firewall works</li>
+<li>Create a merge request to pmaports.git with your changes</li>
+</ul>
+<h2><span class="mw-headline" id="Contributing_your_nftable_rules">Contributing your nftable rules</span></h2>
+<p>A key goal of postmarketOS is to be polished. As such, if you install a package and it doesnt work without changing the nftables, you should contribute your nftables to pmaports. Contributing will make it easier to install the package on your other computers and help other postmarketOS users.
+</p>
+<p>If your package is not part of the default install, you probably dont want to enable the rule for users that have not installed the package. As such, you can use <code>install_if="$pkgname &lt;PACKAGE&gt;"</code> in the nftable subpackage to only install the nftable if <code>&lt;PACKAGE&gt;</code> is installed on the user's machine. For more information about <code>if_install</code>, install the <code>abuild-doc</code> package and read <code>man APKBUILD</code>.
+</p>
+<p>Examples of custom nftables:
+</p>
+<ul>
+<li>docker <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2629">https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2629</a>
+</li>
+<li>mosh <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2725">https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2725</a>
+</li>
+</ul>
+<p>Also see:
+</p>
+<ul><li>postmarketos-config-nftables <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/postmarketos-config-nftables/APKBUILD">https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/postmarketos-config-nftables/APKBUILD</a>
+</li></ul>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/2042">pmbootstrap!2042</a>: add support for firewall</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2060">pmaports!2060</a>: postmarketos-firewall: add package for installing/configuring default fw</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/build.postmarketos.org/-/issues/100">build.postmarketos.org#100</a>: build all main and community devices with firewall enabled</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Firewall&amp;oldid=24060">https://wiki.postmarketos.org/index.php?title=Firewall&amp;oldid=24060</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 5 December 2021, at 20:49.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Firewall&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

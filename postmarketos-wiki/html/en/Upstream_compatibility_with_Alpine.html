@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Upstream compatibility with Alpine - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Upstream_compatibility_with_Alpine rootpage-Upstream_compatibility_with_Alpine skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Upstream compatibility with Alpine</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This article explains how to do maintenance in pmaports.git, to make sure it stays compatible with Alpine edge. Upstream compatibility checks are running hourly in the <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/monitoring">monitoring</a> repository, and the badge of upstream compatibility is visible in the pmaports gitlab project. Information might be incomplete (as of writing, this was just started to document how to fix python breakage), please extend what is missing for future reference.
+</p>
+<p>To simply bump the pkgrel of a package, use <code>pmbootstrap pkgrel_bump name-of-pkg</code>.
+</p>
+<p>If there is noticeable fallout for users, make a post for the <a rel="nofollow" class="external text" href="https://postmarketos.org/edge">edge blog</a>.
+</p>
+<h3>
+<span id="cross_/_aportgen"></span><span class="mw-headline" id="cross_.2F_aportgen">cross / aportgen</span>
+</h3>
+<p>Most of the packages in the <code>cross</code> dir of pmaports are automatically generated from Alpine. If Alpine has a new version, and the upstream compat check complains about it, do this (example with binutils-* packages):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> cross
+<span class="gp">$</span> pmbootstrap aportgen binutils-*
+<span class="gp">$</span> git diff <span class="c1"># look through it, make sure everything looks good!</span>
+<span class="gp">$</span> git commit -m <span class="s2">"cross/binutils-*: upgrade to 1337"</span>
+</pre></div>
+<p>If you are confident that this will work, then push it directly to pmaports.git. This makes sense for gcc especially, because it needs to be updated right after gcc is updated in Alpine - or else cross compilation is broken. Other packages are usually not as urgent. If you are unsure, better make a merge request and wait until CI confirms that this builds.
+</p>
+<h3><span class="mw-headline" id="Python_upgrade">Python upgrade</span></h3>
+<p>If python was upgraded in Alpine to a new version (e.g. 3.8 to 3.9), all packages need to be rebuilt, which:
+</p>
+<ul>
+<li>Depend on libpython (e.g. <code>so:libpython3.8.so.1.0</code>).
+<ul><li>Monitoring will warn about these.</li></ul>
+</li>
+<li>Install files to <code>/usr/lib/python3.8/</code> (or other version).
+<ul>
+<li>Monitoring does not warn about these (would be possible with <a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/alpine/abuild/-/issues/10029">abuild#10029</a>).</li>
+<li>Use <a rel="nofollow" class="external text" href="http://pkgs.postmarketos.org/contents?file=&amp;path=%2Fusr%2Flib%2Fpython3.8%2F*&amp;name=*&amp;branch=master&amp;repo=postmarketos&amp;arch=x86_64">pkgs.postmarketos.org</a> to find these.</li>
+</ul>
+</li>
+</ul>
+<p>Bump relevant pkgrels and make a MR. This should be trivial, so you can merge it once everything builds.
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Upstream_compatibility_with_Alpine&amp;oldid=18484">https://wiki.postmarketos.org/index.php?title=Upstream_compatibility_with_Alpine&amp;oldid=18484</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 8 April 2021, at 20:27.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Upstream_compatibility_with_Alpine&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

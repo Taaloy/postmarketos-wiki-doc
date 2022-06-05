@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Downstream kernel specific package - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Downstream_kernel_specific_package rootpage-Downstream_kernel_specific_package skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Downstream kernel specific package</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Unless a device has been <a href="../en/The_Mainline_Kernel.html" title="The Mainline Kernel">mainlined</a>, we need to package the downstream kernel (also called "vendor kernel"). This is the reference for the <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD">APKBUILD</a> files of vendor kernels.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Generate_a_template"><span class="tocnumber">1</span> <span class="toctext">Generate a template</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Modernize_your_aport"><span class="tocnumber">2</span> <span class="toctext">Modernize your aport</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#downstreamkernel_prepare"><span class="tocnumber">3</span> <span class="toctext">downstreamkernel_prepare</span></a></li>
+<li class="toclevel-1 tocsection-4">
+<a href="#GCC_version"><span class="tocnumber">4</span> <span class="toctext">GCC version</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Use_GCC_4"><span class="tocnumber">4.1</span> <span class="toctext">Use GCC 4</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Use_GCC_6"><span class="tocnumber">4.2</span> <span class="toctext">Use GCC 6</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Use_the_newest_GCC_from_Alpine"><span class="tocnumber">4.3</span> <span class="toctext">Use the newest GCC from Alpine</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#heimdall-isorec"><span class="tocnumber">5</span> <span class="toctext">heimdall-isorec</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Generate_a_template">Generate a template</span></h2>
+<p>Usually you would generate both a new <a href="../en/Device_specific_package.html" title="Device specific package">device specific package</a> and a new vendor kernel package by running <code>pmbootstrap init</code> and typing in a new device name. In case you should only have a device package, but not a kernel package, you can regenerate the latter with <code>pmbootstrap aportgen linux-changeme-changeme</code> (you guessed it, <i>changeme</i> needs to be adjusted).
+</p>
+<p>The template gets improved every now and then to make porting easier, so don't be surprised when you are looking at older ports and their APKBUILDs look a bit more complicated than what gets generated from the latest <code>pmbootstrap</code> version. Essentially they are doing the same thing.
+</p>
+<h2><span class="mw-headline" id="Modernize_your_aport">Modernize your aport</span></h2>
+<p>To recreate your vendor kernel aport on top of the latest (and therefore most readable) template, do the following steps:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> mv aports/device/testing/linux-wiki-example /tmp/linux-wiki-example-old
+<span class="gp">$</span> pmbootstrap aportgen linux-wiki-example
+<span class="go">(now adjust the new aport to use the sources and patches from the "-old" dir, rename $pkgname from linux-wiki-example to linux-wiki-example-old)</span>
+<span class="gp">$</span> pmbootstrap checksum linux-wiki-example
+<span class="gp">$</span> pmbootstrap build --force linux-wiki-example
+<span class="go">(now test it on your device and make sure it boots, e.g. with 'pmbootstrap zap', 'pmbootstrap install', 'pmbootstrap flasher boot')</span>
+<span class="gp">$</span> pmbootstrap pkgrel_bump linux-wiki-example
+<span class="gp">$</span> git add -A
+<span class="gp">$</span> git commit -m <span class="s2">"device/linux-wiki-example: modernize aport"</span>
+</pre></div>
+<h2><span class="mw-headline" id="downstreamkernel_prepare">downstreamkernel_prepare</span></h2>
+<p>Newly generated downstream kernel packages use the <code>downstreamkernel_prepare</code> script. That way we can share code between the APKBUILDs, so it is less redundant. To see what the function does, <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/blob/master/main/devicepkg-dev/downstreamkernel_prepare.sh">read the source over here</a>.
+</p>
+<p>It is supposed to be <i>sourced</i>, so the content of the script gets executed <i>in the current shell</i>. This is done with the dot in-front of the script name:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>prepare<span class="o">()</span> <span class="o">{</span>
+	default_prepare
+	. downstreamkernel_prepare
+<span class="o">}</span>
+</pre></div>
+<p>Note that this behavior had changed in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1084">pmaports!1084</a>. Out of tree device ports may not have been adjusted yet and still pass arguments to the script. This is not supported anymore, adjust them like written above or consider modernizing the whole pmaport as explained earlier in this article.
+</p>
+<h2><span class="mw-headline" id="GCC_version">GCC version</span></h2>
+<p>The kernel gets compiled with <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/GCC">GCC</a>. Alpine Linux has been shipping version GCC 6 for a long time, but changed the default GCC version to GCC 8 in September 2018. It was discovered that at least one vendor kernel does not boot when compiled with GCC 8 (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/103">pmaports#103</a>), so we ended up packaging GCC 6 side by side with GCC 8. All existing 3.x vendor kernels that were packaged have been adjusted to use GCC 6 at this point in time, just to make sure we don't introduce any breakage there. The default for new packages is using the current GCC version that is packaged in Alpine (at time of writing: GCC 8).
+</p>
+<h3><span class="mw-headline" id="Use_GCC_4">Use GCC 4</span></h3>
+<p>Follow the GCC 6 instructions below, but replace 6 with 4 everywhere.
+</p>
+<h3><span class="mw-headline" id="Use_GCC_6">Use GCC 6</span></h3>
+<p>If your new kernel port does not boot at all, or <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Troubleshooting:kernel#Kernel_compilation:_Error:_.err_encountered_in_assembler_messages">it doesn't even compile</a>, please try to compile it with GCC 6 and see if it works then.
+</p>
+<p>To do that, open <code>aports/device/linux-[your-device]/APKBUILD</code> and <b>add these lines:</b>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># Compiler: GCC 6 (doesn't boot when compiled with newer versions)</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="si">${</span><span class="nv">CC</span><span class="p">:</span><span class="nv">0</span><span class="p">:</span><span class="nv">5</span><span class="si">}</span><span class="s2">"</span> !<span class="o">=</span> <span class="s2">"gcc6-"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+	<span class="nv">CC</span><span class="o">=</span><span class="s2">"gcc6-</span><span class="nv">$CC</span><span class="s2">"</span>
+	<span class="nv">HOSTCC</span><span class="o">=</span><span class="s2">"gcc6-gcc"</span>
+	<span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="s2">"gcc6-</span><span class="nv">$CROSS_COMPILE</span><span class="s2">"</span>
+<span class="k">fi</span>
+</pre></div>
+<p>between <code>makedepends=</code> and <code># Source</code> lines.
+</p>
+<p><b>Then add</b> <code>gcc6</code> to the kernel's <code>makedepends</code> line.
+</p>
+<p><span style="font-size:80%; font-style: italic">
+Technical detail: the <code>if...</code> guard around setting the variables is necessary, because the <code>CC</code> and <code>CROSS_COMPILE</code> variables extend themselves. <code>abuild</code> will parse the <code>APKBUILD</code> a second time while running the <code>package()</code> step (inside fakeroot). So without the <code>if</code> statement, we will end up with <code>CC="gcc6-gcc6-gcc"</code> instead of <code>CC="gcc6-gcc"</code> which gets problematic if you are calling <code>make</code> to install kernel modules in the package section (as done in <code>linux-asus-tf101</code> for example). Interestingly, only <code>CC</code> and <code>CROSS_COMPILE</code> gets passed through, hence we can't simply check the <code>HOSTCC</code> variable.
+</span>
+</p>
+<h3><span class="mw-headline" id="Use_the_newest_GCC_from_Alpine">Use the newest GCC from Alpine</span></h3>
+<p>Let's say you are using a device that has already been packaged, and you want to figure out if it also boots when compiled with a newer compiler. Just removing HOSTCC vars and references to them should be enough:
+</p>
+<p><b>Remove these lines:</b>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># Compiler: this kernel was only tested with GCC6. Feel free to make a merge</span>
+<span class="c1"># request if you find out that it is booting working with newer GCCs as</span>
+<span class="c1"># well. See &lt;https://postmarketos.org/vendorkernel&gt; for instructions.</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="si">${</span><span class="nv">CC</span><span class="p">:</span><span class="nv">0</span><span class="p">:</span><span class="nv">5</span><span class="si">}</span><span class="s2">"</span> !<span class="o">=</span> <span class="s2">"gcc6-"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+	<span class="nv">CC</span><span class="o">=</span><span class="s2">"gcc6-</span><span class="nv">$CC</span><span class="s2">"</span>
+	<span class="nv">HOSTCC</span><span class="o">=</span><span class="s2">"gcc6-gcc"</span>
+	<span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="s2">"gcc6-</span><span class="nv">$CROSS_COMPILE</span><span class="s2">"</span>
+<span class="k">fi</span>
+</pre></div>
+<p>And remove the mention of <code>HOSTCC</code> in invocation of <code>downstreamkernel_prepare</code>.
+</p>
+<p>Then remove the <code>gcc6</code> package from the <code>makedepends</code> line.
+</p>
+<p>Afterwards, remove the <code>compiler-gcc6.h</code> file from the aport dir, and from the <code>source</code> line. Instead you will probably need <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/issues/103#note_104926654">other patches as linked here</a>. First try compiling without patches, then add one patch at a time to fix a specific problem. As usually, with <code>pmbootstrap checksum</code>, you can regenerate the checksums at the bottom of the file, this needs to be done whenever you change <code>source</code>.
+</p>
+<p>When you made it boot successfully, please increase the <code>pkgrel</code> and make a merge request.
+</p>
+<h2><span class="mw-headline" id="heimdall-isorec">heimdall-isorec</span></h2>
+<p>If you have a device that only boots with <a href="../en/Deviceinfo_flash_methods.html#heimdall-isorec" title="Deviceinfo flash methods">heimdall-isorec</a>, you will need to adjust your linux APKBUILD as follows:
+</p>
+<ul>
+<li>add <code>busybox-static-armhf</code> to makedepends</li>
+<li>copy the "init" file from <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/tree/master/device/linux-samsung-i9100"><code>linux-samsung-i9100</code></a> and customize the partition</li>
+<li>add "init" to <code>source=</code> in the APKBUILD</li>
+<li>adjust your <code>prepare()</code> like it's done in <code>linux-samsung-i9100</code> and adjust the paths in there</li>
+</ul>
+<p>You can search for more examples of heimdall-isorec deviecs with grep:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> grep -r <span class="s1">'deviceinfo_flash_method="heimdall-isorec"'</span> aports
+<span class="go">aports/device/device-samsung-i9070/deviceinfo:deviceinfo_flash_method="heimdall-isorec"</span>
+<span class="go">aports/device/device-samsung-i9100/deviceinfo:deviceinfo_flash_method="heimdall-isorec"</span>
+</pre></div>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="../en/How_to_properly_backup_downstream_kernels.html" title="How to properly backup downstream kernels">How to properly backup downstream kernels</a></li>
+<li><a href="../en/Troubleshooting:kernel.html" title="Troubleshooting:kernel">Troubleshooting:kernel</a></li>
+<li><a href="../en/Device_specific_package.html" title="Device specific package">device specific package</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/103">pmaports#103</a> Adjust to GCC8 upgrade in Alpine edge</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/30">pmaports!30</a> device/linux-*: use GCC-6 for all 3.x kernels</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Downstream_kernel_specific_package&amp;oldid=14175">https://wiki.postmarketos.org/index.php?title=Downstream_kernel_specific_package&amp;oldid=14175</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 11 September 2020, at 09:34.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Downstream_kernel_specific_package&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

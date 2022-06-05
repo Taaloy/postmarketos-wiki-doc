@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Kernel configuration - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Kernel_configuration rootpage-Kernel_configuration skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Kernel configuration</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">If you have been directed to this wiki page by pmbootstrap's output and there's no description for a given kernel config that you are interested in. Please add it for the next person. Thanks!</td>
+</tr></tbody></table>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Changing_the_kernel_configuration"><span class="tocnumber">1</span> <span class="toctext">Changing the kernel configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Options_aren.27t_always_visible.21"><span class="tocnumber">1.1</span> <span class="toctext">Options aren't always visible!</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Useful_kernel_configuration_options"><span class="tocnumber">2</span> <span class="toctext">Useful kernel configuration options</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4">
+<a href="#Required_to_be_enabled.2Fdisabled"><span class="tocnumber">2.1</span> <span class="toctext">Required to be enabled/disabled</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="#CONFIG_DEVTMPFS"><span class="tocnumber">2.1.1</span> <span class="toctext">CONFIG_DEVTMPFS</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#CONFIG_TMPFS_POSIX_ACL"><span class="tocnumber">2.1.2</span> <span class="toctext">CONFIG_TMPFS_POSIX_ACL</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#CONFIG_VT"><span class="tocnumber">2.1.3</span> <span class="toctext">CONFIG_VT</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#CONFIG_DM_CRYPT"><span class="tocnumber">2.1.4</span> <span class="toctext">CONFIG_DM_CRYPT</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#CONFIG_EXT4_FS"><span class="tocnumber">2.1.5</span> <span class="toctext">CONFIG_EXT4_FS</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#CONFIG_UEVENT_HELPER"><span class="tocnumber">2.1.6</span> <span class="toctext">CONFIG_UEVENT_HELPER</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#CONFIG_KERNEL_GZIP.2C_CONFIG_KERNEL_XZ.2C_CONFIG_KERNEL_LZO_and_CONFIG_KERNEL_LZMA"><span class="tocnumber">2.1.7</span> <span class="toctext">CONFIG_KERNEL_GZIP, CONFIG_KERNEL_XZ, CONFIG_KERNEL_LZO and CONFIG_KERNEL_LZMA</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#CONFIG_ANDROID_PARANOID_NETWORK"><span class="tocnumber">2.1.8</span> <span class="toctext">CONFIG_ANDROID_PARANOID_NETWORK</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#CONFIG_PFT"><span class="tocnumber">2.1.9</span> <span class="toctext">CONFIG_PFT</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#CONFIG_SYSVIPC"><span class="tocnumber">2.1.10</span> <span class="toctext">CONFIG_SYSVIPC</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#CONFIG_USE_VFB"><span class="tocnumber">2.1.11</span> <span class="toctext">CONFIG_USE_VFB</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#CONFIG_KINETO_GAN"><span class="tocnumber">2.1.12</span> <span class="toctext">CONFIG_KINETO_GAN</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#CONFIG_BLK_DEV_INITRD"><span class="tocnumber">2.1.13</span> <span class="toctext">CONFIG_BLK_DEV_INITRD</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#CONFIG_CGROUPS"><span class="tocnumber">2.1.14</span> <span class="toctext">CONFIG_CGROUPS</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#CONFIG_CRYPTO_XTS"><span class="tocnumber">2.1.15</span> <span class="toctext">CONFIG_CRYPTO_XTS</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#CONFIG_SAMSUNG_TUI"><span class="tocnumber">2.1.16</span> <span class="toctext">CONFIG_SAMSUNG_TUI</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="#CONFIG_SEC_RESTRICT_ROOTING"><span class="tocnumber">2.1.17</span> <span class="toctext">CONFIG_SEC_RESTRICT_ROOTING</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="#CONFIG_TZDEV"><span class="tocnumber">2.1.18</span> <span class="toctext">CONFIG_TZDEV</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-23">
+<a href="#Optional"><span class="tocnumber">2.2</span> <span class="toctext">Optional</span></a>
+<ul>
+<li class="toclevel-3 tocsection-24"><a href="#CONFIG_INPUT_UINPUT"><span class="tocnumber">2.2.1</span> <span class="toctext">CONFIG_INPUT_UINPUT</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#CONFIG_LBDAF"><span class="tocnumber">2.2.2</span> <span class="toctext">CONFIG_LBDAF</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="#CONFIG_USB_G_ANDROID"><span class="tocnumber">2.2.3</span> <span class="toctext">CONFIG_USB_G_ANDROID</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="#CONFIG_USB_ETH"><span class="tocnumber">2.2.4</span> <span class="toctext">CONFIG_USB_ETH</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#CONFIG_USB_ETH_RNDIS"><span class="tocnumber">2.2.5</span> <span class="toctext">CONFIG_USB_ETH_RNDIS</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="#CONFIG_MSM_KGSL"><span class="tocnumber">2.2.6</span> <span class="toctext">CONFIG_MSM_KGSL</span></a></li>
+<li class="toclevel-3 tocsection-30"><a href="#CONFIG_CMDLINE"><span class="tocnumber">2.2.7</span> <span class="toctext">CONFIG_CMDLINE</span></a></li>
+<li class="toclevel-3 tocsection-31"><a href="#CONFIG_FHANDLE"><span class="tocnumber">2.2.8</span> <span class="toctext">CONFIG_FHANDLE</span></a></li>
+<li class="toclevel-3 tocsection-32"><a href="#CONFIG_BUILD_ARM_APPENDED_DTB_IMAGE"><span class="tocnumber">2.2.9</span> <span class="toctext">CONFIG_BUILD_ARM_APPENDED_DTB_IMAGE</span></a></li>
+<li class="toclevel-3 tocsection-33"><a href="#CONFIG_FW_LOADER_USER_HELPER"><span class="tocnumber">2.2.10</span> <span class="toctext">CONFIG_FW_LOADER_USER_HELPER</span></a></li>
+<li class="toclevel-3 tocsection-34"><a href="#CONFIG_KEY_DH_OPERATIONS"><span class="tocnumber">2.2.11</span> <span class="toctext">CONFIG_KEY_DH_OPERATIONS</span></a></li>
+<li class="toclevel-3 tocsection-35"><a href="#CONFIG_CRYPTO_DH"><span class="tocnumber">2.2.12</span> <span class="toctext">CONFIG_CRYPTO_DH</span></a></li>
+<li class="toclevel-3 tocsection-36"><a href="#CONFIG_CRYPTO_DES"><span class="tocnumber">2.2.13</span> <span class="toctext">CONFIG_CRYPTO_DES</span></a></li>
+<li class="toclevel-3 tocsection-37"><a href="#CONFIG_CRYPTO_USER_API_SKCIPHER"><span class="tocnumber">2.2.14</span> <span class="toctext">CONFIG_CRYPTO_USER_API_SKCIPHER</span></a></li>
+<li class="toclevel-3 tocsection-38"><a href="#CONFIG_CRYPTO_USER_API_HASH"><span class="tocnumber">2.2.15</span> <span class="toctext">CONFIG_CRYPTO_USER_API_HASH</span></a></li>
+<li class="toclevel-3 tocsection-39"><a href="#CONFIG_CRYPTO_ECB"><span class="tocnumber">2.2.16</span> <span class="toctext">CONFIG_CRYPTO_ECB</span></a></li>
+<li class="toclevel-3 tocsection-40"><a href="#CONFIG_CRYPTO_MD4"><span class="tocnumber">2.2.17</span> <span class="toctext">CONFIG_CRYPTO_MD4</span></a></li>
+<li class="toclevel-3 tocsection-41"><a href="#CONFIG_CRYPTO_MD5"><span class="tocnumber">2.2.18</span> <span class="toctext">CONFIG_CRYPTO_MD5</span></a></li>
+<li class="toclevel-3 tocsection-42"><a href="#CONFIG_CRYPTO_CBC"><span class="tocnumber">2.2.19</span> <span class="toctext">CONFIG_CRYPTO_CBC</span></a></li>
+<li class="toclevel-3 tocsection-43"><a href="#CONFIG_CRYPTO_SHA1"><span class="tocnumber">2.2.20</span> <span class="toctext">CONFIG_CRYPTO_SHA1</span></a></li>
+<li class="toclevel-3 tocsection-44"><a href="#CONFIG_CRYPTO_SHA256"><span class="tocnumber">2.2.21</span> <span class="toctext">CONFIG_CRYPTO_SHA256</span></a></li>
+<li class="toclevel-3 tocsection-45"><a href="#CONFIG_CRYPTO_SHA512"><span class="tocnumber">2.2.22</span> <span class="toctext">CONFIG_CRYPTO_SHA512</span></a></li>
+<li class="toclevel-3 tocsection-46"><a href="#CONFIG_CRYPTO_AES"><span class="tocnumber">2.2.23</span> <span class="toctext">CONFIG_CRYPTO_AES</span></a></li>
+<li class="toclevel-3 tocsection-47"><a href="#CONFIG_CRYPTO_DES_2"><span class="tocnumber">2.2.24</span> <span class="toctext">CONFIG_CRYPTO_DES</span></a></li>
+<li class="toclevel-3 tocsection-48"><a href="#CONFIG_CRYPTO_CMAC"><span class="tocnumber">2.2.25</span> <span class="toctext">CONFIG_CRYPTO_CMAC</span></a></li>
+<li class="toclevel-3 tocsection-49"><a href="#CONFIG_CRYPTO_HMAC"><span class="tocnumber">2.2.26</span> <span class="toctext">CONFIG_CRYPTO_HMAC</span></a></li>
+<li class="toclevel-3 tocsection-50"><a href="#CONFIG_USER_NS"><span class="tocnumber">2.2.27</span> <span class="toctext">CONFIG_USER_NS</span></a></li>
+<li class="toclevel-3 tocsection-51"><a href="#CONFIG_DEVPTS_MULTIPLE_INSTANCES"><span class="tocnumber">2.2.28</span> <span class="toctext">CONFIG_DEVPTS_MULTIPLE_INSTANCES</span></a></li>
+<li class="toclevel-3 tocsection-52"><a href="#SECCOMP"><span class="tocnumber">2.2.29</span> <span class="toctext">SECCOMP</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-53">
+<a href="#Anbox"><span class="tocnumber">2.3</span> <span class="toctext">Anbox</span></a>
+<ul>
+<li class="toclevel-3 tocsection-54"><a href="#CONFIG_SQUASHFS"><span class="tocnumber">2.3.1</span> <span class="toctext">CONFIG_SQUASHFS</span></a></li>
+<li class="toclevel-3 tocsection-55"><a href="#CONFIG_SQUASHFS_XZ"><span class="tocnumber">2.3.2</span> <span class="toctext">CONFIG_SQUASHFS_XZ</span></a></li>
+<li class="toclevel-3 tocsection-56"><a href="#CONFIG_SQUASHFS_XATTR"><span class="tocnumber">2.3.3</span> <span class="toctext">CONFIG_SQUASHFS_XATTR</span></a></li>
+<li class="toclevel-3 tocsection-57"><a href="#CONFIG_ASHMEM"><span class="tocnumber">2.3.4</span> <span class="toctext">CONFIG_ASHMEM</span></a></li>
+<li class="toclevel-3 tocsection-58"><a href="#CONFIG_BINDER_IPC"><span class="tocnumber">2.3.5</span> <span class="toctext">CONFIG_BINDER_IPC</span></a></li>
+<li class="toclevel-3 tocsection-59"><a href="#CONFIG_BINDERFS"><span class="tocnumber">2.3.6</span> <span class="toctext">CONFIG_BINDERFS</span></a></li>
+<li class="toclevel-3 tocsection-60"><a href="#CONFIG_ANDROID_BINDER_DEVICES"><span class="tocnumber">2.3.7</span> <span class="toctext">CONFIG_ANDROID_BINDER_DEVICES</span></a></li>
+<li class="toclevel-3 tocsection-61"><a href="#CONFIG_TMPFS_XATTR"><span class="tocnumber">2.3.8</span> <span class="toctext">CONFIG_TMPFS_XATTR</span></a></li>
+<li class="toclevel-3 tocsection-62"><a href="#NETFILTER_XT_MATCH_COMMENT"><span class="tocnumber">2.3.9</span> <span class="toctext">NETFILTER_XT_MATCH_COMMENT</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-63"><a href="#Packaging_and_flashing_the_kernel"><span class="tocnumber">3</span> <span class="toctext">Packaging and flashing the kernel</span></a></li>
+<li class="toclevel-1 tocsection-64"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Changing_the_kernel_configuration">Changing the kernel configuration</span></h1>
+<p>You can change the kernel configuration with pmbootstrap. On some devices the naming convention is simply linux-&lt;vendor&gt;-&lt;device&gt;, for the linux-sony-yuga package for example we run:
+</p>
+<pre class="shell">pmbootstrap kconfig edit sony-yuga</pre>
+<p>Some devices do not follow this naming convention, in which case you can check what package provided the kernel by running:
+</p>
+<pre class="shell">apk info --who-owns /boot/vmlinuz-*</pre>
+<p>On the pinephone by pine64 you would run:
+</p>
+<pre class="shell">pmbootstrap kconfig edit linux-postmarketos-allwinner-5.4.0_git20191204-r1</pre>
+<p>This gives you a menu where you can select and deselect all kernel configuration options. Press the <code>/</code> key to get a search dialog. After finding something, type the number of the search result to quickly jump to it.
+</p>
+<p><a href="../KernelConfig.png" class="image"><img alt="KernelConfig.png" src="../KernelConfig.png" decoding="async" width="800" height="400" srcset="../KernelConfig.png 1.5x ../KernelConfig.png 2x"></a>
+</p>
+<p>If you don't like the terminal user interface, you can also use <code>pmbootstrap kconfig edit -x</code> or <code>pmbootstrap kconfig edit -g</code>. See <code>pmbootstrap kconfig edit -h</code> for details.
+</p>
+<h2>
+<span id="Options_aren't_always_visible!"></span><span class="mw-headline" id="Options_aren.27t_always_visible.21">Options aren't always visible!</span>
+</h2>
+<p>If you're looking for an option and you just can't find it, then it might not show up because it depends on other options that have been disabled. In that case, press <code>/</code> and search for the option in question. You will see the dependencies. Then use the search again to find these dependencies, and enable them until you can finally enable the option you wanted to change in the first place.
+</p>
+<p>Some options are hidden behind <code>CONFIG_EXPERT</code> try enabling it and recheck.
+</p>
+<h1><span class="mw-headline" id="Useful_kernel_configuration_options">Useful kernel configuration options</span></h1>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">For full list of checked options just run "pmbootstrap kconfig check --help" and read the options.</td>
+</tr></tbody></table>
+<h2>
+<span id="Required_to_be_enabled/disabled"></span><span class="mw-headline" id="Required_to_be_enabled.2Fdisabled">Required to be enabled/disabled</span>
+</h2>
+<p>Enable or disable the following options to get postmarketOS working. Use <code>pmbootstrap kconfig check</code> to check which options need to be modified.
+</p>
+<h3><span class="mw-headline" id="CONFIG_DEVTMPFS">CONFIG_DEVTMPFS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>This adds support for the devtmpfs filesystem which should be mounted to /dev at startup. The kernel driver core creates device nodes for all registered devices in that filesystem. All device nodes are owned by root and have the default mode of 0600. Userspace can add and delete the nodes as needed.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/DEVTMPFS.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Generic Driver Options --&gt;
+    Maintain a devtmpfs filesystem to mount at /dev
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>This should always be set, otherwise you get this when you try SSH:
+</p>
+<pre>PTY allocation request failed on channel 0
+-ash: a: unknown operand</pre>
+<h3><span class="mw-headline" id="CONFIG_TMPFS_POSIX_ACL">CONFIG_TMPFS_POSIX_ACL</span></h3>
+<p><b> About</b>
+</p>
+<p><i>Support POSIX Access Control Lists (ACLs) for tmpfs-based filesystems.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/TMPFS_POSIX_ACL.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">File Systems --&gt;
+  Pseudo Filesystems --&gt;
+    Tmpfs virtual memory file system support (former shm fs) --&gt;
+      Tmpfs POSIX Access Control Lists
+</pre>
+<p><br>
+<b>pmOS specific</b>
+</p>
+<p>This is needed for some UIs (phosh) to be able to control bluetooth.
+</p>
+<h3><span class="mw-headline" id="CONFIG_VT">CONFIG_VT</span></h3>
+<p><b>About</b>
+</p>
+<p><i>If you say Y here, you will get support for terminal devices with display and keyboard devices. These are called "virtual" because you can run several virtual terminals (also called virtual consoles) on one physical terminal. This is rather useful, for example one virtual terminal can collect system messages and warnings, another one can be used for a text-mode user session, and a third could run an X session, all in parallel. Switching between virtual terminals is done with certain key combinations, usually Alt-&lt;function key&gt;.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/VT.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<p>It depends on <code>CONFIG_EXPERT</code>, so enable it first:
+</p>
+<pre class="shell">General setup --&gt;
+  Configure standard kernel features (expert users)
+</pre>
+<p>Then:
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Character Devices --&gt;
+    Enable TTY --&gt;
+      Virtual Terminal
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>This should always be set, otherwise you cannot get virtual terminal over USB.
+</p>
+<h3><span class="mw-headline" id="CONFIG_DM_CRYPT">CONFIG_DM_CRYPT</span></h3>
+<p><b>About</b>
+</p>
+<p><i>This device-mapper target allows you to create a device that transparently encrypts the data on it.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/DM_CRYPT.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Multiple devices driver support (RAID and LVM) --&gt;
+    Device mapper support --&gt;
+      Crypt target support
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>This should always be set, required for full disk encyption.
+</p>
+<h3><span class="mw-headline" id="CONFIG_EXT4_FS">CONFIG_EXT4_FS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>This is the next generation of the ext3 filesystem.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/EXT4_FS.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">File systems --&gt;
+  The Extended 4 (ext4) filesystem
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>This should always be set since pmbootstrap creates an ext4 rootfs.
+</p>
+<h3><span class="mw-headline" id="CONFIG_UEVENT_HELPER">CONFIG_UEVENT_HELPER</span></h3>
+<p><b>About</b>
+</p>
+<p><i>The uevent helper program is forked by the kernel for every uevent. Before the switch to the netlink-based uevent source, this was used to hook hotplug scripts into kernel device events. It usually pointed to a shell script at /sbin/hotplug. This should not be used today, because usual systems create many events at bootup or device discovery in a very short time frame. One forked process per event can create so many processes that it creates a high system load, or on smaller systems it is known to create out-of-memory situations during bootup.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/UEVENT_HELPER.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Generic Driver Options --&gt;
+    Support for uevent helper
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>This option should always be enabled on pmos kernels that are 3.16+, it's the config option that makes /proc/sys/kernel/hotplug appear.
+</p>
+<h3>
+<span id="CONFIG_KERNEL_GZIP,_CONFIG_KERNEL_XZ,_CONFIG_KERNEL_LZO_and_CONFIG_KERNEL_LZMA"></span><span class="mw-headline" id="CONFIG_KERNEL_GZIP.2C_CONFIG_KERNEL_XZ.2C_CONFIG_KERNEL_LZO_and_CONFIG_KERNEL_LZMA">CONFIG_KERNEL_GZIP, CONFIG_KERNEL_XZ, CONFIG_KERNEL_LZO and CONFIG_KERNEL_LZMA</span>
+</h3>
+<p><b>About</b>
+</p>
+<dl>
+<dt>GZIP</dt>
+<dd><i>The old and tried gzip compression. It provides a good balance between compression ratio and decompression speed.</i></dd>
+<dd><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/KERNEL_GZIP.html">Read more...</a></dd>
+<dt>XZ</dt>
+<dd><i>XZ uses the LZMA2 algorithm and instruction set specific BCJ filters which can improve compression ratio of executable code. The size of the kernel is about 30% smaller with XZ in comparison to gzip. The speed is about the same as with LZMA: The decompression speed of XZ is better than that of bzip2 but worse than gzip and LZO. Compression is slow.</i></dd>
+<dd><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/KERNEL_XZ.html">Read more...</a></dd>
+<dt>LZO</dt>
+<dd><i>Its compression ratio is the poorest among the choices. The kernel size is about 10% bigger than gzip; however its speed (both compression and decompression) is the fastest.</i></dd>
+<dd><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/KERNEL_LZO.html">Read more...</a></dd>
+<dt>LZMA</dt>
+<dd><i>This compression algorithm's ratio is best. Decompression speed is between gzip and bzip2. Compression is slowest. The kernel size is about 33% smaller with LZMA in comparison to gzip.</i></dd>
+<dd><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/KERNEL_LZMA.html">Read more...</a></dd>
+</dl>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General Setup --&gt;
+  Kernel compression mode --&gt;
+    Gzip
+    LZMA
+    XZ
+    LZO
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>You should set one of these to Y.
+</p>
+<ul>
+<li>Gzip: Works without specifying anything else.</li>
+<li>LZMA: If kernel compilation fails with this compression type, read <a href="../en/Troubleshooting:kernel.html#Kernel_compilation:_BusyBox_lzma_compression_fails" title="Troubleshooting:kernel">Troubleshooting:kernel#Kernel_compilation:_BusyBox_lzma_compression_fails</a>.</li>
+<li>XZ: Make sure to add <code>xz</code> to <code>makedepends</code> in the APKBUILD of your kernel package.</li>
+<li>LZO: If you get <code>lzop: high compression not compiled in</code> during compilation of the kernel you probably need <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/b4c9f93f0d7be1272f6a67de2128558ce58e1077/aports/linux-samsung-i9070/02_reduce_lzo_compression.patch">this patch</a> or <a rel="nofollow" class="external text" href="https://gitlab.com/Max1Truc/pmaports/-/blob/master/device/testing/linux-klipad-rel/02_reduce_lzo_compression.patch">this other patch</a>.</li>
+</ul>
+<h3><span class="mw-headline" id="CONFIG_ANDROID_PARANOID_NETWORK">CONFIG_ANDROID_PARANOID_NETWORK</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Android adds a "paranoid network" option to the Linux kernel, which restricts access to some networking features depending on the group of the calling process. The list of groups that are allowed access to networking features is in the kernel source file: /include/linux/android_aids.h </i>
+Setting this config will enable the paranoid network security feature<i></i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://elinux.org/Android_Security#Paranoid_network-ing">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Networking Support --&gt;
+  Networking Options --&gt;
+    Only allow certain groups to create sockets
+</pre>
+<p><b>Android specific</b>
+</p>
+<p>This option should <b>not</b> be set in pmOS or any other OS not using Android security model.
+</p>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="CONFIG_PFT">CONFIG_PFT</span></h3>
+<p><b>About</b>
+</p>
+<p><i>This caused builds to fail with a modern GCC at least once, and while it originally was meant as security feature by Qualcomm, "it is unsupported by Qualcomm, and opens up to a wide range of potential attack surfaces that has not been audited by anyone." <a rel="nofollow" class="external autonumber" href="http://www.merproject.org/logs/%23sailfishos-porters/%23sailfishos-porters.2016-08-26.log.html#t2016-08-26T17:43:06">[1]</a>.</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Qualcomm MSM specific device drivers --&gt;
+    Per-File-Tagger driver
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Please disable it, so we have one less source for failing builds and enabling it has no benefit anyway.
+</p>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="CONFIG_SYSVIPC">CONFIG_SYSVIPC</span></h3>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General Setup --&gt;
+  System V IPC
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Please enable it for postmarketOS, so busybox' syslogd can log to a ringbuffer in the kernel (fixes <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/808">#808</a>).
+</p>
+<h3><span class="mw-headline" id="CONFIG_USE_VFB">CONFIG_USE_VFB</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Weston and Plasma Mobile might choose to draw on this virtual frame buffer, just like it happened for the samsung-jflte (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/34">pmaports#34</a>). Disabling the USE_VFB option fixed this, so let's make sure we don't have that option enabled for any kernel.</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Graphics supports --&gt;
+    MSM Framebuffer support --&gt;
+      MSM Virtual Framebuffer support
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Please disable it, so we have one less source of failure.
+</p>
+<h3><span class="mw-headline" id="CONFIG_KINETO_GAN">CONFIG_KINETO_GAN</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Related to a proprietary "T-Mobile's WiFi-Calling" feature. It should not affect normal calls, so it should be safe to disable it.</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Network device support --&gt;
+    Kineto GAN virtual network interface
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Causes <code>sudo</code>, <code>ip</code> and other commands to hang (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1513">pmbootstrap#1513</a>). Please disable it.
+</p>
+<h3><span class="mw-headline" id="CONFIG_BLK_DEV_INITRD">CONFIG_BLK_DEV_INITRD</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Initial RAM filesystem and RAM disk (initramfs/initrd) support</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General setup --&gt;
+  Initial RAM filesystem and RAM disk (initramfs/initrd) support
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Required. See <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/237">pmaports#237</a> for notes about changing the initramfs compression.
+</p>
+<h3><span class="mw-headline" id="CONFIG_CGROUPS">CONFIG_CGROUPS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>This option adds support for grouping sets of processes together, for use with process control subsystems such as Cpusets, CFS, memory controls or device isolation.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/CGROUPS.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General setup --&gt;
+  Control Group support
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Required for elogind, and therefore necessary to be able to run most desktop environments.
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_XTS">CONFIG_CRYPTO_XTS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>XTS: IEEE1619/D16 narrow block cipher</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/CRYPTO_XTS.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Cryptographic API --&gt;
+  XTS support
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Needed for the default cryptsetup cipher in pmbootstrap (<code>aes-xts-plain64</code>) (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1940">#1940</a>)
+</p>
+<h3><span class="mw-headline" id="CONFIG_SAMSUNG_TUI">CONFIG_SAMSUNG_TUI</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Provide methods for TUI such as acquisition of buffer to be used as secure frame buffer in Secure World and synchronization of display and touch device between Normal World and Secure World.</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Misc devices --&gt;
+    TUI HW Handler
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Needs to be disabled. Prevents device from booting.
+</p>
+<h3><span class="mw-headline" id="CONFIG_SEC_RESTRICT_ROOTING">CONFIG_SEC_RESTRICT_ROOTING</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Restrict unauthorized executions with root permission.</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Kernel hacking --&gt;
+  Samsung Rooting Restriction Feature
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Needs to be disabled. Blocks user from gaining root permissions.
+</p>
+<h3><span class="mw-headline" id="CONFIG_TZDEV">CONFIG_TZDEV</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Samsung TZ Based Secure OS interface driver</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Misc devices --&gt;
+    Samsung TZ Based Secure OS Support
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Needs to be disabled. Prevents device from booting.
+</p>
+<h2><span class="mw-headline" id="Optional">Optional</span></h2>
+<p>These kernel options are optional and for some devices required to fix some issues.
+</p>
+<h3><span class="mw-headline" id="CONFIG_INPUT_UINPUT">CONFIG_INPUT_UINPUT</span></h3>
+<p><b>About</b>
+</p>
+<p><i>User level driver support</i>
+</p>
+<p><i>fbkeyboard needs this to work</i>
+</p>
+<h3><span class="mw-headline" id="CONFIG_LBDAF">CONFIG_LBDAF</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Support for large (2TB+) block devices and files</i>
+</p>
+<p><i>The ext4 filesystem requires that this feature be enabled in order to support filesystems that have the huge_file feature enabled. Otherwise, it will refuse to mount in the read-write mode any filesystems that use the huge_file feature, which is enabled by default by mke2fs.ext4.</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">-*- Enable the block layer  ---&gt;
+    [*]   Support for large (2TB+) block devices and files
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>This is recommended for all 32bit (armhf, armv7, x86) devices. The option is not present on 64bit (aarch64, x86_64) devices.
+</p>
+<p>Without this option, it is not possible to mount ext4 partitions that have been created with the default settings. The postmarketOS SD card installation uses these default parameters. There doesn't seem to be a point in changing that to work around badly configured kernels: even if the postmarketOS installation did not require this option, you might come across an SD card with ext4, that does not work on your device.
+</p>
+<h3><span class="mw-headline" id="CONFIG_USB_G_ANDROID">CONFIG_USB_G_ANDROID</span></h3>
+<p><b>About</b>
+</p>
+<p><i>The Android Composite Gadget supports multiple USB functions: adb, acm, mass storage, mtp, accessory and rndis.</i>
+</p>
+<p><i>Each function can be configured and enabled/disabled dynamically from userspace through a sysfs interface.</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  USB Support --&gt;
+    USB Gadget Support --&gt;
+      USB Gadget Drivers --&gt;
+        Android Composite Gadget
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Enabling this option is needed for usb networking on some of the android kernels.
+</p>
+<h3><span class="mw-headline" id="CONFIG_USB_ETH">CONFIG_USB_ETH</span></h3>
+<p><b>About</b>
+</p>
+<p><i>This driver implements Ethernet style communication, in one of several ways:</i>
+</p>
+<ul>
+<li><i>The "Communication Device Class" (CDC) Ethernet Control Model. That protocol is often avoided with pure Ethernet adapters, in favor of simpler vendor-specific hardware, but is widely supported by firmware for smart network devices.</i></li>
+<li><i>On hardware can't implement that protocol, a simple CDC subset is used, placing fewer demands on USB.</i></li>
+<li><i>CDC Ethernet Emulation Model (EEM) is a newer standard that has a simpler interface that can be used by more USB hardware.</i></li>
+</ul>
+<p><i>RNDIS support is an additional option, more demanding than than subset.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/USB_ETH.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  USB Support --&gt;
+    USB Gadget Support --&gt;
+      USB Gadget Drivers --&gt;
+        Ethernet Gadget
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Most devices do not need this to be set. If telnet/SSH does not work you can try and set this option to Y.
+</p>
+<h3><span class="mw-headline" id="CONFIG_USB_ETH_RNDIS">CONFIG_USB_ETH_RNDIS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Microsoft Windows XP bundles the "Remote NDIS" (RNDIS) protocol, and Microsoft provides redistributable binary RNDIS drivers for older versions of Windows.</i>
+</p>
+<p><i>If you say "y" here, the Ethernet gadget driver will try to provide a second device configuration, supporting RNDIS to talk to such Microsoft USB hosts.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/USB_ETH_RNDIS.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  USB Support --&gt;
+    USB Gadget Support --&gt;
+      USB Gadget Drivers --&gt;
+        RNDIS Support
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Required if you set <code>CONFIG_USB_ETH</code> to 'Y'.
+</p>
+<h3><span class="mw-headline" id="CONFIG_MSM_KGSL">CONFIG_MSM_KGSL</span></h3>
+<p><b>About</b>
+</p>
+<p><i>3D graphics driver. Required to use hardware accelerated OpenGL ES 2.0 and 1.1.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://android.googlesource.com/kernel/msm/+/android-msm-mako-3.4-jb-mr1-kgsl/drivers/gpu/msm/Kconfig">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Graphics Support --&gt;
+    MSM 3D graphics Driver
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>If framebuffer does not work set this to 'N'
+</p>
+<h3><span class="mw-headline" id="CONFIG_CMDLINE">CONFIG_CMDLINE</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Enter arguments here that should be compiled into the kernel image and used at boot time. If the boot loader provides a command line at boot time, it is appended to this string to form the full kernel command line, when the system boots.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/CMDLINE.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General Setup --&gt;
+  Boot options --&gt;
+    Default kernel command string
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>No
+</p>
+<h3><span class="mw-headline" id="CONFIG_FHANDLE">CONFIG_FHANDLE</span></h3>
+<p><b>About</b>
+</p>
+<p><i>open by fhandle syscalls</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General setup --&gt;
+  open by fhandle syscalls
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>If USB OTG isn't working for you, try enable this config.
+</p>
+<h3><span class="mw-headline" id="CONFIG_BUILD_ARM_APPENDED_DTB_IMAGE">CONFIG_BUILD_ARM_APPENDED_DTB_IMAGE</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Build a concatenated zImage/dtb by default</i>
+</p>
+<p><i>Enabling this option will cause a concatenated zImage and list of DTBs to be built by default (instead of a standalone zImage.)</i>
+</p>
+<p><i>The image will built in arch/arm/boot/zImage-dtb</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General Setup --&gt;
+  Boot options --&gt;
+    appended device tree blob to zImage
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Set this if your device needs an appended device tree. If you are unsure, use <code>extract-dtb</code> on an existing kernel image. Not to be confused with <code>CONFIG_ARM_APPENDED_DTB</code>!
+</p>
+<h3><span class="mw-headline" id="CONFIG_FW_LOADER_USER_HELPER">CONFIG_FW_LOADER_USER_HELPER</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Enable the firmware sysfs fallback mechanism found in drivers/base/firmware_loader/Kconfig</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Generic Driver Options --&gt;
+    Firmware loader --&gt;
+      Firmware loading facility (FW_LOADER [=y]) --&gt;
+        Enable the firmware sysfs fallback mechanism
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Prior to kernel version 3.7, the kernel had no capability of finding firmware itself so it had to call out to userspace to find the firmware for it. This changed with kernel 3.7 where the kernel gained "direct loading support" and where the userspace helper was only called as a fallback. In kernel 3.9 this functionality was put behind the kconfig option FW_LOADER_USER_HELPER which is what this patch checks to be enabled.
+</p>
+<p>Without this option, the udev rule present in postmarketos-base won't be notified that firmware needs to be loaded and as such can't call firmwareload.sh which loads firmware from /lib/firmware/postmarketos.
+</p>
+<h3><span class="mw-headline" id="CONFIG_KEY_DH_OPERATIONS">CONFIG_KEY_DH_OPERATIONS</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_DH">CONFIG_CRYPTO_DH</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_DES">CONFIG_CRYPTO_DES</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_USER_API_SKCIPHER">CONFIG_CRYPTO_USER_API_SKCIPHER</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_USER_API_HASH">CONFIG_CRYPTO_USER_API_HASH</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_ECB">CONFIG_CRYPTO_ECB</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_MD4">CONFIG_CRYPTO_MD4</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_MD5">CONFIG_CRYPTO_MD5</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_CBC">CONFIG_CRYPTO_CBC</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_SHA1">CONFIG_CRYPTO_SHA1</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_SHA256">CONFIG_CRYPTO_SHA256</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_SHA512">CONFIG_CRYPTO_SHA512</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_AES">CONFIG_CRYPTO_AES</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_DES_2">CONFIG_CRYPTO_DES</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_CMAC">CONFIG_CRYPTO_CMAC</span></h3>
+<p>↓ falltrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_HMAC">CONFIG_CRYPTO_HMAC</span></h3>
+<p>↓ falltrough
+<b>About</b>
+</p>
+<p><i>These options enables ability to use <a rel="nofollow" class="external text" href="https://iwd.wiki.kernel.org/">iwd</a> daemon (wpa_supplicant replacement)</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Security Options ---&gt;
+	[*] Enable access key retention support
+		[*] Diffie-Hellman operations on retained keys
+
+Cryptographic API  ---&gt;
+	[*] Diffie-Hellman algorithm
+	[*] DES and Triple DES EDE cipher algorithms
+	[*] User-space interface for symmetric key cipher algorithms</pre>
+<p><b>pmOS specific</b>
+Enable only on recent mainline kernels. After enabling these options, you can use iwd daemon (better performance) instead of wpa_supplicant.
+</p>
+<h3><span class="mw-headline" id="CONFIG_USER_NS">CONFIG_USER_NS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>User namespace</i>
+</p>
+<p><i>Required for BubbleWrap sandboxing used by The GNOME Web (Epiphany) and other software.</i>
+</p>
+<p><b>pmOS specific</b>
+</p>
+<p>Phosh environment must have it enabled for Web browser (Epiphany) being functional.
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General setup ---&gt;
+  Namespaces support ---&gt;
+    [*] User namespace</pre>
+<h3><span class="mw-headline" id="CONFIG_DEVPTS_MULTIPLE_INSTANCES">CONFIG_DEVPTS_MULTIPLE_INSTANCES</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Support multiple instances of devpts</i>
+</p>
+<p><i>Required for BubbleWrap sandboxing used by The GNOME Web (Epiphany) and other software.</i>
+</p>
+<p><b>pmOS specific</b>
+</p>
+<p>Phosh environment must have it enabled for Web browser (Epiphany) being functional.
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Character Devices --&gt;
+    Enable TTY --&gt;
+      Unix98 PTY support --&gt;
+        [*] Support multiple instances of devpts</pre>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="SECCOMP">SECCOMP</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Enable seccomp to safely compute untrusted bytecode</i>
+</p>
+<p><i>Required for BubbleWrap sandboxing used by The GNOME Web (Epiphany) and other software.</i>
+</p>
+<p><b>pmOS specific</b>
+</p>
+<p>Phosh environment must have it enabled for Web browser (Epiphany) being functional.
+</p>
+<h2><span class="mw-headline" id="Anbox">Anbox</span></h2>
+<p>To enable Anbox support, some options are required
+</p>
+<h3><span class="mw-headline" id="CONFIG_SQUASHFS">CONFIG_SQUASHFS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Squashfs is a highly compressed read-only filesystem for Linux.  It uses zlib, lzo or xz compression to compress both files, inodes and directories. squashfs is intended for general read-only filesystem use, for archival use (i.e. in cases where a .tar.gz file may be used), and in embedded systems where low overhead is needed.</i>
+</p>
+<p><b>Anbox specific</b>
+</p>
+<p>Anbox uses a squashfs to store the Android rootfs.
+</p>
+<h3><span class="mw-headline" id="CONFIG_SQUASHFS_XZ">CONFIG_SQUASHFS_XZ</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Squashfs support for reading squashfs file systems compressed with XZ compression.  XZ gives better compression than the default zlib compression, at the expense of greater CPU and memory overhead.</i>
+</p>
+<p><b>Anbox specific</b>
+</p>
+<p>Anbox uses a <i>xz-compressed</i> squashfs.
+</p>
+<h3><span class="mw-headline" id="CONFIG_SQUASHFS_XATTR">CONFIG_SQUASHFS_XATTR</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Squashfs support for extended attributes (xattrs). Xattrs are name:value pairs associated with inodes by the kernel or by users (see the <a rel="nofollow" class="external text" href="https://www.systutorials.com/docs/linux/man/5-attr/">attr(5)</a> manual page).</i>
+</p>
+<p><b>Anbox specific</b>
+</p>
+<p>For some reason, even if the squashfs is created with <code>-no-xattrs</code>,
+Anbox seems to fail badly without.
+</p>
+<h3><span class="mw-headline" id="CONFIG_ASHMEM">CONFIG_ASHMEM</span></h3>
+<p><b>About</b>
+</p>
+<p><i>The ashmem subsystem is a new shared memory allocator, similar to POSIX SHM but with different behavior and sporting a simpler file-based API.</i>
+</p>
+<p><i>It is, in theory, a good memory allocator for low-memory devices, because it can discard shared memory units when under memory pressure.</i>
+</p>
+<p><b>Anbox specific</b>
+</p>
+<p>Android requires it, so you need it to run Anbox.
+</p>
+<h3><span class="mw-headline" id="CONFIG_BINDER_IPC">CONFIG_BINDER_IPC</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Binder is used in Android for both communication between processes and remote method invocation. This means one Android process can call a method/routine in another Android process, using Binder to identify, invoke and pass arguments between said processes.</i>
+</p>
+<p><b>Anbox specific</b>
+</p>
+<p>Android uses it to communicate between process. It must be present for Anbox to work.
+</p>
+<h3><span class="mw-headline" id="CONFIG_BINDERFS">CONFIG_BINDERFS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Binderfs is a pseudo-filesystem for the Android Binder IPC driver which can be mounted per-ipc namespace allowing to run multiple instances of Android. Each binderfs mount initially only contains a binder-control device. It can be used to dynamically allocate new binder IPC devices via ioctls.</i>
+</p>
+<p><b>Anbox-on-postmarketOS specific</b>
+</p>
+<p>It should <b>not</b> be set, because binderfs support in Anbox is broken in postmarketOS. For now, we just use regular binder instead because we don't need several binders.
+</p>
+<p>It could be an incompatibility with musl. In <code>sys/ioctl.h</code>, the ioctl function is prototyped as such: <code>int ioctl(int, int, ...);</code>, in accordance to POSIX. On the hand, in the linux programmer manual, ioctl is of type <code>int ioctl(int, unsigned long, ...);</code>. GCC warns about it: "Warning: overflow in conversion from 'long unsigned int' to 'int' change value from 3238552065 to -1056415231", but according to dalias on #musl it should be harmless.
+</p>
+<h3><span class="mw-headline" id="CONFIG_ANDROID_BINDER_DEVICES">CONFIG_ANDROID_BINDER_DEVICES</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Default value for the binder.devices parameter. The binder.devices parameter is a comma-separated list of strings that specifies the names of the binder device nodes that will be created. Each binder device has its own context manager, and is therefore logically separated from the other devices.</i>
+</p>
+<p><b>Anbox specific</b>
+</p>
+<p>This must contain <code>binder</code>, as Anbox expects <code>/dev/binder</code>.
+</p>
+<p>It should also contain <code>hwbinder</code> to be future-proof (as it will be required for Android 10).
+</p>
+<h3><span class="mw-headline" id="CONFIG_TMPFS_XATTR">CONFIG_TMPFS_XATTR</span></h3>
+<p><b>About</b>
+</p>
+<p>Xattr support for tmpfs.
+</p>
+<p><b>Anbox specific</b>
+</p>
+<p>Android requires it because it sets xattr on files in /dev, which is a tmpfs. Otherwise you get errors such as this in <code>/var/lib/anbox/console.log</code> :
+</p>
+<pre>libc: fsetxattr failed to set context (u:object_r:dalvik_prop:s0) for "/dev/__properties__/u:object_r:dalvik_prop:s0"
+libc: fsetxattr failed to set context (u:object_r:config_prop:s0) for "/dev/__properties__/u:object_r:config_prop:s0"
+</pre>
+<h3><span class="mw-headline" id="NETFILTER_XT_MATCH_COMMENT">NETFILTER_XT_MATCH_COMMENT</span></h3>
+<p><b>About</b>
+</p>
+<p>It allows putting comments in iptables rules. It's a dummy module that ignore its <code>--comment=</code> argument.
+</p>
+<p>depends on NETFILTER, NETFILTER_XTABLES and NETFILTER_ADVANCED.
+</p>
+<p><b>pmOS specific</b>
+</p>
+<p>It is a requirement of anbox-bridge.sh, which we use in the openRC init script. Anbox won't start without that. 
+</p>
+<h1><span class="mw-headline" id="Packaging_and_flashing_the_kernel">Packaging and flashing the kernel</span></h1>
+<p>On some devices the naming convention is simply linux-&lt;vendor&gt;-&lt;device&gt;, for the linux-sony-yuga package for example we run: 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap build --force linux-sony-yuga
+</pre></div>
+<p>After compiling and packaging the kernel, it can be flashed to device using the standard pmbootstrap flash commands.  
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_kernel
+</pre></div>
+<h1><span class="mw-headline" id="See_also">See also</span></h1>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/">Linux Kernel Driver Database</a></li>
+<li><a rel="nofollow" class="external text" href="https://www.cnx-software.com/2013/05/23/how-to-find-configuration-options-quickly-in-make-menuconfig/">How to find configuration options quickly in make menuconfig</a></li>
+<li><a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Compiling_kernels_with_envkernel.sh">Compiling kernels with envkernel.sh</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Kernel_configuration&amp;oldid=22876">https://wiki.postmarketos.org/index.php?title=Kernel_configuration&amp;oldid=22876</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 8 October 2021, at 19:38.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Kernel_configuration&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Deviceinfo dev touchscreen - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Deviceinfo_dev_touchscreen rootpage-Deviceinfo_dev_touchscreen skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Deviceinfo dev touchscreen</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This page is about <code>deviceinfo_dev_touchscreen</code> from the <a href="../en/Deviceinfo_reference.html" class="mw-redirect" title="Deviceinfo">deviceinfo</a> file.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#How_to_find_the_touchscreen_device_name.3F"><span class="tocnumber">1</span> <span class="toctext">How to find the touchscreen device name?</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Initramfs_.231_.28fastest.29"><span class="tocnumber">1.1</span> <span class="toctext">Initramfs #1 (fastest)</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Initramfs_.232"><span class="tocnumber">1.2</span> <span class="toctext">Initramfs #2</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Easy_method_.28you_don.27t_need_to_connect.29"><span class="tocnumber">1.3</span> <span class="toctext">Easy method (you don't need to connect)</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Flashing_system_.2B_libinput_list-devices"><span class="tocnumber">1.4</span> <span class="toctext">Flashing system + libinput list-devices</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2>
+<span id="How_to_find_the_touchscreen_device_name?"></span><span class="mw-headline" id="How_to_find_the_touchscreen_device_name.3F">How to find the touchscreen device name?</span>
+</h2>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>Note:</b> The <code>deviceinfo_dev_touchscreen</code> property is mostly obsolete - <a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/alpine/aports/merge_requests/3709">DirectFB can now automatically detect the touchscreen</a>. This works only if the touchscreen sets the <a rel="nofollow" class="external text" href="https://github.com/libts/tslib/issues/108#issuecomment-342556917">INPUT_PROP_DIRECT</a> bit to identify the input device as a touchscreen. Setting the property is only necessary if your touchscreen is not automatically detected.</td>
+</tr></tbody></table>
+<h3>
+<span id="Initramfs_#1_(fastest)"></span><span class="mw-headline" id="Initramfs_.231_.28fastest.29">Initramfs #1 (fastest)</span>
+</h3>
+<ul>
+<li><a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">Connect to your initramfs via telnet</a></li>
+<li>Run <code>ls /dev/input</code>
+</li>
+<li>For each device in there, do the following:
+<ul>
+<li>Run cat /dev/input/$device</li>
+<li>Tap on the screen and see if you get any output</li>
+<li>The device where you get output is the touch screen</li>
+</ul>
+</li>
+</ul>
+<h3>
+<span id="Initramfs_#2"></span><span class="mw-headline" id="Initramfs_.232">Initramfs #2</span>
+</h3>
+<ul>
+<li><a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">Connect to your initramfs via telnet</a></li>
+<li>Run <code>ls /dev/input</code>
+</li>
+<li>Try out one after another:
+<ul>
+<li>Change <code>deviceinfo_dev_touchscreen</code> in your <code>deviceinfo</code>
+</li>
+<li>Rebuild the deviceinfo package, initramfs and flash:</li>
+</ul>
+</li>
+</ul>
+<pre> pmbootstrap checksum device-wiki-example
+ pmbootstrap build --force device-wiki-example
+ pmbootstrap initfs # rebuild initramfs
+ pmbootstrap flasher boot_kernel
+</pre>
+<h3>
+<span id="Easy_method_(you_don't_need_to_connect)"></span><span class="mw-headline" id="Easy_method_.28you_don.27t_need_to_connect.29">Easy method (you don't need to connect)</span>
+</h3>
+<ul>
+<li>Turn on your device and open any file manager, for example, Total Commander</li>
+<li>Go to <code>/dev/input</code> directory</li>
+<li>For each device in there, try to remove it one by one.</li>
+<li>When the touch screen stops working, it means that the device you just deleted is the touch screen.</li>
+<li>To fix the touch screen, reboot the device.</li>
+</ul>
+<h3>
+<span id="Flashing_system_+_libinput_list-devices"></span><span class="mw-headline" id="Flashing_system_.2B_libinput_list-devices">Flashing system + libinput list-devices</span>
+</h3>
+<p>Alternatively, run <code>pmbootstrap install</code> and flash the system partition again. Then you can use the program <code>libinput list-devices</code> to get the list of devices - with probably more useful names.
+</p>
+<p>When you have the right device name, put it into your <code>deviceinfo</code> (as outlined above), then re-flash the encrypted system image. It should work now.
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Deviceinfo_dev_touchscreen&amp;oldid=9650">https://wiki.postmarketos.org/index.php?title=Deviceinfo_dev_touchscreen&amp;oldid=9650</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 7 February 2020, at 11:52.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Deviceinfo_dev_touchscreen&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

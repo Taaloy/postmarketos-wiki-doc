@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Checking hardware with hwtest - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Checking_hardware_with_hwtest rootpage-Checking_hardware_with_hwtest skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Checking hardware with hwtest</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This is a utility for checking hardware functionality on devices.
+</p>
+<p>Currently <code>hwtest</code> can check the following:
+</p>
+<ul>
+<li>framebuffer access</li>
+<li>drm/kms</li>
+<li>camera image capture (uses ffmpeg and v4l-utils)</li>
+<li>input devices (uses evtest)</li>
+<li>Accelerometer/magnetometer/gyroscope</li>
+<li>Temperature sensors</li>
+<li>Light/Proximity sensors</li>
+</ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add hwtest
+<span class="gp">$</span> sudo hwtest
+<span class="go">Category         Model                Path                                      Status     Value                     </span>
+<span class="go">framebuffer      DRM emulated         /sys/class/graphics/fb0                   working    Not running               </span>
+<span class="go">drm              -                    /sys/class/drm/card1-DSI-1                working    720x1440                  </span>
+<span class="go">camera           ov5640               /sys/class/video4linux/v4l-subdev0        working    320x240,640x480,1280x720  </span>
+<span class="go">magnetometer     lis3mdl              /sys/bus/iio/devices/iio:device2          working    -0.06, 0.35, 0.93 gauss   </span>
+<span class="go">accelerometer    mpu6050              /sys/bus/iio/devices/iio:device1          working    1.46, 0.17, -10.53 g      </span>
+<span class="go">gyroscope        mpu6050              /sys/bus/iio/devices/iio:device1          working    -0.05, -0.03, 0.04 rad/s  </span>
+<span class="go">temperature      mpu6050              /sys/bus/iio/devices/iio:device1          working    37 deg C                  </span>
+<span class="go">temperature      axp813-adc           /sys/bus/iio/devices/iio:device0          working    28500 deg C               </span>
+<span class="go">proximity        stk3310              /sys/bus/iio/devices/iio:device3          working    300.8                     </span>
+<span class="go">illuminance      stk3310              /sys/bus/iio/devices/iio:device3          working    397 lux                   </span>
+<span class="go">input            generic ft5x06 (12)  /dev/input/event2                         working                              </span>
+<span class="go">input            1c21800.lradc        /dev/input/event1                         working                              </span>
+<span class="go">input            axp20x-pek           /dev/input/event0                         working</span>
+</pre></div>
+<h2><span class="mw-headline" id="Export_and_verify">Export and verify</span></h2>
+<p>Hwtest includes the <code>--export</code> and <code>--verify</code> option. The export option generates a file with the test results, this file can later be used with the verify option to create a diff of working hardware.
+</p>
+<p>This is mainly useful for testing if a kernel still works after rebasing on a newer upstream linux version.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">Running hwtest with the camera module unloaded so it fails.</span>
+<span class="gp">$</span> sudo hwtest --export pinephone.ini
+<span class="go">Category         Model                Path                                Status     Value                            </span>
+<span class="go">framebuffer      DRM emulated         /sys/class/graphics/fb0             working    Not running                      </span>
+<span class="go">drm              -                    /sys/class/drm/card1-DSI-1          working    720x1440                         </span>
+<span class="go">camera           ov5640               /sys/class/video4linux/v4l-subdev0  broken                                      </span>
+<span class="go">magnetometer     lis3mdl              /sys/bus/iio/devices/iio:device2    working    0.01, -0.01, 1.19 gauss          </span>
+<span class="go">accelerometer    mpu6050              /sys/bus/iio/devices/iio:device1    working    0.3, 0.12, -10.52 g              </span>
+<span class="go">gyroscope        mpu6050              /sys/bus/iio/devices/iio:device1    working    -0.04, -0.03, 0.04 rad/s         </span>
+<span class="go">temperature      mpu6050              /sys/bus/iio/devices/iio:device1    working    32 deg C                         </span>
+<span class="go">temperature      axp813-adc           /sys/bus/iio/devices/iio:device0    working    22600 deg C                      </span>
+<span class="go">input            generic ft5x06 (12)  /dev/input/event1                   working                                     </span>
+<span class="go">input            axp20x-pek           /dev/input/event0                   working</span>
+</pre></div>
+<p>The generated ini file:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">[hwtest]</span>
+<span class="na">export-version</span> <span class="o">=</span> <span class="s">1</span>
+
+<span class="k">[framebuffer]</span>
+<span class="c1">; /sys/class/graphics/fb0</span>
+<span class="na">drm emulated</span> <span class="o">=</span> <span class="s">True</span>
+
+<span class="k">[drm]</span>
+<span class="c1">; /sys/class/drm/card1-dsi-1</span>
+<span class="na">-</span> <span class="o">=</span> <span class="s">True</span>
+
+<span class="k">[camera]</span>
+<span class="c1">; /sys/class/video4linux/v4l-subdev0</span>
+<span class="na">ov5640</span> <span class="o">=</span> <span class="s">False</span>
+
+<span class="k">[magnetometer]</span>
+<span class="c1">; /sys/bus/iio/devices/iio:device2</span>
+<span class="na">lis3mdl</span> <span class="o">=</span> <span class="s">True</span>
+
+<span class="k">[accelerometer]</span>
+<span class="c1">; /sys/bus/iio/devices/iio:device1</span>
+<span class="na">mpu6050</span> <span class="o">=</span> <span class="s">True</span>
+
+<span class="k">[gyroscope]</span>
+<span class="c1">; /sys/bus/iio/devices/iio:device1</span>
+<span class="na">mpu6050</span> <span class="o">=</span> <span class="s">True</span>
+
+<span class="k">[temperature]</span>
+<span class="c1">; /sys/bus/iio/devices/iio:device1</span>
+<span class="na">mpu6050</span> <span class="o">=</span> <span class="s">True</span>
+<span class="c1">; /sys/bus/iio/devices/iio:device0</span>
+<span class="na">axp813-adc</span> <span class="o">=</span> <span class="s">True</span>
+
+<span class="k">[input]</span>
+<span class="c1">; /dev/input/event1</span>
+<span class="na">generic ft5x06 (12)</span> <span class="o">=</span> <span class="s">True</span>
+<span class="c1">; /dev/input/event0</span>
+<span class="na">axp20x-pek</span> <span class="o">=</span> <span class="s">True</span>
+</pre></div>
+<p>After fixing the camera and running hwtest with the verify option:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo hwtest --verify pinephone.ini 
+<span class="go">Fixed hardware: </span>
+<span class="go"> * ov5640 [/sys/class/video4linux/v4l-subdev0] 320x240,640x480,1280x720</span>
+</pre></div>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Checking_hardware_with_hwtest&amp;oldid=7072">https://wiki.postmarketos.org/index.php?title=Checking_hardware_with_hwtest&amp;oldid=7072</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 31 May 2019, at 08:31.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Checking_hardware_with_hwtest&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Netboot - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Netboot rootpage-Netboot skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Netboot</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Netboot describes the means of booting a device when the rootfs is not on the device but accessed via network, in this implementation via USB networking.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Preparations"><span class="tocnumber">1</span> <span class="toctext">Preparations</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Usage"><span class="tocnumber">2</span> <span class="toctext">Usage</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Replacing_persisted_rootfs"><span class="tocnumber">3</span> <span class="toctext">Replacing persisted rootfs</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Deleting_all_netboot_images"><span class="tocnumber">4</span> <span class="toctext">Deleting all netboot images</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Resizing_a_netboot_image"><span class="tocnumber">5</span> <span class="toctext">Resizing a netboot image</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Troubleshooting"><span class="tocnumber">7</span> <span class="toctext">Troubleshooting</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Preparations">Preparations</span></h3>
+<p>Make sure your kernel has the necessary kernel config options for netboot.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap kconfig check --netboot <span class="nv">$kernel</span>-package-name
+</pre></div>
+<p>If not you need to <a href="../en/Kernel_configuration.html" title="Kernel configuration">adjust your kernel config</a> otherwise netboot won't work.
+</p>
+<h3><span class="mw-headline" id="Usage">Usage</span></h3>
+<p>First prepare a rootfs for your device. It is advisable to use the <code>--extra-space</code> argument to increase the size of your rootfs (in the example you will get 1000MB of extra space) as no image resize will happen at runtime.  Also, some devices are configured to be flashed with a sparse image, but that is not compatible with netboot currently.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap --extra-space <span class="m">1000</span> install --no-sparse
+</pre></div>
+<p>Then prepare your boot.img and flash it to the device:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap initfs hook_add netboot
+<span class="gp">$</span> pmbootstrap flasher boot <span class="c1"># or however you flash/boot the kernel</span>
+</pre></div>
+<p>After booting the device a network interface should appear over USB networking.
+</p>
+<p>Finally you need to start the netboot server on your computer with the following command:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap netboot serve
+</pre></div>
+<p>Make sure to open up tcp port 9999 on your computer's firewall so the phone can connect to your netboot service.
+</p>
+<p>If you've never used netboot for the current device, then the image from the previous <code>pmbootstrap install</code> will get copied to <code>$pmbootstrap_work/images_netboot/</code> and will persist normal <code>pmbootstrap zap</code> calls as you will probably have data in your rootfs.
+</p>
+<p>Note: For android devices, you may need to run <code>fastboot erase dtbo</code> before flashing/booting the kernel.  If you are running an a/b slot device, make sure to add the correct suffix (dtbo_a or dtbo_b).
+</p>
+<h3><span class="mw-headline" id="Replacing_persisted_rootfs">Replacing persisted rootfs</span></h3>
+<p>You can replace the persisted rootfs image with a fresh image from <code>pmbootstrap install</code>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap netboot serve --replace
+</pre></div>
+<h3><span class="mw-headline" id="Deleting_all_netboot_images">Deleting all netboot images</span></h3>
+<p>You can delete all persisted rootfs images:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap zap --netboot
+</pre></div>
+<h3><span class="mw-headline" id="Resizing_a_netboot_image">Resizing a netboot image</span></h3>
+<p>When you run out of space in your netbooted rootfs, you can increase the size of the image!
+The following example increases the size of the image <code>fairphone-fp4.img</code> by 1 GiB.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/.local/var/pmbootstrap/images_netboot/
+<span class="gp">$</span> sudo bash -c <span class="s2">"dd if=/dev/zero bs=1M count=1000 &gt;&gt; ./fairphone-fp4.img"</span>
+<span class="gp">$</span> sudo parted ./fairphone-fp4.img
+<span class="go">(parted) resizepart 2 100%</span>
+<span class="go">(parted) quit</span>
+<span class="gp">$</span> sudo losetup --find --show --partscan ./fairphone-fp4.img
+<span class="gp">$</span> sudo e2fsck -f /dev/loop0p2 <span class="c1"># verify that you will be operating on the correct loop device!</span>
+<span class="gp">$</span> sudo resize2fs /dev/loop0p2
+<span class="gp">$</span> sudo losetup --detach /dev/loop0
+</pre></div>
+<h3><span class="mw-headline" id="See_also">See also</span></h3>
+<ul><li>
+<a rel="nofollow" class="external text" href="https://tuxphones.com/postmarketos-linux-live-usb-fastboot-network-boot/">tuxphones: You can now live-boot postmarketOS on Android phones</a>, great article describing what the feature is and how it was implemented</li></ul>
+<h3><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h3>
+<p>As of 01/31/2022, there are a couple known issues:
+</p>
+<ul>
+<li>The initfs netboot hook currently expects a boot sector size of 512 bytes, but many android devices may be configured with a sector size of 4096 using the <code>deviceinfo_rootfs_image_sector_size</code> property.  This will give an error like "unable to find boot partition".  Using debug-shell (add to install with <code>pmbootstrap initfs hook_add debug-shell</code>) to modify the <code>/etc/postmarketos-mkinitfs/hook/netboot.sh</code> file and setting the nbd-client sector size to 4096 should fix this.</li>
+<li>Some android devices may set <code>deviceinfo_flash_sparse</code> to true and this causes the generated block device to be unusable by netboot.  You can pass "--no-sparse" to your <code>pmbootstrap install</code> command to override this.</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Netboot&amp;oldid=26324">https://wiki.postmarketos.org/index.php?title=Netboot&amp;oldid=26324</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 18 March 2022, at 21:27.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Netboot&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

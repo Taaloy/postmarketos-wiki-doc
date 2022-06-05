@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Exynos mainline porting - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Exynos_mainline_porting rootpage-Exynos_mainline_porting skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Exynos mainline porting</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This page only contains some info, data and links regarding mainline on Exynos SoCs. If you want to mainline a device please follow the <a href="../en/Mainlining.html" title="Mainlining">Mainlining</a> guide.
+</p>
+<p>The mainline kernel has (at least some) support for several Exynos SoCs:
+</p>
+<ul>
+<li>Exynos 3250</li>
+<li>Exynos 4210</li>
+<li>Exynos 4412</li>
+<li>Exynos 5250</li>
+<li>Exynos 5260</li>
+<li>Exynos 5410</li>
+<li>Exynos 5420</li>
+<li>Exynos 5422</li>
+<li>Exynos 5433</li>
+<li>Exynos 5800</li>
+<li>Exynos 7 (some early version of Exynos 7420 <sup id="cite_ref-1" class="reference"><a href="#cite_note-1">[1]</a></sup>)</li>
+<li>Exynos 7885</li>
+<li>Exynos 850</li>
+</ul>
+<p>There exists some WIP linux trees for other Exynos SoCs, or other devices with Exynos SoCs (this list can probably be extended):
+</p>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/Grimler91/linux">grimler's</a> repository contains branches related to Exynos 5420</li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/pablopl/linux">PabloPL's</a> repository contains branches related to Exynos 7420, 7580, 8890</li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/dsankouski/linux">dsankouski's</a> repository contains branches related to Exynos 7880</li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/VDavid003/linux">VDavid003's</a> repository contains branches related to Exynos 7885</li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/ivoszbg/linux">ivoszbg's</a> repository contains branches related to Exynos 8895</li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/krzk/linux-vendor-backup">krzk's</a> repository contains branches with several vendor (Samsung) kernel sources for many Exynos SoCs</li>
+</ul>
+<h2><span class="mw-headline" id="Exynos_3250">Exynos 3250</span></h2>
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">Samsung Exynos 3250</caption>
+<tbody>
+<tr class=""><td colspan="2" class="" style="text-align:center;">
+<a href="../Samsung_Exynos_3250.jpg" class="image"><img alt="Exynos 3250 from the Samsung Gear 2 smartwatch" src="../Samsung_Exynos_3250.jpg" decoding="async" width="200" height="203" srcset="../"></a><br><span style="">Exynos 3250 from the Samsung Gear 2 smartwatch</span>
+</td></tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Manufacturer</th>
+    <td class="" style="">
+Samsung</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Name</th>
+    <td class="" style="">
+Exynos 3250</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Architecture</th>
+    <td class="" style="">
+armv7</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">CPU</th>
+    <td class="" style="">
+2x ARM Cortex-A7 MPcore</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+ARM Mali-400 GPU</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Year</th>
+    <td class="" style="">
+2014</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Process</th>
+    <td class="" style="">
+28nm</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Mainline</th>
+    <td class="" style="">
+yes</td>
+</tr>
+<tr><th colspan="2" class="" style="text-align:center;">Components</th></tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="SMP (bring up secondary CPU cores), CPU frequency scaling, CPUidle">CPU</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">UART</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="eMMC, SD cards, UFS, ...">Storage</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">USB</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Display</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Pinctrl</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">I²C</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Audio</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Hardware-accelerated video de/encoding">Video</abbr></th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Thermal</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">WiFi</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Bluetooth</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Calls, SMS, Internet">Modem</abbr></th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPS</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Camera</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Suspend</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Devices">Devices</span></h3>
+<table class="cargoTable noMerge sortable">
+<thead><tr>
+<th class="field_Device">Device</th>
+<th class="field_Codename">Codename</th>
+<th class="field_Mainline">Mainline</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Gear_2_(samsung-rinato).html" title="Samsung Gear 2 (samsung-rinato)">Samsung Gear 2</a></td>
+<td class="field_Codename">samsung-rinato, samsung-sm-r380</td>
+<td class="field_Mainline"></td>
+</tr>
+</tbody>
+</table>
+<h3><span class="mw-headline" id="Specifications">Specifications</span></h3>
+<ul>
+<li>2x ARM Cortex-A7 MPcore</li>
+<li>ARM Mali-400 GPU</li>
+</ul>
+<h3><span class="mw-headline" id="More_information">More information</span></h3>
+<ul><li><a rel="nofollow" class="external text" href="http://phonedb.net/index.php?m=processor&amp;id=514&amp;c=samsung_exynos_3_dual_3250">phonedb.net</a></li></ul>
+<h2><span class="mw-headline" id="Exynos_4210">Exynos 4210</span></h2>
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">Samsung Exynos 4210</caption>
+<tbody>
+<tr class=""><td colspan="2" class="" style="text-align:center;">
+<a href="../Samsung-Exynos-4210.jpg" class="image"><img alt="Exynos 4210" src="../Samsung-Exynos-4210.jpg" decoding="async" width="200" height="199" srcset="../300px-Samsung-Exynos-4210.jpg 1.5x ../Exynos-4210.jpg 2x"></a><br><span style="">Exynos 4210</span>
+</td></tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Manufacturer</th>
+    <td class="" style="">
+Samsung</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Name</th>
+    <td class="" style="">
+Exynos 4210</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Architecture</th>
+    <td class="" style="">
+armv7</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">CPU</th>
+    <td class="" style="">
+2x ARM Cortex A9 @ 1.4GHz</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+ARM Mali-400MP4</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Year</th>
+    <td class="" style="">
+2011</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Process</th>
+    <td class="" style="">
+45nm</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Mainline</th>
+    <td class="" style="">
+yes</td>
+</tr>
+<tr><th colspan="2" class="" style="text-align:center;">Components</th></tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="SMP (bring up secondary CPU cores), CPU frequency scaling, CPUidle">CPU</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">UART</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="eMMC, SD cards, UFS, ...">Storage</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">USB</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Display</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Pinctrl</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">I²C</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Audio</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Hardware-accelerated video de/encoding">Video</abbr></th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Thermal</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">WiFi</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Bluetooth</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Calls, SMS, Internet">Modem</abbr></th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPS</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Camera</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Suspend</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Devices_2">Devices</span></h3>
+<table class="cargoTable noMerge sortable">
+<thead><tr>
+<th class="field_Device">Device</th>
+<th class="field_Codename">Codename</th>
+<th class="field_Mainline">Mainline</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_SII_(samsung-i9100).html" title="Samsung Galaxy SII (samsung-i9100)">Samsung Galaxy S II</a></td>
+<td class="field_Codename">samsung-i9100</td>
+<td class="field_Mainline">P</td>
+</tr>
+</tbody>
+</table>
+<h3><span class="mw-headline" id="Specifications_2">Specifications</span></h3>
+<ul>
+<li>2x ARM Cortex A9 @ 1.4GHz</li>
+<li>ARM Mali-400MP4</li>
+</ul>
+<h3><span class="mw-headline" id="More_information_2">More information</span></h3>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://phonedb.net/index.php?m=processor&amp;id=269&amp;c=samsung_s5pc210_exynos_4_dual_4210__orion">phonedb.net</a></li>
+<li><a rel="nofollow" class="external text" href="http://linux-exynos.org/wiki/Samsung_Exynos_4210">Linux-Exynos.org</a></li>
+</ul>
+<h2><span class="mw-headline" id="Exynos_4412">Exynos 4412</span></h2>
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">Samsung Exynos 4412</caption>
+<tbody>
+<tr class=""><td colspan="2" class="" style="text-align:center;">
+<a href="../Exynos-4412-Android-quad-core-Development-Board.jpg" class="image"><img alt="Exynos 4412 from a development board" src="../Exynos-4412-Android-quad-core-Development-Board.jpg" decoding="async" width="200" height="200" srcset="../4412-Android-quad-core-Development-Board.jpg 1.5x"></a><br><span style="">Exynos 4412 from a development board</span>
+</td></tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Manufacturer</th>
+    <td class="" style="">
+Samsung</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Name</th>
+    <td class="" style="">
+Exynos 4412</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Architecture</th>
+    <td class="" style="">
+armv7</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">CPU</th>
+    <td class="" style="">
+4x ARM Cortex A9 @ 1.4GHz</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+ARM Mali-400 GPU</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Year</th>
+    <td class="" style="">
+2012</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Process</th>
+    <td class="" style="">
+32nm</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Mainline</th>
+    <td class="" style="">
+yes</td>
+</tr>
+<tr><th colspan="2" class="" style="text-align:center;">Components</th></tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="SMP (bring up secondary CPU cores), CPU frequency scaling, CPUidle">CPU</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">UART</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="eMMC, SD cards, UFS, ...">Storage</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">USB</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Display</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Pinctrl</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">I²C</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Audio</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Hardware-accelerated video de/encoding">Video</abbr></th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Thermal</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">WiFi</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Bluetooth</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Calls, SMS, Internet">Modem</abbr></th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPS</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Camera</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Suspend</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Devices_3">Devices</span></h3>
+<table class="cargoTable noMerge sortable">
+<thead><tr>
+<th class="field_Device">Device</th>
+<th class="field_Codename">Codename</th>
+<th class="field_Mainline">Mainline</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Camera_(samsung-gd1).html" title="Samsung Galaxy Camera (samsung-gd1)">Samsung Galaxy Camera</a></td>
+<td class="field_Codename">samsung-gd1</td>
+<td class="field_Mainline"></td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Camera_2_(samsung-sf2wifi).html" title="Samsung Galaxy Camera 2 (samsung-sf2wifi)">Samsung Galaxy Camera 2</a></td>
+<td class="field_Codename">samsung-sf2wifi</td>
+<td class="field_Mainline"></td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Note_10.1_(samsung-p4note).html" title="Samsung Galaxy Note 10.1 (samsung-p4note)">Samsung Galaxy Note 10.1 Wifi/3G</a></td>
+<td class="field_Codename">samsung-p4note</td>
+<td class="field_Mainline">Y</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Note_8.0_(Wi-Fi)_(samsung-n5110).html" title="Samsung Galaxy Note 8.0 (Wi-Fi) (samsung-n5110)">Samsung Galaxy Note 8.0 (Wi-Fi)</a></td>
+<td class="field_Codename">samsung-n5110</td>
+<td class="field_Mainline"></td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Note_II_(samsung-t03g).html" title="Samsung Galaxy Note II (samsung-t03g)">Samsung Galaxy Note II</a></td>
+<td class="field_Codename">samsung-t03g</td>
+<td class="field_Mainline">Y</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Note_II_LTE_(samsung-t0lte).html" title="Samsung Galaxy Note II LTE (samsung-t0lte)">Samsung Galaxy Note II LTE</a></td>
+<td class="field_Codename">samsung-t0lte</td>
+<td class="field_Mainline">Y</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_S_III_(samsung-m0).html" title="Samsung Galaxy S III (samsung-m0)">Samsung Galaxy S III</a></td>
+<td class="field_Codename">samsung-m0</td>
+<td class="field_Mainline">Y</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_S_III_LTE_(samsung-m3).html" title="Samsung Galaxy S III LTE (samsung-m3)">Samsung Galaxy S III LTE</a></td>
+<td class="field_Codename">samsung-m3</td>
+<td class="field_Mainline">Y</td>
+</tr>
+</tbody>
+</table>
+<h3><span class="mw-headline" id="Specifications_3">Specifications</span></h3>
+<ul>
+<li>4x ARM Cortex A9 @ 1.4GHz</li>
+<li>ARM Mali-400MP4 (quad-core) @ 440 MHz ; 17.6 GFLOPS</li>
+</ul>
+<h3><span class="mw-headline" id="Downstream_status">Downstream status</span></h3>
+<p>Both devices are reported to boot and have some initial support.
+</p>
+<h3><span class="mw-headline" id="More_information_3">More information</span></h3>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://phonedb.net/index.php?m=processor&amp;id=337&amp;c=samsung_exynos_4_quad_4412">phonedb.net</a></li>
+<li><a rel="nofollow" class="external text" href="http://linux-exynos.org/wiki/Samsung_Exynos_4412">Linux-Exynos.org</a></li>
+<li>The Tizen reference device TRATS2 is some flavor of Galaxy S III. It's quite nicely supported by mainline Linux kernel and almost fully supported by Tizen open-source Linux kernel (not the vendor one).</li>
+</ul>
+<h2><span class="mw-headline" id="Exynos_5250">Exynos 5250</span></h2>
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">Samsung Exynos 5250</caption>
+<tbody>
+<tr class="">
+<th scope="row" style="text-align:left;">Manufacturer</th>
+    <td class="" style="">
+Samsung</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Name</th>
+    <td class="" style="">
+Exynos 5250</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Architecture</th>
+    <td class="" style="">
+armv7</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">CPU</th>
+    <td class="" style="">
+2x ARM Cortex A15 @ 1.7GHz</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+ARM Mali-T604MP4</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Year</th>
+    <td class="" style="">
+2012</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Process</th>
+    <td class="" style="">
+32nm</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Mainline</th>
+    <td class="" style="">
+yes</td>
+</tr>
+<tr><th colspan="2" class="" style="text-align:center;">Components</th></tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="SMP (bring up secondary CPU cores), CPU frequency scaling, CPUidle">CPU</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">UART</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="eMMC, SD cards, UFS, ...">Storage</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">USB</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Display</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+<div class="feature feature-no">Broken</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Pinctrl</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">I²C</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Audio</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Hardware-accelerated video de/encoding">Video</abbr></th>
+    <td class="" style="">
+<div class="feature feature-no">Broken</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Thermal</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">WiFi</th>
+    <td class="" style="">
+<div class="feature feature-unavailable">Unavailable</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Bluetooth</th>
+    <td class="" style="">
+<div class="feature feature-unavailable">Unavailable</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Calls, SMS, Internet">Modem</abbr></th>
+    <td class="" style="">
+<div class="feature feature-unavailable">Unavailable</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPS</th>
+    <td class="" style="">
+<div class="feature feature-unavailable">Unavailable</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Camera</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Suspend</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Devices_4">Devices</span></h3>
+<table class="cargoTable noMerge sortable">
+<thead><tr>
+<th class="field_Device">Device</th>
+<th class="field_Codename">Codename</th>
+<th class="field_Mainline">Mainline</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="field_Device"><a href="../en/Google_Nexus_10_(samsung-manta).html" title="Google Nexus 10 (samsung-manta)">Google (Samsung) Nexus 10</a></td>
+<td class="field_Codename">samsung-manta</td>
+<td class="field_Mainline"></td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Chromebook_(google-snow).html" title="Samsung Chromebook (google-snow)">Samsung Chromebook</a></td>
+<td class="field_Codename">google-snow</td>
+<td class="field_Mainline">Y</td>
+</tr>
+</tbody>
+</table>
+<h3><span class="mw-headline" id="Specifications_4">Specifications</span></h3>
+<ul>
+<li>2x ARM Cortex A15 @ 1.7GHz</li>
+<li>ARM Mali-T604MP4 @ 533 MHz; 68.224 GFLOPS</li>
+</ul>
+<h3><span class="mw-headline" id="More_information_4">More information</span></h3>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://phonedb.net/index.php?m=processor&amp;id=301&amp;c=samsung_exynos_5_dual_5250">phonedb.net</a></li>
+<li><a rel="nofollow" class="external text" href="http://linux-exynos.org/wiki/Samsung_Exynos_5250">Linux-Exynos.org</a></li>
+</ul>
+<h2><span class="mw-headline" id="Exynos_5420">Exynos 5420</span></h2>
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">Samsung Exynos 5420</caption>
+<tbody>
+<tr class="">
+<th scope="row" style="text-align:left;">Manufacturer</th>
+    <td class="" style="">
+Samsung</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Name</th>
+    <td class="" style="">
+Exynos 5420</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Architecture</th>
+    <td class="" style="">
+arm</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">CPU</th>
+    <td class="" style="">
+4x 1.9 GHz A15 &amp; 4x 1.3 GHz A7</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+Mali-T628 MP6</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Year</th>
+    <td class="" style="">
+2013</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Process</th>
+    <td class="" style="">
+28nm</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Mainline</th>
+    <td class="" style="">
+yes</td>
+</tr>
+<tr><th colspan="2" class="" style="text-align:center;">Components</th></tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="SMP (bring up secondary CPU cores), CPU frequency scaling, CPUidle">CPU</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">UART</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="eMMC, SD cards, UFS, ...">Storage</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">USB</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Display</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+<div class="feature feature-no">Broken</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Pinctrl</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">I²C</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Audio</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Hardware-accelerated video de/encoding">Video</abbr></th>
+    <td class="" style="">
+<div class="feature feature-no">Broken</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Thermal</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">WiFi</th>
+    <td class="" style="">
+<div class="feature feature-unavailable">Unavailable</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Bluetooth</th>
+    <td class="" style="">
+<div class="feature feature-unavailable">Unavailable</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Calls, SMS, Internet">Modem</abbr></th>
+    <td class="" style="">
+<div class="feature feature-unavailable">Unavailable</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPS</th>
+    <td class="" style="">
+<div class="feature feature-unavailable">Unavailable</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Camera</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Suspend</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Devices_5">Devices</span></h3>
+<table class="cargoTable noMerge sortable">
+<thead><tr>
+<th class="field_Device">Device</th>
+<th class="field_Codename">Codename</th>
+<th class="field_Mainline">Mainline</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Chromebook_2_11.6%22_(google-peach-pit).html" title='Samsung Chromebook 2 11.6" (google-peach-pit)'>Samsung Chromebook 2 11.6"</a></td>
+<td class="field_Codename">google-peach-pit</td>
+<td class="field_Mainline">Y</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Note_10.1_2014_(samsung-n1awifi).html" title="Samsung Galaxy Note 10.1 2014 (samsung-n1awifi)">Samsung Galaxy Note 10.1 (2014)</a></td>
+<td class="field_Codename">samsung-n1awifi</td>
+<td class="field_Mainline">N</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Tab_Pro_12.2_(WiFi)_(samsung-v1awifi).html" title="Samsung Galaxy Tab Pro 12.2 (WiFi) (samsung-v1awifi)">Samsung Galaxy Tab Pro 12.2 (WiFi) (2014)</a></td>
+<td class="field_Codename">samsung-v1awifi</td>
+<td class="field_Mainline">N</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Tab_S_10.5_WiFi_(samsung-chagallwifi).html" title="Samsung Galaxy Tab S 10.5 WiFi (samsung-chagallwifi)">Samsung Galaxy Tab S 10.5 (WiFi)</a></td>
+<td class="field_Codename">samsung-chagallwifi</td>
+<td class="field_Mainline">P</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Tab_S_10.5_LTE_(samsung-chagalllte).html" title="Samsung Galaxy Tab S 10.5 LTE (samsung-chagalllte)">Samsung Galaxy Tab S 10.5" LTE</a></td>
+<td class="field_Codename">samsung-chagalllte</td>
+<td class="field_Mainline"></td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Tab_S_8.4_LTE_(samsung-klimtlte).html" title="Samsung Galaxy Tab S 8.4 LTE (samsung-klimtlte)">Samsung Galaxy Tab S 8.4" LTE</a></td>
+<td class="field_Codename">samsung-klimtlte</td>
+<td class="field_Mainline">P</td>
+</tr>
+</tbody>
+</table>
+<h3><span class="mw-headline" id="Specifications_5">Specifications</span></h3>
+<ul>
+<li>4x Cortex A15 @ 1.9 GHz &amp; 4x Cortex A7 @ 1.3 GHz</li>
+<li>Mali-T628 MP6 @ 533 MHz; 109 GFLOPS</li>
+</ul>
+<h3><span class="mw-headline" id="More_information_5">More information</span></h3>
+<ul><li><a rel="nofollow" class="external text" href="http://linux-exynos.org/wiki/Samsung_Exynos_5420">Linux-Exynos.org</a></li></ul>
+<h2>
+<span id="Exynos_5422_(also_Exynos_5800)"></span><span class="mw-headline" id="Exynos_5422_.28also_Exynos_5800.29">Exynos 5422 (also Exynos 5800)</span>
+</h2>
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">Samsung Exynos 5422</caption>
+<tbody>
+<tr class="">
+<th scope="row" style="text-align:left;">Manufacturer</th>
+    <td class="" style="">
+Samsung</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Name</th>
+    <td class="" style="">
+Exynos 5422</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Architecture</th>
+    <td class="" style="">
+armv7</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">CPU</th>
+    <td class="" style="">
+4x 1.9 GHz A15 &amp; 4x 1.3 GHz A7</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+Mali-T628 MP6</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Year</th>
+    <td class="" style="">
+2014</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Process</th>
+    <td class="" style="">
+nm</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Mainline</th>
+    <td class="" style="">
+yes</td>
+</tr>
+<tr><th colspan="2" class="" style="text-align:center;">Components</th></tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="SMP (bring up secondary CPU cores), CPU frequency scaling, CPUidle">CPU</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">UART</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="eMMC, SD cards, UFS, ...">Storage</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">USB</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Display</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Pinctrl</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">I²C</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Audio</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Hardware-accelerated video de/encoding">Video</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Thermal</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">WiFi</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Bluetooth</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Calls, SMS, Internet">Modem</abbr></th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPS</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Camera</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Suspend</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Devices_6">Devices</span></h3>
+<table class="cargoTable noMerge sortable">
+<thead><tr>
+<th class="field_Device">Device</th>
+<th class="field_Codename">Codename</th>
+<th class="field_Mainline">Mainline</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="field_Device"><a href="../en/ODROID_HC2_(odroid-hc2).html" title="ODROID HC2 (odroid-hc2)">ODROID HC2</a></td>
+<td class="field_Codename">odroid-hc2</td>
+<td class="field_Mainline">Y</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/ODROID_XU4_(odroid-xu4).html" title="ODROID XU4 (odroid-xu4)">ODROID XU4</a></td>
+<td class="field_Codename">odroid-xu4</td>
+<td class="field_Mainline">Y</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_S5_(International_3G)_(samsung-k3gxx).html" title="Samsung Galaxy S5 (International 3G) (samsung-k3gxx)">Samsung Galaxy S5 (International 3G)</a></td>
+<td class="field_Codename">samsung-k3gxx</td>
+<td class="field_Mainline"></td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="Exynos_5433">Exynos 5433</span></h2>
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">Samsung Exynos 5433</caption>
+<tbody>
+<tr class="">
+<th scope="row" style="text-align:left;">Manufacturer</th>
+    <td class="" style="">
+Samsung</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Name</th>
+    <td class="" style="">
+Exynos 5433</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Architecture</th>
+    <td class="" style="">
+aarch64</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">CPU</th>
+    <td class="" style="">
+4x 1.9 GHz A57 &amp; 4x 1.3 GHz A53</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+Mali-T760</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Year</th>
+    <td class="" style="">
+2014</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Process</th>
+    <td class="" style="">
+nm</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Mainline</th>
+    <td class="" style="">
+yes</td>
+</tr>
+<tr><th colspan="2" class="" style="text-align:center;">Components</th></tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="SMP (bring up secondary CPU cores), CPU frequency scaling, CPUidle">CPU</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">UART</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="eMMC, SD cards, UFS, ...">Storage</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">USB</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Display</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Pinctrl</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">I²C</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Audio</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Hardware-accelerated video de/encoding">Video</abbr></th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Thermal</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">WiFi</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Bluetooth</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Calls, SMS, Internet">Modem</abbr></th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPS</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Camera</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Suspend</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Devices_7">Devices</span></h3>
+<table class="cargoTable noMerge sortable">
+<thead><tr>
+<th class="field_Device">Device</th>
+<th class="field_Codename">Codename</th>
+<th class="field_Mainline">Mainline</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Note_4_(samsung-treltexx).html" title="Samsung Galaxy Note 4 (samsung-treltexx)">Samsung Galaxy Note 4</a></td>
+<td class="field_Codename">samsung-treltexx</td>
+<td class="field_Mainline"></td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Note_4_S-LTE_(samsung-tre3calte).html" title="Samsung Galaxy Note 4 S-LTE (samsung-tre3calte)">Samsung Galaxy Note 4 S-LTE</a></td>
+<td class="field_Codename">samsung-tre3calte</td>
+<td class="field_Mainline">N</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Tab_S2_9.7_LTE_(samsung-gts210lte).html" title="Samsung Galaxy Tab S2 9.7 LTE (samsung-gts210lte)">Samsung Galaxy Tab S2 9.7 LTE</a></td>
+<td class="field_Codename">samsung-gts210lte</td>
+<td class="field_Mainline">N</td>
+</tr>
+</tbody>
+</table>
+<h3><span class="mw-headline" id="Specifications_6">Specifications</span></h3>
+<ul>
+<li>4x Cortex A57 @ 1.9 GHz &amp; 4x Cortex A53 @ 1.3 GHz</li>
+<li>Mali-T760</li>
+</ul>
+<h3><span class="mw-headline" id="More_information_6">More information</span></h3>
+<ul><li>The Tizen reference device TM2 is basically rebranded Note 4 for Tizen development. The TM2e is Note 4 Edge. Both are quite nicely supported by mainline Linux kernel and almost fully supported by Tizen open-source Linux kernel (not the vendor one).</li></ul>
+<h2><span class="mw-headline" id="Exynos_8895">Exynos 8895</span></h2>
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">Samsung Exynos 8895</caption>
+<tbody>
+<tr class="">
+<th scope="row" style="text-align:left;">Manufacturer</th>
+    <td class="" style="">
+Samsung</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Name</th>
+    <td class="" style="">
+Exynos 8895</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Architecture</th>
+    <td class="" style="">
+aarch64</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">CPU</th>
+    <td class="" style="">
+4x 2.3 GHz Mongoose M2 &amp; 4x 1.7 GHz Cortex-A53</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+Mali-G71 MP20</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Year</th>
+    <td class="" style="">
+2017</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Process</th>
+    <td class="" style="">
+10nm</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Mainline</th>
+    <td class="" style="">
+yes</td>
+</tr>
+<tr><th colspan="2" class="" style="text-align:center;">Components</th></tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="SMP (bring up secondary CPU cores), CPU frequency scaling, CPUidle">CPU</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">UART</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="eMMC, SD cards, UFS, ...">Storage</abbr></th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">USB</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Display</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPU</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Pinctrl</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">I²C</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Audio</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Hardware-accelerated video de/encoding">Video</abbr></th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Thermal</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">WiFi</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Bluetooth</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Calls, SMS, Internet">Modem</abbr></th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">GPS</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Camera</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Suspend</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Devices_8">Devices</span></h3>
+<table class="cargoTable noMerge sortable">
+<thead><tr>
+<th class="field_Device">Device</th>
+<th class="field_Codename">Codename</th>
+<th class="field_Mainline">Mainline</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Note_8_(Exynos)_(samsung-greatlte).html" title="Samsung Galaxy Note 8 (Exynos) (samsung-greatlte)">Samsung Galaxy Note 8 (Exynos)</a></td>
+<td class="field_Codename">samsung-greatlte</td>
+<td class="field_Mainline"></td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_S8_(samsung-dreamlte).html" title="Samsung Galaxy S8 (samsung-dreamlte)">Samsung Galaxy S8</a></td>
+<td class="field_Codename">samsung-dreamlte, samsung-dream2lte</td>
+<td class="field_Mainline">P</td>
+</tr>
+</tbody>
+</table>
+<h3><span class="mw-headline" id="Specifications_7">Specifications</span></h3>
+<ul>
+<li>4x 2.3 GHz Mongoose M2 &amp; 4x 1.7 GHz Cortex-A53</li>
+<li>Mali-G71 MP20</li>
+</ul>
+<h3><span class="mw-headline" id="Downstream_status_2">Downstream status</span></h3>
+<p>Galaxy S8 has a working port.
+</p>
+<h3><span class="mw-headline" id="Mainline_status">Mainline status</span></h3>
+<p>Boots, pinctrl and pstore works. WIP
+</p>
+<h3><span class="mw-headline" id="More_information_7">More information</span></h3>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://github.com/ivoszbg/linux/tree/for-upstream/exynos8895">Working 8895 mainline kernel</a></li>
+<li><a rel="nofollow" class="external text" href="https://www.samsung.com/semiconductor/minisite/exynos/products/mobileprocessor/exynos-9-series-8895/">SoC specification</a></li>
+</ul>
+<h2><span class="mw-headline" id="Other">Other</span></h2>
+<ul>
+<li>4212: Samsung Gear 1 (support dropped from mainline kernel)</li>
+<li>4415 (support dropped from mainline kernel)</li>
+<li>5260: SM-N750 Galaxy Note 3 Neo</li>
+<li>5410</li>
+<li>5800</li>
+<li>See also <a rel="nofollow" class="external free" href="https://exynos.wiki.kernel.org">https://exynos.wiki.kernel.org</a>
+</li>
+</ul>
+<h2><span class="mw-headline" id="References">References</span></h2>
+<div class="mw-references-wrap"><ol class="references">
+<li id="cite_note-1">
+<span class="mw-cite-backlink"><a href="#cite_ref-1">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://lore.kernel.org/lkml/CAM4voanpvkQJ5GcKeXoLcpmTMXkh7f8aznQHDS-0O5YeaVpeuw@mail.gmail.com/">https://lore.kernel.org/lkml/CAM4voanpvkQJ5GcKeXoLcpmTMXkh7f8aznQHDS-0O5YeaVpeuw@mail.gmail.com/</a></span>
+</li>
+</ol></div>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Socs.html" title="Category:Socs">Socs</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Exynos_mainline_porting&amp;oldid=26513">https://wiki.postmarketos.org/index.php?title=Exynos_mainline_porting&amp;oldid=26513</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 25 March 2022, at 17:45.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Exynos_mainline_porting&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

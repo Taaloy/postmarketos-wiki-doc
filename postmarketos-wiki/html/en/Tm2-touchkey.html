@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Tm2-touchkey - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Tm2-touchkey rootpage-Tm2-touchkey skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Tm2-touchkey</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>The tm2-touchkey are the Android touch buttons of some Samsung devices.<sup id="cite_ref-1" class="reference"><a href="#cite_note-1">[1]</a></sup> Here are some information how they can be used.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Input"><span class="tocnumber">1</span> <span class="toctext">Input</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Key_mapping"><span class="tocnumber">1.1</span> <span class="toctext">Key mapping</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Overriding_the_key_mapping"><span class="tocnumber">1.2</span> <span class="toctext">Overriding the key mapping</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Assigning_commands_to_keys"><span class="tocnumber">1.3</span> <span class="toctext">Assigning commands to keys</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#LEDs"><span class="tocnumber">2</span> <span class="toctext">LEDs</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Galaxy_J3.2FJ5.2FJ5X"><span class="tocnumber">3</span> <span class="toctext">Galaxy J3/J5/J5X</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#References"><span class="tocnumber">4</span> <span class="toctext">References</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Input">Input</span></h2>
+<h3><span class="mw-headline" id="Key_mapping">Key mapping</span></h3>
+<p>The current state of key mapping can be checked as follows:
+</p>
+<ul>
+<li>Kernel key names by command <code>evtest</code> (package evtest)</li>
+<li>xkb key names by <code>xev</code> (package xev)</li>
+<li>Wayland key names by <code>wev</code> (package wev)</li>
+</ul>
+<p>The default kernel key mapping in the tm2-touchkey driver is <code>KEY_PHONE</code> and <code>KEY_BACK</code>.<sup id="cite_ref-2" class="reference"><a href="#cite_note-2">[2]</a></sup>
+</p>
+<p>In the device trees of e.g. samsung-a3 &amp; -a5, samsung-klte and samsung-serranove, the kernel keys are set to <code>KEY_APPSELECT</code> and <code>KEY_BACK</code>.<sup id="cite_ref-3" class="reference"><a href="#cite_note-3">[3]</a></sup><sup id="cite_ref-4" class="reference"><a href="#cite_note-4">[4]</a></sup><sup id="cite_ref-5" class="reference"><a href="#cite_note-5">[5]</a></sup> This is the correct mapping to meet the manufacturers intension. When running Android with this kernel (native or sandboxed), the left touch key <code>KEY_APPSELECT</code> brings up the "recent apps" screen on a short click and splits the screen on a long click. The long click action is configurable in the Android settings.
+</p>
+<p><code>KEY_APPSELECT</code> has a kernel keycode of 580 (0x244).<sup id="cite_ref-6" class="reference"><a href="#cite_note-6">[6]</a></sup> In xkb library this is keycode 588. Keycodes above 255 are not processed in X11 because X11 uses 8 bit keycodes.<sup id="cite_ref-7" class="reference"><a href="#cite_note-7">[7]</a></sup>  Therefore, <code>KEY_APPSELECT</code> is not available in X11 UIs. Wayland uses 32 bit keycodes and does not have this limitation.<sup id="cite_ref-8" class="reference"><a href="#cite_note-8">[8]</a></sup> However, the key isn't processed properly in Phosh, some parts of software don't handle it correctly. Also in Plasma Mobile the key can't be used for shortcut assignment.
+</p>
+<p>In postmarketOS, the left touchkey is mapped to <code>KEY_MENU</code> and the right one to <code>KEY_BACK</code> by udev rule <code>/lib/udev/rules.d/20-tm2-touchkey-input.rules</code>. The udev rule gets installed by package <code>postmarketos-base</code><sup id="cite_ref-9" class="reference"><a href="#cite_note-9">[9]</a></sup> and applies to all devices using the tm2-touchkey driver that run on mainline kernel 5.16 or higher. The kernel version limitation is because of the key mapping via udev needing two patches on the tm2-touchkey driver that where implemented in upstream kernel v5.16-rc1.<sup id="cite_ref-10" class="reference"><a href="#cite_note-10">[10]</a></sup> For qcom-msm8916 devices, these patches have been backported to v5.15-msm8916 kernel.<sup id="cite_ref-11" class="reference"><a href="#cite_note-11">[11]</a></sup>
+</p>
+<p><code>KEY_MENU</code> is kernel keycode 139 and xkb keycode 147, therefore available in the UIs. The key has no preset functionality (tested in Phosh, Plasma Mobile, Xfce4, MATE) but is available for assignment in the UIs settings.
+</p>
+<p>A drawback is the behaviour in Waydroid "show-full-ui". The left touch key behaves differently as intended by the manufacturer. A short click calls the menu of the app. A long click calls the "recent apps" screen. The option to change the long click behaviour in the Android settings has no effect. (Additional note: Long click in Phosh seems to have a window focusing problem, it only works if the Waydroid window is not focused, e.g. when hitting the top black bar before. In Plasma Mobile, long click in Waydroid works flawless.)
+</p>
+<h3><span class="mw-headline" id="Overriding_the_key_mapping">Overriding the key mapping</span></h3>
+<p>The udev rule <code>/lib/udev/rules.d/20-tm2-touchkey-input.rules</code> can be copied to  <code>/etc/udev/rules.d/20-tm2-touchkey-input.rules</code> and modified there. It will override the default key mapping. The syntax is like the kernel key names<sup id="cite_ref-12" class="reference"><a href="#cite_note-12">[12]</a></sup> without "KEY_" and with lower case. Note that keys beyond kernel keycode 247 (KEY_RFKILL) don't work in X11 and only partially in Phosh and Plasma Mobile due to the limitation described further above (KEY_RFKILL is keycode 255 in xkb library).
+</p>
+<h3><span class="mw-headline" id="Assigning_commands_to_keys">Assigning commands to keys</span></h3>
+<p>Most user interfaces offer an option to assign commands to keys.
+</p>
+<ul>
+<li>In Phosh this is in Settings -&gt; Keyboard -&gt; Keyboard Shortcuts.</li>
+<li>On Plasma Mobile, the according settings windows need to be called by commands <code>kcmshell5 kcm_keys</code> and <code>kcmshell5 khotkeys</code>. The fist one is for Application Shortcuts and the second brings up Custom Shortcuts.</li>
+<li>In Xfce4 some are in Settings -&gt; Keyboard -&gt; Application Shortcuts and some more in Settings -&gt; Window Manager -&gt; Keyboard.</li>
+</ul>
+<h2><span class="mw-headline" id="LEDs">LEDs</span></h2>
+<p>The tm2-touchkey LEDs are disabled by default. Permissions are set to allow unpriviliged users (need to be in group <code>input</code>) to turn on/off the LEDs by e.g. <code>echo 1 &gt; /sys/class/leds/tm2-touchkey/brightness</code>. The configuration is implemented in udev file <code>/lib/udev/rules.d/20-tm2-touchkey-leds.rules</code>. To change this configuration, another udev file can be placed to <code>/etc/udev/rules.d</code>.
+</p>
+<p>More information on LEDs handling can be found at: <a href="../en/LEDs.html" title="LEDs">LEDs</a>.
+</p>
+<h2>
+<span id="Galaxy_J3/J5/J5X"></span><span class="mw-headline" id="Galaxy_J3.2FJ5.2FJ5X">Galaxy J3/J5/J5X</span>
+</h2>
+<p>Needs a patched driver. The interrupts/input events are not handled properly.
+</p>
+<h2><span class="mw-headline" id="References">References</span></h2>
+<div class="mw-references-wrap mw-references-columns"><ol class="references">
+<li id="cite_note-1">
+<span class="mw-cite-backlink"><a href="#cite_ref-1">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/KEYBOARD_TM2_TOUCHKEY.html">https://cateee.net/lkddb/web-lkddb/KEYBOARD_TM2_TOUCHKEY.html</a></span>
+</li>
+<li id="cite_note-2">
+<span class="mw-cite-backlink"><a href="#cite_ref-2">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/input/keyboard/tm2-touchkey.c?h=v5.15#n222">https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/input/keyboard/tm2-touchkey.c?h=v5.15#n222</a></span>
+</li>
+<li id="cite_note-3">
+<span class="mw-cite-backlink"><a href="#cite_ref-3">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://github.com/msm8916-mainline/linux/blob/v5.15-msm8916/arch/arm64/boot/dts/qcom/msm8916-samsung-a2015-common.dtsi#L135">https://github.com/msm8916-mainline/linux/blob/v5.15-msm8916/arch/arm64/boot/dts/qcom/msm8916-samsung-a2015-common.dtsi#L135</a></span>
+</li>
+<li id="cite_note-4">
+<span class="mw-cite-backlink"><a href="#cite_ref-4">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/linux-postmarketos/-/blob/v5.15.7-pmos/arch/arm/boot/dts/qcom-msm8974-samsung-klte.dts#L235">https://gitlab.com/postmarketOS/linux-postmarketos/-/blob/v5.15.7-pmos/arch/arm/boot/dts/qcom-msm8974-samsung-klte.dts#L235</a></span>
+</li>
+<li id="cite_note-5">
+<span class="mw-cite-backlink"><a href="#cite_ref-5">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://github.com/msm8916-mainline/linux/blob/v5.15-msm8916/arch/arm64/boot/dts/qcom/msm8916-samsung-serranove.dts#L178">https://github.com/msm8916-mainline/linux/blob/v5.15-msm8916/arch/arm64/boot/dts/qcom/msm8916-samsung-serranove.dts#L178</a></span>
+</li>
+<li id="cite_note-6">
+<span class="mw-cite-backlink"><a href="#cite_ref-6">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/include/uapi/linux/input-event-codes.h?h=v5.15#n608">https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/include/uapi/linux/input-event-codes.h?h=v5.15#n608</a></span>
+</li>
+<li id="cite_note-7">
+<span class="mw-cite-backlink"><a href="#cite_ref-7">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config/-/blob/xkeyboard-config-2.34/keycodes/evdev#L327">https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config/-/blob/xkeyboard-config-2.34/keycodes/evdev#L327</a></span>
+</li>
+<li id="cite_note-8">
+<span class="mw-cite-backlink"><a href="#cite_ref-8">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://bugs.freedesktop.org/show_bug.cgi?id=11227#c56">https://bugs.freedesktop.org/show_bug.cgi?id=11227#c56</a></span>
+</li>
+<li id="cite_note-9">
+<span class="mw-cite-backlink"><a href="#cite_ref-9">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/main/postmarketos-base">https://gitlab.com/postmarketOS/pmaports/-/tree/master/main/postmarketos-base</a></span>
+</li>
+<li id="cite_note-10">
+<span class="mw-cite-backlink"><a href="#cite_ref-10">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/drivers/input/keyboard/tm2-touchkey.c?h=v5.16-rc1">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/drivers/input/keyboard/tm2-touchkey.c?h=v5.16-rc1</a></span>
+</li>
+<li id="cite_note-11">
+<span class="mw-cite-backlink"><a href="#cite_ref-11">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://github.com/msm8916-mainline/linux/commits/v5.15-msm8916/drivers/input/keyboard/tm2-touchkey.c">https://github.com/msm8916-mainline/linux/commits/v5.15-msm8916/drivers/input/keyboard/tm2-touchkey.c</a>.</span>
+</li>
+<li id="cite_note-12">
+<span class="mw-cite-backlink"><a href="#cite_ref-12">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/include/uapi/linux/input-event-codes.h?h=v5.16">https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/include/uapi/linux/input-event-codes.h?h=v5.16</a></span>
+</li>
+</ol></div>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Tm2-touchkey&amp;oldid=27441">https://wiki.postmarketos.org/index.php?title=Tm2-touchkey&amp;oldid=27441</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 5 May 2022, at 07:06.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Tm2-touchkey&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

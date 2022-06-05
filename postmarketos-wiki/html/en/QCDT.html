@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>QCDT - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-QCDT rootpage-QCDT skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">QCDT</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Some Androids only accept <a href="../en/Glossary.html#boot.img" title="Glossary">boot.img</a> files in the <b>QCDT</b> format, which means the <a href="../en/Device_Tree_(dtb).html" class="mw-redirect" title="Dtb">dtb</a> is appended to the end of it (and not at the end of the kernel, as with most other Android devices).
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Does_my_device_need_a_QCDT_boot.img_file.3F"><span class="tocnumber">1</span> <span class="toctext">Does my device need a QCDT boot.img file?</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Properly_package_a_QCDT_device"><span class="tocnumber">2</span> <span class="toctext">Properly package a QCDT device</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3">
+<a href="#Examples"><span class="tocnumber">2.1</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Qualcomm"><span class="tocnumber">2.1.1</span> <span class="toctext">Qualcomm</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Spreadtrum"><span class="tocnumber">2.1.2</span> <span class="toctext">Spreadtrum</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Exynos"><span class="tocnumber">2.1.3</span> <span class="toctext">Exynos</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Debugging"><span class="tocnumber">3</span> <span class="toctext">Debugging</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Compare_the_appended_dtb_files"><span class="tocnumber">3.1</span> <span class="toctext">Compare the appended dtb files</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Repack_procedure"><span class="tocnumber">3.2</span> <span class="toctext">Repack procedure</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2>
+<span id="Does_my_device_need_a_QCDT_boot.img_file?"></span><span class="mw-headline" id="Does_my_device_need_a_QCDT_boot.img_file.3F">Does my device need a QCDT boot.img file?</span>
+</h2>
+<p>Analyze a known working boot.img file with pmbootstrap to find out, if it has the QCDT format or not. You can get such a file from downloading a TWRP image (it is directly in the boot.img format!) or by downloading a full Android ROM for your device and extracting the boot.img file.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap bootimg_analyze /path/to/boot.img
+</pre></div>
+<p>If this prints <code>deviceinfo_bootimg_qcdt="true"</code>, then you have a QCDT device.
+</p>
+<h2><span class="mw-headline" id="Properly_package_a_QCDT_device">Properly package a QCDT device</span></h2>
+<p>The easiest way is using <code>pmbootstrap init</code> to generate a new device, and let it analyze the boot.img file in the process. It will adjust the device and linux package as necessary. But if you want to do it manually:
+</p>
+<ul>
+<li>Set <code>deviceinfo_bootimg_qcdt="true"</code> in the <a href="../en/Deviceinfo_reference.html" class="mw-redirect" title="Deviceinfo">deviceinfo</a>
+</li>
+<li>Adjust your <code>linux-</code> APKBUILD to generate and package the <code>/boot/dt.img</code> (look at other QCDT devices to see how it's done, grep for qcdt in aports)</li>
+</ul>
+<h3><span class="mw-headline" id="Examples">Examples</span></h3>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">For all SoC vendors: add <code>install -Dm644 "$_outdir/arch/$_carch/boot/"dt.img "$pkgdir"/boot/dt.img</code> in package()</td>
+</tr></tbody></table>
+<h4><span class="mw-headline" id="Qualcomm">Qualcomm</span></h4>
+<ul>
+<li>Add <code>dtbtool</code> to makedepends of linux-* package</li>
+<li>Add <code>dtbTool -s 2048 -p "scripts/dtc/" -o "$_outdir/arch/$_carch/boot"/dt.img "$_outdir/arch/$_carch/boot/"</code> in build()</li>
+</ul>
+<h4><span class="mw-headline" id="Spreadtrum">Spreadtrum</span></h4>
+<ul>
+<li>Add <code>dtbtool-sprd</code> to makedepends of linux-* package</li>
+<li>Add <code>dtbTool-sprd -s 2048 -p "scripts/dtc/" -o "$_outdir/arch/$_carch/boot"/dt.img "$_outdir/arch/$_carch/boot/dts/"</code> in build()</li>
+</ul>
+<h4><span class="mw-headline" id="Exynos">Exynos</span></h4>
+<ul>
+<li>Add <code>dtbtool-exynos</code> to makedepends of linux-* package</li>
+<li>Add</li>
+</ul>
+<pre>dtbTool-exynos --pagesize 2048 \
+	--platform 0x50a6 \
+	--subtype  0x217584da \
+	-o "$_outdir/arch/$_carch/boot/dt.img" \
+	"$_outdir/arch/$_carch/boot/dts/exynos8890-herolte_eur_open_04.dtb" \ # list of device tree binaries
+	"$_outdir/arch/$_carch/boot/dts/exynos8890-herolte_eur_open_08.dtb" \ # adjust filenames to ones related to your device
+	"$_outdir/arch/$_carch/boot/dts/exynos8890-herolte_eur_open_09.dtb"
+</pre>
+<p>in build()
+</p>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Note: At least <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Samsung_Galaxy_Grand_Prime_Plus_(samsung-grandpplte)">one Samsung device with a MediaTek SoC</a> also needs <code>dtbTool-exynos</code>.</td>
+</tr></tbody></table>
+<h2><span class="mw-headline" id="Debugging">Debugging</span></h2>
+<ul>
+<li>Hook up the <a href="../en/Serial_debugging.html" class="mw-redirect" title="Serial UART">serial UART</a> and see what kind of debug output the bootloader provides</li>
+<li>Repack the boot image with a working <code>dt.img</code> from another distribution (stock, Lineage, recovery, etc.)</li>
+</ul>
+<h3><span class="mw-headline" id="Compare_the_appended_dtb_files">Compare the appended dtb files</span></h3>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install
+<span class="gp">$</span> pmbootstrap chroot -r -- mkdir -p /tmp/extract-dtb-known-working
+<span class="gp">$</span> sudo cp known_working_boot.img ~/.local/var/pmbootstrap/chroot_rootfs_*/tmp/extract-dtb-known-working/boot.img
+<span class="gp">$</span> pmbootstrap chroot -r
+<span class="gp">#</span> apk add extract-dtb
+<span class="gp">#</span> mkdir -p /tmp/extract-dtb-pmOS
+<span class="gp">#</span> ls /boot/
+<span class="gp">#</span> cp /boot/boot.img-* /tmp/extract-dtb-pmOS/boot.img
+<span class="gp">#</span> <span class="nb">cd</span> /tmp/extract-dtb-pmOS
+<span class="gp">#</span> extract-dtb boot.img
+<span class="gp">#</span> <span class="nb">cd</span> /tmp/extract-dtb-known-working
+<span class="gp">#</span> extract-dtb boot.img
+<span class="go">Now compare the output in both temp folders.</span>
+<span class="go">Is there the same amount of dtb files, and are the files the same?</span>
+<span class="go">If not, then the QCDT generation went wrong.</span>
+</pre></div>
+<h3><span class="mw-headline" id="Repack_procedure">Repack procedure</span></h3>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Please update these instructions when trying them out as they seem outdated, check the <code>--help</code> pages of the tools for help.</td>
+</tr></tbody></table>
+<p>You need <code>mkbootimg</code> and <code>unpackbootimg</code> tools which are already packaged in pmbootstrap.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo mkdir -p ~/.local/var/pmbootstrap/chroot_native/tmp/bootimg_repack
+<span class="gp">$</span> sudo cp pmos-boot.img ~/.local/var/pmbootstrap/chroot_native/tmp/bootimg_repack/
+<span class="gp">$</span> sudo cp other-.img ~/.local/var/pmbootstrap/chroot_native/tmp/bootimg_repack/
+<span class="gp">$</span> pmbootstrap chroot --add<span class="o">=</span>mkbootimg-osm0sis
+<span class="gp">#</span> <span class="nb">cd</span> /tmp/bootimg_repack
+<span class="gp">#</span> unpackbootimg -i pmos-boot.img -o pmos
+<span class="gp">#</span> unpackbootimg -i other-boot.img -o other
+<span class="gp">$</span> cp other/boot.img-dt pmos/boot.img-<span class="nv">$vendor</span>-<span class="nv">$name</span>-dt
+<span class="gp">$</span> mkbootimg-osm0sis -o boot.repack.img -r pmos/boot.img-<span class="nv">$vendor</span>-<span class="nv">$name</span>-
+</pre></div>
+<p>You can also get these from <a rel="nofollow" class="external free" href="https://github.com/efidroid/build/tree/master/tools">https://github.com/efidroid/build/tree/master/tools</a>
+</p>
+<p><code>abootimg</code> is packaged for postmarketOS as well, which allows to repackage the boot.img files without extracting them.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="../en/Dtbtool.html" title="Dtbtool">dtbtool</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/323">#323</a> related discussion</li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/356">#356</a> first implementation</li>
+<li><a rel="nofollow" class="external text" href="https://github.com/s0be/dtimgextract">dtimgextract</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1206">#1206</a> debugging session for "FAILED (remote: dtb not found)" (contains a <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/issues/1206#note_85244905">workaround</a>)</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=QCDT&amp;oldid=20552">https://wiki.postmarketos.org/index.php?title=QCDT&amp;oldid=20552</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 8 July 2021, at 17:21.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=QCDT&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

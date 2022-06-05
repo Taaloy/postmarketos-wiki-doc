@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Magnetometer - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Magnetometer rootpage-Magnetometer skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Magnetometer</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><b>Magnetometers</b> are a specific type of <a href="../en/Sensors.html" title="Sensors">sensor</a> found in mobile phones in order to provide compass functionality to map applications: whereas a <a href="/index.php?title=GPS&amp;action=edit&amp;redlink=1" class="new" title="GPS (page does not exist)">GPS</a> (GNSS) will only tell you where you are, a compass can tell you where you are facing.
+</p>
+<p>However: magnetometers are not compasses. A magnetometer provides a three-dimensional vector of the Earth:s magnetic field. This vector is called the <i>inclination</i> or <i>magnetic dip</i> of the magnetic field. In the north these will point mostly down into the ground, in the south up in the air, and around the equator the field will be somewhat horizontal.
+</p>
+<p>The magnetic inclination is measured <i>relative to the plane of the magnetometer</i>, which is why it is important to get the mounting matrix of the magnetometer right. This mounting matrix is commonly determined by trial-and-error with a reference device such as a stock android phone and comparing the inclination vectors on the two devices.
+</p>
+<h2><span class="mw-headline" id="Magnetometer_vs_Compass">Magnetometer vs Compass</span></h2>
+<p>A <b>compass</b> in difference from a magnetometer, is a two-dimensional tool providing a red needle pointing north when held horizonal relative to Earth:s surface.
+</p>
+<p>To get from a three-dimensional inclination vector to a two-dimensional vector to the north, we need information from an <a href="/index.php?title=Accelerometer&amp;action=edit&amp;redlink=1" class="new" title="Accelerometer (page does not exist)">accelerometer</a>, as this determines how the device is held relative the center of gravity of the Earth. If the accelerometer reports 1G (~9.82 Newton) on the Z axis and 0 on the X and Y axis, the device is perfectly horizontal.
+</p>
+<p>To get from the inclination to e.g. compass-north, you need to perform projection of the inclination on the plane of the device. This is done using linear algebra. The process is called <i>sensor fusion</i>. In Linux, userspace does this fusion work. In Android, a three-dimensional <i>geomagnetic rotation vector</i> is calculated by fusing the magnetic inclination with the accelerometer.
+</p>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Magnetic_dip">Wikipedias article on magnetic dip</a></li>
+<li><a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/iio/mount-matrix.txt">Mounting matrix device tree bindings</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Magnetometer&amp;oldid=28140">https://wiki.postmarketos.org/index.php?title=Magnetometer&amp;oldid=28140</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 1 June 2022, at 12:34.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Magnetometer&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

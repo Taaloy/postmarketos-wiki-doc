@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Tuning sysfs - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Tuning_sysfs rootpage-Tuning_sysfs skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Tuning sysfs</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Permission denied errors while running the script are expected and can be ignored</td>
+</tr></tbody></table>
+<p>After porting postmarketOS to your device, you might find that still some features don't work. You may need to adjust some values inside the /sys directory.
+</p>
+<p>sysfs is a pseudo file system provided by the Linux kernel that exports information about various kernel subsystems, hardware devices, and associated device drivers from the kernel's device model to user space through virtual files. In addition to providing information about various devices and kernel subsystems, exported virtual files are also used for their configuring.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#diff_method"><span class="tocnumber">1</span> <span class="toctext">diff method</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Script_hanging"><span class="tocnumber">1.1</span> <span class="toctext">Script hanging</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Script_reboots_system"><span class="tocnumber">1.2</span> <span class="toctext">Script reboots system</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Applying_tuning"><span class="tocnumber">2</span> <span class="toctext">Applying tuning</span></a></li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Examples"><span class="tocnumber">3</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#i9070_port"><span class="tocnumber">3.1</span> <span class="toctext">i9070 port</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="diff_method">diff method</span></h2>
+<p>One approach is comparing the contents of these files when TWRP or LineageOS is running and the same for pmOS.
+</p>
+<p>The following script dumps the content of /sys/devices. Copy it as <code>dumpsys.sh</code>
+</p>
+<pre class="shell">#!/bin/sh
+# dumpsys.sh
+DIR="/sys/devices"
+
+walk() {
+    for file in $(ls $1); do
+        path="$1/$file"
+        if test -L "$path"; then
+            continue
+        fi
+        if test -f "$path"; then
+            echo "$path"
+            cat "$path"
+        fi
+        if test -d "$path"; then
+            walk "$path"
+        fi
+    done
+}
+
+others() {
+    cat /proc/cpuinfo
+    cat /proc/cmdline
+}
+
+walk "$DIR"
+others</pre>
+<p>Upload it to your device when running TWRP (use <code>adb push</code>) and when running postmarketOS (use <code>scp</code>). Run it and then compare the output.
+</p>
+<p>For TWRP/LineageOS:
+</p>
+<pre class="shell">adb push dumpsys.sh /
+adb shell "sh /dumpsys.sh &gt; /devices-twrp.dump"
+adb pull /devices-twrp.dump .</pre>
+<p>For pmOS:
+</p>
+<pre class="shell">scp dumpsys.sh user@172.16.42.1:~
+# sh dumpsys.sh &gt; devices-pmos.dump
+scp user@172.16.42.1:~/devices-pmos.dump .</pre>
+<p>Then get the differences (<a rel="nofollow" class="external text" href="https://gist.github.com/yuvadm/654f2c5e578d0e26cec3ea28b5c24b30">example</a>):
+</p>
+<pre class="shell">diff -au devices-pmos.dump devices-twrp.dump &gt; devices.diff</pre>
+<p>You could also run it in even in the stock ROM but it is important that you run the same kernel version in postmarketOS then.
+</p>
+<h4><span class="mw-headline" id="Script_hanging">Script hanging</span></h4>
+<p>On some devices (like Xperia Z) this script will hang on <code>vsync_event</code> files. To continue the script to the next file we just kill the process that processes the <code>vsync_event</code> file:
+</p>
+<pre class="shell">ps w | grep vsync_event # To find process id of the cat command that was processing vsync_event
+kill -SIGTERM &lt;pid&gt; # Kill the process</pre>
+<h4><span class="mw-headline" id="Script_reboots_system">Script reboots system</span></h4>
+<p>On some devices (like Xperia Z1) this script can reboot the device when executed in TWRP. To fix this, you need to find out which file is causing the reboot and skip it. You can find the file by running the script without output redirection (it should be the last line printed before the reboot - see example below).
+</p>
+<pre class="shell">$ adb shell "sh /dumpsys.sh"
+/sys/devices/0.qcom,msm-cpufreq/modalias
+platform:0.qcom,msm-cpufreq
+...
+/sys/devices/mdss_dsi_panel/interval_array         -----&gt; THE FILE THAT CAUSES A REBOOT
+------&gt; THE DEVICE REBOOTS</pre> 
+<p>Now that you found the file, you can exclude it by updating the script. Change this part:
+</p>
+<pre class="shell">if test -f "$path"; then
+     echo "$path"
+     cat "$path"
+fi</pre>
+<p>To this:
+</p>
+<pre class="shell">if test -f "$path"; then
+    if [ "$path" = "/sys/devices/mdss_dsi_panel/interval_array" ]
+    then
+        continue
+    fi
+    echo "$path"
+    cat "$path"
+fi</pre>
+<p>If there are two or more entries to skip, combine them with a logical OR (||) like this:
+</p>
+<pre class="shell">if test -f "$path"; then
+    if [ "$path" = "/sys/devices/mdss_dsi_panel/interval_array" ] ||
+       [ "$path" = "/sys/devices/iio:device0/self_test_run" ] ||
+       [ "$path" = "/sys/devices/iio:device1/self_test_run" ]
+    then
+        continue
+    fi
+    echo "$path"
+    cat "$path"
+fi</pre>
+<h2><span class="mw-headline" id="Applying_tuning">Applying tuning</span></h2>
+<p>To make changes to the device, create "initfs-hook.sh" in the device folder and add "initfs-hook.sh" to the source list.
+</p>
+<p>The initfs-hook.sh runs commands before booting.  Look at the examples section to see how the file should be used.
+</p>
+<h2><span class="mw-headline" id="Examples">Examples</span></h2>
+<h3><span class="mw-headline" id="i9070_port">i9070 port</span></h3>
+<p>This way, user <code>drebrez</code> figured out two values needed for the framebuffer configuration for the i9070 port.
+</p>
+<pre class="shell">echo 16 &gt; /sys/devices/platform/mcde_fb/graphics/fb0/bits_per_pixel
+echo 960,1600 &gt; /sys/devices/platform/mcde_fb/graphics/fb0/virtual_size</pre>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Tuning_sysfs&amp;oldid=16346">https://wiki.postmarketos.org/index.php?title=Tuning_sysfs&amp;oldid=16346</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 9 January 2021, at 15:46.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Tuning_sysfs&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

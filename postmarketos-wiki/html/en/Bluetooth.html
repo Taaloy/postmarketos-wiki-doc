@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Bluetooth - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Bluetooth rootpage-Bluetooth skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Bluetooth</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a href="https://en.wikipedia.org/wiki/Bluetooth" class="extiw" title="wikipedia:Bluetooth">Bluetooth</a> is a standard for the short-range wireless interconnection of cellular phones, computers, and other electronic devices. In Linux, the canonical implementation of the Bluetooth protocol stack is <a rel="nofollow" class="external text" href="http://www.bluez.org/">BlueZ</a>.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Pairing"><span class="tocnumber">1</span> <span class="toctext">Pairing</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Supported_Bluetooth_Profiles"><span class="tocnumber">2</span> <span class="toctext">Supported Bluetooth Profiles</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Audio.2FVideo_Remote_Control_Profile_.28AVRCP.29"><span class="tocnumber">2.1</span> <span class="toctext">Audio/Video Remote Control Profile (AVRCP)</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Advanced_Audio_Distribution_Profile_.28A2DP.29"><span class="tocnumber">2.2</span> <span class="toctext">Advanced Audio Distribution Profile (A2DP)</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#PhoneBook_Access_Profile_.28PBAP.29"><span class="tocnumber">2.3</span> <span class="toctext">PhoneBook Access Profile (PBAP)</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Object_Push_Profile_.28OPP.29"><span class="tocnumber">2.4</span> <span class="toctext">Object Push Profile (OPP)</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Human_Interface_Device_Profile_.28HID.29"><span class="tocnumber">2.5</span> <span class="toctext">Human Interface Device Profile (HID)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8">
+<a href="#Unsupported_Bluetooth_Profiles"><span class="tocnumber">3</span> <span class="toctext">Unsupported Bluetooth Profiles</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Message_Access_Profile_.28MAP.29"><span class="tocnumber">3.1</span> <span class="toctext">Message Access Profile (MAP)</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Personal_Area_Network_.28PAN.29"><span class="tocnumber">3.2</span> <span class="toctext">Personal Area Network (PAN)</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Hands-Free_Profile_.28HFP.29"><span class="tocnumber">3.3</span> <span class="toctext">Hands-Free Profile (HFP)</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Other_profiles"><span class="tocnumber">3.4</span> <span class="toctext">Other profiles</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Bluetooth_profiles_supported_by_other_mobile_OSes"><span class="tocnumber">4</span> <span class="toctext">Bluetooth profiles supported by other mobile OSes</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Troubleshooting"><span class="tocnumber">5</span> <span class="toctext">Troubleshooting</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Pairing">Pairing</span></h2>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">phone:~#</span> service bluetooth start
+<span class="gp">phone:~#</span> bluetoothctl
+<span class="go">Agent registered</span>
+<span class="go">[CHG] Controller XX:XX:XX:XX:XX:XX Pairable: yes</span>
+<span class="gp">[bluetooth]#</span> scan on
+<span class="go">[NEW] 00:11:22:33:44:55</span>
+<span class="gp">[bluetooth]#</span> pair <span class="m">00</span>:11:22:33:44:55
+</pre></div>
+<p>To use bluetooth headphones with pulseaudio, the package <code>pulseaudio-bluez</code> is required.
+</p>
+<h2><span class="mw-headline" id="Supported_Bluetooth_Profiles">Supported Bluetooth Profiles</span></h2>
+<h3>
+<span id="Audio/Video_Remote_Control_Profile_(AVRCP)"></span><span class="mw-headline" id="Audio.2FVideo_Remote_Control_Profile_.28AVRCP.29">Audio/Video Remote Control Profile (AVRCP)</span>
+</h3>
+<p>To use media keys with Bluetooth, the <code>mpris-proxy</code> command should be run. It needs access to Dbus.
+<code>mpris-proxy</code> is started at boot to enable AVRCP 1.5 support.
+</p>
+<h3>
+<span id="Advanced_Audio_Distribution_Profile_(A2DP)"></span><span class="mw-headline" id="Advanced_Audio_Distribution_Profile_.28A2DP.29">Advanced Audio Distribution Profile (A2DP)</span>
+</h3>
+<p>PulseAudio and BlueZ handle together Bluetooth A2DP 1.3 support. PulseAudio must be installed for this.
+MR at pmaports: <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1804">https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1804</a>
+</p>
+<h3>
+<span id="PhoneBook_Access_Profile_(PBAP)"></span><span class="mw-headline" id="PhoneBook_Access_Profile_.28PBAP.29">PhoneBook Access Profile (PBAP)</span>
+</h3>
+<p>BlueZ got PBAP 1.1 support recently in 5.63 with GNOME Evolution as backend.
+Currently, a MR is pending at Alpine to enable this feature: <a rel="nofollow" class="external free" href="https://gitlab.alpinelinux.org/alpine/aports/-/merge_requests/29955">https://gitlab.alpinelinux.org/alpine/aports/-/merge_requests/29955</a>
+</p>
+<h3>
+<span id="Object_Push_Profile_(OPP)"></span><span class="mw-headline" id="Object_Push_Profile_.28OPP.29">Object Push Profile (OPP)</span>
+</h3>
+<p>OBEXd was enabled at boot to enable OPP 1.2 support for transfering and receiving files over Bluetooth.
+MR at pmaports: <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2245">https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2245</a>
+</p>
+<h3>
+<span id="Human_Interface_Device_Profile_(HID)"></span><span class="mw-headline" id="Human_Interface_Device_Profile_.28HID.29">Human Interface Device Profile (HID)</span>
+</h3>
+<p>BlueZ provides the HID 1.0 profile to support mice and keyboards over Bluetooth.
+It is enabled by default.
+</p>
+<h2><span class="mw-headline" id="Unsupported_Bluetooth_Profiles">Unsupported Bluetooth Profiles</span></h2>
+<h3>
+<span id="Message_Access_Profile_(MAP)"></span><span class="mw-headline" id="Message_Access_Profile_.28MAP.29">Message Access Profile (MAP)</span>
+</h3>
+<p>BlueZ has support for MAP 1.0 but does not have a backend which is compatible with any UI stack.
+The supported backends are from the old Nokia Maemo days.
+</p>
+<h3>
+<span id="Personal_Area_Network_(PAN)"></span><span class="mw-headline" id="Personal_Area_Network_.28PAN.29">Personal Area Network (PAN)</span>
+</h3>
+<p>BlueZ supports PAN 1.0, but hasn't been tested or enabled in postmarketOS (yet).
+</p>
+<h3>
+<span id="Hands-Free_Profile_(HFP)"></span><span class="mw-headline" id="Hands-Free_Profile_.28HFP.29">Hands-Free Profile (HFP)</span>
+</h3>
+<p>BlueZ and PulseAudio partly support HFP 1.6. Only the audio part is supported.
+Reporting battery levels from the AG to HF is unsupported and all cellular operations and status reporting is not supported (yet).
+A first step in fully supporting Bluetooth HFP 1.6 is taken here: <a rel="nofollow" class="external free" href="https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/631">https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/631</a>
+</p>
+<h3><span class="mw-headline" id="Other_profiles">Other profiles</span></h3>
+<p>Bluetooth supports many other profiles, see <a rel="nofollow" class="external free" href="https://www.bluetooth.com/specifications/">https://www.bluetooth.com/specifications/</a>
+It is currently unknown if they are supported or not.
+</p>
+<h2><span class="mw-headline" id="Bluetooth_profiles_supported_by_other_mobile_OSes">Bluetooth profiles supported by other mobile OSes</span></h2>
+<ul>
+  <li>Supported Bluetooth profiles by Apple: <a rel="nofollow" class="external free" href="https://support.apple.com/en-us/HT204387">https://support.apple.com/en-us/HT204387</a>
+</li>
+  <li>Supported Bluetooth profile by Android: <a rel="nofollow" class="external free" href="https://source.android.com/devices/bluetooth/services">https://source.android.com/devices/bluetooth/services</a>
+</li>
+</ul>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<p><code>No default controller available</code>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> modprobe -r btqcomsmd
+<span class="gp">#</span> modprobe btqcomsmd
+</pre></div>
+<p><code>Failed to start discovery: org.bluez.Error.NotReady</code> or <code>Failed to connect: org.bluez.Error.NotReady br-connection-adapter-not-powered</code>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">[bluetooth]#</span> power on
+<span class="go">Changing power on succeeded</span>
+<span class="go">[CHG] Controller XX:XX:XX:XX:XX:XX Powered: yes</span>
+</pre></div>
+<p><code>Failed to connect: org.bluez.Error.Failed br-connection-profile-unavailable</code> when connecting to a headset
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> apk add bluez-alsa
+<span class="gp">#</span> service bluealsa start
+<span class="gp">#</span> bluetoothctl
+<span class="gp">[bluetooth]#</span> connect <span class="m">00</span>:11:22:33:44:55
+<span class="go">Attempting to connect 00:11:22:33:44:55</span>
+<span class="go">Connection successful</span>
+<span class="go">[CHG] Device 00:11:22:33:44:55 ServicesResolved: yes</span>
+</pre></div>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;oldid=27453">https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;oldid=27453</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 5 May 2022, at 17:17.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

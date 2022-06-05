@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>The Mainline Kernel - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-The_Mainline_Kernel rootpage-The_Mainline_Kernel skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">The Mainline Kernel</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Why_bother.3F"><span class="tocnumber">1.1</span> <span class="toctext">Why bother?</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Mainlining_guide"><span class="tocnumber">1.2</span> <span class="toctext">Mainlining guide</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Kernel_packaging"><span class="tocnumber">1.3</span> <span class="toctext">Kernel packaging</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Device_tree_source_.28ARM_architecture.29"><span class="tocnumber">2</span> <span class="toctext">Device tree source (ARM architecture)</span></a></li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Enable_the_mainline_kernel_for_a_new_device"><span class="tocnumber">3</span> <span class="toctext">Enable the mainline kernel for a new device</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Links"><span class="tocnumber">3.1</span> <span class="toctext">Links</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>We want to get as many devices working with one shared kernel package (based on <a rel="nofollow" class="external text" href="https://kernel.org">upstream</a>). Making a device boot with the upstream kernel is commonly referred to as <i>mainlining</i>.
+</p>
+<h3>
+<span id="Why_bother?"></span><span class="mw-headline" id="Why_bother.3F">Why bother?</span>
+</h3>
+<p>Carrying around forks of the kernel is not sustainable as it becomes impossible to provide security patches after a short time. The only way to truly fix this for a device is mainlining it.
+</p>
+<h3><span class="mw-headline" id="Mainlining_guide">Mainlining guide</span></h3>
+<p>See <a href="../en/Mainlining_Guide.html" title="Mainlining Guide">Mainlining Guide</a>.
+</p>
+<h3><span class="mw-headline" id="Kernel_packaging">Kernel packaging</span></h3>
+<p>To make the kernel work with multiple devices, it no longer appends the <code>dtb</code> file to the kernel image. Instead, it puts all <code>dtb</code> files for the current architecture in <code>/usr/share/dtb</code>. The <code>postmarketos-mkinitfs</code> package appends the <code>dtb</code> file defined in the <a href="../en/Deviceinfo_reference.html" class="mw-redirect" title="Deviceinfo">deviceinfo</a> to the linux image in the boot partition.
+</p>
+<h2>
+<span id="Device_tree_source_(ARM_architecture)"></span><span class="mw-headline" id="Device_tree_source_.28ARM_architecture.29">Device tree source (ARM architecture)</span>
+</h2>
+<p>To make your device boot, you will need a device tree source (<code>dts</code>) file (which will get compiled to a <code>dtb</code> mentioned above). Check the <code>arch/arm/boot/dts</code> (replace <code>arm</code> with your architecture) folder in the kernel source code for relevant files (<a rel="nofollow" class="external text" href="https://elixir.bootlin.com/linux/latest/source/arch/arm/boot/dts">browse online</a>) with your device's codename. The general file naming is <code>$chipset_vendor-$chipset-$vendor-$codename.dts</code>.
+</p>
+<p>Examples:
+</p>
+<ul>
+<li><code>qcom-msm8974-lge-nexus5-hammerhead.dts</code></li>
+<li><code>qcom-msm8974-sony-xperia-honami.dts</code></li>
+<li><code>qcom-apq8064-sony-xperia-yuga.dts</code></li>
+<li><code>qcom-apq8064-asus-nexus7-flo.dts</code></li>
+</ul>
+<p>When you don't have a result, try to find a <code>dts</code> file with the same chipset as your device (e.g. <code>msm8974</code>). Try to create a new one for your device based on that by <a href="../en/Patching.html" class="mw-redirect" title="How to create a patch when packaging software">creating a patch</a> for <code>linux-postmarketos-stable</code>. If there is not even a <code>dts</code> file for the same chipset, you need to create one from scratch (<i>no idea how to do that, good luck and please extend the wiki</i>).
+</p>
+<h2><span class="mw-headline" id="Enable_the_mainline_kernel_for_a_new_device">Enable the mainline kernel for a new device</span></h2>
+<p><i>Before proceeding, make sure that you know that your device is supported by the mainline kernel. Otherwise use the source code of a vendor's fork of the kernel, which is known to work as described in the <a href="../en/Porting_to_a_new_device.html" class="mw-redirect" title="Porting guide">porting guide</a>.</i>
+</p>
+<ol>
+<li>run <code>pmbootstrap kconfig edit postmarketos-qcom</code> and adjust the kernel config to add the drivers for the device if they are not enabled yet. Set as many drivers to build as external module as possible so the main vmlinuz filesize doesn't increase too much. Replace <code>qcom</code> with the kernel config you want to modify (see <code>ls aports/main/linux-postmarketos-*</code>).</li>
+<li>Set the kernel dependency to <code>linux-postmarketos</code> in the APKBUILD for the device package if you want to make it the default kernel (<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/91#issuecomment-318825285">more information</a>).</li>
+<li>Add the name of the generated dtb file (without path or extension) to the <code>deviceinfo_dtb</code> file in the deviceinfo file.</li>
+</ol>
+<p>A good example of a device using a mainline kernel is the <code>device-nokia-n900</code> package.
+</p>
+<h3><span class="mw-headline" id="Links">Links</span></h3>
+<ul>
+<li>
+<a href="../en/Mainlining_FAQ.html" title="Mainlining FAQ">Mainlining FAQ</a> various information collected from #postmarketOS</li>
+<li><a href="../en/Qualcomm_mainline_porting.html" title="Qualcomm mainline porting">Qualcomm mainline porting</a></li>
+<li>
+<a href="../en/SDM845_Mainlining.html" title="SDM845 Mainlining">SDM845_Mainlining</a> SDM845 Mainlining Guide</li>
+<li><a rel="nofollow" class="external text" href="http://linux-sunxi.org/Linux_mainlining_effort">Allwinner mainline effort</a></li>
+<li>Blog about <a rel="nofollow" class="external text" href="http://elektranox.org/droid4/">mainline kernel support for the Motorola Droid 4</a>
+</li>
+<li><a rel="nofollow" class="external text" href="https://github.com/freedreno/freedreno/wiki/DSI-Panel-Driver-Porting">Freedreno wiki: Display driver porting</a></li>
+<li><a rel="nofollow" class="external text" href="http://elixir.free-electrons.com/linux/v3.17/source/include/video/mipi_display.h#L28">List of DTSI -&gt; panel driver function translations</a></li>
+<li><a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/91">#91: "The Mainline Kernel"</a></li>
+<li><a rel="nofollow" class="external text" href="http://n900.elektranox.org/index.html">Debian on N900</a></li>
+<li><a rel="nofollow" class="external text" href="https://developer.sony.com/develop/open-devices/guides/kernel-compilation-guides/how-to-build-mainline-linux-kernel-for-xperia-devices">Build Mainline for Xperia devices</a></li>
+<li><a rel="nofollow" class="external text" href="https://forum.xda-developers.com/android/software-hacking/reference-how-to-upstream-android-kernel-t3626913">How to get an Android kernel up to date with Linux upstream</a></li>
+<li><a rel="nofollow" class="external text" href="https://nickdesaulniers.github.io/blog/2017/05/16/submitting-your-first-patch-to-the-linux-kernel-and-responding-to-feedback/">Submitting your first patch to the Linux kernel and responding to feedback</a></li>
+<li>
+<a rel="nofollow" class="external text" href="http://kroah.com/log/blog/2018/02/05/linux-kernel-release-model/">Linux Kernel Release Model</a> (reasons why we should all be using mainlined kernels)</li>
+<li><a rel="nofollow" class="external text" href="https://talk.maemo.org/showthread.php?t=99357">Documenting devices with mainline Linux support</a></li>
+<li><a rel="nofollow" class="external text" href="https://elinux.org/Device_Tree_Usage">Device Tree usage on elinux.org</a></li>
+<li><a rel="nofollow" class="external text" href="https://elinux.org/Device_Tree_Reference">Device Tree reference on elinux.org</a></li>
+<li><a rel="nofollow" class="external text" href="https://elixir.bootlin.com/linux/latest/source/Documentation/devicetree">Documentation of devicetree bindings</a></li>
+<li><a rel="nofollow" class="external text" href="https://matrix.to/#/!clcCCNrLZYwdfNqkkR:disroot.org/%24152104340146547HXnql:matrix.org">opendata26 walking alibabzo through mainlining aries</a></li>
+<li><a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=LPG4EkXK9Us">ARM64 SoC Linux Support Check-List (what needs to be done to get an arm64 soc to work on mainline)</a></li>
+<li><a rel="nofollow" class="external text" href="https://github.com/efidroid/projectmanagement/wiki/%5BReference%5D-Chipsets">probably a list of which qualcomm socs are similar</a></li>
+<li><a rel="nofollow" class="external text" href="https://redmine.replicant.us/projects/replicant/wiki/Upstream">Replicant upstream kernel and upstream bootloader wiki</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/191">pmaports#191</a> Getting started tips from zhuowei</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=The_Mainline_Kernel&amp;oldid=27269">https://wiki.postmarketos.org/index.php?title=The_Mainline_Kernel&amp;oldid=27269</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 27 April 2022, at 06:25.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=The_Mainline_Kernel&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

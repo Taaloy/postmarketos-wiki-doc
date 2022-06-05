@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>On-device installer - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-On-device_installer rootpage-On-device_installer skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">On-device installer</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="thumb tright"><div class="thumbinner" style="width:302px;">
+<a href="../Ondev-same-medium.png" class="image"><img alt="" src="../Ondev-same-medium.png" decoding="async" width="300" height="424" class="thumbimage" srcset="../450px-Ondev-same-medium.png 1.5x ../600px-Ondev-same-medium.png 2x"></a>  <div class="thumbcaption">
+<div class="magnify"><a href="../Ondev-same-medium.png" class="internal" title="Enlarge"></a></div>The on-device installer extracts the target OS to the same medium (SD card, eMMC), where the installer OS was started from.</div>
+</div></div>
+<p>The on-device installer provides a graphical interface to configuring the operating system before it gets installed.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Features"><span class="tocnumber">1</span> <span class="toctext">Features</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Overview"><span class="tocnumber">2</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Generating_an_installer_image"><span class="tocnumber">3</span> <span class="toctext">Generating an installer image</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#pmbootstrap_init"><span class="tocnumber">3.1</span> <span class="toctext">pmbootstrap init</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Debug_user"><span class="tocnumber">3.2</span> <span class="toctext">Debug user</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#postmarketOS_as_target_OS"><span class="tocnumber">3.3</span> <span class="toctext">postmarketOS as target OS</span></a></li>
+<li class="toclevel-2 tocsection-7">
+<a href="#Foreign_target_OS"><span class="tocnumber">3.4</span> <span class="toctext">Foreign target OS</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#mobile.conf"><span class="tocnumber">3.4.1</span> <span class="toctext">mobile.conf</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#shellprocess.conf"><span class="tocnumber">3.4.2</span> <span class="toctext">shellprocess.conf</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#pmbootstrap_install"><span class="tocnumber">3.4.3</span> <span class="toctext">pmbootstrap install</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11">
+<a href="#Development"><span class="tocnumber">4</span> <span class="toctext">Development</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Running_in_QEMU"><span class="tocnumber">4.1</span> <span class="toctext">Running in QEMU</span></a></li>
+<li class="toclevel-2 tocsection-13">
+<a href="#Building_components_from_source"><span class="tocnumber">4.2</span> <span class="toctext">Building components from source</span></a>
+<ul>
+<li class="toclevel-3 tocsection-14"><a href="#postmarketos-ondev"><span class="tocnumber">4.2.1</span> <span class="toctext">postmarketos-ondev</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#calamares-extensions"><span class="tocnumber">4.2.2</span> <span class="toctext">calamares-extensions</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#calamares"><span class="tocnumber">4.2.3</span> <span class="toctext">calamares</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="#How_it_works"><span class="tocnumber">5</span> <span class="toctext">How it works</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="#Related"><span class="tocnumber">6</span> <span class="toctext">Related</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Features">Features</span></h2>
+<ul>
+<li>Install any mobile OS, not just postmarketOS</li>
+<li>Full disk encryption (optional)</li>
+<li>Set the user password (numeric PIN, as expected by Phosh and Plasma Mobile)</li>
+<li>Set up a dedicated ssh user (optional) (related: <a rel="nofollow" class="external text" href="https://github.com/calamares/calamares-extensions/issues/6">calamares-extensions#6</a>)</li>
+<li>Choice between installing to eMMC or SD card (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-ondev/-/issues/22">postmarketos-ondev#22</a>).</li>
+</ul>
+<p>It's far from perfect, but what's there works reliably and should give a good mobile installer base to iterate upon.
+</p>
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p>The on-device installer is dual-booting between the installer OS and target OS.
+</p>
+<p><b>Installer OS</b> is the operating system running <b>Calamares</b> with the <b>mobile module</b> (<a rel="nofollow" class="external text" href="https://github.com/calamares/calamares-extensions/issues/3">calamares-extensions#3</a>). In theory, any OS could be used as installer OS. However, postmarketOS as installer OS should be the most straight forward way, so it's highly recommended to produce a working image with that first. This article assumes that postmarketOS is the installer OS.
+</p>
+<p><b>postmarketos-ondev</b> (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-ondev/">repo</a>, <a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/alpine/aports/-/tree/master/community/postmarketos-ondev">packaging</a>) holds the postmarketOS specific installer OS configuration.
+</p>
+<p><b>Target OS</b> is the operating system that will be installed. It must be able to:
+</p>
+<ul>
+<li>unlock encrypted partitions on boot, with <b>osk-sdl</b> or similar (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/osk-sdl/">source</a>, <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/ca1adb070a7e388fddf811eee0a302c9bcc10829/main/postmarketos-mkinitfs/init_functions.sh#L276">pmOS</a>, <a rel="nofollow" class="external text" href="https://source.puri.sm/librem5-apps/osk-sdl/-/merge_requests/1">Debian</a>)</li>
+<li>extend rootfs space on first boot
+<ul>
+<li>delete the installer OS partition (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/ca1adb070a7e388fddf811eee0a302c9bcc10829/main/postmarketos-mkinitfs/init_functions.sh#L214-227">pmOS</a>)</li>
+<li>extend the root partition over all unallocated space (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/ca1adb070a7e388fddf811eee0a302c9bcc10829/main/postmarketos-mkinitfs/init_functions.sh#L236">pmOS</a>)</li>
+</ul>
+</li>
+</ul>
+<h2><span class="mw-headline" id="Generating_an_installer_image">Generating an installer image</span></h2>
+<h3><span class="mw-headline" id="pmbootstrap_init">pmbootstrap init</span></h3>
+<p><a href="../en/Installing_pmbootstrap.html" title="Installing pmbootstrap">Install pmbootstrap</a>.
+Run <code>init</code> and select the device you would like to install. The selected UI is only relevant if postmarketOS is the target OS. Everything else can be left at default values.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+</pre></div>
+<p>Note that you can automate above step as follows:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> yes <span class="s2">""</span> <span class="p">|</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap config device pine64-pinephone
+</pre></div>
+<p>If the target OS is not postmarketOS, set the boot partition to at least the size of the boot partition of the target OS (in MiB):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap config boot_size <span class="m">300</span>
+</pre></div>
+<p>If you run into "not enough free space" errors later on (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1904">#1904</a>), you can add extra free space to the rootfs image too (in MiB).
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap config extra_space <span class="m">500</span>
+</pre></div>
+<h3><span class="mw-headline" id="Debug_user">Debug user</span></h3>
+<p>Before the generation of the image is explained, a quick note on the debug user. The installer OS will have a debug user with the username <code>user</code> and password <code>y</code>. This user is created in the installer OS, but of course not in the target OS. The installer OS also has SSH enabled by default and listens on all interfaces. You can login as the debug user either via serial, or with SSH over <a href="../en/USB_Network.html" title="USB Network">USB Network</a>.
+</p>
+<p>Consider disabling the debug user in production images, if you expect the target device to be available on a network (e.g. Raspberry Pi). To disable the debug user, install a file to <code>/no-debug-user</code>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> touch empty
+<span class="gp">$</span> pmbootstrap install --ondev --cp empty:/no-debug-user
+</pre></div>
+<h3><span class="mw-headline" id="postmarketOS_as_target_OS">postmarketOS as target OS</span></h3>
+<p>More or less, the following command. See <code>pmbootstrap install -h</code> for details.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install --ondev <span class="o">[</span>--sdcard<span class="o">=</span>...<span class="o">]</span>
+</pre></div>
+<h3><span class="mw-headline" id="Foreign_target_OS">Foreign target OS</span></h3>
+<p>Create a working directory like <code>~/code/ondev-mydistro</code>, where you store the configuration files below. These will be placed in the installer OS with the <code>pmbootstrap</code> command listed even further below.
+</p>
+<h4><span class="mw-headline" id="mobile.conf">mobile.conf</span></h4>
+<p>Create a <code>mobile.conf</code> based on the <a rel="nofollow" class="external text" href="https://github.com/calamares/calamares-extensions/blob/calamares/modules/mobile/mobile.conf">reference</a>. The <code>targetDeviceRoot</code> will be filled out <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-ondev/-/blob/a80f37ef7d11ad9cf25ef4c1f70aa2aad7990b71/ondev-boot.sh#L89-91">automatically</a> (the line must exist in the config though).
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># Example for what would probably be needed for Mobian</span>
+<span class="nn">---</span>
+<span class="c1"># Target OS</span>
+<span class="l l-Scalar l-Scalar-Plain">osName</span><span class="p p-Indicator">:</span> <span class="s">"mobian"</span>
+<span class="l l-Scalar l-Scalar-Plain">userInterface</span><span class="p p-Indicator">:</span> <span class="s">"Phosh"</span>
+<span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="s">"2020-11-26"</span>
+<span class="l l-Scalar l-Scalar-Plain">username</span><span class="p p-Indicator">:</span> <span class="s">"mobian"</span>
+
+<span class="c1"># Target device</span>
+<span class="l l-Scalar l-Scalar-Plain">arch</span><span class="p p-Indicator">:</span> <span class="s">"aarch64"</span>
+<span class="l l-Scalar l-Scalar-Plain">device</span><span class="p p-Indicator">:</span> <span class="s">"PINE64</span><span class="nv"> </span><span class="s">PinePhone"</span>
+
+<span class="c1"># Commands running in the installer OS</span>
+<span class="l l-Scalar l-Scalar-Plain">cmdMkfsRoot</span><span class="p p-Indicator">:</span> <span class="s">"mkfs.ext4</span><span class="nv"> </span><span class="s">-L</span><span class="nv"> </span><span class="s">'mobian'"</span>
+
+<span class="c1"># Commands running in the target OS (chroot)</span>
+<span class="c1"># sshd isn't installed in mobian by default</span>
+<span class="l l-Scalar l-Scalar-Plain">cmdSshdEnable</span><span class="p p-Indicator">:</span> <span class="s">"true"</span>
+<span class="l l-Scalar l-Scalar-Plain">cmdSshdDisable</span><span class="p p-Indicator">:</span> <span class="s">"true"</span>
+
+<span class="c1"># Placeholder to be filled in by ondev-boot.sh</span>
+<span class="l l-Scalar l-Scalar-Plain">targetDeviceRoot</span><span class="p p-Indicator">:</span> <span class="s">"/dev/unknown"</span>
+</pre></div>
+<h4><span class="mw-headline" id="shellprocess.conf">shellprocess.conf</span></h4>
+<p>postmarketos-ondev <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-ondev/-/blob/a80f37ef7d11ad9cf25ef4c1f70aa2aad7990b71/config/settings.conf#L12">configures</a> Calamares to run the shellprocess module at the very end of the installation. Prepare a <code>shellprocess.conf</code>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># Reference:</span>
+<span class="c1"># https://github.com/calamares/calamares/blob/master/src/modules/shellprocess/shellprocess.conf</span>
+<span class="nn">---</span>
+<span class="l l-Scalar l-Scalar-Plain">dontChroot</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="l l-Scalar l-Scalar-Plain">timeout</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1200</span>
+<span class="l l-Scalar l-Scalar-Plain">script</span><span class="p p-Indicator">:</span>
+    <span class="c1"># Rename pmOS_install partition to pmOS_deleteme</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">tune2fs -L pmOS_deleteme /dev/disk/by-label/pmOS_install</span>
+
+    <span class="c1"># Replace installer OS boot partition with the boot partition from image</span>
+    <span class="c1"># NOTE: Probably need to update the bootloader of the install medium too.</span>
+    <span class="c1"># When I tested it with mobian on the PinePhone, u-boot would look for the</span>
+    <span class="c1"># wrong dtb, uInitrd, vmlinuz files. So add the file(s) with</span>
+    <span class="c1"># 'pmbootstrap install --ondev --cp' (see below) and then put a new dd</span>
+    <span class="c1"># command here to flash it to the install medium.</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">dd if=/mnt/postmarketos-ondev-boot-img of=$ONDEV_BOOT_PARTITION bs=1M</span>
+
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">reboot</span>
+</pre></div>
+<h4><span class="mw-headline" id="pmbootstrap_install">pmbootstrap install</span></h4>
+<p>Download the target OS image and extract it if necessary. postmarketos-ondev expects a foreign target OS image to have two partitions, boot and rootfs <a rel="nofollow" class="external autonumber" href="https://gitlab.com/postmarketOS/postmarketos-ondev/-/blob/a80f37ef7d11ad9cf25ef4c1f70aa2aad7990b71/ondev-boot-mount.sh#L23">[1]</a>.
+</p>
+<p>Once all files are ready, run the following command. The last line is optional for integrating the target OS logo into the installer. Leave them out if you just want to test this and don't have the logo in the right format.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code/ondev-mydistro
+<span class="gp">$</span> pmbootstrap <span class="se">\</span>
+  --details-to-stdout <span class="se">\</span>
+  install <span class="se">\</span>
+    --ondev <span class="se">\</span>
+    --no-rootfs <span class="se">\</span>
+    --cp <span class="se">\</span>
+      os-image.img:/var/lib/rootfs.img <span class="se">\</span>
+      mobile.conf:/etc/calamares/modules/mobile.conf <span class="se">\</span>
+      shellprocess.conf:/etc/calamares/modules/shellprocess.conf <span class="se">\</span>
+      logo.png:/usr/share/calamares/branding/default-mobile/logo.png
+</pre></div>
+<p>The resulting image file is here:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> <span class="k">$(</span>pmbootstrap -q config work<span class="k">)</span>/chroot_native/home/pmos/rootfs
+<span class="gp">$</span> ls
+<span class="go">pine64-pinephone.img</span>
+</pre></div>
+<h2><span class="mw-headline" id="Development">Development</span></h2>
+<h3><span class="mw-headline" id="Running_in_QEMU">Running in QEMU</span></h3>
+<p>You can get a relatively short test cycle by running everything in QEMU (1-2 minutes to build the new install image, run the whole installation and reboot into the target OS).
+</p>
+<p>For the first install, configure pmbootstrap and build the postmarketOS target rootfs with UI=none.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh -ex</span>
+pmbootstrap -q -y zap
+pmbootstrap -q config device qemu-amd64
+pmbootstrap -q config ui none
+pmbootstrap -q config boot_size <span class="m">128</span>
+pmbootstrap -q config extra_space <span class="m">0</span>
+
+yes <span class="p">|</span> pmbootstrap --details-to-stdout install --ondev
+
+<span class="nb">export</span> <span class="nv">DISPLAY</span><span class="o">=</span>:0
+pmbootstrap qemu --image-size<span class="o">=</span>8G
+</pre></div>
+<p>For all following installs, use <code>--no-rootfs</code> to save time.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh -ex</span>
+yes <span class="p">|</span> pmbootstrap --details-to-stdout install --ondev --no-rootfs
+
+<span class="nb">export</span> <span class="nv">DISPLAY</span><span class="o">=</span>:0
+pmbootstrap qemu --image-size<span class="o">=</span>8G
+</pre></div>
+<h3><span class="mw-headline" id="Building_components_from_source">Building components from source</span></h3>
+<p>This section describes how to build packages for various components from their local git trees. <code>pmbootstrap install</code> will use these versions instead of the official binary packages. Run <code>pmbootstrap zap -p</code> to delete all previously built packages.
+</p>
+<p>Packages will get usually get built for the host arch. Add <code>--arch=aarch64</code> or similar to each <code>pmbootstrap build</code> line if necessary.
+</p>
+<h4><span class="mw-headline" id="postmarketos-ondev">postmarketos-ondev</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://gitlab.com/postmarketOS/postmarketos-ondev.git
+<span class="gp">$</span> pmbootstrap aportgen --fork-alpine postmarketos-ondev
+<span class="gp">$</span> pmbootstrap build --src<span class="o">=</span>postmarketos-ondev postmarketos-ondev
+</pre></div>
+<h4><span class="mw-headline" id="calamares-extensions">calamares-extensions</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://github.com/calamares/calamares-extensions
+<span class="gp">$</span> pmbootstrap aportgen --fork-alpine calamares-extensions
+<span class="gp">$</span> pmbootstrap build --src<span class="o">=</span>calamares-extensions calamares-extensions
+</pre></div>
+<h4><span class="mw-headline" id="calamares">calamares</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://github.com/calamares/calamares.git
+<span class="gp">$</span> pmbootstrap aportgen --fork-alpine calamares
+<span class="gp">$</span> pmbootstrap build --src<span class="o">=</span>calamares calamares
+</pre></div>
+<h2><span class="mw-headline" id="How_it_works">How it works</span></h2>
+<p><code>pmbootstrap install --ondev</code> does the following:
+</p>
+<ul>
+<li>prepares the device rootfs, and create an image from it as usually (more or less)</li>
+<li>prepares a new installer rootfs</li>
+<li>copies the device rootfs image into the installer rootfs as /var/lib/rootfs.img</li>
+<li>installs postmarketos-ondev, postmarketos-base and the device-package into the installer rootfs</li>
+<li>runs <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-ondev/-/blob/master/ondev-prepare.sh">ondev-prepare.sh</a>
+</li>
+<li>creates an image from the installer rootfs, with reserved space</li>
+</ul>
+<p>The installer image has the following partition layout:
+</p>
+<ul>
+<li>p1: label=pmOS_boot</li>
+<li>p2: (reserved space)</li>
+<li>p3: label=pmOS_install</li>
+</ul>
+<p>This installer image can be transmitted to the device via the usual methods (fastboot flash, via SD card, ...). When booting into the installer's initramfs, the usual postmarketOS initramfs code will prefer <code>pmOS_install</code> over <code>pmOS_root</code> (so we don't end up in an invalid state if an installation was aborted). So the <code>pmOS_install</code> partition will be mounted as / and the boot continues.
+</p>
+<p><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-ondev/-/blob/master/ondev-boot.sh">ondev-boot.sh</a> runs:
+</p>
+<ul>
+<li>calculates ONDEV_PARTITION_TARGET</li>
+<li>configures tinydm and i3, then starts tinydm (we may use something other than i3 in the future, but this works well even with framebuffer devices)</li>
+<li>the config will start Calamares</li>
+</ul>
+<p>Calamares runs:
+</p>
+<ul>
+<li>loads <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-ondev/-/blob/master/config/settings.conf">settings.conf</a>
+</li>
+<li>shows the custom mobile module</li>
+<li>this module asks for the FDE password, formats the target partition with cryptsetup and ext4 and mounts it (bypassing some of the usual Calamares logic, as Calamares relies on grub2 and encrypted initramfs)</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-ondev/-/blob/master/config/modules/unpackfs.conf">"unpackfs"</a> extracts rootfs.img and gives a nice progress bar</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-ondev/-/blob/master/config/modules/shellprocess.conf">"shellprocess"</a> renames pmOS_install to pmOS_deleteme and reboots (also replaces boot partition in foreign target OS case)</li>
+</ul>
+<p>The partition layout looks like this now:
+</p>
+<ul>
+<li>p1: label=pmOS_boot</li>
+<li>p2: label=pmOS_root</li>
+<li>p3: label=pmOS_deleteme</li>
+</ul>
+<p>postmarketOS initramfs does the following as target OS during first boot:
+</p>
+<ul>
+<li>deletes the pmOS_deleteme partition (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-ondev/-/issues/1">postmarketos-ondev#1</a>)</li>
+<li>resizes pmOS_root to use up all available free space (even beyond pmOS_deleteme)</li>
+<li>runs osk-sdl as usually for encrypted installations</li>
+<li>boots into pmOS_root</li>
+</ul>
+<h2><span class="mw-headline" id="Related">Related</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-ondev/-/issues">postmarketos-ondev issues</a></li>
+<li><a rel="nofollow" class="external text" href="https://github.com/calamares/calamares/issues/1451">plans for upstreaming to Calamares</a></li>
+<li><a rel="nofollow" class="external text" href="https://postmarketos.org/blog/2020/07/15/pinephone-ce-preorder/#installer-with-optional-ssh-server-and-encryption">Screenshots in the PinePhone pre-order blog post</a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-ondev/-/commit/3c099ed82cbd38fa5eb16c1cd072fbf59ae92707">Initial commit message</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/463">pmaports#463</a> On-device installer</li>
+<li>
+<a rel="nofollow" class="external text" href="https://blog.brixit.nl/why-installers-are-needed-for-fde/">Why installers are needed for disk encryption</a>, explaining the FDE parts</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=On-device_installer&amp;oldid=25971">https://wiki.postmarketos.org/index.php?title=On-device_installer&amp;oldid=25971</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 26 February 2022, at 16:34.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=On-device_installer&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

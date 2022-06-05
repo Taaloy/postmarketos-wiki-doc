@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Serial debugging:Cable schematics - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Serial_debugging_Cable_schematics rootpage-Serial_debugging_Cable_schematics skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Serial debugging:Cable schematics</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This page contains schematics for serial cables, as well as device support tables and basic build instructions. For more information about serial debugging, visit the <a href="../en/Serial_debugging.html" title="Serial debugging">Serial debugging</a> page.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#microUSB.2FCarkit_debug_cable"><span class="tocnumber">1</span> <span class="toctext">microUSB/Carkit debug cable</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Nexus_debug_cable"><span class="tocnumber">2</span> <span class="toctext">Nexus debug cable</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Mediatek_USB_debug_cable"><span class="tocnumber">3</span> <span class="toctext">Mediatek USB debug cable</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Suzy-Q_debug_cable"><span class="tocnumber">4</span> <span class="toctext">Suzy-Q debug cable</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Raspberry_Pi"><span class="tocnumber">5</span> <span class="toctext">Raspberry Pi</span></a></li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Per_manufacturer.2Fseries"><span class="tocnumber">6</span> <span class="toctext">Per manufacturer/series</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Sony_Xperia"><span class="tocnumber">6.1</span> <span class="toctext">Sony Xperia</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Some_Motorola_Devices"><span class="tocnumber">6.2</span> <span class="toctext">Some Motorola Devices</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Specific_devices"><span class="tocnumber">7</span> <span class="toctext">Specific devices</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Mozilla_Flame"><span class="tocnumber">7.1</span> <span class="toctext">Mozilla Flame</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Nokia_N900"><span class="tocnumber">7.2</span> <span class="toctext">Nokia N900</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Samsung_Galaxy_S7_and_S5"><span class="tocnumber">7.3</span> <span class="toctext">Samsung Galaxy S7 and S5</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Motorola_Droid_4"><span class="tocnumber">7.4</span> <span class="toctext">Motorola Droid 4</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Motorola_Photon_Q_.28asanti_.2F_xt897.29"><span class="tocnumber">7.5</span> <span class="toctext">Motorola Photon Q (asanti / xt897)</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#OnePlus_6.2F6T_and_7_Pro"><span class="tocnumber">7.6</span> <span class="toctext">OnePlus 6/6T and 7 Pro</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Google_Pixel_.22Android_Debug_Cable.22"><span class="tocnumber">7.7</span> <span class="toctext">Google Pixel "Android Debug Cable"</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="#See_also"><span class="tocnumber">8</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2>
+<span id="microUSB/Carkit_debug_cable"></span><span class="mw-headline" id="microUSB.2FCarkit_debug_cable">microUSB/Carkit debug cable</span>
+</h2>
+<p>Many devices with microUSB ports have the serial port multiplexed with the micro/mini USB connector, initially implemented as part of <a href="../en/Micro-USB_Interface_Controller.html" title="Micro-USB Interface Controller">carkit standard</a>. The Replicant project has a <a rel="nofollow" class="external text" href="https://redmine.replicant.us/projects/replicant/wiki/SamsungSerial">page dedicated to serial on Galaxy Nexus</a> using this cable.
+</p>
+<p><a href="../Nexus-usb-debug.png" class="image"><img alt="Nexus-usb-debug.png" src="../Nexus-usb-debug.png" decoding="async" width="700" height="271" class="thumbborder" srcset="../usb-debug.png 1.5x"></a>
+</p>
+<p>NOTE: "TX" and "RX" on this image refer to the TX and RX pins on your UART board.
+</p>
+<p>Note that some devices and <a href="../en/Micro-USB_Interface_Controller.html" class="mw-redirect" title="MUIC">MUICs</a> require a resistor with a different resistance than 150KΩ. <b>To find the correct resistor value</b>, check your device's wiki page, the <a href="../en/Micro-USB_Interface_Controller.html" class="mw-redirect" title="MUIC">MUIC</a> page or follow the guide in <a href="../en/Serial_debugging.html#Finding_the_UART_ports_on_your_device" title="Serial debugging">Serial debugging#Finding the UART ports on your device</a>.
+</p>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>Tip:</b> If you don't have the exact resistor you need for the cable, you can combine multiple similar resistors (for example 3 56kΩ for ~150kΩ). MUICs typically have a small margin of error where they'll still detect the correct resistance and switch to the right mode even if the value is a bit off.</td>
+</tr></tbody></table>
+<h2><span class="mw-headline" id="Nexus_debug_cable">Nexus debug cable</span></h2>
+<p>Some Nexus phones, as well as the first Pixel phone generation, multiplexed the serial debug lines with the headphone audio lines. To switch it into serial mode you have to supply -3V to the mic port. The UART lines themselves are 1.8V. If you use a 3.3V usb-to-uart adapter the signal from the phone will probably work, for the TX side you have to add a resistor divider to lower the voltage for the phone. Here's the schematic for a Nexus debug cable:
+</p>
+<p><a href="../Nexus-debug-cable.png" class="image"><img alt="Nexus-debug-cable.png" src="../Nexus-debug-cable.png" decoding="async" width="759" height="338"></a>
+</p>
+<p>This cable has been tested with:
+</p>
+<ul>
+<li><a href="../en/Google_Nexus_5_(lg-hammerhead).html" title="Google Nexus 5 (lg-hammerhead)">Google Nexus 5 (lg-hammerhead)</a></li>
+<li><a href="../en/Google_Nexus_5X_(lg-bullhead).html" title="Google Nexus 5X (lg-bullhead)">Google Nexus 5X (lg-bullhead)</a></li>
+<li><a href="../en/Google_Nexus_7_2013_(asus-flo).html" title="Google Nexus 7 2013 (asus-flo)">Google Nexus 7 2013 (asus-flo)</a></li>
+<li><a href="../en/Google_Pixel_(google-pixel).html" title="Google Pixel (google-pixel)">Google Pixel (google-pixel)</a></li>
+<li><a href="../en/Google_Nexus_9_(htc-flounder).html" title="Google Nexus 9 (htc-flounder)">Google Nexus 9 (htc-flounder)</a></li>
+</ul>
+<p>The Nexus 7 2012 (grouper) does not work with this setup and likely does not have any serial UART capabilities at all.
+</p>
+<p>Google open sourced their own <a rel="nofollow" class="external text" href="https://android.googlesource.com/device/google/debugcable/+/master">debug cable design</a> in the AOSP repository.
+</p>
+<p>NT: You will have a better luck with FTDI based serial cable.
+</p>
+<p>It is unknown if it can work with the A-series Pixel devices. These claims are unsubstantiated, and they are already known to use the "cereal" debugging cable scheme. See: <a href="../en/Serial_debugging:Cable_schematics.html#Google_Pixel_.22Android_Debug_Cable.22" title="Serial debugging:Cable schematics">Google Pixel "Android Debug Cable"</a>.
+</p>
+<ul>
+<li>Google Pixel 3a and 3a XL (sargo/bonito)</li>
+<li>Google Pixel 4a (sunfish)</li>
+<li>Google Pixel 4a 5G (bramble)</li>
+</ul>
+<h2><span class="mw-headline" id="Mediatek_USB_debug_cable">Mediatek USB debug cable</span></h2>
+<p>Some Mediatek devices expose an 3.3V uart interface at the usb port when a special Mediatek debug cable is attached to the device while booting
+</p>
+<p>The schematic for this debug cable is the same as the Nexus USB debug cable above, except that the ID pin shouldn't be connected.
+</p>
+<h2><span class="mw-headline" id="Suzy-Q_debug_cable">Suzy-Q debug cable</span></h2>
+<p>The Suzy-Q debug cable isn't strictly a serial debug cable, it accesses the Closed Case Debugging system, it can access multiple busses on the device. Details for the Closed Case Debugging system can be found at 
+<a rel="nofollow" class="external free" href="https://chromium.googlesource.com/chromiumos/platform/ec/+/cr50_stab/docs/case_closed_debugging.md">https://chromium.googlesource.com/chromiumos/platform/ec/+/cr50_stab/docs/case_closed_debugging.md</a>
+</p>
+<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+<strong>TODO</strong> The usb type-c receptacle pinout is wrong(B8 is SBU2 B5 is CC2, no RFU1), see <a rel="nofollow" class="external free" href="https://en.wikipedia.org/wiki/USB-C">https://en.wikipedia.org/wiki/USB-C</a>
+</div>
+<p><a href="../Suzyq-debug-cable.png" class="image"><img alt="Suzyq-debug-cable.png" src="../Suzyq-debug-cable.png" decoding="async" width="600" height="307" srcset="../900px-Suzyq-debug-cable.png 1.5x ../1200px-Suzyq-debug-cable.png 2x"></a>
+</p>
+<p>The official SuzyQable from Google has an 2 port USB hub into the cable itself, one port connects to the normal usb lines in the USB-C connector and the other port connects to the CC1/RFU1 pair like the diagram above, this way you can use both interfaces at the same time. The debug mode with the cable also only works on one of the two orientations in the USB-C socket. The official cable has a "DBG" mark on the C connector that should be facing up when plugged into the device. The other way around it will act as a normal USB cable.
+</p>
+<p>That cable can be used only with ChromeOS based devices for serial access.
+</p>
+<p>There are frequent claims that Suzy-Q cables can be used with Pixel phones. This exact design <i>cannot be used for the SoC UART</i>. Suzy-Q cables can be used with <em>some</em> Pixel phones to communicate with the Titan M chip <i>only</i>. See: <a href="../en/Serial_debugging:Cable_schematics.html#Google_Pixel_.22Android_Debug_Cable.22" title="Serial debugging:Cable schematics">Google Pixel "Android Debug Cable"</a>.
+</p>
+<h2><span class="mw-headline" id="Raspberry_Pi">Raspberry Pi</span></h2>
+<p><a href="../RaspberryPiUART.png" class="image"><img alt="RaspberryPiUART.png" src="../RaspberryPiUART.png" decoding="async" width="400" height="389" srcset="../RaspberryPiUART.png 1.5x ../"></a>
+</p>
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"><br><b>Warning!</b></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Most phones don't take 3.3V to the D+ pin on the MICRO PLUG. That's why we need a voltage divider to turn it down to 1.8V. The resistors R1 and R2 values don't matter as long as D+ is getting ~1.8V.</td>
+</tr></tbody></table>
+<p>Next do the following:
+</p>
+<ul>
+<li>From <code>/boot/cmdline.txt</code>, remove <code>console=serial0,115200</code>
+</li>
+<li>Disable bluetooth: <a rel="nofollow" class="external free" href="https://www.raspberrypi.com/documentation/computers/configuration.html#uarts-and-device-tree">https://www.raspberrypi.com/documentation/computers/configuration.html#uarts-and-device-tree</a>
+<ul><li>Usually appending <code>dtoverlay=disable-bt</code> at the end of <code>/boot/cmdline.txt</code> works</li></ul>
+</li>
+<li>
+<code>sudo raspi-config</code> &gt; <code>3 Interface Options</code> &gt; <code>P6 Serial Port</code> &gt; <code>No to login shell</code> &gt; <code>Yes to Serial Port hardware</code> &gt; Finish and reboot</li>
+<li>Finally do <code>sudo picocom -b 115200 /dev/serial0</code> to actually get logs. Regardless of what program you use, <code>/dev/serial0</code> must be used
+<ul><li>
+<code>/dev/ttyAMA0</code> might work as well</li></ul>
+</li>
+</ul>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">If you get weird characters appearing on your screen, your voltage is probably too low</td>
+</tr></tbody></table>
+<h2>
+<span id="Per_manufacturer/series"></span><span class="mw-headline" id="Per_manufacturer.2Fseries">Per manufacturer/series</span>
+</h2>
+<h3><span class="mw-headline" id="Sony_Xperia">Sony Xperia</span></h3>
+<p>See <a rel="nofollow" class="external text" href="https://developer.sony.com/develop/open-devices/guides/access-uart-ports">this page</a>.
+</p>
+<h3><span class="mw-headline" id="Some_Motorola_Devices">Some Motorola Devices</span></h3>
+<p>On <a rel="nofollow" class="external text" href="https://www.romstockbr.com/2020/08/manuais-de-servico-esquema-eletrico_89.html">here</a>, find your device, and download and extract the file,then:
+</p>
+<ul>
+<li>open the one contains schematics.</li>
+<li>search keyword <code>UART</code>(could be <code>MSM_UART_*</code> or <code>*_UART_MSM_*</code> or <code>*_DBG_UART_*</code>) and see where it goes to(usually it's <code>JTAG:MINI</code>).
+<ul><li>in some device(like <code>motorola-harpia</code>),tx and rx will connect to a test pad(<code>TP_*</code>),which makes it easier to access.</li></ul>
+</li>
+<li>find it in board layout and on the device.</li>
+</ul>
+<h2><span class="mw-headline" id="Specific_devices">Specific devices</span></h2>
+<h3><span class="mw-headline" id="Mozilla_Flame">Mozilla Flame</span></h3>
+<p>The Flame has open UART pads that are accessible underneath the outer and inner covers.
+</p>
+<ul>
+<li>
+<b>TX</b> - red</li>
+<li>
+<b>GND</b> - green</li>
+</ul>
+<p>Pull-ups/downs are unnecessary, hook straight up to any FTDI/USB-to-serial.
+</p>
+<p><a href="../Mozilla-flame-pcb.jpg" class="image"><img alt="Mozilla-flame-pcb.jpg" src="../Mozilla-flame-pcb.jpg" decoding="async" width="400" height="300" srcset="../600px-Mozilla-flame-pcb.jpg 1.5x ../800px-Mozilla-flame-pcb.jpg 2x"></a>
+</p>
+<h3><span class="mw-headline" id="Nokia_N900">Nokia N900</span></h3>
+<p>See the following links:
+</p>
+<ul>
+<li><a rel="nofollow" class="external free" href="http://n900.elektranox.org/serial-adapter.html">http://n900.elektranox.org/serial-adapter.html</a></li>
+<li><a rel="nofollow" class="external free" href="http://wiki.maemo.org/N900_Hardware_Hacking#Debug_ports">http://wiki.maemo.org/N900_Hardware_Hacking#Debug_ports</a></li>
+</ul>
+<p><a href="../N900-serial-cable.jpg" class="image"><img alt="N900-serial-cable.jpg" src="../N900-serial-cable.jpg" decoding="async" width="480" height="270"></a>
+</p>
+<h3><span class="mw-headline" id="Samsung_Galaxy_S7_and_S5">Samsung Galaxy S7 and S5</span></h3>
+<p>See <a rel="nofollow" class="external text" href="https://forum.xda-developers.com/galaxy-s7/how-to/guide-samsung-galaxy-s7-uart-t3743895">this guide</a>. It worked almost exactly for the S5, only kernel MUIC driver was in another directory.
+</p>
+<h3><span class="mw-headline" id="Motorola_Droid_4">Motorola Droid 4</span></h3>
+<p>A off-the-shelf USB-TTL Adapter with 3.3V signal level can be used together with a MicroUSB connector to access the phone's UART. By using a standard MicroUSB &lt;-&gt; USB A cable and just combine a USB jack with a cheap chinese USB-TTL adapter is space-saving and allows you to use the same MicroUSB cable to access the device in USB mode
+</p>
+<p>See <a rel="nofollow" class="external free" href="http://elektranox.org/2017/02/0009-droid-4-root/">http://elektranox.org/2017/02/0009-droid-4-root/</a>
+and <a rel="nofollow" class="external free" href="http://muru.com/linux/d4/">http://muru.com/linux/d4/</a>
+</p>
+<h3>
+<span id="Motorola_Photon_Q_(asanti_/_xt897)"></span><span class="mw-headline" id="Motorola_Photon_Q_.28asanti_.2F_xt897.29">Motorola Photon Q (asanti / xt897)</span>
+</h3>
+<p>The Motorola Photon Q exposes UART via the JTAG connector, the Tx pin can be seen in the image below, the Rx pin is directly below it. It is also possible to hook up a jumper wire from Tx to the headphone jack pad as shown to allow the PinePhone headphone jack UART cable to be used, however make sure not to hook up Rx without a level converter as the PinePhone UART cable is 3.3v, where the Photon Q is 1.8v.
+</p>
+<p><a href="../Motorola-photon-q-uart.jpg" class="image"><img alt="Motorola-photon-q-uart.jpg" src="../Motorola-photon-q-uart.jpg" decoding="async" width="400" height="499" srcset="../600px-Motorola-photon-q-uart.jpg 1.5x ../800px-Motorola-photon-q-uart.jpg 2x"></a>
+</p>
+<h3>
+<span id="OnePlus_6/6T_and_7_Pro"></span><span class="mw-headline" id="OnePlus_6.2F6T_and_7_Pro">OnePlus 6/6T and 7 Pro</span>
+</h3>
+<p>OnePlus 6
+</p>
+<p><a href="../Oneplus6-uart.jpg" class="image"><img alt="Oneplus6-uart.jpg" src="../Oneplus6-uart.jpg" decoding="async" width="400" height="742" srcset="../600px-Oneplus6-uart.jpg 1.5x ../800px-Oneplus6-uart.jpg 2x"></a>
+</p>
+<p>OnePlus 7 Pro
+</p>
+<p><a href="../Oneplus7-pro-uart.jpg" class="image"><img alt="Oneplus7-pro-uart.jpg" src="../Oneplus7-pro-uart.jpg" decoding="async" width="400" height="533" srcset="../600px-Oneplus7-pro-uart.jpg 1.5x ../800px-Oneplus7-pro-uart.jpg 2x"></a>
+</p>
+<p><br>
+Much like other devices, solder to the Tx test point as shown, as well as a ground point (I used a screwhole). You should see bootloader logs. <a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/commit/383409806ed6649c8f6c2ec4fecebedba97692b2">this commit</a> enables UART output from the mainline kernel.
+</p>
+<h3>
+<span id='Google_Pixel_"Android_Debug_Cable"'></span><span class="mw-headline" id="Google_Pixel_.22Android_Debug_Cable.22">Google Pixel "Android Debug Cable"</span>
+</h3>
+<p>While reported online that a "Suzy-Q" cable can be used for Android-based Pixel devices, the cable available from Sparkfun, the SuzyQable, is not the right cable for debugging Pixel phones. They are using a different incompatible scheme<sup>[How?]</sup>. On Pixel 2 devices they will not work at all, and on Pixel 3, it is reported they show the console of the Titan M chip only.
+</p>
+<p>Serial access for the Pixel 2, 3 and 4 (unverified with 5) can instead be achieved using the following <a rel="nofollow" class="external text" href="https://github.com/Peter-Easton/android-debug-cable-howto">Android Debug Cable</a>. Note that using a pass-through breakout board is not mandatory, but is helpful to keep the serial console active while using ADB.
+</p>
+<p>Google has also open sourced their own <a rel="nofollow" class="external text" href="https://github.com/google/usb-cereal">adapter</a>.
+</p>
+<p>This cable has been tested with:
+</p>
+<ul>
+<li><a href="../en/Google_Pixel_2_XL_(google-taimen).html" title="Google Pixel 2 XL (google-taimen)">Google Pixel 2 XL (google-taimen)</a></li>
+<li>Google Pixel 2 (walleye)</li>
+<li>Google Pixel 3/3 XL (blueline/crosshatch)</li>
+<li>Google Pixel 4 XL (coral)</li>
+<li>Google Pixel 5a (barbet)</li>
+</ul>
+<p>This cable should work fine with:
+</p>
+<ul><li>Google Pixel 4 (flame)</li></ul>
+<p>This cable might work with:
+</p>
+<ul><li>Google Pixel 5 (redfin)</li></ul>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="../en/Serial_debugging.html" title="Serial debugging">Serial debugging</a></li>
+<li><a href="../en/Micro-USB_Interface_Controller.html" title="Micro-USB Interface Controller">Micro-USB Interface Controller</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Serial_debugging:Cable_schematics&amp;oldid=26725">https://wiki.postmarketos.org/index.php?title=Serial_debugging:Cable_schematics&amp;oldid=26725</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 3 April 2022, at 22:58.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Serial_debugging:Cable_schematics&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

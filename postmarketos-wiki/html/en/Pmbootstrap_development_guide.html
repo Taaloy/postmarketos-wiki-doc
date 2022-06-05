@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Pmbootstrap development guide - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Pmbootstrap_development_guide rootpage-Pmbootstrap_development_guide skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Pmbootstrap development guide</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation_code_.28pmb.install..2A.29"><span class="tocnumber">1</span> <span class="toctext">Installation code (pmb.install.*)</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#What_is_this_args_variable_used_everywhere.3F"><span class="tocnumber">2</span> <span class="toctext">What is this args variable used everywhere?</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Executing_shell_commands"><span class="tocnumber">3</span> <span class="toctext">Executing shell commands</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Writing_to_files"><span class="tocnumber">3.1</span> <span class="toctext">Writing to files</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Writing_files_to_the_chroot"><span class="tocnumber">3.2</span> <span class="toctext">Writing files to the chroot</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Testing_the_APKBUILD_parser_after_changes"><span class="tocnumber">4</span> <span class="toctext">Testing the APKBUILD parser after changes</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Debugging_tab_completion_.28argparse.29"><span class="tocnumber">5</span> <span class="toctext">Debugging tab completion (argparse)</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h3>
+<span id="Installation_code_(pmb.install.*)"></span><span class="mw-headline" id="Installation_code_.28pmb.install..2A.29">Installation code (<code>pmb.install.*</code>)</span>
+</h3>
+<p>Whenever you change the installation process, also adjust the recovery zip installer (which performs a good part of the installation procedure directly on the Android device with a shell script).
+</p>
+<h3>
+<span id="What_is_this_args_variable_used_everywhere?"></span><span class="mw-headline" id="What_is_this_args_variable_used_everywhere.3F">What is this <code>args</code> variable used everywhere?</span>
+</h3>
+<p>See the big comment at the top of <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/blob/master/pmb/helpers/args.py"><code>pmb/helpers/args.py</code></a>.
+</p>
+<h3><span class="mw-headline" id="Executing_shell_commands">Executing shell commands</span></h3>
+<p>Use one of the following functions instead of Python's built in <code>subprocess</code>:
+</p>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/blob/master/pmb/helpers/run.py"><code>pmb.helpers.run.user()</code></a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/blob/master/pmb/helpers/run.py"><code>pmb.helpers.run.root()</code></a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/blob/master/pmb/chroot/user.py"><code>pmb.chroot.user()</code></a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/blob/master/pmb/chroot/root.py"><code>pmb.chroot.root()</code></a></li>
+</ul>
+<p>These functions call <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/blob/master/pmb/helpers/run_core.py"><code>pmb.helpers.run_core.core()</code></a> internally to write to the log file (that you can read with <code>pmbootstrap log</code>) and timeout when there is no output. A lot of function parameters are passed through to <code>core()</code> as well, see its docstring for a detailed description of what these parameters do.
+</p>
+<h4><span class="mw-headline" id="Writing_to_files">Writing to files</span></h4>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">See also: <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1316">#1316</a> Properly escape commands in pmb.chroot.user()</td>
+</tr></tbody></table>
+<p>The passed commands gets interpreted as single command, and not executed in a shell. This means something like the following <b>will not work</b>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">pmb</span><span class="o">.</span><span class="n">chroot</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="p">[</span><span class="s2">"echo"</span><span class="p">,</span> <span class="s2">"test"</span><span class="p">,</span> <span class="s2">"&gt;"</span><span class="p">,</span> <span class="s2">"/tmp/test"</span><span class="p">])</span>
+</pre></div>
+<p>Instead, if you need shell functionality in the call, you can wrap the call with <code>sh -c</code>. Here's one example with the parameters correctly escaped (you don't need to do that for the strings in this example, but if you pass variables then they should be escaped properly):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">shell_cmd</span> <span class="o">=</span> <span class="s2">"echo "</span> <span class="o">+</span> <span class="n">shutil</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="s2">"test"</span><span class="p">)</span> <span class="o">+</span> <span class="s2">" &gt; "</span> <span class="o">+</span> <span class="n">shutil</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="s2">"/tmp/test"</span><span class="p">)</span>
+<span class="n">pmb</span><span class="o">.</span><span class="n">chroot</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="p">[</span><span class="s2">"sh"</span><span class="p">,</span> <span class="s2">"-c"</span><span class="p">,</span> <span class="n">shell_cmd</span><span class="p">])</span>
+</pre></div>
+<p>Another technique (especially if you need to run many commands in the shell at once) is writing all commands down into a temporary file and executing it with the shell, see for example <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/1c13ca4fd9e32952a8e559987f82cd0925cddee9/pmb/chroot/initfs.py#L66-L76">pmb/chroot/initfs.py</a>.
+</p>
+<h4><span class="mw-headline" id="Writing_files_to_the_chroot">Writing files to the chroot</span></h4>
+<p>The users in the chroots (root and pmos) have different user IDs than the user of the host system. Therefore we can't just write a file to anywhere in the chroot. But we can write to <code>/tmp</code> and move the file afterwards:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"tmp/somefile"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+    <span class="n">handle</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"It works"</span><span class="p">)</span>
+<span class="n">pmb</span><span class="o">.</span><span class="n">chroot</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="p">[</span><span class="s2">"mv"</span><span class="p">,</span> <span class="s2">"/tmp/somefile"</span><span class="p">,</span> <span class="s2">"/etc/somefile"</span><span class="p">])</span>
+</pre></div>
+<h3><span class="mw-headline" id="Testing_the_APKBUILD_parser_after_changes">Testing the APKBUILD parser after changes</span></h3>
+<p>Besides the python tests, it's a good idea to let the APKBUILD parsing code run over all APKBUILDs that we have in pmaports.git, before and after making changes. This makes it easy to spot regressions.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap apkbuild_parse &gt; /tmp/new
+<span class="gp">$</span> git checkout master
+<span class="gp">$</span> pmbootstrap apkbuild_parse &gt; /tmp/old
+<span class="gp">$</span> colordiff /tmp/old /tmp/new <span class="p">|</span> less -R
+</pre></div>
+<h3>
+<span id="Debugging_tab_completion_(argparse)"></span><span class="mw-headline" id="Debugging_tab_completion_.28argparse.29">Debugging tab completion (argparse)</span>
+</h3>
+<p>When <a href="../en/Installing_pmbootstrap.html#Tab_completion" title="Installing pmbootstrap">tab completion</a> breaks, commands line <code>pmbootstrap build &lt;TAB&gt;</code> will simply not return the expected list of packages anymore. Exceptions are not printed. To change this behavior and get the exceptions, adjust the <code>eval "$(register-python-argcomplete pmbootstrap)"</code> in your shell's rc file.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> register-python-argcomplete3 pmbootstrap
+
+<span class="go">_python_argcomplete() {</span>
+<span class="go">    local IFS=$'\013'</span>
+<span class="go">    local SUPPRESS_SPACE=0</span>
+<span class="go">    if compopt +o nospace 2&gt; /dev/null; then</span>
+<span class="go">        SUPPRESS_SPACE=1</span>
+<span class="go">    fi</span>
+<span class="go">    COMPREPLY=( $(IFS="$IFS" \</span>
+<span class="go">                  COMP_LINE="$COMP_LINE" \</span>
+<span class="go">                  COMP_POINT="$COMP_POINT" \</span>
+<span class="go">                  COMP_TYPE="$COMP_TYPE" \</span>
+<span class="go">                  _ARGCOMPLETE_COMP_WORDBREAKS="$COMP_WORDBREAKS" \</span>
+<span class="go">                  _ARGCOMPLETE=1 \</span>
+<span class="go">                  _ARGCOMPLETE_SUPPRESS_SPACE=$SUPPRESS_SPACE \</span>
+<span class="go">                  "$1" 8&gt;&amp;1 9&gt;&amp;2 1&gt;/dev/null 2&gt;/dev/null) )</span>
+<span class="go">    if [[ $? != 0 ]]; then</span>
+<span class="go">        unset COMPREPLY</span>
+<span class="go">    elif [[ $SUPPRESS_SPACE == 1 ]] &amp;&amp; [[ "$COMPREPLY" =~ [=/:]$ ]]; then</span>
+<span class="go">        compopt -o nospace</span>
+<span class="go">    fi</span>
+<span class="go">}</span>
+<span class="go">complete -o nospace -o default -F _python_argcomplete "pmbootstrap"</span>
+</pre></div>
+<p>Copy the whole output of the command to your shell's rc file instead of the eval line, but remove <code>1&gt;/dev/null 2&gt;/dev/null</code>. Then it will print exceptions to the shell.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li>README.md of pmbootstrap.git for instructions on running the testsuite</li></ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Pmbootstrap_development_guide&amp;oldid=23155">https://wiki.postmarketos.org/index.php?title=Pmbootstrap_development_guide&amp;oldid=23155</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 21 October 2021, at 09:07.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Pmbootstrap_development_guide&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

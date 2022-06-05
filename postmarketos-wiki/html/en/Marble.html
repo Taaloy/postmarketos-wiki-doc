@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Marble - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Marble rootpage-Marble skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Marble</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a rel="nofollow" class="external text" href="https://marble.kde.org/index.php">KDE Marble</a> is a virtual globe and world atlas (comparable to Google Earth). As an education tool it can view many different world maps (e.g. historical ones) and even astronomical / planetary maps.
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>Marble is shipped with Alpine (<span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;"><a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/packages?name=marble&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=">marble</a></span>), thus it can be easily installed in pmOS:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> apk add marble
+</pre></div>
+<h2><span class="mw-headline" id="Mobile_version">Mobile version</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;">
+<a href="../Marble_pinephone.jpg" class="image"><img alt="" src="../Marble_pinephone.jpg" decoding="async" width="200" height="267" class="thumbimage" srcset="../Marble_pinephone.jpg 1.5x ../Marble_pinephone.jpg 2x"></a>  <div class="thumbcaption">
+<div class="magnify"><a href="../Marble_pinephone.jpg" class="internal" title="Enlarge"></a></div>Marble opened with <code>--smallscreen</code> on the <a href="../en/PINE64_PinePhone_(pine64-pinephone).html" class="mw-redirect" title="Pine64-pinephone">PinePhone</a>
+</div>
+</div></div>
+<p>Per default, Marble launches in desktop mode which is barely usable on mobile (even with tweaks like <a href="../en/Phosh.html#Scaling" title="Phosh">Phosh#Scaling</a>). But you may use the command-line option <code>--smallscreen</code> to launch a mobile-friendly interface. If you want to link to the mobile version from your homescreen, place a <code>.desktop</code>-file in <code>~/.local/share/applications</code> with following contents:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">[Desktop Entry]</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">Application</span>
+<span class="na">TryExec</span><span class="o">=</span><span class="s">marble</span>
+<span class="na">Exec</span><span class="o">=</span><span class="s">marble --smallscreen %F</span>
+<span class="na">Name</span><span class="o">=</span><span class="s">KDE Marble Mobile</span>
+<span class="na">GenericName</span><span class="o">=</span><span class="s">Virtual Globe</span>
+<span class="na">Comment</span><span class="o">=</span><span class="s">Navigation and Maps</span>
+<span class="na">Icon</span><span class="o">=</span><span class="s">marble</span>
+<span class="na">Terminal</span><span class="o">=</span><span class="s">false</span>
+<span class="na">Categories</span><span class="o">=</span><span class="s">Qt;KDE;Education;Geoscience;Geography;Science;Maps;</span>
+</pre></div>
+<p>Be aware that buttons in the map view are not usable via touch input, instead gestures are supported (pinch to zoom, swipe to move).
+</p>
+<h2><span class="mw-headline" id="Using_Marble">Using Marble</span></h2>
+<p>Any higher-resolution maps need to be downloaded and opened. Access the respective dialog via <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">File</span>→<span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Download Maps...</span>. Using the newly opened window with touch is not really intuitive, you need to drag the scrollbars to scroll. Choose your map(s) (e.g. <i>OpenTopoMap</i>, <i>Public Transport</i>, <i>Hike and Bike Map</i> etc.) and hit <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Download</span> on the right side. When downloaded you can open them via <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Open</span>.
+</p>
+<p>In portrait mode there are some overlay problems (Download dialog and footer): Multiple letters are overlapping which makes both underying phrases unreadable.
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Apps.html" title="Category:Apps">Apps</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Marble&amp;oldid=17736">https://wiki.postmarketos.org/index.php?title=Marble&amp;oldid=17736</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 3 March 2021, at 13:42.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Marble&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

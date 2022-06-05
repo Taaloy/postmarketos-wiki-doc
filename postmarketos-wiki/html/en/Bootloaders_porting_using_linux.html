@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Bootloaders porting using linux - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Bootloaders_porting_using_linux rootpage-Bootloaders_porting_using_linux skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Bootloaders porting using linux</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><br>
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#About"><span class="tocnumber">1</span> <span class="toctext">About</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Getting_started"><span class="tocnumber">2</span> <span class="toctext">Getting started</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Getting_uart_debug_output_from_linux"><span class="tocnumber">3</span> <span class="toctext">Getting uart debug output from linux</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Hack_MUIC_driver_to_expose_uart_on_request"><span class="tocnumber">3.1</span> <span class="toctext">Hack MUIC driver to expose uart on request</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Setup_pmos_to_switch_muic_on_key_combination"><span class="tocnumber">3.2</span> <span class="toctext">Setup pmos to switch muic on key combination</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Build_a_cable"><span class="tocnumber">3.3</span> <span class="toctext">Build a cable</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Hack_kernel_to_execute_your_bootloader"><span class="tocnumber">4</span> <span class="toctext">Hack kernel to execute your bootloader</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Run_bootloader_builds"><span class="tocnumber">5</span> <span class="toctext">Run bootloader builds</span></a></li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Troubleshooting"><span class="tocnumber">6</span> <span class="toctext">Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10">
+<a href="#No_output_from_your_uart"><span class="tocnumber">6.1</span> <span class="toctext">No output from your uart</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#DMA_uart_mode."><span class="tocnumber">6.1.1</span> <span class="toctext">DMA uart mode.</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Uart_is_reset_by_bootloader."><span class="tocnumber">6.1.2</span> <span class="toctext">Uart is reset by bootloader.</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="#Phone_reboots_after_executing_bootloader"><span class="tocnumber">6.2</span> <span class="toctext">Phone reboots after executing bootloader</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="About">About</span></h2>
+<p>This article describes how to get debug uart, when you don't have vendor's debug uart cable and don't want to disassemble your phone, and how to execute a payload (i.e. you bootloader port). 
+</p>
+<p>You must have debug uart, if you want to port bootloader on your phone. However, some bootloaders and/or MUIC chips does not allow you to connect to debug uart (like recent Samsung phones with usb type-c). In this case, you can either:  
+</p>
+<ul>
+<li>disassemble the phone, find and connect to debug uart pins, exposed on the board.</li>
+<li>Hack linux to force expose debug uart, and then test your bootloader.</li>
+</ul>
+<p>We'll speak about the latter.  
+</p>
+<p>This method is quite similar to kexec, though differs in some details:
+</p>
+<ul>
+<li>MMU should be turned off completely</li>
+<li>Use bin format, to simplify load process.</li>
+</ul>
+<h2><span class="mw-headline" id="Getting_started">Getting started</span></h2>
+<p>You'll need: 
+</p>
+<ul>
+<li>PmOs downstream port (TWRP can be used)</li>
+<li><a href="../en/Serial_debugging.html#Building_the_cable" title="Serial debugging">Stuff for building debug cable</a></li>
+</ul>
+<h2><span class="mw-headline" id="Getting_uart_debug_output_from_linux">Getting uart debug output from linux</span></h2>
+<h3><span class="mw-headline" id="Hack_MUIC_driver_to_expose_uart_on_request">Hack MUIC driver to expose uart on request</span></h3>
+<p>We can use sysfs attribute to tell muic driver, we need to switch debug uart to usb. 
+For example, MUIC driver patch for <a href="../en/Samsung_Galaxy_S9_(samsung-starqltechn).html" title="Samsung Galaxy S9 (samsung-starqltechn)">Samsung Galaxy S9</a>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gh">diff --git a/drivers/muic/max77705-muic.c b/drivers/muic/max77705-muic.c</span>
+<span class="gh">index c424c03f9..156152daf 100644</span>
+<span class="gd">--- a/drivers/muic/max77705-muic.c</span>
+<span class="gi">+++ b/drivers/muic/max77705-muic.c</span>
+<span class="gu">@@ -5,6 +5,7 @@</span>
+  * it under the terms of the GNU General Public License version 2 as
+  * published by the Free Software Foundation.
+  */
+<span class="gi">+#define MANUAL_UART_SWITCH</span>
+ 
+ #include &lt;linux/kernel.h&gt;
+ #include &lt;linux/module.h&gt;
+<span class="gu">@@ -1005,8 +1006,81 @@ static ssize_t hiccup_store(struct device *dev,</span>
+ }
+ #endif /* CONFIG_HICCUP_CHARGER */
+ 
+<span class="gi">+void max77705_muic_read_register(struct i2c_client *i2c)</span>
+<span class="gi">+{</span>
+<span class="gi">+	const enum max77705_usbc_reg regfile[] = {</span>
+<span class="gi">+		MAX77705_USBC_REG_UIC_HW_REV,</span>
+<span class="gi">+		MAX77705_USBC_REG_USBC_STATUS1,</span>
+<span class="gi">+		MAX77705_USBC_REG_USBC_STATUS2,</span>
+<span class="gi">+		MAX77705_USBC_REG_BC_STATUS,</span>
+<span class="gi">+		MAX77705_USBC_REG_UIC_INT_M,</span>
+<span class="gi">+	};</span>
+<span class="gi">+	u8 val;</span>
+<span class="gi">+	int i, ret;</span>
+<span class="gi">+</span>
+<span class="gi">+	pr_info("%s read register--------------\n", __func__);</span>
+<span class="gi">+	for (i = 0; i &lt; (int)ARRAY_SIZE(regfile); i++) {</span>
+<span class="gi">+		ret = max77705_muic_read_reg(i2c, regfile[i], &amp;val);</span>
+<span class="gi">+		if (ret) {</span>
+<span class="gi">+			pr_err("%s:%s fail to read muic reg(0x%02x), ret=%d\n",</span>
+<span class="gi">+					MUIC_DEV_NAME, __func__, regfile[i], ret);</span>
+<span class="gi">+			continue;</span>
+<span class="gi">+		}</span>
+<span class="gi">+</span>
+<span class="gi">+		pr_info("%s:%s reg(0x%02x)=[0x%02x]\n", MUIC_DEV_NAME, __func__,</span>
+<span class="gi">+				regfile[i], val);</span>
+<span class="gi">+	}</span>
+<span class="gi">+	pr_info("%s:%s end register---------------\n", MUIC_DEV_NAME, __func__);</span>
+<span class="gi">+}</span>
+<span class="gi">+</span>
+<span class="gi">+static int max77705_muic_attach_uart_path(struct max77705_muic_data *muic_data,</span>
+<span class="gi">+					muic_attached_dev_t new_dev)</span>
+<span class="gi">+{</span>
+<span class="gi">+	struct muic_platform_data *pdata = muic_data-&gt;pdata;</span>
+<span class="gi">+	int ret = 0;</span>
+<span class="gi">+</span>
+<span class="gi">+	pr_info("%s:%s\n", MUIC_DEV_NAME, __func__);</span>
+<span class="gi">+</span>
+<span class="gi">+	if (pdata-&gt;uart_path == MUIC_PATH_UART_AP)</span>
+<span class="gi">+		ret = switch_to_ap_uart(muic_data, new_dev);</span>
+<span class="gi">+	else if (pdata-&gt;uart_path == MUIC_PATH_UART_CP)</span>
+<span class="gi">+		ret = switch_to_cp_uart(muic_data, new_dev);</span>
+<span class="gi">+	else</span>
+<span class="gi">+		pr_warn("%s:%s invalid uart_path\n", MUIC_DEV_NAME, __func__);</span>
+<span class="gi">+</span>
+<span class="gi">+	return ret;</span>
+<span class="gi">+}</span>
+<span class="gi">+</span>
+<span class="gi">+#ifdef MANUAL_UART_SWITCH</span>
+<span class="gi">+static ssize_t max77705_muic_switch_uart(struct device *dev,</span>
+<span class="gi">+					  struct device_attribute *attr,</span>
+<span class="gi">+					  const char *buf, size_t count)</span>
+<span class="gi">+{</span>
+<span class="gi">+	struct max77705_muic_data *muic_data = dev_get_drvdata(dev);</span>
+<span class="gi">+	struct muic_platform_data *pdata = muic_data-&gt;pdata;</span>
+<span class="gi">+</span>
+<span class="gi">+	mutex_lock(&amp;muic_data-&gt;muic_mutex);</span>
+<span class="gi">+</span>
+<span class="gi">+	if (!strncasecmp(buf, "1", 1)) {</span>
+<span class="gi">+		max77705_muic_attach_uart_path(muic_data, ATTACHED_DEV_JIG_UART_OFF_MUIC);</span>
+<span class="gi">+	} else if (!strncasecmp(buf, "0", 1)) {</span>
+<span class="gi">+		com_to_open(muic_data);</span>
+<span class="gi">+	} else {</span>
+<span class="gi">+		pr_warn("Value should be 1 for on, 0 for off\n");</span>
+<span class="gi">+	}</span>
+<span class="gi">+</span>
+<span class="gi">+	mutex_unlock(&amp;muic_data-&gt;muic_mutex);</span>
+<span class="gi">+</span>
+<span class="gi">+	return count;</span>
+<span class="gi">+}</span>
+<span class="gi">+#endif</span>
+<span class="gi">+</span>
+ static DEVICE_ATTR(uart_sel, 0664, max77705_muic_show_uart_sel,
+ 		max77705_muic_set_uart_sel);
+<span class="gi">+#ifdef MANUAL_UART_SWITCH</span>
+<span class="gi">+static DEVICE_ATTR(muic_switch_uart, 0220, NULL,</span>
+<span class="gi">+		max77705_muic_switch_uart);</span>
+<span class="gi">+#endif</span>
+ static DEVICE_ATTR(usb_sel, 0664, max77705_muic_show_usb_sel,
+ 		max77705_muic_set_usb_sel);
+ static DEVICE_ATTR(uart_en, 0660, max77705_muic_show_uart_en,
+<span class="gu">@@ -1038,6 +1112,9 @@ static struct attribute *max77705_muic_attributes[] = {</span>
+ 	&amp;dev_attr_attached_dev.attr,
+ 	&amp;dev_attr_otg_test.attr,
+ 	&amp;dev_attr_apo_factory.attr,
+<span class="gi">+	#ifdef MANUAL_UART_SWITCH</span>
+<span class="gi">+    &amp;dev_attr_muic_switch_uart.attr,</span>
+<span class="gi">+    #endif</span>
+ #if defined(CONFIG_HV_MUIC_MAX77705_AFC)
+ 	&amp;dev_attr_afc_disable.attr,
+ #endif /* CONFIG_HV_MUIC_MAX77705_AFC */
+<span class="gu">@@ -1054,51 +1131,6 @@ static const struct attribute_group max77705_muic_group = {</span>
+ 	.attrs = max77705_muic_attributes,
+ };
+ 
+<span class="gd">-void max77705_muic_read_register(struct i2c_client *i2c)</span>
+<span class="gd">-{</span>
+<span class="gd">-	const enum max77705_usbc_reg regfile[] = {</span>
+<span class="gd">-		MAX77705_USBC_REG_UIC_HW_REV,</span>
+<span class="gd">-		MAX77705_USBC_REG_USBC_STATUS1,</span>
+<span class="gd">-		MAX77705_USBC_REG_USBC_STATUS2,</span>
+<span class="gd">-		MAX77705_USBC_REG_BC_STATUS,</span>
+<span class="gd">-		MAX77705_USBC_REG_UIC_INT_M,</span>
+<span class="gd">-	};</span>
+<span class="gd">-	u8 val;</span>
+<span class="gd">-	int i, ret;</span>
+<span class="gd">-</span>
+<span class="gd">-	pr_info("%s read register--------------\n", __func__);</span>
+<span class="gd">-	for (i = 0; i &lt; (int)ARRAY_SIZE(regfile); i++) {</span>
+<span class="gd">-		ret = max77705_muic_read_reg(i2c, regfile[i], &amp;val);</span>
+<span class="gd">-		if (ret) {</span>
+<span class="gd">-			pr_err("%s:%s fail to read muic reg(0x%02x), ret=%d\n",</span>
+<span class="gd">-					MUIC_DEV_NAME, __func__, regfile[i], ret);</span>
+<span class="gd">-			continue;</span>
+<span class="gd">-		}</span>
+<span class="gd">-</span>
+<span class="gd">-		pr_info("%s:%s reg(0x%02x)=[0x%02x]\n", MUIC_DEV_NAME, __func__,</span>
+<span class="gd">-				regfile[i], val);</span>
+<span class="gd">-	}</span>
+<span class="gd">-	pr_info("%s:%s end register---------------\n", MUIC_DEV_NAME, __func__);</span>
+<span class="gd">-}</span>
+<span class="gd">-</span>
+<span class="gd">-static int max77705_muic_attach_uart_path(struct max77705_muic_data *muic_data,</span>
+<span class="gd">-					muic_attached_dev_t new_dev)</span>
+<span class="gd">-{</span>
+<span class="gd">-	struct muic_platform_data *pdata = muic_data-&gt;pdata;</span>
+<span class="gd">-	int ret = 0;</span>
+<span class="gd">-</span>
+<span class="gd">-	pr_info("%s:%s\n", MUIC_DEV_NAME, __func__);</span>
+<span class="gd">-</span>
+<span class="gd">-	if (pdata-&gt;uart_path == MUIC_PATH_UART_AP)</span>
+<span class="gd">-		ret = switch_to_ap_uart(muic_data, new_dev);</span>
+<span class="gd">-	else if (pdata-&gt;uart_path == MUIC_PATH_UART_CP)</span>
+<span class="gd">-		ret = switch_to_cp_uart(muic_data, new_dev);</span>
+<span class="gd">-	else</span>
+<span class="gd">-		pr_warn("%s:%s invalid uart_path\n", MUIC_DEV_NAME, __func__);</span>
+<span class="gd">-</span>
+<span class="gd">-	return ret;</span>
+<span class="gd">-}</span>
+<span class="gd">-</span>
+ static int max77705_muic_attach_usb_path(struct max77705_muic_data *muic_data,
+ 					muic_attached_dev_t new_dev)
+ {
+</pre></div>
+<p>This patch will add new sysfs attribute <code>dev_attr_muic_switch_uart.attr</code>, so that MUIC driver will attach uart on '1' write to that attribute, and detach it on '0' write.
+</p>
+<h3><span class="mw-headline" id="Setup_pmos_to_switch_muic_on_key_combination">Setup pmos to switch muic on key combination</span></h3>
+<p>Use <a href="../en/Troubleshooting:HID_buttons.html#Using_triggerhappy_to_handle_HID_input_events" title="Troubleshooting:HID buttons">triggerhappy</a>
+</p>
+<h3><span class="mw-headline" id="Build_a_cable">Build a cable</span></h3>
+<ul><li>determine, on what pins MUIC multiplexes uart, i.e. find TX RX pins on usb.</li></ul>
+<p>The process is similar to <a href="../en/Serial_debugging.html#USB-C_based_cables" title="Serial debugging">finding TX RX pins on the PCB</a>
+For type-c devices it will likely be either D+D- or SBU pins.
+</p>
+<ul>
+<li>assemble cable</li>
+<li>ensure you get an output from your cable, when writing to corresponding tty on the phone</li>
+</ul>
+<h2><span class="mw-headline" id="Hack_kernel_to_execute_your_bootloader">Hack kernel to execute your bootloader</span></h2>
+<ul>
+<li>enable <code>CONFIG_DEVMEM</code>
+</li>
+<li>disable watchdog timer (it forces reboot, if kernel not responds)</li>
+</ul>
+<p>Simplest way is to delete device tree node, for qcom device usually <code>compatible = "qcom,msm-watchdog";</code>
+</p>
+<ul><li>apply a patch to launch bootloader from linux</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gh">diff --git a/arch/arm64/kernel/cpu-reset.S b/arch/arm64/kernel/cpu-reset.S</span>
+<span class="gh">index 65f42d257..86c26955a 100644</span>
+<span class="gd">--- a/arch/arm64/kernel/cpu-reset.S</span>
+<span class="gi">+++ b/arch/arm64/kernel/cpu-reset.S</span>
+<span class="gu">@@ -34,16 +34,15 @@</span>
+  */
+ ENTRY(__cpu_soft_restart)
+ 	/* Clear sctlr_el1 flags. */
+<span class="gd">-	mrs	x12, sctlr_el1</span>
+<span class="gd">-	ldr	x13, =SCTLR_ELx_FLAGS</span>
+<span class="gd">-	bic	x12, x12, x13</span>
+<span class="gd">-	msr	sctlr_el1, x12</span>
+<span class="gi">+	/* Turn off MMU. Note, we can do that only from .idmap.text section,</span>
+<span class="gi">+	 * when id mapping installed. For details on MMU shutdown/bring up, see</span>
+<span class="gi">+	 *</span>
+<span class="gi">+	 * https://www.programmersought.com/article/82334578227/</span>
+<span class="gi">+	 * https://stackoverflow.com/questions/30843270/arm-disabling-mmu-and-updating-pc</span>
+<span class="gi">+	 */</span>
+<span class="gi">+	msr	sctlr_el1, xzr</span>
+ 	isb
+ 
+<span class="gd">-	cbz	x0, 1f				// el2_switch?</span>
+<span class="gd">-	mov	x0, #HVC_SOFT_RESTART</span>
+<span class="gd">-	hvc	#0				// no return</span>
+<span class="gd">-</span>
+ 1:	mov	x18, x1				// entry
+ 	mov	x0, x2				// arg0
+ 	mov	x1, x3				// arg1
+<span class="gh">diff --git a/drivers/Makefile b/drivers/Makefile</span>
+<span class="gh">index c571b2694..f3bbe0729 100644</span>
+<span class="gd">--- a/drivers/Makefile</span>
+<span class="gi">+++ b/drivers/Makefile</span>
+<span class="gu">@@ -5,6 +5,8 @@</span>
+ # Rewritten to use lists instead of if-statements.
+ #
+ 
+<span class="gi">+obj-y += jump/</span>
+<span class="gi">+</span>
+ obj-y				+= irqchip/
+ obj-y				+= bus/
+ 
+<span class="gh">diff --git a/drivers/jump/Makefile b/drivers/jump/Makefile</span>
+new file mode 100644
+<span class="gh">index 000000000..38a3b48cc</span>
+<span class="gd">--- /dev/null</span>
+<span class="gi">+++ b/drivers/jump/Makefile</span>
+<span class="gu">@@ -0,0 +1 @@</span>
+<span class="gi">+obj-y += jump.o</span>
+<span class="gh">diff --git a/drivers/jump/jump.c b/drivers/jump/jump.c</span>
+new file mode 100644
+<span class="gh">index 000000000..bbadf123c</span>
+<span class="gd">--- /dev/null</span>
+<span class="gi">+++ b/drivers/jump/jump.c</span>
+<span class="gu">@@ -0,0 +1,114 @@</span>
+<span class="gi">+/*</span>
+<span class="gi">+ * Author:  Dzmitry Sankouski &lt;dsankouski@gmail.com&gt;</span>
+<span class="gi">+ * License terms:  GNU General Public License (GPL), version 2</span>
+<span class="gi">+ *</span>
+<span class="gi">+ * Based on kexec code.</span>
+<span class="gi">+ * Usage:</span>
+<span class="gi">+ * - read jump_code_buffer physical address from sysfs</span>
+<span class="gi">+ * - write target code to jump_code_buffer region</span>
+<span class="gi">+ * - perform write to `jump` file to shutdown linux, and run your code</span>
+<span class="gi">+ */</span>
+<span class="gi">+</span>
+<span class="gi">+#include &lt;asm/mmu_context.h&gt;</span>
+<span class="gi">+#include &lt;linux/cpu.h&gt;</span>
+<span class="gi">+#include &lt;linux/err.h&gt;</span>
+<span class="gi">+#include &lt;linux/init.h&gt;</span>
+<span class="gi">+#include &lt;linux/io.h&gt;</span>
+<span class="gi">+#include &lt;linux/kobject.h&gt;</span>
+<span class="gi">+#include &lt;linux/module.h&gt;</span>
+<span class="gi">+#include &lt;linux/of.h&gt;</span>
+<span class="gi">+#include &lt;linux/of_address.h&gt;</span>
+<span class="gi">+#include &lt;linux/platform_device.h&gt;</span>
+<span class="gi">+#include &lt;linux/reboot.h&gt;</span>
+<span class="gi">+#include &lt;linux/slab.h&gt;</span>
+<span class="gi">+#include &lt;linux/spinlock.h&gt;</span>
+<span class="gi">+#include &lt;linux/types.h&gt;</span>
+<span class="gi">+#include "../../arch/arm64/kernel/cpu-reset.h"</span>
+<span class="gi">+</span>
+<span class="gi">+void *jump_code_buffer;</span>
+<span class="gi">+</span>
+<span class="gi">+static ssize_t jump(struct kobject *kobj, struct kobj_attribute *attr,</span>
+<span class="gi">+                    const char *buf, size_t count) {</span>
+<span class="gi">+    unsigned long jump_address;</span>
+<span class="gi">+    jump_address = __pa(jump_code_buffer);</span>
+<span class="gi">+    pr_info("Jump to address 0x%p\n", jump_address);</span>
+<span class="gi">+</span>
+<span class="gi">+    kernel_restart_prepare(NULL);</span>
+<span class="gi">+    pr_info("Kernel restart prepared\n");</span>
+<span class="gi">+    migrate_to_reboot_cpu();</span>
+<span class="gi">+    pr_info("Migrated to reboot cpu\n");</span>
+<span class="gi">+    /*</span>
+<span class="gi">+     * migrate_to_reboot_cpu() disables CPU hotplug assuming that</span>
+<span class="gi">+     * no further code needs to use CPU hotplug (which is true in</span>
+<span class="gi">+     * the reboot case). However, the kexec path depends on using</span>
+<span class="gi">+     * CPU hotplug again; so re-enable it here.</span>
+<span class="gi">+     */</span>
+<span class="gi">+    /* Do I really need this? */</span>
+<span class="gi">+    cpu_hotplug_enable();</span>
+<span class="gi">+    pr_info("Cpu hotplug enabled\n");</span>
+<span class="gi">+    machine_shutdown();</span>
+<span class="gi">+</span>
+<span class="gi">+    pr_info("Machine shutdown\n");</span>
+<span class="gi">+    /* Disable all DAIF exceptions. */</span>
+<span class="gi">+    asm volatile("msr daifset, #0xf" : : : "memory");</span>
+<span class="gi">+    pr_info("DAIF exceptions disabled\n");</span>
+<span class="gi">+    pr_info("Bye!\n");</span>
+<span class="gi">+    /*</span>
+<span class="gi">+     * cpu_soft_restart will shutdown the MMU, disable data caches, then</span>
+<span class="gi">+     * transfer control to the jump_code_buffer which contains user - loaded</span>
+<span class="gi">+     * code</span>
+<span class="gi">+     *</span>
+<span class="gi">+     */</span>
+<span class="gi">+    cpu_soft_restart(1, jump_address, 0, 0, 0);</span>
+<span class="gi">+    /* unreachable */</span>
+<span class="gi">+    return count;</span>
+<span class="gi">+}</span>
+<span class="gi">+</span>
+<span class="gi">+static ssize_t show_jump_address(struct kobject *k, struct kobj_attribute *attr,</span>
+<span class="gi">+                                 char *buf) {</span>
+<span class="gi">+    unsigned long jump_address;</span>
+<span class="gi">+    jump_address = __pa(jump_code_buffer);</span>
+<span class="gi">+</span>
+<span class="gi">+    return sprintf(buf, "0x%p\n", (void *) jump_address);</span>
+<span class="gi">+}</span>
+<span class="gi">+</span>
+<span class="gi">+static struct kobj_attribute jump_attr = __ATTR(jump, 0220, NULL, jump);</span>
+<span class="gi">+static struct kobj_attribute jump_address =</span>
+<span class="gi">+    __ATTR(show_jump_address, 0440, show_jump_address, NULL);</span>
+<span class="gi">+</span>
+<span class="gi">+static struct attribute *jump_attributes[] = {</span>
+<span class="gi">+    &amp;jump_attr.attr,</span>
+<span class="gi">+    &amp;jump_address.attr,</span>
+<span class="gi">+    NULL</span>
+<span class="gi">+};</span>
+<span class="gi">+</span>
+<span class="gi">+static const struct attribute_group jump_group = {</span>
+<span class="gi">+    .attrs = jump_attributes,</span>
+<span class="gi">+};</span>
+<span class="gi">+</span>
+<span class="gi">+struct kobject *module_kobj;</span>
+<span class="gi">+</span>
+<span class="gi">+static int __init init_events_group(void) {</span>
+<span class="gi">+    pr_info("Allocate memory for target code buffer\n");</span>
+<span class="gi">+    jump_code_buffer = kzalloc(0x100000, GFP_KERNEL);</span>
+<span class="gi">+    pr_info("reboot code buffer phys address: 0x%p \n", __pa(jump_code_buffer));</span>
+<span class="gi">+    pr_info("Create sysfs files for jump\n");</span>
+<span class="gi">+    int ret;</span>
+<span class="gi">+</span>
+<span class="gi">+    module_kobj = kobject_create_and_add("jump", kernel_kobj);</span>
+<span class="gi">+    if (!module_kobj) {</span>
+<span class="gi">+        pr_err("jump: Couldn't create module kobject\n");</span>
+<span class="gi">+        return -ENOENT;</span>
+<span class="gi">+    }</span>
+<span class="gi">+</span>
+<span class="gi">+    ret = sysfs_create_group(module_kobj, &amp;jump_group);</span>
+<span class="gi">+    if (ret) {</span>
+<span class="gi">+        pr_err("jump: Failed to create sysfs\n");</span>
+<span class="gi">+        return ret;</span>
+<span class="gi">+    }</span>
+<span class="gi">+    if (ret) kobject_put(module_kobj);</span>
+<span class="gi">+</span>
+<span class="gi">+    return 0;</span>
+<span class="gi">+}</span>
+<span class="gi">+</span>
+<span class="gi">+late_initcall(init_events_group);</span>
+</pre></div>
+<ul><li>load and run your code with <b>run_file.py</b> script like:</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/usr/bin/python3</span>
+
+<span class="c1"># Load executable file(bin format, use objcopy to convert obj file to bin),</span>
+<span class="c1"># to physical memory, starting from reboot code buffer address, found in kmsg.</span>
+<span class="c1">#</span>
+<span class="c1"># Then timeout for user to switch from usb cable to debug uart cable</span>
+<span class="c1">#</span>
+<span class="c1"># After timeout, commands kernel to shutdown, and execute loaded code</span>
+<span class="c1">#</span>
+<span class="c1"># Remember if you actually need to switch from usb ssh, to debug uart cable, run this script like</span>
+<span class="c1"># nohup python run_file.py [file] &amp; tail -f nohup.out</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">base_address</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s2">"sudo cat /sys/kernel/jump/show_jump_address"</span><span class="p">)</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">'Found address for code loading: '</span> <span class="o">+</span> <span class="n">base_address</span><span class="p">)</span>
+
+<span class="n">command</span> <span class="o">=</span> <span class="s1">'sudo dd if='</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s1">' of=/dev/mem bs=16 seek='</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">base_address</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">'Code loaded...'</span><span class="p">)</span>
+
+<span class="n">timeout</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">timeout</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' seconds until launch'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">'go'</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">'sudo bash -c "echo 1 &gt; /sys/kernel/jump/jump"'</span><span class="p">)</span>
+</pre></div>
+<ul><li>On systems with no python, like TWRP use sh</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+<span class="nv">BASE_ADDRESS</span><span class="o">=</span><span class="sb">`</span>cat show_jump_address<span class="sb">`</span>
+<span class="nb">echo</span> <span class="s1">'Found address for code loading: '</span><span class="nv">$BASE_ADDRESS</span>
+
+<span class="nv">CMD</span><span class="o">=</span><span class="s1">'sudo dd if='</span><span class="nv">$1</span><span class="s1">' of=/dev/mem bs=16 seek='</span><span class="k">$(</span>expr <span class="k">$(</span><span class="nb">printf</span> <span class="s2">"%d\n"</span> <span class="nv">$BASE_ADDRESS</span><span class="k">)</span> / <span class="m">16</span><span class="k">)</span>
+CMD
+
+<span class="nb">echo</span> <span class="s1">'Code loaded...'</span>
+
+<span class="nv">TIMEOUT</span><span class="o">=</span><span class="m">20</span>
+
+<span class="nb">echo</span> <span class="s1">'Waiting for '</span><span class="nv">$TIMEOUT</span><span class="s1">' seconds timeout'</span>
+sleep <span class="nv">$TIMEOUT</span>
+
+<span class="nb">echo</span> <span class="s1">'go'</span>
+
+<span class="nb">echo</span> <span class="m">1</span> &gt; /sys/kernel/jump/jump
+</pre></div>
+<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+<strong>TODO</strong> add a section to check, that we got uart on usb, and alive payload. We may check payload alive with ARM debug coprocessor. See also <a rel="nofollow" class="external free" href="https://stackoverflow.com/questions/69256603/arm-how-does-linux-decompression-routine-outputs-characters-on-uart">https://stackoverflow.com/questions/69256603/arm-how-does-linux-decompression-routine-outputs-characters-on-uart</a>
+</div>
+<h2><span class="mw-headline" id="Run_bootloader_builds">Run bootloader builds</span></h2>
+<ul>
+<li>Connect to phone via ssh</li>
+<li>Build bootloader bin file, upload it on phone.</li>
+<li>Run <code>nohup python3 -u <b>run_file.py</b> [bootloader file] &amp; tail -f nohup.out</code>. It will give you 20 secs timeout to plugin debug uart cable, and switch muic.</li>
+<li>After timeout is expired, your bin file will be launched, with MMU disabled.</li>
+</ul>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="No_output_from_your_uart">No output from your uart</span></h3>
+<h4><span class="mw-headline" id="DMA_uart_mode.">DMA uart mode.</span></h4>
+<p>Linux may run uart in DMA mode, instead of FIFO, like typical bootloader. For example, qcom SOCs GENI core uart works in data mover mode, using DMA, so you need to switch it to FIFO mode. Refer to early_con uart setup in linux, setup uart via devmem accordingly
+</p>
+<h4><span class="mw-headline" id="Uart_is_reset_by_bootloader.">Uart is reset by bootloader.</span></h4>
+<p>Refer to early_con uart setup in linux
+</p>
+<h3><span class="mw-headline" id="Phone_reboots_after_executing_bootloader">Phone reboots after executing bootloader</span></h3>
+<p>Turn off watchdog
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../en/Category:Low-level.html" title="Category:Low-level">Low-level</a></li>
+<li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li>
+<li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li>
+</ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Bootloaders_porting_using_linux&amp;oldid=23093">https://wiki.postmarketos.org/index.php?title=Bootloaders_porting_using_linux&amp;oldid=23093</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 18 October 2021, at 10:27.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Bootloaders_porting_using_linux&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

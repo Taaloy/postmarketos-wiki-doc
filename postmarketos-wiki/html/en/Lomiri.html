@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Lomiri - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Lomiri rootpage-Lomiri skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Lomiri</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">Lomiri</caption>
+<tbody>
+<tr class=""><td colspan="2" class="" style="text-align:center;">
+[[|200px|alt=P]]<br><span style="">P</span>
+</td></tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Name</th>
+    <td class="" style="">
+Lomiri</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Graphics stack</th>
+    <td class="" style="">
+Mir on Wayland</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Toolkit</th>
+    <td class="" style="">
+Qt 5</td>
+</tr>
+<tr><th colspan="2" class="" style="text-align:center;">In postmarketOS</th></tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Package</th>
+    <td class="" style="">
+postmarketos-ui-lomiri</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Status</th>
+    <td class="" style="">
+Available</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<p>The convergent desktop environment.
+</p>
+<h2><span class="mw-headline" id="Status">Status</span></h2>
+<p>Lomiri (formerly known as Unity 8) is available in the pmaports branch <code>feature/lomiri</code>. See <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/357">pmaports#357</a> and <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/190">pmaports#190</a> for details.
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">The work on Lomiri hasn't yet been finished yet - no support is provided</td>
+</tr></tbody></table>
+<p>Choose <code>lomiri</code> in <code>pmbootstrap init</code> and install normally.
+</p>
+<p>Once the device has launched, Lomiri can be started with the following:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># Run this (at least) once:</span>
+mkdir -p <span class="nv">$HOME</span>/.config/lomiri
+touch <span class="nv">$HOME</span>/.config/lomiri/wizard-has-run
+</pre></div>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># Run this for starting Lomiri:</span>
+
+<span class="nb">export</span> <span class="nv">XDG_RUNTIME_DIR</span><span class="o">=</span>/tmp/<span class="k">$(</span>id -u<span class="k">)</span>-runtime-dir
+<span class="k">if</span> ! <span class="nb">test</span> -d <span class="s2">"</span><span class="si">${</span><span class="nv">XDG_RUNTIME_DIR</span><span class="si">}</span><span class="s2">"</span><span class="p">;</span> <span class="k">then</span>
+    mkdir <span class="s2">"</span><span class="si">${</span><span class="nv">XDG_RUNTIME_DIR</span><span class="si">}</span><span class="s2">"</span>
+    chmod <span class="m">0700</span> <span class="s2">"</span><span class="si">${</span><span class="nv">XDG_RUNTIME_DIR</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">fi</span>
+
+<span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/usr/lib/qt5/plugins/platforms
+<span class="nb">export</span> <span class="nv">MIR_SERVER_CURSOR</span><span class="o">=</span>null
+<span class="nb">export</span> <span class="nv">QT_QPA_PLATFORM</span><span class="o">=</span>mirserver
+<span class="nb">export</span> <span class="nv">G_MESSAGES_DEBUG</span><span class="o">=</span>all
+<span class="nb">export</span> <span class="nv">QT_WAYLAND_DISABLE_WINDOWDECORATION</span><span class="o">=</span><span class="m">1</span>
+<span class="nb">export</span> <span class="nv">MIR_MESA_KMS_DISABLE_MODESET_PROBE</span><span class="o">=</span><span class="m">1</span> <span class="c1"># probably only needed in QEMU</span>
+<span class="nb">export</span> <span class="nv">MIR_SERVER_ENABLE_MIRCLIENT</span><span class="o">=</span><span class="m">1</span>
+<span class="c1"># export MIR_MESA_KMS_USE_DRM_DEVICE=card1 # for PinePhone</span>
+
+dbus-run-session lomiri
+</pre></div>
+<p>Auto-login would require lightdm to be set up or something
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Interface.html" title="Category:Interface">Interface</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Lomiri&amp;oldid=21395">https://wiki.postmarketos.org/index.php?title=Lomiri&amp;oldid=21395</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 15 August 2021, at 16:53.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Lomiri&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

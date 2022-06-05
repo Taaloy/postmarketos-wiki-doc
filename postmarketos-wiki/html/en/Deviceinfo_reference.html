@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Deviceinfo reference - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Deviceinfo_reference rootpage-Deviceinfo_reference skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Deviceinfo reference</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Most of the variables in <code>deviceinfo</code> have self-explanatory names and are used both when you are building postmarketOS (edit at <code>.local/var/pmbootstrap/cache_git/pmaports/device/your_device_name/deviceinfo</code> before flashing, and during runtime it is available at <code>/etc/deviceinfo</code>). if edited before flashing, be sure to rebuild the file with <code>pmbootstrap install</code>
+</p>
+<p>All variables start with <code>deviceinfo_</code> in the file - this is omitted here to save space.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#device"><span class="tocnumber">1</span> <span class="toctext">device</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#flash"><span class="tocnumber">2</span> <span class="toctext">flash</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#splash"><span class="tocnumber">3</span> <span class="toctext">splash</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#usb"><span class="tocnumber">4</span> <span class="toctext">usb</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#cgpt"><span class="tocnumber">5</span> <span class="toctext">cgpt</span></a></li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Obsolete_options"><span class="tocnumber">6</span> <span class="toctext">Obsolete options</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#weston"><span class="tocnumber">6.1</span> <span class="toctext">weston</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Device_2"><span class="tocnumber">6.2</span> <span class="toctext">Device</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Flash_2"><span class="tocnumber">6.3</span> <span class="toctext">Flash</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#See_also"><span class="tocnumber">7</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="device">device</span></h2>
+<table class="wikitable sortable">
+<tbody>
+<tr>
+<th>Variable
+</th>
+<th>Description
+</th>
+<th>Possibles values
+</th>
+</tr>
+<tr>
+<td>
+<code>format_version</code>
+</td>
+<td>Used to distinguish between different versions of this file.
+</td>
+<td>
+<code>0</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>name</code>
+</td>
+<td>Device model
+</td>
+<td>e.g. <code>Nokia N900</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>manufacturer</code>
+</td>
+<td>Device manufacturer
+</td>
+<td>e.g. <code>Nokia</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>codename</code>
+</td>
+<td>Device codename
+</td>
+<td>e.g. <code>nokia-n900</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>uboot_boardname</code>
+</td>
+<td>Files for each u-boot board are placed under (<code>/usr/share/u-boot/$uboot_boardname</code> in alpine) directory, if u-boot port for device exists. Maybe obtained from <a rel="nofollow" class="external text" href="https://git.alpinelinux.org/aports/tree/main/u-boot/APKBUILD">board_configs var after : delimiter</a>. A defconfig file exists for each board in u-boot repository in <code>configs/${uboot_boardname}_defconfig</code> file
+</td>
+<td>e.g. <code>pine64-lts</code>
+<p><br>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>year</code>
+</td>
+<td>Release year of the device
+</td>
+<td>e.g. <code>2012</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>chassis</code>
+</td>
+<td>The computer case of your device (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1933">!1933</a>)
+</td>
+<td>e.g. <code>handset</code> for phones, <code>watch</code> (<a rel="nofollow" class="external text" href="https://www.freedesktop.org/software/systemd/man/machine-info.html">all values</a>)
+</td>
+</tr>
+<tr>
+<td>
+<code>keyboard</code>
+</td>
+<td>The device has a hardware keyboard.
+</td>
+<td>
+<code>true</code>, <code>false</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>dtb</code>
+</td>
+<td>Name of the <a href="../en/Glossary.html#dtb" title="Glossary">device tree blob</a> file (only used on mainline kernels). See the option <code>append_dtb</code> on how this is used.
+</td>
+<td>e.g. <code>allwinner/sun50i-a64-pine64-lts</code> or <code>qcom-msm8974-lge-nexus5-hammerhead</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>append_dtb</code>
+</td>
+<td>Set to <code>true</code> if the <code>dtb</code> should be appended to the Linux kernel image, if set to false the <code>dtb</code> will be copied to the <code>/boot</code> partition instead. (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/387">pmaports!387</a>)
+</td>
+<td>
+<code>true</code>, <code>false</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>modules_initfs</code>
+</td>
+<td>Kernel modules to include in the initramfs image. Modules ext4 and usb_f_rndis should not be included in this list, they are always added to the initramfs image if they were built as module (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/673">pmaports!673</a>). Note: modules to be loaded <i>after</i> the initramfs can be specified like in a <code>modules-load.conf</code> (<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/tree/master/aports/device/device-samsung-i9070">example</a>).
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>external_storage</code>
+</td>
+<td>Does the device have an sdcard or other external storage medium?
+</td>
+<td>
+<code>true</code>, <code>false</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_method</code>
+</td>
+<td>Method used to flash the device (<a href="../en/Deviceinfo_flash_methods.html" title="Deviceinfo flash methods">more info</a>)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>arch</code>
+</td>
+<td>Device architecture, must be supported by Alpine Linux
+</td>
+<td>
+<code>armhf</code>, <code>armv7</code>, <code>aarch64</code>, <code>x86</code>, <code>x86_64</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>dev_internal_storage</code>
+</td>
+<td>Path to the internal storage (eMMC) (currently only used by the <a href="../en/On-device_installer.html" title="On-device installer">on-device installer</a>). Only set this if you will use it. (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1820">pmaports!1820</a>)
+</td>
+<td>e.g. <code>/dev/vdb</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>dev_internal_storage_repartition</code>
+</td>
+<td>Allow the internal storage to be repartitioned by postmarketOS in the <a href="../en/On-device_installer.html" title="On-device installer">on-device installer</a>. This makes it possible to install from SD card to eMMC (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1820">pmaports!1820</a>).
+<p><b>This is dangerous and should not be enabled for Android devices!</b> For Android devices, we never change the partition table, because the bootloader expects the <a href="../en/Glossary.html#boot.img" class="mw-redirect" title="Boot.img">boot.img</a> to be at a specific partition and changing the partition scheme would likely result in the original OS not being usable anymore.
+</p>
+</td>
+<td>
+<code>true</code>, <code>false</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>dev_touchscreen</code>
+</td>
+<td>Path to the touchscreen device (only necessary if not automatically detected, <a href="../en/Deviceinfo_dev_touchscreen.html" title="Deviceinfo dev touchscreen">more info</a>)
+</td>
+<td>e.g. <code>/dev/input/event3</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>dev_touchscreen_calibration</code>
+</td>
+<td>Touchscreen calibration values (only necessary for devices with resistive touchscreen, <a href="../en/Screen_Calibration.html#weston-calibrator_.28needed_for_resistive_touch_screens.29" title="Screen Calibration">more info</a>)
+</td>
+<td>e.g. <code>1.094563 -0.020949 -34.586121 0.009427 -1.148506 503.816956</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>keymaps</code>
+</td>
+<td>Lists keymap options that are available for this device, this will be shown as options in the pmbootstrap init command, this will be passed to Alpine's setup-keymap command
+</td>
+<td>
+<code>us/rx51_us ch/rx51_ch it/rx51_it</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>swap_size_recommended</code>
+</td>
+<td>Set recommended swap file size for device. If unset, no swap file will be created for the device.
+</td>
+<td>Integer, in MB.
+</td>
+</tr>
+<tr>
+<td>
+<code>disable_dhcpd</code>
+</td>
+<td>Do not set the static ip to the network interface and do not run the DHCP daemon on it. This makes sense for devices with an ethernet port, like the Raspberry Pi (<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1580">#1580</a>).
+</td>
+<td>
+<code>true</code>, <code>false</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>no_framebuffer</code>
+</td>
+<td>Do not wait up to 10 seconds until a framebuffer device shows up and do not try to configure it (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/44">pmaports!44</a>).
+</td>
+<td>
+<code>true</code>, <code>false</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>initfs_compression</code>
+</td>
+<td>Command used to compress initramfs image (see <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/334">pmaports!334</a>, <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/237">pmaports#237</a>). In practice, every device except for the htc-ace uses the default gzip compression. The new postmarketos-mkinitfs code from 2021-09 does currently not support other compressions than gzip, it ignores the value! <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-mkinitfs/-/issues/2">postmarketos-mkinitfs#2</a>
+</td>
+<td>default: <code>'gzip'</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>getty</code>
+</td>
+<td>Configure a getty on boot. Creates an entry in <code>/etc/inittab</code>
+</td>
+<td>
+<code>&lt;port&gt;;&lt;baudrate&gt;</code><br>e.g. <code>ttyS0;115200</code><br>default: not set
+</td>
+</tr>
+<tr>
+<td>
+<code>mesa_driver</code>
+</td>
+<td>The name of the mesa driver, which will be copied to initramfs to enable hardware acceleration of osk-sdl. Will be resolved to <code>/usr/lib/xorg/modules/dri/${deviceinfo_mesa_driver}_dri.so</code> (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1625">pmaports!1625</a>). When set, the device package must depend on <code>mesa-egl</code>.  Read <a href="../en/Osk-sdl.html#Enable_hardware_acceleration" title="Osk-sdl">this guide</a> to find the proper value.
+</td>
+<td>e.g. <code>sun4i-drm</code>, <code>msm</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>gpu_accelerated</code>
+</td>
+<td>Defines if the device has GPU acceleration support. This property is used by <code>pmbootstrap init</code> to hide UIs which require GPU acceleration if the device lacks such support.
+</td>
+<td>default: <code>false</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>super_partitions</code>
+</td>
+<td>For Androids with dynamic partitions, set the super partition(s) here. See <a href="../en/Android_dynamic_partitions.html" title="Android dynamic partitions">Android dynamic partitions</a> for details.
+</td>
+<td>e.g. <code>/dev/mmcblk0p68 /dev/mmcblk0p69</code>
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="flash">flash</span></h2>
+<p>These are used for flashing and booting the device, and most of them are fastboot specific. <b><a href="../en/How_to_find_device-specific_information.html" class="mw-redirect" title="How to find device specific information">Here is a guide on how to get these values for a specific Android device (by extracting the <code>boot.img</code>)</a></b>
+</p>
+<table class="wikitable sortable">
+<tbody>
+<tr>
+<th>Variable
+</th>
+<th>Description
+</th>
+<th>Possible values
+</th>
+</tr>
+<tr>
+<td>
+<code>flash_offset_kernel</code>
+</td>
+<td>Kernel offset used for flashing
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_offset_ramdisk</code>
+</td>
+<td>Ramdisk offset used for flashing
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_offset_second</code>
+</td>
+<td>Used for flashing
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_offset_tags</code>
+</td>
+<td>Used for flashing
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_offset_base</code>
+</td>
+<td>Used for flashing
+</td>
+<td>default: <code>0x10000000</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_pagesize</code>
+</td>
+<td>Page size
+</td>
+<td>usually <code>2048</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_sparse</code>
+</td>
+<td>Set this to true if your device expects a <a href="../en/Troubleshooting.html#Invalid_sparse_file_format_at_header_magic" title="Troubleshooting">sparse system image</a> flashed
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_sparse_samsung_format</code>
+</td>
+<td>Generate a sparse image according to <a href="../en/Heimdall.html" title="Heimdall">Samsung's own format</a>. Currently the only allowed value is "1". See <a href="../en/Heimdall.html#Possible" title="Heimdall"> solutions for postmarketOS</a> for more informations. <b>In order to work <code>flash_sparse</code> must be set to true in conjuction to this  option</b>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_kernel_on_update</code>
+</td>
+<td>Android devices need the kernel and initramfs to be flashed to a dedicated partition. Set this variable to <code>true</code> to automatically do this with the <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/postmarketos-update-kernel/update-kernel.sh">postmarketos-update-kernel</a> script. Your device package also needs to depend on <code>postmarketos-update-kernel</code>.
+<p><b>This is dangerous and should only be enabled after reading the script and verifying that it works for a given device!</b> Double-check that it will not flash to a wrong partition, otherwise you might render a device unbootable.
+</p>
+<p>Related: <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2215">pmaports!2215</a>
+</p>
+</td>
+<td>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>kernel_cmdline</code>
+</td>
+<td>Kernel command line
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>bootimg_blobpack</code>
+</td>
+<td>Create a flashable blob for the ASUS Transformers from <code>boot.img</code> using <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/asus-transformer-blobtools">BlobTools</a>
+</td>
+<td>
+<code>true, sign, false</code>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>bootimg_mtk_mkimage</code>
+</td>
+<td>Prepend a header required for MediaTek MT6589 phones (such as the <a href="../en/Fairphone_1_(fairphone-fp1).html" title="Fairphone 1 (fairphone-fp1)">Fairphone 1</a>, <a rel="nofollow" class="external text" href="https://web.archive.org/web/20181218141542/http://rex-shen.net/customize-flash-mt6589-rom/">more info</a>)
+</td>
+<td>
+<code>true, false</code>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>bootimg_qcdt</code>
+</td>
+<td>Append <code>dtb</code> file to <code>boot.img</code> (<a href="../en/QCDT.html" class="mw-redirect" title="Deviceinfo bootimg qcdt">more info</a>)
+</td>
+<td>
+<code>true, false</code>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>bootimg_override_payload</code>
+</td>
+<td>File name in mkinitfs working dir to be used
+<p>instead of linux kernel file in android boot image
+</p>
+</td>
+<td>filename, i.e.<code>u-boot.bin</code>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>bootimg_override_initramfs</code>
+</td>
+<td>File name in mkinitfs working dir to be used
+<p>instead of initramfs file in android boot image
+</p>
+</td>
+<td>filename, i.e.<code>boot_image.itb</code>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>bootimg_override_payload_compression</code>
+</td>
+<td>Compression method, used to compress <code>override_payload</code> file.<br>
+<p>Stock bootloader usually expect gzip payload, and fail, if it's not.
+</p>
+</td>
+<td>Compression method, i.e. <code>gzip</code>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>bootimg_override_payload_append_dtb</code>
+</td>
+<td>File name in mkinitfs working dir to be appended to the payload.
+<p>Stock bootloader usually expect dtb
+appended to the payload, and fail, if it's not.<br>
+Usually you should create a dtb with <code>memory</code> and <code>chosen</code> nodes,
+and install it in a place, where mkinifs script will pick it up, for example board's u-boot directory.
+</p>
+</td>
+<td>filename, i.e. <code>dumb.dtb</code>
+</td>
+</tr>
+
+
+
+<tr>
+<td>
+<code>bootimg_dtb_second</code>
+</td>
+<td>Place the <code>dtb</code> in the "second" area of the Android boot image. See <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/700">pmaports!700</a> for details.
+</td>
+<td>
+<code>true, false</code>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>bootimg_append_seandroidenforce</code>
+</td>
+<td>Append <code>SEANDROIDENFORCE</code> file to <code>boot.img</code> See <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1000">pmaports!1000</a> for details.
+</td>
+<td>
+<code>true, false</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>bootimg_pxa</code>
+</td>
+<td>Set this to true if the device is based on the Marvell PXA1088/1908 chipset, which has header layout differences. Makes <code>mkinitfs</code> generate the boot image with a different mkbootimg. <code>pxa-mkbootimg</code> should be added as a dependency to your device package.
+</td>
+<td>
+<code>true, false</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>header_version</code>
+</td>
+<td>Header version of boot image as defined by <a rel="nofollow" class="external text" href="https://source.android.com/devices/bootloader/boot-image-header">Android documentation</a>
+</td>
+<td>Number in range <code>0..4</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>generate_bootimg</code>
+</td>
+<td>Set this to true for fastboot device, so the <code>mkinitfs</code> command will generate a <code>boot.img</code> file after creating the <code>initfs</code>. Add <code>mkbootimg</code> as dependency to your device's APKBUILD!
+</td>
+<td>
+<code>true, false</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>generate_uboot_fit_images</code>
+</td>
+<td>Set "true" to generate U-boot FIT images,
+<p>one image per *.its file in board's u-boot directory
+</p>
+</td>
+<td>
+<code>true, false</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>generate_legacy_uboot_initfs</code>
+</td>
+<td>For the <a href="../en/Nokia_N900_(nokia-n900).html" title="Nokia N900 (nokia-n900)">Nokia N900</a>, we use a legacy version of the <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Das_U-Boot">uboot</a> bootloader right now. When setting this variable to true, the initramfs will generate an uboot legacy compatible initramfs file. Modern versions of uboot can load regular initramfs files.
+</td>
+<td>
+<code>true, false</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>legacy_uboot_load_address</code>
+</td>
+<td>Set a custom load address for the legacy uboot initfs (see <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/578">pmaports!578</a>, only makes sense in combination with <code>generate_legacy_uboot_initfs</code>).
+</td>
+<td>default: <code>80008000</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>legacy_uboot_image_name</code>
+</td>
+<td>Set a custom uboot image name, required by some device bootloaders that expect a specific image name.
+</td>
+<td>default: <code>postmarketos</code>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>flash_fastboot_partition_kernel</code>
+</td>
+<td>Only relevant for <a href="../en/Deviceinfo_flash_methods.html" title="Deviceinfo flash methods">fastboot</a> flash methods, the partition where the kernel or boot.img will be stored (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1741">!1741</a>).
+</td>
+<td>default: <code>"boot"</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_fastboot_partition_system</code>
+</td>
+<td>Only relevant for <a href="../en/Deviceinfo_flash_methods.html" title="Deviceinfo flash methods">fastboot</a> flash methods, the partition where the system image will be stored (see also: <a href="../en/Partition_Layout.html" class="mw-redirect" title="Partition-layout">partition-layout</a>).
+</td>
+<td>default: <code>"system"</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_fastboot_partition_vbmeta</code>
+</td>
+<td>For <a href="../en/Android_Verified_Boot_(AVB).html" title="Android Verified Boot (AVB)">AVB</a> devices: set vbmeta partition to be flashed with a custom vbmeta.img which has verity flag disabled (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1885">!1885</a>).
+</td>
+<td>partition name, e.g. <code>vbmeta</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_fastboot_partition_dtbo</code>
+</td>
+<td>For devices that require dtbo populated: set dtbo partition to be flashed with a custom dtbo.img that's generated by the linux package (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/2099">!2099</a>).
+</td>
+<td>partition name, e.g. <code>dtbo</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_fastboot_max_size</code>
+</td>
+<td>Set this if the fastboot required by your device has an upper limit to the size of system images it will flash.
+</td>
+<td>Size, in MB
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>flash_heimdall_partition_kernel</code>
+</td>
+<td>Only relevant for <a href="../en/Deviceinfo_flash_methods.html" title="Deviceinfo flash methods">heimdall</a> flash methods, the partition where the kernel or boot.img will be stored.
+</td>
+<td>default: <code>"KERNEL"</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_heimdall_partition_initfs</code>
+</td>
+<td>Only relevant for the <a href="../en/Deviceinfo_flash_methods.html#heimdall-isorec" title="Deviceinfo flash methods">heimdall-isorec</a> flash method, the partition where the initramfs will be stored.
+</td>
+<td>default: <code>"RECOVERY"</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_heimdall_partition_system</code>
+</td>
+<td>Only relevant for <a href="../en/Deviceinfo_flash_methods.html" title="Deviceinfo flash methods">heimdall</a> flash methods, the partition where the system image will be stored (see also: <a href="../en/Partition_Layout.html" class="mw-redirect" title="Partition-layout">partition-layout</a>).
+</td>
+<td>default: <code>"SYSTEM"</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_heimdall_partition_vbmeta</code>
+</td>
+<td>For <a href="../en/Android_Verified_Boot_(AVB).html" title="Android Verified Boot (AVB)">AVB</a> devices: set vbmeta partition to be flashed with a custom vbmeta.img which has verity flag disabled (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1936">!1936</a>, <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1885">!1885</a>).
+</td>
+<td>partition name, e.g. <code>VBMETA</code>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<code>flash_rk_partition_kernel</code>
+</td>
+<td>Only relevant for rk flash method, the partition where the kernel will be stored. <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/2165">!2165</a>
+</td>
+<td>e.g. <code>cache</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>flash_rk_partition_system</code>
+</td>
+<td>Only relevant for rk flash method, the partition where the system image will be stored (see also: <a href="../en/Partition_Layout.html" class="mw-redirect" title="Partition-layout">partition-layout</a>). <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/2165">!2165</a>
+</td>
+<td>e.g. <code>userdata</code>
+</td>
+</tr>
+
+<tr>
+<td>
+<code>boot_filesystem</code>
+</td>
+<td>Sets the filesystem used for the /boot partition containing initramfs-extra
+</td>
+<td>default: <code>"ext4"</code>, <code>"fat16"</code>, <code>"fat32"</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>root_filesystem</code>
+</td>
+<td>Sets the filesystem used for the / partition (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/2011">!2011</a>)
+</td>
+<td>default: <code>"ext4"</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>rootfs_image_sector_size</code>
+</td>
+<td>Some devices made after 2016 with UFS storage use 4096 byte sectors and therefore need this option to boot. Read <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1725">!1725</a> for details.
+</td>
+<td>default: <code>512</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>sd_embed_firmware</code>
+</td>
+<td>A comma-separated list of binary:offset (where binary is under /usr/share) (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1739">!1739</a>)
+</td>
+<td>e.g. <code>firmware/librem5dev/u-boot.bin:33,firmware/librem5dev/m4.bin:2</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>sd_embed_firmware_step_size</code>
+</td>
+<td>The number of bytes for each increment of the offset specified in the <code>sd_embed_firmware</code>
+</td>
+<td>default: <code>1024</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>partition_blacklist</code>
+</td>
+<td>A comma-separated list of partitions that should not be flashed, because they brick the device. There are only very few devices where it is necessary (e.g. <a href="../en/Ouya_(ouya-ouya).html" title="Ouya (ouya-ouya)">Ouya</a>). <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1759">!1759</a>
+</td>
+<td>e.g. <code>boot,recovery</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>boot_part_start</code>
+</td>
+<td>Number of sectors from the start of the drive to place the boot partition. Some devices may need this increased, if their bootloader takes up more space (like the Librem 5). (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1856">!1856</a>)
+</td>
+<td>default: <code>2048</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>partition_type</code>
+</td>
+<td>Type of partition table to be generated (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/2160">!2160</a>)
+</td>
+<td>default: <code>msdos</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>mkinitfs_postprocess</code>
+</td>
+<td>A script that runs after generating the initramfs. It gets the path to the generated initramfs file as parameter. An example use case is applying a signature verification hack to a boot.img file for amazon-soho (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2056">pmaports!2056</a>).
+</td>
+<td>e.g. <code>/usr/share/postmarketos-mkinitfs/amazon-omap-boot-hack.sh</code>
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="splash">splash</span></h2>
+<table class="wikitable sortable">
+<tbody>
+<tr>
+<th>Variable
+</th>
+<th>Description
+</th>
+<th>Possibles values
+</th>
+</tr>
+<tr>
+<td>
+<code>screen_width</code>
+</td>
+<td>The width of the display
+</td>
+<td>800, 720, 1440... anything really
+</td>
+</tr>
+<tr>
+<td>
+<code>screen_height</code>
+</td>
+<td>The height of the display
+</td>
+<td>1280, 2560... other
+</td>
+</tr>
+<tr>
+<td>
+<code>framebuffer_landscape</code>
+</td>
+<td>Rotate framebuffer output by 270° (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/530">pmaports!530</a>, <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/546">pmaports!546</a>)
+</td>
+<td>
+<code>true</code>, <code>false</code> (default)
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="usb">usb</span></h2>
+<p>Change how the target device shows up when connected with USB to a host PC. <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/706">pmaports!706</a> added support for these variables in the mkinitfs script, when using the configfs network method.
+</p>
+<table class="wikitable sortable">
+<tbody>
+<tr>
+<th>Variable
+</th>
+<th>Description
+</th>
+<th>Default
+</th>
+</tr>
+<tr>
+<td>
+<code>usb_idVendor</code>
+</td>
+<td>Vendor ID
+</td>
+<td>
+<code>0x18D1</code> ("Google Inc.")
+</td>
+</tr>
+<tr>
+<td>
+<code>usb_idProduct</code>
+</td>
+<td>Product ID
+</td>
+<td>
+<code>0xD001</code> ("Nexus 4 (fastboot)")
+</td>
+</tr>
+<tr>
+<td>
+<code>usb_serialnumber</code>
+</td>
+<td>Device's serial number string
+</td>
+<td>
+<code>postmarketOS</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>usb_rndis_function</code>
+</td>
+<td>Name of the rndis function, which may be different in some downstream kernels. The function is always located in <code>/config/usb_gadget/g1/functions/</code>
+</td>
+<td>
+<code>rndis.usb0</code>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The correct IDs can be seen in <code>init.*.usb.rc</code> of Android/TWRP sources for that device (or directly in rootfs, boot into twrp and see)
+OR plug in device running stock Android/TWRP and watch dmesg for things like
+</p>
+<pre>[    3.939519] usb 1-2.4: New USB device found, idVendor=2717, idProduct=ff40, bcdDevice= 4.14
+[    3.939521] usb 1-2.4: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[    3.939521] usb 1-2.4: Product: MI 9
+[    3.939522] usb 1-2.4: Manufacturer: Xiaomi</pre>
+<h2><span class="mw-headline" id="cgpt">cgpt</span></h2>
+<p>These variables are used with ChromeOS devices (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/2163">pmbootstrap!2163</a>).
+</p>
+<table class="wikitable sortable">
+<tbody>
+<tr>
+<th>Variable
+</th>
+<th>Description
+</th>
+<th>Possible values
+</th>
+</tr>
+<tr>
+<td>
+<code>cgpt_kpart</code>
+</td>
+<td>Path to the file to be written to kernel partition
+</td>
+<td>e.g. <code>/usr/share/u-boot/google-peach-pit/u-boot-dtb.img.kpart</code>, <code>/boot/vmlinuz.kpart</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>cgpt_kpart_start</code>
+</td>
+<td>Number of sectors from the start of the drive to place the kernel partition
+</td>
+<td>e.g. <code>8192</code>
+</td>
+</tr>
+<tr>
+<td>
+<code>cgpt_kpart_size</code>
+</td>
+<td>Size of kernel partition
+</td>
+<td>e.g. <code>32768</code>
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="Obsolete_options">Obsolete options</span></h2>
+<h3><span class="mw-headline" id="weston">weston</span></h3>
+<ul>
+<li>
+<code>weston_pixman_type</code>: used to be a Weston specific workaround for the "red screen bug" (<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/54">#54</a>): we patched Weston to accept a <code>--pixman-type</code> argument to override the framebuffer mode that the kernel driver reports. However, this patch was quickly incompatible with future changes in Weston, and it is not as good as <a href="../en/Troubleshooting:display.html#My_screen_is_red.21" title="Troubleshooting:display">patching the kernel to report the right framebuffer mode</a>, so it was removed (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/136">pmaports#136</a>).</li>
+<li>Various options from <a rel="nofollow" class="external text" href="https://manpages.debian.org/unstable/weston/weston.ini.5.en.html">weston.ini</a> used to be duplicated, but this was removed in <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/739">#739</a>. If you need to set weston specific options from your device (such as the output backend or the keymap), please add a weston.ini file to your pmaport (<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/e7dfe9b9041f0c2ec94295df16afeeec1d9bafd8/aports/device/device-nokia-rx51/APKBUILD#L66-L70">example</a>).</li>
+</ul>
+<h3><span class="mw-headline" id="Device_2">Device</span></h3>
+<ul>
+<li>
+<code>nonfree</code>: Components of the device, that only run with closed source firmware. This is now legacy due to nobody uses it. (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/438">pmaports#438</a>)</li>
+<li>
+<code>dev_keyboard</code>: Originally intended to point osk-sdl to the hardware keyboard, but was never used. (It should detect hardware keyboards automatically...)</li>
+</ul>
+<h3><span class="mw-headline" id="Flash_2">Flash</span></h3>
+<ul><li>
+<code>flash_fastboot_vendor_id</code>: fastboot used to have a <code>-i</code> option, but this was removed (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1830">#1830</a>). Since we only had one device using this and nobody to verify if the option is really needed with this device, we decided to remove it. If you are interested in bringing it back, please create a new issue.</li></ul>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li><a href="../en/Device_specific_package.html" title="Device specific package">Device specific package</a></li></ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Deviceinfo_reference&amp;oldid=28150">https://wiki.postmarketos.org/index.php?title=Deviceinfo_reference&amp;oldid=28150</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 2 June 2022, at 03:45.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Deviceinfo_reference&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

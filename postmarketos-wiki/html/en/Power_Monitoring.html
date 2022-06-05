@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Power Monitoring - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Power_Monitoring rootpage-Power_Monitoring skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Power Monitoring</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Powersupply_.28GTK3_tool.29"><span class="tocnumber">1</span> <span class="toctext">Powersupply (GTK3 tool)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Links"><span class="tocnumber">1.1</span> <span class="toctext">Links</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Powerstat"><span class="tocnumber">2</span> <span class="toctext">Powerstat</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Links_2"><span class="tocnumber">2.1</span> <span class="toctext">Links</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2>
+<span id="Powersupply_(GTK3_tool)"></span><span class="mw-headline" id="Powersupply_.28GTK3_tool.29">Powersupply (GTK3 tool)</span>
+</h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;">
+<a href="../Screenshot-powersupply-in-sway-on-pinephone.png" class="image"><img alt="" src="../Screenshot-powersupply-in-sway-on-pinephone.png" decoding="async" width="200" height="389" class="thumbimage" srcset="../300px-Screenshot-powersupply-in-sway-on-pinephone.png 1.5x ../400px-Screenshot-powersupply-in-sway-on-pinephone.png 2x"></a>  <div class="thumbcaption">
+<div class="magnify"><a href="../Screenshot-powersupply-in-sway-on-pinephone.png" class="internal" title="Enlarge"></a></div>Screenshot of "powersupply"</div>
+</div></div>
+<p>A Gtk3 based application displaying the current battery status, charging power, and other related information:
+</p>
+<p><b>Install:</b>
+</p>
+<pre> apk add powersupply
+</pre>
+<p><b>Run:</b>
+</p>
+<pre> powersupply
+</pre>
+<h3><span class="mw-headline" id="Links">Links</span></h3>
+<ul><li><a rel="nofollow" class="external text" href="https://gitlab.com/MartijnBraam/powersupply">Homepage</a></li></ul>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Powerstat">Powerstat</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:402px;">
+<a href="../Screenshot-powerstat-on-pinephone.png" class="image"><img alt="" src="../Screenshot-powerstat-on-pinephone.png" decoding="async" width="400" height="440" class="thumbimage" srcset="../600px-Screenshot-powerstat-on-pinephone.png 1.5x ../powerstat-on-pinephone.png 2x"></a>  <div class="thumbcaption">
+<div class="magnify"><a href="../Screenshot-powerstat-on-pinephone.png" class="internal" title="Enlarge"></a></div>Screenshot of a terminal session running "powerstat"</div>
+</div></div>
+<p>A shell tool which gathers power consumption along with other statistics such as system load, number of context switches etc.
+</p>
+<p>Only works while running on battery power.
+</p>
+<p>Can also monitor GPU power consumption, but that is not of much use for phones, since it only supports Intel GPUs (at the time of this writing).
+</p>
+<p><b>Install:</b>
+No package yet. Download tarball from <a rel="nofollow" class="external text" href="https://kernel.ubuntu.com/~cking/tarballs/powerstat/">here</a> or:
+</p>
+<pre> git clone <a rel="nofollow" class="external free" href="https://github.com/ColinIanKing/powerstat.git">https://github.com/ColinIanKing/powerstat.git</a>
+ cd powerstat
+ make
+ make install
+</pre>
+<p><b>Run:</b>
+</p>
+<pre> powerstat
+</pre>
+<p>See
+</p>
+<pre> man powerstat
+</pre>
+<p>for more options.
+</p>
+<h3><span class="mw-headline" id="Links_2">Links</span></h3>
+<p><a rel="nofollow" class="external text" href="https://kernel.ubuntu.com/~cking/powerstat/">Homepage</a>
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Power_Monitoring&amp;oldid=27030">https://wiki.postmarketos.org/index.php?title=Power_Monitoring&amp;oldid=27030</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 18 April 2022, at 18:28.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Power_Monitoring&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

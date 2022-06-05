@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Android dynamic partitions - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Android_dynamic_partitions rootpage-Android_dynamic_partitions skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Android dynamic partitions</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Devices running Android 10 and later versions implement the <a rel="nofollow" class="external text" href="https://source.android.com/devices/tech/ota/dynamic_partitions">dynamic partitioning scheme</a>. With dynamic partitioning, multiple logical partitions are defined in a single "super" partition. They behave very much like Linux LVM, being flexible and easy to change around. However, dynamic partitioning follows a different format from LVM.
+</p>
+<p>PostmarketOS does not support dynamic partitioning out of the box, but it can through some changes to the <a href="../en/Device_specific_package.html" title="Device specific package">device specific package</a>.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Adding_support_for_dynamic_partitions_to_your_port"><span class="tocnumber">1</span> <span class="toctext">Adding support for dynamic partitions to your port</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Retrofit_or_single_super_partition.3F"><span class="tocnumber">1.1</span> <span class="toctext">Retrofit or single super partition?</span></a></li>
+<li class="toclevel-2 tocsection-3">
+<a href="#Retrofit_Devices"><span class="tocnumber">1.2</span> <span class="toctext">Retrofit Devices</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Special_cases"><span class="tocnumber">1.2.1</span> <span class="toctext">Special cases</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-5"><a href="#Devices_launching_with_Android_10"><span class="tocnumber">1.3</span> <span class="toctext">Devices launching with Android 10</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Finding_the_device_nodes"><span class="tocnumber">1.4</span> <span class="toctext">Finding the device nodes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Flashing_to_a_device_with_dynamic_partitioning"><span class="tocnumber">2</span> <span class="toctext">Flashing to a device with dynamic partitioning</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Preserving_fastbootd"><span class="tocnumber">2.1</span> <span class="toctext">Preserving fastbootd</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#See_also"><span class="tocnumber">3</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Adding_support_for_dynamic_partitions_to_your_port">Adding support for dynamic partitions to your port</span></h2>
+<p>There are a few changes you need to make to the device package:
+</p>
+<ul>
+<li>add <code>make-dynpart-mappings</code> to the dependencies in the APKBUILD</li>
+<li>set <code>deviceinfo_super_partitions</code> in deviceinfo to a certain value</li>
+<li>regenerate the checksums</li>
+<li>rebuild the device package and everything related to updating it</li>
+</ul>
+<p>There is no single correct value for deviceinfo_super_partitions, hence the need for it as a configuration value. Below is a guide to determine the appropriate value for deviceinfo_super_partitions.
+</p>
+<h3>
+<span id="Retrofit_or_single_super_partition?"></span><span class="mw-headline" id="Retrofit_or_single_super_partition.3F">Retrofit or single super partition?</span>
+</h3>
+<p>The super partitions are different for devices that launched before Android 10, called retrofit devices, and devices launching with Android 10 or higher.
+</p>
+<h3><span class="mw-headline" id="Retrofit_Devices">Retrofit Devices</span></h3>
+<p>For retrofit devices, old A/B partitions are re-purposed into a single "virtual" super partition, usually the system_a, system_b, vendor_a, vendor_p and product partitions, but it can vary between devices. Which partitions are used is specified in the <code>BOARD_SUPER_PARTITION_BLOCK_DEVICES</code> variable in the devices BoardConfig*.mk but you only need to specify the partitions with the metadata (see below).
+</p>
+<h4><span class="mw-headline" id="Special_cases">Special cases</span></h4>
+<p>On retrofit devices, the device manufacturer has the option to specify different super partitions. If your device has a <a rel="nofollow" class="external text" href="https://github.com/orgs/LineageOS/repositories?q=android_device_&amp;type=all&amp;language=&amp;sort=">https://github.com/LineageOS/android_device_*</a> repository, you can look for the value of <code>BOARD_SUPER_PARTITION_METADATA_DEVICE</code> in the board configuration (i.e. BoardConfig*.mk). If it is unspecified, then it is probably "system", otherwise you can use the value you found. It can also be found on the kernel command line, as the argument to the option "androidboot.super_partition". You may need to add both slot suffixes and find each physical partition (e.g. "system_a" and "system_b").
+</p>
+<h3><span class="mw-headline" id="Devices_launching_with_Android_10">Devices launching with Android 10</span></h3>
+<p>For devices launching with Android 10 have a single super partition called "super". If your device has A/B seamless update, or you are not sure, then you should specify the same super partition twice.
+</p>
+<h3><span class="mw-headline" id="Finding_the_device_nodes">Finding the device nodes</span></h3>
+<p>On Android, there are symlinks to the appropriate device nodes in <code>/dev/block/by-name/</code>. You can use the adb root shell to find the device node names of your super partitions:
+</p>
+<pre>$ adb root
+$ adb shell
+(device hostname):/# readlink /dev/block/by-name/super | basename
+mmcblk0p127
+(device hostname):/# readlink /dev/block/by-name/system_a | basename
+mmcblk0p68
+(device hostname):/# readlink /dev/block/by-name/system_b | basename
+mmcblk0p69
+(device hostname):/# exit
+</pre>
+<p>You can then use the output to determine the appropriate value of deviceinfo_super_partitions by prepending <code>/dev/</code> to each partition:
+</p>
+<pre># for a retrofit device
+deviceinfo_super_partitions="/dev/mmcblk0p68 /dev/mmcblk0p69"
+# for a device with the single super partition
+deviceinfo_super_partitions="/dev/mmcblk0p127 /dev/mmcblk0p127"
+</pre>
+<h2><span class="mw-headline" id="Flashing_to_a_device_with_dynamic_partitioning">Flashing to a device with dynamic partitioning</span></h2>
+<p>Dynamic partitions are only supposed to be flashed in fastbootd, as opposed to the bootloader fastboot. To get to fastbootd from the bootloader fastboot, run:
+</p>
+<pre>$ fastboot reboot fastboot
+</pre>
+<h3><span class="mw-headline" id="Preserving_fastbootd">Preserving fastbootd</span></h3>
+<p>Since fastbootd is in userspace, you should have a recovery (custom or Android stock recovery) ready, either on the target device, or on the device responsible for flashing. If your device stores the recovery on the boot partition, then fastbootd will be overwritten when you flash the pmOS kernel. You could try to preserve the boot partition of one of the slots on the device or flash a recovery image every time you want to modify the dynamic partitions.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://source.android.com/devices/tech/ota/dynamic_partitions/implement">Implementing dynamic partitions (contains notable Android configuration to look for)</a></li>
+<li><a rel="nofollow" class="external text" href="https://source.android.com/devices/bootloader/fastbootd">Useful fastboot commands related to dynamic partitions and fastbootd</a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/flamingradian/make-dynpart-mappings">Implementation of dynamic partitioning in postmarketOS</a></li>
+<li>Merge request for dynamic partitioning support: <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3088">pmaports!3088</a>
+</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Android_dynamic_partitions&amp;oldid=27890">https://wiki.postmarketos.org/index.php?title=Android_dynamic_partitions&amp;oldid=27890</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 20 May 2022, at 21:46.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Android_dynamic_partitions&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

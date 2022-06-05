@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Using prebuilt kernels - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Using_prebuilt_kernels rootpage-Using_prebuilt_kernels skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Using prebuilt kernels</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Some vendors do not release the kernel source code, which is very bad for freedom and goes against the Linux kernel license (see <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Troubleshooting#My_device_runs_the_Linux_kernel_.28e.g._Android.29.2C_but_the_vendor_does_not_provide_the_source">My device runs the Linux kernel (e.g. Android), but the vendor does not provide the source</a> in the Troubleshooting page).
+</p>
+<p>But you can still extract the kernel image from a device that is running Android and use it to run postmarketOS. Of course this is <i>totally discouraged</i> because we want to make sure that we know the code our devices are running but you might find it useful in order to start hacking on postmarketOS without having the kernel source code.
+</p>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Do please note that a port like this won't be merged.</td>
+</tr></tbody></table>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Extracting_boot.img_from_an_Android_device"><span class="tocnumber">1</span> <span class="toctext">Extracting boot.img from an Android device</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Running_postmarketOS_with_a_pre-built_kernel"><span class="tocnumber">2</span> <span class="toctext">Running postmarketOS with a pre-built kernel</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Maybe_we_can_chainload_the_pmOS_kernel.3F"><span class="tocnumber">3</span> <span class="toctext">Maybe we can chainload the pmOS kernel?</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Useful_links"><span class="tocnumber">4</span> <span class="toctext">Useful links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Extracting_boot.img_from_an_Android_device">Extracting boot.img from an Android device</span></h2>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">In this example the boot partition is named <code>msm_sdcc.1</code> but it might have a different name for your device.</td>
+</tr></tbody></table>
+<p>You can extract the kernel that is running your Android device, it doesn't matter if it's the stock ROM, LineageOS or any custom ROM. For this approach you need the <code>adb</code> tool and root permissions.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># Connect to your Android device</span>
+adb shell
+
+<span class="c1"># Find the partition name</span>
+ls -l /dev/block/platform/
+ls -l /dev/block/platform/msm_sdcc.1/by-name
+
+<span class="c1"># From there we know that the boot partition is /dev/block/mmcblk0p14</span>
+<span class="c1"># Now we just dump the partition to a file (we need root permissions)</span>
+<span class="c1">#</span>
+<span class="c1"># Note: You may have to exit from adb and start it again with `adb root`</span>
+<span class="c1">#   if the `su` command fails.</span>
+su
+cat /dev/block/mmcblk0p14 &gt; /sdcard/boot.img
+chmod <span class="m">0666</span> /sdcard/boot.img
+
+<span class="c1"># Exit from adb and copy boot.img to your computer</span>
+adb pull /sdcard/boot.img .
+</pre></div>
+<h2><span class="mw-headline" id="Running_postmarketOS_with_a_pre-built_kernel">Running postmarketOS with a pre-built kernel</span></h2>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Generating an initramfs when your device is not ported yet: Pick a similar device in <code>pmbootstrap init</code> and <a href="../en/Installation_guide.html#pmbootstrap_install" title="Installation guide">run install</a>.</td>
+</tr></tbody></table>
+<p>You can use <code>unpackbootimg</code> (usage is described in <a href="../en/How_to_find_device-specific_information.html#Fastboot_.28boot.img.29_flash_offsets" class="mw-redirect" title="How to find device specific information">here</a>) to extract the kernel from your recently extracted boot.img or from a LineageOS release and run it together with postmarketOS initramfs.
+</p>
+<p>If you extracted the kernel from you Stock ROM, it might not have encryption support enabled and in this case you would not be able to boot from an encrypted partition. You might need other modules as well for pmOS to work properly.
+</p>
+<p>You then have two options:
+</p>
+<ul>
+<li>Either you repack the boot.img with working prebuilt kernel and ramdisk (= initramfs) from postmarketOS (using <code>mkbootimg</code>) and flash it</li>
+<li>Or you boot everything from <code>fastboot</code> :</li>
+</ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># fastboot boot &lt;kernel&gt; [ &lt;ramdisk&gt; ]</span>
+fastboot boot <span class="se">\</span>
+uncompressed_boot/boot.img-zImage <span class="se">\</span>
+~/.local/var/pmboostrap/chroot_rootfs-XXX-XXXX/boot/initramfs-lg-hammerhead
+</pre></div>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">For HTC devices you may need to specify the base address, see <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/145">#145</a>
+</td>
+</tr></tbody></table>
+<p>Note that the <b>fastboot boot</b> command loads kernel (and eventually the ramdisk) in memory and does not write anything on partitions. 
+</p>
+<p>Immediately after downloading kernel (and eventually the ram disk) in memory, it tries to boot it. If nothing happens, your device is frozen. You just have to remove battery to restart with your original kernel or do a force reboot.
+</p>
+<h2>
+<span id="Maybe_we_can_chainload_the_pmOS_kernel?"></span><span class="mw-headline" id="Maybe_we_can_chainload_the_pmOS_kernel.3F">Maybe we can chainload the pmOS kernel?</span>
+</h2>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">User forkbomb successfully booted a <a rel="nofollow" class="external text" href="https://postmarketos.org/blog/2017/12/31/219-days-of-postmarketOS/#mainline-linux-kernel">bunch of Samsungs</a> <a rel="nofollow" class="external text" href="https://blog.forkwhiletrue.me/posts/kexec-on-galaxy-s3/">with kexec</a> into a mainline kernel!</td>
+</tr></tbody></table>
+<p>Linux kernels can load other kernels via the <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Kexec">kexec</a> syscall. The deal is, that signed bootloaders only allow signed kernels. But what if we repackaged the signed kernel with our own initramfs, that loads our own kernel via kexecboot from the boot subpartition? Not sure if this will work because of SELinux etc, but if it did, it would be a nice way to get around the bootloader's signed kernel enforcement! <b>If you have an usecase for this, please open a ticket to discuss this further.</b>
+</p>
+<p>More research showed, that the <code>kexec</code> syscall is usually disabled in such kernels. However, it could be possible to do <code>kexec</code> without it being enabled in the kernel (such as it has been done in the PS4 hack, where a kexec gets done on the PS4's BSD kernel, which does obviously not support this feature, to load a Linux kernel). This is <i>a lot</i> of work, but it would be an impressive hack!
+</p>
+<p>kexec is also used by <a rel="nofollow" class="external text" href="https://forum.xda-developers.com/showthread.php?t=2011403">MultiROM</a> in order to allow users to choose which ROM to boot up. For MultiROM support in pmbootstrap, see <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/issues/421">issue #421</a>.
+</p>
+<h2><span class="mw-headline" id="Useful_links">Useful links</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://github.com/lygstate/lygstate.github.com/blob/master/_posts/2014-03-10-Extract-boot.img-from-an-android-device.md">2014-03-10-Extract-boot.img-from-an-android-device.md</a></li>
+<li><a rel="nofollow" class="external text" href="http://android-dls.com/wiki/index.php?title=HOWTO:_Unpack%2C_Edit%2C_and_Re-Pack_Boot_Images">HOWTO: Unpack, Edit, and Re-Pack Boot Images</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Using_prebuilt_kernels&amp;oldid=20562">https://wiki.postmarketos.org/index.php?title=Using_prebuilt_kernels&amp;oldid=20562</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 10 July 2021, at 07:23.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Using_prebuilt_kernels&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

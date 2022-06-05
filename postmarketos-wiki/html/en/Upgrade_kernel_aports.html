@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Upgrade kernel aports - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Upgrade_kernel_aports rootpage-Upgrade_kernel_aports skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Upgrade kernel aports</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This article is a step-by-step guide for upgrading kernel aports in postmarketOS, where we have postmarketOS specific patches on top of the package. linux-postmarketos-allwinner is used as example.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Clone_the_repository"><span class="tocnumber">1</span> <span class="toctext">Clone the repository</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Fetch_new_patches"><span class="tocnumber">2</span> <span class="toctext">Fetch new patches</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Find_the_new_upstream_version"><span class="tocnumber">3</span> <span class="toctext">Find the new upstream version</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Checkout_the_new_version"><span class="tocnumber">4</span> <span class="toctext">Checkout the new version</span></a></li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Apply_existing_patches"><span class="tocnumber">5</span> <span class="toctext">Apply existing patches</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Patch_doesn.27t_apply"><span class="tocnumber">5.1</span> <span class="toctext">Patch doesn't apply</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Update_the_patch_files"><span class="tocnumber">6</span> <span class="toctext">Update the patch files</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Clone_the_repository">Clone the repository</span></h3>
+<p>Clone the Linux source (if you don't have it already) and add the source of the kernel you are about to update as remote repository.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git linux
+<span class="gp">$</span> <span class="nb">cd</span> linux
+<span class="gp">$</span> git remote add megi https://github.com/megous/linux.git
+</pre></div>
+<h3><span class="mw-headline" id="Fetch_new_patches">Fetch new patches</span></h3>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git fetch megi
+</pre></div>
+<h3><span class="mw-headline" id="Find_the_new_upstream_version">Find the new upstream version</span></h3>
+<p>Either find the branch or tag scheme where the new version to package can be found by looking at the APKBUILD. In case of megi's kernel, we have tags and can list them with:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git tag <span class="p">|</span> grep orange-pi
+<span class="go">orange-pi-2020-10-19</span>
+<span class="go">orange-pi-5.10-20201102-0305</span>
+<span class="go">orange-pi-5.9-20201019-1553</span>
+<span class="go">orange-pi-5.9-20201031-1727</span>
+<span class="go">orange-pi-5.9-20201101-205</span>
+</pre></div>
+<p>The new tag needs to be inserted into the APKBUILD. If the kernel doesn't have tags, find the latest commit of the relevant branch with <code>git log BRANCHNAME</code>.
+</p>
+<h3><span class="mw-headline" id="Checkout_the_new_version">Checkout the new version</span></h3>
+<p>Checkout a branch called <code>postmarketos-upgrade</code> and reset it to the new upstream tag or branch:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git checkout -b postmarketos-upgrade
+<span class="go">Switched to a new branch 'postmarketos-upgrade'</span>
+<span class="gp">$</span> git reset --hard orange-pi-5.9-20201101-2057
+<span class="go">Updating files: 100% (1234/1234), done.</span>
+<span class="go">HEAD is now at 8504203b708b usb: musb: Fix runtime PM race in musb_queue_resume_work</span>
+</pre></div>
+<h3><span class="mw-headline" id="Apply_existing_patches">Apply existing patches</span></h3>
+<p>Apply the patches from the package to the newer Linux tree
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git am <span class="k">$(</span>pmbootstrap -q config work<span class="k">)</span>/cache_git/pmaports/device/main/linux-postmarketos-allwinner/*.patch
+<span class="go">Applying: dts: add dontbeevil (pinephone devkit)</span>
+</pre></div>
+<h4>
+<span id="Patch_doesn't_apply"></span><span class="mw-headline" id="Patch_doesn.27t_apply">Patch doesn't apply</span>
+</h4>
+<p>If a patch does not apply, it looks like this:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git am /tmp/p/0010*.patch
+<span class="go">Applying: usb: musb: avoid the hang in musb_pm_runtime_check_session</span>
+<span class="go">error: patch failed: drivers/usb/musb/musb_core.c:2005</span>
+<span class="go">error: drivers/usb/musb/musb_core.c: patch does not apply</span>
+<span class="go">Patch failed at 0001 usb: musb: avoid the hang in musb_pm_runtime_check_session</span>
+<span class="go">hint: Use 'git am --show-current-patch' to see the failed patch</span>
+<span class="go">When you have resolved this problem, run "git am --continue".</span>
+<span class="go">If you prefer to skip this patch, run "git am --skip" instead.</span>
+<span class="go">To restore the original branch and stop patching, run "git am --abort".</span>
+</pre></div>
+<p>Use <code>git am --show-current-patch</code> to look at the patch and use <code>git log</code> or <code>git log -p</code> to verify if it was already applied to the source tree. In that case, you can skip the patch (<code>git am --skip</code>).
+</p>
+<h3><span class="mw-headline" id="Update_the_patch_files">Update the patch files</span></h3>
+<p>In the linux source tree:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git checkout orange-pi-5.9-20201101-2057
+<span class="gp">$</span> <span class="k">for</span> patch in ~/path-to-the-aport/*.patch<span class="p">;</span> <span class="k">do</span> git am <span class="s2">"</span><span class="nv">$patch</span><span class="s2">"</span><span class="p">;</span> <span class="k">done</span>
+<span class="gp">$</span> rm -r /tmp/p
+<span class="gp">$</span> git format-patch orange-pi-5.9-20201101-2057 -N -o /tmp/p
+<span class="go">/tmp/p/0001-dts-add-dontbeevil-pinephone-devkit.patch</span>
+<span class="go">/tmp/p/0002-dts-add-pinetab-dev-old-display-panel.patch</span>
+<span class="go">/tmp/p/0003-Disable-8723cs-power-saving.patch</span>
+<span class="go">/tmp/p/0004-media-gc2145-Added-BGGR-bayer-mode.patch</span>
+<span class="go">/tmp/p/0005-dts-pinephone-Disable-flash-led-in-OV5640-node.patch</span>
+<span class="go">/tmp/p/0006-dts-pinetab-add-missing-bma223-ohci1.patch</span>
+<span class="go">/tmp/p/0007-dts-pinetab-make-audio-routing-consistent-with-pinep.patch</span>
+<span class="go">/tmp/p/0008-arm64-dts-allwinner-Add-bluetooth-node-to-the-PineTa.patch</span>
+<span class="go">/tmp/p/0009-dts-pinephone-remove-bt-firmware-suffix.patch</span>
+</pre></div>
+<p>In the pmaport dir:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> rm *.patch
+<span class="gp">$</span> cp /tmp/p/*.patch .
+<span class="gp">$</span> ls -1 *.patch
+<span class="go">0001-dts-add-dontbeevil-pinephone-devkit.patch</span>
+<span class="go">0002-dts-add-pinetab-dev-old-display-panel.patch</span>
+<span class="go">0003-Disable-8723cs-power-saving.patch</span>
+<span class="go">0004-media-gc2145-Added-BGGR-bayer-mode.patch</span>
+<span class="go">0005-dts-pinephone-Disable-flash-led-in-OV5640-node.patch</span>
+<span class="go">0006-dts-pinetab-add-missing-bma223-ohci1.patch</span>
+<span class="go">0007-dts-pinetab-make-audio-routing-consistent-with-pinep.patch</span>
+<span class="go">0008-arm64-dts-allwinner-Add-bluetooth-node-to-the-PineTa.patch</span>
+<span class="go">0009-dts-pinephone-remove-bt-firmware-suffix.patch</span>
+</pre></div>
+<p>Update the <code>source=</code> in the APKBUILD and run <code>pmbootstrap checksum</code>.
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Upgrade_kernel_aports&amp;oldid=26279">https://wiki.postmarketos.org/index.php?title=Upgrade_kernel_aports&amp;oldid=26279</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 15 March 2022, at 10:52.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Upgrade_kernel_aports&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

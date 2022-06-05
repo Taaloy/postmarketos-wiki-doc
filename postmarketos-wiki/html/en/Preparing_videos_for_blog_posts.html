@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Preparing videos for blog posts - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Preparing_videos_for_blog_posts rootpage-Preparing_videos_for_blog_posts skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Preparing videos for blog posts</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Here's a short cheat sheet of how to get videos ready for blog posts. We convert them to the widely supported <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/webm">webm</a> (<a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/mp4">mp4</a> will for example not work on Fedora out of the box), and create short and smaller video thumbnails. These thumbnails will be embedded into the blog post directly as little animated pictures, just like gifs, but much more size efficient.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Convert_to_webm"><span class="tocnumber">1</span> <span class="toctext">Convert to webm</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Shorten"><span class="tocnumber">2</span> <span class="toctext">Shorten</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Scale_down"><span class="tocnumber">3</span> <span class="toctext">Scale down</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Add_bottom_text"><span class="tocnumber">4</span> <span class="toctext">Add bottom text</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Merge_multiple_videos"><span class="tocnumber">5</span> <span class="toctext">Merge multiple videos</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Embed_into_a_post"><span class="tocnumber">6</span> <span class="toctext">Embed into a post</span></a></li>
+</ul>
+</div>
+
+<h4><span class="mw-headline" id="Convert_to_webm">Convert to webm</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ffmpeg -i video.mp4 video.webm
+</pre></div>
+<h4><span class="mw-headline" id="Shorten">Shorten</span></h4>
+<p>Start at 10 seconds and cut after the next 5 seconds:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ffmpeg -ss <span class="m">00</span>:10:00 -i video.webm -c copy -t <span class="m">00</span>:00:05 video-short.webm
+</pre></div>
+<h4><span class="mw-headline" id="Scale_down">Scale down</span></h4>
+<p>Resize to 300x533 px:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ffmpeg -y -i video-short.webm -vf <span class="nv">scale</span><span class="o">=</span><span class="m">300</span>:533 video-thumb.webm
+</pre></div>
+<h4><span class="mw-headline" id="Add_bottom_text">Add bottom text</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh -e</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$#</span><span class="s2">"</span> -ne <span class="m">3</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">"usage: </span><span class="k">$(</span>basename <span class="nv">$0</span><span class="k">)</span><span class="s2"> input output text"</span>
+        <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="nb">set</span> -x
+<span class="nv">font</span><span class="o">=</span><span class="s2">"/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"</span>
+ffmpeg -i <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> -vf <span class="nv">drawtext</span><span class="o">=</span><span class="s2">"fontfile=</span><span class="nv">$font</span><span class="s2">: \</span>
+<span class="s2">        text=\'</span><span class="nv">$3</span><span class="s2">\': fontcolor=white: fontsize=24: box=1: boxcolor=black@0.5: \</span>
+<span class="s2">        boxborderw=5: x=(w-text_w)/2: y=h-text_h-15"</span> -codec:a copy <span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span>
+</pre></div>
+<h4><span class="mw-headline" id="Merge_multiple_videos">Merge multiple videos</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh -e</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$#</span><span class="s2">"</span> -lt <span class="m">1</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">"usage: </span><span class="k">$(</span>basename <span class="nv">$0</span><span class="k">)</span><span class="s2"> video1 video2 video3 ..."</span>
+        <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="nb">set</span> -x
+<span class="o">{</span>
+        <span class="k">for</span> i in <span class="nv">$@</span><span class="p">;</span> <span class="k">do</span>
+                <span class="nb">echo</span> <span class="s2">"file </span><span class="nv">$i</span><span class="s2">"</span>
+        <span class="k">done</span>
+<span class="o">}</span> &gt; inputlist
+
+ffmpeg -f concat -i inputlist -c copy merged.webm
+</pre></div>
+<h4><span class="mw-headline" id="Embed_into_a_post">Embed into a post</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="p">&lt;</span><span class="nt">video</span> <span class="na">controls</span> <span class="na">width</span><span class="o">=</span><span class="s">"300"</span> <span class="na">height</span><span class="o">=</span><span class="s">"533"</span> <span class="na">class</span><span class="o">=</span><span class="s">"border"</span> <span class="na">autoplay</span><span class="o">=</span><span class="s">"autoplay"</span> <span class="na">loop</span> <span class="na">mute</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">source</span> <span class="na">src</span><span class="o">=</span><span class="s">"/static/video/2019-00/video-thumb.webm"</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"/static/video/2019-00/video.webm"</span><span class="p">&gt;</span>Description of the video here<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span>
+</pre></div>
+<p>Make sure to embed the link to the full video somewhere in the text related to the video:
+</p>
+<pre>Some text talking about the video ([video](/static/video/2019-00/video.webm)).
+</pre>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Preparing_videos_for_blog_posts&amp;oldid=7238">https://wiki.postmarketos.org/index.php?title=Preparing_videos_for_blog_posts&amp;oldid=7238</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 16 June 2019, at 15:29.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Preparing_videos_for_blog_posts&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

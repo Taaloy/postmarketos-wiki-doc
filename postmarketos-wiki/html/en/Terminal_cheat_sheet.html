@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Terminal cheat sheet - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Terminal_cheat_sheet rootpage-Terminal_cheat_sheet skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Terminal cheat sheet</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="thumb tright"><div class="thumbinner" style="width:302px;">
+<a href="../PostmarketOS_cheatsheet.png" class="image"><img alt="" src="../PostmarketOS_cheatsheet.png" decoding="async" width="300" height="212" class="thumbimage" srcset="../PostmarketOS_cheatsheet.png 1.5x ../PostmarketOS_cheatsheet.png 2x"></a>  <div class="thumbcaption">
+<div class="magnify"><a href="../PostmarketOS_cheatsheet.png" class="internal" title="Enlarge"></a></div>Another postmarketOS cheat sheet with similar content, in poster format.</div>
+</div></div>
+<p>Here's a small reference for working with postmarketOS/Alpine Linux.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Package_management"><span class="tocnumber">1</span> <span class="toctext">Package management</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Service_management"><span class="tocnumber">2</span> <span class="toctext">Service management</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Log_files"><span class="tocnumber">3</span> <span class="toctext">Log files</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Man_pages"><span class="tocnumber">4</span> <span class="toctext">Man pages</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Changing_your_shell"><span class="tocnumber">5</span> <span class="toctext">Changing your shell</span></a></li>
+</ul>
+</div>
+ 
+<h2><span class="mw-headline" id="Package_management">Package management</span></h2>
+<p>The package manager in postmarketOS is called <code>apk</code>, the Alpine Package Keeper. The list of packages can be found at <a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/packages">pkgs.alpinelinux.org</a> and <a rel="nofollow" class="external text" href="https://pkgs.postmarketos.org/packages">pkgs.postmarketos.org</a>.
+</p>
+<p>Installing a package
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add neovim
+</pre></div>
+<p>Uninstalling a package
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk del neovim
+</pre></div>
+<p>Upgrading the system. The <code>-a</code> option allows downgrading packages to what's available in the repository. This is sometimes needed when packages are moved from a git version to a stable release.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk upgrade -a
+</pre></div>
+<p>Run various package repair strategies, e.g. running failed installation scripts again:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk fix
+<span class="gp">$</span> sudo apk fix name-of-package  <span class="c1"># will also reinstall name-of-package</span>
+</pre></div>
+<p>Listing installed package versions (add <code>| grep package-name</code> to filter for a specific package):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> apk info -vv
+</pre></div>
+<p>Installing build dependencies:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add build-base install-makedepends
+<span class="gp">$</span> install-makedepends neovim
+</pre></div>
+<p>The repositories are stored in <code>/etc/apk/repositories</code> as one repository url per line. There's also <code>/etc/apk/world</code> which is a list of packages that are explicitly installed. It's possible to add/remove packages from this list and then running <code>apk fix</code> to apply those changes. The Alpine Linux wiki has a page <b><a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/Comparison_with_other_distros">comparing apk to other popular distros</a></b>, with many helpful examples.
+</p>
+<h2><span class="mw-headline" id="Service_management">Service management</span></h2>
+<p>The service manager in postmarketOS is OpenRC. The basic service management is done with the familiar <code>service</code> command.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> service networkmanager status
+<span class="gp">$</span> sudo service networkmanager start
+<span class="gp">$</span> sudo service networkmanager stop
+<span class="gp">$</span> sudo service networkmanager restart
+</pre></div>
+<p>To enable or disable services on boot you use the <code>rc-update</code> command.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">List the services that are added to a runlevel</span>
+<span class="gp">$</span> rc-update
+<span class="go">             bootmisc | boot                                   </span>
+<span class="go">              chronyd |      default                           </span>
+<span class="go">                 dbus |      default                           </span>
+<span class="go">                devfs |                                 sysinit</span>
+<span class="go">                dmesg |                                 sysinit</span>
+<span class="go">                  gdm |      default                           </span>
+<span class="go">              haveged |      default                           </span>
+<span class="go">             hostname | boot                                   </span>
+<span class="go">              hwclock | boot                                   </span>
+<span class="go">            killprocs |                        shutdown        </span>
+
+
+<span class="go">Start NetworkManager on boot (in the default runlevel)</span>
+<span class="gp">$</span> sudo rc-update add networkmanager default
+
+<span class="go">Stop NetworkManager starting on boot</span>
+<span class="gp">$</span> sudo rc-update del networkmanager default
+</pre></div>
+<h2><span class="mw-headline" id="Log_files">Log files</span></h2>
+<p>By default postmarketOS uses the busybox logging daemon for the syslog and it's configured to log to memory only. The <code>logread</code> command is used to read the in-memory log. Writing standard output and standard error of a system service to the filesystem can be achieved by setting <code>output_log</code> and <code>error_log</code> to file paths in its service script, as described in the manual page <code>openrc-run</code>.
+</p>
+<p>Most user interfaces use <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/tinydm">tinydm</a> to start the session in postmarketOS, which logs to <code>~/.local/state/tinydm.log</code>.
+</p>
+<h2><span class="mw-headline" id="Man_pages">Man pages</span></h2>
+<p>Man pages are not installed by default and are seperate from the normal packages. The <code>docs</code> package is a metapackage that will pull in all the documentation for the software you have installed. You can also install only the documentation you need by not installing the <code>docs</code> package
+but installing the specific documentation subpackage. For example for vim documentation you can install <code>vim-doc</code>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">the mandoc package is the man page reader itself</span>
+<span class="go">the man-apropos adds the apropos manpage search tool</span>
+<span class="go">the man-pages package will add the pages for core software like chmod but also linux headers</span>
+<span class="go">the docs package is a metapackage that pulls in the -doc package for everything you install</span>
+<span class="gp">$</span> sudo apk add mandoc mandoc-apropos man-pages docs
+<span class="gp">$</span> man nvim
+</pre></div>
+<h2><span class="mw-headline" id="Changing_your_shell">Changing your shell</span></h2>
+<p>Since the pmos installations are based on busybox the default shell is <code>ash</code>, which is comparible to <code>sh</code>. There are multiple shells packaged in Alpine if you want something better:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">pick your favorite shell</span>
+<span class="gp">$</span> sudo apk add bash zsh fish dash yash oksh elvish
+
+<span class="go">set your login shell</span>
+<span class="gp">$</span> chsh -s /bin/zsh
+
+<span class="go">some config distributions are packaged</span>
+<span class="gp">$</span> sudo apk add grml-zsh-config oh-my-zsh
+</pre></div>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Terminal_cheat_sheet&amp;oldid=24150">https://wiki.postmarketos.org/index.php?title=Terminal_cheat_sheet&amp;oldid=24150</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 12 December 2021, at 11:03.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Terminal_cheat_sheet&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Haptics - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Haptics rootpage-Haptics skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Haptics</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Haptics"><span class="tocnumber">1</span> <span class="toctext">Haptics</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Device_Support"><span class="tocnumber">1.1</span> <span class="toctext">Device Support</span></a></li>
+<li class="toclevel-2 tocsection-3">
+<a href="#Software_Support"><span class="tocnumber">1.2</span> <span class="toctext">Software Support</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#feedbackd"><span class="tocnumber">1.2.1</span> <span class="toctext">feedbackd</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#hfd-service"><span class="tocnumber">1.2.2</span> <span class="toctext">hfd-service</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#fftest"><span class="tocnumber">1.2.3</span> <span class="toctext">fftest</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-7"><a href="#See_also"><span class="tocnumber">1.3</span> <span class="toctext">See also</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Haptics">Haptics</span></h1>
+<p>Haptics are usually taken for granted on devices, they make it easier to tell if your finger has hit the keyboard when typing, and generally add a new dimension of UX.
+</p>
+<h2><span class="mw-headline" id="Device_Support">Device Support</span></h2>
+<p>Non-SoC haptic drivers:
+</p>
+<ul>
+<li>GPIO vibrator (drivers/input/misc/gpio-vibra.c) uses a simple GPIO line to provide a vibrating feedback</li>
+<li>Regulator Haptic (drivers/input/misc/regulator-haptic.c) uses a regulator</li>
+<li>MAX77693 vibrator (drivers/mfd/max77693.c) - an MFD that includes haptic support</li>
+</ul>
+<p>The following SoCs support haptics:
+</p>
+<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+<strong>TODO</strong> Add haptics to the support list and make this list automatic</div>
+<ul>
+<li>MSM8916 (and newer related SoCs?) (drivers/input/misc/pm8xxx-vibrator.c)</li>
+<li>MSM8996 - SDM845 (pmi8998_haptics.c) <a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/linux/-/blob/sdm845-stable/drivers/input/misc/pmi8998-haptics.c">drivers/input/misc/pmi8998-haptics.c</a> &lt;- the driver is not yet upstream, a version can be found here.</li>
+</ul>
+<p>If your device uses one of MSM8996, MSM8998, SDM845, you can use <a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/linux/-/blob/sdm845-stable/drivers/input/misc/pmi8998-haptics.c">this WIP haptics driver</a> (<a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/linux/-/blob/sdm845-stable/arch/arm64/boot/dts/qcom/pmi8998.dtsi#L53">and associated dts node</a>). You will have to find the correct play-rate for your device and fill it out <a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/linux/-/blob/9c7ede5db87bcce8677d4b559c385af959cff055/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi#L461">like this</a>.
+</p>
+<p>Currently only the buffer play mode and LRA (Linear Resonant Actuator) are supported, contributions welcome! For more detailed information on how the haptics hardware works, see the bottom of this page.
+</p>
+<p>You can test the haptics device using <code>fftest</code> which is part of the <code>linuxconsoletools</code> package.
+</p>
+<h2><span class="mw-headline" id="Software_Support">Software Support</span></h2>
+<h4><span class="mw-headline" id="feedbackd">feedbackd</span></h4>
+<p>Once your hardware is up and running, copy the <code>/usr/share/feedbackd/themes/pine,pinephone.json</code> file and adjust it to match the DTS compatible line for your device (e.g. <code>oneplus,enchilada.json</code>).
+</p>
+<p>In order for feedbackd to detect your haptics hardware, you need to add a new udev rule, below is the rule for <code>pmi8998_haptics</code>.
+</p>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/lib/udev/rules.d/90-feedbackd.rules</pre>
+<pre class="hc-bottom" style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">SUBSYSTEM=="input", KERNEL=="event*", ENV{ID_INPUT}=="1", SUBSYSTEMS=="input", ATTRS{name}=="pmi8998_haptics", TAG+="uaccess", ENV{FEEDBACKD_TYPE}="vibra"</pre>
+<p>This will find the haptics input device and add the <code>ENV{FEEDBACKD_TYPE}="vibra"</code> property for feedbackd.
+</p>
+<p>With the above changes, you should now feel ForceFeedback in Phosh!
+</p>
+<p>Tweak your feedbackd theme file to work well with your device, then upstream it to <a rel="nofollow" class="external text" href="https://source.puri.sm/Librem5/feedbackd-device-themes">feedbackd-device-themes</a>.
+</p>
+<h3><span class="mw-headline" id="hfd-service">hfd-service</span></h3>
+<p><a rel="nofollow" class="external text" href="https://github.com/ubports/hfd-service">hfd-service</a> is used by Lomiri (previously known as Unity8). It is now supported by <a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/package/edge/community/aarch64/hfd-service">Alpine Linux</a>. Support for forcefeedback vibrators is added by <a rel="nofollow" class="external text" href="https://github.com/ubports/hfd-service/pull/14">this PR</a>. The Manjaro ARM unstable branch also currently has these patches.
+</p>
+<p>hfd-service automatically detects the first input device that supports forcefeedback and uses it for haptics.
+</p>
+<h3><span class="mw-headline" id="fftest">fftest</span></h3>
+<p>The program fftest from the alpine package linuxconsoletools can be used to test a haptic device if you have a driver for it. For a device with a max77693 mfd responsible for the vibrations, fftest checks for possible vibration pattern modes and lets you select which one to run:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> fftest /dev/input/by-path/platform-i2c-gpio-1-platform-max77693-haptic-event 
+<span class="go">Force feedback test program.</span>
+<span class="go">HOLD FIRMLY YOUR WHEEL OR JOYSTICK TO PREVENT DAMAGES</span>
+
+<span class="go">Device /dev/input/by-path/platform-i2c-gpio-1-platform-max77693-haptic-event opened</span>
+<span class="go">Features:</span>
+<span class="go">  * Absolute axes: </span>
+<span class="go">    [00 00 00 00 00 00 00 00 ]</span>
+<span class="go">  * Relative axes: </span>
+<span class="go">    [00 00 ]</span>
+<span class="go">  * Force feedback effects types: Periodic, Rumble, Gain, </span>
+<span class="go">    Force feedback periodic effects: Square, Triangle, Sine, </span>
+<span class="go">    [00 00 00 00 00 00 00 00 00 00 03 07 01 00 00 00 ]</span>
+<span class="go">  * Number of simultaneous effects: 16</span>
+
+<span class="go">Setting master gain to 75% ... OK</span>
+<span class="go">Uploading effect #0 (Periodic sinusoidal) ... OK (id 0)</span>
+<span class="go">Uploading effect #1 (Constant) ... Error: Invalid argument</span>
+<span class="go">Uploading effect #2 (Spring) ... Error: Invalid argument</span>
+<span class="go">Uploading effect #3 (Damper) ... Error: Invalid argument</span>
+<span class="go">Uploading effect #4 (Strong rumble, with heavy motor) ... OK (id 1)</span>
+<span class="go">Uploading effect #5 (Weak rumble, with light motor) ... OK (id 2)</span>
+<span class="go">Enter effect number, -1 to exit</span>
+<span class="go">0</span>
+<span class="go">Now Playing: Sine vibration</span>
+</pre></div>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/sdm845-linux/-/blob/sdm845-stable/drivers/input/misc/pmi8998-haptics.c">WIP pmi8998 haptics driver</a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2002">MR to add udev rule for feedbackd to sdm845 common package</a></li>
+<li><a rel="nofollow" class="external text" href="https://github.com/ubports/hfd-service/pull/14">PR to add support for forcefeedback to hfd-service</a></li>
+<li><a rel="nofollow" class="external text" href="https://www.notion.so/calebccff/pmi8998-QPNP-Qcom-Plug-n-Play-haptics-9ccc9240c0f5498f8eb5feb2ff1059e5">Caleb's documentation on pmi8998 haptics</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Haptics&amp;oldid=28049">https://wiki.postmarketos.org/index.php?title=Haptics&amp;oldid=28049</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 28 May 2022, at 22:44.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Haptics&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

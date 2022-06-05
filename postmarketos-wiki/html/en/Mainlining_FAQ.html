@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Mainlining FAQ - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Mainlining_FAQ rootpage-Mainlining_FAQ skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Mainlining FAQ</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<blockquote>
+<p><b>"Mainlining isn't always fun, but it's hella rewarding"</b>
+</p>
+</blockquote>
+<p>Various information collected from <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">#postmarketOS</a>. See <a href="../en/The_Mainline_Kernel.html" title="The Mainline Kernel">The Mainline Kernel</a> for a more howto-style page.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#How_to_start.3F"><span class="tocnumber">1</span> <span class="toctext">How to start?</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Writing_dmesg_to_RAM_and_reading_it_out_after_reboot"><span class="tocnumber">2</span> <span class="toctext">Writing dmesg to RAM and reading it out after reboot</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Serial_cable"><span class="tocnumber">3</span> <span class="toctext">Serial cable</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Can_I_do_it_without_a_serial_cable.3F"><span class="tocnumber">3.1</span> <span class="toctext">Can I do it without a serial cable?</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#How_to_get_serial_output.3F_.28serial_cable.29"><span class="tocnumber">3.2</span> <span class="toctext">How to get serial output? (serial cable)</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#How_to_get_serial_output_over_USB.3F_.28USB_serial_gadget.29"><span class="tocnumber">3.3</span> <span class="toctext">How to get serial output over USB? (USB serial gadget)</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Is_it_possible_to_boot_kernels_with_a_serial_cable.3F"><span class="tocnumber">3.4</span> <span class="toctext">Is it possible to boot kernels with a serial cable?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#There.27s_no_device_tree_source_.28dts.29_in_the_kernel_fork_for_my_device.2C_how_do_I_make_one.3F"><span class="tocnumber">4</span> <span class="toctext">There's no device tree source (dts) in the kernel fork for my device, how do I make one?</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#What_options_are_needed_to_get_USB_network.3F"><span class="tocnumber">5</span> <span class="toctext">What options are needed to get USB network?</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#How_to_make_OpenRC_print_its_output_to_the_serial_port.3F"><span class="tocnumber">6</span> <span class="toctext">How to make OpenRC print its output to the serial port?</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#How_can_I_compile_kernel_sources_from_a_local_git_repo.3F"><span class="tocnumber">7</span> <span class="toctext">How can I compile kernel sources from a local git repo?</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#How_can_I_repackage_the_initramfs_with_custom_modules.3F"><span class="tocnumber">8</span> <span class="toctext">How can I repackage the initramfs with custom modules?</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#How_to_merge_kernel_configs.3F"><span class="tocnumber">9</span> <span class="toctext">How to merge kernel configs?</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#How_to_flash_each_postmarketOS_partition_from_the_rootfs_to_a_different_partition_on_the_phone"><span class="tocnumber">10</span> <span class="toctext">How to flash each postmarketOS partition from the rootfs to a different partition on the phone</span></a></li>
+<li class="toclevel-1 tocsection-15">
+<a href="#Display_panel"><span class="tocnumber">11</span> <span class="toctext">Display panel</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="#How_to_let_the_bootloader_initialize_the_panel.3F"><span class="tocnumber">11.1</span> <span class="toctext">How to let the bootloader initialize the panel?</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Can_I_use_the_simple_panel_driver.3F"><span class="tocnumber">11.2</span> <span class="toctext">Can I use the simple panel driver?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="#Kernel_is_stuck_during_boot_without_any_output"><span class="tocnumber">12</span> <span class="toctext">Kernel is stuck during boot without any output</span></a></li>
+</ul>
+</div>
+
+<h2>
+<span id="How_to_start?"></span><span class="mw-headline" id="How_to_start.3F">How to start?</span>
+</h2>
+<ul>
+<li>
+<a href="../en/Serial_debugging.html" title="Serial debugging">Serial cable</a> highly recommended</li>
+<li>First step will be to find out how much your device is already supported by mainline</li>
+<li>Check if your soc is supported.. that will be basic building block</li>
+<li>There's really no point doing display till you have uart or USB working</li>
+</ul>
+<h2><span class="mw-headline" id="Writing_dmesg_to_RAM_and_reading_it_out_after_reboot">Writing dmesg to RAM and reading it out after reboot</span></h2>
+<p>During the mainlining process you need to be able to get the <code>dmesg</code> output from the device. Typically this is done with a serial cable (see below). Sometimes making such a cable is relatively easy by using the audio jack, but in other cases it requires opening the device or is not possible at all. Here is a less comfortable alternative.
+</p>
+<p>In Android kernels it is possible to write the output of <code>dmesg</code> to memory, and read it out after reboot from <code>/proc/last_kmsg</code>. So while you are mainlining, you can use Android's <code>ram_console</code> driver from your downstream kernel to dump <code>dmesg</code> to memory as well, then reboot to the downstream kernel and read out <code>/proc/last_kmesg</code>. Quote from decatf:
+</p>
+<blockquote>
+<p>The Android ram_console does this. It should exist in many if not most Android kernels. The driver is registered the board/machine init. I am still using it even on kernel 4.16. On my device I can force reboot to a downstream recovery kernel and read last_kmsg from a kernel that booted nothing but the bare device tree and the ram_console driver.
+</p>
+<ul><li>Allocate the same memory block as your downstream or recovery kernel. Do this by specifying reserved-memory in device tree.</li></ul>
+<p><a rel="nofollow" class="external free" href="https://github.com/Decatf/linux/blob/4.17-p4wifi_pmos-ramconsole/arch/arm/boot/dts/tegra20-samsung_p3.dts#L47-L50">https://github.com/Decatf/linux/blob/4.17-p4wifi_pmos-ramconsole/arch/arm/boot/dts/tegra20-samsung_p3.dts#L47-L50</a>
+</p>
+<ul><li>Initialize the ram_console driver with the appropriate memory address and size in the <code>machine_init</code> function for your device.</li></ul>
+<p><a rel="nofollow" class="external free" href="https://github.com/Decatf/linux/blob/4.17-p4wifi_pmos-ramconsole/arch/arm/mach-tegra/board-p4wifi.c#L480-L481">https://github.com/Decatf/linux/blob/4.17-p4wifi_pmos-ramconsole/arch/arm/mach-tegra/board-p4wifi.c#L480-L481</a>
+</p>
+<ul><li>Make sure the driver is using the same ram console signature as your downstream kernel.</li></ul>
+<p><a rel="nofollow" class="external free" href="https://github.com/Decatf/linux/blob/4.17-p4wifi_pmos-ramconsole/drivers/staging/android/ram_console.c#L41">https://github.com/Decatf/linux/blob/4.17-p4wifi_pmos-ramconsole/drivers/staging/android/ram_console.c#L41</a>
+</p>
+</blockquote>
+<p>On more recent devices Android has transitioned over to using the mainline kernels pstore ramoops functionality. If your device is recent enough that the recovery uses pstore then you only need to add a node for the ramoops driver to device tree.
+</p>
+<p>The memory allocation address of the ram_console and pstore are logged to dmesg. The memory address in following example corresponds to the samsung-p4wifi device in the steps above. To find the memory allocation address of ram_console:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> dmesg <span class="p">|</span> grep ram_console
+<span class="go">[    0.906530] ram_console: got buffer at 2e600000, size 100000</span>
+</pre></div>
+<p>To find the memory allocation address of pstore ramoops:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> dmesg <span class="p">|</span> grep attached
+<span class="go">[    0.074293] ramoops: attached 0x100000@0x2e500000, ecc: 0/0</span>
+</pre></div>
+<p>See also: <a rel="nofollow" class="external text" href="http://docs.halium.org/en/latest/porting/debug-build/dmesg.html">Halium docs on dmesg</a>
+</p>
+<h2><span class="mw-headline" id="Serial_cable">Serial cable</span></h2>
+<h3>
+<span id="Can_I_do_it_without_a_serial_cable?"></span><span class="mw-headline" id="Can_I_do_it_without_a_serial_cable.3F">Can I do it without a serial cable?</span>
+</h3>
+<ul>
+<li>in theory, yes by dumping dmesg to RAM (see above)</li>
+<li>once it reliably boots though, and USB comes up properly, you can use the USB serial gadget in the kernel (see below)</li>
+</ul>
+<h3>
+<span id="How_to_get_serial_output?_(serial_cable)"></span><span class="mw-headline" id="How_to_get_serial_output.3F_.28serial_cable.29">How to get serial output? (serial cable)</span>
+</h3>
+<ul>
+<li>enable the serial device for your kernel (e.g. for OMAP: CONFIG_SERIAL_OMAP and CONFIG_SERIAL_OMAP_CONSOLE)</li>
+<li>add console=ttySAC0,115200 to the kernel cmdline</li>
+<li>it might also be ttyO0 (uppercase O for OMAP chipset)</li>
+</ul>
+<h3>
+<span id="How_to_get_serial_output_over_USB?_(USB_serial_gadget)"></span><span class="mw-headline" id="How_to_get_serial_output_over_USB.3F_.28USB_serial_gadget.29">How to get serial output over USB? (USB serial gadget)</span>
+</h3>
+<p>The Linux kernel can act like a serial device, and it's possible to output what you would get on the serial port over that fake serial device directly via USB to your PC.
+</p>
+<ul><li>set CONFIG_USB_G_SERIAL=y and enable USB as console, and add console=ttyGS0,115200 to the cmdline</li></ul>
+<h3>
+<span id="Is_it_possible_to_boot_kernels_with_a_serial_cable?"></span><span class="mw-headline" id="Is_it_possible_to_boot_kernels_with_a_serial_cable.3F">Is it possible to boot kernels with a serial cable?</span>
+</h3>
+<ul>
+<li>No. Just flash with a normal cable and switch to the serial cable to read the log output.</li>
+<li>Once it reliably boots though, and USB comes up properly, you can use the USB serial gadget in the kernel</li>
+</ul>
+<h2>
+<span id="There's_no_device_tree_source_(dts)_in_the_kernel_fork_for_my_device,_how_do_I_make_one?"></span><span class="mw-headline" id="There.27s_no_device_tree_source_.28dts.29_in_the_kernel_fork_for_my_device.2C_how_do_I_make_one.3F">There's no device tree source (dts) in the kernel fork for my device, how do I make one?</span>
+</h2>
+<p>Previous kernels used <code>board-*.c</code> files instead of the <code>dts</code> files. These are in folders such as <code>arch/arm/mach-omap2</code> (<a rel="nofollow" class="external text" href="https://android.googlesource.com/kernel/omap/+/android-omap-tuna-3.0/arch/arm/mach-omap2/">example</a>).
+The idea is that you'll need to convert these to <code>dts</code> files. Doing so manually for each of them is a huge and error-prone task, better use one of the following techniques:
+</p>
+<ul>
+<li>Strip down <code>dts</code> from similar hardware (n900 in case of omap3?) and try to get it to boot</li>
+<li>Add support to an existing mainline driver (e.g. mms1<b>4</b>4 and mms1<b>1</b>4 are probably pretty similar) rather than forward-porting the old driver</li>
+<li>Forward-port the board files to recent kernels (new kernels still understand board files for some hardware, but not for all!), then strip them down to a bare minimum you can still test (where serial or usb is still working, so you know that the device boots), and then convert that do <code>dts</code>.</li>
+</ul>
+<p>Finding the best approach is very hardware specific. If you know C and think you have tried some of the methods above without success, consider asking the maintainers of the chipset in the kernel. Regarding OMAP, Pavel <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1021#issuecomment-354669394">offered</a> that you could CC him.
+</p>
+<p>See also: <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1021">#1021</a>
+</p>
+<p><br>
+Consider updating your device's kernel to the latest Android stable version first (<a rel="nofollow" class="external text" href="https://github.com/android-linux-stable/notes">these instruction</a> might make it easier to convert the board files to dtbs) and then going to real mainline from there.
+</p>
+<h2>
+<span id="What_options_are_needed_to_get_USB_network?"></span><span class="mw-headline" id="What_options_are_needed_to_get_USB_network.3F">What options are needed to get USB network?</span>
+</h2>
+<ul>
+<li>USB_ETH IIRC</li>
+<li>also check the defconfig in aports/main/linux-postmarketos-mainline</li>
+</ul>
+<h2>
+<span id="How_to_make_OpenRC_print_its_output_to_the_serial_port?"></span><span class="mw-headline" id="How_to_make_OpenRC_print_its_output_to_the_serial_port.3F">How to make OpenRC print its output to the serial port?</span>
+</h2>
+<ul>
+<li>just set <code>RC_LOGGING</code> to true in /etc/rc.conf</li>
+<li>(it's the init system log like Starting etc.....[ok])</li>
+</ul>
+<h2>
+<span id="How_can_I_compile_kernel_sources_from_a_local_git_repo?"></span><span class="mw-headline" id="How_can_I_compile_kernel_sources_from_a_local_git_repo.3F">How can I compile kernel sources from a local git repo?</span>
+</h2>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">A more modern approach is <a href="../en/Compiling_kernels_with_envkernel.sh.html" title="Compiling kernels with envkernel.sh">compiling kernels with envkernel.sh</a>.</td>
+</tr></tbody></table>
+<ul>
+<li>Clone the kernel with git (~5GB!)</li>
+<li>Use the following command to build the mainline kernel package with the checked out sources</li>
+</ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap build linux-postmarketos-mainline --src<span class="o">=</span>~/code/linux
+</pre></div>
+<ul><li><a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/1210#issuecomment-364590002">Implementation details</a></li></ul>
+<h2>
+<span id="How_can_I_repackage_the_initramfs_with_custom_modules?"></span><span class="mw-headline" id="How_can_I_repackage_the_initramfs_with_custom_modules.3F">How can I repackage the initramfs with custom modules?</span>
+</h2>
+<p>Run a normal installation to generate the initramfs:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install
+</pre></div>
+<p>And then writing a short shell script, that repackages the postmarketOS initramfs with the modules you compiled.
+After reading through it, adjust it as needed and execute it as root:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1"># Config</span>
+<span class="nv">device</span><span class="o">=</span><span class="s2">"oneplus-bacon"</span>
+<span class="nv">tmpdir</span><span class="o">=</span><span class="s2">"/tmp/pmOS-initfs-with-mainline-modules"</span>
+<span class="nv">work</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>pmbootstrap -q config work<span class="k">)</span><span class="s2">"</span>
+
+<span class="c1"># Create temp folder</span>
+<span class="o">[</span> -d <span class="s2">"</span><span class="nv">$tmpdir</span><span class="s2">"</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> rm -rf <span class="s2">"</span><span class="nv">$tmpdir</span><span class="s2">"</span>
+mkdir -p <span class="s2">"</span><span class="nv">$tmpdir</span><span class="s2">"</span>
+
+<span class="c1"># Extract the pmOS initramfs</span>
+cp -v <span class="s2">"</span><span class="nv">$work</span><span class="s2">/chroot_rootfs_</span><span class="nv">$device</span><span class="s2">/boot/initramfs-"</span>* initramfs.gz
+gzip -d initramfs.gz
+cpio -i &lt; initramfs
+
+<span class="c1"># Remove existing modules</span>
+rm -rf initramfs lib/modules
+
+<span class="c1">#</span>
+<span class="c1"># CHANGEME: you need to write the commands that copy the kernel modules from your</span>
+<span class="c1"># kernel source folder into the initramfs here!</span>
+<span class="c1">#</span>
+
+<span class="c1"># Package the initramfs again</span>
+<span class="nb">cd</span> <span class="s2">"</span><span class="nv">$tmpdir</span><span class="s2">"</span>
+find . -print0 <span class="p">|</span> busybox cpio --quiet -o -H newc <span class="p">|</span> gzip -1 &gt; initramfs-repackaged
+</pre></div>
+<h2>
+<span id="How_to_merge_kernel_configs?"></span><span class="mw-headline" id="How_to_merge_kernel_configs.3F">How to merge kernel configs?</span>
+</h2>
+<p>The idea is, that we have a shared <code>linux-postmarketos-stable</code> package, which all mainlined devices use. Check <a href="../en/Kernel_configuration.html#Automatically_merging_kernel_configuration" title="Kernel configuration">Kernel_configuration#Automatically_merging_kernel_configuration</a> for instructions on how to merge kernel configs somewhat efficiently with a script.
+</p>
+<h2><span class="mw-headline" id="How_to_flash_each_postmarketOS_partition_from_the_rootfs_to_a_different_partition_on_the_phone">How to flash each postmarketOS partition from the rootfs to a different partition on the phone</span></h2>
+<p>Usually pmOS writes the whole rootfs (which has its own /boot and / partitions) to one partition on the device (<a href="../en/Partition_Layout.html" class="mw-redirect" title="Partition-layout">more</a>). If your mainline kernel isn't able to find the postmarketOS partition by label (even if you have enabled device mapper in the kernel config), then you could use the following workaround to flash each partition from the rootfs image to a real partition on the device.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install
+<span class="gp">$</span> pmbootstrap <span class="nb">export</span>
+<span class="gp">$</span> losetup /dev/loop0 &lt;pathtoimage&gt;
+<span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>/dev/loop0p1 <span class="nv">of</span><span class="o">=</span>boot_partition.img
+<span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>/dev/loop0p2 <span class="nv">of</span><span class="o">=</span>root_partition.img
+<span class="gp">$</span> fastboot flash system root_partition.img
+<span class="gp">$</span> fastboot flash cache boot_partition.img
+</pre></div>
+<h2><span class="mw-headline" id="Display_panel">Display panel</span></h2>
+<h3>
+<span id="How_to_let_the_bootloader_initialize_the_panel?"></span><span class="mw-headline" id="How_to_let_the_bootloader_initialize_the_panel.3F">How to let the bootloader initialize the panel?</span>
+</h3>
+<p>opendata found a cool hack to let the bootloader initialize the display, which makes everything a lot easier. It only works with Sony Shinano and Rhine devices.
+</p>
+<ul>
+<li>Make sure to base of downstream 3.4 kernel</li>
+<li>Basically extract the dts from your downstream 3.4 kernel</li>
+<li>Use DTC to convert it to a dts</li>
+<li>Then delete everything after main header apart from display stuff (mdp, gpu) and anything in the spmi node</li>
+<li>Then in the spmi node delete everything apart from wled and pm8941@0 gpios</li>
+<li>That should be enough for bootloader to init display</li>
+<li>Example:
+<ul>
+<li>1. Stock downstream: <a rel="nofollow" class="external free" href="https://ptpb.pw/hRmy.dts">https://ptpb.pw/hRmy.dts</a>
+</li>
+<li>2. Minimum for display init: <a rel="nofollow" class="external free" href="https://ptpb.pw/f2ye.dts">https://ptpb.pw/f2ye.dts</a>
+</li>
+<li>3. mainline dts with second added into it: <a rel="nofollow" class="external free" href="https://ptpb.pw/q28L.dts">https://ptpb.pw/q28L.dts</a>
+</li>
+<li>Then just add it to simple panel with video mode and video hse</li>
+</ul>
+</li>
+</ul>
+<h3>
+<span id="Can_I_use_the_simple_panel_driver?"></span><span class="mw-headline" id="Can_I_use_the_simple_panel_driver.3F">Can I use the simple panel driver?</span>
+</h3>
+<ul>
+<li>If your device shows the boot splash with mainline, simple panel should work</li>
+<li>Adapt <a rel="nofollow" class="external text" href="https://github.com/flto/linux/commit/41bcfbe5f8f00a4a93e0a838456da51a50965e03">this commit</a> to make it use your panels values (hfp hbp etc)</li>
+<li>now in flags add: <code>MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_HSE</code>
+</li>
+</ul>
+<h2><span class="mw-headline" id="Kernel_is_stuck_during_boot_without_any_output">Kernel is stuck during boot without any output</span></h2>
+<ul>
+<li>enable debug output with the kernel command line</li>
+<li>consider adding kprint statements to narrow down where it hangs</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Mainlining_FAQ&amp;oldid=6219">https://wiki.postmarketos.org/index.php?title=Mainlining_FAQ&amp;oldid=6219</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 27 February 2019, at 19:57.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Mainlining_FAQ&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

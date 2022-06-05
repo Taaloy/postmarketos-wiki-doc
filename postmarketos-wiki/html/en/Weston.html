@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Weston - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Weston rootpage-Weston skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Weston</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">Weston</caption>
+<tbody>
+<tr class=""><td colspan="2" class="" style="text-align:center;">
+<a href="../Sony_yuga_weston.jpg" class="image"><img alt="" src="../Sony_yuga_weston.jpg" decoding="async" width="200" height="267" srcset="../Sony_yuga_weston.jpg 1.5x ../Sony_yuga_weston.jpg 2x"></a>
+</td></tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Name</th>
+    <td class="" style="">
+Weston</td>
+</tr>
+<tr><th colspan="2" class="" style="text-align:center;">In postmarketOS</th></tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Package</th>
+    <td class="" style="">
+postmarketos-ui-weston</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Status</th>
+    <td class="" style="">
+Available</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<p>Weston is the reference implementation of a <a rel="nofollow" class="external text" href="https://wayland.freedesktop.org/">Wayland</a> compositor.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span class="tocnumber">1</span> <span class="toctext">Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#RDP_.28Remote_Desktop_Protocol.29"><span class="tocnumber">2</span> <span class="toctext">RDP (Remote Desktop Protocol)</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Guide"><span class="tocnumber">3</span> <span class="toctext">Guide</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Troubleshooting"><span class="tocnumber">4</span> <span class="toctext">Troubleshooting</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Installation">Installation</span></h3>
+<ul>
+<li><code>pmbootstrap init</code></li>
+<li><code>User interface: weston</code></li>
+</ul>
+<p>This will package weston libraries as well as demos for your device, see <code>weston*</code> commands.
+</p>
+<p>Weston will be launched automatically on boot by TinyDM.
+</p>
+<h3>
+<span id="RDP_(Remote_Desktop_Protocol)"></span><span class="mw-headline" id="RDP_.28Remote_Desktop_Protocol.29"><a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Remote_Desktop_Protocol">RDP</a> (Remote Desktop Protocol)</span>
+</h3>
+<p>Prerequisite:
+</p>
+<ul>
+<li><code>apk add weston-backend-rdp</code></li>
+<li><code>apk add openssl</code></li>
+</ul>
+<p>Create a Self-Signed SSL Certificate:
+</p>
+<ul><li><code>sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout mypublic.key -out mycrt.crt</code></li></ul>
+<p>Start weston with RDP backend:
+</p>
+<ul><li><code>weston --backend=rdp-backend.so --rdp-tls-cert=/path/to/mycrt.crt --rdp-tls-key=/path/to/mypublic.key --socket=wayland-1 --width=540 --height=600</code></li></ul>
+<p>On host:
+</p>
+<ul><li><code>xfreerdp /v:172.16.42.1 /sec:tls</code></li></ul>
+<h2><span class="mw-headline" id="Guide">Guide</span></h2>
+<p>Follow the <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Display">Display</a> guide to change and fix display related issues.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<p>Weston is very commonly used for testing new ports and as a demo (<a href="../en/Category:Interface.html" title="Category:Interface">Category:Interface</a>).  Unfortunately, upstream changes can make maintenance difficult.  The common backend fbdev has been deprecated and disabled by default in <a rel="nofollow" class="external text" href="https://lists.freedesktop.org/archives/wayland-devel/2022-February/042103.html">weston 10.0.0</a>.
+</p>
+<p>Choosing weston as the interface (<code>pmbootstrap init</code>) on an unmaintained or irregularly maintained device that uses the fbdev backend will likely result in blank screen after the "pmbootstrap loading" splash screen.  Log in via ssh and check the file <code>/etc/xdg/weston/weston.ini</code> for an entry such as <code>backend=fbdev-backend.so</code>.  Compare this to the value in <code>weston.ini.default</code>, likely <code>backend=drm-backend.so</code>.
+</p>
+<p>The tinydm.log in case of fbdev may have entries such as:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>Session: /usr/share/wayland-sessions/weston.desktop
+Desktop: weston
+Exec:    dbus-run-session start_weston.sh
+...
+failed to connect to Wayland display: No such file or directory
+failed to create display: No such file or directory</pre></div>
+<p>The <code>logread</code> command may show entries such as:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>Using config file '/etc/xdg/weston/weston.ini'
+...
+Loading module '/usr/lib/libweston-10/fbdev-backend.so'
+Failed to load module: Error loading shared library /usr/lib/libweston-10/fbdev-backend.so: No such file or directory
+fatal: failed to create compositor backend</pre></div>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../en/Category:Pages_with_syntax_highlighting_errors.html" title="Category:Pages with syntax highlighting errors">Pages with syntax highlighting errors</a></li>
+<li><a href="../en/Category:Interface.html" title="Category:Interface">Interface</a></li>
+</ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Weston&amp;oldid=27209">https://wiki.postmarketos.org/index.php?title=Weston&amp;oldid=27209</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 25 April 2022, at 22:35.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Weston&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

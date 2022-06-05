@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Troubleshooting:boot:initfshooks - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Troubleshooting_boot_initfshooks rootpage-Troubleshooting_boot_initfshooks skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Troubleshooting:boot:initfshooks</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Here are various hooks that might help with initramfs debugging. They are raw pastes and need to be adjusted before using them. Boot a known working ROM to extract the right <code>/sys</code> paths etc.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#General_usage"><span class="tocnumber">1</span> <span class="toctext">General usage</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Blinking_LED_.28simple.29"><span class="tocnumber">2</span> <span class="toctext">Blinking LED (simple)</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Blinking_LED_.28with_hotplugging.29"><span class="tocnumber">3</span> <span class="toctext">Blinking LED (with hotplugging)</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Dump_sysfs_to_SD_card"><span class="tocnumber">4</span> <span class="toctext">Dump sysfs to SD card</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="General_usage">General usage</span></h3>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install <span class="c1"># now save the hook in the device chroot:</span>
+<span class="gp">$</span> pmbootstrap chroot -r
+<span class="gp">$</span> apk add nano
+<span class="gp">$</span> <span class="nb">export</span> <span class="nv">TERM</span><span class="o">=</span>xterm
+<span class="gp">$</span> nano /etc/postmarketos-mkinitfs/hooks/my-debug-hook.sh
+<span class="gp">$</span> pmbootstrap initfs <span class="c1">#to regenerate the initramfs</span>
+<span class="gp">$</span> pmbootstrap flasher boot
+</pre></div>
+<h3>
+<span id="Blinking_LED_(simple)"></span><span class="mw-headline" id="Blinking_LED_.28simple.29">Blinking LED (simple)</span>
+</h3>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="k">while</span> true<span class="p">;</span> <span class="k">do</span>
+	<span class="nb">echo</span> <span class="m">255</span> &gt; /sys/devices/i2c-0/0-0066/leds/blue/brightness
+	sleep <span class="m">1</span>
+	<span class="nb">echo</span> <span class="m">0</span> &gt; /sys/devices/i2c-0/0-0066/leds/blue/brightness
+<span class="k">done</span>
+</pre></div>
+<h3>
+<span id="Blinking_LED_(with_hotplugging)"></span><span class="mw-headline" id="Blinking_LED_.28with_hotplugging.29">Blinking LED (with hotplugging)</span>
+</h3>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+<span class="c1"># set usb settings</span>
+write /sys/class/android_usb/android0/enable <span class="m">0</span>
+sleep <span class="m">1</span>
+write /sys/class/android_usb/android0/f_rndis/ethaddr <span class="m">00</span>:01:02:03:04:05
+write /sys/class/android_usb/android0/iManufacturer samsung
+write /sys/class/android_usb/android0/iProduct i9070
+write /sys/class/android_usb/android0/iSerial <span class="m">123456789</span>
+write /sys/class/android_usb/android0/enable <span class="m">1</span>
+sleep <span class="m">1</span>
+
+
+cat &gt; /bin/hotplug.sh <span class="s">&lt;&lt; EOF</span>
+<span class="s">#!/bin/sh</span>
+
+<span class="s">if [ "\${SUBSYSTEM}" = "android_usb" ]; then</span>
+
+<span class="s">    if [ "\${USB_STATE}" = "CONNECTED" ]; then</span>
+<span class="s">        echo 255 &gt; /sys/devices/platform/i2c-gpio.5/i2c-5/5-0020/leds/button-backlight/brightness</span>
+<span class="s">    fi</span>
+<span class="s">    if [ "\${USB_STATE}" = "DISCONNECTED" ]; then</span>
+<span class="s">        echo 0 &gt; /sys/devices/platform/i2c-gpio.5/i2c-5/5-0020/leds/button-backlight/brightness</span>
+<span class="s">    fi</span>
+
+<span class="s">    sleep 5</span>
+
+<span class="s">    echo 255 &gt; /sys/devices/platform/i2c-gpio.5/i2c-5/5-0020/leds/button-backlight/brightness</span>
+<span class="s">    sleep 1</span>
+<span class="s">    echo 0 &gt; /sys/devices/platform/i2c-gpio.5/i2c-5/5-0020/leds/button-backlight/brightness</span>
+<span class="s">    sleep 1</span>
+<span class="s">    echo 255 &gt; /sys/devices/platform/i2c-gpio.5/i2c-5/5-0020/leds/button-backlight/brightness</span>
+<span class="s">    sleep 1</span>
+<span class="s">    echo 0 &gt; /sys/devices/platform/i2c-gpio.5/i2c-5/5-0020/leds/button-backlight/brightness</span>
+<span class="s">    sleep 1</span>
+<span class="s">    echo 255 &gt; /sys/devices/platform/i2c-gpio.5/i2c-5/5-0020/leds/button-backlight/brightness</span>
+<span class="s">    sleep 1</span>
+<span class="s">    echo 0 &gt; /sys/devices/platform/i2c-gpio.5/i2c-5/5-0020/leds/button-backlight/brightness</span>
+<span class="s">fi</span>
+<span class="s">EOF</span>
+
+chmod +x /bin/hotplug.sh
+<span class="nb">echo</span> <span class="s2">"/bin/hotplug.sh"</span> &gt; /proc/sys/kernel/hotplug
+</pre></div>
+<h3><span class="mw-headline" id="Dump_sysfs_to_SD_card">Dump sysfs to SD card</span></h3>
+<p>You will probably need to adjust the path to the sd card, check the device name from a working OS on the phone - if the kernel is roughly the same, then the device path to the SD card should be the same as well. For Android devices, you could use TWRP for example.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh</span>
+. ./init_functions.sh
+
+setup_usb_network
+start_udhcpd
+
+<span class="nv">TELNET_PORT</span><span class="o">=</span><span class="m">24</span>
+telnetd -b <span class="s2">"</span><span class="si">${</span><span class="nv">IP</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">TELNET_PORT</span><span class="si">}</span><span class="s2">"</span> -l /bin/sh
+
+
+
+mkdir -p /sdcard
+mount /dev/mmcblk0p1 /sdcard
+
+<span class="k">if</span> <span class="o">[</span> -e /sdcard/drebrez <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="m">255</span> &gt; /sys/devices/i2c-0/0-0066/leds/blue/brightness
+<span class="k">fi</span>
+
+
+walk<span class="o">()</span> <span class="o">{</span>
+    <span class="k">for</span> file in <span class="k">$(</span>ls <span class="nv">$1</span><span class="k">)</span><span class="p">;</span> <span class="k">do</span>
+        <span class="nv">path</span><span class="o">=</span><span class="s2">"</span><span class="nv">$1</span><span class="s2">/</span><span class="nv">$file</span><span class="s2">"</span>
+        <span class="k">if</span> <span class="nb">test</span> -L <span class="s2">"</span><span class="nv">$path</span><span class="s2">"</span><span class="p">;</span> <span class="k">then</span>
+            <span class="k">continue</span>
+        <span class="k">fi</span>
+        <span class="k">if</span> <span class="nb">test</span> -f <span class="s2">"</span><span class="nv">$path</span><span class="s2">"</span><span class="p">;</span> <span class="k">then</span>
+            <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$path</span><span class="s2">"</span>
+            cat <span class="s2">"</span><span class="nv">$path</span><span class="s2">"</span>
+        <span class="k">fi</span>
+        <span class="k">if</span> <span class="nb">test</span> -d <span class="s2">"</span><span class="nv">$path</span><span class="s2">"</span><span class="p">;</span> <span class="k">then</span>
+            walk <span class="s2">"</span><span class="nv">$path</span><span class="s2">"</span>
+        <span class="k">fi</span>
+    <span class="k">done</span>
+    cat /proc/cpuinfo
+    cat /proc/cmdline
+<span class="o">}</span>
+
+walk /sys/devices/ &gt; /sdcard/sysdump2.txt
+
+cat /pmOS_init.log &gt; /sdcard/pmOS_init2.log
+
+show_splash /splash2.ppm.gz
+
+<span class="k">while</span> true<span class="p">;</span> <span class="k">do</span>
+    <span class="nb">echo</span> <span class="m">255</span> &gt; /sys/devices/i2c-0/0-0066/leds/blue/brightness
+    sleep <span class="m">1</span>
+    <span class="nb">echo</span> <span class="m">0</span> &gt; /sys/devices/i2c-0/0-0066/leds/blue/brightness
+    <span class="nb">echo</span> <span class="m">255</span> &gt; /sys/devices/i2c-0/0-0066/leds/amber/brightness
+    sleep <span class="m">1</span>
+    <span class="nb">echo</span> <span class="m">0</span> &gt; /sys/devices/i2c-0/0-0066/leds/amber/brightness
+    <span class="nb">echo</span> <span class="m">255</span> &gt; /sys/devices/i2c-0/0-0066/leds/green/brightness
+    sleep <span class="m">1</span>
+    <span class="nb">echo</span> <span class="m">0</span> &gt; /sys/devices/i2c-0/0-0066/leds/green/brightness
+<span class="k">done</span>
+</pre></div>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:boot:initfshooks&amp;oldid=12138">https://wiki.postmarketos.org/index.php?title=Troubleshooting:boot:initfshooks&amp;oldid=12138</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 26 May 2020, at 06:30.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:boot:initfshooks&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Intel MID - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Intel_MID rootpage-Intel_MID skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Intel MID</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This page is documenting some initial research regarding the Intel MID platform</td>
+</tr></tbody></table>
+<p>The Intel Mobile Internet Devices are a discontinued series of SoCs made by Intel. The SoFIA platform was made together with Rockchip.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Mainline_support"><span class="tocnumber">1</span> <span class="toctext">Mainline support</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Firmware"><span class="tocnumber">1.1</span> <span class="toctext">Firmware</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Graphics"><span class="tocnumber">1.2</span> <span class="toctext">Graphics</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Devices"><span class="tocnumber">2</span> <span class="toctext">Devices</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5">
+<a href="#Bonnell_microarchitecture"><span class="tocnumber">2.1</span> <span class="toctext">Bonnell microarchitecture</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Menlow_platform_.28Silverthorne_processor.29"><span class="tocnumber">2.1.1</span> <span class="toctext">Menlow platform (Silverthorne processor)</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Moorestown_platform_.28Lincroft_processor.29"><span class="tocnumber">2.1.2</span> <span class="toctext">Moorestown platform (Lincroft processor)</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Medfield_platform_.28Penwell_processor.29"><span class="tocnumber">2.1.3</span> <span class="toctext">Medfield platform (Penwell processor)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9">
+<a href="#Silvermont_microarchitecture"><span class="tocnumber">2.2</span> <span class="toctext">Silvermont microarchitecture</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#Merrifield_platform_.28Tangier_processor.29"><span class="tocnumber">2.2.1</span> <span class="toctext">Merrifield platform (Tangier processor)</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Moorefield_platform_.28Anniedale_processor.29"><span class="tocnumber">2.2.2</span> <span class="toctext">Moorefield platform (Anniedale processor)</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#SoFIA_platform_.28x3-C3xxx_processor.29"><span class="tocnumber">2.2.3</span> <span class="toctext">SoFIA platform (x3-C3<i>xxx</i> processor)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Cloverview"><span class="tocnumber">3</span> <span class="toctext">Cloverview</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#External_links"><span class="tocnumber">4</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Mainline_support">Mainline support</span></h2>
+<p>There seems to be support for Moorefield, Moorestown, Medfield, Merrifield, in <code>/arch/x86/platform/intel-mid</code>. <a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/INTEL_MENLOW.html">Menlow</a> seems to be based on classic ACPI. SoFIA is unsupported on mainline, but Asus has published a downstream kernel with SoFIA support.
+</p>
+<h3><span class="mw-headline" id="Firmware">Firmware</span></h3>
+<p>Most (if not all) seem to be using the Simple Firmware Interface, which contains some elements of ACPI but is not ACPI compatible. At least Merrifield and Moorefield use SFI according to <a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/X86_SFI_CPUFREQ.html">this config option</a> (because these CPU cores are only used in Merrifield and Moorefield). SFI has been <a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/commit/?h=core/documentation">marked obsolete</a> in the Linux kernel due to missing maintainers, but is not yet dropped. SFI was written for Moorestown, but the Linux kernel later renamed Moorestown to Intel MID which includes different SoC series, see <a rel="nofollow" class="external free" href="https://lkml.org/lkml/2013/10/10/81">https://lkml.org/lkml/2013/10/10/81</a>
+</p>
+<h3><span class="mw-headline" id="Graphics">Graphics</span></h3>
+<p>Merrifield and Moorefield make use of a PowerVR GPU, SoFIA uses a Mali GPU. The Lima driver has not yet been tested on x86, as Mali is normally used on ARM platforms.
+</p>
+<p>Platforms that use PowerVR could benefit from the <a rel="nofollow" class="external text" href="https://lists.goldelico.com/mailman/listinfo.cgi/openpvrsgx-devgroup">openpvrsgx</a> project which is upstreaming the kernel modules so the proprietary userspace software can be used on the mainline kernel.
+</p>
+<h2><span class="mw-headline" id="Devices">Devices</span></h2>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This list tries to be exhaustive, but probably isn't</td>
+</tr></tbody></table>
+<h3><span class="mw-headline" id="Bonnell_microarchitecture">Bonnell microarchitecture</span></h3>
+<h4>
+<span id="Menlow_platform_(Silverthorne_processor)"></span><span class="mw-headline" id="Menlow_platform_.28Silverthorne_processor.29">Menlow platform (Silverthorne processor)</span>
+</h4>
+<p>Menlow devices *should* be supported because it uses regular ACPI. There might be missing drivers for peripherals.
+</p>
+<h4>
+<span id="Moorestown_platform_(Lincroft_processor)"></span><span class="mw-headline" id="Moorestown_platform_.28Lincroft_processor.29">Moorestown platform (Lincroft processor)</span>
+</h4>
+<ul>
+<li>Cisco Cius</li>
+<li>Samsung Sliding PC 7</li>
+<li>HP Slate 2: <a rel="nofollow" class="external text" href="http://www.toontricks.com/2018/03/ubuntu-extremely-slow-desktop-and-laggy.html">Ubuntu works</a>, but slow due to PowerVR</li>
+<li>Wortmann Terra Mobile Pad 1051</li>
+<li>Wortmann Terra Mobile Pad 1080</li>
+<li>Fujitsu Stylistic Q550 (Z670, product sheet lists also Z690 but is probably a typo as it does not have an Intel Ark entry). Some Gentoo user noted that there are some problems with power management: the backlight doesn't turn off and the tablets runs quite hot: <a rel="nofollow" class="external free" href="https://forums.gentoo.org/viewtopic-p-7056608.html">https://forums.gentoo.org/viewtopic-p-7056608.html</a>
+</li>
+<li>ViewSonic ViewPad 10Pro</li>
+</ul>
+<h4>
+<span id="Medfield_platform_(Penwell_processor)"></span><span class="mw-headline" id="Medfield_platform_.28Penwell_processor.29">Medfield platform (Penwell processor)</span>
+</h4>
+<ul>
+<li>Intel ECS TM75A</li>
+<li>Intel ECS TM105A</li>
+<li>Asus FonePad</li>
+</ul>
+<h3><span class="mw-headline" id="Silvermont_microarchitecture">Silvermont microarchitecture</span></h3>
+<h4>
+<span id="Merrifield_platform_(Tangier_processor)"></span><span class="mw-headline" id="Merrifield_platform_.28Tangier_processor.29">Merrifield platform (Tangier processor)</span>
+</h4>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://i.dell.com/sites/csdocuments/Shared-Content_data-Sheets_Documents/en/new-venue-7-spec-sheet.pdf">Dell Venue 7</a> (Z3460, some sources claim a different core, I'm not really sure)</li>
+<li>Dell Venue 3840 8 (Intel Z3480, different from Moorfield platform version)</li>
+</ul>
+<h4>
+<span id="Moorefield_platform_(Anniedale_processor)"></span><span class="mw-headline" id="Moorefield_platform_.28Anniedale_processor.29">Moorefield platform (Anniedale processor)</span>
+</h4>
+<ul>
+<li>Asus ZenPad S 8.0 (Z580C)</li>
+<li>Asus Fonepad 7 (FE375CXG)</li>
+<li>Asus Zenfone 2 (ZE551ML, Z3560)</li>
+<li>Asus Memo Pad 7 (ME572C) (which is a different model from the other Memo Pad 7 listed on this wiki)</li>
+<li>Asus Memo Pad 8 (ME581C)</li>
+<li>Asus ZenPad 10 (Z300CNL)</li>
+<li>Nokia N1</li>
+<li>Dell Venue 8 (Intel Z3580, different from Merrifield platform version)</li>
+<li>Asus Zenfone Zoom (ZX551ML)</li>
+</ul>
+<h4>
+<span id="SoFIA_platform_(x3-C3xxx_processor)"></span><span class="mw-headline" id="SoFIA_platform_.28x3-C3xxx_processor.29">SoFIA platform (x3-C3<i>xxx</i> processor)</span>
+</h4>
+<ul>
+<li>Asus ZenPad 10 (Z300CG)</li>
+<li>Asus ZenPad 8.0 (Z380C)</li>
+<li><a href="../en/Asus_ZenPad_7_(asus-p01z).html" title="Asus ZenPad 7 (asus-p01z)">Asus ZenPad 7.0 (Z370C)</a></li>
+<li>TrekStor SurfTab Theatre 13.3</li>
+<li>TrekStor SurfTab breeze 9.6 quad</li>
+<li>TrekStor SurfTab xintron i 10.1 3G</li>
+<li>eSTAR GO!</li>
+</ul>
+<h2><span class="mw-headline" id="Cloverview">Cloverview</span></h2>
+<p>Cloverview seems to have regular ACPI, but the same debugging capabilities as MID platforms: 
+<a rel="nofollow" class="external free" href="https://www.spinics.net/lists/platform-driver-x86/msg03871.html">https://www.spinics.net/lists/platform-driver-x86/msg03871.html</a>
+</p>
+<h2><span class="mw-headline" id="External_links">External links</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://www.kernel.org/doc/ols/2009/ols2009-pages-55-60.pdf">Simple Firmware Interface</a></li>
+<li><a rel="nofollow" class="external text" href="https://www.kernel.org/doc/ols/2012/ols2012-mansoor.pdf">Power management on the Medfield</a></li>
+<li><a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Mobile_Internet_device#Intel_MID_platforms">Wikipedia about Intel MID</a></li>
+<li><a rel="nofollow" class="external text" href="https://blog.linuxplumbersconf.org/2011/ocw/system/presentations/9/original/LPC2011-MRST.pdf">Power management on Moorestown with SFI</a></li>
+<li><a rel="nofollow" class="external text" href="https://www.phoronix.com/scan.php?page=news_item&amp;px=Linux-Dropping-Moorestown-Med">Linux Kernel dropping support for Moorestown &amp; Medfield</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Socs.html" title="Category:Socs">Socs</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Intel_MID&amp;oldid=18051">https://wiki.postmarketos.org/index.php?title=Intel_MID&amp;oldid=18051</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 19 March 2021, at 16:29.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Intel_MID&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

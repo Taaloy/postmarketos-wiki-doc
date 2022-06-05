@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Maui-shell - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Maui-shell rootpage-Maui-shell skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Maui-shell</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>[<a rel="nofollow" class="external text" href="https://github.com/Nitrux/maui-shell">maui-shell</a>] is an experimental convergent UI written in QT. It isn't quite ready for use yet but it can be tested in postmarketOS using the <code>maui</code> feature branch of pmaports: <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/tree/maui">https://gitlab.com/postmarketOS/pmaports/-/tree/maui</a>
+</p>
+<p>Check out the feature branch, change your UI to maui with <code>pmbootstrap config ui maui</code> and then do a standard install.
+You may need to manually set the session to maui with <code>tinydm-set-session -s -f /usr/share/wayland-sessions/cask.desktop</code>, cask is the name of the maui compositor.
+</p>
+<p>You should now be able to start maui by starting the tinydm service.
+</p>
+<h3><span class="mw-headline" id="scaling">scaling</span></h3>
+<p>Scaling for QT apps can be overriden by editing <code>/usr/share/wayland-sessions/cask.desktop</code> and prepending to the Exec line, change 2 to your preferred scale factor.
+</p>
+<pre>Exec=env QT_QPA_PLATFORM=eglfs QT_SCALE_FACTOR=2 QT_AUTO_SCREEN_SCALE_FACTOR=0 /usr/bin/....
+</pre>
+<h3><span class="mw-headline" id="Debugging">Debugging</span></h3>
+<p>You may want to pipe the output of cask somewhere so that you can read it, by default it should log to /tmp/cask.log but this doesn't seem to work as intended, you can try editing <code>/usr/share/applications/cask.desktop</code> and changing it's Exec to something like
+</p>
+<pre>Exec=sh -c '/usr/bin/cask -r -plugin libinput 2&gt;&amp;1 &gt; /tmp/cask.log'
+</pre>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">The above is entirely untested and probably required some tweaking</td>
+</tr></tbody></table>
+<h3><span class="mw-headline" id="See_also">See also</span></h3>
+<ul>
+<li>maui-shell github: <a rel="nofollow" class="external free" href="https://github.com/Nitrux/maui-shell">https://github.com/Nitrux/maui-shell</a>
+</li>
+<li>pmaports feature branch: <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/tree/maui">https://gitlab.com/postmarketOS/pmaports/-/tree/maui</a>
+</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Maui-shell&amp;oldid=27824">https://wiki.postmarketos.org/index.php?title=Maui-shell&amp;oldid=27824</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 18 May 2022, at 10:54.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Maui-shell&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

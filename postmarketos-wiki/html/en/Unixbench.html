@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Unixbench - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Unixbench rootpage-Unixbench skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Unixbench</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Running a benchmark:
+</p>
+<p>Install the <code>unixbench</code> package.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo ubench whets dhry
+<span class="go">make all</span>
+<span class="go">make[1]: Entering directory '/usr/share/unixbench'</span>
+<span class="go">Checking distribution of files</span>
+<span class="go">./pgms  exists</span>
+<span class="go">./src  exists</span>
+<span class="go">./testdir  exists</span>
+<span class="go">make[1]: Leaving directory '/usr/share/unixbench'</span>
+<span class="go">Checking distribution of files</span>
+<span class="go">./pgms  exists</span>
+<span class="go">./src  exists</span>
+<span class="go">./testdir  exists</span>
+<span class="go">...snip...</span>
+<span class="go">========================================================================</span>
+<span class="go">   BYTE UNIX Benchmarks (Version 5.1.3)</span>
+
+<span class="go">   System: motorola-cedric: Linux</span>
+<span class="go">   OS: Linux -- 3.18.113-lineage -- #1-postmarketOS SMP PREEMPT Sun Jan 20 14:20:57 UTC 2019</span>
+<span class="go">   Machine: aarch64 (unknown)</span>
+<span class="go">   Language: en_US.utf8 (charmap=, collate=)</span>
+<span class="go">   18:41:30 up 18 min,  load average: 4.60, 4.53, 3.30; runlevel </span>
+
+<span class="go">------------------------------------------------------------------------</span>
+<span class="go">Benchmark Run: Sun Jan 20 2019 18:41:30 - 18:46:19</span>
+<span class="go">...results here...</span>
+</pre></div>
+<p>If unixbench mentions <code>0 CPUs in system; running 1 parallel copy of tests</code> then it couldn't correctly find the number of cpu's in /proc/cpuinfo.
+In that case you can override the number of cores with an environment variable:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo <span class="nv">NUMBER_OF_PROCESSORS</span><span class="o">=</span><span class="m">4</span> ubench whets dhry
+<span class="go">... benchmark runs ...</span>
+</pre></div>
+<p>If unixbench still uses only 1 CPU, bringing all CPUs on-line before might help.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> <span class="nb">echo</span> <span class="m">4</span> &gt; /sys/devices/system/cpu/cpunum_qos/min_core_num
+</pre></div>
+<h2><span class="mw-headline" id="Benchmark_results">Benchmark results</span></h2>
+<table class="cargoTable noMerge sortable">
+<thead><tr>
+<th class="field_Device">Device</th>
+<th class="field_Codename">Codename</th>
+<th class="field_Chipset">Chipset</th>
+<th class="field_CPU">CPU</th>
+<th class="field_Architecture">Architecture</th>
+<th class="field_Score">Score</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="field_Device"><a href="../en/OnePlus_9_&amp;_9_Pro_(oneplus-lemonade_&amp;_oneplus-lemonadep).html" title="OnePlus 9 &amp; 9 Pro (oneplus-lemonade &amp; oneplus-lemonadep)">OnePlus 9 &amp; 9 Pro</a></td>
+<td class="field_Codename">oneplus-lemonadep, oneplus-lemonade</td>
+<td class="field_Chipset">Qualcomm SM8350 Snapdragon 888</td>
+<td class="field_CPU">Octa-core (1x2.84 GHz Kryo 680 &amp; 3x2.42 GHz Kryo 680 &amp; 4x1.80 GHz Kryo 680)</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">8,844.2</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Xiaomi_Mi_9_(xiaomi-cepheus).html" title="Xiaomi Mi 9 (xiaomi-cepheus)">Xiaomi Mi 9</a></td>
+<td class="field_Codename">xiaomi-cepheus</td>
+<td class="field_Chipset">Qualcomm SM8150 Snapdragon 855</td>
+<td class="field_CPU">8-core (1x 2.84 GHz Kryo 485 &amp; 3x 2.42 GHz Kryo 485 &amp; 4x 1.78 GHz Kryo 485)</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">7,735.4</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Note_9_(Exynos)_(samsung-crownlte).html" title="Samsung Galaxy Note 9 (Exynos) (samsung-crownlte)">Samsung Galaxy Note 9</a></td>
+<td class="field_Codename">samsung-crownlte</td>
+<td class="field_Chipset">Samsung Exynos 9810</td>
+<td class="field_CPU">4x2.7 GHz Cortex-A55 &amp; 4x1.7 GHz Mongoose M3</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">6,053.8</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_S10_(samsung-beyond1lte).html" title="Samsung Galaxy S10 (samsung-beyond1lte)">Samsung Galaxy S10</a></td>
+<td class="field_Codename">samsung-beyond1lte</td>
+<td class="field_Chipset">Exynos 9820</td>
+<td class="field_CPU">Octa-core Exynos M4 &amp; Cortex-A75 &amp; Cortex-A55
+2 x 2.73 GHz + 2x 2.31 + 4 x 1.95 GHz</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">6,044.6</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/OnePlus_6_(oneplus-enchilada).html" title="OnePlus 6 (oneplus-enchilada)">OnePlus 6</a></td>
+<td class="field_Codename">oneplus-enchilada</td>
+<td class="field_Chipset">Qualcomm SDM845 Snapdragon 845</td>
+<td class="field_CPU">Octa-core (4x 2.8 GHz Kryo 385 Gold &amp; 4x 1.7 GHz Kryo 385 Silver)</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">6,029.9</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/OnePlus_6T_(oneplus-fajita).html" title="OnePlus 6T (oneplus-fajita)">OnePlus 6T</a></td>
+<td class="field_Codename">oneplus-fajita</td>
+<td class="field_Chipset">Qualcomm SDM845 Snapdragon 845</td>
+<td class="field_CPU">Octa-core (4x 2.8 GHz Kryo 385 Gold &amp; 4x 1.7 GHz Kryo 385 Silver)</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">6,029.9</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Xiaomi_Redmi_Note_8_Pro_(xiaomi-begonia).html" title="Xiaomi Redmi Note 8 Pro (xiaomi-begonia)">Xiaomi Redmi Note 8 Pro</a></td>
+<td class="field_Codename">xiaomi-begonia</td>
+<td class="field_Chipset">Mediatek MT6785 (Helio G90T)</td>
+<td class="field_CPU">Octa-core (2x2.05 GHz Cortex-A76 &amp; 6x2.0 GHz Cortex-A55)</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">5,577.1</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_S8_(samsung-dreamlte).html" title="Samsung Galaxy S8 (samsung-dreamlte)">Samsung Galaxy S8</a></td>
+<td class="field_Codename">samsung-dreamlte, samsung-dream2lte</td>
+<td class="field_Chipset">Exynos 8895</td>
+<td class="field_CPU">4x 2.3 GHz Mongoose M2 &amp; 4x 1.7 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">4,559.4</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Xiaomi_Redmi_Note_8T_(xiaomi-willow).html" title="Xiaomi Redmi Note 8T (xiaomi-willow)">Xiaomi Redmi Note 8T</a></td>
+<td class="field_Codename">xiaomi-willow</td>
+<td class="field_Chipset">Qualcomm SM6125 Snapdragon 665</td>
+<td class="field_CPU">Octa-core (4x2.0 GHz Kryo 260 Gold &amp; 4x1.8 GHz Kryo 260 Silver)</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">4,168.2</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/ODROID_N2+.html" title="ODROID N2+">ODROID N2+</a></td>
+<td class="field_Codename">odroid-n2plus</td>
+<td class="field_Chipset">Amlogic S922X 12nm</td>
+<td class="field_CPU">Quad-core Cortex-A73 @ 1.8GHz and Dual-core Cortex-A53 @ 1.9GHz</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">4,142.2</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/OnePlus_5_(oneplus-cheeseburger).html" title="OnePlus 5 (oneplus-cheeseburger)">OnePlus 5</a></td>
+<td class="field_Codename">oneplus-cheeseburger</td>
+<td class="field_Chipset">Qualcomm MSM8998 Snapdragon 835</td>
+<td class="field_CPU">Octa-core (4x 2.45 GHz Kryo 280 Gold + 4x 1.9 GHz Kryo 280 Silver)</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">3,919.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/OnePlus_5T_(oneplus-dumpling).html" title="OnePlus 5T (oneplus-dumpling)">OnePlus 5T</a></td>
+<td class="field_Codename">oneplus-dumpling</td>
+<td class="field_Chipset">Qualcomm MSM8998 Snapdragon 835</td>
+<td class="field_CPU">Octa-core (4x 2.45 GHz Kryo 280 Gold + 4x 1.9 GHz Kryo 280 Silver)</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">3,919.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Xiaomi_Mi_A1_(xiaomi-tissot).html" title="Xiaomi Mi A1 (xiaomi-tissot)">Xiaomi Mi A1</a></td>
+<td class="field_Codename">xiaomi-tissot</td>
+<td class="field_Chipset">Qualcomm MSM8953 Snapdragon 625</td>
+<td class="field_CPU">Octa-core 2.0 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">3,703.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Xiaomi_Redmi_Note_4_(xiaomi-mido).html" title="Xiaomi Redmi Note 4 (xiaomi-mido)">Xiaomi Redmi Note 4</a></td>
+<td class="field_Codename">xiaomi-mido</td>
+<td class="field_Chipset">Qualcomm MSM8953 Snapdragon 625</td>
+<td class="field_CPU">Octa-core 2 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">3,697.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Motorola_Moto_G5_Plus_(motorola-potter).html" title="Motorola Moto G5 Plus (motorola-potter)">Motorola Moto G5 Plus</a></td>
+<td class="field_Codename">motorola-potter</td>
+<td class="field_Chipset">Qualcomm MSM8953 Snapdragon 625</td>
+<td class="field_CPU">Octa-core 2.0 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">3,690.3</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Chromebook_2_11.6%22_(google-peach-pit).html" title='Samsung Chromebook 2 11.6" (google-peach-pit)'>Samsung Chromebook 2 11.6"</a></td>
+<td class="field_Codename">google-peach-pit</td>
+<td class="field_Chipset">Samsung Exynos 5420</td>
+<td class="field_CPU">4x 1.9 GHz Cortex-A15 &amp; 4x 1.3 GHz Cortex-A7</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">3,121.2</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_S6_Edge_(samsung-zeroltexx).html" title="Samsung Galaxy S6 Edge (samsung-zeroltexx)">Samsung Galaxy S6 Edge</a></td>
+<td class="field_Codename">samsung-zeroltexx</td>
+<td class="field_Chipset">Exynos 7420 Octa</td>
+<td class="field_CPU">Octa-core (4x2.1 GHz Cortex-A57 &amp; 4x1.5 GHz Cortex-A53)</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">3,096.2</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/PINE64_Pinebook_Pro_(pine64-pinebookpro).html" title="PINE64 Pinebook Pro (pine64-pinebookpro)">PINE64 Pinebook Pro</a></td>
+<td class="field_Codename">pine64-pinebookpro</td>
+<td class="field_Chipset">Rockchip RK3399</td>
+<td class="field_CPU">4x 1.5 GHz Cortex-A53 &amp; 2x 2Ghz Cortex-A72</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">2,742.3</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/PINE64_RockPro64_(pine64-rockpro64).html" title="PINE64 RockPro64 (pine64-rockpro64)">PINE64 RockPro64</a></td>
+<td class="field_Codename">pine64-rockpro64</td>
+<td class="field_Chipset">Rockchip RK3399</td>
+<td class="field_CPU">4x 1.5 GHz Cortex-A53 &amp; 2x 2Ghz Cortex-A72</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">2,742.3</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Xiaomi_Mi_Note_2_(xiaomi-scorpio).html" title="Xiaomi Mi Note 2 (xiaomi-scorpio)">Xiaomi Mi Note 2</a></td>
+<td class="field_Codename">xiaomi-scorpio</td>
+<td class="field_Chipset">Qualcomm MSM8996Pro Snapdragon 821</td>
+<td class="field_CPU">2x 2.34 GHz Kryo &amp; 2x 2.19 GHz Kryo</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">2,636.3</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Motorola_Moto_G4_(motorola-athene).html" title="Motorola Moto G4 (motorola-athene)">Motorola Moto G4</a></td>
+<td class="field_Codename">motorola-athene</td>
+<td class="field_Chipset">Qualcomm MSM8952 Snapdragon 617</td>
+<td class="field_CPU">4x 1.6 GHz + 4x 1.2 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">2,621.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Xiaomi_Redmi_Note_3_(xiaomi-kenzo).html" title="Xiaomi Redmi Note 3 (xiaomi-kenzo)">Xiaomi Redmi Note 3</a></td>
+<td class="field_Codename">xiaomi-kenzo</td>
+<td class="field_Chipset">Qualcomm MSM8956 Snapdragon 650</td>
+<td class="field_CPU">Hexa-core (4x1.4GHz Cortex-A53 &amp; 2x1.8GHz Cortex-A72)</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">2,417.9</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/PINE64_PinePhone_Pro_(pine64-pinephonepro).html" title="PINE64 PinePhone Pro (pine64-pinephonepro)">PINE64 PinePhone Pro</a></td>
+<td class="field_Codename">pine64-pinephonepro</td>
+<td class="field_Chipset">Rockchip rk3399s</td>
+<td class="field_CPU">4x 1.5 GHz Cortex-A53 &amp; 2x 2Ghz Cortex-A72</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">2,304.8</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Sony_Xperia_Z5_(sony-sumire).html" title="Sony Xperia Z5 (sony-sumire)">Sony Xperia Z5</a></td>
+<td class="field_Codename">sony-sumire</td>
+<td class="field_Chipset">Qualcomm MSM8994 Snapdragon 810</td>
+<td class="field_CPU">4x 2 GHz A57 + 4x 1.5 GHz A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">2,300.0</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Xiaomi_Mi_4i_(xiaomi-ferrari).html" title="Xiaomi Mi 4i (xiaomi-ferrari)">Xiaomi Mi 4i</a></td>
+<td class="field_Codename">xiaomi-ferrari</td>
+<td class="field_Chipset">Qualcomm MSM8939 Snapdragon 615</td>
+<td class="field_CPU">Octa-core (4x1.7 GHz Cortex-A53 &amp; 4x1.0 GHz Cortex-A53)</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">2,246.4</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Huawei_P8_Lite_(huawei-alice).html" title="Huawei P8 Lite (huawei-alice)">Huawei P8 Lite</a></td>
+<td class="field_Codename">huawei-alice</td>
+<td class="field_Chipset">HiSilicon Kirin 620</td>
+<td class="field_CPU">Octa-core 1.2 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">2,193.0</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Xiaomi_Mi_4c_(xiaomi-libra).html" title="Xiaomi Mi 4c (xiaomi-libra)">Xiaomi Mi 4c</a></td>
+<td class="field_Codename">xiaomi-libra</td>
+<td class="field_Chipset">Qualcomm MSM8992 Snapdragon 808</td>
+<td class="field_CPU">4x1.4 GHz Cortex-A53 &amp; 2x1.8 GHz Cortex-A57</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,926.2</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Google_Veyron_Jerry_Chromebook_(google-veyron-jerry).html" title="Google Veyron Jerry Chromebook (google-veyron-jerry)">Google Veyron Jerry Chromebook</a></td>
+<td class="field_Codename">google-veyron-jerry</td>
+<td class="field_Chipset">Rockchip RK3288</td>
+<td class="field_CPU">4x 1.8 GHz Cortex-A17</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">1,921.2</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/CutiePi_Tablet_(raspberry-cutiepi).html" title="CutiePi Tablet (raspberry-cutiepi)">CutiePi CutiePi Tablet</a></td>
+<td class="field_Codename">raspberry-cutiepi</td>
+<td class="field_Chipset">BCM2711</td>
+<td class="field_CPU">4x 1.5 Ghz Cortex-A72</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,860.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Raspberry_Pi_4_(raspberry-pi4).html" title="Raspberry Pi 4 (raspberry-pi4)">Raspberry Pi Foundation Raspberry Pi 4</a></td>
+<td class="field_Codename">raspberry-pi4</td>
+<td class="field_Chipset">Broadcom BCM2711B0</td>
+<td class="field_CPU">4x 1.5 Ghz Cortex-A72</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,860.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Motorola_Moto_G5_(motorola-cedric).html" title="Motorola Moto G5 (motorola-cedric)">Motorola Moto G5</a></td>
+<td class="field_Codename">motorola-cedric</td>
+<td class="field_Chipset">Qualcomm MSM8937 Snapdragon 430</td>
+<td class="field_CPU">8x 1.5 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,850.2</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_A5_2017_(samsung-a5y17lte).html" title="Samsung Galaxy A5 2017 (samsung-a5y17lte)">Samsung Galaxy A5 (2017)</a></td>
+<td class="field_Codename">samsung-a5y17lte</td>
+<td class="field_Chipset">Exynos 7880</td>
+<td class="field_CPU">8x 1.9 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,691.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/ASUS_MeMO_Pad_7_(asus-me176c).html" title="ASUS MeMO Pad 7 (asus-me176c)">ASUS MeMO Pad 7 (ME176C(X))</a></td>
+<td class="field_Codename">asus-me176c</td>
+<td class="field_Chipset">Intel Bay Trail T Z3745</td>
+<td class="field_CPU">Intel® Atom™ CPU  Z3745  @ 1.33GHz</td>
+<td class="field_Architecture">x86_64</td>
+<td class="field_Score">1,664.4</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Radxa_Zero_(radxa-zero).html" title="Radxa Zero (radxa-zero)">Radxa Zero</a></td>
+<td class="field_Codename">radxa-zero</td>
+<td class="field_Chipset">Amlogic S905Y2</td>
+<td class="field_CPU">Quad Cortex-A53 1.8 GHz</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,657.2</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Xunlong_Orange_Pi_3_(xunlong-orangepi3).html" title="Xunlong Orange Pi 3 (xunlong-orangepi3)">Xunlong Orange Pi 3</a></td>
+<td class="field_Codename">xunlong-orangepi3</td>
+<td class="field_Chipset">Allwinner H6</td>
+<td class="field_CPU">4x 1.8 GHz ARM Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,646.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Onn_UHD_(askey-sti6140d360).html" title="Onn UHD (askey-sti6140d360)">Onn uhd</a></td>
+<td class="field_Codename">askey-sti6140d360</td>
+<td class="field_Chipset">Amlogic S905X2</td>
+<td class="field_CPU">4x 1.8ghz A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,644.3</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Xiaomi_Mi_A3_(xiaomi-laurel).html" title="Xiaomi Mi A3 (xiaomi-laurel)">Xiaomi Mi A3</a></td>
+<td class="field_Codename">xiaomi-laurel</td>
+<td class="field_Chipset">Qualcom SM6125 Snapdragon 665</td>
+<td class="field_CPU">Octa-core (4x2.0 GHz Kryo 260 Gold &amp; 4x1.8 GHz Kryo 260 Silver)</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,549.8</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Xiaomi_Redmi_4X_(xiaomi-santoni).html" title="Xiaomi Redmi 4X (xiaomi-santoni)">Xiaomi Redmi 4x</a></td>
+<td class="field_Codename">xiaomi-santoni</td>
+<td class="field_Chipset">Qualcomm MSM8940 Snapdragon 435</td>
+<td class="field_CPU">Octa-core 1.4 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,526.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Ouya_(ouya-ouya).html" title="Ouya (ouya-ouya)">Ouya, Inc. Ouya</a></td>
+<td class="field_Codename">ouya-ouya</td>
+<td class="field_Chipset">[https://wiki.postmarketos.org/wiki/Nvidia_Tegra_3_(tegra30) Nvidia Tegra 3 T33]</td>
+<td class="field_CPU">Quad-core 1.7 GHz Cortex-A9</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">1,450.2</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/OnePlus_Two_(oneplus-oneplus2).html" title="OnePlus Two (oneplus-oneplus2)">OnePlus Two</a></td>
+<td class="field_Codename">oneplus-oneplus2</td>
+<td class="field_Chipset">Qualcomm MSM8994 Snapdragon 810</td>
+<td class="field_CPU">4x 1.7 GHz A57 + 4x 1.5 GHz A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,409.9</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Purism_Librem5_(purism-librem5).html" title="Purism Librem5 (purism-librem5)">Purism Librem 5</a></td>
+<td class="field_Codename">purism-librem5</td>
+<td class="field_Chipset">NXP i.MX8MQ</td>
+<td class="field_CPU">4x 1.5 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,381.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Asus_Transformer_Pad_Infinity_TF700T_(asus-tf700t).html" title="Asus Transformer Pad Infinity TF700T (asus-tf700t)">ASUS Transformer Infinity</a></td>
+<td class="field_Codename">asus-tf700t</td>
+<td class="field_Chipset">[[Nvidia Tegra 3 (tegra30)|Nvidia Tegra 3 T33]]</td>
+<td class="field_CPU">Quad-core 1.6 GHz Cortex-A9</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">1,365.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Google_Nexus_7_2012_(asus-grouper).html" title="Google Nexus 7 2012 (asus-grouper)">Google (ASUS) Nexus 7 (2012)</a></td>
+<td class="field_Codename">asus-grouper</td>
+<td class="field_Chipset">[[Nvidia_Tegra_3_(tegra30)|Nvidia Tegra 3]]</td>
+<td class="field_CPU">Quad-core 1.2 GHz Cortex-A9</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">1,364.3</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/PINE64_PinePhone_(pine64-pinephone).html" title="PINE64 PinePhone (pine64-pinephone)">PINE64 PinePhone</a></td>
+<td class="field_Codename">pine64-pinephone</td>
+<td class="field_Chipset">Allwinner A64</td>
+<td class="field_CPU">4x 1152 MHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,314.3</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Google_Nexus_5X_(lg-bullhead).html" title="Google Nexus 5X (lg-bullhead)">LG Nexus 5X</a></td>
+<td class="field_Codename">lg-bullhead</td>
+<td class="field_Chipset">Qualcomm MSM8992 Snapdragon 808</td>
+<td class="field_CPU">4x1.4 GHz Cortex-A53 &amp; 2x1.8 GHz Cortex-A57</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,273.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Google_Nexus_4_(lg-mako).html" title="Google Nexus 4 (lg-mako)">Google (LG) Nexus 4</a></td>
+<td class="field_Codename">lg-mako</td>
+<td class="field_Chipset">Qualcomm APQ8064 Snapdragon S4 Pro</td>
+<td class="field_CPU">Quad-core 1.5 GHz Krait</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">1,233.4</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Pegatron_Chagall_(pegatron-chagall).html" title="Pegatron Chagall (pegatron-chagall)">Pegatron Chagall</a></td>
+<td class="field_Codename">fujitsu-m532 / pegatron-chagall</td>
+<td class="field_Chipset">[https://wiki.postmarketos.org/wiki/Nvidia_Tegra_3_(tegra30) Nvidia Tegra 3 T30]</td>
+<td class="field_CPU">Quad-core 1.4 GHz Cortex-A9</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">1,219.0</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/ASUS_Transformer_Prime_(asus-tf201).html" title="ASUS Transformer Prime (asus-tf201)">ASUS Eee Pad Transformer Prime</a></td>
+<td class="field_Codename">asus-tf201</td>
+<td class="field_Chipset">[[Nvidia Tegra 3 (tegra30)|Nvidia Tegra 3 T30]]</td>
+<td class="field_CPU">Quad-core 1.4 GHz Cortex-A9</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">1,208.1</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Pine64_Rock64_(pine64-rock64).html" title="Pine64 Rock64 (pine64-rock64)">PINE64 Rock64</a></td>
+<td class="field_Codename">pine64-rock64</td>
+<td class="field_Chipset">Rockchip RK3328</td>
+<td class="field_CPU">4x 1.5 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,192.9</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Xcover_3_(samsung-xcover3lte).html" title="Samsung Galaxy Xcover 3 (samsung-xcover3lte)">Samsung Galaxy Xcover 3</a></td>
+<td class="field_Codename">samsung-xcover3lte</td>
+<td class="field_Chipset">Marvell PXA1908</td>
+<td class="field_CPU">Quad-core 1.2 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,137.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Huawei_Honor_5X_(huawei-kiwi).html" title="Huawei Honor 5X (huawei-kiwi)">Huawei Honor 5X</a></td>
+<td class="field_Codename">huawei-kiwi</td>
+<td class="field_Chipset">[[Qualcomm_Snapdragon_615/616_(MSM8939)|Qualcomm MSM8939v2 Snapdragon 616]]</td>
+<td class="field_CPU">Octa-core (4x1.2 GHz Cortex-A53 &amp; 4x1.5 GHz Cortex-A53)</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,108.1</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Grand_Max_(samsung-grandmax).html" title="Samsung Galaxy Grand Max (samsung-grandmax)">Samsung Galaxy Grand Max</a></td>
+<td class="field_Codename">samsung-grandmax</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">4x 1.2 Ghz Cortex-A53</td>
+<td class="field_Architecture">armv7 / aarch64</td>
+<td class="field_Score">1,084.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/PINE64_PineTab_(pine64-pinetab).html" title="PINE64 PineTab (pine64-pinetab)">PINE64 PineTab</a></td>
+<td class="field_Codename">pine64-pinetab</td>
+<td class="field_Chipset">Allwinner A64</td>
+<td class="field_CPU">4x 1152 MHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,056.1</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_A3_2015_(samsung-a3).html" title="Samsung Galaxy A3 2015 (samsung-a3)">Samsung Galaxy A3 (2015)</a></td>
+<td class="field_Codename">samsung-a3</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">1.2 GHz Quad ARM Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,033.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Tab_E_9.6_(SM-T560NU)_(samsung-gtelwifiue).html" title="Samsung Galaxy Tab E 9.6 (SM-T560NU) (samsung-gtelwifiue)">Samsung Galaxy Tab E 9.6 (SM-T560NU)</a></td>
+<td class="field_Codename">samsung-gtelwifiue</td>
+<td class="field_Chipset">Qualcomm APQ8016 Snapdragon 410</td>
+<td class="field_CPU">1.2 GHz Quad ARM Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,033.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_A7_2015_(samsung-a7).html" title="Samsung Galaxy A7 2015 (samsung-a7)">Samsung Galaxy A7 (2015)</a></td>
+<td class="field_Codename">samsung-a7</td>
+<td class="field_Chipset">Qualcomm MSM8939 Snapdragon 615</td>
+<td class="field_CPU">4x1.2 Ghz Cortex-A53 &amp; 4x1.0 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">1,022.4</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Chromebook_(google-snow).html" title="Samsung Chromebook (google-snow)">Samsung Chromebook</a></td>
+<td class="field_Codename">google-snow</td>
+<td class="field_Chipset">Samsung Exynos 5250</td>
+<td class="field_CPU">2x 1.7 GHz Cortex-A15</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">1,016.9</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Google_Nexus_10_(samsung-manta).html" title="Google Nexus 10 (samsung-manta)">Google (Samsung) Nexus 10</a></td>
+<td class="field_Codename">samsung-manta</td>
+<td class="field_Chipset">Samsung Exynos 5250</td>
+<td class="field_CPU">1.7 GHz Dual-core Cortex-A15</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">956.9</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_J3_2016_(samsung-j3).html" title="Samsung Galaxy J3 2016 (samsung-j3)">Samsung Galaxy J3 2016</a></td>
+<td class="field_Codename">samsung-j3, samsung-j3ltetw</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">4x 1.2 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">929.9</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Tab_A_8.0_2015_(samsung-gt58).html" title="Samsung Galaxy Tab A 8.0 2015 (samsung-gt58)">Samsung Galaxy Tab A 8.0 (2015)</a></td>
+<td class="field_Codename">samsung-gt58</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">Quad-core 1.2 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">921.0</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Xiaomi_Redmi_2_(xiaomi-wt88047).html" title="Xiaomi Redmi 2 (xiaomi-wt88047)">Xiaomi Redmi 2</a></td>
+<td class="field_Codename">xiaomi-wt88047</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">Quad-core 1.2 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">918.9</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_J5_2016_(samsung-j5x).html" title="Samsung Galaxy J5 2016 (samsung-j5x)">Samsung Galaxy J5 (2016)</a></td>
+<td class="field_Codename">samsung-j5x</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">Quad-core 1.2 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">918.4</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Huawei_Y635_(huawei-y635).html" title="Huawei Y635 (huawei-y635)">Huawei Y635</a></td>
+<td class="field_Codename">huawei-y635</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">Quad-core 1.2 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">915.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_J5_2015_(samsung-j5).html" title="Samsung Galaxy J5 2015 (samsung-j5)">Samsung Galaxy J5 (2015)</a></td>
+<td class="field_Codename">samsung-j5</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">Quad-core 1.2 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">914.0</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/BQ_Aquaris_X5_(bq-paella).html" title="BQ Aquaris X5 (bq-paella)">BQ Aquaris X5</a></td>
+<td class="field_Codename">bq-paella</td>
+<td class="field_Chipset">Qualcomm MSM8916v2 Snapdragon 412</td>
+<td class="field_CPU">Quad-core 1.4 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">913.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_A5_2015_(samsung-a5).html" title="Samsung Galaxy A5 2015 (samsung-a5)">Samsung Galaxy A5 (2015)</a></td>
+<td class="field_Codename">samsung-a5</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">4x 1.2 Ghz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">912.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Motorola_Moto_G4_Play_(motorola-harpia).html" title="Motorola Moto G4 Play (motorola-harpia)">Motorola Moto G4 Play</a></td>
+<td class="field_Codename">motorola-harpia</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">Quad-core 1.21 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">910.6</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Nokia_1_(nokia-frt).html" title="Nokia 1 (nokia-frt)">Nokia 1</a></td>
+<td class="field_Codename">nokia-frt</td>
+<td class="field_Chipset">MediaTek MT6737M</td>
+<td class="field_CPU">4x 1.1GHz Cortex-A53</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">910.4</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Core_Prime_LTE_(samsung-coreprimelte).html" title="Samsung Galaxy Core Prime LTE (samsung-coreprimelte)">Samsung Galaxy Core Prime LTE</a></td>
+<td class="field_Codename">samsung-coreprimelte, sm-g360f</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">Quad-core 1.2 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">909.3</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_E7_(samsung-e7).html" title="Samsung Galaxy E7 (samsung-e7)">Samsung Galaxy E7</a></td>
+<td class="field_Codename">samsung-e7</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">4x 1.2 Ghz Cortex-A53</td>
+<td class="field_Architecture">armv7 / aarch64</td>
+<td class="field_Score">907.6</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Grand_Prime_(samsung-gprime).html" title="Samsung Galaxy Grand Prime (samsung-gprime)">Samsung Galaxy Grand Prime</a></td>
+<td class="field_Codename">samsung-gprime, samsung-gprimeltecan, samsung-gprimeltexx, samsung-fortuna3g, samsung-fortunaltezt</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">4x 1.2 Ghz Cortex-A53</td>
+<td class="field_Architecture">armv7 / aarch64</td>
+<td class="field_Score">904.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Tab_A_9.7_2015_(samsung-gt510).html" title="Samsung Galaxy Tab A 9.7 2015 (samsung-gt510)">Samsung Galaxy Tab A 9.7 (2015)</a></td>
+<td class="field_Codename">samsung-gt510</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">Quad-core 1.2 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">904.0</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Motorola_Moto_G_2015_(motorola-osprey).html" title="Motorola Moto G 2015 (motorola-osprey)">Motorola Moto G 2015</a></td>
+<td class="field_Codename">motorola-osprey</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">Quad-core 1.4 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">902.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_S4_Mini_Value_Edition_(samsung-serranove).html" title="Samsung Galaxy S4 Mini Value Edition (samsung-serranove)">Samsung Galaxy S4 Mini Value Edition</a></td>
+<td class="field_Codename">samsung-serranove</td>
+<td class="field_Chipset">Qualcomm MSM8916 Snapdragon 410</td>
+<td class="field_CPU">4x 1.2 GHz Cortex-A53</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">886.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/PINE64_A64-LTS_(pine64-a64lts).html" title="PINE64 A64-LTS (pine64-a64lts)">PINE64 A64-LTS</a></td>
+<td class="field_Codename">pine64-a64lts</td>
+<td class="field_Chipset">Allwinner A64</td>
+<td class="field_CPU">4x 1152 MHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">885.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_S5_(samsung-klte).html" title="Samsung Galaxy S5 (samsung-klte)">Samsung Galaxy S5</a></td>
+<td class="field_Codename">samsung-klte</td>
+<td class="field_Chipset">Qualcomm MSM8974PRO-AC Snapdragon 801</td>
+<td class="field_CPU">Quad-core 2.5 GHz Krait 400</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">884.3</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Motorola_Moto_G_2014_(motorola-titan).html" title="Motorola Moto G 2014 (motorola-titan)">Motorola Moto G (2nd gen)</a></td>
+<td class="field_Codename">motorola-titan</td>
+<td class="field_Chipset">Qualcomm MSM8226 Snapdragon 400</td>
+<td class="field_CPU">Quad-core 1.2 GHz Cortex-A7</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">879.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Motorola_Moto_G_2013_(motorola-falcon).html" title="Motorola Moto G 2013 (motorola-falcon)">Motorola Moto G (1st gen)</a></td>
+<td class="field_Codename">motorola-falcon</td>
+<td class="field_Chipset">Qualcomm MSM8226 Snapdragon 400</td>
+<td class="field_CPU">Quad-core 1.2 GHz Cortex-A7</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">877.9</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Purism_Librem5_Devkit_(purism-librem5dev).html" title="Purism Librem5 Devkit (purism-librem5dev)">Purism Librem 5 Devkit</a></td>
+<td class="field_Codename">purism-librem5dev</td>
+<td class="field_Chipset">Emcraft NXP i.MX8M</td>
+<td class="field_CPU">4x 1.5 GHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">869.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Motorola_Moto_X_(motorola-ghost).html" title="Motorola Moto X (motorola-ghost)">Motorola Moto X</a></td>
+<td class="field_Codename">motorola-ghost</td>
+<td class="field_Chipset">Qualcomm MSM8960DT Snapdragon S4 Pro</td>
+<td class="field_CPU">Dual-core Krait 200 1.7 GHz</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">844.9</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Google_Nexus_5_(lg-hammerhead).html" title="Google Nexus 5 (lg-hammerhead)">LG Nexus 5</a></td>
+<td class="field_Codename">lg-hammerhead</td>
+<td class="field_Chipset">Qualcomm MSM8974 Snapdragon 800</td>
+<td class="field_CPU">4x 2.3 GHz Krait 400</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">840.9</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/GoClever_Orion_70L_(goclever-gcta741l).html" title="GoClever Orion 70L (goclever-gcta741l)">GoClever Orion 70L</a></td>
+<td class="field_Codename">goclever-gcta741l</td>
+<td class="field_Chipset">[https://linux-sunxi.org/A31#A31s Allwinner A31s]</td>
+<td class="field_CPU">4x 1.0 GHz Cortex-A7</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">743.1</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_S4_(samsung-jflte).html" title="Samsung Galaxy S4 (samsung-jflte)">Samsung Galaxy S4</a></td>
+<td class="field_Codename">samsung-jflte</td>
+<td class="field_Chipset">Qualcomm APQ8064AB Snapdragon 600</td>
+<td class="field_CPU">Quad-core 1.9 GHz Krait 300</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">717.1</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/PINE64_Don't_be_evil_devkit_(pine64-dontbeevil).html" title="PINE64 Don't be evil devkit (pine64-dontbeevil)">PINE64 Don't be evil (devkit)</a></td>
+<td class="field_Codename">pine64-dontbeevil</td>
+<td class="field_Chipset">Allwinner A64</td>
+<td class="field_CPU">4x 1152 MHz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">706.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Tab_3_7.0_(samsung-lt023g).html" title="Samsung Galaxy Tab 3 7.0 (samsung-lt023g)">Samsung Galaxy Tab 3 7.0</a></td>
+<td class="field_Codename">samsung-lt023g</td>
+<td class="field_Chipset">Marvell PXA986</td>
+<td class="field_CPU">Dual-core 1.2 GHz Cortex-A9</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">564.6</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_SII_(samsung-i9100).html" title="Samsung Galaxy SII (samsung-i9100)">Samsung Galaxy S II</a></td>
+<td class="field_Codename">samsung-i9100</td>
+<td class="field_Chipset">Exynos 4210 Dual</td>
+<td class="field_CPU">Dual-core 1.2 GHz Cortex-A9</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">542.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_S_II_(samsung-i9100g).html" title="Samsung Galaxy S II (samsung-i9100g)">Samsung Galaxy S II (GT-I9100G)</a></td>
+<td class="field_Codename">samsung-i9100g</td>
+<td class="field_Chipset">TI OMAP 4430</td>
+<td class="field_CPU">Dual-core 1.2 GHz Cortex-A9</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">517.2</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Raspberry_Pi_3_(raspberry-pi3).html" title="Raspberry Pi 3 (raspberry-pi3)">Raspberry Pi Foundation Raspberry Pi 3</a></td>
+<td class="field_Codename">raspberry-pi3</td>
+<td class="field_Chipset">Broadcom BCM2837</td>
+<td class="field_CPU">4x 1.4 Ghz Cortex-A53</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Score">513.9</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Wiko_Lenny_2_(wiko-lenny2).html" title="Wiko Lenny 2 (wiko-lenny2)">Wiko Lenny 2</a></td>
+<td class="field_Codename">wiko-lenny2</td>
+<td class="field_Chipset">MediaTek MT6580</td>
+<td class="field_CPU">Quad-core 1.3 GHz Cortex-A7</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">477.6</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/HTC_One_SV_(htc-c520e).html" title="HTC One SV (htc-c520e)">HTC One SV</a></td>
+<td class="field_Codename">htc-k2ul</td>
+<td class="field_Chipset">Qualcomm MSM8960 Snapdragon S4 Plus</td>
+<td class="field_CPU">1.2 GHz dual-core Krait</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">470.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Tab_2_7.0%22_(samsung-espresso3g).html" title='Samsung Galaxy Tab 2 7.0" (samsung-espresso3g)'>Samsung Galaxy Tab 2 7.0</a></td>
+<td class="field_Codename">samsung-espresso3g</td>
+<td class="field_Chipset">TI OMAP 4430</td>
+<td class="field_CPU">Dual-core 1.0 GHz Cortex-A9</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">442.9</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/ASUS_Eee_Pad_Transformer_(asus-tf101).html" title="ASUS Eee Pad Transformer (asus-tf101)">ASUS Eee Pad Transformer</a></td>
+<td class="field_Codename">asus-tf101</td>
+<td class="field_Chipset">[[Nvidia_Tegra_2_(tegra20)|Nvidia Tegra 2 T20]]</td>
+<td class="field_CPU">Dual-core 1 GHz</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">442.8</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Tab_10.1_(samsung-p4wifi).html" title="Samsung Galaxy Tab 10.1 (samsung-p4wifi)">Samsung Galaxy Tab 10.1</a></td>
+<td class="field_Codename">samsung-p4wifi</td>
+<td class="field_Chipset">[[Nvidia_Tegra_2_(tegra20)|NVIDIA Tegra 2 250 T20]]</td>
+<td class="field_CPU">2x 1.0 Ghz Cortex-A9</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">424.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Sony_Xperia_M_(sony-nicki).html" title="Sony Xperia M (sony-nicki)">Sony Xperia M</a></td>
+<td class="field_Codename">sony-nicki</td>
+<td class="field_Chipset">Qualcomm MSM8227 Snapdragon S4 Plus</td>
+<td class="field_CPU">Dual-core 1.0 GHz Krait</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">371.8</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Acer_Iconia_Tab_A500_(acer-picasso).html" title="Acer Iconia Tab A500 (acer-picasso)">Acer Iconia Tab A500</a></td>
+<td class="field_Codename">acer-picasso</td>
+<td class="field_Chipset">[[Nvidia_Tegra_2_(tegra20)|Nvidia Tegra 2 T20]]</td>
+<td class="field_CPU">Dual-core 1.0 GHz Cortex-A9</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">299.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Kobo_Clara_HD_(kobo-clara).html" title="Kobo Clara HD (kobo-clara)">Kobo Clara HD</a></td>
+<td class="field_Codename">kobo-clara</td>
+<td class="field_Chipset">Freescale i.MX6 SLL</td>
+<td class="field_CPU">1x 1 GHz Cortex-A9</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">213.3</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/HTC_One_V_(htc-primou).html" title="HTC One V (htc-primou)">HTC One V</a></td>
+<td class="field_Codename">htc-primou</td>
+<td class="field_Chipset">Qualcomm MSM8255 Snapdragon S2</td>
+<td class="field_CPU">1.0 GHz Scorpion</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">186.6</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Nobby_230_(nobby-230).html" title="Nobby 230 (nobby-230)">Nobby 230</a></td>
+<td class="field_Codename">nobby-230</td>
+<td class="field_Chipset">Spreadtrum SC7715GA</td>
+<td class="field_CPU">1x 1.0 GHz Cortex-A7</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">183.5</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_Chat_(samsung-zanin).html" title="Samsung Galaxy Chat (samsung-zanin)">Samsung Galaxy Chat</a></td>
+<td class="field_Codename">samsung-zanin</td>
+<td class="field_Chipset">Broadcom BCM21654</td>
+<td class="field_CPU">1x 850 MHz Cortex-A9</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">177.7</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/LG_Optimus_L3_II_(lg-vee3e).html" title="LG Optimus L3 II (lg-vee3e)">LG Optimus L3 II</a></td>
+<td class="field_Codename">lg-vee3e</td>
+<td class="field_Chipset">Qualcomm MSM7225A Snapdragon S1</td>
+<td class="field_CPU">1.0 GHz Cortex A5</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">170.3</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Lark_FreeMe_70.2S_(lark-freeme-70-2s).html" title="Lark FreeMe 70.2S (lark-freeme-70-2s)">Lark FreeMe 70.2S</a></td>
+<td class="field_Codename">lark-freeme-70-2s</td>
+<td class="field_Chipset">[https://linux-sunxi.org/A10 Allwinner A10]</td>
+<td class="field_CPU">1x 1.0GHz Cortex-A8</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">101.8</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Raspberry_Pi_1_&amp;_2_(raspberry-pi).html" title="Raspberry Pi 1 &amp; 2 (raspberry-pi)">Raspberry Pi Foundation Raspberry Pi 1 &amp; 2</a></td>
+<td class="field_Codename">raspberry-pi</td>
+<td class="field_Chipset">Broadcom BCM2835&lt;br/&gt;Broadcom BCM2836</td>
+<td class="field_CPU">ARM1176JZF-S @ 700 MHz&lt;br/&gt;4x ARM Cortex-A7 @ 900 MHz</td>
+<td class="field_Architecture">armhf</td>
+<td class="field_Score">89.3</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Nokia_N900_(nokia-n900).html" title="Nokia N900 (nokia-n900)">Nokia N900</a></td>
+<td class="field_Codename">nokia-n900</td>
+<td class="field_Chipset">TI OMAP 3430</td>
+<td class="field_CPU">1x 600 MHz Cortex-A8</td>
+<td class="field_Architecture">armv7</td>
+<td class="field_Score">58.4</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Unixbench&amp;oldid=27562">https://wiki.postmarketos.org/index.php?title=Unixbench&amp;oldid=27562</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 7 May 2022, at 16:57.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Unixbench&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>LEDs:Sync with backlight - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-LEDs_Sync_with_backlight rootpage-LEDs_Sync_with_backlight skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">LEDs:Sync with backlight</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Trigger"><span class="tocnumber">1</span> <span class="toctext">Trigger</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Scripts"><span class="tocnumber">2</span> <span class="toctext">Scripts</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Phosh"><span class="tocnumber">2.1</span> <span class="toctext">Phosh</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Plasma_Mobile"><span class="tocnumber">2.2</span> <span class="toctext">Plasma Mobile</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Xfce4"><span class="tocnumber">2.3</span> <span class="toctext">Xfce4</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Trigger">Trigger</span></h2>
+<p>Actually there is a LED trigger available to turn on/off some LEDs when the backlight goes on/off (<a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_BACKLIGHT.html">link</a>). For usage of LED triggers, see <a href="../en/LEDs.html#Triggers" title="LEDs">LEDs#Triggers</a>. Though probably it is currently not enabled in most of the kernel configs.
+</p>
+<h2><span class="mw-headline" id="Scripts">Scripts</span></h2>
+<p>If the backlight LED trigger is not available, does not work for some reason or when backlight handling is not yet implemented for the device, there are other ways to achieve such a behaviour.
+</p>
+<p>One approach is having a look on dbus-monitor if some signals or method calls can be used parasitically to turn on/off the LEDs at certain situations. Check the screen blanking/unblanking behavior works best via ssh. For view the session bus, the DISPLAY variable needs to be exportet: <code>DISPLAY=:0 dbus-monitor --session</code>. This is not needed to see the system bus but <code>dbus-monitor --system</code> shows singnals only. To see method calls on the system bus, sudo is required: <code>sudo dbus-monitor --system</code>.
+</p>
+<h3><span class="mw-headline" id="Phosh">Phosh</span></h3>
+<p>When the screen blanks or unblanks, there are some method calls concerning the color manager on the system bus. This can be used to turn on/off the leds. As method calls on the system bus need sudo, the command can be added to visusdo to avoid a password query for the command.
+</p>
+<p>The dbus method call of the color manager unfortunately does not reveal whether the screen was blanked or unblanked. To find out about the state, the sysfs node <code>/sys/class/drm/card0-DSI-1/dpms</code> is queried. You might need to adapt the path according your setup. If your device doesn't provide dpms information, you need to find other ways to query the state of the screen, maybe looking for other dbus signals or method calls.
+</p>
+<p>The example shows turning on/off the leds of tm2-touchkey (used by some samsung devices). To handle the LEDs in the script, the user needs permission to change them, see <a href="../en/LEDs.html#Access_via_sysfs" title="LEDs">LEDs#Access_via_sysfs</a>.
+</p>
+<p>If the LEDs you want to use are turned off by default, you need to turn them on at boot. The keys for this example can be found by <code>udevadm info --attribute-walk /sys/class/leds/tm2-touchkey</code>.
+</p>
+<ul><li><code>sudo vi /etc/udev/rules.d/21-tm2-touchkey-leds.rules</code></li></ul>
+<pre>ACTION=="add", SUBSYSTEM=="leds", KERNEL=="tm2-touchkey", ATTR{brightness}="1"
+</pre>
+<p>Now let's create the script:
+</p>
+<ul><li><code>vi ~/tm2-touchkey-leds-phosh.sh</code></li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+<span class="k">while</span> true<span class="p">;</span> <span class="k">do</span>
+  sudo dbus-monitor --system <span class="nv">interface</span><span class="o">=</span>org.freedesktop.ColorManager <span class="p">|</span> grep -m <span class="m">0</span> FindDeviceByProperty
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="k">$(</span>cat /sys/class/drm/card0-DSI-1/dpms<span class="k">)</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"Off"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="m">0</span> &gt; /sys/class/leds/tm2-touchkey/brightness
+  <span class="k">else</span>
+    <span class="nb">echo</span> <span class="m">1</span> &gt; /sys/class/leds/tm2-touchkey/brightness
+  <span class="k">fi</span>
+<span class="k">done</span>
+</pre></div>
+<p>Make it executable:
+</p>
+<ul><li><code>chmod +x ~/tm2-touchkey-leds-phosh.sh</code></li></ul>
+<p>Add the dbus command to the sudoers file:
+</p>
+<ul><li><code>sudo visudo</code></li></ul>
+<pre>## watch ColorManager changes to detect screen blanking
+user ALL=NOPASSWD: /usr/bin/dbus-monitor --system interface=org.freedesktop.ColorManager
+</pre>
+<p>And create an autostart file:
+</p>
+<ul><li><code>vi ~/.config/autostart/tm2-touchkey-leds-phosh.desktop</code></li></ul>
+<pre>[Desktop Entry]
+Type=Application
+Name=tm2-touchkey-leds-phosh
+Exec=/home/user/tm2-touchkey-leds-phosh.sh
+X-GNOME-Autostart-Phase=Initialization
+</pre>
+<h3><span class="mw-headline" id="Plasma_Mobile">Plasma Mobile</span></h3>
+<p>Unfortunately, dbus-monitor seems not easily accessible via ssh. This makes it harder to find appropriate signals or method calls that can be used.
+</p>
+<h3><span class="mw-headline" id="Xfce4">Xfce4</span></h3>
+<p>See <a href="../en/Screen_locker:Disable_inputs.html#Xfce4" title="Screen locker:Disable inputs">Screen locker:Disable inputs#Xfce4</a>, a more extensive draft script that handles both input and LEDs.
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=LEDs:Sync_with_backlight&amp;oldid=25429">https://wiki.postmarketos.org/index.php?title=LEDs:Sync_with_backlight&amp;oldid=25429</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 2 February 2022, at 00:43.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=LEDs:Sync_with_backlight&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

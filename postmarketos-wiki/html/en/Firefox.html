@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Firefox - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Firefox rootpage-Firefox skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Firefox</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="thumb tright"><div class="thumbinner" style="width:302px;">
+<a href="../Firefox-welcome.png" class="image"><img alt="Alt text" src="../Firefox-welcome.png" decoding="async" width="300" height="600" class="thumbimage" srcset="../450px-Firefox-welcome.png 1.5x ../600px-Firefox-welcome.png 2x"></a>  <div class="thumbcaption">
+<div class="magnify"><a href="../Firefox-welcome.png" class="internal" title="Enlarge"></a></div>Firefox running on Phosh with mobile-config-firefox</div>
+</div></div>
+<p>postmarketOS ships the desktop version of Firefox as default in Phosh and Plasma Mobile, the mobile and privacy friendly configuration from <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/mobile-config-firefox">mobile-config-firefox</a>. To remove this configuration, uninstall the <code>mobile-config-firefox</code> package.
+</p>
+<h2><span class="mw-headline" id="Webapps">Webapps</span></h2>
+<p><b>Warning:</b> This no longer works on the recent versions of postmarketOS (including stable release) because Firefox has <a rel="nofollow" class="external text" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1682593">removed support</a> for the site specific browser mode. You can, though, replace --ssb with --kiosk to achieve a similar result in certain sites. (--kiosk opens websites in kiosk-mode which is the same of a normal browsing session but without the browser UI (Menus,Url-bar,toolbar etc. etc). Some sites do not react well, and it is suggested to memorise the keyboard short-cuts of Firefox, especially the one for closing the active tab and for going backward/forward ) 
+</p>
+<p>To create webapps for use with Firefox, the following shell script can be used. It generates a separate Firefox profile for isolation, and adds a desktop entry that opens the corresponding site as a single-site browser (without a url-bar).
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="c1"># Create firefox profile</span>
+<span class="nb">set</span> -e
+<span class="nv">name</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">url</span><span class="o">=</span><span class="nv">$2</span>
+<span class="c1"># Ugly, copy-pasted from SO</span>
+<span class="nv">simple_name</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> <span class="p">|</span> awk <span class="s1">'{print tolower($0)}'</span> <span class="p">|</span> sed <span class="s1">'s/ //g'</span><span class="k">)</span>
+<span class="nb">echo</span> <span class="s2">"Creating webapp </span><span class="nv">$name</span><span class="s2">, using </span><span class="nv">$url</span><span class="s2">."</span>
+
+firefox -CreateProfile <span class="nv">$simple_name</span>
+<span class="nv">profile_dir</span><span class="o">=</span><span class="k">$(</span>find ~/.mozilla/firefox/ -maxdepth <span class="m">1</span> <span class="p">|</span> grep <span class="nv">$simple_name</span><span class="k">)</span>
+<span class="nb">echo</span> <span class="s1">'user_pref("browser.ssb.enabled",true);'</span> &gt; <span class="nv">$profile_dir</span>/user.js
+
+<span class="c1"># Create desktop entry</span>
+cat &gt;~/.local/share/applications/<span class="nv">$simple_name</span>.desktop <span class="s">&lt;&lt;EOL</span>
+<span class="s">[Desktop Entry]</span>
+<span class="s">Exec=firefox -P $simple_name --ssb $url</span>
+<span class="s">Icon=/home/user/.local/share/applications/$simple_name.png</span>
+<span class="s">Type=Application</span>
+<span class="s">Terminal=false</span>
+<span class="s">Name=$name</span>
+<span class="s">StartupNotify=true</span>
+<span class="s">StartupWMClass=firefox</span>
+<span class="s">EOL</span>
+
+<span class="c1"># Get icon</span>
+wget <span class="nv">$url</span>/favicon.ico -O /tmp/favicon.ico
+convert /tmp/favicon.ico /tmp/favicon.png
+mv /tmp/favicon.png .local/share/applications/<span class="nv">$simple_name</span>.png <span class="o">||</span>
+mv /tmp/favicon-0.png .local/share/applications/<span class="nv">$simple_name</span>.png
+rm /tmp/favicon*.png
+</pre></div>
+<p>Save this script as <code>/add-webapp.sh</code>, and mark it as executable.
+Running the command <code>./add-webapp.sh "Hacker News" "<a rel="nofollow" class="external free" href="https://news.ycombinator.com">https://news.ycombinator.com</a>"</code> will create a launcher shortcut to Hacker News.
+</p>
+<h2><span class="mw-headline" id="Harware_accelerated_rendering">Harware accelerated rendering</span></h2>
+<p>To make firefox on pinephone/pinetab/pb/pbp smoother you need to change <code>layers.acceleration.force-enabled</code> to <b>true</b> in <code>about:config</code>.
+To ensure that it kicked in check <code>about:support</code>, graphics-&gt;compositing should become <b>OpenGL</b>.
+</p>
+<p>From Firefox 93, the legacy hardware acceleration layers have been disabled and only webrender is allowed. Webrender requires gles 3 to be able to use hardware acceleration, otherwise it will use "software webrenderer". Since Pinephone does not support gles3, from Firefox 93, the browser experience has become much worse because everything is software rendered. Fortunately firefox-esr (available from repositories and on par with security updates as the latest version) is still at v 91.6, so it is still possible to use legacy hardware acceleration layers. They are not enabled by default, to do it there is need to change two parameters in <code>about:config</code>, that are <code>layers.acceleration.force-enable</code> to true and <code>gfx.webrender.force-disabled</code> to true.
+</p>
+<h2><span class="mw-headline" id="Hide_tabs_toolbar_and_navbar">Hide tabs toolbar and navbar</span></h2>
+<p>Open firefox, search and install <a rel="nofollow" class="external text" href="https://addons.mozilla.org/en-US/firefox/addon/panorama-view/">Panorama View addons</a> (or whatever tabs view addons). Enter URL <code>about:support</code>, choose Open Directory at Profile Directory. Edit chrome/userChrome.css(if it doesn't exist, you can create one)
+</p>
+<p>Tabs Toolbar and navbar on top screen:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c">/* Hide tabs toolbar on top*/</span>
+<span class="p">#</span><span class="nn">TabsToolbar</span> <span class="p">{</span>
+   <span class="k">visibility</span><span class="p">:</span> <span class="kc">collapse</span> <span class="cp">!important</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Hide navbar on top*/</span>
+<span class="p">#</span><span class="nn">nav-bar</span> <span class="p">{</span>
+  <span class="c">/* customize this value. */</span>
+  <span class="err">--</span><span class="n">navbar-margin</span><span class="p">:</span> <span class="mi">-30</span><span class="kt">px</span><span class="p">;</span>
+
+  <span class="k">margin-top</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">navbar</span><span class="o">-</span><span class="n">margin</span><span class="p">);</span>
+  <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">z-index</span><span class="p">:</span> <span class="mi">-100</span><span class="p">;</span>
+  <span class="k">transition</span><span class="p">:</span> <span class="kc">all</span> <span class="mf">0.3</span><span class="kt">s</span> <span class="kc">ease</span> <span class="cp">!important</span><span class="p">;</span>
+  <span class="k">opacity</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">#</span><span class="nn">navigator-toolbox</span><span class="p">:</span><span class="nd">focus-within</span> <span class="o">&gt;</span> <span class="p">#</span><span class="nn">nav-bar</span><span class="o">,</span>
+<span class="p">#</span><span class="nn">navigator-toolbox</span><span class="p">:</span><span class="nd">hover</span> <span class="o">&gt;</span> <span class="p">#</span><span class="nn">nav-bar</span>
+<span class="p">{</span>
+  <span class="k">margin-top</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">margin-bottom</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">navbar</span><span class="o">-</span><span class="n">margin</span><span class="p">);</span>
+  <span class="k">z-index</span><span class="p">:</span> <span class="mi">100</span><span class="p">;</span>
+  <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Tabs Toolbar and navbar on bottom screen:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c">/* Hide tabs toolbar on bottom*/</span>
+<span class="p">#</span><span class="nn">TabsToolbar</span> <span class="p">{</span>
+   <span class="k">visibility</span><span class="p">:</span> <span class="kc">collapse</span> <span class="cp">!important</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Hide navbar on bottom*/</span>
+<span class="p">#</span><span class="nn">nav-bar</span> <span class="p">{</span>
+  <span class="c">/* customize this value. */</span>
+  <span class="err">--</span><span class="n">navbar-margin</span><span class="p">:</span> <span class="mi">-30</span><span class="kt">px</span><span class="p">;</span>
+
+  <span class="k">margin-top</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">margin-bottom</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">navbar</span><span class="o">-</span><span class="n">margin</span><span class="p">);</span>
+  <span class="k">z-index</span><span class="p">:</span> <span class="mi">-100</span><span class="p">;</span>
+  <span class="k">transition</span><span class="p">:</span> <span class="kc">all</span> <span class="mf">0.3</span><span class="kt">s</span> <span class="kc">ease</span> <span class="cp">!important</span><span class="p">;</span>
+  <span class="k">opacity</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">#</span><span class="nn">navigator-toolbox</span><span class="p">:</span><span class="nd">focus-within</span> <span class="o">&gt;</span> <span class="p">#</span><span class="nn">nav-bar</span><span class="o">,</span>
+<span class="p">#</span><span class="nn">navigator-toolbox</span><span class="p">:</span><span class="nd">hover</span> <span class="o">&gt;</span> <span class="p">#</span><span class="nn">nav-bar</span>
+<span class="p">{</span>
+  <span class="k">margin-top</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">navbar</span><span class="o">-</span><span class="n">margin</span><span class="p">);</span>
+  <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">z-index</span><span class="p">:</span> <span class="mi">100</span><span class="p">;</span>
+  <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Customize Toolbar to edit Panorama View first icon showing on navigation bar. Changing Phosh scale_screen to 1.75 and Firefox zoom to 150% to fix some glitches for small panel/display in Settings
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/alpine/aports/-/issues/11141">aports#11141</a> Firefox was broken in Alpine on armv7</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1445">pmaports!1445</a>: configure firefox-esr for mobile and privacy (has more screenshots)</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1492">pmaports!1492</a>: new Firefox mobile config, that works with &gt;= 78 too</li>
+<li><a rel="nofollow" class="external text" href="https://addons.mozilla.org">Firefox Add-ons</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Apps.html" title="Category:Apps">Apps</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Firefox&amp;oldid=25854">https://wiki.postmarketos.org/index.php?title=Firefox&amp;oldid=25854</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 22 February 2022, at 07:58.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Firefox&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

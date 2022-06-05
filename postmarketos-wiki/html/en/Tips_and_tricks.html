@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Tips and tricks - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Tips_and_tricks rootpage-Tips_and_tricks skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Tips and tricks</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#SSH_Config"><span class="tocnumber">1</span> <span class="toctext">SSH Config</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#SSH_with_Suckless_Terminal"><span class="tocnumber">2</span> <span class="toctext">SSH with Suckless Terminal</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Some_interesting_ideas"><span class="tocnumber">3</span> <span class="toctext">Some interesting ideas</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#VNC"><span class="tocnumber">4</span> <span class="toctext">VNC</span></a></li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Update_the_architecture_of_your_device"><span class="tocnumber">5</span> <span class="toctext">Update the architecture of your device</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#from_armhf_to_armv7"><span class="tocnumber">5.1</span> <span class="toctext">from armhf to armv7</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Misc"><span class="tocnumber">6</span> <span class="toctext">Misc</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Copy_a_port"><span class="tocnumber">7</span> <span class="toctext">Copy a port</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="SSH_Config">SSH Config</span></h3>
+<p>When postmarketOS is reinstalled, a new ssh host key will be generated. Your SSH client will detect this, and refuse to connect, requiring you to run <code>ssh-keygen -R 172.16.42.1</code> each time a new host key is generated.
+</p>
+<p>To disable this check, and to allow you to connect by running <code>ssh postmarketos</code>, add the following to your <code>~/.ssh/config</code>:
+</p>
+<pre>Host postmarketos
+    HostName 172.16.42.1
+    StrictHostKeyChecking no
+    UserKnownHostsFile=/dev/null
+</pre>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>Warning</b>: Ignoring host keys could leave you vulnerable to a <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack">Man-in-the-middle attack</a>
+</td>
+</tr></tbody></table>
+<h3><span class="mw-headline" id="SSH_with_Suckless_Terminal">SSH with Suckless Terminal</span></h3>
+<p>When you ssh into postmarktetos using the suckless terminal (st) on your host, you will get errors with vim:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>E558: Terminal entry not found in terminfo
+'st' not known. Available builtin terminals are:
+    builtin_amiga
+</pre></div>
+<p>Furthermore, gpg will refuse to decrypt files and return the following error:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>gpg: public key decryption failed: Required environment variable not set
+gpg: decryption failed: No secret key
+</pre></div>
+<p>To fix, simply add <code>export TERM=xterm</code> to your <code>~/.profile</code> file on your postmarketos phone.
+</p>
+<h3><span class="mw-headline" id="Some_interesting_ideas">Some interesting ideas</span></h3>
+<p>Here are some interesting ideas that you can do with your device with postmarketOS
+</p>
+<ul>
+<li>Use it as a mini retro handheld gaming device. As there are many good retro emulators that can make your device one great gaming device.</li>
+<li>Use it as a mini penetration testing device. As postmarketOS is a pure linux os, you can run <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Wireshark">Wireshark</a> and other penetration testing software with it.</li>
+<li>You can run full Desktop Environment, with <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Inkscape">Inkscape</a>, <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/GIMP">GIMP</a> and full desktop browser(not mobile version) with extension in your device, .</li>
+</ul>
+<h3><span class="mw-headline" id="VNC"><a href="../en/VNC.html" title="VNC">VNC</a></span></h3>
+<p>Using x11vnc, which is in the Alpine repos. You need a running X server (e.g. running Xfce), then you just run x11vnc on the device in a terminal/tty and connect to it. From there, you can manipulate the previously running X server.
+You might need to specify the X server if x11vnc does not detect it (e.g. by passing -display :0 to it or doing a export DISPLAY=:0 before running it, assuming the display is at :0)
+</p>
+<h3><span class="mw-headline" id="Update_the_architecture_of_your_device">Update the architecture of your device</span></h3>
+<p>
+Some devices have the armhf-architecture but the device supports armv7/aarch64. Some packages can not be built for armhf, so it is useful to update the architecture. </p>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">While updating armhf -&gt; armv7 is usually trivial, armhf/armv7 -&gt; aarch64 is usually not. See <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/599#note_486220044">here</a>
+</td>
+</tr></tbody></table>
+<h4><span class="mw-headline" id="from_armhf_to_armv7">from armhf to armv7</span></h4>
+<ul><li>Update the architecture in the following files:</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>device/testing/device-wiki-example/APKBUILD
+device/testing/device-wiki-example/deviceinfo
+device/testing/linux-wiki-example/APKBUILD
+device/testing/firmware-wiki-example/APKBUILD
+</pre></div>
+<ul><li>Update the name of the config-wiki-example.armhf in device/linux-wiki-example wot config-wiki-example.armv7</li></ul>
+<ul><li>Create new checksums for the device package <code>pmbootstrap checksum device-wiki-example</code> as well as for the kernel package <code>pmbootstrap checksum linux-wiki-example</code>, <code>pmbootstrap zap</code>, and reinstall.</li></ul>
+<p>Due to CI-Updates in the Gitlab-repository it may be necessary to also <a href="../en/Downstream_kernel_specific_package.html#Modernize_your_aport" title="Downstream kernel specific package">modernize your aport</a> before you can <a href="../en/Git_workflow.html" title="Git workflow">upstream your work</a>.
+</p>
+<h3><span class="mw-headline" id="Misc">Misc</span></h3>
+<ul>
+<li>The splash screen is <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/206#issuecomment-316791430">highly configurable</a> (scroll down for an example)!</li>
+<li>Browse the Linux source with links to all references <a rel="nofollow" class="external text" href="http://elixir.free-electrons.com">here</a>
+</li>
+<li>Qualcomm and maybe some other Androids can simply reboot from postmarketOS (or any Linux distro) into your bootloader or recovery with <code>reboot -f bootloader</code> and <code>reboot -f recovery</code>
+</li>
+<li>Battery capacity can be monitored to trigger low battery actions. See <a href="../en/Battery_capacity_monitoring.html" title="Battery capacity monitoring">Battery capacity monitoring</a> for more information.</li>
+</ul>
+<h3><span class="mw-headline" id="Copy_a_port">Copy a port</span></h3>
+<p>If you know a port of another device works on your device too, you can copy the port.
+</p>
+<p>Reasons for copying a port:
+</p>
+<ul>
+<li>You cannot make your device boot yourself, or you want to save the time it takes to do it</li>
+<li>There are no kernel sources available for your device</li>
+<li>The devices are very similar (e.g. same SoC), but need small adjustments</li>
+</ul>
+<p>Keep in mind that if you copy a port, you copy all the problems and bugs as well. For example, it can be better to create a new up-to-date port than to copy a port which only compiles under gcc6 and still uses armhf.
+</p>
+<p>If you want to copy the port of a device, copy all the files of the device in your device-folder and rename them to the new ones. Then simply follow the porting guide. If the config-file of your new device is available, try to use it instead of the old one.
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Tips_and_tricks&amp;oldid=27932">https://wiki.postmarketos.org/index.php?title=Tips_and_tricks&amp;oldid=27932</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 22 May 2022, at 18:05.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Tips_and_tricks&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

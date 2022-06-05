@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Troubleshooting:dependencies - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Troubleshooting_dependencies rootpage-Troubleshooting_dependencies skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Troubleshooting:dependencies</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Alpine recently moved to a new version of musl libc version introducing 64-bit time_t for 32-bit architectures. If you were on the edge branch and building for a 32-bit architecture (like armv7 or armhf) you may have experienced problems with missing dependencies. As of 03/07/2020 (DD/MM/YYYY), most packages have been rebuilt to fit this new change. If you still have difficulties installing packages or dependencies, try the following troubleshooting steps:
+<ul>
+<li>(in case of postmarketOS packages) Check <a rel="nofollow" class="external text" href="https://build.postmarketos.org">build.postmarketos.org</a>'s Failed category and issue <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/build.postmarketos.org/-/issues/72">build.postmarketos.org#72</a> to verify</li>
+<li>In the chroot for the affected architecture run <code>apk upgrade -U -a</code> as root (<code>pmbootstrap chroot</code> will automatically sign you in as root):
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>$ pmbootstrap chroot -b<span class="o">=</span>armv7
+<span class="o">[</span><span class="m">09</span>:44:40<span class="o">]</span> <span class="o">(</span>buildroot_armv7<span class="o">)</span> % sh -i
+/ <span class="c1"># apk upgrade -U -a</span>
+</pre></div>
+</li>
+<li>If you get BAD signature errors, run the following commands:
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>$ pmbootstrap --mirror-alpine <span class="s2">"http://dl-cdn.alpinelinux.org/alpine/"</span> update --non-existing
+$ pmbootstrap --mirror-alpine <span class="s2">"http://dl-cdn.alpinelinux.org/alpine/"</span> install
+</pre></div>
+<p>Note: <code>--non-existing</code> option needs to be specified when using new pmos/alpine mirror that has not been used previously.
+</p>
+<p>You may also need to change the mirrors on your device after installing postmarketOS. See <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/build.postmarketos.org/-/issues/72#note_388367812">this comment</a> for an explanation.
+</p>
+</li>
+<li>Try running <code>pmbootstrap zap</code>, experiment with arguments (see <code>pmbootstrap zap --help</code> for a list)</li>
+</ul>
+For more information, read this blogpost: <a rel="nofollow" class="external text" href="http://postmarketos.org/blog/2020/07/21/breaking-update-in-edge/">Breaking update for 32-bit arches in postmarketOS edge</a>
+</td>
+</tr></tbody></table>
+<p>Here's a step-by-step guide to resolving <code>Could not find dependency</code> errors coming from <code>pmbootstrap</code>, as well as <code>unsatisfiable constraints</code> errors coming from <code>apk</code>.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Why_does_this_happen.3F"><span class="tocnumber">1</span> <span class="toctext">Why does this happen?</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Alpine_Linux"><span class="tocnumber">1.1</span> <span class="toctext">Alpine Linux</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#postmarketOS"><span class="tocnumber">1.2</span> <span class="toctext">postmarketOS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Update_your_package_index"><span class="tocnumber">2</span> <span class="toctext">Update your package index</span></a></li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Find_the_package_name"><span class="tocnumber">3</span> <span class="toctext">Find the package name</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#apk"><span class="tocnumber">3.1</span> <span class="toctext">apk</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#pmbootstrap"><span class="tocnumber">3.2</span> <span class="toctext">pmbootstrap</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Find_out_where_the_package_comes_from"><span class="tocnumber">4</span> <span class="toctext">Find out where the package comes from</span></a></li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Trigger_a_rebuild"><span class="tocnumber">5</span> <span class="toctext">Trigger a rebuild</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10">
+<a href="#postmarketOS_2"><span class="tocnumber">5.1</span> <span class="toctext">postmarketOS</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#Cross_compilers"><span class="tocnumber">5.1.1</span> <span class="toctext">Cross compilers</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-12"><a href="#Alpine_Linux_2"><span class="tocnumber">5.2</span> <span class="toctext">Alpine Linux</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2>
+<span id="Why_does_this_happen?"></span><span class="mw-headline" id="Why_does_this_happen.3F">Why does this happen?</span>
+</h2>
+<p>The errors indicate that there is an issue with the binary package repositories either of postmarketOS or of Alpine Linux. pmOS Edge is built upon Alpine's "edge" repository (as in <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Bleeding_edge_technology">bleeding edge</a>), so a certain amount of breakage is expected.
+</p>
+<p>In most cases a library (e.g. <code>libcrypto.so</code> from libressl/openssl) has been updated with an incompatible change (<a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Soname">soname bump</a>), and a package that was built against the previous version did not get rebuilt yet.
+</p>
+<p>Triggering rebuilds is done by both Alpine and pmOS by increasing the <code>pkgrel</code> in the <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD_Reference"><code>APKBUILD</code></a>.
+</p>
+<h3><span class="mw-headline" id="Alpine_Linux">Alpine Linux</span></h3>
+<p>The package maintainers from Alpine trigger a rebuild for all packages that depend on a certain library at the same time as they update that library. But building packages takes time, and when a big number of packages depend on such a library, build bots may even get stuck at a package that used to compile fine a few months ago, but doesn't compile in the current environment (let's say because they don't build with the latest GCC version that Alpine has packaged).
+</p>
+<p>There is a dedicated build bot for each architecture and branch combination (e.g. <code>build-edge-armhf</code>), and once it is stuck, it won't continue with compiling other packages in the queue. If you have some time to spare, you could actually help out with getting these packages to compile again by finding out which one is failing on <a rel="nofollow" class="external text" href="http://build.alpinelinux.org/">build.alpinelinux.org</a> (click the packages to see the build logs) and assisting Alpine developers in <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/Alpine_Linux:IRC">#alpine-devel</a>. However, the quick workaround is rebuilding just the packages you need, as explained below.
+</p>
+<h3><span class="mw-headline" id="postmarketOS">postmarketOS</span></h3>
+<p>For postmarketOS packages, we need to trigger the rebuild manually, as soon as a library gets updated in Alpine on which one of our packages depend. We have a test case in place, that detects such breakage and we fix it in <code>master</code> and our binary repository as soon as we see it, typically within a day.
+</p>
+<h2><span class="mw-headline" id="Update_your_package_index">Update your package index</span></h2>
+<p>Maybe the issue has already been resolved in the package repositories of postmarketOS or Alpine. <code>pmbootstrap</code> will automatically download the newest package indexes when they are older than four hours. Force it to download the currrent index files with:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap update
+</pre></div>
+<p>From inside the postmarketOS installation, you can do the same with:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk update
+</pre></div>
+<h2><span class="mw-headline" id="Find_the_package_name">Find the package name</span></h2>
+<h3><span class="mw-headline" id="apk">apk</span></h3>
+<p>All packages are mentioned that depend on the shared library. Find the package that depends on the lower version of it. In the example below, this is <code>g++-armhf-6.4.0-r5[libstdc++=6.4.0-r5]</code> (the higher version would be <code>libstdc++=6.4.0-r6</code>). This means the package that needs to be rebuilt is <code>g++-armhf</code>.
+</p>
+<pre>ERROR: unsatisfiable constraints:
+libstdc++-6.4.0-r6:
+breaks:
+g++-armhf-6.4.0-r5[libstdc++=6.4.0-r5]
+satisfies: world[libstdc++]
+g++-6.4.0-r6[libstdc++=6.4.0-r6]
+g++-6.4.0-r6[libstdc++=6.4.0-r6]
+gcc-6.4.0-r6[so:libstdc++.so.6]
+lzip-1.19-r1[so:libstdc++.so.6]
+gcc-6.4.0-r6:
+breaks: g++-armhf-6.4.0-r5[gcc=6.4.0-r5]
+satisfies: world[gcc]
+g++-6.4.0-r6[gcc=6.4.0-r6]
+build-base-0.5-r0[gcc]
+</pre>
+<h3><span class="mw-headline" id="pmbootstrap">pmbootstrap</span></h3>
+<p>Here the package depending on the dependency that was not found is not mentioned:
+</p>
+<pre>[21:38:23] ERROR: Could not find dependency 'so:libcrypto.so.42' in any aports folder or APKINDEX. See: &lt;https://postmarketos.org/depends&gt;
+[21:38:23] Run 'pmbootstrap log' for details.
+[21:38:23] See also: &lt;https://postmarketos.org/troubleshooting&gt;
+</pre>
+<p>In order to see it, run your last <code>pmbootstrap</code> command again, but with verbose mode (<code>-v</code>). For example:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap -v install
+</pre></div>
+<p>After it crashed at the same point, check <code>pmbootstrap log</code> for a line like the following (on the right should be the library you are interested in). The "????" is the package we are looking for. If you're having a hard time looking through the whole log, you can use <code>pmbootstrap log -c</code> to clear it.
+</p>
+<pre>????: depends on: so:libcrypto.so.42
+</pre>
+<h2><span class="mw-headline" id="Find_out_where_the_package_comes_from">Find out where the package comes from</span></h2>
+<p>We need to know if the package comes from postmarketOS or Alpine Linux. Change to your <code>pmbootstrap</code> folder, and search for the package:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> find aports -name <span class="s2">"hello-world"</span>
+<span class="go">aports/main/hello-world</span>
+</pre></div>
+<p>If you can find it, the package comes from postmarketOS. Otherwise from Alpine.
+</p>
+<h2><span class="mw-headline" id="Trigger_a_rebuild">Trigger a rebuild</span></h2>
+<h3><span class="mw-headline" id="postmarketOS_2">postmarketOS</span></h3>
+<p>It might be, that we marked the package for rebuild already, so pull the latest changes from the master branch (or rebase if you are on your own branch):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git pull
+</pre></div>
+<p>Then try again. If the problem persists, mark all postmarketOS packages with broken dependencies for rebuild:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap pkgrel_bump --auto
+</pre></div>
+<p>When you execute the command that caused the error next time, the package should get built locally and the problem should be gone.
+</p>
+<h4><span class="mw-headline" id="Cross_compilers">Cross compilers</span></h4>
+<p>This is a special case, because we generate the cross compilers directly from Alpine: If the error has <code>libstdc++</code> and <code>gcc-armhf</code> involved, regenerate your <code>gcc-armhf</code> aport based on the latest <code>gcc</code> aport from Alpine (replace armhf with aarch64 etc. as necessary):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap aportgen gcc-armhf
+</pre></div>
+<h3><span class="mw-headline" id="Alpine_Linux_2">Alpine Linux</span></h3>
+<p>Clone Alpine's packages to a folder outside of your <code>pmbootstrap</code> folder:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code
+<span class="gp">$</span> git clone https://git.alpinelinux.org/cgit/aports
+</pre></div>
+<p>Find the package in question:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> find -name uboot-tools
+<span class="go">./testing/uboot-tools</span>
+</pre></div>
+<p>Build it with <code>pmbootstrap</code> for the architecture in question (replace the path to <code>pmbootstrap</code> accordigly):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> cp -r ./testing/uboot-tools ~/code/pmbootstrap/aports/temp/
+<span class="gp">$</span> pmbootstrap build uboot-tools --arch<span class="o">=</span>armhf
+<span class="gp">$</span> rm -r ~/code/pmbootstrap/aports/temp
+</pre></div>
+<h1><span class="mw-headline" id="See_also">See also</span></h1>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1408">#1408</a> nokia-n900: pmbootstrap install fails for libcrypto.so.42</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1684">#1684</a> Dependency conflict blocks generation of hammerhead image</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:dependencies&amp;oldid=27650">https://wiki.postmarketos.org/index.php?title=Troubleshooting:dependencies&amp;oldid=27650</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 13 May 2022, at 16:33.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:dependencies&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

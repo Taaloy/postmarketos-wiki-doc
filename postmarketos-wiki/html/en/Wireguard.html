@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Wireguard - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Wireguard rootpage-Wireguard skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Wireguard</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Wireguard_tunnel"><span class="tocnumber">2</span> <span class="toctext">Wireguard tunnel</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#wg-quick_and_nftables"><span class="tocnumber">3</span> <span class="toctext">wg-quick and nftables</span></a></li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Installation"><span class="tocnumber">4</span> <span class="toctext">Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Recompiling_kernel"><span class="tocnumber">4.1</span> <span class="toctext">Recompiling kernel</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Setup_and_usage"><span class="tocnumber">4.2</span> <span class="toctext">Setup and usage</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Integration_with_other_applications"><span class="tocnumber">5</span> <span class="toctext">Integration with other applications</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#GUI_applications"><span class="tocnumber">5.1</span> <span class="toctext">GUI applications</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#NetworkManger_integration"><span class="tocnumber">5.2</span> <span class="toctext">NetworkManger integration</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#DNS_dependence"><span class="tocnumber">5.3</span> <span class="toctext">DNS dependence</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p>Wireguard is modern, low-latency VPN, available in upstream Alpine repo. Not only it is fast and secure, but also very simple and straightforward in configuration. Among all VPN techlologies, it is the simplest (from user's viewpoint) and the least wayward one.
+</p>
+<h2><span class="mw-headline" id="Wireguard_tunnel">Wireguard tunnel</span></h2>
+<p>To enable wireguard tunneling, your kernel must be compiled with its support - which results in <code>wireguard.ko</code> driver module somewhere (depending on kernel version) in <code>/lib/modules/<i>kernel-version</i>/kernel</code>. Strange enough,  wireguard support is disabled in default Alpine kernel - and thus in pmOS, too. You need to rebuild the kernel with the following settings:
+</p>
+<pre>CONFIG_WIREGUARD=m
+CONFIG_CRYPTO_ECDSA=m
+</pre>
+<p>or, in terms of <code>menuconfig</code> tree,
+</p>
+<pre>Device Drivers  ---&gt;
+    [*] Network device support  ---&gt;
+        [*] Network core driver support
+        &lt;M&gt;   WireGuard secure network tunnel
+
+_*_ Cryptographic API  ---&gt;
+    &lt;M&gt; ECDSA (NIST P192, P256 etc.) algorithm
+</pre>
+<p>While running pmOS, you can check the details by running below command in terminal
+</p>
+<pre>$ modinfo wireguard
+</pre>
+<p>It prints module details like filename, author, etc.
+If it prints something like:
+</p>
+<pre>modinfo: module '/lib/modules/${uname -r}/wireguard' not found
+</pre>
+<p>the kernel must be rebuilt, see below.
+</p>
+<h2><span class="mw-headline" id="wg-quick_and_nftables">wg-quick and nftables</span></h2>
+<p><code>wg-quick</code> is a popular script that does a lot of routine work to set up the IP stack on top of the newly created Wireguard intreface: IP address, routing, DNS, and firewall settings. For the latter task, it relies heavily onto <code>nftables</code>, which, it turn, also requires kernel support as follows:
+</p>
+<pre>CONFIG_NFT_FIB_IPV4=m
+CONFIG_NFT_FIB_IPV6=m
+CONFIG_NFT_FIB_INET=m
+CONFIG_NF_TABLES_NETDEV=y
+CONFIG_NFT_FIB_NETDEV=m
+</pre>
+<p>or, in <code>menuconfig</code>:
+</p>
+<pre>Networking support  ---&gt;
+    Networking options  ---&gt;
+    [*] Network packet filtering framework (Netfilter)  ---&gt;
+            IP: Netfilter Configuration  ---&gt;
+                _*_ IPv4 nf_tables support
+                &lt;M&gt; nf_tables fib / ip route lookup support
+            IPv6: Netfilter Configuration  ---&gt;
+                _*_ IPv6 nf_tables support
+                &lt;M&gt; nf_tables fib / ip route lookup support
+            Core Netfilter Configuration  ---&gt;
+                &lt;M&gt; Netfilter nf_tables support
+                [*]   Netfilter nf_tables netdev tables support
+                &lt;M&gt;   Netfilter nf_tables fib inet support
+                &lt;M&gt;   Netfilter nf_tables netdev fib lookups support
+</pre>
+<p>Note that some of these settings depend upon the previous ones. These settings are present in default Alpine kernel configurations but not in pmOS ones.
+</p>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">To consider including the the above settings, as well as other <code>nftables</code> modules, into default kernels, address your merge requests to Alpine and pmOS maintainers, respectively.</td>
+</tr></tbody></table>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<h3><span class="mw-headline" id="Recompiling_kernel">Recompiling kernel</span></h3>
+<p>To add the above settings to the kernel yourself:
+</p>
+<p>1. Remove the existing chroot and packages
+</p>
+<pre>$ pmbootstrap -y zap -p</pre>
+<p>2. Configure the kernel
+</p>
+<pre>$ pmbootstrap kconfig edit YOUR-KERNEL-PACKAGE</pre>
+<p>This invokes menu tool for kernel configuration and packs the new configuration file back into the package. Set the abovementioned options. See <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Kernel_configuration">Kernel configuration</a> for package naming and other details.
+</p>
+<p>3. Rebuild the kernel for your particular installation
+</p>
+<pre>$ pmbootstrap build --force YOUR-KERNEL-PACKAGE</pre>
+<p>4. Build and install pmOS in your usual way
+</p>
+<pre>$ pmbootstrap install ...</pre>
+<h3><span class="mw-headline" id="Setup_and_usage">Setup and usage</span></h3>
+<p>To use Wireguard tunnels, you need  <code>wireguard-tools-wg-quick</code> package. It may be added manually after installation, or included in your basic software suite at <code>pmbootstrap init</code> step. There is no separate <code>wireguard</code> package in Alpine and pmOS. There are other Wireguard tools to be considered as well.
+</p>
+<p>Standard location for configuration of Wireguard tunnels is <code>/etc/wireguard/<i>interface</i>.conf</code>. The directory should be readable for root only (<code>chmod 700</code>, and <code>chmod 600</code> for files in it) as it contains private keys of the host. Once <code>wg-quick</code> is installed, tunnels may be started/stopped as follows:
+</p>
+<pre>$ sudo wg-quick up INTERFACE
+$ sudo wg-quick down INTERFACE
+</pre>
+<p>with INTERFACE being a name of one of the <code>.conf</code> files.
+</p>
+<h2><span class="mw-headline" id="Integration_with_other_applications">Integration with other applications</span></h2>
+<h3><span class="mw-headline" id="GUI_applications">GUI applications</span></h3>
+<p>As of now, there is no dedicated GUI application for Wireguard management in Linux. (Unlike the other OSes.) Use terminal instead. Probably someone will write it one day, or adopt the existing Android/IOS app for pmOS phones (apart from desktops/notebooks). In some desktop environments, there are (or may appear in the future) Wireguard plugins for their regular network management tools.
+</p>
+<h3><span class="mw-headline" id="NetworkManger_integration">NetworkManger integration</span></h3>
+<p>In mobian <a rel="nofollow" class="external text" href="https://blogs.gnome.org/thaller/2019/03/15/wireguard-in-networkmanager/">there is easy way</a> to manage Wireguard with automatically filled pre and post hooks.
+</p>
+<pre>$ nmcli connection import type Wireguard file /path/to/wg.conf
+</pre>
+<p>However, because of (probably) some lack in packaging, pre and post hooks interfaces are not set properly. So you are connected to your rely but DNS doesn't work.
+</p>
+<h3><span class="mw-headline" id="DNS_dependence">DNS dependence</span></h3>
+<p>In certain use cases, you may need to use a particular DNS server at the other side of the tunnel instead the default one. To that purpose, there is the <code>DNS=</code> setting in config file for <code>wg-quick</code>. (But not for <code>wireguard</code> itself !)
+</p>
+<p>To perform the task, <code>wg-quick</code> and probably other tools running on top of Wireguard itself need addtitional tools to set up DNS for wireguard interface. In most distributions and packages, <code>openresolv|resolvconf</code> are listed as recommended - but not mandatory - dependencies.
+</p>
+<p>In Alpine and pmOS, <code>wireguard-tools-wg-quick</code> does install <code>openresolv</code> unconditionally, thus DNS setting works out of the box.
+</p>
+<p>In other distributions and setups (including Network Manager as described above?) you may need to install this dependence manually.
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Wireguard&amp;oldid=27541">https://wiki.postmarketos.org/index.php?title=Wireguard&amp;oldid=27541</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 7 May 2022, at 07:30.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Wireguard&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

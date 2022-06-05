@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Installing pmbootstrap - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Installing_pmbootstrap rootpage-Installing_pmbootstrap skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Installing pmbootstrap</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Running postmarketOS, Alpine, Fedora, or Void Linux? Grab pmbootstrap straight from your distribution's package manager (e.g. <code>apk add pmbootstrap</code>)! Note that when using a recent version of Alpine you might have to enable the community repository for this to work, see <a rel="nofollow" class="external autonumber" href="https://wiki.alpinelinux.org/wiki/Enable_Community_Repository">[1]</a> on how to do that. You also have to install sudo or doas and set it up so that you user can use it.</td>
+</tr></tbody></table>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Requirements"><span class="tocnumber">1</span> <span class="toctext">Requirements</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#pmaports.git"><span class="tocnumber">2</span> <span class="toctext">pmaports.git</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Installing_automatically"><span class="tocnumber">3</span> <span class="toctext">Installing automatically</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4">
+<a href="#Latest_release_with_pip"><span class="tocnumber">3.1</span> <span class="toctext">Latest release with pip</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="#Updating"><span class="tocnumber">3.1.1</span> <span class="toctext">Updating</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6">
+<a href="#Latest_development_version_from_git"><span class="tocnumber">3.2</span> <span class="toctext">Latest development version from git</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Download_pmbootstrap"><span class="tocnumber">3.2.1</span> <span class="toctext">Download pmbootstrap</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Install"><span class="tocnumber">3.2.2</span> <span class="toctext">Install</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Installing_manually"><span class="tocnumber">4</span> <span class="toctext">Installing manually</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Download_pmbootstrap_2"><span class="tocnumber">4.1</span> <span class="toctext">Download pmbootstrap</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Create_a_link"><span class="tocnumber">4.2</span> <span class="toctext">Create a link</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Test_installation"><span class="tocnumber">4.3</span> <span class="toctext">Test installation</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Uninstalling_after_installing_manually"><span class="tocnumber">4.4</span> <span class="toctext">Uninstalling after installing manually</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14">
+<a href="#Tab_completion"><span class="tocnumber">5</span> <span class="toctext">Tab completion</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#Bash"><span class="tocnumber">5.1</span> <span class="toctext">Bash</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Zsh"><span class="tocnumber">5.2</span> <span class="toctext">Zsh</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Fish"><span class="tocnumber">5.3</span> <span class="toctext">Fish</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18">
+<a href="#Troubleshooting_during_installation"><span class="tocnumber">6</span> <span class="toctext">Troubleshooting during installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19"><a href="#ERROR:_We_have_split_the_aports_repository_from_the_pmbootstrap_repository_.28.23383.29._Please_run_.27pmbootstrap_init.27_again_to_clone_it"><span class="tocnumber">6.1</span> <span class="toctext">ERROR: We have split the aports repository from the pmbootstrap repository (#383). Please run 'pmbootstrap init' again to clone it</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="#See_also"><span class="tocnumber">7</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Requirements">Requirements</span></h2>
+<ul>
+<li>
+<code>python</code> &gt;=3.6</li>
+<li>
+<code>openssl</code> or alternative(like <code>libressl</code>)</li>
+<li>Depending on the installation method:
+<ul>
+<li>
+<code>pip3</code> (possibly shipped with Python)</li>
+<li><code>git</code></li>
+</ul>
+</li>
+</ul>
+<p>Alpine Linux users also need to install <code>procps</code>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> apk add python3 procps
+</pre></div>
+<h2><span class="mw-headline" id="pmaports.git">pmaports.git</span></h2>
+<p>pmbootstrap will automatically clone the <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/">pmaports.git</a> repository during <code>pmbootstrap init</code> to the work dir of your choice, and afterwards you can look up the full path with <code>pmbootstrap config aports</code>. See <a href="../en/Git_workflow.html" title="Git workflow">git workflow</a> for more information.
+</p>
+<h2><span class="mw-headline" id="Installing_automatically">Installing automatically</span></h2>
+<h3><span class="mw-headline" id="Latest_release_with_pip">Latest release with pip</span></h3>
+<p>pmbootstrap is up on <a rel="nofollow" class="external text" href="https://pypi.org/project/pmbootstrap/">pypi</a> now, so it can be installed with:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pip3 install --user pmbootstrap
+</pre></div>
+<p>You may need to reload your configuration by running <code>source ~/.profile</code>.
+</p>
+<p>That's it. The steps below are for alternative methods of installing <code>pmbootstrap</code>. Read on at <a href="#Tab_completion">#Tab completion</a> if you are interested.
+</p>
+<h4><span class="mw-headline" id="Updating">Updating</span></h4>
+<p>Updating to the latest version of pmbootstrap can be done like this:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pip3 install --user --upgrade pmbootstrap
+</pre></div>
+<h3><span class="mw-headline" id="Latest_development_version_from_git">Latest development version from git</span></h3>
+<h4><span class="mw-headline" id="Download_pmbootstrap">Download pmbootstrap</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://gitlab.com/postmarketOS/pmbootstrap.git
+</pre></div>
+<h4><span class="mw-headline" id="Install">Install</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> pmbootstrap <span class="o">&amp;&amp;</span> python3 setup.py install
+</pre></div>
+<h2><span class="mw-headline" id="Installing_manually">Installing manually</span></h2>
+<p>This setup is useful for hacking on pmbootstrap code, because you are directly running the code from your git tree. No need to run setup.py after each change.
+</p>
+<h4><span class="mw-headline" id="Download_pmbootstrap_2">Download pmbootstrap</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://gitlab.com/postmarketOS/pmbootstrap.git
+</pre></div>
+<h4><span class="mw-headline" id="Create_a_link">Create a link</span></h4>
+<p>If the directory <code>~/.local/bin</code> does not already exist, create it with:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> mkdir -p ~/.local/bin
+</pre></div>
+<p>Create a symbolic link in <code>~/.local/bin</code> named <code>pmbootstrap</code>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ln -s <span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/pmbootstrap/pmbootstrap.py"</span> ~/.local/bin/pmbootstrap
+</pre></div>
+<h4><span class="mw-headline" id="Test_installation">Test installation</span></h4>
+<p>To test that pmbootstrap is installed correctly, open a new terminal and run:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap --version
+</pre></div>
+<p>If this returns something like <code>pmbootstrap: command not found</code> instead of a version number, ensure that the following lines are in <code>~/.profile</code> (zsh: <code>~/.zprofile</code>): 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># set PATH so it includes user's private bin if it exists</span>
+<span class="k">if</span> <span class="o">[</span> -d <span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.local/bin"</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+    <span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+<span class="k">fi</span>
+</pre></div>
+<p>Then open a new terminal and try again.
+</p>
+<h4><span class="mw-headline" id="Uninstalling_after_installing_manually">Uninstalling after installing manually</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">export</span> <span class="nv">WORK</span><span class="o">=</span><span class="k">$(</span>pmbootstrap config work<span class="k">)</span>
+<span class="gp">$</span> <span class="c1"># Let's say that pmbootstrap is in ~/pmos/pmbootstrap/</span>
+<span class="gp">$</span> pmbootstrap zap
+<span class="go">...</span>
+<span class="gp">$</span> pmbootstrap shutdown
+<span class="go">...</span>
+<span class="gp">$</span> rm -rf <span class="nv">$WORK</span>
+<span class="gp">$</span> rm -rf ~/pmos/pmbootstrap
+<span class="gp">$</span> rm ~/.config/pmbootstrap.cfg
+<span class="gp">$</span> rm ~/.local/bin/pmbootstrap
+</pre></div>
+<h2><span class="mw-headline" id="Tab_completion">Tab completion</span></h2>
+<p><a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Command-line_completion">Tab completion</a> is an optional feature that saves you time by automatically filling in the rest of a command when you press the tab key. You can also see a list of possible commands by double pressing the tab key.
+</p>
+<p>Install <a rel="nofollow" class="external text" href="https://kislyuk.github.io/argcomplete">argcomplete</a> with:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pip3 install --user argcomplete
+</pre></div>
+<p>Alternatively you can use your distro package manager to install <code>argcomplete</code>, for example in Ubuntu:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apt install python-argcomplete
+</pre></div>
+<p>For Ubuntu 20.04+:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apt install python3-argcomplete
+</pre></div>
+<p>in Gentoo:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo emerge dev-python/argcomplete
+</pre></div>
+<p>in Arch Linux:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo pacman -S python-argcomplete
+</pre></div>
+<p>in Fedora:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> dnf install python3-argcomplete
+</pre></div>
+<p>Next, do one of the following depending on the shell you use.
+</p>
+<h4><span class="mw-headline" id="Bash">Bash</span></h4>
+<p>Add the following line to <code>~/.bashrc</code>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="nb">eval</span> <span class="s2">"</span><span class="k">$(</span>register-python-argcomplete pmbootstrap<span class="k">)</span><span class="s2">"</span>
+</pre></div>
+<p>For Ubuntu 20.04+:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="nb">eval</span> <span class="s2">"</span><span class="k">$(</span>register-python-argcomplete3 pmbootstrap<span class="k">)</span><span class="s2">"</span>
+</pre></div>
+<p><br>
+Then reload your configuration by opening a new terminal or by running <code>source ~/.bashrc</code>.
+</p>
+<h4><span class="mw-headline" id="Zsh">Zsh</span></h4>
+<p>Add the following lines to <code>~/.zshrc</code>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>autoload bashcompinit
+bashcompinit
+<span class="nb">eval</span> <span class="s2">"</span><span class="k">$(</span>register-python-argcomplete pmbootstrap<span class="k">)</span><span class="s2">"</span>
+</pre></div>
+<p>Then reload your configuration by opening a new terminal or by running <code>source ~/.zshrc</code>.
+</p>
+<h4><span class="mw-headline" id="Fish">Fish</span></h4>
+<p>Run the following to add an autocomplete file for pmbootstrap:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>register-python-argcomplete --shell fish pmbootstrap &gt; ~/.config/fish/completions/pmbootstrap.fish
+</pre></div>
+<h2><span class="mw-headline" id="Troubleshooting_during_installation">Troubleshooting during installation</span></h2>
+<h3>
+<span id="ERROR:_We_have_split_the_aports_repository_from_the_pmbootstrap_repository_(#383)._Please_run_'pmbootstrap_init'_again_to_clone_it"></span><span class="mw-headline" id="ERROR:_We_have_split_the_aports_repository_from_the_pmbootstrap_repository_.28.23383.29._Please_run_.27pmbootstrap_init.27_again_to_clone_it">ERROR: We have split the aports repository from the pmbootstrap repository (#383). Please run 'pmbootstrap init' again to clone it</span>
+</h3>
+<p>According to <a rel="nofollow" class="external text" href="https://www.reddit.com/r/postmarketOS/comments/hkop88/pmbootstrap_setup/">this reddit post</a> you need to :
+</p>
+<pre> - Delete ~/.config/pmbootstrap.cfg  =&gt; command rm 
+ - Delete ~/.local/var/pmbootstrap
+ - Run the pmbootstrap init again
+</pre>
+<p>In command line :
+</p>
+<pre> rm  ~/.config/pmbootstrap.cfg
+ rm -r ~/.local/var/pmbootstrap
+ pmbootstrap init
+</pre>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1656">!1656</a> implement bash tab completion</li></ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Installing_pmbootstrap&amp;oldid=26822">https://wiki.postmarketos.org/index.php?title=Installing_pmbootstrap&amp;oldid=26822</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 8 April 2022, at 13:39.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Installing_pmbootstrap&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

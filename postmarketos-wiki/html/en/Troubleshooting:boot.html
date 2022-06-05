@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Troubleshooting:boot - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Troubleshooting_boot rootpage-Troubleshooting_boot skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Troubleshooting:boot</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This page describes ways to debug new postmarketOS device ports in which the kernel compiles, but shows no output on the screen, fails to respond to telnet/SSH requests, or doesn't boot at all.
+</p>
+<p>As always, please edit this page to make corrections and add useful tips.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Figuring_out_booting_problems"><span class="tocnumber">1</span> <span class="toctext">Figuring out booting problems</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Determine_whether_boot_failed"><span class="tocnumber">2</span> <span class="toctext">Determine whether boot failed</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3">
+<a href="#If_boot_fails"><span class="tocnumber">2.1</span> <span class="toctext">If boot fails</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#If_booting_from_a_microSD_card"><span class="tocnumber">2.1.1</span> <span class="toctext">If booting from a microSD card</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Check_your_device_configuration"><span class="tocnumber">2.1.2</span> <span class="toctext">Check your device configuration</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Kernel_panics_with_CONFIG_VT_enabled"><span class="tocnumber">2.1.3</span> <span class="toctext">Kernel panics with CONFIG_VT enabled</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Try_a_prebuilt_kernel"><span class="tocnumber">2.1.4</span> <span class="toctext">Try a prebuilt kernel</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Try_a_different_codebase"><span class="tocnumber">2.1.5</span> <span class="toctext">Try a different codebase</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Network_troubleshooting"><span class="tocnumber">3</span> <span class="toctext">Network troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Can_ping_device.2C_but_SSH_says_.22connection_refused.22"><span class="tocnumber">3.1</span> <span class="toctext">Can ping device, but SSH says "connection refused"</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11">
+<a href="#General_debugging"><span class="tocnumber">4</span> <span class="toctext">General debugging</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Serial_debugging"><span class="tocnumber">4.1</span> <span class="toctext">Serial debugging</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Netconsole_debugging"><span class="tocnumber">4.2</span> <span class="toctext">Netconsole debugging</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Document_your_progress"><span class="tocnumber">5</span> <span class="toctext">Document your progress</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#Further_reading"><span class="tocnumber">7</span> <span class="toctext">Further reading</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Figuring_out_booting_problems">Figuring out booting problems</span></h3>
+<p>Add <code>rc_logger=YES</code> to <code>/etc/rc.conf</code> to have openrc log all its steps to <code>/var/log/rc.log</code>.
+</p>
+<h2><span class="mw-headline" id="Determine_whether_boot_failed">Determine whether boot failed</span></h2>
+<p>If the device automatically reboots, then the kernel is not loading, or there is a fatal bug in the kernel. However, even if your device only displays the OEM logo or a black screen, the kernel may have actually loaded successfully.
+</p>
+<p>To discover whether the kernel loaded, connect the device via USB, then run <tt>dmesg</tt> or <tt>lsusb</tt>. If the device is listed there, then it booted successfully. (See <a href="../en/USB_Network.html#Making_sure_the_USB_is_detected" title="USB Network">here</a> for sample output.)
+</p>
+<p>An alternate method is to set an initramfs hook that turns on an LED or the vibration motor when the device boots successfully. One way to do this is by booting the device using pmbootstrap:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap initfs hook_add maximum-attention
+<span class="gp">$</span> pmbootstrap flasher boot
+</pre></div>
+<p>Note that the device will loop in the initramfs stage with this turned on, so make sure to disable it when you're finished.
+</p>
+<p>You can also check for the init log, <tt>pmOS_init.log</tt>, in the root directory on the device. 
+</p>
+<p>If it turns out that your kernel loaded <i>and</i> your device has an IP address, then you probably only need to <a href="../en/Porting_to_a_new_device.html#Display" title="Porting to a new device">get your display working</a>.
+</p>
+<h3><span class="mw-headline" id="If_boot_fails">If boot fails</span></h3>
+<p>If the tests above indicate that boot failed, read <code>/proc/last_kmsg</code> or <code>/sys/fs/pstore/console-ramoops</code> on the device to try to find the point of failure. If your device has TWRP installed, you can access them from the command line either by opening a terminal in TWRP, or by using TWRP's ADB interface. For more details, see <a href="../en/Mainlining_FAQ.html#Writing_dmesg_to_RAM_and_reading_it_out_after_reboot" title="Mainlining FAQ">here</a> and <a rel="nofollow" class="external text" href="http://docs.halium.org/en/latest/porting/debug-build/dmesg.html">here</a>.
+</p>
+<p>If you find <code>console-ramoops</code> corrupted, cool the device by putting it in a fridge or holding it in front of an AC vent for a few minutes then reboot and check it again. 
+Depending on your device <code>console-ramoops</code> might also get overwritten by a bootloader that you are leveraging to access TWRP right after a crash. A possible workaround is to flash TWRP to the boot partition and your kernel to the recovery partition. To test your kernel you can now boot from recovery and after crashing the device will reboot normally, thereby executing TWRP from where you can access <code>console-ramoops</code>.
+</p>
+<h4><span class="mw-headline" id="If_booting_from_a_microSD_card">If booting from a microSD card</span></h4>
+<p>If the initramfs cannot find the <a href="../en/Partition_Layout.html" class="mw-redirect" title="Partition-layout">boot partition</a>, it will display an error splash screen and wait forever. If the display driver does not work yet, the device will appear to hang with a blank screen, and the SSH server will not come up.
+</p>
+<p>If you get a "<code>bad boot image header</code>" error when booting from a microSD card, the device's fastboot mode might not allow <code>fastboot boot</code> usage. Run <code>fastboot boot <i>boot.img</i></code>, where <code><i>boot.img</i></code> is a recovery image or a working boot image from a known-good ROM. If you get the same error, flash the kernel to the device with <code>pmbootstrap flasher flash_kernel</code>.
+</p>
+<h4><span class="mw-headline" id="Check_your_device_configuration">Check your device configuration</span></h4>
+<p>You may need to revise your device's configuration files and recompile the kernel.
+</p>
+<ul>
+<li>Make sure that you are using the correct <a href="../en/Porting_to_a_new_device.html#Defconfig" title="Porting to a new device">defconfig</a>.</li>
+<li>If your kernel's APKBUILD file uses <code>arch=armhf</code>, be aware that Alpine Linux' <tt>armhf</tt> architecture requires ARMv6 with a floating point unit (FPU). (See issue <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1203">#1203</a>.)</li>
+<li>The bootimg file in different ROMs may have different <a href="../en/Deviceinfo_reference.html" class="mw-redirect" title="Deviceinfo">deviceinfo</a> values. Run <code>pmbootstrap bootimg_analyze <i>filename</i></code> on a bootimg file for your device, and compare the output with the contents of your deviceinfo file. In Android ROMs, this file is called <code>boot.img</code>. Recovery ROMs are themselves bootimg files. If you want to analyze the bootimg of your pmOS ROM, you can extract it with the <code>unpackbootimg</code> command.</li>
+<li>If TWRP has been ported to your device, extract the TWRP image file with <code>unpackbootimg</code>, and the initramfs inside it with <a rel="nofollow" class="external text" href="https://superuser.com/a/813899">cpio</a>. Check the <tt>rc</tt> files in initramfs for useful comments or settings (such as <code>write /sys/class/xxx/yyy/enable 1</code>).</li>
+<li>If a similar device already has a postmarketOS port, take a look at its aport to see if it does anything special.</li>
+<li>If you have a <a href="../en/QCDT.html#Does_my_device_need_a_QCDT_boot.img_file.3F" title="QCDT">QCDT device</a>, <a href="../en/QCDT.html#Debugging" title="QCDT">QCDT#Debugging</a> may be helpful. Use <code>extract-dtb</code> to extract the <a href="../en/Device_Tree_(dtb).html" class="mw-redirect" title="Dtb">dtb</a> files appended to the kernel. Compare yours with the dtb files from a known working ROM or recovery OS (such as TWRP).</li>
+</ul>
+<p>If the configuration already appears to be correct, try building the kernel with an <a href="../en/Downstream_kernel_specific_package.html#GCC_version" class="mw-redirect" title="Vendor kernel specific package">older version of GCC</a>. If possible, determine which version of GCC would have been used to build the kernel for Android.
+</p>
+<h4><span class="mw-headline" id="Kernel_panics_with_CONFIG_VT_enabled">Kernel panics with CONFIG_VT enabled</span></h4>
+<p>Some Qualcomm devices with a 4.4 release kernel panic on boot with <code>CONFIG_VT=y</code>. If you think you're affected by this simply test booting with <code>CONFIG_VT=n</code> and see if it yields a blank screen (instead of e.g. just rebooting). Now the kernel should have booted without issues and you'll get telnet / SSH. If disabling <code>VT</code> helped you, re-enable it and follow the steps below:
+</p>
+<p>Revert the following 4 commits from your kernel tree after finding their commit hashes using <code>git log</code> for example and creating patch files for use with your kernel package:
+</p>
+<ul>
+<li>
+<code>tty: check before stopping kthread</code> (<a rel="nofollow" class="external text" href="https://github.com/moto-SDM660/android_kernel_motorola_sdm660/commit/2fabaace47075980d0250b0459925bab05adb30a">example</a>)</li>
+<li>
+<code>tty: move tty_port workqueue to be a kthread</code> (<a rel="nofollow" class="external text" href="https://github.com/moto-SDM660/android_kernel_motorola_sdm660/commit/6e9ee368bf929a8c9ddafff1d2bb8d0bcca55117">example</a>)</li>
+<li>
+<code>tty: add tty_port_set_policy function</code> (<a rel="nofollow" class="external text" href="https://github.com/moto-SDM660/android_kernel_motorola_sdm660/commit/3024fed4d868368c5e92063ecd5a93e34fd65bed">example</a>)</li>
+<li>
+<code>msm_serial_hs: make the Bluetooth tty thread RT</code> (<a rel="nofollow" class="external text" href="https://github.com/moto-SDM660/android_kernel_motorola_sdm660/commit/f96334676cd13f3fa0bbeecda3b97f1bf6254c2d">example</a>)</li>
+</ul>
+<p><a rel="nofollow" class="external text" href="https://github.com/ubports/porting-notes/wiki/Halium-9#qualcomm-devices-with-linux-kernel-44-panic-with-config_vt-enabled">Original source</a>
+</p>
+<h4><span class="mw-headline" id="Try_a_prebuilt_kernel">Try a prebuilt kernel</span></h4>
+<p>If your kernel isn't working and you are desperate to boot postmarketOS on your device, you can try loading initramfs with a <a href="../en/Using_prebuilt_kernels.html" title="Using prebuilt kernels">prebuilt kernel</a>. Hypothetically, this may help you to debug the issue. Also, after booting with a prebuilt kernel you can also try loading the postmarketOS kernel with <tt>kexec</tt>. See also the guide for <a href="../en/Troubleshooting:kernel.html#Building_the_kernel_with_Android.27s_build_system" title="Troubleshooting:kernel">building the kernel with Android's build system</a>.
+</p>
+<h4><span class="mw-headline" id="Try_a_different_codebase">Try a different codebase</span></h4>
+<p>If all else fails, it may help to try a different branch or fork. If your device runs Android but the LineageOS kernel does not work, try another branch, or even another AOSP distribution. You can find other compatible ROMs on GitLab, GitHub, the <a rel="nofollow" class="external text" href="https://forum.xda-developers.com/">XDA Forums</a>, and various websites.
+</p>
+<h2><span class="mw-headline" id="Network_troubleshooting">Network troubleshooting</span></h2>
+<p>To check for a network interface, Run <code>ip a</code> or <code>ifconfig</code>. If the pmOS device's network interface is up but it has no IP address, try <a href="../en/USB_Network.html#Troubleshooting" title="USB Network">manually running a DHCP client</a>. If that fails, <a href="../en/USB_Network.html#Kernel_configuration_parameters" title="USB Network">check your kernel configuration</a>.
+</p>
+<p>Some downstream kernels require writing a value to <tt>sysfs</tt> before the network comes up. Example from <code>device-htc-bravo</code>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="nb">echo</span> <span class="m">4</span> &gt; /sys/devices/platform/android_usb/usb_function_switch
+</pre></div>
+<p>By setting an initramfs hook, you can dump the sysfs to a partition on the device, in order to compare it with another system (such as TWRP). See the <a href="../en/Troubleshooting:boot:initfshooks.html" title="Troubleshooting:boot:initfshooks">initramfs hooks examples</a>.
+</p>
+<h3>
+<span id='Can_ping_device,_but_SSH_says_"connection_refused"'></span><span class="mw-headline" id="Can_ping_device.2C_but_SSH_says_.22connection_refused.22">Can ping device, but SSH says "connection refused"</span>
+</h3>
+<p>First, make sure you are pinging the right device (<code>ssh &lt;user&gt;@172.16.42.1</code>)
+</p>
+<p>pmOS generates SSH keys during first boot. If the device loses power before it fully boots, you are left with empty files instead of keys. If that happens, reflash the device and make sure that the initramfs script completes before you power-off or reboot.
+</p>
+<p>If the initramfs script completes and you can ping the device, but SSH still doesn't work, log OpenRC's output to <code>kmesg</code> (see issue <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1582">#1582</a>).
+</p>
+<p>One possible cause is a failed fsck. Try this:
+</p>
+<ol>
+<li><a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">Telnet into initramfs</a></li>
+<li>Mount the root partition</li>
+<li>Comment out the boot partition in <code>/etc/fstab</code>
+</li>
+<li>Try to boot (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1511">#1511</a>).</li>
+</ol>
+<p>If boot succeeds, try reflashing the postmarketOS rootfs to correct the error.
+</p>
+<h2><span class="mw-headline" id="General_debugging">General debugging</span></h2>
+<p><code>/proc/last_kmsg</code> and <code>/sys/fs/pstore/console-ramoops</code> are useful sources of debugging data.
+</p>
+<p>On boot, postmarketOS generates an init log, <code>pmOS_init.log</code>, in the root directory on the device. The init system is OpenRC. See issue <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1582">#1582</a> for steps to log OpenRC's output to <code>kmesg</code>.
+</p>
+<p>It's also possible to step through the initramfs script line by line. Install the <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">debug shell</a> initramfs hook to get a telnet shell directly from the initramfs. As soon as you are in the initramfs shell, open <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/postmarketos-mkinitfs/init.sh">init.sh</a> in your browser, and execute it one line at a time to figure out where it fails.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> . /init_functions.sh
+<span class="gp">$</span> . /etc/deviceinfo
+<span class="go">(the lines until 'mount_boot_partition' can be skipped, as they have already been executed when the usb-shell hook is running)</span>
+<span class="gp">$</span> mount_boot_partition
+<span class="gp">$</span> extract_initramfs_extra /boot/initramfs-extra
+<span class="gp">$</span> start_charging_mode
+<span class="go">…</span>
+</pre></div>
+<p>The functions are all defined in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/blob/master/main/postmarketos-mkinitfs/init_functions.sh">init_functions.sh</a>.
+</p>
+<h3><span class="mw-headline" id="Serial_debugging">Serial debugging</span></h3>
+<p>A <a href="../en/Serial_debugging.html" title="Serial debugging">serial cable</a> makes it much easier to follow the output of the bootloader and to get the output of <tt>dmesg</tt>. Unfortunately, there is no standard way to access the UART on mobile devices. An off-the-shelf USB-to-TTL adapter is unlikely to work, so you would probably have to build an interface yourself. Making a serial adapter takes some time, and it isn't even known how to do it for all devices.
+</p>
+<p>If you have a functioning serial interface, you can log OpenRC's output to the serial port by setting <tt>RC_LOGGING</tt> to <tt>true</tt> in <code>/etc/rc.conf</code>.
+</p>
+<h3><span class="mw-headline" id="Netconsole_debugging">Netconsole debugging</span></h3>
+<p>In some cases the kernel may be booting but hanging/crashing before PostmarketOS is fully initialized. If you do not have a serial cable for your device it is possible to get somewhat early boot logs from the kernel over netconsole. To enable netconsole for your device 
+</p>
+<ol>
+<li>Enable CONFIG_NETCONSOLE in your kernel configuration to enable netconsole</li>
+<li>Enable CONFIG_USB_ETH in your kernel configuration to force the USB port to ethernet mode early in the boot process</li>
+<li>Add netconsole parameters to the deviceinfo_kernel_cmdline for your device as described <a rel="nofollow" class="external text" href="https://www.kernel.org/doc/html/latest/networking/netconsole.html">here</a>. Use usb0 for the device name</li>
+<li>Execute <code>nc -u -l -p &lt;port&gt;</code> and boot your device</li>
+</ol>
+<h2><span class="mw-headline" id="Document_your_progress">Document your progress</span></h2>
+<p>If you haven't already done so, please <a href="../en/Help:Device_Page.html" title="Help:Device Page">create a wiki page for your device</a>. On this page, document everything you tried so that others can build on the work you have already done.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="../en/Boot_process.html" title="Boot process">Boot process</a></li>
+<li><a href="../en/Mainlining_FAQ.html" title="Mainlining FAQ">Mainlining FAQ</a></li>
+<li>
+<a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">Matrix and IRC</a> (to get help via live chat)</li>
+<li><a href="../en/Downstream_kernel_specific_package.html" class="mw-redirect" title="Vendor kernel specific package">Vendor kernel specific package</a></li>
+</ul>
+<h2><span class="mw-headline" id="Further_reading">Further reading</span></h2>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://developer.qualcomm.com/qfile/28821/lm80-p0436-1_little_kernel_boot_loader_overview.pdf">Qualcomm Little Kernel Boot Loader Overview</a> (PDF)</li>
+<li>Issue <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/99">#99</a> HTC Droid DNA (dlx) not booting</li>
+<li>Issue <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1206">#1206</a> HTC One M8 not booting</li>
+<li>Issue <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1203">#1203</a> HTC Wildfire not booting</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:boot&amp;oldid=22514">https://wiki.postmarketos.org/index.php?title=Troubleshooting:boot&amp;oldid=22514</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 21 September 2021, at 21:54.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:boot&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

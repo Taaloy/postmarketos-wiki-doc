@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Bootloader - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Bootloader rootpage-Bootloader skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Bootloader</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>On many devices the bootloader is locked and you need to unlock it before being able to flash a custom ROM or recovery.
+Unlocking is therefore also required for <a href="../en/Installation_guide.html" title="Installation guide">installing postmarketOS</a>.
+</p>
+<p>If you forgot whether your device is unlocked already, check whether it displays "device unlocked" at the bottom in flash mode.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Unlocking_the_bootloader"><span class="tocnumber">1</span> <span class="toctext">Unlocking the bootloader</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Huawei"><span class="tocnumber">1.1</span> <span class="toctext">Huawei</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#HTC"><span class="tocnumber">1.2</span> <span class="toctext">HTC</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Motorola"><span class="tocnumber">1.3</span> <span class="toctext">Motorola</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Sony"><span class="tocnumber">1.4</span> <span class="toctext">Sony</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Xiaomi"><span class="tocnumber">1.5</span> <span class="toctext">Xiaomi</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Wiko"><span class="tocnumber">1.6</span> <span class="toctext">Wiko</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Mixed"><span class="tocnumber">1.7</span> <span class="toctext">Mixed</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Unlocking_the_bootloader">Unlocking the bootloader</span></h2>
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"><br><b>Warning!</b></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Bootloader unlock results in formatted system partition as well as userdata. Make sure you have a backup/official firmware.</td>
+</tr></tbody></table>
+<p>On many devices where the manufacture is generous it is enough to enter
+<code>
+fastboot oem unlock
+</code>
+</p>
+<p>Others require you to enter a code:
+<code>
+fastboot oem unlock your-code-here
+</code>
+</p>
+<h3><span class="mw-headline" id="Huawei">Huawei</span></h3>
+<p><b>Huawei stopped distributing unlock codes.</b> Tutorials telling you to go to some Huawei website, log in with a Huawei ID and sign the unlocking agreement to get a code will NO longer work. Not even contacting their support.
+</p>
+<p>Some services claim to be able to unlock this device, but they charge money for it (e. g. DC-Unlocker charges 4€). Be careful and try to do research before giving any of these services your money!<br>
+Another option is to try <a rel="nofollow" class="external text" href="https://github.com/SkyEmie/huawei-honor-unlock-bootloader">brute forcing</a> the code. This takes time and might not work
+</p>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Huawei_Ascend_G7_(huawei-g7)#Preparation">WIP Experimental work around which involves replace the entire bootloader</a> &amp; <a rel="nofollow" class="external autonumber" href="https://wiki.postmarketos.org/wiki/Huawei_Y635_(huawei-y635)#Flashing_custom_bootloader">[1]</a>
+</li>
+<li><a rel="nofollow" class="external text" href="https://github.com/mashed-potatoes/PotatoNV">Open Source Solution for Kirin devices</a></li>
+<li><a rel="nofollow" class="external text" href="https://github.com/hhj4ck/checkm30">A bootrom exploit of Huawei Hisilicon Smartphones that could be used to unlock Huawei bootloaders</a></li>
+</ul>
+<h3><span class="mw-headline" id="HTC">HTC</span></h3>
+<p><a rel="nofollow" class="external text" href="https://www.htcdev.com/bootloader/">htcdev unlock site</a>
+</p>
+<h3><span class="mw-headline" id="Motorola">Motorola</span></h3>
+<p><a rel="nofollow" class="external text" href="https://motorola-global-portal.custhelp.com/app/standalone/bootloader/unlock-your-device-a/">Motorola unlock site</a>
+</p>
+<h3><span class="mw-headline" id="Sony">Sony</span></h3>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">it's your last chance to download latest rom via ota update before unlocking bootloader. sony doesn't provide ota update for unlocked devices and there is no way to lock it again</td>
+</tr></tbody></table>
+<p><a rel="nofollow" class="external text" href="https://developer.sony.com/develop/open-devices/get-started/unlock-bootloader/">Sony unlock page</a>
+</p>
+<h3><span class="mw-headline" id="Xiaomi">Xiaomi</span></h3>
+<p><a rel="nofollow" class="external text" href="https://en.miui.com/unlock/">Xiaomi Unlock Site</a>
+</p>
+<h3><span class="mw-headline" id="Wiko">Wiko</span></h3>
+<p>You just have to enable oem unlocking in developer settings and use fastboot oem unlock afterwards in fastboot mode.
+</p>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Mixed">Mixed</span></h3>
+<ul><li><a rel="nofollow" class="external text" href="https://github.com/osm0sis/boot-unlocker">boot-unlocker tool for various devices</a></li></ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Bootloader&amp;oldid=25586">https://wiki.postmarketos.org/index.php?title=Bootloader&amp;oldid=25586</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 8 February 2022, at 17:08.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Bootloader&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

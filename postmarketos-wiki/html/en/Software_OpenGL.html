@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Software OpenGL - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Software_OpenGL rootpage-Software_OpenGL skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Software OpenGL</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Some interfaces, like <a href="../en/Plasma_Mobile.html" class="mw-redirect" title="Plasma-Mobile">Plasma-Mobile</a> or simple games require 3D acceleration, even though they are only rendering fancy 2D graphics. With postmarketOS, we have a lot of devices, where 3d acceleration does not work, or does not work with open source drivers. As a workaround, it is possible to do that kind of rendering in software with mesa-swrast. But that is too slow to be usable in most cases. This article lists some alternatives, that will hopefully be more performant.
+</p>
+<h2><span class="mw-headline" id="TinyGLES">TinyGLES</span></h2>
+<p><a rel="nofollow" class="external text" href="https://github.com/lunixbochs/tinygles">TinyGLES</a> was originally written and optimized for the Pandora, which uses the same chipset as the N900. Upstream told us, that it is worth trying at least.
+</p>
+<p>We've tried a bit to get Hildon working, but we did not get very far with it yet.
+</p>
+<pre>Current stack:
+(hardware) - mesa (swrast) - cogl - clutter - hildon
+
+New stack:
+(hardware) - tinygles - glshim - cogl - clutter - hildon
+</pre>
+<p>It makes sense to run cogl demos with tinygles before trying anything hildon or clutter related, as Clutter depends on cogl.
+</p>
+<p>More information:
+</p>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://github.com/lunixbochs/glshim">glshim</a></li>
+<li><a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/1051">Packaging glshim for pmOS/alpine</a></li>
+<li><a rel="nofollow" class="external text" href="https://github.com/lunixbochs/tinygles/issues/9">Asking upstream if this is possible</a></li>
+<li><a rel="nofollow" class="external text" href="https://github.com/lunixbochs/tinygles/issues/10">Unable to run hildon-desktop: Failed to create texture 2d due to size/format constraints</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://pyra-handheld.com/boards/threads/glshim.69736/">Pandora thread about glshim</a> (contains debug environment variables etc!)</li>
+</ul>
+<h2><span class="mw-headline" id="OpenSWR">OpenSWR</span></h2>
+<p><a rel="nofollow" class="external text" href="https://openswr.org/">OpenSWR</a> does not work on non-x86 architectures due to its usage of <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Advanced_Vector_Extensions">AVX</a>, see <a rel="nofollow" class="external autonumber" href="https://gallium.readthedocs.io/en/latest/drivers/openswr/faq.html#will-this-work-on-arm-mips-power-other-non-x86-architecture">[1]</a>
+</p>
+<h2><span class="mw-headline" id="Others">Others</span></h2>
+<p>Not much research has gone into these, please expand.
+</p>
+<ul><li>
+<a rel="nofollow" class="external text" href="https://github.com/google/swiftshader">swiftshader</a> (see <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/23">pmaports#23</a>), packaging efforts in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1380">pmaports!1380</a>
+</li></ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Software_OpenGL&amp;oldid=22845">https://wiki.postmarketos.org/index.php?title=Software_OpenGL&amp;oldid=22845</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 8 October 2021, at 08:38.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Software_OpenGL&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Samsung Galaxy Grand Neo (samsung-baffinlite)/Downstream notes - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Samsung_Galaxy_Grand_Neo_samsung-baffinlite_Downstream_notes rootpage-Samsung_Galaxy_Grand_Neo_samsung-baffinlite_Downstream_notes skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Samsung Galaxy Grand Neo (samsung-baffinlite)/Downstream notes</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This page contains some information about the Galaxy Grand Neo, taken from downstream resources.
+</p>
+<ul><li>There's a DTS in downstream, but it's for the baffinlite REV00 (the version that was released appears to be REV02), and as such does not apply at all.</li></ul>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Bootloader_kernel_cmdline_options"><span class="tocnumber">1</span> <span class="toctext">Bootloader kernel cmdline options</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#dt-blob_in_firmware"><span class="tocnumber">2</span> <span class="toctext">dt-blob in firmware</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Partitions"><span class="tocnumber">3</span> <span class="toctext">Partitions</span></a></li>
+<li class="toclevel-1 tocsection-4">
+<a href="#GPIO_pins"><span class="tocnumber">4</span> <span class="toctext">GPIO pins</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Unused"><span class="tocnumber">4.1</span> <span class="toctext">Unused</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Bootloader_kernel_cmdline_options">Bootloader kernel cmdline options</span></h2>
+<p>Taken from TWRP 2.7.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>console=ttyS2,115200n8 mem=994M cma0=0M carveout0=0M vmalloc=190M androidboot.console=ttyS2 logbuf_nocache=1 bootmode=2 ap_only_boot sec_debug.reset_reason=0x1A2B3C00 sec_debug.level=0 androidboot.debug_level=0x4f4c loglevel=0 sec_log=0x70000@0x9e900000 lpcharge=0 cordon=8e35ac7f0eb64eb53f82647be12673c8 androidboot.emmc_checksum=3 brd_ver=2 androidboot.serialno=[censored]</pre></div>
+<h2><span class="mw-headline" id="dt-blob_in_firmware">dt-blob in firmware</span></h2>
+<p>There's a dt-blob in the stock firmware. Click the Expand button to the right to preview a version decompiled with dtc.
+</p>
+<div class="mw-collapsible mw-collapsed mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="o">/</span><span class="n">dts</span><span class="o">-</span><span class="n">v1</span><span class="o">/</span><span class="p">;</span>
+
+<span class="o">/</span> <span class="p">{</span>
+	<span class="cp">#address-cells = &lt;0x01&gt;;</span>
+	<span class="cp">#size-cells = &lt;0x01&gt;;</span>
+	<span class="n">model</span> <span class="o">=</span> <span class="s">"Broadcom java_ss_baffinlite board"</span><span class="p">;</span>
+	<span class="n">compatible</span> <span class="o">=</span> <span class="s">"Broadcom, "</span><span class="p">;</span>
+
+	<span class="n">chosen</span> <span class="p">{</span>
+	<span class="p">};</span>
+
+	<span class="n">pinmux</span> <span class="p">{</span>
+		<span class="n">timestamp</span> <span class="o">=</span> <span class="s">"v0.0, 9/26/2013 4:16:59 PM"</span><span class="p">;</span>
+		<span class="n">model</span> <span class="o">=</span> <span class="s">"Baffin_Lite"</span><span class="p">;</span>
+		<span class="n">compatible</span> <span class="o">=</span> <span class="s">"JavaA0-pinmux"</span><span class="p">;</span>
+		<span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x35004800</span> <span class="mh">0x9b</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x03</span> <span class="mh">0x23</span> <span class="mh">0x20</span> <span class="mh">0x20</span> <span class="mh">0x00</span> <span class="mh">0x440</span> <span class="mh">0x80</span> <span class="mh">0x12</span> <span class="mh">0x43</span> <span class="mh">0x0b</span> <span class="mh">0x403</span> <span class="mh">0x200</span> <span class="mh">0x400</span> <span class="mh">0x400</span> <span class="mh">0x03</span> <span class="mh">0x03</span> <span class="mh">0x03</span> <span class="mh">0x03</span> <span class="mh">0x4b</span> <span class="mh">0x43</span> <span class="mh">0x03</span> <span class="mh">0x400</span> <span class="mh">0x403</span> <span class="mh">0x43</span> <span class="mh">0x23</span> <span class="mh">0x23</span> <span class="mh">0x23</span> <span class="mh">0x03</span> <span class="mh">0x3a3</span> <span class="mh">0x400</span> <span class="mh">0x400</span> <span class="mh">0x20</span> <span class="mh">0x20</span> <span class="mh">0x223</span> <span class="mh">0x220</span> <span class="mh">0x240</span> <span class="mh">0x240</span> <span class="mh">0x40</span> <span class="mh">0x40</span> <span class="mh">0x40</span> <span class="mh">0x40</span> <span class="mh">0x03</span> <span class="mh">0x303</span> <span class="mh">0x43</span> <span class="mh">0x43</span> <span class="mh">0x48</span> <span class="mh">0x43</span> <span class="mh">0x0b</span> <span class="mh">0x440</span> <span class="mh">0x30b</span> <span class="mh">0x400</span> <span class="mh">0x303</span> <span class="mh">0x403</span> <span class="mh">0x10b</span> <span class="mh">0x03</span> <span class="mh">0x03</span> <span class="mh">0x03</span> <span class="mh">0x03</span> <span class="mh">0x205</span> <span class="mh">0x423</span> <span class="mh">0x423</span> <span class="mh">0x203</span> <span class="mh">0x200</span> <span class="mh">0x200</span> <span class="mh">0x200</span> <span class="mh">0x200</span> <span class="mh">0x205</span> <span class="mh">0x03</span> <span class="mh">0x23</span> <span class="mh">0x23</span> <span class="mh">0x23</span> <span class="mh">0x23</span> <span class="mh">0x23</span> <span class="mh">0x23</span> <span class="mh">0x23</span> <span class="mh">0x23</span> <span class="mh">0x23</span> <span class="mh">0x23</span> <span class="mh">0x03</span> <span class="mh">0x43</span> <span class="mh">0x43</span> <span class="mh">0x43</span> <span class="mh">0x43</span> <span class="mh">0x43</span> <span class="mh">0x440</span> <span class="mh">0x403</span> <span class="mh">0x440</span> <span class="mh">0x453</span> <span class="mh">0x443</span> <span class="mh">0x03</span> <span class="mh">0x03</span> <span class="mh">0x20</span> <span class="mh">0x20</span> <span class="mh">0x03</span> <span class="mh">0x20</span> <span class="mh">0x05</span> <span class="mh">0x41</span> <span class="mh">0x51</span> <span class="mh">0x05</span> <span class="mh">0x05</span> <span class="mh">0x05</span> <span class="mh">0x47</span> <span class="mh">0x27</span> <span class="mh">0x27</span> <span class="mh">0x27</span> <span class="mh">0x27</span> <span class="mh">0x27</span> <span class="mh">0x03</span> <span class="mh">0x1023</span> <span class="mh">0x423</span> <span class="mh">0x0b</span> <span class="mh">0x203</span> <span class="mh">0x203</span> <span class="mh">0x440</span> <span class="mh">0x400</span> <span class="mh">0x443</span> <span class="mh">0x420</span> <span class="mh">0x03</span> <span class="mh">0x03</span> <span class="mh">0x03</span> <span class="mh">0x20b</span> <span class="mh">0x44b</span> <span class="mh">0x1223</span> <span class="mh">0x20b</span> <span class="mh">0x103</span> <span class="mh">0x103</span> <span class="mh">0x43</span> <span class="mh">0x23</span> <span class="mh">0x03</span> <span class="mh">0x20</span> <span class="mh">0x43</span> <span class="mh">0x40</span> <span class="mh">0x440</span> <span class="mh">0x0b</span> <span class="mh">0x0b</span> <span class="mh">0x0b</span> <span class="mh">0x0b</span> <span class="mh">0x08</span> <span class="mh">0x08</span> <span class="mh">0x08</span> <span class="mh">0x0b</span> <span class="mh">0x40</span> <span class="mh">0x12</span> <span class="mh">0x23</span> <span class="mh">0x23</span> <span class="mh">0x23</span> <span class="mh">0x23</span> <span class="mh">0x08</span> <span class="mh">0x08</span> <span class="mh">0x08</span> <span class="mh">0x08</span> <span class="mh">0x08</span> <span class="mh">0x08</span> <span class="mh">0x08</span> <span class="mh">0x08</span><span class="o">&gt;</span><span class="p">;</span>
+	<span class="p">};</span>
+
+	<span class="n">gpio</span> <span class="p">{</span>
+		<span class="n">compatible</span> <span class="o">=</span> <span class="s">"JavaA0-gpio"</span><span class="p">;</span>
+		<span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x35003000</span> <span class="mh">0x27</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x00</span> <span class="mh">0x01</span> <span class="mh">0x01</span> <span class="mh">0x01</span> <span class="mh">0x02</span> <span class="mh">0x00</span> <span class="mh">0x03</span> <span class="mh">0x00</span> <span class="mh">0x04</span> <span class="mh">0x00</span> <span class="mh">0x05</span> <span class="mh">0x00</span> <span class="mh">0x0c</span> <span class="mh">0x00</span> <span class="mh">0x10</span> <span class="mh">0x01</span> <span class="mh">0x11</span> <span class="mh">0x01</span> <span class="mh">0x14</span> <span class="mh">0x00</span> <span class="mh">0x16</span> <span class="mh">0x01</span> <span class="mh">0x17</span> <span class="mh">0x01</span> <span class="mh">0x18</span> <span class="mh">0x01</span> <span class="mh">0x19</span> <span class="mh">0x01</span> <span class="mh">0x1a</span> <span class="mh">0x01</span> <span class="mh">0x1d</span> <span class="mh">0x01</span> <span class="mh">0x20</span> <span class="mh">0x00</span> <span class="mh">0x21</span> <span class="mh">0x00</span> <span class="mh">0x22</span> <span class="mh">0x00</span> <span class="mh">0x2c</span> <span class="mh">0x01</span> <span class="mh">0x38</span> <span class="mh">0x01</span> <span class="mh">0x46</span> <span class="mh">0x01</span> <span class="mh">0x48</span> <span class="mh">0x01</span> <span class="mh">0x49</span> <span class="mh">0x01</span> <span class="mh">0x4a</span> <span class="mh">0x01</span> <span class="mh">0x58</span> <span class="mh">0x00</span> <span class="mh">0x59</span> <span class="mh">0x01</span> <span class="mh">0x5a</span> <span class="mh">0x01</span> <span class="mh">0x5b</span> <span class="mh">0x01</span> <span class="mh">0x5c</span> <span class="mh">0x01</span> <span class="mh">0x62</span> <span class="mh">0x01</span> <span class="mh">0x64</span> <span class="mh">0x01</span> <span class="mh">0x65</span> <span class="mh">0x01</span> <span class="mh">0x6f</span> <span class="mh">0x00</span> <span class="mh">0x71</span> <span class="mh">0x01</span> <span class="mh">0x72</span> <span class="mh">0x01</span> <span class="mh">0x79</span> <span class="mh">0x01</span> <span class="mh">0x7b</span> <span class="mh">0x01</span> <span class="mh">0x7c</span> <span class="mh">0x01</span><span class="o">&gt;</span><span class="p">;</span>
+	<span class="p">};</span>
+
+	<span class="n">bcmpmu</span> <span class="p">{</span>
+		<span class="n">compatible</span> <span class="o">=</span> <span class="s">"Broadcom,bcmpmu"</span><span class="p">;</span>
+		<span class="n">reginit</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x04</span> <span class="mh">0x16</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">initdata</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x00</span> <span class="mh">0x01</span> <span class="mh">0x00</span> <span class="mh">0x01</span> <span class="mh">0x00</span> <span class="mh">0x0c</span> <span class="mh">0x1b</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0x40</span> <span class="mh">0xff</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0x41</span> <span class="mh">0xff</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0x42</span> <span class="mh">0xff</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0x43</span> <span class="mh">0xff</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0x44</span> <span class="mh">0xff</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0x45</span> <span class="mh">0xff</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0x46</span> <span class="mh">0xff</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0x47</span> <span class="mh">0xff</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0x52</span> <span class="mh">0x04</span> <span class="mh">0x04</span> <span class="mh">0x00</span> <span class="mh">0x58</span> <span class="mh">0x0f</span> <span class="mh">0x0f</span> <span class="mh">0x00</span> <span class="mh">0xb1</span> <span class="mh">0x4b</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0xb2</span> <span class="mh">0x04</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0xb3</span> <span class="mh">0x25</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0xb4</span> <span class="mh">0x27</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0xb5</span> <span class="mh">0x05</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0xb6</span> <span class="mh">0x07</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0xb7</span> <span class="mh">0x25</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0xb8</span> <span class="mh">0x06</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0xb9</span> <span class="mh">0x07</span> <span class="mh">0xff</span> <span class="mh">0x00</span> <span class="mh">0xbd</span> <span class="mh">0x21</span> <span class="mh">0xff</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">cutoff</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0xce4</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">fg_slp_curr_ua</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x3e8</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">fg_factor</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x3e8</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">fg_sns_res</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0a</span><span class="o">&gt;</span><span class="p">;</span>
+	<span class="p">};</span>
+
+	<span class="n">battery</span> <span class="p">{</span>
+		<span class="n">compatible</span> <span class="o">=</span> <span class="s">"Broadcom,battery"</span><span class="p">;</span>
+		<span class="n">device_type</span> <span class="o">=</span> <span class="s">"battery"</span><span class="p">;</span>
+		<span class="n">model</span> <span class="o">=</span> <span class="s">"SS,EB494358,1350mAH"</span><span class="p">;</span>
+		<span class="n">vcmap</span><span class="o">-</span><span class="n">size</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x02</span> <span class="mh">0x18</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">vcmap</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x1040</span> <span class="mh">0x64</span> <span class="mh">0x1022</span> <span class="mh">0x5f</span> <span class="mh">0xff5</span> <span class="mh">0x5a</span> <span class="mh">0xfc8</span> <span class="mh">0x55</span> <span class="mh">0xf92</span> <span class="mh">0x50</span> <span class="mh">0xf6c</span> <span class="mh">0x4b</span> <span class="mh">0xf4a</span> <span class="mh">0x46</span> <span class="mh">0xf25</span> <span class="mh">0x41</span> <span class="mh">0xf02</span> <span class="mh">0x3c</span> <span class="mh">0xee7</span> <span class="mh">0x37</span> <span class="mh">0xed2</span> <span class="mh">0x32</span> <span class="mh">0xec0</span> <span class="mh">0x2d</span> <span class="mh">0xeb1</span> <span class="mh">0x28</span> <span class="mh">0xea7</span> <span class="mh">0x23</span> <span class="mh">0xe9e</span> <span class="mh">0x1e</span> <span class="mh">0xe8c</span> <span class="mh">0x19</span> <span class="mh">0xe64</span> <span class="mh">0x14</span> <span class="mh">0xe4b</span> <span class="mh">0x0f</span> <span class="mh">0xe1c</span> <span class="mh">0x0a</span> <span class="mh">0xded</span> <span class="mh">0x08</span> <span class="mh">0xdb3</span> <span class="mh">0x06</span> <span class="mh">0xd66</span> <span class="mh">0x04</span> <span class="mh">0xd0c</span> <span class="mh">0x02</span> <span class="mh">0xca4</span> <span class="mh">0x00</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">capacity</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x546</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">charge</span><span class="o">-</span><span class="n">eoc</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x43</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">batt</span><span class="o">-</span><span class="n">esr</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0xee</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">charge</span><span class="o">-</span><span class="mi">1</span><span class="n">c</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x546</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">pre_eoc_min_curr</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x12c</span><span class="o">&gt;</span><span class="p">;</span>
+	<span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<h2><span class="mw-headline" id="Partitions">Partitions</span></h2>
+<p>Click expand button to the right.
+</p>
+<div class="mw-collapsible mw-collapsed mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> cat /proc/partitions
+<span class="go">major minor  #blocks  name</span>
+
+<span class="go"> 179        0    7634944 mmcblk0</span>
+<span class="go"> 179        1       1024 mmcblk0p1</span>
+<span class="go"> 179        2        256 mmcblk0p2</span>
+<span class="go"> 179        3        256 mmcblk0p3</span>
+<span class="go"> 179        4        256 mmcblk0p4</span>
+<span class="go"> 179        5      20480 mmcblk0p5</span>
+<span class="go"> 179        6       2048 mmcblk0p6</span>
+<span class="go"> 179        7       2048 mmcblk0p7</span>
+<span class="go"> 179        8       8192 mmcblk0p8</span>
+<span class="go"> 179        9       8192 mmcblk0p9</span>
+<span class="go"> 179       10       8192 mmcblk0p10</span>
+<span class="go"> 179       11        512 mmcblk0p11</span>
+<span class="go"> 179       12        512 mmcblk0p12</span>
+<span class="go"> 179       13      19200 mmcblk0p13</span>
+<span class="go"> 179       14        512 mmcblk0p14</span>
+<span class="go"> 179       15        256 mmcblk0p15</span>
+<span class="go"> 179       16     319488 mmcblk0p16</span>
+<span class="go"> 179       17    1572592 mmcblk0p17</span>
+<span class="go"> 179       18      30720 mmcblk0p18</span>
+<span class="go"> 179       19    5632000 mmcblk0p19</span>
+
+<span class="gp">#</span> ls -la /dev/block/platform/sdhci.1/
+<span class="go">__bionic_open_tzdata: couldn't find any tzdata when looking for localtime!</span>
+<span class="go">__bionic_open_tzdata: couldn't find any tzdata when looking for GMT!</span>
+<span class="go">__bionic_open_tzdata: couldn't find any tzdata when looking for posixrules!</span>
+<span class="go">drwxr-xr-x root     root              2013-01-05 07:31 by-name</span>
+<span class="go">drwxr-xr-x root     root              2013-01-05 07:31 by-num</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0 -&gt; /dev/block/mmcblk0</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p1 -&gt; /dev/block/mmcblk0p1</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p10 -&gt; /dev/block/mmcblk0p10</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p11 -&gt; /dev/block/mmcblk0p11</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p12 -&gt; /dev/block/mmcblk0p12</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p13 -&gt; /dev/block/mmcblk0p13</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p14 -&gt; /dev/block/mmcblk0p14</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p15 -&gt; /dev/block/mmcblk0p15</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p16 -&gt; /dev/block/mmcblk0p16</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p17 -&gt; /dev/block/mmcblk0p17</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p18 -&gt; /dev/block/mmcblk0p18</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p19 -&gt; /dev/block/mmcblk0p19</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p2 -&gt; /dev/block/mmcblk0p2</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p3 -&gt; /dev/block/mmcblk0p3</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p4 -&gt; /dev/block/mmcblk0p4</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p5 -&gt; /dev/block/mmcblk0p5</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p6 -&gt; /dev/block/mmcblk0p6</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p7 -&gt; /dev/block/mmcblk0p7</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p8 -&gt; /dev/block/mmcblk0p8</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 mmcblk0p9 -&gt; /dev/block/mmcblk0p9</span>
+
+<span class="gp">#</span> ls -la /dev/block/platform/sdhci.1/by-name/
+<span class="go">__bionic_open_tzdata: couldn't find any tzdata when looking for localtime!</span>
+<span class="go">__bionic_open_tzdata: couldn't find any tzdata when looking for GMT!</span>
+<span class="go">__bionic_open_tzdata: couldn't find any tzdata when looking for posixrules!</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 BOTA0 -&gt; /dev/block/mmcblk0p6</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 BOTA1 -&gt; /dev/block/mmcblk0p7</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 CSC -&gt; /dev/block/mmcblk0p16</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 DTS -&gt; /dev/block/mmcblk0p14</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 FOTA_SIG -&gt; /dev/block/mmcblk0p15</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 HIDDEN -&gt; /dev/block/mmcblk0p18</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 KERNEL -&gt; /dev/block/mmcblk0p9</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 PARAM -&gt; /dev/block/mmcblk0p8</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 RECOVERY -&gt; /dev/block/mmcblk0p10</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 RESERVED1 -&gt; /dev/block/mmcblk0p11</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 RESERVED2 -&gt; /dev/block/mmcblk0p12</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 RF_CAL_FILE -&gt; /dev/block/mmcblk0p4</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 cal -&gt; /dev/block/mmcblk0p1</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 efs -&gt; /dev/block/mmcblk0p5</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 modem -&gt; /dev/block/mmcblk0p13</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 parm-spml_dep -&gt; /dev/block/mmcblk0p3</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 sysparm_dep -&gt; /dev/block/mmcblk0p2</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 system -&gt; /dev/block/mmcblk0p17</span>
+<span class="go">lrwxrwxrwx root     root              2013-01-05 07:31 userdata -&gt; /dev/block/mmcblk0p19</span>
+</pre></div>
+<h2><span class="mw-headline" id="GPIO_pins">GPIO pins</span></h2>
+<ul>
+<li>91 - Something related to SD card</li>
+<li>24 - Power saving for UART GPS</li>
+<li>2, 111 - related to camera</li>
+<li>9, 10, 11 - buttons:</li>
+</ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="cp">#define GPIO_KEYS_SETTINGS { \</span>
+<span class="cp">      { KEY_VOLUMEUP,9, 1, "VOLUMEUP", EV_KEY, 0, 64}, \</span>
+<span class="cp">    { KEY_HOME, 10, 1, "HOME", EV_KEY, 0, 64},  \</span>
+<span class="cp">      { KEY_VOLUMEDOWN,11, 1, "VOLUMEDOWN", EV_KEY, 0, 64}, \</span>
+<span class="cp">}</span>
+</pre></div>
+<ul>
+<li>89 - irq pin for ambient sensor</li>
+<li>121, 70 - related to more buttons, possibly headset detection</li>
+<li>28, 71 - related to rfkill</li>
+<li>32, 72 - related to bluetooth(?)</li>
+<li>3, 74 - related to wifi</li>
+<li>24(?) - used by backlight</li>
+<li>113, 114, 56 - used by fsa9485 (musb switch)</li>
+<li>0 - related to konafb</li>
+<li>12, 13 - more related to camera</li>
+</ul>
+<h3><span class="mw-headline" id="Unused">Unused</span></h3>
+<ul>
+<li>73, 70 - Related to unused touchscreens</li>
+<li>17, 16, 90 - Related to ISDBT (television transmission protocol in certain latin countries, only used on the dtv model released in latin countries(?))</li>
+<li>92 - used for unused bma2x2 sensor</li>
+<li>22 - used by konafb on BAFFINLITE_REV00, unused since the used one is REV02 which defines it as 0</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Pages_with_syntax_highlighting_errors.html" title="Category:Pages with syntax highlighting errors">Pages with syntax highlighting errors</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Grand_Neo_(samsung-baffinlite)/Downstream_notes&amp;oldid=12527">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Grand_Neo_(samsung-baffinlite)/Downstream_notes&amp;oldid=12527</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 10 June 2020, at 19:37.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Grand_Neo_(samsung-baffinlite)/Downstream_notes&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

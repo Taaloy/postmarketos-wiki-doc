@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Shelli - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Shelli rootpage-Shelli skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Shelli</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This is a command line based user interface developed first for the Geeksphone Keon and later for several other Android devices. It is really just a collection of simple bash scripts to try and replicate the common features on a phone such as calling, answering, texting, contacts, calendar, note taking, etc.
+</p>
+<p>For postmarketOS shelli is combined with gesture recognition software to provide for a non-UI alternative which uses the touch screen and the linux framebuffer console.
+</p>
+<h3><span class="mw-headline" id="Status">Status</span></h3>
+<p>Initial packaging is in the works at <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/merge_requests/397">https://gitlab.com/postmarketOS/pmaports/merge_requests/397</a>.
+</p>
+<p>Only known to work on Nexus 5. Some changes would be needed for how big the screen is and which event device is the touchscreen.
+</p>
+<p>A short description and demo is available here: <a rel="nofollow" class="external free" href="https://gitlab.com/unrznbl/gesture/wikis/gesture---handwriting-for-linux-touchscreens">https://gitlab.com/unrznbl/gesture/wikis/gesture---handwriting-for-linux-touchscreens</a>
+</p>
+<h3><span class="mw-headline" id="Known_Issues">Known Issues</span></h3>
+<p>I am using `echo "mem" &gt; /sys/power/state` to suspend-to-ram when the power button is pressed. There may be an issue with this strategy. Maybe has something to do with kernel/irqs/watchdog not being fed? See dmesg output at time of failure: <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/merge_requests/265#note_150745636">https://gitlab.com/postmarketOS/pmaports/merge_requests/265#note_150745636</a>.
+</p>
+<ul><li>waking up sometimes takes a second or two so be patient. Sometimes the gesture recognition may not be responsive after wake-up. Press the power button again twice to suspend/wake-up and it usually works again.</li></ul>
+<ul><li>tty may freeze when screen is left on for a while. It seems about after 5 minutes this may occur. Press the power button twice to suspend/wake-up to workaround.</li></ul>
+<p>Battery capacity reporting is broken. It seems that `/sys/class/power_supply/battery/capacity` is not reporting a percentage but a value that ranges from 0 to around 35,000. Maybe a kernel fix is needed?
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Interface.html" title="Category:Interface">Interface</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Shelli&amp;oldid=12787">https://wiki.postmarketos.org/index.php?title=Shelli&amp;oldid=12787</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 21 June 2020, at 19:40.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Shelli&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>OnePlus 6 (oneplus-enchilada)/Hacking - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-OnePlus_6_oneplus-enchilada_Hacking rootpage-OnePlus_6_oneplus-enchilada_Hacking skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">OnePlus 6 (oneplus-enchilada)/Hacking</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<h1><span class="mw-headline" id="Hacking_on_the_OnePlus_6">Hacking on the OnePlus 6</span></h1>
+<p>The <a href="../en/OnePlus_6_(oneplus-enchilada).html" title="OnePlus 6 (oneplus-enchilada)">OnePlus 6</a> is a pretty good device for lowlevel hacking, if you're already comfortable with lowlevel Qualcomm here's a quick rundown:
+</p>
+<ul><li>
+<a rel="nofollow" class="external text" href="https://github.com/bkerler/edl">bkerler's fantastic EDL tool</a> contains the firehose binary for the device, you can use this to flash individual partitions or completely switch up the partition table, as long as you stay within the constraints of the bootloader.</li></ul>
+<ul><li>The ABL has been modified a fair bit by OnePlus, here's a full bootloader log:</li></ul>
+<div class="toccolours mw-collapsible mw-collapsed" style="width: 1000px; overflow: auto;">
+<p>OnePlus 6 bootloader logs
+</p>
+<div class="mw-collapsible-content">
+<pre>    
+Format: Log Type - Time(microsec) - Message - Optional Info
+Log Type: B - Since Boot(Power On Reset),  D - Delta,  S - Statistic
+S - QC_IMAGE_VERSION_STRING=BOOT.XF.2.0-00364-SDM845LZB-1
+S - IMAGE_VARIANT_STRING=SDM845LA
+S - OEM_IMAGE_VERSION_STRING=rd-build-73
+S - Note XBL compiled at Jul 13 2021 21:56:54
+S - Boot Interface: UFS
+S - Secure Boot: On
+S - Boot Config @ 0x00786070 = 0x000000c1
+S - JTAG ID @ 0x00786130 = 0x2008b0e1
+S - OEM ID @ 0x00786138 = 0x0051459b
+S - Serial Number @ 0x00784138 = 0x05662f97
+S - Feature Config Row 0 @ 0x007841a0 = 0x0050200080000400
+S - Feature Config Row 1 @ 0x007841a8 = 0xe000000000000040
+S - Core 0 Frequency, 1516 MHz
+S - PBL Patch Ver: 1
+S - PBL freq: 600 MHZ
+B -        94 - PBL, Start
+B -      5275 - bootable_media_detect_entry
+B -     44238 - bootable_media_detect_success
+B -     44613 - elf_loader_entry
+B -     45190 - auth_hash_seg_entry
+B -     52721 - auth_hash_seg_exit
+B -     58726 - elf_segs_hash_verify_entry
+B -     65502 - elf_segs_hash_verify_exit
+B -     66131 - auth_xbl_sec_hash_seg_entry
+B -     73338 - auth_xbl_sec_hash_seg_exit
+B -     73340 - xbl_sec_segs_hash_verify_entry
+B -     74093 - xbl_sec_segs_hash_verify_exit
+B -     74116 - PBL, End
+B -     88968 - SBL1, Start
+B -    205478 - boot_flash_init, Start
+D -         0 - boot_flash_init, Delta
+B -    209443 - xblconfig_init, Start
+D -      3782 - Auth Metadata
+D -    207552 - xblconfig_init, Delta
+B -    421967 - sbl1_ddr_set_default_params, Start
+D -      1494 - sbl1_ddr_set_default_params, Delta
+B -    429958 - boot_config_data_table_init, Start
+B -    434655 - CDT not programmed, using default
+D -      4575 - boot_config_data_table_init, Delta - (54 Bytes)
+B -    449143 - CDT Version:3,Platform ID:8,Major ID:1,Minor ID:0,Subtype:0
+B -    454846 - pm_device_init, Start
+B -    460092 - PM: PON REASON: PM0=0x800028000000080:0x40 PM1=0x400008000000020:0x0 PM2=0x400
+B -    520177 - PM: SET_VAL:Skip
+D -     64873 - pm_device_init, Delta
+B -    523166 - pm_driver_init, Start
+D -      5337 - pm_driver_init, Delta
+B -    532072 - PM: Trigger FG IMA Reset
+B -    535641 - PM: Trigger FG IMA Reset.Completed
+B -    543052 - PM: [OnePlus]Print Oneplus ADC Config
+B -    544242 - PM: Name=GPIO_08 adc= 445 adc-&gt;id=2
+B -    549061 - PM: Name=GPIO_09 adc= 444 adc-&gt;id=2
+B -    553697 - PM: Name=GPIO_10 adc= 731 adc-&gt;id=3
+B -    558333 - PM: Name=GPIO_11 adc= 445 adc-&gt;id=2
+B -    562969 - PM: Name=GPIO_12 adc= 6 adc-&gt;id=1
+B -    567025 - PM: hw_version = 22 name=PVT
+B -    571478 - PM: rf_version = 32 name=UNKNOWN
+B -    575535 - PM: init_a_board_version = 1 name=TMO
+B -    579896 - PM: enter console_loop time=579896
+
+B -   1184772 - PM: exit console_loop time=1184772
+
+B -   1185779 - PM: set_fast_charge_current=500
+B -   1189439 - PM: set_pre_charge_current=250
+B -   1193739 - PM: set_float_volt_mv=4365
+B -   1197948 - PM: set_usbin_icl=2100
+B -   1202737 - PM: EntryVbat: 4231; EntrySOC: -1
+B -   1205299 - PM: ADSP result: 8
+B -   1209752 - PM: APSD in progress
+B -   1213107 - PM: pm_sbl_chg_post_init
+B -   1216248 - PM: hw_version = 22 name=PVT
+B -   1219939 - PM: get_hw_version: 22 set RF_CLK2 4X
+B -   1223995 - vsense_init, Start
+D -         0 - vsense_init, Delta
+B -   1250927 - sbl1_ddr_set_params, Start
+B -   1252757 - Pre_DDR_clock_init, Start
+D -        91 - Pre_DDR_clock_init, Delta
+D -      7686 - sbl1_ddr_set_params, Delta
+B -   1262364 - sbl1_ddr_init, Start
+D -     16134 - sbl1_ddr_init, Delta
+B -   1282372 - DSF version = 253.10, DSF SHRM version = 173.3
+B -   1285697 - Manufacturer ID = 1, Device Type = 7
+B -   1291309 - Rank 0 size = 4096 MB, Rank 1 size = 4096 MB
+B -   1296341 - do_ddr_training, Start
+B -   1302929 - Frequency = 1355 MHz
+D -      3507 - do_ddr_training, Delta
+B -   1311561 - pImem Init Start
+D -      9729 - pImem Init End, Delta
+B -   1323212 - clock_init, Start
+D -       213 - clock_init, Delta
+B -   1328244 - Image Load, Start
+D -      6832 - Auth Metadata
+D -       244 - Segments hash check
+D -     13085 - APDP Image Loaded, Delta - (7828 Bytes)
+B -   1344684 - usb: UFS Serial - 5725c671
+B -   1349594 - usb: fedl, vbus_low
+B -   1353956 - PM: 0: PON=0x80:KPDPWR_N: ON=0x80:PON_SEQ: POFF=0x2:PS_HOLD: OFF=0x8:RAW_DVDD_O
+B -   1362343 - PM: 1: PON=0x20:PON1: ON=0x80:PON_SEQ: OFF=0x4:RAW_XVDD_SHD
+B -   1372561 - PM: 2: PON=0x20:PON1: ON=0x80:PON_SEQ: OFF=0x4:RAW_XVDD_SHD
+B -   1379271 - PM: SMEM Chgr Info Write Success
+B -   1385096 - Image Load, Start
+D -      3507 - Auth Metadata
+D -     10187 - Segments hash check
+D -     20954 - AOP Image Loaded, Delta - (178864 Bytes)
+B -   1409283 - Image Load, Start
+D -      3477 - Auth Metadata
+D -       274 - Segments hash check
+D -     12139 - QSEE Dev Config Image Loaded, Delta - (34144 Bytes)
+B -   1430267 - Image Load, Start
+D -     10065 - Auth Metadata
+D -     11803 - Segments hash check
+D -     41907 - QSEE Image Loaded, Delta - (2038800 Bytes)
+B -   1475437 - Image Load, Start
+D -       152 - SEC Image Loaded, Delta - (4096 Bytes)
+B -   1483733 - Image Load, Start
+D -      3538 - Auth Metadata
+D -      2440 - Segments hash check
+D -     18666 - QHEE Image Loaded, Delta - (391232 Bytes)
+B -   1505663 - Image Load, Start
+D -      5185 - STI Image Loaded, Delta - (0 Bytes)
+B -   1514081 - Image Load, Start
+D -      3447 - Auth Metadata
+D -       976 - Segments hash check
+D -     11285 - ABL Image Loaded, Delta - (203344 Bytes)
+B -   1528721 - Image Load, Start
+D -      3538 - Auth Metadata
+D -      9180 - Segments hash check
+D -     30469 - APPSBL Image Loaded, Delta - (2097152 Bytes)
+B -   1599847 - success: 1; magic: ; addr: 0x5c00000
+B -   1599908 - SBL1, End
+D -   1515637 - SBL1, Delta
+S - Flash Throughput, 130000 KB/s  (5027834 Bytes,  38631 us)
+S - DDR Frequency, 1353 MHz
+
+
+UEFI Start     [ 1956] SEC
+ASLR        : On
+DEP         : On
+Timer Delta : +0 mS
+RAM Entry 0 : Base 0x0000000080000000  Size 0x0000000100000000
+RAM Entry 1 : Base 0x0000000180000000  Size 0x00000000FC8A0000
+UEFI Ver    : 5.0.210713.BOOT.XF.2.0-00364-SDM845LZB-1
+Build Info  : 64b Jul 13 2021 21:57:20
+Boot Device : UFS
+PROD Mode   : TRUE
+Retail      : TRUE
+[OpBootloaderLog] Start 13 10
+[OpBootloaderLog] Start init bootloader log service
+[OpBootloaderLog] Already init
+[OpBootloaderLog] BootCount is 10551
+[EFI_D_ERROR] bootloader boot count 10551 times
+[OpBootloaderLog] Replace segment 10
+[OpBootloaderLog] find free segment is 10
+PM0: 20, PM1: 21, PM2: 24,
+Elapsed tick: 0x2919968, Wait tick: 0x2DC6C00
+Elapsed tick: 0x2A041EE, Wait tick: 0x2DC6C00
+Elapsed tick: 0x2AEEBCE, Wait tick: 0x2DC6C00
+Elapsed tick: 0x2BD95B7, Wait tick: 0x2DC6C00
+Elapsed tick: 0x2CC3F5C, Wait tick: 0x2DC6C00
+Elapsed tick: 0x2DAE8F1, Wait tick: 0x2DC6C00
+[OpBootloaderLog] Start 48 12
+[OpBootloaderLog] Start flush log to ufs
+[OpBootloaderLog] Start 48 12
+[OpBootloaderLog] Start flush log to ufs
+PanelId--read the LCD register 0xDA the ID1 = :0x0000AD
+PanelId--read the LCD register 0xDB the ID2 = :0x00000A
+PanelId--read the LCD register 0xDC the ID3 = :0x000005
+PanelId:0xAD0A05
+DisplayDxe: Resolution 1080x2280 (1 intf)
+[OpBootloaderLog] Start 48 12
+[OpBootloaderLog] Start flush log to ufs
+-----------------------------
+Platform Init  [ 3129] BDS
+qWrite addr:0x0 data:0x1
+write addr:0x0 error
+L:0x21 H:0x4
+FG TYPE= 0x421
+fg_type:0x421
+HW_ID:22
+BatteryNotMatch--- = 0
+KeyPressed=1 Status=0
+key_boot_mode=0x2
+WrongBatteryShutdown enter
+WrongBatteryShutdown enterBatteryNotMatch=0
+Platform   : MTP
+Chip Name  : SDM845
+Chip Ver   : 2.1
+Core 0 Freq: 1612 MHz
+-----------------------------
+UEFI Total : 2901 ms
+POST Time      [ 4857] OS Loader
+Loader Build Info: May 11 2021 22:56:21
+[OpBootloaderLog] Start 48 12
+[OpBootloaderLog] Start flush log to ufs
+[OpBootloaderLog] Start 48 12
+[OpBootloaderLog] Start flush log to ufs
+[OpBootloaderLog] Start 48 12
+[OpBootloaderLog] Start flush log to ufs
+LoadSecureApps: Load app from partition(keymaster): Status = 0x0, AppId = 1
+VB: RWDeviceState:READ_CONFIG status=0 read_rsp.status=0 secure_device=1
+VB: RWDeviceState: Succeed using rpmb!
+Device support param encryption.
+enc_header-&gt;magic = A0AD646A, ENCRYPTED_MAGIC = A0AD646A
+SID 300 is encrypted
+check_enc_block_and_fix: Verify SID 300 Success
+enc_header-&gt;magic = A0AD646A, ENCRYPTED_MAGIC = A0AD646A
+SID 304 is encrypted
+check_enc_block_and_fix: Verify SID 304 Success
+migrate_custflag_from_plaintext[00000131] Start cust flag migration check
+[get_param_by_index_and_offset] sid_index = 304  offset = 164 buf = 9984CFD4 length = 4
+Encrypted block 304 is verified success
+migrate_custflag_from_plaintext[00000139] Cust flag has been migrated, no need to do further!
+</pre>
+</div>
+</div>
+<ul><li>The bootloader supports selecting the "best match" from multiple DTBs (all appended to the kernel), this is also true for the PocoPhone F1 and makes it possible to use a single boot image across both devices. The OnePlus 6T seems to select the enchilada DTB before it's own though.</li></ul>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">See if appending the fajita DTB before the enchilada one will cause it to be selected first.</td>
+</tr></tbody></table>
+<ul><li>ABL logs will also be printed via UART, however XBL / SBL logs are only printed if you hook up the Rx line (pulling it high to 1.8v should be enough for this).</li></ul>
+<ul><li>Qualcomm's public ABL sources can offer a lot of insight here, there is a lot of potential for fuzzing by messing with the partition table and various image headers. <a rel="nofollow" class="external free" href="https://source.codeaurora.org/quic/la/abl/tianocore/edk2/tree/QcomModulePkg?h=LA.UM.9.3.r1-01500-sdm845.0">https://source.codeaurora.org/quic/la/abl/tianocore/edk2/tree/QcomModulePkg?h=LA.UM.9.3.r1-01500-sdm845.0</a>
+</li></ul>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">I haven't worked out which commit matches the ABL which is actually on device.</td>
+</tr></tbody></table>
+<h3><span class="mw-headline" id="UART_Muxing">UART Muxing</span></h3>
+<p>GPIOs 37 and 51 respectively on the TLMM are labelled "usb_sw1" and "usb_sw2", these GPIOs control two MUXES as shown. I've attempted to enable sw1 and get UART out of the USB port but haven't had any luck, something else might be missing.
+</p>
+<p>The MCU pins are muxed when a fast charger is detected, the STM8 MCU then talks to the fast charger via the USB DP/DN pins to negotiate charging current.
+</p>
+<pre>
+
+
+           ┌──────────────────┐                         ┌──────────────┐
+           │                  │      Second MUX         │              │     Debug UART
+           │                0 ├─────────────────────────┤            0 ├────────────────────
+ USB       │                  │                         │              │
+PORT───────┤                  │                         │              │
+           │                  │                         │              │     MCU Pins
+           │                1 ├──────────┐              │            1 ├────────────────────
+           │        S         │          │              │   s          │
+           └────────┬─────────┘          │              └───┬──────────┘
+                    │                    │                  │
+                    │                    │                  │
+                    │                    │                  │
+                    │                    │                  │
+                    │                    │                  │
+                    │                    │                  │
+                    │                    │                  │
+               ┌────┴────┐              USB              usb_sw2
+               │         │
+               │   NOT   │
+ usb_sw1───────┤  GATE   │
+               │         │
+               └─────────┘
+
+
+                     GPIO 37                      GPIO 51
+               ┌─────────┬───────────────┐  ┌─────────┬──────────┐
+               │ usb_sw1 │ Select        │  │ usb_sw2 │ Select   │
+               ├─────────┼───────────────┤  ├─────────┼──────────┤
+               │ 0       │ USB           │  │ 0       │ UART     │
+               ├─────────┼───────────────┤  ├─────────┼──────────┤
+               │ 1       │ MCU / UAURT   │  │ 1       │ MCU      │
+               └─────────┴───────────────┘  └─────────┴──────────┘
+</pre>
+<p>(The diagram was created with ASCIIFLOW, an editable version can be <a rel="nofollow" class="external text" href="https://asciiflow.com/#/share/eJyrVspLzE1VssorzcnRUcpJrEwtUrJSqo5RqohRsrI0NNeJUaoEsozMDYGsktSKEiAnRkkBAR5N2UM2UsAFSDUoJiYPVTdWIyGM4NTk%2FLwUBd%2FQCNwaYAIuqUml6QqhjkEhBG0woCgkCAYPxcaDPBAa7ERUEGGPEQwBoJEB%2FkEhxMcuGRYQ0k2qkWDa1zlUISAzr5ig%2BYZEhTpeW4kzgpy0HYzdShwOKkYRwDCUCokUm8UU%2BBS3uXiER00ZoqaQmMkQJRkUlBYnxReXG2E1mKDNQNLPPwShAGKYIW6nuDuGuOI3jxKvArVAEGbYAYF7gKe%2FgrE5VjmIpKkhNkt7Hk1pwI3IyPeUlBq4MvyjKU2w0Aezg1NzUpNLUIIWREBjG8yGK8Ed2DTwN0VGYk80Bkhs1PQN9zeKEmCrBMYhI5ENlvjeA6whEWxQzawP9FpoUAiyv9GVDDV%2FK9Uq1QIAYOTieg%3D%3D)">found here</a>).
+</p>
+<p>If you'd like to experiment with the MUXes, you may add the following to the <code>sdm845-oneplus-common.dtsi</code> file under the <code>/ {</code> node and toggle the MUXes by modifying the <code>brightness</code> of the LEDs in <code>/sys/class/leds</code>.
+</p>
+<pre>/ {
+        usb-muxes {
+		compatible = "gpio-leds";
+		sw1 {
+			gpios = &lt;&amp;tlmm 37 GPIO_ACTIVE_HIGH&gt;;
+			default-state = "on";
+		};
+
+		sw2 {
+			gpios = &lt;&amp;tlmm 51 GPIO_ACTIVE_HIGH&gt;;
+		};
+
+		mcu_en {
+			gpios = &lt;&amp;tlmm 102 GPIO_ACTIVE_HIGH&gt;;
+		};
+	};
+}
+</pre>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Hacking&amp;oldid=23115">https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Hacking&amp;oldid=23115</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 19 October 2021, at 16:59.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Hacking&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

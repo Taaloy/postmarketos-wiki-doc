@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Create usbmon capture - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Create_usbmon_capture rootpage-Create_usbmon_capture skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Create usbmon capture</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Captured traffic usually contains sensitive data like phone numbers - don't just upload it to public bug reports without reviewing what's in there!</td>
+</tr></tbody></table>
+<p>This article explains how to create usbmon captures with postmarketOS. One use case is capturing traffic between a USB attached modem inside the device (like the eg25-g in the PinePhone) to figure out modem related problems.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Preparation"><span class="tocnumber">1</span> <span class="toctext">Preparation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Kernel_module"><span class="tocnumber">1.1</span> <span class="toctext">Kernel module</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Find_the_USB_bus"><span class="tocnumber">1.2</span> <span class="toctext">Find the USB bus</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Find_the_interface"><span class="tocnumber">1.3</span> <span class="toctext">Find the interface</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Capture"><span class="tocnumber">2</span> <span class="toctext">Capture</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Over_SSH"><span class="tocnumber">2.1</span> <span class="toctext">Over SSH</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Locally"><span class="tocnumber">2.2</span> <span class="toctext">Locally</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8">
+<a href="#Analyzing"><span class="tocnumber">3</span> <span class="toctext">Analyzing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Using_WiresharkQMIDissector"><span class="tocnumber">3.1</span> <span class="toctext">Using WiresharkQMIDissector</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Preparation">Preparation</span></h2>
+<h3><span class="mw-headline" id="Kernel_module">Kernel module</span></h3>
+<p>Load the <code>usbmon</code> kernel module:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo modprobe usbmon
+</pre></div>
+<p>If it is not available for the kernel that your device uses, <a href="../en/Kernel_configuration.html" title="Kernel configuration">adjust your kernel config</a> to enable <code>CONFIG_USB_MON</code>, build the kernel on your PC and <a href="../en/Installing_packages_on_a_running_phone.html" title="Installing packages on a running phone">install it</a>. Make a merge request to <a href="../en/Pmaports.git.html" class="mw-redirect" title="Pmaports">pmaports</a> so it will be enabled for others in the future.
+</p>
+<h3><span class="mw-headline" id="Find_the_USB_bus">Find the USB bus</span></h3>
+<p>Use <code>lsusb</code> to figure out the relevant USB Bus ID. In this example, it is the bus <code>2</code>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add usbutils
+<span class="gp">$</span> lsusb
+<span class="go">Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub</span>
+<span class="go">Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</span>
+<span class="go">Bus 002 Device 002: ID 2c7c:0125 Quectel Wireless Solutions Co., Ltd. EC25 LTE modem</span>
+<span class="go">Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</span>
+<span class="go">Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub</span>
+<span class="go">Bus 005 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</span>
+</pre></div>
+<h3><span class="mw-headline" id="Find_the_interface">Find the interface</span></h3>
+<p>This guide uses <code>tcpdump</code> to capture the traffic. Find the relevant interface first, in the example <code>usbmon2</code>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add tcpdump
+<span class="gp">$</span> sudo tcpdump --list-interfaces
+<span class="go">1.wlan0 [Up, Running, Wireless, Associated]</span>
+<span class="go">2.any (Pseudo-device that captures on all interfaces) [Up, Running]</span>
+<span class="go">3.lo [Up, Running, Loopback]</span>
+<span class="go">4.usb0 [Up, Disconnected]</span>
+<span class="go">5.usbmon5 (Raw USB traffic, bus number 5)</span>
+<span class="go">6.usbmon4 (Raw USB traffic, bus number 4)</span>
+<span class="go">7.usbmon3 (Raw USB traffic, bus number 3)</span>
+<span class="go">8.usbmon2 (Raw USB traffic, bus number 2)</span>
+<span class="go">9.usbmon1 (Raw USB traffic, bus number 1)</span>
+<span class="go">10.usbmon0 (Raw USB traffic, all USB buses) [none]</span>
+<span class="go">11.nflog (Linux netfilter log (NFLOG) interface) [none]</span>
+<span class="go">12.nfqueue (Linux netfilter queue (NFQUEUE) interface) [none]</span>
+<span class="go">13.wwan0 [none, Disconnected]</span>
+</pre></div>
+<h2><span class="mw-headline" id="Capture">Capture</span></h2>
+<h3><span class="mw-headline" id="Over_SSH">Over SSH</span></h3>
+<p>A convenient setup is running wireshark on your PC and have it analyze the traffic in real time. Enable <a href="../en/SSH.html" title="SSH">SSH</a> and configure it so you can login with your PC's SSH key as <code>root</code> on your phone. Then run the following script on your PC to launch tcpdump over ssh, and pipe its output into wireshark. Once you run the command, you need to login via SSH first (e.g. type in the password of your SSH key). Afterwards the connection should be established, and whenever something happens on the USB, you should see related packages in wireshark.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh -ex</span>
+
+<span class="nv">interface</span><span class="o">=</span><span class="s2">"usbmon2"</span>
+<span class="nv">host</span><span class="o">=</span><span class="s2">"192.168.1.82"</span>
+
+ssh root@<span class="s2">"</span><span class="nv">$host</span><span class="s2">"</span> <span class="se">\</span>
+        tcpdump -i <span class="s2">"</span><span class="nv">$interface</span><span class="s2">"</span> -s0 -w - -U <span class="se">\</span>
+        <span class="p">|</span> wireshark -k -S -i -
+</pre></div>
+<h3><span class="mw-headline" id="Locally">Locally</span></h3>
+<p>Depending on what you want to test, you might need to do a local capture instead. For example, when debugging problems related to suspending (where the application processor goes to sleep and the SSH connection would be lost).
+</p>
+<p>Run this on your phone to do a local capture:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo tcpdump -i usbmon2 -s0 -w capture.pcap
+</pre></div>
+<h2><span class="mw-headline" id="Analyzing">Analyzing</span></h2>
+<p>To analyze the captured packages, view them in <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Wireshark">Wireshark</a>.
+</p>
+<h3><span class="mw-headline" id="Using_WiresharkQMIDissector">Using WiresharkQMIDissector</span></h3>
+<p>If you have captured traffic of a modem speaking the Qualcomm MSM Interface (QMI) protocol (e.g. the eg25-g in the PinePhone), a dissector based on libqmi can be generated and used as follows:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://github.com/dnlplm/WiresharkQMIDissector
+<span class="gp">$</span> git clone https://gitlab.freedesktop.org/mobile-broadband/libqmi.git
+<span class="gp">$</span> <span class="nb">cd</span> WiresharkQMIDissector
+<span class="gp">$</span> python3 generate_lua.py ../libqmi/data/
+<span class="gp">$</span> wireshark -X lua_script:qmi_dissector_gen.lua
+</pre></div>
+<p>QMI packets should show up as USB/QMI protocol now, and you can filter for "qmi" (e.g. with the display filter input).
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li><a rel="nofollow" class="external free" href="https://www.kernel.org/doc/html/latest/usb/usbmon.html">https://www.kernel.org/doc/html/latest/usb/usbmon.html</a></li></ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Create_usbmon_capture&amp;oldid=20987">https://wiki.postmarketos.org/index.php?title=Create_usbmon_capture&amp;oldid=20987</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 3 August 2021, at 20:37.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Create_usbmon_capture&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

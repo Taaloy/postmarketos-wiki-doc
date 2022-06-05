@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>UBIFS - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-UBIFS rootpage-UBIFS skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">UBIFS</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>UBIFS is an unsorted block image file system. It works on top of UBI (erase block management layer) which itself works on top of memory technology device(MTD) layer.
+</p>
+<p>To use UBIFS, one needs to set <code>CONFIG_MTD_UBI</code> kernel option as built-in or module.
+</p>
+<h2><span class="mw-headline" id="How_to_mount_UBIFS">How to mount UBIFS</span></h2>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">To mount UBIFS it's required to have <code>mtd-utils-ubi</code> installed. Consider adding this package to makedepends of the device package, if the device uses UBIFS.</td>
+</tr></tbody></table>
+<p>First, get list of all MTDs
+</p>
+<pre>$ cat /proc/mtd
+dev:    size   erasesize  name
+mtd0: 00040000 00040000 "spl"
+mtd1: 000c0000 00040000 "2ndbl"
+mtd2: 00080000 00040000 "kpanic"
+mtd3: 1fe80000 00040000 "ubipac"
+</pre>
+<p>Note that some of them cannot be used for mounting. In this case, only <code>/dev/mtd3</code> can be used.
+</p>
+<p>Next step is to attach UBI to an MTD.
+</p>
+<p>If UBIFS support is built as module, it's possible to attach in this way:
+</p>
+<pre># modprobe ubi mtd=3 mtd=5
+</pre>
+<p>Otherwise:
+</p>
+<pre># ubiattach /dev/ubi_ctrl -m 3
+UBI device number 0, total 2042 LEBs (518569984 bytes, 494.5 MiB), available 0 LEBs (0 bytes), LEB size 253952 bytes (248.0 KiB)
+</pre>
+<p>Now, create mount point and mount the wanted partition
+</p>
+<pre># mkdir -p /mnt/ubifs
+# mount -t ubifs ubi0:system /mnt/ubifs
+</pre>
+<p>When work with partition is over, unmount it and detach a device
+</p>
+<pre># umount /mnt/ubifs
+# ubidetach -m 3
+</pre>
+<h2><span class="mw-headline" id="Sources">Sources</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://elinux.org/UBIFS">UBIFS - elinux.org</a></li>
+<li><a rel="nofollow" class="external text" href="http://www.linux-mtd.infradead.org/faq/ubi.html">UBI FAQ and HOWTO - linux-mtd.infradead.org</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=UBIFS&amp;oldid=16295">https://wiki.postmarketos.org/index.php?title=UBIFS&amp;oldid=16295</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 6 January 2021, at 12:46.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=UBIFS&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

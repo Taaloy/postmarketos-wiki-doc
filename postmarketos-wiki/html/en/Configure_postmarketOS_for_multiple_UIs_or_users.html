@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Configure postmarketOS for multiple UIs or users - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Configure_postmarketOS_for_multiple_UIs_or_users rootpage-Configure_postmarketOS_for_multiple_UIs_or_users skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Configure postmarketOS for multiple UIs or users</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>When installing postmarketOS, you get exactly one <a href="../en/Category:Interface.html" title="Category:Interface">User Interface</a>, and a single-user system. This article explains how to modify such an installation to start a display manager with a greeter on boot, where it is possible to choose between multiple UIs (and possibly multiple users if supported by the greeter).
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Install_a_second_UI"><span class="tocnumber">1</span> <span class="toctext">Install a second UI</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Enable_lightdm-mobile-greeter"><span class="tocnumber">2</span> <span class="toctext">Enable lightdm-mobile-greeter</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Add_a_user_for_SXMO_postmarketOS"><span class="tocnumber">3</span> <span class="toctext">Add a user for SXMO postmarketOS</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Related"><span class="tocnumber">4</span> <span class="toctext">Related</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Install_a_second_UI">Install a second UI</span></h3>
+<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+<strong>TODO</strong> identify duplicate packages that do not need to be installed and troubleshoot current process</div>
+<p>Install a <code>postmarketos-ui-*</code> package (find them in the <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/main">main</a> dir of <a href="../en/Pmaports.git.html" title="Pmaports.git">pmaports.git</a>). You probably also want everything listed in <code>_pmb_recommends</code> of the <code>APKBUILD</code>, these are the packages pmbootstrap installs in addition to the UI package (but they are not depends of the UI package, so the user can uninstall them). As of writing, for <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/postmarketos-ui-plasma-mobile/APKBUILD">Plasma Mobile</a>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add postmarketos-ui-plasma-mobile <span class="se">\</span>
+	breeze-gtk <span class="se">\</span>
+	discover <span class="se">\</span>
+	firefox-esr <span class="se">\</span>
+	font-noto <span class="se">\</span>
+	font-noto-emoji <span class="se">\</span>
+	index <span class="se">\</span>
+	kaccounts-providers <span class="se">\</span>
+	kclock <span class="se">\</span>
+	kde-gtk-config <span class="se">\</span>
+	kirigami-gallery <span class="se">\</span>
+	koko <span class="se">\</span>
+	kpeoplesink <span class="se">\</span>
+	kpeoplevcard <span class="se">\</span>
+	megapixels <span class="se">\</span>
+	mobile-config-firefox <span class="se">\</span>
+	neochat <span class="se">\</span>
+	plasma-angelfish <span class="se">\</span>
+	plasma-dialer <span class="se">\</span>
+	plasma-phonebook <span class="se">\</span>
+	postmarketos-artwork-wallpapers <span class="se">\</span>
+	postmarketos-hidden-desktop-entries <span class="se">\</span>
+	qmlkonsole <span class="se">\</span>
+	spacebar <span class="se">\</span>
+	ttf-droid-nonlatin <span class="se">\</span>
+	xdg-user-dirs
+</pre></div>
+<h3><span class="mw-headline" id="Enable_lightdm-mobile-greeter">Enable lightdm-mobile-greeter</span></h3>
+<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+<strong>TODO</strong> lightdm is not used anymore, add tinydm guide</div>
+<p>Replace the automatic login with <a rel="nofollow" class="external text" href="https://raatty.club:3000/raatty/lightdm-mobile-greeter">lightdm-mobile-greeter</a> to get a separate login screen, which allows to choose the UI. Install the package:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add lightdm-mobile-greeter
+</pre></div>
+<p>Create a <code>/usr/share/lightdm/lightdm.conf.d/99-mobile-greeter.conf</code> file with the following contents. <code>user-session</code> is the interface selected by default.
+</p>
+<pre>[Seat:*]
+autologin-user=
+greeter-session=lightdm-mobile-greeter
+user-session=phosh
+</pre>
+<h3><span class="mw-headline" id="Add_a_user_for_SXMO_postmarketOS">Add a user for SXMO postmarketOS</span></h3>
+<p>Add user, set a password, add to groups, copy configs over. Replace myuser with your username, mypassword with your password.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo useradd -d /home/myuser -m myuser
+<span class="gp">$</span> <span class="nb">echo</span> -e <span class="s2">"mypassword\nmypassword"</span> <span class="p">|</span> sudo passwd myuser
+<span class="gp">$</span> sudo usermod -G audio,input,video,netdev,plugdev,wheel,seat -a myuser
+<span class="gp">$</span> rsync -a /home/user/.config/ /home/myuser/.config/
+</pre></div>
+<p>Check your user ID and edit a file. Upon reboot it should login with your new user.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo cat /etc/passwd
+<span class="gp">$</span> sudo vim /etc/conf.d/tinydm
+</pre></div>
+<p>In my case I had to change 10000 to 10001 in the last line of /etc/conf.d/tinydm. If you forget to add yourself to groups, sxmo won't start.
+</p>
+<p>You can delete the default account with its homedir using
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span>  sudo userdel user -r
+</pre></div>
+<h3><span class="mw-headline" id="Related">Related</span></h3>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/601">pmaports#601</a>: ui paсkage conflicts</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1630">pmaports!1630</a>: main/postmarketos-ui-phosh: re-enable autologin (with reasoning why we don't want a greeter by default)</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1750">pmaports!1750</a>: feedbackd: Configure haptic feedback per device</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li>
+<li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li>
+</ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Configure_postmarketOS_for_multiple_UIs_or_users&amp;oldid=25331">https://wiki.postmarketos.org/index.php?title=Configure_postmarketOS_for_multiple_UIs_or_users&amp;oldid=25331</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 29 January 2022, at 15:54.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Configure_postmarketOS_for_multiple_UIs_or_users&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

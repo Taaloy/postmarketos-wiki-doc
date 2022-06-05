@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Display manager - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Display_manager rootpage-Display_manager skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Display manager</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<h2><span class="mw-headline" id="List_of_display_managers">List of display managers</span></h2>
+<ul>
+<li>tinydm, default on Phosh, Plasma Mobile and LXQt installations</li>
+<li>lightdm, default on Xfce4 and MATE installations</li>
+<li>gdm, default on GNOME installation</li>
+<li>sddm, default on Plasma Desktop installation</li>
+<li>lxdm, not used by default</li>
+</ul>
+<h2><span class="mw-headline" id="LightDM">LightDM</span></h2>
+<p>In Xfce4 and MATE, autologin is preset by the files /usr/share/lightdm/lightdm.conf.d/64-autologin.conf (Xfce4) or /usr/share/lightdm/lightdm.conf.d/61-autologin.conf (MATE).
+</p>
+<p>If you want to use LightDM as a login screen, it can be set up as follows:
+</p>
+<p>1. <code>sudo apk add lightdm-gtk-greeter</code>
+</p>
+<p>2. <code>sudo vi /etc/lightdm/lightdm.conf</code>
+</p>
+<dl><dd><dl><dd>change:</dd></dl></dd></dl>
+<div style="margin-left: 3em;">
+<pre>greeter-session=lightdm-gtk-greeter
+greeter-hide-users=false
+</pre>
+</div>
+<p>3. <code>sudo vi /etc/lightdm/lightdm-gtk-greeter.conf</code> (optionally)
+</p>
+<dl><dd><dl><dd>Background picture can be set here.</dd></dl></dd></dl>
+<dl><dd><dl><dd>Also setting up a virtual keyboard can be done here. Keyboard <code>onboard</code> is preinstalled on Xfce4 and MATE. First line is a change, the other two lines are new additions. On bigger screens, layout "Phone" can be replaced by layout "Compact".</dd></dl></dd></dl>
+<div style="margin-left: 3em;">
+<pre>background=/usr/share/wallpapers/postmarketos.jpg
+theme-name=postmarketos-dark
+
+keyboard=onboard -l Phone -t Nightshade
+keyboard-position="50%,center -0;100% 25%"
+a11y-states=+keyboard
+</pre>
+</div>
+<p>4. <code>sudo vi /usr/share/lightdm/lightdm.conf.d/65-autologin-override.conf</code> (new file)
+</p>
+<dl><dd><dl><dd>Finally, to disable autologin, the content of the autologin config file can be overriden and set to empty by:</dd></dl></dd></dl>
+<div style="margin-left: 3em;">
+<pre>[Seat:*]
+autologin-user=
+autologin-user-timeout=
+autologin-session=
+</pre>
+</div>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Display_manager&amp;oldid=26995">https://wiki.postmarketos.org/index.php?title=Display_manager&amp;oldid=26995</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 16 April 2022, at 22:39.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Display_manager&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Modem - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Modem rootpage-Modem skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Modem</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This is a work in progress document where a lot of information is still missing. Please help to expand this page!</td>
+</tr></tbody></table>
+<p>There are two different userspace services in postmarketOS that can manage the modem:
+</p>
+<ul>
+<li>
+<b>oFono:</b> Integrated in Plasma Mobile</li>
+<li>
+<b>ModemManager:</b> Integrated in Phosh and Sxmo</li>
+</ul>
+<p>Some modems might be only supported in oFono, while others are only supported in ModemManager. But usually either can be used (but not at the same time).
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#oFono"><span class="tocnumber">1</span> <span class="toctext">oFono</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#SMS"><span class="tocnumber">1.1</span> <span class="toctext">SMS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3">
+<a href="#ModemManager"><span class="tocnumber">2</span> <span class="toctext">ModemManager</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#SMS_2"><span class="tocnumber">2.1</span> <span class="toctext">SMS</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Mobile_Data"><span class="tocnumber">2.2</span> <span class="toctext">Mobile Data</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Qualcomm_Modems"><span class="tocnumber">3</span> <span class="toctext">Qualcomm Modems</span></a></li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Troubleshooting"><span class="tocnumber">4</span> <span class="toctext">Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#When_switching_UI_.28or_debugging_modem.29"><span class="tocnumber">4.1</span> <span class="toctext">When switching UI (or debugging modem)</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Getting_ModemManager_logs"><span class="tocnumber">4.2</span> <span class="toctext">Getting ModemManager logs</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Getting_eg25-manager_logs"><span class="tocnumber">4.3</span> <span class="toctext">Getting eg25-manager logs</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#usbmon_logs"><span class="tocnumber">4.4</span> <span class="toctext">usbmon logs</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Relevant_issues"><span class="tocnumber">5</span> <span class="toctext">Relevant issues</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Relevant_pages"><span class="tocnumber">6</span> <span class="toctext">Relevant pages</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#See_also"><span class="tocnumber">7</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="oFono">oFono</span></h2>
+<p>oFono is integrated into the UI of Plasma Mobile. Alternatively it can be controlled using the Python oFono test scripts from the command line:
+</p>
+<pre>$ sudo apk add ofono-scripts
+$ /usr/lib/ofono/test/enable-modem
+$ /usr/lib/ofono/test/online-modem
+$ /usr/lib/ofono/test/list-modems
+</pre>
+<p>Check if the SIM card shows up. If you have a dual SIM Qualcomm device (e.g. <a href="../en/Wileyfox_Swift_(wileyfox-crackling).html" title="Wileyfox Swift (wileyfox-crackling)">Wileyfox Swift</a>), follow <a href="../User:TravMurav_Dual-Sim_QMI_draft.html" title="User:TravMurav/Dual-Sim QMI draft">this guide</a>.
+</p>
+<p>Unlock the SIM card:
+</p>
+<pre>$ /usr/lib/ofono/test/enter-pin pin &lt;pin&gt;
+</pre>
+<p>Eventually, your SIM card should show up as registering in <code>/usr/lib/ofono/test/list-modems</code>.
+</p>
+<p><code>ofonoctl</code> is also very useful test tool:
+</p>
+<pre>$ sudo apk add ofonoctl
+$ ofonoctl list
+</pre>
+<h3><span class="mw-headline" id="SMS">SMS</span></h3>
+<p>Use the <code>send-sms</code> and <code>receive-sms</code> test scripts (from <code>ofono-scripts</code> package).
+</p>
+<pre>$ /usr/lib/ofono/test/send-sms "COUNTRYCODENUMBER" "Test SMS from oFono" 0
+Send message using modem /gobi_0 ...
+/gobi_0/message_9914F33A7C53DD6F080B38755E7D64FD59EA8F8F
+</pre>
+<h2><span class="mw-headline" id="ModemManager">ModemManager</span></h2>
+<p>ModemManager is integrated into the UI of Phosh. Alternatively it can be controlled using <code>mmcli</code> from the command line:
+</p>
+<pre># List modems
+$ sudo mmcli -m 0
+# Enter pin
+$ sudo mmcli --sim 0 --pin &lt;pin&gt;
+</pre>
+<p>Signal strength information can be viewed by using the following commands:
+</p>
+<pre># Set the interval
+$ mmcli -m any --signal-setup=120
+# Get the information
+$ mmcli -m any --signal-get
+</pre>
+<h3><span class="mw-headline" id="SMS_2">SMS</span></h3>
+<p>How to test SMS functionality with ModemManager:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>$ sudo mmcli -m <span class="m">0</span> --messaging-create-sms<span class="o">=</span><span class="s2">"number='+xxxxxxxxxx',text='Hello from MM'"</span>
+Successfully created new SMS: /org/freedesktop/ModemManager1/SMS/0
+
+$ sudo mmcli -m <span class="m">0</span> -s /org/freedesktop/ModemManager1/SMS/0 --send
+successfully sent the SMS
+</pre></div>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">number format is important, use correct format for example starting with "+xxxx"</td>
+</tr></tbody></table>
+<h3><span class="mw-headline" id="Mobile_Data">Mobile Data</span></h3>
+<p>To set up mobile data in command line with ModemManager:
+</p>
+<ul>
+<li>Make sure ModemManager is started (<code>sudo rc-service modemmanager start</code>).</li>
+<li>If your SIM is locked, make sure to enter PIN (see above).</li>
+<li>Check for the name of your modem, it should be <code>wwan0qmi0</code>, <code>cdc-wdm0</code>, or <code>rpmsg0</code> in output of <code>nmcli d</code> .</li>
+</ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>lg-hammerhead <span class="o">[</span>~<span class="o">]</span>$ nmcli d
+DEVICE         TYPE      STATE         CONNECTION 
+wlan0          wifi      connected     Lexx Wi-Fi 
+wwan0qmi0      gsm       disconnected  --         
+p2p-dev-wlan0  wifi-p2p  disconnected  --         
+dummy0         dummy     unmanaged     --         
+usb0           ethernet  unmanaged     --         
+lo             loopback  unmanaged     --
+</pre></div>
+<ul><li>Create network connection for modem:</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>$ sudo nmcli con add con-name <span class="s2">"modem"</span> <span class="nb">type</span> <span class="s2">"gsm"</span> ifname <span class="s2">"modem-name"</span> auto-config <span class="s2">"TRUE"</span>
+<span class="c1"># OR</span>
+$ sudo nmcli con add con-name <span class="s2">"modem"</span> <span class="nb">type</span> <span class="s2">"gsm"</span> ifname <span class="s2">"modem-name"</span> apn <span class="s2">"internet.mts.ru"</span>
+Connection <span class="s1">'modem'</span> <span class="o">(</span>xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx<span class="o">)</span> successfully added.
+</pre></div>
+<p>If autoconfig doesn't work, adjust this command to use your ISP's apn etc.
+</p>
+<ul>
+<li>Enable the network connection: <code>sudo nmcli c up modem</code>.</li>
+<li>Check if you get an IP address assigned in <code>ip addr</code> (interface <code>rmnet0</code>).</li>
+<li>Try to ping something (e.g. <code>ping 8.8.8.8</code>).</li>
+</ul>
+<p>NetworkManager will then connect mobile network automatically when it's available.
+</p>
+<p>See also <a rel="nofollow" class="external free" href="https://gist.github.com/Minecrell/4cc2bfb9fcae18e294386b0a213907d1">https://gist.github.com/Minecrell/4cc2bfb9fcae18e294386b0a213907d1</a> for oFono instructions.
+</p>
+<h2><span class="mw-headline" id="Qualcomm_Modems">Qualcomm Modems</span></h2>
+<p>On most Qualcomm SoCs the modem is a separate processor which lives next to the main CPU where Linux is running on. It needs to be given firmware by the host processor to start.
+</p>
+<p>The procedure for getting the modem to work is generally the following:
+</p>
+<ul>
+<li>Package and install the <a href="../en/Firmware.html" title="Firmware">Firmware</a> of your modem into the file system, generally the <code>mba.*</code> and <code>modem.*</code> files.</li>
+<li>Install the package <code>msm-modem-downstream</code> or <code>msm-modem-rpmsg</code> (for most older SoCs on mainline, see below), depending on the kernel you are using (and reboot to activate the udev rules and services).</li>
+<li>Install <code>ofono</code> and start it using <code>rc-service ofono start</code>
+</li>
+<li>You should see signs of your firmware being loaded in the dmesg.</li>
+<li>You can use the <a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/network/ofono/ofono.git/tree/test">ofono test scripts</a> (packaged in <code>ofono-scripts</code> or <code>ofonoctl</code> to see if the Linux recognized your modem and if it works correctly.</li>
+<li>On some platforms you may need to manually install <code>msm-modem-uim-selection</code>, see <a href="../User:TravMurav_Dual-Sim_QMI_draft.html" title="User:TravMurav/Dual-Sim QMI draft"> Dual-Sim QMI</a> page for some details.</li>
+</ul>
+<p><b>Note:</b> On newer SoCs (e.g. SDM845 or MSM8953), the modem seems to be available only through QRTR, and not through rpmsg channels as on older Qualcomm SoCs. You can see this if <code>qrtr-lookup</code> also lists modem services such as <code>User Identity Module service</code>. In that case, you can query the modem through libqmi 1.26.0+ like <code>qmicli -d qrtr://&lt;node&gt; --uim-get-card-status</code> (get <code>&lt;node&gt;</code> from the <code>qrtr-lookup</code> output). Currently, the QRTR transport does not seem to be supported in modem services like oFono or ModemManager yet. At least for ModemManager there seem to be ongoing efforts to make it work, though. See <a href="../en/Qualcomm_Snapdragon_845_(SDM845).html#Modem" title="Qualcomm Snapdragon 845 (SDM845)">SDM845 Modem</a> for details and example output.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3>
+<span id="When_switching_UI_(or_debugging_modem)"></span><span class="mw-headline" id="When_switching_UI_.28or_debugging_modem.29">When switching UI (or debugging modem)</span>
+</h3>
+<p>Ofono and ModemManager cannot run at the same time. If you switch UI from Plasma Mobile to Phosh, or vice versa, you might have to make sure that only the correct userspace service is running.
+</p>
+<p>Check if ofono service is running: <code>rc-status | grep ofono</code>
+</p>
+<p>Start ofono service (not persistent): <code>sudo service ofono start</code> 
+</p>
+<h3><span class="mw-headline" id="Getting_ModemManager_logs">Getting ModemManager logs</span></h3>
+<p>1. Open <code>/etc/init.d/modemmanager</code> with your favorite text editor with root permissions
+</p>
+<p>2. Enable debug mode by changing the <code>command_args</code> line to <code>command_args="${modemmanager_opts} --debug --log-level=DEBUG"</code>
+</p>
+<p>3. Output the logs to <code>/var/log/modemmanager.err</code> by adding <code>error_log="/var/log/modemmanager"</code> to the same file.
+</p>
+<p>4. Save and restart ModemManager with <code>rc-service modemmanager restart</code>
+</p>
+<p>5. The logs will now be available at <code>/var/log/modemmmanager.err</code>. Note that they contain sensitive information such as your phone number(s), IMEI, etc.! Scrub them when uploading these logs to the Web!
+</p>
+<p>Also note that the logs may take up a lot of space if you leave them running for a long time.
+</p>
+<p><br>
+<b>Example of <code>/etc/init.d/modemmanager</code></b>
+</p>
+<pre> #!/sbin/openrc-run
+ 
+ supervisor=supervise-daemon
+ command=/usr/sbin/ModemManager
+ command_args="${modemmanager_opts} --debug --log-level=DEBUG"
+ error_log="/var/log/modemmanager.err"
+ 
+ description="ModemManager Daemon"
+ 
+ depend() {
+    need dbus
+ }
+</pre>
+<h3><span class="mw-headline" id="Getting_eg25-manager_logs">Getting eg25-manager logs</span></h3>
+<p>This only applies to the PinePhone.
+</p>
+<p>1. Open <code>/etc/init.d/eg25-manager</code> with your favorite text editor with root permissions
+</p>
+<p>2. Output the logs to <code>/var/log/eg25-manager.err</code> by adding <code>error_log="/var/log/e25-manager"</code> to the same file.
+</p>
+<p>4. Save and restart eg25-manager with <code>rc-service eg25-manager restart</code>
+</p>
+<p>5. The logs will now be available at <code>/var/log/eg25-manager.err</code>.
+</p>
+<p><br>
+<b>Example of <code>/etc/init.d/eg25-manager</code></b>
+</p>
+<pre> #!/sbin/openrc-run
+ 
+ supervisor=supervise-daemon
+ command=/usr/bin/eg25-manager
+ error_log="/var/log/eg25-manager.err"
+ 
+ description="EG25 Manager Daemon"
+</pre>
+<h3><span class="mw-headline" id="usbmon_logs">usbmon logs</span></h3>
+<p>The Linux kernel allows you to capture QMI and AT commands over USB using <code>usbmon</code> and can be read using Wireshark.
+See this page to use it: <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/Create_usbmon_capture">https://wiki.postmarketos.org/wiki/Create_usbmon_capture</a>
+</p>
+<h2><span class="mw-headline" id="Relevant_issues">Relevant issues</span></h2>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/520">#520</a> N900: integrate ofono</li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/598">#598</a> Let's get the cellular modem working! (presenting various stacks, general discussion)</li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1054">#1054</a> Get qualcomm modems working (at the end of the thread scintill wrote a few wrappers and made SMS on a QC modem work with a downstream kernel without userspace blobs!)</li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1314">#1314</a> i9195/Qualcomm modem support (scintill's work integrated)</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/251">pmaports#251</a> xiaomi-santoni: gets modem to work on the device</li>
+</ul>
+<h2><span class="mw-headline" id="Relevant_pages">Relevant pages</span></h2>
+<ul>
+<li><a href="../en/QMI.html" title="QMI">QMI</a></li>
+<li><a href="../en/Samsung_Modem.html" title="Samsung Modem">Samsung Modem</a></li>
+</ul>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li>Maemo Leste <a rel="nofollow" class="external text" href="https://github.com/maemo-leste/bugtracker/issues/27">bugtracker#27</a> Call/Phone support</li></ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Modem&amp;oldid=23272">https://wiki.postmarketos.org/index.php?title=Modem&amp;oldid=23272</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 28 October 2021, at 01:29.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Modem&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

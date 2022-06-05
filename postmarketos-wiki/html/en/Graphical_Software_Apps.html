@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Graphical Software Apps - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Graphical_Software_Apps rootpage-Graphical_Software_Apps skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Graphical Software Apps</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a rel="nofollow" class="external text" href="https://apps.gnome.org/en/app/org.gnome.Software/">Gnome Software</a> (GS) and <a rel="nofollow" class="external text" href="https://apps.kde.org/discover/">Plasma Discover</a> (PD) are the default applications for installing other apps in <a href="../en/Phosh.html" title="Phosh">Phosh</a> and <a href="../en/Plasma_Mobile.html" title="Plasma Mobile">Plasma Mobile</a>. These applications do not only allow to install, update and remove other apps, but also include a lot of information for each of the apps available. This information includes icons, screenshots, reviews, and other details. Unfortunately, for the apps to work properly with postmarketOS/alpine linux, some additional work is needed. This page is an attempt to describe all the components involved and give an overview over what is needed to make these apps functional and user-appealing.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Components"><span class="tocnumber">1</span> <span class="toctext">Components</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#AppStream"><span class="tocnumber">1.1</span> <span class="toctext">AppStream</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#apk-tools_and_wrappers"><span class="tocnumber">1.2</span> <span class="toctext">apk-tools and wrappers</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#APK_backends"><span class="tocnumber">1.3</span> <span class="toctext">APK backends</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Status"><span class="tocnumber">2</span> <span class="toctext">Status</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#AppStream_2"><span class="tocnumber">2.1</span> <span class="toctext">AppStream</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#apk-tools_and_wrappers_2"><span class="tocnumber">2.2</span> <span class="toctext">apk-tools and wrappers</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Apk_backends_2"><span class="tocnumber">2.3</span> <span class="toctext">Apk backends</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Roadmap"><span class="tocnumber">3</span> <span class="toctext">Roadmap</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#AppStream_3"><span class="tocnumber">3.1</span> <span class="toctext">AppStream</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#apk-polkit-rs.2C_libapk-qt_and_backends"><span class="tocnumber">3.2</span> <span class="toctext">apk-polkit-rs, libapk-qt and backends</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12">
+<a href="#Contributing"><span class="tocnumber">4</span> <span class="toctext">Contributing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Debugging_GNOME_Software_and_plugin"><span class="tocnumber">4.1</span> <span class="toctext">Debugging GNOME Software and plugin</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Components">Components</span></h2>
+<p>In order for these apps to function properly, all components need to be fully functional.
+</p>
+<h3><span class="mw-headline" id="AppStream">AppStream</span></h3>
+<p><a rel="nofollow" class="external text" href="https://www.freedesktop.org/software/appstream/docs/chap-AppStream-About.html">AppStream</a> "is a cross-distro effort for enhancing the metadata available about software components in the Linux and free-software ecosystem". Simplified, it works in the following fashion:
+</p>
+<ul>
+<li>App developers create and include xml files which provide information about their apps (such as screenshots)</li>
+<li>Software distributors aka. distros use <a rel="nofollow" class="external text" href="https://github.com/ximion/appstream-generator">AppStream Generator</a> to put together all the AppStream data from all the apps and publish it in a public link (<a rel="nofollow" class="external text" href="https://appstream.alpinelinux.org/">alpine</a>, <a rel="nofollow" class="external text" href="https://mirror.postmarketos.org/appstream/">pmOS</a>)</li>
+<li>GS and PD download and use the public AppStream data to show the information to users inspecting apps.</li>
+</ul>
+<h3><span class="mw-headline" id="apk-tools_and_wrappers">apk-tools and wrappers</span></h3>
+<p><a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/alpine/apk-tools">apk-tools</a> is the Alpine Package Keeper and the component responsible for package management. In theory, the library built by apk-tools, libapk, could be directly used by GS and PD to manipulate apps. However, it is too low-level so two components exist to wrap it with different rationales:
+</p>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/Cogitri/apk-polkit-rs">apk-polkit-rs</a> provides a DBus interface which simplifies common application operations. Currently used by Gnome Software. The main drive for its creation was to support user authentication and privilege granting to GNOME Software users, without executing any of the GNOME Software's code in privileged mode. Additionally, having a DBUS interface could in principle easily support more applications than just GNOME Software.</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/libapk-qt">libapk-qt</a> provides simplified C++/QT bindings for libapk. Currently used by Discover. When it was created, it also provided an entrypoint to libapk, which at the time could not be statically compiled.</li>
+</ul>
+<h3><span class="mw-headline" id="APK_backends">APK backends</span></h3>
+<p>Once there exists an interface for APK, GS and PD need to know how to interact with the said interface. Both apps support a modular approach, so simply a new plugin/backend for APK is needed. For such a reason, there exits:
+</p>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/Cogitri/gnome-software-plugin-apk">gnome-software-plugin-apk</a>, which is an out-of-tree plugin for GS that uses apk-polkit-rs.</li>
+<li>
+<a rel="nofollow" class="external text" href="https://invent.kde.org/alexeymin/discover/-/tree/apk">alexeymin/discover apk branch</a> from which a <a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/alpine/aports/tree/master/community/discover">patch</a> to plasma-discover in aports repository, which uses libapk-qt.</li>
+</ul>
+<h2><span class="mw-headline" id="Status">Status</span></h2>
+<h3><span class="mw-headline" id="AppStream_2">AppStream</span></h3>
+<p>The AppStream data for alpine edge and pmOS master seems to work good enough. At least good enough for testing. However, there exist some issues
+</p>
+<ul>
+<li>AppStream data for most apps seem to be of good quality. Errors and warnings are provided by the AppStream Generator for inspection. They can be found in <a rel="nofollow" class="external text" href="https://appstream.alpinelinux.org/html/">alpine</a> and <a rel="nofollow" class="external text" href="https://mirror.postmarketos.org/appstream/html/">postmarketOS</a>, although unfortunately postmarketOS reporting seems broken.</li>
+<li>AppStream data seems to have been latest generated in January 2021 in alpine and July 2021 in postmarketOS.</li>
+<li>AppStream Generator backend for APK lives <a rel="nofollow" class="external text" href="https://github.com/ximion/appstream-generator/tree/master/src/asgen/backends/alpinelinux">upstream</a>. There aren't any tests which check for validity in that repository, so if the APKINDEX or .apk format changes, regressions are likely to happen.</li>
+<li>AppStream data for stable releases is missing. In alpine, only v3.12 exits. Infra needs fixes at least <a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/alpine/infra/compose/appstream-generator/-/blob/master/asgen-config.json">here</a> and <a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/alpine/infra/docker/appstream-generator/-/blob/master/cron/daily/run-generator">here</a>. In postmarketos only v20.06 is available and I could only find <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/699">an issue</a> referring to it. Is the backend config public?</li>
+<li>Although the AppStream data seems properly generated, users of GNOME Software and Plasma Discovery experience that icons for non-installed apps and screenshots in general are often missing. These comes from how this metadata is handled by the distribution:
+<ul>
+<li>Icons: according to AppStream <a rel="nofollow" class="external text" href="https://www.freedesktop.org/software/appstream/docs/sect-AppStream-IconCache.html">documentation</a>: "In order to display icons in software-centers, distributors should offer a repository of cached icons for applications defined in their AppStream XML files. The icons should be PNG files or vectorgraphics (PNG is preferred) and match the name referenced in the applications .desktop file. Their size should be 64x64px, it is okay to just provide one size". Not in alpine, nor in pmOS are those icons downloaded by the distribution. Therefore, the icons go mostly missing. Manually downloading the icon tarballs and placing them in the right locations show icons.</li>
+<li>Screenshots: Screenshots are currently referenced in the AppStream data to their original locations, e.g: <a rel="nofollow" class="external text" href="https://gitlab.gnome.org/GNOME/gnome-software/-/blob/main/data/appdata/ss-details.png">this GNOME Software</a> screenshot. In those locations, it is common that screenshots only have a single size, so if any other screenshot size is requested, it will be missing.</li>
+</ul>
+</li>
+</ul>
+<h3><span class="mw-headline" id="apk-tools_and_wrappers_2">apk-tools and wrappers</span></h3>
+<p>The apk-tools is a very well maintained and alive project! The wrappers have been projects started by independent people that perform similar tasks. Neither of them has seen a 1.0 release. 
+</p>
+<ul>
+<li>apk-polkit-rs does it job pretty well in most cases, but there are some small fixes needed and some features and good documentation missing before 1.0.</li>
+<li>libapk-qt has enough features to support discover plugin. Of course not every single libapk feature is implemented, but basics for package management work fine.</li>
+</ul>
+<h3><span class="mw-headline" id="Apk_backends_2">Apk backends</span></h3>
+<ul>
+<li>In GNOME Software the plugin interface is not stable and evolving constantly, so the APK plugin needs active maintenance and testing. Currently the plugin covers the basic functionality and update is in progress for GNOME 41.Planning for upcoming <a rel="nofollow" class="external text" href="https://github.com/Cogitri/gnome-software-plugin-apk/issues/17">GNOME 42</a> has also started. Hopefully one day it will be upstreamable, but lots of work is still needed.</li>
+<li>Plasma Discover backend interface is stable for long time ago, and for several Plasma releases already proved that it does not require changes to backend pugin code.</li>
+</ul>
+<h2><span class="mw-headline" id="Roadmap">Roadmap</span></h2>
+<h3><span class="mw-headline" id="AppStream_3">AppStream</span></h3>
+<p>Cogitri did an amazing work getting apk support merged in the generator upstream and building the alpine infrastructure. However, the issues with the data mentioned above should be fixed. A place for collecting those issues should be established, as otherwise it is very hard for new contributors to help. Additionally, adding support for newer releases should become part of branching for both alpine and pmOS. Otherwise the current situation where most stable releases are missing could easily happen again. As a failover, major fixes that have to be addressed are collected here:
+</p>
+<ul>
+<li>Update configuration in pmOS and alpine to make AppStream data be generated again. Includes:
+<ul>
+<li>Fixing configuration in alpine<a rel="nofollow" class="external autonumber" href="https://gitlab.alpinelinux.org/alpine/infra/compose/appstream-generator/-/merge_requests/2">[1]</a> (and maybe also in pmOS).</li>
+<li>Improving generation container<a rel="nofollow" class="external autonumber" href="https://gitlab.alpinelinux.org/alpine/infra/docker/appstream-generator">[2]</a> in alpine to be more general and include cleanups.</li>
+</ul>
+</li>
+<li>Set up some way to download icons to their right locations.</li>
+<li>Fix configuration to create screenshots and reference them in the metadata.</li>
+</ul>
+<h3>
+<span id="apk-polkit-rs,_libapk-qt_and_backends"></span><span class="mw-headline" id="apk-polkit-rs.2C_libapk-qt_and_backends">apk-polkit-rs, libapk-qt and backends</span>
+</h3>
+<p>Unfortunately, there is a huge amount of code duplication in between projects, both in the plugins/backends and in the wrappers. Possible solutions:
+</p>
+<ul>
+<li>Discard everything done until now and try to merge APK support in <a rel="nofollow" class="external text" href="https://github.com/PackageKit/PackageKit">PackageKit</a>. Both GS and PD have support for it. However, it might be controversial <a rel="nofollow" class="external autonumber" href="https://blogs.gnome.org/hughsie/2019/02/14/packagekit-is-dead-long-live-well-something-else/">[3]</a><a rel="nofollow" class="external autonumber" href="https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/NWSURJRGZAIIMNZJT244DHDPOG2PBQXZ/">[4]</a>, so it should be carefully thought. It might also not exactly fit alpine and pmOS ideals, as it is a root daemon running in the background.</li>
+<li>Adapt one of the wrappers so it can be used by both GS and PD. With time, refine the plugins and get them merged upstream. Even in that case, maintenance from downstream might be needed. At least GS main maintainer has stated its reluctance to maintain yet-another-plugin (although they're positive towards merging them).</li>
+</ul>
+<h2><span class="mw-headline" id="Contributing">Contributing</span></h2>
+<p>Pick up any of the issues mentioned above and start hacking on them :D
+</p>
+<h4><span class="mw-headline" id="Debugging_GNOME_Software_and_plugin">Debugging GNOME Software and plugin</span></h4>
+<p>GNOME Sofware is usually started as a background application with which the graphical frontend communicates. Therefore, in order to debug it, the background job needs to be first killed. It can usually be done with <code>killall gnome-software</code>. Then, start the application from a terminal with <code>gnome-software --verbose</code> to get all debugging output printed out.
+</p>
+<p>The plugin is a shared library located in /usr/lib/gnome-software/plugins-API_VER/gs-plugin-apk.so in GNOME 40 and above. Since that version, the plugin is a dynamically linked library that must be in sync with the GNOME Software version in use. Therefore, whenever testing APK functionality, it must be verified that the apk plugin installed is linking against the correct Software library. These packages are usually upgraded together in alpine and postmarketos, so it shouldn't be an issue. Still, during testing this has to be verified.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1384">pmaports#1384</a> Software Apps (GNOME Software, Plasma Discover) issues and improvements</li></ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Graphical_Software_Apps&amp;oldid=24937">https://wiki.postmarketos.org/index.php?title=Graphical_Software_Apps&amp;oldid=24937</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 12 January 2022, at 13:13.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Graphical_Software_Apps&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Creating a release branch - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Creating_a_release_branch rootpage-Creating_a_release_branch skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Creating a release branch</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This is relevant for maintaining the repository only, regular users will not need this guide.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Alpine.27s_release_timeline"><span class="tocnumber">1</span> <span class="toctext">Alpine's release timeline</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Timeline"><span class="tocnumber">2</span> <span class="toctext">Timeline</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Detailed_tasks_for_Team"><span class="tocnumber">3</span> <span class="toctext">Detailed tasks for Team</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Drop_phase"><span class="tocnumber">3.1</span> <span class="toctext">Drop phase</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Maintenance"><span class="tocnumber">4</span> <span class="toctext">Maintenance</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Cherry-picking_commits_from_master"><span class="tocnumber">4.1</span> <span class="toctext">Cherry-picking commits from master</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2>
+<span id="Alpine's_release_timeline"></span><span class="mw-headline" id="Alpine.27s_release_timeline">Alpine's release timeline</span>
+</h2>
+<p><a rel="nofollow" class="external text" href="https://lists.alpinelinux.org/~alpine/devel/%3CYWsU6tiHtmsWIma7%40alpha%3E#%3C20211018085651.57a521f7@ncopa-desktop.lan%3E">From the alpine-devel mailing list:</a>
+</p>
+<pre> The freeze period for 3.16 will start around first half of April 2022, and the freeze period
+ for 3.17 will start around first half of October 2022.
+ 
+ We are aiming for releases every May and November, and should start set
+ up the builders a month in advance.
+</pre>
+<p>In more detail: <a rel="nofollow" class="external text" href="https://ariadne.space/2021/10/22/the-alpine-release-process/">the Alpine release process</a>
+</p>
+<h2><span class="mw-headline" id="Timeline">Timeline</span></h2>
+<p>Alpine starts working on a new release approximately every six months. This is when the cycle described in the table below begins. The weeks are estimated based on experience, it will get more accurate the more often we go through the release cycle. (But of course, if something unexpected happens in either Alpine or postmarketOS, it may lead to a delay of the release.) All phases are announced in the <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">release party</a> chat.
+</p>
+<table class="wikitable">
+
+<tbody>
+<tr>
+<th>Calendar Week
+</th>
+<th>Phase Name
+</th>
+<th>Description
+</th>
+</tr>
+<tr>
+<td>CW 21
+<p><small>(2022-05-23 - 2022-05-29)</small>
+</p>
+</td>
+<td>Branch
+</td>
+<td>
+<p>Team:
+</p>
+<ul>
+<li>Create release branch in pmaports</li>
+<li>Build binary packages and images (configure BPO for that)</li>
+</ul>
+<p>Release branches are in <b>feature freeze</b>:
+</p>
+<p>We can cherry pick fixes where it makes sense, but new features need to go through master and can only go to stable via service packs.
+</p>
+</td>
+</tr>
+<tr>
+<td>CW 22
+<p><small>(2022-05-30 - 2022-06-05)</small>
+</p>
+</td>
+<td>Test
+</td>
+<td>
+<p>Maintainers:
+</p>
+<ul>
+<li>Test your devices and UIs.</li>
+<li>Report back in the issue (<a href="../en/Kernel_upgrade_testing.html#Stable_release_testing" title="Kernel upgrade testing">template for devices</a>)</li>
+<li>Fix stuff that is broken by creating MRs against pmaports master and noting that this should be cherry picked to the release branch.</li>
+</ul>
+<p>Devices that were not tested need to be dropped.
+</p>
+</td>
+</tr>
+<tr>
+<td>CW 23
+<p><small>(2022-06-06 - 2022-06-12)</small>
+</p>
+</td>
+<td>Release
+</td>
+<td>
+<p>Team:
+</p>
+<ul><li>Write the release blog post.</li></ul>
+<p>Team + Maintainers:
+</p>
+<ul><li>Conference call, celebrate with party hats and get wasted.</li></ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>One month later:
+</p>
+<table class="wikitable">
+
+<tbody>
+<tr>
+<th>Calender Week
+</th>
+<th>Phase Name
+</th>
+<th>Description
+</th>
+</tr>
+<tr>
+<td>CW 28
+<p><small>(2022-06-11 - 2022-06-17)</small>
+</p>
+</td>
+<td>Drop
+</td>
+<td>
+<p>Team:
+</p>
+<ul>
+<li>Mark previous release as unsupported.</li>
+<li>Release first service pack.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="Detailed_tasks_for_Team">Detailed tasks for Team</span></h2>
+<p>The tasks below are in a format that's convenient for copying/pasting into a gitlab issue, where each task is checkbox.
+</p>
+<pre>### Preparation
+- [ ] Discuss who's in charge of the release (doesn't necessarily mean doing all the work, it can be delegated. just someone to keep pushing it forward)
+- [ ] Create gitlab milestone for the release
+- [ ] Create an issue in pmaports named "vYY.MM Infrastructure", add it to the milestone, copy paste the checkboxes from this list
+- [ ] Assign the person who's in charge of the release to the infrastructure issue
+- [ ] Update the [timeline](https://wiki.postmarketos.org/wiki/Creating_a_release_branch) for the next release
+- [ ] Post it in the release party channel
+
+### Branch phase
+
+#### pmbootstrap: adjust config
+- [ ] add apk-tools min version
+  - [ ] https://pkgs.alpinelinux.org/packages?name=apk-tools&amp;branch=edge
+  - [ ] `pmb/config/__init__.py:apk_tools_min_version`
+- [ ] create a merge request
+- [ ] when CI passes, merge it (it's a trivial change)
+- [ ] (can be done later, at start of test phase) make a new [pmbootstrap release](https://wiki.postmarketos.org/wiki/Pmbootstrap_release) &lt;small&gt;bpo uses the master branch, so it will be fine without a release, however users will want to try out the new release and may not run master.&lt;/small&gt;
+
+#### pmaports: create branch and initial changes
+- [ ] `git checkout -b vXX.YY master`
+- [ ] Create a `=== Branch vXX.YY from master ===` commit (third line: `Related: https://wiki.postmarketos.org/wiki/Create_release_branch`)
+  - [ ] Remove channels.cfg (should only be in master)
+  - [ ] Change `channel=edge` to `channel=vXX.YY` in pmaports.cfg
+  - [ ] replace `master` in .gitlab-ci.yml ([example](https://gitlab.com/postmarketOS/pmaports/-/commit/3db21d5852291061eac005436b81cfb9a6d93cc3))
+- [ ] `git push`
+- [ ] '''protect the new release branch in gitlab''', so nobody can force-push to it
+
+#### pmaports: update master branch
+- [ ] `git checkout master`
+- [ ] add the new branch to [channels.cfg](https://wiki.postmarketos.org/wiki/Channels.cfg_reference), [like this](https://gitlab.com/postmarketOS/pmaports/-/commit/c43571ceaf9b8155519bc9fb760bdeccd96e7e9c)
+- [ ] `git push`
+
+#### pmaports: update os-release / remove packages / aportgen
+- [ ] `git checkout vXX.YY`
+- [ ] remove armhf from CI ([example](https://gitlab.com/postmarketOS/pmaports/-/commit/2c73d542d80a6b2cca30b2c40b69582084915bbf))
+- [ ] set version info for /etc/os-release in `main/postmarketos-base/rootfs-etc-os-release`, bump pkgrel, update checksum, commit
+- [ ] remove packages:
+  - [ ] device/testing, device/unmaintained
+  - [ ] cross/*-armhf, cross/*-x86
+  - [ ] main/postmarketos-ui-asteroid (no smartwatches are useful on stable branches at the moment)
+  - [ ] main/postmarketos-ui-framebufferphone until [aports#13857](https://gitlab.alpinelinux.org/alpine/aports/-/issues/13857) is resolved
+  - [ ] main/postmarketos-ui-lxde until [aports#13862](https://gitlab.alpinelinux.org/alpine/aports/-/issues/13862) is resolved
+- [ ] run `pmbootstrap aportgen` for packages in cross
+  - [ ] may not be necessary if the branch was just created, since the packages on edge and the new stable branch will be the same
+- [ ] `git push`
+
+#### bpo: adjust config
+- [ ] add the branch to the [build.postmarketos.org](https://gitlab.com/postmarketOS/build.postmarketos.org) config
+  - [ ] `bpo/config/const/__init__.py:branches`
+  - [ ] for x86_64 only
+  - [ ] ignore_errors: True
+  - [ ] add it below `branches["master"]`, so it builds with lower priority than master until it's released
+- [ ] make a merge request, wait until CI passes
+- [ ] merge it and roll it out/ask somebody who can do that
+- [ ] restart bpo, it will start building x86_64 packages
+
+#### bootstrap of binary packages
+- [ ] fix failing x86_64 packages (Remember: patches need to go through edge first, then get backported to the stable branch!)
+  - [ ] Try to get build fixes merged to edge quickly, ask for reviews in #postmarketos-devel, and consider merging trivial fixes right after they pass CI.
+- [ ] wait until all packages for x86_64 are built and published
+- [ ] after x86_64 is published, activate armv7, aarch64 arches in bpo (if you activate them before, the builds will fail due to missing cross compilers!)
+- [ ] fix up ARM packages too
+- [ ] wait until all packages for ARM are built and published
+
+#### Images: config &amp; issue
+- [ ] update bpo's images config to build images for the new branch for all devices in community and main, except for:
+  - [ ] qemu-*
+
+#### Adjust CI
+- [ ] disable x86, armhf in .gitlab-ci.yml on the release branch
+- [ ] make sure pmaports.git CI runs through on the new branch. Examples of why it might fail:
+  - one postmarketos-ui package has a package from alpine testing in their _pmb_recommends.
+    - remove the UI if it is not used much (can bring it back on demand) or fork the package to the new branch
+    - consider fixing it in edge, so we don't run into this with the next release
+- [ ] adjust [monitoring](https://gitlab.com/postmarketOS/monitoring) to run on the new release and make sure it passes ([example](https://gitlab.com/postmarketOS/monitoring/-/merge_requests/10))
+
+#### No more WIP
+- [ ] bpo: configure the new branch to be not WIP anymore
+- [ ] ensure that a pmbootstrap release been made with the apk-tools min version change
+
+### Test phase
+- [ ] Create an issue in pmaports with a checklist of devices and UIs in main and community
+  - Tag the maintainers of each device and UI
+  - Ask them to verify that the images work as expected
+- [ ] Announce the new phase in the release party chat - and ask them to do the testing within one week, as in the timeline.
+- Prioritize merging fixes from maintainers (they do the heavy lifting in the testing and fixing phase, see timetable)
+- Make sure to properly cherry pick fixes from MRs to edge, if they are intended for the upcoming release
+- [ ] add new version to the pmaports gitlab issue template
+
+### Release phase
+- [ ] Did everybody test their devices? If not, we need to drop them.
+- [ ] Make sure all fixes are in
+- [ ] Make sure new images are generated *with* the fixes (unless it's a fix for something that doesn't impact the experience much and is fine to get with the first update after installing)
+- [ ] Announce the new phase in the release party chat, together with the planned date of blog post release (and release party)
+
+#### Write blog post
+- [ ] look at previous release blog posts for inspiration, then prepare a MR with the following changes.
+  - [ ] update config/download.py in postmarketos.org.git:
+    - [ ] latest_release(_title)
+    - [ ] update devices and categories. only list the ones where we actually build images.
+- [ ] write a blog post for the new release:
+  - [ ] Highlight major changes since the last release
+  - [ ] Mention new devices, and total list of devices
+    - [ ] Count devices that have their own wiki page as separate device
+    - [ ] E.g. OnePlus 6, 6T are two devices (two wiki pages), but variants of "Samsung Galaxy A3 (2015)" are one device (one wiki page)
+    - [ ] Don't count/list devices for which we don't build images (e.g. qemu-amd64)
+  - [ ] Explain upgrade path (previously: [Upgrade release](https://wiki.postmarketos.org/wiki/Upgrade_release), maybe just update that wiki page and link to it again)
+  - [ ] Adjust the homepage config to point to the new release in the downloads page
+  - [ ] Add some cool photos (Martijn takes great photos, maybe ask him ;) )
+  - [ ] Submit the blog post as MR to postmarketos.org.git. Make sure the team sees it.
+  - [ ] Wait for reviews
+
+#### Release!
+- [ ] Merge the blog post
+- [ ] Edit channels.cfg, change descriptions:
+  - [ ] New release: "Latest release / Recommended for best stability"
+  - [ ] Old release: "Old release (supported until YYYY-MM-DD)" (one month from date of the release)
+- [ ] Update the [Releases](https://wiki.postmarketos.org/wiki/Releases) wiki page
+  - [ ] Move the new release to the list of active releases, link to the blog post
+  - [ ] Add a supported until date for the old release (but keep in the "active" list for now)
+- [ ] Update "Default description template for issues" in pmaports
+  - [ ] https://gitlab.com/postmarketOS/pmaports/edit
+  - [ ] In "On what postmarketOS version did you encounter the issue?", change:
+    - [ ] previous release: add " (supported until YYYY-MM-DD)"
+    - [ ] add the new release
+- [ ] Put a reminder in your calendar to drop support for the old release in one month (see below)
+  - [ ] create a new issue with dropping the old release ([template](https://wiki.postmarketos.org/wiki/Creating_a_release_branch#Dropping_phase))
+- [ ] Ping Martijn to add the branch to pkgs.postmarketos.org config
+- [ ] Do the conference call in jitsi and celebrate the release :)
+</pre>
+<h3><span class="mw-headline" id="Drop_phase">Drop phase</span></h3>
+<pre>A month after a new release has been published:
+
+- [ ] drop the old release from [monitoring](https://gitlab.com/postmarketOS/monitoring)
+- [ ] bpo: configure images so they don't get built for the old release anymore
+- [ ] bpo: configure branches so we don't try to build packages for old branches anymore
+  - [ ] e.g. on startup all branches are checked for new packages, we should keep the amount of branches that get checked minimal
+- [ ] pmaports.git channels.cfg: change description:
+  - [ ] "Old release (unsupported)"
+- [ ] Update [Releases](https://wiki.postmarketos.org/wiki/Releases), move the release from active to old
+- [ ] Go through issues assigned to the old release
+  - [ ] e.g. https://gitlab.com/postmarketOS/pmaports/-/issues?label_name[]=release-v21.03
+  - [ ] close or re-label them as it makes sense
+</pre>
+<h2><span class="mw-headline" id="Maintenance">Maintenance</span></h2>
+<h3><span class="mw-headline" id="Cherry-picking_commits_from_master">Cherry-picking commits from master</span></h3>
+<ul>
+<li>In merge requests, that shall be cherry picked, add the <code>backport-to-vXX.YY</code> label.</li>
+<li>If the new release is not finished, backport the patch to the branch right after merging.</li>
+<li>If the new release is finished, add it to the service pack branch and issue (see <a href="../en/Creating_a_service_pack.html" title="Creating a service pack">creating a service pack</a>)</li>
+<li>It would be best if the person that merged the patch did the backport, but the author of the patch should double-check and do it in case it wasn't done, just to be sure.</li>
+<li>Use <code>git cherry-pick -x ffffffff</code> (insert commit to cherry pick accordingly). The <code>-x</code> will add a <code>(cherry picked from commit ffffffff)</code> line to the commit message.</li>
+<li>Cherry picked commits shall not be squashed, then it's hard to understand which commits were already picked and which were not.</li>
+<li>If git reports conflicts, resolve them.
+<ul>
+<li>If you have cherry-picked a commit, that has touched a lot of devices that don't exist in the stable branch, then you can use <code>git rm $(git status | grep "deleted by us" | cut -d ':' -f 2)</code>.</li>
+<li>Look at the <code>git diff</code> to make sure that the result is as expected.</li>
+</ul>
+</li>
+<li>If it's something non-trivial, then make a merge request for the cherry-picked commits so we see that it was done correctly, it builds and that we may test the packages before merging.</li>
+<li>Avoid cherry-picking multiple patches that touch the same pmaports in the wrong order (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1340#note_364975701">related comment</a>).</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Creating_a_release_branch&amp;oldid=28099">https://wiki.postmarketos.org/index.php?title=Creating_a_release_branch&amp;oldid=28099</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 31 May 2022, at 06:52.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Creating_a_release_branch&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

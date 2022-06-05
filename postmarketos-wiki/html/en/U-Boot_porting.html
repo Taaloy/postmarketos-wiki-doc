@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>U-Boot porting - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-U-Boot_porting rootpage-U-Boot_porting skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">U-Boot porting</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><br>
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#About"><span class="tocnumber">1</span> <span class="toctext">About</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Why_bother.3F"><span class="tocnumber">1.1</span> <span class="toctext">Why bother?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Preparation"><span class="tocnumber">2</span> <span class="toctext">Preparation</span></a></li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Create_basic_configuration.2C_building_and_running"><span class="tocnumber">3</span> <span class="toctext">Create basic configuration, building and running</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5">
+<a href="#Add_board_files"><span class="tocnumber">3.1</span> <span class="toctext">Add board files</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Examples"><span class="tocnumber">3.1.1</span> <span class="toctext">Examples</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-7">
+<a href="#Configure"><span class="tocnumber">3.2</span> <span class="toctext">Configure</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#Options.2C_you_DO_NOT_need"><span class="tocnumber">3.2.1</span> <span class="toctext">Options, you DO NOT need</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Options.2C_you_need"><span class="tocnumber">3.2.2</span> <span class="toctext">Options, you need</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10">
+<a href="#Building"><span class="tocnumber">3.3</span> <span class="toctext">Building</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#Make_u-boot"><span class="tocnumber">3.3.1</span> <span class="toctext">Make u-boot</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Create_android_boot_image"><span class="tocnumber">3.3.2</span> <span class="toctext">Create android boot image</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="#Running"><span class="tocnumber">3.4</span> <span class="toctext">Running</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14">
+<a href="#Getting_uart_debug_output"><span class="tocnumber">4</span> <span class="toctext">Getting uart debug output</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15">
+<a href="#Raw"><span class="tocnumber">4.1</span> <span class="toctext">Raw</span></a>
+<ul>
+<li class="toclevel-3 tocsection-16"><a href="#C"><span class="tocnumber">4.1.1</span> <span class="toctext">C</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#Assembly"><span class="tocnumber">4.1.2</span> <span class="toctext">Assembly</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-18"><a href="#Using_debug.28.29_function"><span class="tocnumber">4.2</span> <span class="toctext">Using debug() function</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="#Finding_base_address"><span class="tocnumber">5</span> <span class="toctext">Finding base address</span></a></li>
+<li class="toclevel-1 tocsection-20">
+<a href="#Creating_basic_device_tree"><span class="tocnumber">6</span> <span class="toctext">Creating basic device tree</span></a>
+<ul>
+<li class="toclevel-2 tocsection-21"><a href="#a5y17lte_device_tree_example"><span class="tocnumber">6.1</span> <span class="toctext">a5y17lte device tree example</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#Final_changes"><span class="tocnumber">6.2</span> <span class="toctext">Final changes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-23"><a href="#Congrats.21_You_should_now_get_a_u-boot_console_prompt.21"><span class="tocnumber">7</span> <span class="toctext">Congrats!  You should now get a u-boot console prompt!</span></a></li>
+<li class="toclevel-1 tocsection-24">
+<a href="#Testing_future_u-boot_builds"><span class="tocnumber">8</span> <span class="toctext">Testing future u-boot builds</span></a>
+<ul>
+<li class="toclevel-2 tocsection-25">
+<a href="#Upload_a_file_into_RAM"><span class="tocnumber">8.1</span> <span class="toctext">Upload a file into RAM</span></a>
+<ul>
+<li class="toclevel-3 tocsection-26"><a href="#With_ckermit"><span class="tocnumber">8.1.1</span> <span class="toctext">With ckermit</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="#TODO_Figure_out_how_to_transfer_files_from_picocom_with_ymodem_or_xmodem_or_gkermit"><span class="tocnumber">8.1.2</span> <span class="toctext">TODO Figure out how to transfer files from picocom with ymodem or xmodem or gkermit</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-28"><a href="#Run_uboot_test_version"><span class="tocnumber">8.2</span> <span class="toctext">Run uboot test version</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-29"><a href="#Hush_shell"><span class="tocnumber">9</span> <span class="toctext">Hush shell</span></a></li>
+<li class="toclevel-1 tocsection-30">
+<a href="#Booting_linux_with_u-boot"><span class="tocnumber">10</span> <span class="toctext">Booting linux with u-boot</span></a>
+<ul>
+<li class="toclevel-2 tocsection-31">
+<a href="#Troubleshooting"><span class="tocnumber">10.1</span> <span class="toctext">Troubleshooting</span></a>
+<ul>
+<li class="toclevel-3 tocsection-32"><a href="#Failed_to_reserve_memory..."><span class="tocnumber">10.1.1</span> <span class="toctext">Failed to reserve memory...</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-33"><a href="#See_also"><span class="tocnumber">11</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="About">About</span></h2>
+<p>This article will guide you on porting u-boot on your phone. It's possible, even if there is no complete SOC support in uboot tree (only uart driver needed), because stock bootloader initialized hardware for us. 
+First thing to focus on should be getting u-boot shell prompt.
+</p>
+<p><br>
+</p>
+<h3>
+<span id="Why_bother?"></span><span class="mw-headline" id="Why_bother.3F">Why bother?</span>
+</h3>
+<p>Porting u-boot to your phone gives you more control, when booting mainline kernels, namely:
+</p>
+<ol>
+<li>Adjusting boot command line</li>
+<li>Dual-boot without hacks</li>
+<li>Prevent stock bootloader from kernel / device tree modification</li>
+</ol>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Preparation">Preparation</span></h2>
+<ol>
+<li>Find <a rel="nofollow" class="external text" href="https://www.denx.de/wiki/U-Boot/SourceCode">uboot code</a>
+</li>
+<li>Before starting uboot porting, you should get access to the stock bootloader uart port. Make sure you can see stock bootloader logs.</li>
+<li>Search uboot code for a uart driver, compatible with your SOC. It is good, if it support debug(i.e. include debug_uart.h)</li>
+<li>Get familiar with you phone RAM map</li>
+<li>Some useful links:</li>
+</ol>
+<p>- <a rel="nofollow" class="external text" href="http://xillybus.com/tutorials/uboot-hacking-howto-3">bring up process</a><br>
+- <a rel="nofollow" class="external text" href="http://xillybus.com/tutorials/uboot-hacking-howto-1">configuration process</a>
+</p>
+<p>Read the following readme files:
+</p>
+<ul>
+<li>top README</li>
+<li>doc/README.kconfig</li>
+<li>doc/usage/environment.rst</li>
+</ul>
+<h2>
+<span id="Create_basic_configuration,_building_and_running"></span><span class="mw-headline" id="Create_basic_configuration.2C_building_and_running">Create basic configuration, building and running</span>
+</h2>
+<h3><span class="mw-headline" id="Add_board_files">Add board files</span></h3>
+<p>Use <a rel="nofollow" class="external text" href="https://elinux.org/images/2/2a/Schulz-how-to-support-new-board-u-boot-linux.pdf">guide from Free Electrons pdf</a> or <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=5E0sdYkvq-Q">video version</a>
+</p>
+<h4><span class="mw-headline" id="Examples">Examples</span></h4>
+<ol>
+<li>Add <a rel="nofollow" class="external text" href="https://gitlab.denx.de/u-boot/u-boot/-/commit/6c15a2a996214574e8145bff69d110a302edf277">exynos7420 espresso board</a>
+</li>
+<li>Add <a rel="nofollow" class="external text" href="https://gitlab.denx.de/u-boot/u-boot/-/commit/e39448e8be8389f5ddeabae0ec9c6a3b7b8a2ca6">exynos7420 SOC support</a>
+</li>
+</ol>
+<h3><span class="mw-headline" id="Configure">Configure</span></h3>
+<p>U-boot configuration system comes from linux kernel. Put config options not supposed to be changed by user in <code>/include/configs/.*.h</code> files, in <code>*_defconfig</code> otherwise  
+</p>
+<h4>
+<span id="Options,_you_DO_NOT_need"></span><span class="mw-headline" id="Options.2C_you_DO_NOT_need">Options, you DO NOT need</span>
+</h4>
+<ul>
+<li>All SPL related options. SPL(Secondary Program Loader) splits u-boot in two parts. You don't need this, since stock bootloader will load whole u-boot image into RAM.</li>
+<li>CONFIG_BOARD_EARLY_INIT_F</li>
+</ul>
+<h4>
+<span id="Options,_you_need"></span><span class="mw-headline" id="Options.2C_you_need">Options, you need</span>
+</h4>
+<ul>
+<li>CONFIG_SYS_MALLOC_LEN - size of early C runtime environment heap</li>
+<li>CONFIG_SYS_INIT_SP_ADDR - address of early C runtime environment stack (should be in RAM address space, but NOT at the bottom, because stack is growing DOWN. see u-boot readme memory management section). This option valid, when <code>CONFIG_POSITION_INDEPENDENT=n</code>.</li>
+<li>CONFIG_SYS_INIT_SP_BSS_OFFSET - when <code>CONFIG_POSITION_INDEPENDENT=y</code>, defines offset to early c runtime stack from bss section from bss section. Default is 512K.</li>
+<li>CONFIG_SYS_TEXT_BASE - u-boot base address. It's the address in RAM, where u-boot is loaded by stock bootloader. Not obligatory, if you use position independent build with <code>CONFIG_POSITION_INDEPENDENT=y</code>. See instructions below, how to find it.</li>
+<li>CONFIG_SYS_SDRAM_BASE - start address of the dynamic RAM. Can be found in memory node in linux device tree.</li>
+<li>CONFIG_DEBUG_UART=y</li>
+<li>CONFIG_DEBUG_UART_SKIP_INIT=y - make sure to comment <code>_debug_uart_init</code> function code in you serial driver with that option</li>
+<li>CONFIG_DEBUG_UART_BASE=0x13820000 // your uart address from downstream device tree</li>
+<li>CONFIG_LOGLEVEL=8 // log all</li>
+<li>CONFIG_POSITION_INDEPENDENT - Since Galaxy S8, Samsung randomizes kernel load address. You have to enable this option, if <code>Kernel code</code> start address is random, i.e. changes each boot. Find <code>Kernel code</code> address with <code>cat /proc/iomem</code>
+</li>
+<li>CONFIG_LINUX_KERNEL_IMAGE_HEADER - if you want U-boot binary to look as much as Linux kernel image as possible, to pack it inside android boot.img so stock android bootloader can recognize it</li>
+</ul>
+<h3><span class="mw-headline" id="Building">Building</span></h3>
+<h4><span class="mw-headline" id="Make_u-boot">Make u-boot</span></h4>
+<p>Install arm cross compiler
+Build:
+</p>
+<pre>export CROSS_COMPILE=aarch64-linux-gnu- 
+make &lt;$board_name&gt;_defconfig
+make
+</pre>
+<h4><span class="mw-headline" id="Create_android_boot_image">Create android boot image</span></h4>
+<pre>mkbootimg --base 0x40000000 --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --pagesize 2048 --second_offset 0x00f00000 --kernel {path to u-boot.bin} -o {output file}
+</pre>
+<p>Replace offsets to your offsets, found from downstream boot.img.
+</p>
+<h3><span class="mw-headline" id="Running">Running</span></h3>
+<p>Flash android image, or follow <a href="../en/Bootloaders_porting_using_linux.html" title="Bootloaders porting using linux">Bootloaders_porting_using_linux</a> guide
+</p>
+<h2><span class="mw-headline" id="Getting_uart_debug_output">Getting uart debug output</span></h2>
+<h3><span class="mw-headline" id="Raw">Raw</span></h3>
+<p>This may be useful, when no C runtime environment set up yet. You should find uart address to write
+</p>
+<h4><span class="mw-headline" id="C">C</span></h4>
+<pre>*(volatile unsigned char *)(0x13820020/*uart register to write characters*/) = 0x48; // print H letter
+</pre>
+<h4><span class="mw-headline" id="Assembly">Assembly</span></h4>
+<pre>mov x26, #0x20 // move 0x13820020 low 16 bit to x26 register
+movk x26, #0x1382, lsl #16 // move 0x13820020 high 16 bit to x26 register
+mov x27, #0x48 // H letter ascii code
+str x27, [x26] // move H to uart register
+</pre>
+<h3>
+<span id="Using_debug()_function"></span><span class="mw-headline" id="Using_debug.28.29_function">Using debug() function</span>
+</h3>
+<p>You can get debug output from particular *.c file by adding <code>#define DEBUG</code> at the top of file, and calling <code>debug("debug output");</code> where you need.
+</p>
+<h2><span class="mw-headline" id="Finding_base_address">Finding base address</span></h2>
+<p>Unless you build u-boot with <code>CONFIG_POSITION_INDEPENDENT=y</code>, you should tell u-boot base address, i.e. address in RAM, where stock bootloader load u-boot. This section describes, how to find it.
+</p>
+<p>Without the knowledge of base address u-boot will fail on <code>/common/board_f.c</code> file when calling functions from <code>init_sequence_f</code>. This is a list of initcall addresses, and if CONFIG_SYS_TEXT_BASE does not match with address u-boot resides, you CPU will jump in wrong address and execute irrelevant code, leaving you with unpredictable uart output and results.
+</p>
+<p><code>cat /proc/iomem | grep "Kernel code"</code> will output something like: <code>2c0400000-2c0e031d0 : Kernel code</code>
+</p>
+<p>address range start will be your <code>CONFIG_SYS_TEXT_BASE</code> address.
+</p>
+<h2><span class="mw-headline" id="Creating_basic_device_tree">Creating basic device tree</span></h2>
+<p>Will  contain node for uart driver, fixed clock and chosen.
+</p>
+<h3><span class="mw-headline" id="a5y17lte_device_tree_example">a5y17lte device tree example</span></h3>
+<p>exynos7880.dtsi:
+</p>
+<pre>// SPDX-License-Identifier: GPL-2.0+
+
+/dts-v1/;
+#include "skeleton.dtsi"
+/ {
+	compatible = "samsung,exynos7880";
+
+	fin_pll: xxti {
+		compatible = "fixed-clock";
+		clock-output-names = "fin_pll";
+		u-boot,dm-pre-reloc;
+		#clock-cells = &lt;0&gt;;
+	};
+
+	uart2: serial@13820000 {
+		compatible = "samsung,exynos4210-uart";
+		reg = &lt;0x13820000 0x100&gt;;
+		u-boot,dm-pre-reloc;
+	};
+};
+</pre>
+<p>a5y17lte.dts:
+</p>
+<pre>// SPDX-License-Identifier: GPL-2.0+
+
+/dts-v1/;
+#include "exynos7880.dtsi"
+/ {
+	compatible = "samsung,exynos7880";
+
+    aliases {
+    	console = &amp;uart2;
+    };
+
+    chosen {
+        stdout-path = &amp;uart2;
+    };
+};
+ 
+&amp;fin_pll {
+	clock-frequency = &lt;26000000&gt;;
+};
+
+</pre>
+<p><br>  
+</p>
+<h3><span class="mw-headline" id="Final_changes">Final changes</span></h3>
+<p>You may need to comment some serial driver initialization code, as it may not work properly without clock and pinctrl drivers.
+</p>
+<h2>
+<span id="Congrats!_You_should_now_get_a_u-boot_console_prompt!"></span><span class="mw-headline" id="Congrats.21_You_should_now_get_a_u-boot_console_prompt.21">Congrats!  You should now get a u-boot console prompt!</span>
+</h2>
+<h2><span class="mw-headline" id="Testing_future_u-boot_builds">Testing future u-boot builds</span></h2>
+<p>Once you entered in u-boot console, you may upload new u-boot build in RAM via uart and run it
+</p>
+<h3><span class="mw-headline" id="Upload_a_file_into_RAM">Upload a file into RAM</span></h3>
+<ul>
+<li>on u-boot console: <a rel="nofollow" class="external text" href="https://www.denx.de/wiki/view/DULG/UBootCmdGroupDownload"><code>load{b|x|y|s}</code></a> &lt;address&gt;. If no address specified, file will be loaded at CONFIG_SYS_LOAD_ADDR</li>
+<li>exit u-boot console to release tty device</li>
+</ul>
+<h4><span class="mw-headline" id="With_ckermit">With ckermit</span></h4>
+<ul>
+<li>install ckermit (build it yourself with `-DSCO_OSR504` flag, for 115200+ baudrates)</li>
+<li>create a script to send file:</li>
+</ul>
+<pre>#!/bin/ckermit +
+
+set port /dev/ttyUSB0
+set speed 921600
+set carrier-watch off
+set flow-control none
+set prefixing all
+send \%1
+exit
+</pre>
+<p><br>
+<a rel="nofollow" class="external text" href="https://stackoverflow.com/questions/38279621/how-to-send-boot-files-over-uart">Source</a>
+</p>
+<h4><span class="mw-headline" id="TODO_Figure_out_how_to_transfer_files_from_picocom_with_ymodem_or_xmodem_or_gkermit"><div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+<strong>TODO</strong> Figure out how to transfer files from picocom with ymodem or xmodem or gkermit</div></span></h4>
+<h3><span class="mw-headline" id="Run_uboot_test_version">Run uboot test version</span></h3>
+<p>On u-boot console: <code>go &lt;address of loaded file&gt;</code>
+</p>
+<h2><span class="mw-headline" id="Hush_shell">Hush shell</span></h2>
+<p>There is scripting possibility in <a rel="nofollow" class="external text" href="https://www.denx.de/wiki/view/DULG/CommandLineParsing">u-boot with hush shell</a>. 
+</p>
+<ul>
+<li>Build u-boot with CONFIG_HUSH_PARSER.</li>
+<li>Write simple <code>uboot_script.sh</code> file like (<i>Note, that empty line in you file will repeat previous command!</i>)</li>
+</ul>
+<pre>for i in a b c; do
+    echo $i
+done
+</pre>
+<ul>
+<li>Make uboot image <code>mkimage -T script -C none -n 'Demo Script File' -d uboot_script.sh uboot_script.img</code>
+</li>
+<li>Upload file to RAM as described above</li>
+<li>Run
+<ul>
+<li>
+<code>iminfo &lt;address of loaded script&gt;</code> - check and print script info</li>
+<li>
+<code>source &lt;address of loaded script&gt;</code> - run script</li>
+</ul>
+</li>
+</ul>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Booting_linux_with_u-boot">Booting linux with u-boot</span></h2>
+<p>Usual booting procedure involves loading u-boot's payload from storage to ram, and invoking <code>bootm</code> command. If you don't have storage driver in u-boot for your SoC, you may pack u-boot's payload along with u-boot in one file. That file may be used as stock bootloader's payload. In such case, you should pay attention at <code>CONFIG_SYS_INIT_SP_BSS_OFFSET</code> and <code>CONFIG_SYS_INIT_SP_ADDR</code> options to avoid u-boot early c runtime screw up u-boot's payload. Default values for mentioned options is 512K. Since u-boot's size is usually less than 512K, putting u-boot's payload with 1M offset should be safe, i.e:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>cp u-boot.bin stock_payload.bin
+dd <span class="k">if</span><span class="o">=</span>u-boot_payload.bin <span class="nv">of</span><span class="o">=</span>stock_payload.bin <span class="nv">seek</span><span class="o">=</span><span class="m">1</span> <span class="nv">bs</span><span class="o">=</span><span class="k">$((</span><span class="m">0</span>x100000<span class="k">))</span>
+</pre></div>
+<h3><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h3>
+<h4><span class="mw-headline" id="Failed_to_reserve_memory...">Failed to reserve memory...</span></h4>
+<p>You may need to increase LMB_MAX_REGIONS config to be higher, than reserved memory regions count in your linux dts. This is because u-boot tries to reserved all reserved memory regions, and it should have regions in lmb library available.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/boot-deploy/-/merge_requests/10">boot-deploy!10</a></li></ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../en/Category:Low-level.html" title="Category:Low-level">Low-level</a></li>
+<li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li>
+<li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li>
+</ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=U-Boot_porting&amp;oldid=26221">https://wiki.postmarketos.org/index.php?title=U-Boot_porting&amp;oldid=26221</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 12 March 2022, at 19:36.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=U-Boot_porting&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

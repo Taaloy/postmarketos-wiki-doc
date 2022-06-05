@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Xiaomi Redmi Note 7 (xiaomi-lavender)/Mainline development - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Xiaomi_Redmi_Note_7_xiaomi-lavender_Mainline_development rootpage-Xiaomi_Redmi_Note_7_xiaomi-lavender_Mainline_development skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Xiaomi Redmi Note 7 (xiaomi-lavender)/Mainline development</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>&lt; <a href="../en/Xiaomi_Redmi_Note_7_(xiaomi-lavender).html" title="Xiaomi Redmi Note 7 (xiaomi-lavender)">Xiaomi_Redmi_Note_7_(xiaomi-lavender)</a>
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Mainline_Linux"><span class="tocnumber">1</span> <span class="toctext">Mainline Linux</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Lineage_OS_ROMs.2FTWRP_pstore-ramoops_module_parameters"><span class="tocnumber">2</span> <span class="toctext">Lineage OS ROMs/TWRP pstore-ramoops module parameters</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Force-reboot_patch"><span class="tocnumber">3</span> <span class="toctext">Force-reboot patch</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Example_bootloader_UART_output"><span class="tocnumber">4</span> <span class="toctext">Example bootloader UART output</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#eMMC_notes"><span class="tocnumber">5</span> <span class="toctext">eMMC notes</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Wi-Fi_notes"><span class="tocnumber">6</span> <span class="toctext">Wi-Fi notes</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Panel.2Ftouch_notes"><span class="tocnumber">7</span> <span class="toctext">Panel/touch notes</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Mainline_Linux">Mainline Linux</span></h3>
+<p>Patches were sent for review with initial mainline support for sdm660/lavender: <a rel="nofollow" class="external free" href="https://patchwork.kernel.org/project/linux-arm-msm/list/?series=240549">https://patchwork.kernel.org/project/linux-arm-msm/list/?series=240549</a>
+</p>
+<p>commits merged in 5.6:
+</p>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=94d57ebd233a39d4d28fcd4de13a092146da3f4f">dt-bindings: Add vendor prefix for Xiaomi</a></li>
+<li><a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=faf8e30acb219849725aa75302d36e0ffdb6a258">dt-bindings: arm: Add kryo260 compatible</a></li>
+</ul>
+<p>commits to be merged into 5.8 (in linux-next for now):
+</p>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=aab86bbbd3e32a10ca7e5cd1d3b9a473cf5909bb">dt-bindings: arm: qcom: Add sdm630 and sdm660 SoCs</a></li>
+<li><a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=feec34411d4c0a9759106ef4f7d563438b3881ae">arm64: dts: qcom: Add SDM660 SoC support</a></li>
+<li><a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=23a6da79fe8b7f0b5725b40126a7b0638c016ef3">arm64: dts: qcom: Add Xiaomi Redmi Note 7 (lavender)</a></li>
+</ul>
+<h3>
+<span id="Lineage_OS_ROMs/TWRP_pstore-ramoops_module_parameters"></span><span class="mw-headline" id="Lineage_OS_ROMs.2FTWRP_pstore-ramoops_module_parameters">Lineage OS ROMs/TWRP pstore-ramoops module parameters</span>
+</h3>
+<pre>/sys/fs/pstore # ls -la /sys/module/ramoops/parameters/
+total 0
+drwxr-xr-x    2 0        0                0 Jul 20 13:02 .
+drwxr-xr-x    3 0        0                0 Jul 20 13:02 ..
+-r--------    1 0        0             4096 Jul 20 13:02 console_size
+-rw-------    1 0        0             4096 Jul 20 13:02 dump_oops
+-rw-------    1 0        0             4096 Jul 20 13:02 ecc
+-r--------    1 0        0             4096 Jul 20 13:02 ftrace_size
+-r--------    1 0        0             4096 Jul 20 13:02 mem_address
+-r--------    1 0        0             4096 Jul 20 13:02 mem_size
+-rw-------    1 0        0             4096 Jul 20 13:02 mem_type
+-r--------    1 0        0             4096 Jul 20 13:02 pmsg_size
+-r--------    1 0        0             4096 Jul 20 13:02 record_size
+/sys/fs/pstore # cat /sys/module/ramoops/parameters/mem_address 
+2684354560
+/sys/fs/pstore # cat /sys/module/ramoops/parameters/mem_size 
+4194304
+/sys/fs/pstore # cat /sys/module/ramoops/parameters/mem_type 
+0
+/sys/fs/pstore # cat /sys/module/ramoops/parameters/ecc 
+0
+/sys/fs/pstore # cat /sys/module/ramoops/parameters/dump_oops 
+1
+/sys/fs/pstore # cat /sys/module/ramoops/parameters/console_size 
+2097152
+/sys/fs/pstore # cat /sys/module/ramoops/parameters/ftrace_size 
+0
+/sys/fs/pstore # cat /sys/module/ramoops/parameters/pmsg_size 
+2097152
+/sys/fs/pstore # cat /sys/module/ramoops/parameters/record_size 
+0
+</pre>
+<h3><span class="mw-headline" id="Force-reboot_patch">Force-reboot patch</span></h3>
+<p><a rel="nofollow" class="external text" href="https://gist.github.com/zhuowei/f3ede9e293e43ee40bb303bfe216e175">Zhuowei's reboot patch</a> works, but with different address of course: instead of <code>0xC264000</code> you should grep DTS files for <code>"qcom,pshold"</code> and take reg address from there (or grep for <code>"restart@"</code> and take address after @): <a rel="nofollow" class="external text" href="https://github.com/minlexx/android_kernel_xiaomi_lavender/blob/lineage-16.0/arch/arm/boot/dts/qcom/sdm660_f7a.dtsi#L493">sdm660_f7a.dtsi L493</a>, so <code>0x10ac000</code>. Read <a rel="nofollow" class="external text" href="https://github.com/minlexx/android_kernel_xiaomi_lavender/blob/lineage-16.0/drivers/power/reset/msm-poweroff.c">msm-poweroff driver code</a> for more info.
+</p>
+<p>Example code:
+</p>
+<pre>*((int *)ioremap(0x10ac000, 4)) = 0; // force-reboot by Zhuowei
+</pre>
+<h3><span class="mw-headline" id="Example_bootloader_UART_output">Example bootloader UART output</span></h3>
+<ul><li><a rel="nofollow" class="external free" href="https://paste.sr.ht/~minlexx/8da68fa1d63cf150f6db4f8ae5d1899863ca33a7">https://paste.sr.ht/~minlexx/8da68fa1d63cf150f6db4f8ae5d1899863ca33a7</a></li></ul>
+<pre>Welcome to minicom 2.7
+OPTIONS: I18n 
+Compiled on Jan 14 2020, 22:40:50.
+Port /dev/ttyUSB0, 23:37:13
+
+Press CTRL-A Z for help on special keys
+                                       
+UEFI Start     [  865] SEC              
+PROD Mode   : On                        
+DEBUG Mode : On                         
+ASLR        : On                        
+Timer Delta : +6 mS                     
+RAM Entry 0 : Base 0x0000000040000000  Size 0x0000000060000000
+RAM Entry 1 : Base 0x00000000A0000000  Size 0x000000005EAC0000
+UEFI Ver    : 4.2.190808.BOOT.XF.1.4-00262-S660LZB-1
+Build Info  : 64b Aug  8 2019 23:13:56  
+Boot Device : eMMC
+DALLOG Device [0x2000145]: Cannot turn on source[ACPL
+Elapsed tick: 0x12BC54E, Wait tick: 0x36EE800 
+Elapsed tick: 0x12BCD19, Wait tick: 0x36EE800 
+... repeated maaaaaaany times ...
+Elapsed tick: 0x369B23B, Wait tick: 0x36EE800 
+Setvariable returned Success
+IsPressPwrKeyOn: true
+zjl  haptic_on
+zjl  haptic_off
+[CheckPanel] panel reg[0xc] value: 0x00000007, uReponseSize:2
+Panel_CDP_GetID: temp1 =0;temp2 =0
+Display:f7a tianma nt36672a !
+ReadKeyInternal: gEfiSimpleTextInputExProtocolGuid handles = 3
+ReadKeyInternal: Read KEY = 0x102
+ bootstate = 0
+PanelWidth=1080,PanelHeight=2340
+ImageWidth=1080,ImageHeight=2160,LogoPosX=0,LogoPosY=90
+Avoid flicking for 2160x1080 images 
+PanelWidth=1080,PanelHeight=2340
+Render Splash  [ 3581]
+EnvDxe Render Callback
+LoadImageFromPartitionUsingGuid Failed: 14
+Keymaster failed to load! Status = 0xE
+LoadSecureApps: Load app from partition(keymaster): Status = 0x0, AppId = 65537
+APC1 IDDQ WC 0 , L2:0, CPU[0]:175, CPU[1]:175, CPU[2]:175, CPU[3]:175
+ APC1 Total 700
+Load CPU 0 Slp: 0x89, Int: 0x17
+Load CPU 1 Slp: 0x1, Int: 0x0
+Load CPU 2 Slp: 0xC1, Int: 0x1D
+Load CPU 3 Slp: 0x1, Int: 0x0
+GLD IDDQ WC 0
+CPU PART GOOD [0x0] SUB_BIN[0x0]
+-----------------------------
+Platform Init  [ 3746] BDS
+UEFI Ver   : 4.2.190808.BOOT.XF.1.4-00262-S660LZB-1
+Platform   : MTP
+Chip Name  : SDM660
+Chip Ver   : 1.0
+Core 0 Freq: 1382400 MHz
+-----------------------------
+zjlz 3333 QcomChargerApp:: ChargerLib_Exit Error getting platform type  
+UEFI Total : 2905 ms
+POST Time      [ 3770] OS Loader
+Loader Build Info: Aug 17 2019 11:55:58
+VB: RWDeviceState: Succeed using rpmb!
+KeyPressed = (0x9CE65000)
+Reboot reason: 0
+LAVENDER Platform version : 0x20000
+Booting Into Mission Mode
+avb_slot_verify.c:432: DEBUG: Loading vbmeta struct from partition 'vbmeta'.
+Partition found: vbmeta
+avb_slot_verify.c:186: DEBUG: dtbo: Loading entire partition.
+Partition found: dtbo
+avb_slot_verify.c:186: DEBUG: boot: Loading entire partition.
+Partition found: boot
+State: Unlocked, AvbSlotVerify returned OK, continue boot
+VB2: Authenticate complete! boot state is: orange
+VB2: boot state: orange(1)
+Display menu is not enabled!
+Device is unlocked, Skipping boot verification
+VB2: BootState = 1
+ReadKeyInternal: gEfiSimpleTextInputExProtocolGuid handles = 3
+ReadKeyInternal: Read KEY = 0x0
+ bootstate = 4
+var = UNLOCK splash update
+Cannot find GraphicsHandles.
+ImageWidth=1080,ImageHeight=2160,LogoPosX=0,LogoPosY=0
+Avoid flicking for 2160x1080 images 
+Cannot find GraphicsHandles.
+Render Splash  [ 4360]
+VB2: RenderSplashScreen end , BootState = 4 
+No Ffbm cookie found, ignore: Not Found
+Memory Base Address: 0x40000000
+Decompressing kernel image start: 4363 ms
+Decompressing kernel image done: 4803 ms
+smem protocol = 9C3020A0
+board_id1 is 1
+ board_id2 is 1
+ board_id3 is 0
+board_id is 1
+get_boardid_from_smem,SUCCESS ,board_id=0x102,cpu_id=0x39148C8C,hwdefined=0
+ PON Reason is 128 cold_boot:1 charger path: 0
+GetCheckPanelPressGuid:checkPanel = 0x1;Status:0x0
+panel is Exist
+Error Locate MiToken Protocol:
+Error Reading the GetDebugPolicyFlagbuqshuai1
+VB: readDebugPolicy: ScmSipSysCall Status: (0x7)
+Error Reading the GetDebugPolicyFlagbuqshuai2
+Error Get DebugPolicy: Device Error
+DebugPolicyFlag: 0x0
+Error Get DebugPolicy: 
+CMDLINE: AsciiStrLen AsciiStrLen (DebugPolicyFlag);
+get_hwconfig_cmdline, board_id=0x102
+get_hwconfig_cmdline, hwlevel=0x1
+get_hwconfig_cmdline, maxcount=0x32
+aaaaaa
+get_hwconfig_cmdline, i=0x1D
+Cmdline: console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 earlycon=msm_serial_dm,0xc170000 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcdl
+RAM Partitions
+Add Base: 0x0000000040000000 Available Length: 0x0000000060000000 
+Add Base: 0x00000000A0000000 Available Length: 0x000000005EAC0000 
+WARNING: Could not find mem-offline node.
+kaslr-Seed is added to chosen node
+pureason = 40080
+
+Shutting Down UEFI Boot Services: 5029 ms
+BDS: LogFs sync skipped, Unsupported
+App Log Flush : 2501 ms
+Exit BS        [ 7539] UEFI End
+</pre>
+<h3><span class="mw-headline" id="eMMC_notes">eMMC notes</span></h3>
+<pre>@AlexeyMin seems that was the case, I did have UFS storage which required deviceinfo_rootfs_image_sector_size="4096" to be set
+</pre>
+<p>SDM660 has both SDHCI and UFS support, but lavender does not use UFS storage. That actually makes porting a little bit easier.
+</p>
+<h3><span class="mw-headline" id="Wi-Fi_notes">Wi-Fi notes</span></h3>
+<p>Wi-Fi chip is the same as used in sdm845 for example - Qualcomm Atheros wcn3990. In downstream driver is called iCNSS/qcacld-3.0. Mainline driver is ath10k together with ath10k_snoc (not ath10k_pci!) Activation is probably done from userspace using QMI (at least on downstream?)
+</p>
+<pre>- Initial commit <a rel="nofollow" class="external free" href="https://patchwork.kernel.org/patch/10220667/">https://patchwork.kernel.org/patch/10220667/</a>
+- DTS part from sdm845 <a rel="nofollow" class="external free" href="https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/qcom/sdm845.dtsi#L3283">https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/qcom/sdm845.dtsi#L3283</a>
+- ath10k: add QMI message handshake for wcn3990 client <a rel="nofollow" class="external free" href="https://github.com/torvalds/linux/commit/ba94c753ccb471bafe8bd824b744fda6fee0001e">https://github.com/torvalds/linux/commit/ba94c753ccb471bafe8bd824b744fda6fee0001e</a>
+</pre>
+<h3>
+<span id="Panel/touch_notes"></span><span class="mw-headline" id="Panel.2Ftouch_notes">Panel/touch notes</span>
+</h3>
+<p>Panel used in lavender is Tianma NT36672A, which is the same used in xiaomi-beryllium (<a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=-SRqxkMpeMc">demo video</a>), except for the resolution (more height for lavender, 2340 instead of 2246). The source code for the panel is <a rel="nofollow" class="external text" href="https://github.com/pundiramit/linux/blob/beryllium-android-mainline/drivers/gpu/drm/panel/panel-tianma-nt36672a.c">pundiramit's branch in tianma-nt36672a.c</a> file. According to the video touchscreen should be working too, but I can't find a source for it yet. Downstream has touchscreen in <a rel="nofollow" class="external text" href="https://github.com/minlexx/android_kernel_xiaomi_lavender/tree/lineage-16.0/drivers/input/touchscreen/nvt_touch_f7a">drivers/input/touchscreen/nvt_touch_f7a</a>.
+</p>
+<p>Beryllium commit that adds nt36xxx driver, copied almost as-is from downstream - <a rel="nofollow" class="external free" href="https://github.com/Venji10/linux-beryllium/commit/075504c46b563a56998450e1975945589fcb5f26">https://github.com/Venji10/linux-beryllium/commit/075504c46b563a56998450e1975945589fcb5f26</a>
+</p>
+<p>Another one: <a rel="nofollow" class="external free" href="https://github.com/rupansh/mainline-beryllium/commit/fc7e3775cda8f27e69e660740bc3947d6fc17d46">https://github.com/rupansh/mainline-beryllium/commit/fc7e3775cda8f27e69e660740bc3947d6fc17d46</a>
+</p>
+<p>Also it seems like <a rel="nofollow" class="external text" href="https://github.com/pundiramit/linux/commit/313d05d11715c01841b01566a55c7d71754946ff">panel requires new type of regulators</a> "<b>LABIBB</b>" (== LAB(<b>LCD AMOLED Boost</b>) / IBB(<b>Inverting Buck Boost</b>)) for which driver is not currently present in mainline (but there is a PR for that - <a rel="nofollow" class="external free" href="https://patchwork.kernel.org/cover/11576211/">https://patchwork.kernel.org/cover/11576211/</a>).
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_7_(xiaomi-lavender)/Mainline_development&amp;oldid=12542">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_7_(xiaomi-lavender)/Mainline_development&amp;oldid=12542</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 11 June 2020, at 14:30.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_7_(xiaomi-lavender)/Mainline_development&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

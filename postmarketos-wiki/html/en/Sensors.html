@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Sensors - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Sensors rootpage-Sensors skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Sensors</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+<strong>TODO</strong> This page needs some tips on testing all the sensors that can be found in the device</div>
+<p>Devices usually have some sensors such as IMU, light or proximity sensors in them. This page is intended to provide various tips on enabling and testing those sensors.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Accelerometer"><span class="tocnumber">1</span> <span class="toctext">Accelerometer</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Magnetometer"><span class="tocnumber">2</span> <span class="toctext">Magnetometer</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Proximity_sensor"><span class="tocnumber">3</span> <span class="toctext">Proximity sensor</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#iio-sensor-proxy"><span class="tocnumber">3.1</span> <span class="toctext">iio-sensor-proxy</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Hall_sensor"><span class="tocnumber">4</span> <span class="toctext">Hall sensor</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Accelerometer">Accelerometer</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;">
+<a href="../PhoneRotation.png" class="image"><img alt="" src="../PhoneRotation.png" decoding="async" width="300" height="150" class="thumbimage" srcset="../PhoneRotation.png 1.5x ../PhoneRotation.png 2x"></a>  <div class="thumbcaption">
+<div class="magnify"><a href="../PhoneRotation.png" class="internal" title="Enlarge"></a></div>A visualization of different rotation states.</div>
+</div></div>
+<p>The accelerometer is used for automatic screen rotation.
+</p>
+<p>iio-sensor-proxy is used by some UI's to track the display orientation, you can use <code>monitor-sensor</code> tool to see, what it thinks the orientation of the device is.
+</p>
+<p>If the rotation is reported incorrectly, you may need to define <code>mount-matrix</code>. See e.g. <a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/iio/mount-matrix.txt">the device tree bindings</a>.
+</p>
+<p>A Python script to generate the mount matrix can be found <a rel="nofollow" class="external text" href="https://gist.github.com/z3ntu/70417efcc8315f809b2a2def9884d9ff">here</a> and <a rel="nofollow" class="external text" href="https://github.com/SiddharthManthan/accelerometer-mount-matrix-generator">here</a> (Same script but with additional patches.)
+</p>
+<h2><span class="mw-headline" id="Magnetometer">Magnetometer</span></h2>
+<p>See separate article on <a href="../en/Magnetometer.html" title="Magnetometer">magnetometer</a>.
+</p>
+<h2><span class="mw-headline" id="Proximity_sensor">Proximity sensor</span></h2>
+<p>Proximity sensor is usually located behind the screen on top of the device and is used to blank the screen when the user takes the device near the ear.
+</p>
+<h3><span class="mw-headline" id="iio-sensor-proxy">iio-sensor-proxy</span></h3>
+<p>iio-sensor-proxy can report the "near" state to other programs on the device but it needs to know what's the "near" level to report it.
+</p>
+<p>There are multiple ways to provide that information:
+</p>
+<ul>
+<li>Define <code>proximity-near-level</code> in the devicetree. The iio device driver must support reading and reporting that value.</li>
+<li>For those drivers that don't support the DT property, it's possible to add an udev rule like this: (Consider extending the driver <a rel="nofollow" class="external text" href="https://lore.kernel.org/linux-iio/20211125125646.54831-1-nikita@trvn.ru/T/#u">like this</a> instead)</li>
+</ul>
+<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">10-pinephone-proximity.rules</pre>
+<pre class="hc-bottom" style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="cp"># iio-sensor-proxy</span>
+<span class="cp"># Set PROXIMITY_NEAR_LEVEL for iio-sensor-proxy to pick up the proximity sensor</span>
+
+<span class="cp"># Set the sensor type for all the types we recognise</span>
+<span class="n">ACTION</span><span class="o">==</span><span class="s">"add"</span><span class="p">,</span> <span class="n">SUBSYSTEM</span><span class="o">==</span><span class="s">"iio"</span><span class="p">,</span> <span class="n">TEST</span><span class="o">==</span><span class="s">"in_proximity_raw"</span><span class="p">,</span> <span class="n">ENV</span><span class="p">{</span><span class="n">PROXIMITY_NEAR_LEVEL</span><span class="p">}</span><span class="o">=</span><span class="s">"250"</span>
+</pre></div></pre>
+<p>As with other sensors that iio-sensor-proxy monitors, you can use <code>monitor-sensor</code> tool to check the proximity sensor.
+</p>
+<h2><span class="mw-headline" id="Hall_sensor">Hall sensor</span></h2>
+<p>Also known as Hall IC or flip cover sensor. When a piece of magnet approaches the sensor, the phone suspends. Note that suspending is not implemented on some SoCs yet.
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li>
+<li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li>
+</ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Sensors&amp;oldid=28143">https://wiki.postmarketos.org/index.php?title=Sensors&amp;oldid=28143</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 1 June 2022, at 12:37.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Sensors&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

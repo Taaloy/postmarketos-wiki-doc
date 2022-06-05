@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Battery capacity monitoring - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Battery_capacity_monitoring rootpage-Battery_capacity_monitoring skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Battery capacity monitoring</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Preparation"><span class="tocnumber">2</span> <span class="toctext">Preparation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Adding_a_crontab_entry_to_do_the_job"><span class="tocnumber">3</span> <span class="toctext">Adding a crontab entry to do the job</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Enabling_crond_service"><span class="tocnumber">4</span> <span class="toctext">Enabling crond service</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>Battery state can be monitored periodically. When the capacity is
+below certain level, an action can be triggered.
+</p>
+<p>Battery capacity change doesn't trigger udev events, so udev can't be
+used for this purpose. Monitoring is performed periodically, using
+crond to perform the job.
+</p>
+<h2><span class="mw-headline" id="Preparation">Preparation</span></h2>
+<p>Create an executable script for action at various capacity level. The example script below will blink the notification light when the battery is at 25 percent and will blink the notification light again when the battery is at 15 percent and shutdown. The script below is for <a href="../en/Xiaomi_Redmi_1S_(xiaomi-armani).html" title="Xiaomi Redmi 1S (xiaomi-armani)">Xiaomi Redmi 1S (xiaomi-armani)</a>, so modification of sysfs path is needed for use on another devices.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1"># Replace BATTERY variable with the actual battery device</span>
+<span class="c1"># found under sysfs</span>
+<span class="nv">BATTERY</span><span class="o">=</span><span class="s2">"battery"</span>
+
+<span class="c1"># Turn off notification leds</span>
+<span class="c1"># Replace the value of leds according to the sysfs entry</span>
+ledsoff<span class="o">()</span> <span class="o">{</span>
+<span class="nb">local</span> <span class="nv">leds</span><span class="o">=</span><span class="s2">"red green blue"</span>
+<span class="k">for</span> led in <span class="nv">$leds</span><span class="p">;</span> <span class="k">do</span>
+	<span class="nb">echo</span> <span class="m">0</span> &gt; /sys/class/leds/<span class="s2">"</span><span class="nv">$led</span><span class="s2">"</span>/brightness
+<span class="k">done</span>
+<span class="o">}</span>
+
+<span class="c1"># Blink notification leds for 100 times</span>
+<span class="c1"># Replace the red variable with actual red led device</span>
+<span class="c1"># found under sysfs</span>
+blink<span class="o">()</span> <span class="o">{</span>
+<span class="nb">local</span> <span class="nv">countdown</span><span class="o">=</span><span class="m">100</span>
+<span class="nb">local</span> <span class="nv">red</span><span class="o">=</span>red
+<span class="k">until</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$countdown</span><span class="s2">"</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">do</span>
+	<span class="nv">countdown</span><span class="o">=</span><span class="s2">"</span><span class="k">$((</span>countdown-1<span class="k">))</span><span class="s2">"</span> <span class="o">&amp;&amp;</span>
+	<span class="nb">echo</span> <span class="m">100</span> &gt; /sys/class/leds/<span class="s2">"</span><span class="nv">$red</span><span class="s2">"</span>/brightness <span class="o">&amp;&amp;</span> sleep <span class="m">1</span>
+	<span class="nb">echo</span> <span class="m">0</span> &gt; /sys/class/leds/<span class="s2">"</span><span class="nv">$red</span><span class="s2">"</span>/brightness
+<span class="k">done</span>
+<span class="o">}</span>
+
+<span class="k">if</span> <span class="o">[</span> -d /sys/class/power_supply/<span class="s2">"</span><span class="nv">$BATTERY</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+	<span class="nv">CAPACITY</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>cat /sys/class/power_supply/<span class="si">${</span><span class="nv">BATTERY</span><span class="si">}</span>/capacity<span class="k">)</span><span class="s2">"</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$CAPACITY</span><span class="s2">"</span> -lt <span class="m">25</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+	logger <span class="s2">"Battery capacity is less than 25 percent"</span>
+	ledsoff
+	blink	
+	ledsoff
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$CAPACITY</span><span class="s2">"</span> -lt <span class="m">15</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+	logger <span class="s2">"Battery capacity is less than 15 percent"</span>
+	ledsoff
+	blink	
+	logger <span class="s2">"Battery low. Powering off"</span>
+	poweroff
+<span class="k">fi</span>
+
+<span class="k">fi</span>
+</pre></div>
+<p>Place the script above as check_battery_state.sh inside
+/etc/periodic/2min directory. Create the directory if needed.
+</p>
+<p><code># mkdir -p /etc/periodic/2min </code>
+</p>
+<p>Make the script file executable.
+</p>
+<p><code># chmod 755 /etc/periodic/2min/check_battery_state.sh </code>
+</p>
+<h2><span class="mw-headline" id="Adding_a_crontab_entry_to_do_the_job">Adding a crontab entry to do the job</span></h2>
+<p>A crontab entry is needed to perform the scheduled battery
+check. Modify root's crontab to do the scheduled task.
+</p>
+<p><code># crontab -u root -e </code>
+</p>
+<p>The command will open root's crontab file /var/spool/crontabs/root
+inside vi text editor.
+</p>
+<p>Note that the busybox crontab command doesn't
+parse EDITOR environment variable, so if another text editor is
+pereferred, open the root crontab file directly.
+</p>
+<p><code># nano /var/spool/crontabs/root </code>
+</p>
+<p>Add a line to indicate that a new 2 minutes action will be performed.
+</p>
+<pre># min   hour    day     month   weekday command
+*/2     *       *       *       *       run-parts /etc/periodic/2min
+</pre>
+<h2><span class="mw-headline" id="Enabling_crond_service">Enabling crond service</span></h2>
+<p>To enable crond service so that crontab will be executed, execute the
+following command.
+</p>
+<p><code># rc-update add crond default </code>
+</p>
+<p>The crond service will be started automatically after rebooting.
+</p>
+<p>To start the service immediately, run the following command.
+</p>
+<p><code># /etc/init.d/crond start </code>
+</p>
+<p>The crond will execute check_battery_state.sh every 2 minutes and the
+predefined low battery actions will be performed.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://git.busybox.net/busybox/tree/miscutils/crond.c">Busybox crond source code</a></li>
+<li><a rel="nofollow" class="external text" href="https://wiki.gentoo.org/wiki/Cron">Gentoo cron wiki page</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Battery_capacity_monitoring&amp;oldid=6125">https://wiki.postmarketos.org/index.php?title=Battery_capacity_monitoring&amp;oldid=6125</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 15 February 2019, at 09:23.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Battery_capacity_monitoring&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

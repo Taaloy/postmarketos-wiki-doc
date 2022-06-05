@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Qualcomm mainline porting - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Qualcomm_mainline_porting rootpage-Qualcomm_mainline_porting skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Qualcomm mainline porting</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Work in progress and untested. Please improve this page (or merge it together with the non-Qualcomm-specific <a href="../en/The_Mainline_Kernel.html" title="The Mainline Kernel">mainlining wiki page</a>) when you try any of this.</td>
+</tr></tbody></table>
+<p>Devices with Qualcomm SoCs are generally good candidates for porting mainline Linux, considering the great support those SoCs have. It usually doesn't take a lot of work to get a device running mainline with a decent amount of working features, provided the SoC is already supported.
+</p>
+<h3><span class="mw-headline" id="Supported_SoCs">Supported SoCs</span></h3>
+<table class="cargoTable noMerge sortable">
+<thead><tr>
+<th class="field_SoC">SoC</th>
+<th class="field_Arch">Arch</th>
+<th class="field_Year">Year</th>
+<th class="field_UART">UART</th>
+<th class="field_USB">USB</th>
+<th class="field_Storage">Storage</th>
+<th class="field_Display">Display</th>
+<th class="field_CPU">CPU</th>
+<th class="field_GPU">GPU</th>
+<th class="field_Pinctrl">Pinctrl</th>
+<th class="field_I²C">I²C</th>
+<th class="field_Audio">Audio</th>
+<th class="field_Video">Video</th>
+<th class="field_Thermal">Thermal</th>
+<th class="field_WiFi">WiFi</th>
+<th class="field_BT">BT</th>
+<th class="field_Modem">Modem</th>
+<th class="field_GPS">GPS</th>
+<th class="field_Camera">Camera</th>
+<th class="field_Suspend">Suspend</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_600_(APQ8064).html" title="Qualcomm Snapdragon 600 (APQ8064)">Qualcomm APQ8064</a></td>
+<td class="field_Arch">armv7</td>
+<td class="field_Year">2013</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display">Y</td>
+<td class="field_CPU">Y</td>
+<td class="field_GPU">N</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio">N</td>
+<td class="field_Video"></td>
+<td class="field_Thermal">Y</td>
+<td class="field_WiFi">Y</td>
+<td class="field_BT"></td>
+<td class="field_Modem">N</td>
+<td class="field_GPS"></td>
+<td class="field_Camera"></td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_200_(MSM8212).html" title="Qualcomm Snapdragon 200 (MSM8212)">Qualcomm MSM8212</a></td>
+<td class="field_Arch">armv7</td>
+<td class="field_Year">2013</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display"></td>
+<td class="field_CPU">P</td>
+<td class="field_GPU"></td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio"></td>
+<td class="field_Video"></td>
+<td class="field_Thermal"></td>
+<td class="field_WiFi"></td>
+<td class="field_BT"></td>
+<td class="field_Modem"></td>
+<td class="field_GPS"></td>
+<td class="field_Camera"></td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_400_(MSM8226).html" title="Qualcomm Snapdragon 400 (MSM8226)">Qualcomm MSM8226</a></td>
+<td class="field_Arch">armv7</td>
+<td class="field_Year">2013</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display">N</td>
+<td class="field_CPU">P</td>
+<td class="field_GPU">N</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio">N</td>
+<td class="field_Video">N</td>
+<td class="field_Thermal">N</td>
+<td class="field_WiFi">Y</td>
+<td class="field_BT">N</td>
+<td class="field_Modem">N</td>
+<td class="field_GPS">N</td>
+<td class="field_Camera">N</td>
+<td class="field_Suspend">N</td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm Snapdragon 410/412 (MSM8916)">Qualcomm MSM8916</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2014</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display">Y</td>
+<td class="field_CPU">Y</td>
+<td class="field_GPU">Y</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio">Y</td>
+<td class="field_Video">Y</td>
+<td class="field_Thermal">Y</td>
+<td class="field_WiFi">Y</td>
+<td class="field_BT">Y</td>
+<td class="field_Modem">Y</td>
+<td class="field_GPS">Y</td>
+<td class="field_Camera">P</td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_615_616_(MSM8939).html" title="Qualcomm Snapdragon 615/616 (MSM8939)">Qualcomm MSM8939</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2014</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display">Y</td>
+<td class="field_CPU">P</td>
+<td class="field_GPU">Y</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio">Y</td>
+<td class="field_Video"></td>
+<td class="field_Thermal">Y</td>
+<td class="field_WiFi">Y</td>
+<td class="field_BT">Y</td>
+<td class="field_Modem">Y</td>
+<td class="field_GPS"></td>
+<td class="field_Camera"></td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_450_625_626_632_(MSM8953).html" title="Qualcomm Snapdragon 450/625/626/632 (MSM8953)">Qualcomm MSM8953</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2016</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display">Y</td>
+<td class="field_CPU">Y</td>
+<td class="field_GPU">Y</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio">Y</td>
+<td class="field_Video">Y</td>
+<td class="field_Thermal">Y</td>
+<td class="field_WiFi">Y</td>
+<td class="field_BT">Y</td>
+<td class="field_Modem">P</td>
+<td class="field_GPS"></td>
+<td class="field_Camera">P</td>
+<td class="field_Suspend">P</td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_S4_Plus_(MSM8960).html" title="Qualcomm Snapdragon S4 Plus (MSM8960)">Qualcomm MSM8960</a></td>
+<td class="field_Arch">armv7</td>
+<td class="field_Year">2012</td>
+<td class="field_UART">Y</td>
+<td class="field_USB"></td>
+<td class="field_Storage"></td>
+<td class="field_Display"></td>
+<td class="field_CPU">Y</td>
+<td class="field_GPU"></td>
+<td class="field_Pinctrl"></td>
+<td class="field_I²C"></td>
+<td class="field_Audio"></td>
+<td class="field_Video"></td>
+<td class="field_Thermal"></td>
+<td class="field_WiFi"></td>
+<td class="field_BT"></td>
+<td class="field_Modem"></td>
+<td class="field_GPS"></td>
+<td class="field_Camera"></td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_800_801_(MSM8974).html" title="Qualcomm Snapdragon 800/801 (MSM8974)">Qualcomm MSM8974</a></td>
+<td class="field_Arch">armv7</td>
+<td class="field_Year">2013</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display">Y</td>
+<td class="field_CPU">P</td>
+<td class="field_GPU">P</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio">N</td>
+<td class="field_Video">N</td>
+<td class="field_Thermal">Y</td>
+<td class="field_WiFi">Y</td>
+<td class="field_BT">Y</td>
+<td class="field_Modem">P</td>
+<td class="field_GPS">N</td>
+<td class="field_Camera">N</td>
+<td class="field_Suspend">N</td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_650_652_653(MSM8956_MSM8976).html" title="Qualcomm Snapdragon 650/652/653(MSM8956/MSM8976)">Qualcomm MSM8976</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2016</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">P</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display">Y</td>
+<td class="field_CPU">N</td>
+<td class="field_GPU">Y</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio">N</td>
+<td class="field_Video">N</td>
+<td class="field_Thermal">Y</td>
+<td class="field_WiFi">Y</td>
+<td class="field_BT">Y</td>
+<td class="field_Modem">P</td>
+<td class="field_GPS"></td>
+<td class="field_Camera">N</td>
+<td class="field_Suspend">N</td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_820_821_(MSM8996).html" title="Qualcomm Snapdragon 820/821 (MSM8996)">Qualcomm MSM8996</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2016</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">P</td>
+<td class="field_Display">Y</td>
+<td class="field_CPU">P</td>
+<td class="field_GPU">Y</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio">Y</td>
+<td class="field_Video">Y</td>
+<td class="field_Thermal">Y</td>
+<td class="field_WiFi">-</td>
+<td class="field_BT">-</td>
+<td class="field_Modem">P</td>
+<td class="field_GPS"></td>
+<td class="field_Camera">P</td>
+<td class="field_Suspend">N</td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_835_(MSM8998).html" title="Qualcomm Snapdragon 835 (MSM8998)">Qualcomm MSM8998</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2017</td>
+<td class="field_UART"></td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display">P</td>
+<td class="field_CPU">P</td>
+<td class="field_GPU">N</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio"></td>
+<td class="field_Video"></td>
+<td class="field_Thermal">Y</td>
+<td class="field_WiFi">Y</td>
+<td class="field_BT">Y</td>
+<td class="field_Modem">P</td>
+<td class="field_GPS">Y</td>
+<td class="field_Camera"></td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_660_(SDM660).html" title="Qualcomm Snapdragon 660 (SDM660)">Qualcomm SDM630</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2017</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">P</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display">P</td>
+<td class="field_CPU">P</td>
+<td class="field_GPU"></td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio"></td>
+<td class="field_Video"></td>
+<td class="field_Thermal">P</td>
+<td class="field_WiFi"></td>
+<td class="field_BT"></td>
+<td class="field_Modem">P</td>
+<td class="field_GPS"></td>
+<td class="field_Camera"></td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_660_(SDM660).html" title="Qualcomm Snapdragon 660 (SDM660)">Qualcomm SDM636</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2017</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">P</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display"></td>
+<td class="field_CPU">P</td>
+<td class="field_GPU"></td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio"></td>
+<td class="field_Video"></td>
+<td class="field_Thermal"></td>
+<td class="field_WiFi"></td>
+<td class="field_BT"></td>
+<td class="field_Modem"></td>
+<td class="field_GPS"></td>
+<td class="field_Camera"></td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_660_(SDM660).html" title="Qualcomm Snapdragon 660 (SDM660)">Qualcomm SDM660</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2017</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">P</td>
+<td class="field_Storage">P</td>
+<td class="field_Display"></td>
+<td class="field_CPU">P</td>
+<td class="field_GPU"></td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C"></td>
+<td class="field_Audio"></td>
+<td class="field_Video"></td>
+<td class="field_Thermal"></td>
+<td class="field_WiFi"></td>
+<td class="field_BT"></td>
+<td class="field_Modem"></td>
+<td class="field_GPS"></td>
+<td class="field_Camera"></td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_845_(SDM845).html" title="Qualcomm Snapdragon 845 (SDM845)">Qualcomm SDM845</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2018</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display">Y</td>
+<td class="field_CPU">Y</td>
+<td class="field_GPU">Y</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio">Y</td>
+<td class="field_Video">Y</td>
+<td class="field_Thermal">Y</td>
+<td class="field_WiFi">Y</td>
+<td class="field_BT">Y</td>
+<td class="field_Modem">P</td>
+<td class="field_GPS"></td>
+<td class="field_Camera">Y</td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_690_5G_(SM6350).html" title="Qualcomm Snapdragon 690 5G (SM6350)">Qualcomm SM6350</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2020</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">N</td>
+<td class="field_Display">N</td>
+<td class="field_CPU">Y</td>
+<td class="field_GPU">N</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio">N</td>
+<td class="field_Video">N</td>
+<td class="field_Thermal">N</td>
+<td class="field_WiFi">N</td>
+<td class="field_BT">N</td>
+<td class="field_Modem">P</td>
+<td class="field_GPS"></td>
+<td class="field_Camera">N</td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_720G_(SM7125).html" title="Qualcomm Snapdragon 720G (SM7125)">Qualcomm SM7125</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2020</td>
+<td class="field_UART"></td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display">Y</td>
+<td class="field_CPU">Y</td>
+<td class="field_GPU">Y</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio"></td>
+<td class="field_Video"></td>
+<td class="field_Thermal"></td>
+<td class="field_WiFi">Y</td>
+<td class="field_BT">Y</td>
+<td class="field_Modem">P</td>
+<td class="field_GPS"></td>
+<td class="field_Camera"></td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_730_730G_732G_(SM7150).html" title="Qualcomm Snapdragon 730/730G/732G (SM7150)">Qualcomm SM7150</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2019/2020</td>
+<td class="field_UART"></td>
+<td class="field_USB"></td>
+<td class="field_Storage"></td>
+<td class="field_Display">P</td>
+<td class="field_CPU">Y</td>
+<td class="field_GPU"></td>
+<td class="field_Pinctrl"></td>
+<td class="field_I²C"></td>
+<td class="field_Audio"></td>
+<td class="field_Video"></td>
+<td class="field_Thermal"></td>
+<td class="field_WiFi"></td>
+<td class="field_BT"></td>
+<td class="field_Modem"></td>
+<td class="field_GPS"></td>
+<td class="field_Camera"></td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_855_(SM8150).html" title="Qualcomm Snapdragon 855 (SM8150)">Qualcomm SM8150</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2019</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display">Y</td>
+<td class="field_CPU">Y</td>
+<td class="field_GPU">Y</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio"></td>
+<td class="field_Video"></td>
+<td class="field_Thermal"></td>
+<td class="field_WiFi"></td>
+<td class="field_BT"></td>
+<td class="field_Modem"></td>
+<td class="field_GPS"></td>
+<td class="field_Camera"></td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_888_(SM8350).html" title="Qualcomm Snapdragon 888 (SM8350)">Qualcomm SM8350</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2021</td>
+<td class="field_UART"></td>
+<td class="field_USB">P</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display"></td>
+<td class="field_CPU">P</td>
+<td class="field_GPU"></td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C"></td>
+<td class="field_Audio"></td>
+<td class="field_Video"></td>
+<td class="field_Thermal"></td>
+<td class="field_WiFi"></td>
+<td class="field_BT"></td>
+<td class="field_Modem"></td>
+<td class="field_GPS"></td>
+<td class="field_Camera"></td>
+<td class="field_Suspend"></td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="Prerequisites">Prerequisites</span></h2>
+<ul>
+<li>Downstream kernel source code: This is the main source of reference when porting the mainline kernel.</li>
+<li>Board schematics: An additional source of reference that can be really helpful considering the usually poor quality of downstream code including the device trees. Will allow you to confirm the wiring of all components, and will also show any hardware that is misrepresented in the downstream device tree, such as fixed regulators which are often modeled as enable pins.</li>
+<li>Having the mainline source code of a similar device can be very helpful: <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/Mainlining#Supported_SoCs">https://wiki.postmarketos.org/wiki/Mainlining#Supported_SoCs</a>
+</li>
+</ul>
+<h2><span class="mw-headline" id="First_steps">First steps</span></h2>
+<p>You must find a method for getting feedback from the device when booting the mainline kernel. This will be necessary for debugging.
+</p>
+<h3><span class="mw-headline" id="UART">UART</span></h3>
+<p>Perhaps the most useful method, since it allows for getting early kernel messages, and even bootloader logs which can help when the device is not finding or refusing your DTB.
+You will have to find the location of the UART port on your device, see (<a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=_aedd8SUBgY">video tutorial</a> | <a rel="nofollow" class="external text" href="http://www.devttys0.com/2012/11/reverse-engineering-serial-ports/">Identifying serial ports</a>) and <a href="../en/Serial_debugging.html" title="Serial debugging">Serial debugging</a>
+</p>
+<h3><span class="mw-headline" id="Simple_Framebuffer">Simple Framebuffer</span></h3>
+<p>This should be the easiest method to get working, provided you have a video-mode panel and your bootloader leaves a framebuffer configured for continuous splash. It will allow Linux to print its logs to the screen, and it will also allow you to actually make use of the screen before writing a panel driver, although to a limited extent.
+</p>
+<h3>
+<span id="RAM_Console_/_ramoops"></span><span class="mw-headline" id="RAM_Console_.2F_ramoops">RAM Console / ramoops</span>
+</h3>
+<p>This method is more of a last resort, considering it is usually unreliable and in many instances quite difficult to get working.
+</p>
+<h2><span class="mw-headline" id="Relevant_chat_log">Relevant chat log</span></h2>
+<p>Thanks to opendata and bshah for the following log. Let's make this more wiki friendly once we try it out.
+</p>
+<ul>
+<li>Copy fairphone2 DTs and change device info
+<ul><li>(alas, if you are using Nexus 4, apq8064 based device would be good start i.e Nexus 7 2013 (yes, it's most complete device now))
+<ul><li>Not sure about 8064, I would do the same thing but base off yuga</li></ul>
+</li></ul>
+</li>
+<li>Look for a file named <code>msm8974-regulator.dtsi</code> in devices android kernel tree</li>
+<li>Look for <code>pm8841_s1: regulator-s1</code> then look at the voltages and make sure your DTS is the same, if not change it.</li>
+<li>Do the same operation for the other regulators:
+<ul>
+<li><code>pm8841_s2: regulator-s2</code></li>
+<li><code>pm8841_s3: regulator-s3</code></li>
+<li><code>pm8841_s4: regulator-s4</code></li>
+<li><code>pm8941_s1: regulator-s1</code></li>
+<li><code>pm8941_s2: regulator-s2</code></li>
+<li><code>pm8941_s3: regulator-s3</code></li>
+<li><code>...</code></li>
+<li><code>pm8941_l1: regulator-l1</code></li>
+<li><code>...</code></li>
+<li><code>pm8941_l24: regulator-l24</code></li>
+</ul>
+</li>
+<li>Then look in your devices android DTSi and look for any regulator configs if you find any change the corresponding regulator in the dts</li>
+<li>This should be enough to boot with USB telnet</li>
+</ul>
+<h2><span class="mw-headline" id="SoC-specific_guides">SoC-specific guides</span></h2>
+<p>There are detailed guides for some SoCs:
+</p>
+<ul>
+<li><a href="../en/MSM8916_Mainlining.html" title="MSM8916 Mainlining">MSM8916 Mainlining</a></li>
+<li><a href="../en/MSM8996_Mainlining.html" title="MSM8996 Mainlining">MSM8996 Mainlining</a></li>
+<li><a href="../en/SDM845_Mainlining.html" title="SDM845 Mainlining">SDM845 Mainlining</a></li>
+</ul>
+<p>The mainlining procedures are quite similar, so you should be able to follow them to some extent even if you have a different SoC. 
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/153">pmaports#153</a> crosshatch: mainlining attempt: progress and questions</li>
+<li><a rel="nofollow" class="external text" href="https://elinux.org/Qualcomm_SOC_Mainlining_Project">Qualcomm SOC Mainlining Project</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Qualcomm_mainline_porting&amp;oldid=21195">https://wiki.postmarketos.org/index.php?title=Qualcomm_mainline_porting&amp;oldid=21195</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 10 August 2021, at 17:12.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Qualcomm_mainline_porting&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

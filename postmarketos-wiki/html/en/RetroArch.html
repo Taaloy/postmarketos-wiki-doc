@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>RetroArch - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-RetroArch rootpage-RetroArch skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">RetroArch</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation"><span class="tocnumber">1</span> <span class="toctext">Installation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Menu"><span class="tocnumber">2</span> <span class="toctext">Menu</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Touchscreen"><span class="tocnumber">3</span> <span class="toctext">Touchscreen</span></a></li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Cores"><span class="tocnumber">4</span> <span class="toctext">Cores</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Sega_Master_System"><span class="tocnumber">4.1</span> <span class="toctext">Sega Master System</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Gameboy"><span class="tocnumber">4.2</span> <span class="toctext">Gameboy</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#PlayStation"><span class="tocnumber">4.3</span> <span class="toctext">PlayStation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8">
+<a href="#Troubleshooting"><span class="tocnumber">5</span> <span class="toctext">Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Buggy_audio"><span class="tocnumber">5.1</span> <span class="toctext">Buggy audio</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Related"><span class="tocnumber">6</span> <span class="toctext">Related</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>You can install RetroArch from the Alpine repo:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add retroarch
+</pre></div>
+<h2><span class="mw-headline" id="Menu">Menu</span></h2>
+<p>RetroArch by default uses the desktop menu. If on mobile device you can use a mobile friendly menu driver called <code>glui</code>. You can set it in <b>retroarch.cfg</b> (<code>~/.config/retroarch/retroarch.cfg</code>) with:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">menu_driver</span> <span class="o">=</span> <span class="s2">"glui"</span>
+</pre></div>
+<p>Phosh terminal keyboard seems not working properly to navigate the menu, here are some buttons correspondence:
+</p>
+<table class="wikitable">
+<tbody>
+<tr>
+<th scope="row" style="text-align:left;">
+<code style="border:none;">ok</code>
+</th>
+<td>
+<code style="border:none;">←</code>
+</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">
+<code style="border:none;">down</code>
+</th>
+<td>
+<code style="border:none;">√</code>
+</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">
+<code style="border:none;">up</code>
+</th>
+<td>
+<code style="border:none;">×</code> (Multiplication sign)
+</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">
+<code style="border:none;">left</code>
+</th>
+<td>
+<code style="border:none;">π</code>
+</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">
+<code style="border:none;">right</code>
+</th>
+<td>
+<code style="border:none;">τ</code>
+</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">
+<code style="border:none;">toggle fullsceen</code>
+</th>
+<td>
+<code style="border:none;">F7</code>
+</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">
+<code style="border:none;">exit</code>
+</th>
+<td>
+<code style="border:none;">0</code>
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="Touchscreen">Touchscreen</span></h2>
+<p>To enable touchscreen on RetroArch menu the following settings must be set in <b>retroarch.cfg</b>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">menu_mouse_enable</span> <span class="o">=</span> <span class="s2">"false"</span>
+<span class="n">menu_pointer_enable</span> <span class="o">=</span> <span class="s2">"true"</span>
+</pre></div>
+<p>In case you're on a scaled display, you have to specify the scale factor in <b>retroarch.cfg</b>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">input_touch_scale</span> <span class="o">=</span> <span class="s2">"2"</span>
+</pre></div>
+<p>As of writing, <code>input_touch_scale</code> is only available in postmarketOS edge.
+</p>
+<h2><span class="mw-headline" id="Cores">Cores</span></h2>
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"><br><b>Warning!</b></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Launching roms from RetroArch frontend doesn't always works as expected, for this reason it is recommended to launch games from command-line</td>
+</tr></tbody></table>
+<p>These are the tested cores so far, if you manage to successfully test a core please add it to the list so everyone can have an idea of what can be potentially executed.
+</p>
+<p>A list of installable cores can be found here: <a rel="nofollow" class="external free" href="https://pkgs.alpinelinux.org/packages?name=libretro*&amp;branch=edge">https://pkgs.alpinelinux.org/packages?name=libretro*&amp;branch=edge</a>
+</p>
+<h3><span class="mw-headline" id="Sega_Master_System">Sega Master System</span></h3>
+<table class="wikitable">
+<tbody>
+<tr>
+<th colspan="3">Genesis Plus GX
+</th>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Installation
+</th>
+<td>
+<code style="border:none;">sudo apk add libretro-genesis-plus-gx</code>
+</td>
+<td rowspan="7">
+<a href="../20210411_17h57m26s_grim.png" class="image" title="caption"><img alt="caption" src="../20210411_17h57m26s_grim.png" decoding="async" width="300" height="533" srcset="../20210411_17h57m26s_grim.png 1.5x ../20210411_17h57m26s_grim.png 2x"></a>
+</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Retroarch overlay
+</th>
+<td>
+<code style="border:none;">~/.config/retroarch/overlay/gamepads/genesis/genesis.cfg</code>
+</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Shader
+</th>
+<td>
+<code style="border:none;">~/.config/retroarch/shaders/shaders_glsl/crt/crt-easymode.glslp</code>
+</td>
+</tr>
+<tr>
+<th colspan="2">Command-line
+</th>
+</tr>
+<tr>
+<td colspan="2">
+<code>retroarch --set-shader "shaders_glsl/crt/crt-easymode.glslp" -L /usr/lib/libretro/genesis_plus_gx_libretro.so -c ~/.config/retroarch/retroarch.cfg --appendconfig custom.cfg YOUR_ROM</code>
+</td>
+</tr>
+<tr>
+<th colspan="2">custom.cfg
+</th>
+</tr>
+<tr>
+<td colspan="2">
+<pre> input_overlay = "~/.config/retroarch/overlay/gamepads/genesis/genesis.cfg"
+ 
+ # Custom aspect ratio and game viewport size/position params
+ aspect_ratio_index = "23"
+ custom_viewport_width = "720"
+ custom_viewport_height = "578"
+ custom_viewport_x = "0"
+ custom_viewport_y = "0"
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<h3><span class="mw-headline" id="Gameboy">Gameboy</span></h3>
+<table class="wikitable">
+<tbody>
+<tr>
+<th colspan="3">Gambatte
+</th>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Installation
+</th>
+<td>
+<code style="border:none;">sudo apk add libretro-gambatte</code>
+</td>
+<td rowspan="8">
+<a href="../20210411_18h11m15s_grim.png" class="image" title="caption"><img alt="caption" src="../20210411_18h11m15s_grim.png" decoding="async" width="300" height="533" srcset="../20210411_18h11m15s_grim.png 1.5x ../20210411_18h11m15s_grim.png 2x"></a>
+</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Retroarch overlay
+</th>
+<td>
+<code style="border:none;">~/.config/retroarch/overlay/gamepads/genesis/genesis.cfg</code>
+</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Custom overlay
+</th>
+<td>
+<a rel="nofollow" class="external text" href="https://forums.libretro.com/t/gameboy-touch-overlay/12469">ZilogZ92 custom overlays</a>
+</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Shader
+</th>
+<td>
+<code style="border:none;">~/.config/retroarch/shaders/shaders_glsl/handheld/gameboy.glslp</code>
+</td>
+</tr>
+<tr>
+<th colspan="2">Command-line
+</th>
+</tr>
+<tr>
+<td colspan="2">
+<code>retroarch --set-shader "shaders_glsl/handheld/gameboy.glslp" -L /usr/lib/libretro/gambatte_libretro.so -c ~/.config/retroarch/retroarch.cfg --appendconfig custom.cfg YOUR_ROM</code>
+</td>
+</tr>
+<tr>
+<th colspan="2">custom.cfg
+</th>
+</tr>
+<tr>
+<td colspan="2">
+<pre> # ZilogZ92 Gameboy overlay
+ input_overlay = "./overlay/gb_big.cfg"
+ 
+ # Custom aspect ratio and game viewport size/position params
+ aspect_ratio_index = "23"
+ custom_viewport_width = "720"
+ custom_viewport_height = "578"
+ custom_viewport_x = "0"
+ custom_viewport_y = "0"
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+<h3><span class="mw-headline" id="PlayStation">PlayStation</span></h3>
+<table class="wikitable">
+<tbody>
+<tr>
+<th colspan="3">PSCX Rearmed
+</th>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Installation
+</th>
+<td>
+<code style="border:none;">sudo apk add libretro-pcsx-rearmed</code>
+</td>
+<td rowspan="7">
+<a href="../20210411_18h09m14s_grim.png" class="image" title="caption"><img alt="caption" src="../20210411_18h09m14s_grim.png" decoding="async" width="300" height="533" srcset="../20210411_18h09m14s_grim.png 1.5x ../20210411_18h09m14s_grim.png 2x"></a>
+</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Retroarch overlay
+</th>
+<td>
+<code style="border:none;">~/.config/retroarch/overlay/gamepads/psx/psx.cfg</code>
+</td>
+</tr>
+<tr>
+<th colspan="2">Command-line
+</th>
+</tr>
+<tr>
+<td colspan="2">
+<code>retroarch -L /usr/lib/libretro/pcsx_rearmed_libretro.so -c ~/.config/retroarch/retroarch.cfg --appendconfig custom.cfg YOUR_ROM</code>
+</td>
+</tr>
+<tr>
+<th colspan="2">custom.cfg
+</th>
+</tr>
+<tr>
+<td colspan="2">
+<pre> input_overlay = "~/.config/retroarch/overlay/gamepads/psx/psx.cfg
+</pre>
+</td>
+</tr>
+<tr>
+<th scope="row" style="text-align:left;">Comments
+</th>
+<td>Please follow PSCX Rearmed instructions, this emulator may need PSX bin files. Buggy on paella, low FPS.
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<p>RetroArch is highly configurable and allows some tweaks to increase performance. Please, if you find some share them here.
+</p>
+<h3><span class="mw-headline" id="Buggy_audio">Buggy audio</span></h3>
+<p>By default RetroArch set audio driver to ALSA. This may result in buggy audio. I had to change it to pulse to have a smooth audio:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">audio_driver</span> <span class="o">=</span> <span class="s2">"pulse"</span>
+</pre></div>
+<p>If this doesn't solve the audio issue it may be that the device is not powerful enought to emulate the game/platform under some conditions (overlays, shaders). Enabling video threading can be a possible solution:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">video_threaded</span> <span class="o">=</span> <span class="s2">"true"</span>
+</pre></div>
+<h2><span class="mw-headline" id="Related">Related</span></h2>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/libretro/RetroArch/issues/12213">RetroArch#12213</a> upstream patch to add input_touch_scale</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/alpine/aports/-/merge_requests/20315">aports!20315</a> backport of the patch to Alpine edge</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/wiki/-/issues/60">wiki#60</a> discussion of this wiki page</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=RetroArch&amp;oldid=18631">https://wiki.postmarketos.org/index.php?title=RetroArch&amp;oldid=18631</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 15 April 2021, at 23:00.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=RetroArch&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

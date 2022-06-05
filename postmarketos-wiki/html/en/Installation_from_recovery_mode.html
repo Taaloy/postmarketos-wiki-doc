@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Installation from recovery mode - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Installation_from_recovery_mode rootpage-Installation_from_recovery_mode skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Installation from recovery mode</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="floatright"><a href="../Twrp.png" class="image"><img alt="Twrp.png" src="../Twrp.png" decoding="async" width="200" height="356" srcset="../Twrp.png 1.5x ../Twrp.png 2x"></a></div>
+<p>Most Android devices have a "recovery" partition, on which a second kernel and initramfs can be installed. The recovery systems installed there allow overwriting the main OS with a special zip file, and it is possible to generate such a file for postmarketOS.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Preparation"><span class="tocnumber">1</span> <span class="toctext">Preparation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Create_the_recovery_zip_image"><span class="tocnumber">2</span> <span class="toctext">Create the recovery zip image</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Sideload"><span class="tocnumber">3</span> <span class="toctext">Sideload</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Sideload_without_pmbootstrap"><span class="tocnumber">3.1</span> <span class="toctext">Sideload without pmbootstrap</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Copy_the_generated_image_to_an_SD_card"><span class="tocnumber">4</span> <span class="toctext">Copy the generated image to an SD card</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Photos"><span class="tocnumber">5</span> <span class="toctext">Photos</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Preparation">Preparation</span></h2>
+<ul>
+<li><a href="../en/Installing_pmbootstrap.html" title="Installing pmbootstrap">Install pmbootstrap</a></li>
+<li>Install <a rel="nofollow" class="external text" href="https://twrp.me">TWRP</a> (or another recovery system) on your phone</li>
+</ul>
+<h2><span class="mw-headline" id="Create_the_recovery_zip_image">Create the recovery zip image</span></h2>
+<p>Similar to a <a href="../en/Installation_guide.html" title="Installation guide">regular installation</a>, but add <code>--android-recovery-zip</code> this time. If your device supports full disk encryption (see the FDE column in <a href="../en/Devices.html" title="Devices">Devices</a>), you can add the <code>--fde</code> argument.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install --android-recovery-zip
+</pre></div>
+<p>By default, this will install to the <code>system</code> partition of your Android device. If you want to install to a different partition (e.g. because your <code>system</code> partition is too small), use the <code>--recovery-install-partition</code> parameter. For example, to install to the data partition:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install --android-recovery-zip --recovery-install-partition<span class="o">=</span>data
+</pre></div>
+<h2><span class="mw-headline" id="Sideload">Sideload</span></h2>
+<p>This allows downloading the zip file on the fly directly from your computer. If you don't want to sideload, you can also <a href="#Copy_the_generated_image_to_an_SD_card">copy the generated zip file to an SD card</a>.
+</p>
+<ul>
+<li>Boot the recovery system</li>
+<li>Unmount the partitions (Click on "Mount, then deselect all checkboxes)</li>
+<li>Click on "Advanced / ADB Sideload", then "Swipe to start sideload"</li>
+<li>Connect your phone to your PC</li>
+<li>Start the sideloading process from your PC:</li>
+</ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher --method<span class="o">=</span>adb sideload
+</pre></div>
+<h3><span class="mw-headline" id="Sideload_without_pmbootstrap">Sideload without pmbootstrap</span></h3>
+<p>If sideloading with pmbootstrap fails (it was broken in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1638">#1638</a>), you can do it <i>without</i> pmbootstrap as a workaround. Install <code>adb</code> on your host Linux distribution (usually in an <code>android-tools</code> package that you can install with your distribution's package manager), then run the following commands. The special <code>cd</code> is necessary, because <code>adb</code> can't resolve the symlink on its own.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap <span class="nb">export</span>
+<span class="go">[07:48:04] NOTE: To export the rootfs image, run 'pmbootstrap install' first (without the 'sdcard' parameter).</span>
+<span class="go">[07:48:07] Export symlinks to: /tmp/postmarketOS-export</span>
+<span class="go">[07:48:07]  * initramfs-lg-mako (Initramfs)</span>
+<span class="go">[07:48:07]  * boot.img-lg-mako (Fastboot compatible boot.img file, contains initramfs and kernel)</span>
+<span class="go">[07:48:07]  * vmlinuz-lg-mako (Linux kernel)</span>
+<span class="go">[07:48:07]  * pmos-lg-mako.zip (Android recovery flashable zip)</span>
+<span class="go">[07:48:07] NOTE: chroot is still active (use 'pmbootstrap shutdown' as necessary)</span>
+<span class="go">[07:48:07] Done</span>
+<span class="gp">$</span> <span class="nb">cd</span> <span class="k">$(</span>dirname <span class="k">$(</span>readlink /tmp/postmarketOS-export/pmos-*.zip<span class="k">))</span>
+<span class="gp">$</span> adb sideload pmos-lg-mako.zip
+<span class="go">loading: 'pmos-lg-mako.zip'...</span>
+<span class="go">connecting...</span>
+<span class="go">Total xfer: 1.08x</span>
+</pre></div>
+<h2><span class="mw-headline" id="Copy_the_generated_image_to_an_SD_card">Copy the generated image to an SD card</span></h2>
+<p>Instead of sideloading, you can run <code>pmbootstrap export</code> and copy the <code>pmos-*.zip</code> file to an SD card. Insert it into your phone, boot into the recovery system, and select "Install". Then navigate to the zip file, and the postmarketOS installation should begin.
+</p>
+<h2><span class="mw-headline" id="Photos">Photos</span></h2>
+<ul class="gallery mw-gallery-traditional">
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:15px auto;"><a href="../Postmarketos-android-recovery-installer.jpeg" class="image"><img alt="" src="../Postmarketos-android-recovery-installer.jpeg" decoding="async" width="90" height="120" srcset="../135px-Postmarketos-android-recovery-installer.jpeg 1.5x ../180px-Postmarketos-android-recovery-installer.jpeg 2x"></a></div></div>
+			<div class="gallerytext">
+<p>postmarketos-android-recovery-installer 1.0.1 running in TWRP on <a href="../en/Google_Nexus_4_(lg-mako).html" title="Google Nexus 4 (lg-mako)">Google Nexus 4 (lg-mako)</a>
+</p>
+			</div>
+		</div></li>
+</ul>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://postmarketos.org/blog/2017/09/03/100-days-of-postmarketos/#interoperability">100 days of postmarketOS: Interoperability</a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-android-recovery-installer">Source code for the recovery installer</a></li>
+<li>
+<a href="../en/Android_Recovery.html" title="Android Recovery">Android Recovery</a>: general tips and tricks for postmarketOS and the recovery system</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Installation_from_recovery_mode&amp;oldid=15366">https://wiki.postmarketos.org/index.php?title=Installation_from_recovery_mode&amp;oldid=15366</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 16 November 2020, at 01:24.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Installation_from_recovery_mode&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Kernel upgrade testing - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Kernel_upgrade_testing rootpage-Kernel_upgrade_testing skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Kernel upgrade testing</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Step by step instructions for testing new kernels in merge requests, so we have comparable results.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Steps"><span class="tocnumber">1</span> <span class="toctext">Steps</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Result_template"><span class="tocnumber">2</span> <span class="toctext">Result template</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Notes_for_specific_tests"><span class="tocnumber">3</span> <span class="toctext">Notes for specific tests</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#System_suspend"><span class="tocnumber">3.1</span> <span class="toctext">System suspend</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#LEDs"><span class="tocnumber">3.2</span> <span class="toctext">LEDs</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Camera"><span class="tocnumber">3.3</span> <span class="toctext">Camera</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#HDMI"><span class="tocnumber">3.4</span> <span class="toctext">HDMI</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#.28PinePhone.2FTab.29_ram_freq"><span class="tocnumber">3.5</span> <span class="toctext">(PinePhone/Tab) ram_freq</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Stable_release_testing"><span class="tocnumber">4</span> <span class="toctext">Stable release testing</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Steps">Steps</span></h3>
+<ul>
+<li>Install unmodified postmarketOS edge or stable (depending on MR target branch)</li>
+<li>Boot up (while watching serial log, if possible, look for errors)</li>
+<li>Fill out the template below for the current (old) kernel</li>
+<li>Install the new kernel</li>
+<li>Reboot (look for errors again in serial log)</li>
+<li>Fill out the template below for the new kernel</li>
+</ul>
+<h3><span class="mw-headline" id="Result_template">Result template</span></h3>
+<p>Add results as OK or NOK. If there's more information (e.g. it did not work every time, add an asterisk and explain below.)
+</p>
+<pre>Old kernel version:
+
+| Feature                  | Old kernel | New kernel |
+| ------------------------ | ---------- | -----------|
+| Bluetooth                |            |            |
+| Call (incoming)          |            |            |
+| Call (outgoing)          |            |            |
+| Camera (front)           |            |            |
+| Camera (rear)            |            |            |
+| HDMI                     |            |            |
+| LEDs                     |            |            |
+| SMS                      |            |            |
+| System suspend           |            |            |
+| Video in browser         |            |            |
+| (PinePhone/Tab) ram_freq |            |            |
+</pre>
+<h3><span class="mw-headline" id="Notes_for_specific_tests">Notes for specific tests</span></h3>
+<h4><span class="mw-headline" id="System_suspend">System suspend</span></h4>
+<p>Run the following command over SSH, e.g. while the video in the browser is still playing. For the PinePhone, this will test the crust firmware (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1163">pmaports!1163</a>).
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo loginctl <span class="nb">suspend</span>
+</pre></div>
+<p>Depending on what you want to test regarding suspend, you could also use <code>echo mem | sudo tee /sys/power/state</code>. This command does not go throught the elogind API, therefore it won't trigger applications that listen for suspend events, such as eg25-manager. <code>loginctl suspend</code> goes through the same code paths, as if the phone would suspend automatically after some time of inactivity.
+</p>
+<h4><span class="mw-headline" id="LEDs">LEDs</span></h4>
+<p>In Phosh, based on <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/776#note_411222645">pmaports#766 (comment)</a>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> killall feedbackd
+<span class="gp">$</span> <span class="nv">G_MESSAGES_DEBUG</span><span class="o">=</span>all <span class="nv">G_LOG_LEVEL_INFO</span><span class="o">=</span>all <span class="nv">G_DEBUG</span><span class="o">=</span>all <span class="nv">DISPLAY</span><span class="o">=</span>:0 /usr/libexec/feedbackd <span class="p">&amp;</span>
+<span class="gp">$</span> <span class="nv">G_MESSAGES_DEBUG</span><span class="o">=</span>all <span class="nv">G_LOG_LEVEL_INFO</span><span class="o">=</span>all <span class="nv">G_DEBUG</span><span class="o">=</span>all <span class="nv">DISPLAY</span><span class="o">=</span>:0 fbcli -E message-missed-email
+</pre></div>
+<h4><span class="mw-headline" id="Camera">Camera</span></h4>
+<p>Install <code>megapixels</code>, take a photo with the rear camera, switch cameras, take a selfie.
+</p>
+<h4><span class="mw-headline" id="HDMI">HDMI</span></h4>
+<p>In case of the PinePhone, if it does not work and you had power plugged into the USB dock, test again without power.
+</p>
+<h4>
+<span id="(PinePhone/Tab)_ram_freq"></span><span class="mw-headline" id=".28PinePhone.2FTab.29_ram_freq">(PinePhone/Tab) ram_freq</span>
+</h4>
+<p>Ensure reading the RAM frequency from /proc is still working (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1998">pmaports!1998</a>):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> cat /proc/device-tree/memory/ram_freq 
+<span class="go">528</span>
+</pre></div>
+<h1><span class="mw-headline" id="Stable_release_testing">Stable release testing</span></h1>
+<p>Each stable release should be tested on supported devices. See the testing template below. If you find something that is not covered by the template, feel free to extend it here.
+Ideally this template should also act as a "todo" list of "What should work so the device can be considered "complete" Linux-On-Phone experience".
+</p>
+<pre>&lt;!--
+Suggestions on filling this template:
+* You can "tick" the checkboxes by replacing [ ] with [x] before sending the template.
+* You can write comments after each points to explain why the thing is not marked as working (e.g. `*(No driver.)*` )
+* You can cross out points if, for example, your hardware can't do the feature (e.g. `[ ] ~~Cellular~~ *(No modem in the tablet)*` )
+  (Feel free to remove sub-points from the category if it's obvious that nothing will work so the message takes less space.)
+--&gt;
+Device: `FIXME` ([wiki](FIXME))  
+Ui: `FIXME`  
+Image: `FIXME.img.xz`  
+
+- [ ] Device boots and it's possible to login (password: 147147)
+
+##### Hardware:
+- [ ] Automatic screen rotation works
+- [ ] Brightness control works
+  - [ ] Light sensor (Automatic brightness) works
+- [ ] Touch (with multitouch) works
+- [ ] Buttons work
+- [ ] Haptic feedback works
+- [ ] Notification led works 
+- [ ] Fuel gauge works
+  - [ ] Charger detected and charging works 
+- [ ] External display
+  - [ ] Sound over HDMI/DP works
+- [ ] USB OTG / host mode
+- [ ] Torch / flashlight
+- [ ] GPS works
+  - [ ] Magnetometer or compass works
+- [ ] NFC works
+- [ ] IR blaster works
+
+&lt;!-- Advanced tests, useful for the newly brought up devices:
+
+##### Chipset specific features:
+- [ ] SMP works (all CPU codes detected)
+  - [ ] Frequency scaling works, full range available
+- [ ] Device suspend works
+- [ ] Hardware video encoder/decoder works
+- [ ] GPU/3D acceleration works
+--&gt;
+
+##### Sound:
+- [ ] Speakers, headphones and earpiece work
+- [ ] Headphones selected automatically when plugged in
+- [ ] Microphone works
+
+##### Connectivity:
+- [ ] Bluetooth
+- [ ] WiFi
+- [ ] Cellular:
+  - [ ] Mobile data works
+  - [ ] SMS works
+  - [ ] Making a call works
+  - [ ] Receiving a call works
+    - [ ] Proximity sensor works
+
+##### Camera:
+- [ ] Front camera
+  - [ ] Lens actuator (autofocus) works
+- [ ] Rear camera
+  - [ ] Lens actuator (autofocus) works
+
+##### Extra notes:
+
+##### Verdict:
+- [ ] Testing complete, :ship: it
+</pre>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Kernel_upgrade_testing&amp;oldid=27526">https://wiki.postmarketos.org/index.php?title=Kernel_upgrade_testing&amp;oldid=27526</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 6 May 2022, at 10:14.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Kernel_upgrade_testing&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>
