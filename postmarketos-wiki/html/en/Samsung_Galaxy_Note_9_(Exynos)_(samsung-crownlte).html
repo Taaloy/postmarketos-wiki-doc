@@ -182,7 +182,7 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Bluetooth</th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -538,15 +538,144 @@ Received DHCP DISCOVER from client: 8e:9f:b6:8e:9b:6e
 </pre>
 <p>Perhaps a serial cable could be made? <a href="../en/Serial_debugging:Cable_schematics.html#Samsung_Galaxy_S7_and_S5" title="Serial debugging:Cable schematics">Serial_debugging:Cable_schematics#Samsung_Galaxy_S7_and_S5</a>
 </p>
-<h2><span class="mw-headline" id="USB_OTG">USB OTG</span></h2>
+<h2><span class="mw-headline" id="USB">USB</span></h2>
+<h3><span class="mw-headline" id="OTG">OTG</span></h3>
 <p>Tested, works: mouse, RTL8152 based NIC, DAC (Fiio E10K).
 </p>
-<h3><span class="mw-headline" id="Issues">Issues</span></h3>
+<h4><span class="mw-headline" id="Issues">Issues</span></h4>
 <ul>
 <li>It seems that OTG starts working ~ 30 seconds after boot.</li>
 <li>If phone was rebooted due to kernel panic, OTG <b>adapter</b> needs to be reconnected.</li>
 <li>Xfce battery status icon shows battery as charging whenever OTG adapter is plugged in.</li>
 </ul>
+<h3><span class="mw-headline" id="DisplayPort">DisplayPort</span></h3>
+<p>While both stock and LineageOS has the video output working with Lenovo 40A9 dock, so far I've been unable to get it working on pmOS. The display shows up in dmesg, but not in xrandr.
+</p>
+<pre>[ 1330.762760] max77705:max77705_irq_thread: irq[278] 278/238/20 irq_src=0x08 pmic_rev=0x03
+[ 1330.764778] [MAX77705] irq_reg, complete [1], 4, 0, 80, 0, f0
+[ 1330.764801] [MAX77705] dump_reg, 27, 5, 85, 0, b1, 8, 11, 97
+[ 1330.765138] max77705_pdmsg_irq: IRQ(266)_IN
+[ 1330.765157] max77705: max77705_pd_check_pdmsg:  pd_msg [11]
+[ 1330.765174] max77705_pdmsg_irq: IRQ(266)_OUT
+[ 1330.765957] max77705:max77705_irq_thread: irq[278] 278/238/20 irq_src=0x08 pmic_rev=0x03
+[ 1330.767891] [MAX77705] irq_reg, complete [1], 4, 0, 90, 0, f0
+[ 1330.767915] [MAX77705] dump_reg, 2f, 5, 85, 0, b1, 8, 11, 97
+[ 1330.768248] max77705_pdmsg_irq: IRQ(266)_IN
+[ 1330.768265] max77705: max77705_pd_check_pdmsg:  pd_msg [11]
+[ 1330.768279] max77705_pdmsg_irq: IRQ(266)_OUT
+[ 1330.768300] max77705: max77705_vdm_attention_irq: IRQ(277)_IN
+[ 1330.768317] max77705: max77705_receive_alternate_message: : bFLAG_Vdm_Attention
+[ 1330.768333] max77705: max77705_process_alternate_mode: mode : 0x20
+[ 1330.768351] usb_notify: is_blocked type=1, disable_state=0
+[ 1330.768378] max77705: is_empty_usbc_cmd_queue: usbc_cmd_queue Empty(T)
+[ 1330.768397] max77705: max77705_usbc_opcode_write: W-&gt;W opcode[0x4b] write_length[1] read_length[11]
+[ 1330.768414] max77705: front_usbc_cmd: Opcode(0x4b)
+[ 1330.768431] max77705: dequeue_usbc_cmd: Opcode(0x4b) Response(0xff)
+[ 1330.768448] max77705: max77705_usbc_cmd_run: No ISR
+[ 1330.768466] max77705: max77705_i2c_opcode_write: opcode 0x4b, write_length 2
+[ 1330.768488] max77705: opcode_write: 00000000: 4b 06
+[ 1330.768851] max77705: max77705_vdm_attention_irq: IRQ(277)_OUT
+[ 1330.770074] max77705:max77705_irq_thread: irq[278] 278/238/20 irq_src=0x08 pmic_rev=0x03
+[ 1330.771339] [MAX77705] irq_reg, complete [1], 84, 0, 0, 0, f0
+[ 1330.771359] [MAX77705] dump_reg, 27, 5, 85, 0, b1, 8, 11, 97
+[ 1330.771382] max77705: max77705_apcmd_irq: IRQ(251)_IN
+[ 1330.771650] max77705: max77705_apcmd_irq:  [IN] sysmsg : 5
+[ 1330.771672] max77705: dequeue_usbc_cmd: Opcode(0xff) Response(0x4b)
+[ 1330.771689] max77705: dequeue_usbc_cmd: front-&gt;next = NULL
+[ 1330.771702] max77705: is_empty_usbc_cmd_queue: usbc_cmd_queue Empty(T)
+[ 1330.771718] max77705: max77705_usbc_cmd_run: Apcmdres ISR !!!
+[ 1330.772393] max77705: max77705_i2c_opcode_read: opcode 0xff, read_length 12, ret_error 0
+[ 1330.772412] max77705: opcode_read: 00000000: 4b 06 4f 29 06 81 01 ff 9a 00 00 00
+[ 1330.772436] max77705: max77705_vdm_dp_attention: max77705_vdm_dp_attention DP_ATTENTION = 0x0000009A
+[ 1330.772461] max77705: max77705_vdm_dp_attention: max77705_vdm_dp_attention : pin configuration is already sent as DP_Pin_Assignment_D!
+[ 1330.772486] max77705: max77705_ccic_event_work: usb: DIAES 7-8-1-0-0
+[ 1330.772542] max77705: is_empty_usbc_cmd_queue: usbc_cmd_queue Empty(T)
+[ 1330.772559] max77705: max77705_usbc_cmd_run: Queue, Empty
+[ 1330.772575] max77705: max77705_apcmd_irq: IRQ(251)_OUT
+[ 1330.773321] max77705: max77705_ccic_event_notifier: usb: dest=DP, id=ID_DP_HPD, attach=1, event=0
+[ 1330.773350] ccic_notifier_notify: src:5 dest:7 id:08 sub1:1 sub2:00 sub3:00
+[ 1330.773373] usb: [M] manager_handle_ccic_notification: src:CCIC dest:DP id:ID_DP_HPD attach/rid:1
+[ 1330.773394] usb: [M] manager_notifier_notify: src:CCIC dest:DP id:ID_DP_HPD sub1:01 sub2:00 sub3:00
+[ 1330.773437] [SX9320]: sx9320_ccic_handle_notification - drp = 0 attat = 1
+[ 1330.773648] Displayport: CCIC_NOTIFY_ID_DP_HPD, 1, 0
+[ 1330.773671] Displayport: displayport hpd changed 1
+[ 1330.773694] Displayport: displayport_reg_sw_reset
+[ 1330.773720] Displayport: displayport_reg_init
+[ 1330.773736] dwc3_exynos_phy_enable owner=1 (usb:0 dp:1) on=1 +
+[ 1330.774462] dwc3_otg_phy_enable
+[ 1330.774486] dwc3_otg_phy_enable phy control=1 owner=1 (usb:0 dp:1) on=1
+[ 1330.774501] dwc3_exynos_phy_enable -
+[ 1330.774550] [exynos_usbdrd_inform_dp_use] dp use = 1, lane_cnt = 2
+[ 1330.786192] Displayport: Read DPCD REV NUM 0_5 12 14 c2 01 00 11
+[ 1330.786216] Displayport: Read DPCD REV NUM 6_B 01 83 02 00 00 00
+[ 1330.786688] Displayport: Read link status 01 00 00 00 80 00
+[ 1330.786923] Displayport: Branch revision: HW(0x10), SW(0x3, 0xD)
+[ 1330.786932] Displayport: link training in hpd_changed
+[ 1330.787139] Displayport: DPCD_ADD_I2C_SPEED_CONTROL_CAPABILITES = 0x0
+[ 1330.790244] EDID: 00000000: 00 ff ff ff ff ff ff 00 41 0c 52 c1 a1 00 00 00
+[ 1330.790256] EDID: 00000010: 11 1c 01 04 a5 3c 22 78 3a 4e 25 ad 4f 44 ac 27
+[ 1330.790266] EDID: 00000020: 0d 50 54 bf ef 00 d1 c0 b3 00 95 00 81 80 81 40
+[ 1330.790277] EDID: 00000030: 81 c0 01 01 01 01 56 5e 00 a0 a0 a0 29 50 30 20
+[ 1330.790287] EDID: 00000040: 35 00 55 50 21 00 00 1e 00 00 00 fd 00 32 4c 1e
+[ 1330.790297] EDID: 00000050: 63 1e 01 0a 20 20 20 20 20 20 00 00 00 fc 00 50
+[ 1330.790307] EDID: 00000060: 48 4c 20 32 37 36 45 38 46 0a 20 20 00 00 00 ff
+[ 1330.790317] EDID: 00000070: 00 41 55 35 31 38 31 37 30 30 30 31 36 31 01 8e
+[ 1330.790329] Displayport: block_cnt = 2
+[ 1330.790539] Displayport: DPCD_ADD_I2C_SPEED_CONTROL_CAPABILITES = 0x0
+[ 1330.794122] EDID: 00000000: 02 03 1e f1 4b 01 03 05 14 04 13 1f 12 02 11 90
+[ 1330.794147] EDID: 00000010: 23 09 07 07 83 01 00 00 65 03 0c 00 10 00 02 3a
+[ 1330.794158] EDID: 00000020: 80 18 71 38 2d 40 58 2c 45 00 55 50 21 00 00 1e
+[ 1330.794168] EDID: 00000030: 01 1d 00 72 51 d0 1e 20 6e 28 55 00 55 50 21 00
+[ 1330.794179] EDID: 00000040: 00 1e 8c 0a d0 8a 20 e0 2d 10 10 3e 96 00 55 50
+[ 1330.794189] EDID: 00000050: 21 00 00 18 8c 0a d0 90 20 40 31 20 0c 40 55 00
+[ 1330.794200] EDID: 00000060: 55 50 21 00 00 18 f0 3c 00 d0 51 a0 35 50 60 88
+[ 1330.794210] EDID: 00000070: 3a 00 55 50 21 00 00 1c 00 00 00 00 00 00 00 77
+[ 1330.794364] EDID: found ext std timing 0 2byte:0xD1C0
+[ 1330.794378] EDID: found ext std timing 1 2byte:0x81C0
+[ 1330.794394] Displayport: mon name: PHL 276E8F, gamma: 2.20
+[ 1330.794414] Unimplemented SVD code 4
+[ 1330.794423] Unimplemented SVD code 31
+[ 1330.794432] Unimplemented SVD code 2
+[ 1330.794441] Unimplemented SVD code 17
+[ 1330.794449] Unimplemented SVD code 16
+[ 1330.794468] Displayport: EDID: found: V2560X1440P59, dex: 2
+[ 1330.794494] Displayport: EDID: found: V1920X1080P60, dex: 1
+[ 1330.794507] Displayport: EDID: found: V1280X1024P60, dex: 1
+[ 1330.794518] Displayport: EDID: found: V1280X720P60, dex: 1
+[ 1330.794531] Displayport: EDID: found: V720X480P60, dex: 1
+[ 1330.794542] Displayport: EDID: found: V720X576P50, dex: 1
+[ 1330.794557] Displayport: EDID: found: V1280X720P50, dex: 1
+[ 1330.794581] Displayport: EDID: found(VDB): V1920X1080P50, dex: 1
+[ 1330.794595] Displayport: misc:0x4, Audio ch:0x2, sample:0x7, bit:0x7
+[ 1330.794607] Displayport: detail_timing_desc1: 2560*1440@59 (241500000, 4140ps)
+[ 1330.794619] Displayport: invalid timing i:23, best:24
+[ 1330.795117] Displayport: Full Link Training Start + : 14 c2
+[ 1330.795128] Displayport: max video_format : V2560X1440P59
+[ 1330.795137] Displayport: set link late: 0x14, lane cnt:2
+[ 1330.795147] Displayport: displayport-&gt;fsys0_qos 336000Mhz
+[ 1330.795669] Displayport: Reduce_Link_Rate_Retry(0x14)
+[ 1330.795741] [exynos_usbdrd_inform_dp_use] dp use = 1, lane_cnt = 2
+[ 1330.795778] Displayport: link_rate = 14
+[ 1330.795784] Displayport: lane_cnt = 2
+[ 1330.796594] Displayport: Voltage_Swing_Retry 00 00 00 00
+[ 1330.813436] Displayport: check voltage swing(0): val(34,34) 0/2, 0/2, 0/2, 0/2
+[ 1330.813491] Displayport: Voltage_Swing_Retry 02 02 02 02
+[ 1330.830117] Displayport: EQ_Training_Start
+[ 1330.830363] Displayport: EQ_Training_Retry 02 02 02 02
+[ 1330.846979] Displayport: lane_cr_done = 3
+[ 1330.846993] Displayport: lane_channel_eq_done = 3
+[ 1330.846998] Displayport: lane_symbol_locked_done = 3
+[ 1330.847003] Displayport: interlane_align_done = 1
+[ 1330.847220] Displayport: Full Link Training Finish - : 14 02
+[ 1330.847226] Displayport: LANE_SET [0] : 02 02 02 02
+[ 1330.847235] Displayport: SST1_AUDIO_DMA_REQUEST_LATENCY_CONFIG = 0x1001f
+[ 1330.847246] Displayport: displayport_audio_init_config
+[ 1330.847256] Displayport: audio state: func_en=0x3, aud_en=0x1, master_t_gen=0x1, dma_req=0x5001f, aud_con=0x4000000
+[ 1330.847447] Displayport: DFP type: Displayport(0x11)
+[ 1330.847453] Displayport: HPD status = 1
+[ 1333.892595] Displayport: audio info = 0x43F0102
+[ 1333.892786] Displayport: enable timeout
+</pre>
 <h2><span class="mw-headline" id="Battery">Battery</span></h2>
 <p>Charge level reporting and charging works on Xfce, using either wired or wireless charger.
 </p>
@@ -579,7 +708,14 @@ Received DHCP DISCOVER from client: 8e:9f:b6:8e:9b:6e
 <p>There's /etc/SoundBoosterParam.txt in vendor partition, but I'm not sure if it's important.
 </p>
 <h2><span class="mw-headline" id="Bluetooth">Bluetooth</span></h2>
-<p>By default soft blocked in rfkill. Unblocking it and restarting bluetoothd doesn't fix <code>No default controller available</code> in bluetoothctl.
+<p>Works!
+</p>
+<ul>
+<li>Compile kernel with <code>CONFIG_BT_HCIUART</code> and <code>CONFIG_BT_HCIUART_BCM</code> enabled.</li>
+<li>Put <code>bcm4361B2_semco.hcd</code> in <code>/lib/firmware/postmarketos/</code>.</li>
+<li><code># hciattach /dev/ttySAC1 bcm43xx 3000000 flow</code></li>
+</ul>
+<p>Tested with Jabra Elite 65t, sound works and retains decent bitrate. hciattach from bluez-deprecated is required because btattach doesn't set the baud rate to desired after uploading firmware. Relevant: <a rel="nofollow" class="external free" href="https://github.com/Arkq/bluez-alsa/issues/205">https://github.com/Arkq/bluez-alsa/issues/205</a>
 </p>
 <h2><span class="mw-headline" id="Unixbench">Unixbench</span></h2>
 <pre>========================================================================
@@ -645,9 +781,9 @@ System Benchmarks Index Score (Partial Only)                         6053.8
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_9_(Exynos)_(samsung-crownlte)&amp;oldid=27530">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_9_(Exynos)_(samsung-crownlte)&amp;oldid=27530</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_9_(Exynos)_(samsung-crownlte)&amp;oldid=28482">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_9_(Exynos)_(samsung-crownlte)&amp;oldid=28482</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 6 May 2022, at 14:19.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 12 June 2022, at 00:46.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

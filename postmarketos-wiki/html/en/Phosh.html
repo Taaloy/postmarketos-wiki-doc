@@ -286,7 +286,7 @@ This message appears if you have just connected to Wi-Fi, and your device's date
 </p>
 <p>On the way up the <code>elogind</code> session interacting with the main screen seat will proceed to start the display manager <code>tinydm</code> (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/tinydm">TinyDM website</a>) using <code>autologin</code> to provide the default user with <i>Wayland</i> as the display server. On PostmarketOS the default user will be user ID 10000 which is what the installation scripts have set up.
 </p>
-<p>Tinydm in turn will launch Phosh by executing <code>/usr/bin/phosh</code> which in turn will produce the passcode screen so you can proceed to log into your phone.
+<p>Tinydm in turn will launch Phosh by looking into the file <code>/var/lib/tinydm/default-session.desktop</code> which contains an <code>Exec</code> directive executing <code>dbus-run-session /usr/bin/phosh</code> which in turn will produce the passcode screen so you can proceed to log into your phone.
 </p>
 <p>It can also be launched manually by running <code>dbus-run-session /usr/bin/phosh</code>.
 </p>
@@ -381,9 +381,9 @@ mmcli -m 0 --simple-connect='apn=web.be,user=web,password=web,pin=1111'
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Phosh&amp;oldid=26247">https://wiki.postmarketos.org/index.php?title=Phosh&amp;oldid=26247</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Phosh&amp;oldid=28440">https://wiki.postmarketos.org/index.php?title=Phosh&amp;oldid=28440</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 14 March 2022, at 09:15.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 9 June 2022, at 21:07.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

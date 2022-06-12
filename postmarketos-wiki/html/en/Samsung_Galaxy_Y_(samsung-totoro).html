@@ -96,7 +96,7 @@ VideoCore IV</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Memory</th>
     <td class="" style="">
-216 MB</td>
+384MB</td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Architecture</th>
@@ -328,6 +328,122 @@ Hardware	: BCM21553 ThunderbirdEDN31 platform
 Revision	: 0000
 Serial		: 0000000000000000
 </pre>
+<h2><span class="mw-headline" id="Parts_list">Parts list</span></h2>
+<table class="wikitable feature-colors">
+<tbody>
+<tr>
+<th>Element type
+</th>
+<th>Element
+</th>
+<th>Works?
+</th>
+<th>Notes
+</th>
+</tr>
+<tr>
+<td>Chipset
+</td>
+<td>BCM21553
+</td>
+<td>
+</td>
+<td>Not supported in mainline (...yet :) )
+</td>
+</tr>
+<tr>
+<td>Graphics
+</td>
+<td>Videocore IV
+</td>
+<td>
+</td>
+<td>Supported in upstream Mesa.
+</td>
+</tr>
+<tr>
+<td>PMIC, USB switch, etc.
+</td>
+<td>MAX8986
+</td>
+<td>
+</td>
+<td>Not in mainline, as far as I can tell
+</td>
+</tr>
+<tr>
+<td>Display driver
+</td>
+<td>ILI9341
+</td>
+<td>
+</td>
+<td>
+<a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/panel/panel-ilitek-ili9341.c">Supported in mainline as a drm panel.</a>
+</td>
+</tr>
+<tr>
+<td>Touchscreen
+</td>
+<td>Silabs F760, Cypress TMA140
+</td>
+<td>
+</td>
+<td>TMA140 is supported, F760 is not. (On <a href="../User:Knuxfanwin8.html" title="User:Knuxfanwin8">my</a> device, the F760 appears to be used.)
+</td>
+</tr>
+<tr>
+<td>WiFi, Bluetooth
+</td>
+<td>BCM4330
+</td>
+<td>
+</td>
+<td>Driver in mainline
+</td>
+</tr>
+<tr>
+<td>Backlight
+</td>
+<td>Skyworks AAT1401
+</td>
+<td>
+</td>
+<td>Not in mainline
+</td>
+</tr>
+<tr>
+<td>Camera
+</td>
+<td>SR200PC10
+</td>
+<td>
+</td>
+<td>Not in mainline; in fact, I can't even find which company made the chip.
+</td>
+</tr>
+<tr>
+<td>Proximity/ambient light sensor
+</td>
+<td>Sharp GP2A???
+</td>
+<td>
+</td>
+<td>Not 100% sure which one; either way, should be supported in mainline
+</td>
+</tr>
+<tr>
+<td>Accelerometer, magnetometer
+</td>
+<td>Bosch BMA222, MEMSIC MMC328X
+</td>
+<td>
+</td>
+<td>BMA222 is in mainline, MMC328X is not; there do seem to be other MEMSIC magnetometers in mainline, maybe they're similar?
+</td>
+</tr>
+</tbody>
+</table>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/knuxify/pmaports/-/tree/samsung-totoro">pmaports fork with the WIP port</a></li>
@@ -351,9 +467,9 @@ Serial		: 0000000000000000
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Y_(samsung-totoro)&amp;oldid=18639">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Y_(samsung-totoro)&amp;oldid=18639</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Y_(samsung-totoro)&amp;oldid=28456">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Y_(samsung-totoro)&amp;oldid=28456</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 16 April 2021, at 14:54.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 10 June 2022, at 12:18.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

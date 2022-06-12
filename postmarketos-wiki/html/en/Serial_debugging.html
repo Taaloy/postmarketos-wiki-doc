@@ -299,9 +299,15 @@
 <li>If there's no serial cable schematic for your phone, you may try to <a href="../en/Bootloaders_porting_using_linux.html" title="Bootloaders porting using linux">port a chainloaded bootloader using linux</a>, which will force MUIC to multiplex uart out.</li>
 </ol>
 <h3><span class="mw-headline" id="On_Samsung_devices">On Samsung devices</span></h3>
-<p>On some Samsung devices using the S-Boot bootloader, you will need to mash the Enter key during bootup and type in "log" for anything to appear; see <a href="../en/Samsung_Galaxy_Core_Plus_(samsung-cs02).html#Bootloader_.2F_S-Boot_4.0" title="Samsung Galaxy Core Plus (samsung-cs02)">Samsung_Galaxy_Core_Plus_(samsung-cs02)#Bootloader_.2F_S-Boot_4.0</a> for a more detailed description.
+<p>On some Samsung devices, the bootloader will only print out very limited information (and in some rarer cases, nothing at all). In that case, you may need to do one of the following:
 </p>
-<p>On certain devices it is necessary to hold down the Volume Down button while booting for kernel logs to show up; without it, the bootloader only shows a very small portion of the bootloader logs.
+<ul>
+<li>While booting the device, mash the <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Enter</span> key on your PC to abort auto-boot and get into the bootloader config prompt. (There may not be any visible indication that you got into the prompt!). Then, type <code>log</code> and hit Enter again.
+<ul><li>You may also need to change the kernel log level; get your current level with <code>printenv</code> and save it somewhere, and use <code>setenv KERNEL_LOG_LEVEL 17740</code> to change it.</li></ul>
+</li>
+<li>On certain devices it is necessary to hold down the <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> button while booting for kernel logs to show up; without it, the bootloader only shows a very small portion of the bootloader logs.</li>
+</ul>
+<p>See also: <a href="../en/Samsung_Galaxy_Core_Plus_(samsung-cs02).html#Bootloader_.2F_S-Boot_4.0" title="Samsung Galaxy Core Plus (samsung-cs02)">Samsung Galaxy Core Plus (samsung-cs02)#Bootloader / S-Boot 4.0</a>
 </p>
 <h3><span class="mw-headline" id="On_Google_devices">On Google devices</span></h3>
 <p>On the Pixel 6, you may need to run <code>fastboot oem uart enable</code> in order to enable UART output.
@@ -372,9 +378,9 @@
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Serial_debugging&amp;oldid=27935">https://wiki.postmarketos.org/index.php?title=Serial_debugging&amp;oldid=27935</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Serial_debugging&amp;oldid=28468">https://wiki.postmarketos.org/index.php?title=Serial_debugging&amp;oldid=28468</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 22 May 2022, at 18:14.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 11 June 2022, at 12:20.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

@@ -142,7 +142,17 @@ It is currently unknown if they are supported or not.
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> modprobe -r btqcomsmd
 <span class="gp">#</span> modprobe btqcomsmd
 </pre></div>
-<p><code>Failed to start discovery: org.bluez.Error.NotReady</code> or <code>Failed to connect: org.bluez.Error.NotReady br-connection-adapter-not-powered</code>
+<p><code>Failed set serial line discipline: Invalid argument</code> in btattach or <code>Can't set line discipline: Invalid argument</code> in hciattach:
+</p>
+<p>Enable <code>CONFIG_BT_HCIUART</code> (and possibly <code>CONFIG_BT_HCIUART_BCM</code>) in kernel config.
+</p>
+<p><br>
+<code>btattach -P bcm</code> doesn't set desired baud rate after uploading firmware:
+</p>
+<p>Use hciattach instead (<a rel="nofollow" class="external free" href="https://github.com/Arkq/bluez-alsa/issues/205">https://github.com/Arkq/bluez-alsa/issues/205</a>) and verify results with <code>stty -F /dev/tty</code>.
+</p>
+<p><br>
+<code>Failed to start discovery: org.bluez.Error.NotReady</code> or <code>Failed to connect: org.bluez.Error.NotReady br-connection-adapter-not-powered</code>
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">[bluetooth]#</span> power on
 <span class="go">Changing power on succeeded</span>
@@ -169,9 +179,9 @@ It is currently unknown if they are supported or not.
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;oldid=27453">https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;oldid=27453</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;oldid=28484">https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;oldid=28484</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 5 May 2022, at 17:17.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 12 June 2022, at 01:49.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

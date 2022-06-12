@@ -297,9 +297,10 @@ armv7</td>
 <li class="toclevel-1 tocsection-6"><a href="#FDE"><span class="tocnumber">6</span> <span class="toctext">FDE</span></a></li>
 <li class="toclevel-1 tocsection-7"><a href="#Audio"><span class="tocnumber">7</span> <span class="toctext">Audio</span></a></li>
 <li class="toclevel-1 tocsection-8"><a href="#Bluetooth"><span class="tocnumber">8</span> <span class="toctext">Bluetooth</span></a></li>
-<li class="toclevel-1 tocsection-9"><a href="#Hardware"><span class="tocnumber">9</span> <span class="toctext">Hardware</span></a></li>
-<li class="toclevel-1 tocsection-10"><a href="#Partitions"><span class="tocnumber">10</span> <span class="toctext">Partitions</span></a></li>
-<li class="toclevel-1 tocsection-11"><a href="#See_also"><span class="tocnumber">11</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Touchkeys"><span class="tocnumber">9</span> <span class="toctext">Touchkeys</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Hardware"><span class="tocnumber">10</span> <span class="toctext">Hardware</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Partitions"><span class="tocnumber">11</span> <span class="toctext">Partitions</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#See_also"><span class="tocnumber">12</span> <span class="toctext">See also</span></a></li>
 </ul>
 </div>
 
@@ -345,6 +346,33 @@ armv7</td>
 </p>
 <p>In the long run, the Replicant project hopes to ask Cypress Semiconductor Corp. if they are willing to release the source code to the firmware under a permissive licence <a rel="nofollow" class="external autonumber" href="https://redmine.replicant.us/issues/1937">[2]</a>.
 </p>
+<h2><span class="mw-headline" id="Touchkeys">Touchkeys</span></h2>
+<p>The Back touchkey can be used for navigating back (mainly in Firefox, but also in other contexts).  The Menu touchkey does nothing by default, but it can be assigned in the phosh settings.
+</p>
+<p>If you wish, you can run this script in a terminal in the background to give you some haptic feedback and to illuminate the touchkey LEDs for 1 second when they are touched - you will need to install evtest beforehand though.  It is a bit of a hack, so won't be bundled in postmarketOS by default:
+</p>
+<pre>#!/bin/sh
+
+device='/dev/input/by-path/platform-i2c-gpio-4-event'
+event_back='*code 158 (KEY_BACK), value 1*'
+event_menu='*code 139 (KEY_MENU), value 1*'
+
+evtest "$device" | while read line; do
+  case $line in
+
+    ($event_back)	fbcli -E button-pressed
+    			echo 1 &gt; /sys/class/leds/tm2-touchkey/brightness
+			sleep 1
+			echo 0 &gt; /sys/class/leds/tm2-touchkey/brightness ;;
+
+    ($event_menu)	fbcli -E button-pressed
+    			echo 1 &gt; /sys/class/leds/tm2-touchkey/brightness
+			sleep 1
+			echo 0 &gt; /sys/class/leds/tm2-touchkey/brightness ;;
+
+  esac
+done
+</pre>
 <h2><span class="mw-headline" id="Hardware">Hardware</span></h2>
 <table class="wikitable feature-colors">
 <tbody>
@@ -892,6 +920,8 @@ Disk Flags: </pre>
 <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3022">pmaports!3022</a> Add WiFi support</li>
 <li>
 <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3062">pmaports!3062</a> Add vibration support</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3192">pmaports!3192</a> Fix swapped touchkeys</li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/device-samsung-t0lte">Device package</a></li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/community/linux-postmarketos-exynos4">Kernel package</a></li>
 <li>
@@ -911,9 +941,9 @@ Disk Flags: </pre>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_II_LTE_(samsung-t0lte)&amp;oldid=28168">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_II_LTE_(samsung-t0lte)&amp;oldid=28168</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_II_LTE_(samsung-t0lte)&amp;oldid=28444">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_II_LTE_(samsung-t0lte)&amp;oldid=28444</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 2 June 2022, at 18:15.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 9 June 2022, at 21:56.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

@@ -71,11 +71,6 @@ testing</td>
     <td class="" style="">
 ChromeOS</td>
 </tr>
-<tr class="">
-<th scope="row" style="text-align:left;">postmarketOS kernel</th>
-    <td class="" style="">
-5.13</td>
-</tr>
 <tr><th colspan="2" class="" style="text-align:center;">Hardware</th></tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Chipset</th>
@@ -304,24 +299,23 @@ armv7</td>
 </div>
 <ul>
 <li class="toclevel-1 tocsection-1"><a href="#Contributors"><span class="tocnumber">1</span> <span class="toctext">Contributors</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Maintainer.28s.29"><span class="tocnumber">2</span> <span class="toctext">Maintainer(s)</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Users_owning_this_device"><span class="tocnumber">3</span> <span class="toctext">Users owning this device</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#Installation"><span class="tocnumber">4</span> <span class="toctext">Installation</span></a></li>
-<li class="toclevel-1 tocsection-5"><a href="#chainloading"><span class="tocnumber">5</span> <span class="toctext">chainloading</span></a></li>
-<li class="toclevel-1 tocsection-6"><a href="#u-boot_on_spi"><span class="tocnumber">6</span> <span class="toctext">u-boot on spi</span></a></li>
-<li class="toclevel-1 tocsection-7"><a href="#Audio"><span class="tocnumber">7</span> <span class="toctext">Audio</span></a></li>
-<li class="toclevel-1 tocsection-8"><a href="#See_also"><span class="tocnumber">8</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Users_owning_this_device"><span class="tocnumber">2</span> <span class="toctext">Users owning this device</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Installation"><span class="tocnumber">3</span> <span class="toctext">Installation</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#chainloading"><span class="tocnumber">4</span> <span class="toctext">chainloading</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#U-Boot_on_SPI"><span class="tocnumber">5</span> <span class="toctext">U-Boot on SPI</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Audio"><span class="tocnumber">6</span> <span class="toctext">Audio</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#See_also"><span class="tocnumber">7</span> <span class="toctext">See also</span></a></li>
 </ul>
 </div>
 
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
-<ul><li>tvall</li></ul>
-<h2>
-<span id="Maintainer(s)"></span><span class="mw-headline" id="Maintainer.28s.29">Maintainer(s)</span>
-</h2>
+<ul>
+<li>tvall</li>
+<li><a href="../User:Jenneron.html" title="User:Jenneron">Jenneron</a></li>
+</ul>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Device comes stock with coreboot and depthcharge. depthcharge is annoying to work with in my opinion, and the version included on this device does not support loading an initramfs. so the first step is to get a bootloader that works properly and ideally doesnt get in out way loading for us. it should be possible to build a new version of coreboot+depthcharge, but there is not much documentation and what is there is old and broken. u-boot should be able to replace coreboot and depthcharge, but i havent had luck getting it to work properly standalone, so our best option is chainloading an older version from depthcharge.
+<p>Device comes stock with coreboot and depthcharge. depthcharge is annoying to work with in my opinion, and the version included on this device does not support loading an initramfs. so the first step is to get a bootloader that works properly and ideally doesnt get in out way loading for us. it should be possible to build a new version of coreboot+depthcharge, but there is not much documentation and what is there is old and broken. U-Boot should be able to replace coreboot and depthcharge, but i havent had luck getting it to work properly standalone, so our best option is chainloading an older version from depthcharge.
 </p>
 <h2><span class="mw-headline" id="chainloading">chainloading</span></h2>
 <p>Chainloading is safest with no chance of bricks, if something goes wrong you can just restore using the chromeos recovery image.
@@ -350,7 +344,7 @@ will write instructions later
 </p>
 <p>8. reboot. you should now boot to u-boot after the dev-mode warning screen and can boot postmarketos from sd.
 </p>
-<h2><span class="mw-headline" id="u-boot_on_spi">u-boot on spi</span></h2>
+<h2><span class="mw-headline" id="U-Boot_on_SPI">U-Boot on SPI</span></h2>
 <p>preferred method, but with some chance of brick. 
 can't seem to get kernel to boot properly, ignore this for now.
 </p>
@@ -369,8 +363,6 @@ can't seem to get kernel to boot properly, ignore this for now.
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul><li>
 <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2318">pmaports!2318</a> Initial merge request</li></ul>
-<p><br>
-</p>
 </div></div>
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
@@ -384,9 +376,9 @@ can't seem to get kernel to boot properly, ignore this for now.
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Veyron_Jerry_Chromebook_(google-veyron-jerry)&amp;oldid=28281">https://wiki.postmarketos.org/index.php?title=Google_Veyron_Jerry_Chromebook_(google-veyron-jerry)&amp;oldid=28281</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Veyron_Jerry_Chromebook_(google-veyron-jerry)&amp;oldid=28359">https://wiki.postmarketos.org/index.php?title=Google_Veyron_Jerry_Chromebook_(google-veyron-jerry)&amp;oldid=28359</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 4 June 2022, at 15:56.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 6 June 2022, at 13:50.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>
