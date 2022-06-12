@@ -1,133 +1,313 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>What can vendors do to help - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-What_can_vendors_do_to_help rootpage-What_can_vendors_do_to_help skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">What can vendors do to help</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>The <a rel="nofollow" class="external text" href="https://matrix.to/#/!KuvFdgCUXMBkgiDjsE:postmarketos.org?via=matrix.org&amp;via=kde.org&amp;via=postmarketos.org">#postmarketOS-mainline</a> Matrix channel is home to many Mainline-Linux-on-phones efforts. While the members are a crucial part of the procedure of getting pure Linux reliably on their devices, the vendors can significantly help with this process!
-</p>
-<p><br>
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Making_debug_ports_available"><span class="tocnumber">1</span> <span class="toctext">Making debug ports available</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Not_using_.28double-.29signed_firmware_and_other_high-security_features"><span class="tocnumber">2</span> <span class="toctext">Not using (double-)signed firmware and other high-security features</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Sharing_schematics"><span class="tocnumber">3</span> <span class="toctext">Sharing schematics</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#Sharing_design_quirks"><span class="tocnumber">4</span> <span class="toctext">Sharing design quirks</span></a></li>
-<li class="toclevel-1 tocsection-5"><a href="#Making_devices_available_to_developers"><span class="tocnumber">5</span> <span class="toctext">Making devices available to developers</span></a></li>
-<li class="toclevel-1 tocsection-6"><a href="#Choosing_hardware_wisely"><span class="tocnumber">6</span> <span class="toctext">Choosing hardware wisely</span></a></li>
-<li class="toclevel-1 tocsection-7"><a href="#Releasing_the_source_code"><span class="tocnumber">7</span> <span class="toctext">Releasing the source code</span></a></li>
-<li class="toclevel-1 tocsection-8"><a href="#But_why.3F"><span class="tocnumber">8</span> <span class="toctext">But why?</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Making_debug_ports_available">Making debug ports available</span></h2>
-<p>Homegrown developers often view their phones (and other devices) as black boxes, as they lack technical reference manuals and other useful pieces of information. This is where debug ports come in: from debugging an error in BSP code, to getting output from a fresh port of Linux, BSD or any other kernel/OS, it is crucial for many to have a way of communicating with the device that requires little to no setup. Many manufacturers, like Samsung, SONY or Xiaomi have exposed debug interfaces in one way or another (be it via the USB port, or pins on the motherboard), which let devs have a far easier time knowing what's going on with their code.
-</p>
-<p><br>
-</p>
-<h2>
-<span id="Not_using_(double-)signed_firmware_and_other_high-security_features"></span><span class="mw-headline" id="Not_using_.28double-.29signed_firmware_and_other_high-security_features">Not using (double-)signed firmware and other high-security features</span>
-</h2>
-<p>Linux and Android, while they do have their security flaws (as every piece of software does - no code is perfect), are often plenty secure for an average user. Vendors tend to lock down their devices in ways that even a potential attacker would probably not bother exploiting. Requiring the firmware to be signed essentially removes the possibility of creating aftermarket solutions, as the chip won't function properly if the signature doesn't match the manufacturer's. While sounding like a feature, it is indeed a fatal flaw. When the vendor support ends, say 2 years after the device's release, users are stuck with potentially unsafe firmware that they are not able to replace. It does not have to be that way, as it seems not to be enforced by either chipmakers or OS makers. Yet many device manufacturers choose to blow given fuses, or otherwise set some bits that disallow tinkering on your own.
-</p>
-<p><br>
-</p>
-<h2><span class="mw-headline" id="Sharing_schematics">Sharing schematics</span></h2>
-<p>Many OEMs take pride in their devices. Why not share the excitement with us, consumers on a deeper level? Having the access to schematics is often crucial for exploring new OS options. For example, how is one going to know whether it's safe to power on regulator A without regulator B if one isn't told how/whether these are connected? And then, how would one know the precise model number of a part, so that new developments can include the required code for it?
-</p>
-<p><br>
-</p>
-<h2><span class="mw-headline" id="Sharing_design_quirks">Sharing design quirks</span></h2>
-<p>Everybody makes mistakes. After all, we're just humans. It's a part of our nature. Do not be ashamed of the mistakes you've made in your design. Instead, embrace them by giving us, the developers a warning and an explanation on what can we do to overcome them. If, for example, your memory chip erases itself when it gets a certain command - tell us! We'll figure out how not to pass the deadly bitstreams to the chip, making it safer for device owners.
-</p>
-<p><br>
-</p>
-<h2><span class="mw-headline" id="Making_devices_available_to_developers">Making devices available to developers</span></h2>
-<p>The postmarketOS-mainline chat includes some prominent developers, who have proven their abilities by getting Mainline Linux (and various other pieces of software) to run on off-the-shelf consumer devices, like phones or tablets, that were never meant to be used with it. These people are often limited by two factors: lack of time and devices to develop on. While the first one is often a very complicated subject that can not be solved in a simple manner, the latter one very much could be. Some device makers are known for providing devices to known developers (like <a rel="nofollow" class="external text" href="https://pine64.org">Pine64</a>). It's a great way to provide people with tools they need to build a better future for Free and Open Source projects. It's not even about giving them access to the latest and greatest - quite contrary in fact! postmarketOS's motto mentions a "10 year lifecycle", which - proven by the likes of ST-Ericsson U8500 being mainlined (i.e. having the Mainline Linux kernel ported to them) - is in fact possible! On the other hand, it's a good way to dispose of old stock in a responsible way :wink:
-</p>
-<p><br>
-</p>
-<h2><span class="mw-headline" id="Choosing_hardware_wisely">Choosing hardware wisely</span></h2>
-<p>There are some chips that are known for their closed nature, likes of which are PowerVR GPUs, or MediaTek SoCs - mainly due to the lack of public documentation and lackluster Open Source codebases. While price is often a great factor, there are vendors who choose their chips solely for the purpose of building a device as Freedom-respecting as possible (such as <a rel="nofollow" class="external text" href="https://puri.sm">Purism</a> with their I.MX8MQ-powered phone). This also goes for Wi-Fi/Bluetooth chips, basebands and other components, including the smallest ones, like sound codecs.
-</p>
-<p><br>
-</p>
-<h2><span class="mw-headline" id="Releasing_the_source_code">Releasing the source code</span></h2>
-<p>The GPL2 License requires one to make the source code of a modified program available at request. Sadly, many vendors violate the license by not releasing their modified versions of the Linux kernel and sweeping it under the rug. This harms the Open Source movement, as we cannot just guess what was inside and reverse engineering a monolithic kernel is not a pretty task, even with 95% of the common source available.
-</p>
-<p><br>
-</p>
-<p><br>
-</p>
-<h2>
-<span id="But_why?"></span><span class="mw-headline" id="But_why.3F">But why?</span>
-</h2>
-<p>While many for-profit companies see no use in preserving electronic devices for longer, the buyers certainly do. This plays very well with the recent Right to Repair movements, because people realize that they do not need to swap out their hardware every year or so. Apart from saving money, keeping your devices for longer is a net positive for the planet, keeping them out of landfills.
-</p>
-</div></div>
-		
-		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=What_can_vendors_do_to_help&amp;oldid=20038">https://wiki.postmarketos.org/index.php?title=What_can_vendors_do_to_help&amp;oldid=20038</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 19 June 2021, at 09:14.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=What_can_vendors_do_to_help&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   What can vendors do to help - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-What_can_vendors_do_to_help rootpage-What_can_vendors_do_to_help skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    What can vendors do to help
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       The
+       <a class="external text" href="https://matrix.to/#/!KuvFdgCUXMBkgiDjsE:postmarketos.org?via=matrix.org&amp;via=kde.org&amp;via=postmarketos.org" rel="nofollow">
+        #postmarketOS-mainline
+       </a>
+       Matrix channel is home to many Mainline-Linux-on-phones efforts. While the members are a crucial part of the procedure of getting pure Linux reliably on their devices, the vendors can significantly help with this process!
+      </p>
+      <p>
+       <br/>
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Making_debug_ports_available">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Making debug ports available
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Not_using_.28double-.29signed_firmware_and_other_high-security_features">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Not using (double-)signed firmware and other high-security features
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Sharing_schematics">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Sharing schematics
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Sharing_design_quirks">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Sharing design quirks
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-5">
+         <a href="#Making_devices_available_to_developers">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           Making devices available to developers
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-6">
+         <a href="#Choosing_hardware_wisely">
+          <span class="tocnumber">
+           6
+          </span>
+          <span class="toctext">
+           Choosing hardware wisely
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-7">
+         <a href="#Releasing_the_source_code">
+          <span class="tocnumber">
+           7
+          </span>
+          <span class="toctext">
+           Releasing the source code
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-8">
+         <a href="#But_why.3F">
+          <span class="tocnumber">
+           8
+          </span>
+          <span class="toctext">
+           But why?
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Making_debug_ports_available">
+        Making debug ports available
+       </span>
+      </h2>
+      <p>
+       Homegrown developers often view their phones (and other devices) as black boxes, as they lack technical reference manuals and other useful pieces of information. This is where debug ports come in: from debugging an error in BSP code, to getting output from a fresh port of Linux, BSD or any other kernel/OS, it is crucial for many to have a way of communicating with the device that requires little to no setup. Many manufacturers, like Samsung, SONY or Xiaomi have exposed debug interfaces in one way or another (be it via the USB port, or pins on the motherboard), which let devs have a far easier time knowing what's going on with their code.
+      </p>
+      <p>
+       <br/>
+      </p>
+      <h2>
+       <span id="Not_using_(double-)signed_firmware_and_other_high-security_features">
+       </span>
+       <span class="mw-headline" id="Not_using_.28double-.29signed_firmware_and_other_high-security_features">
+        Not using (double-)signed firmware and other high-security features
+       </span>
+      </h2>
+      <p>
+       Linux and Android, while they do have their security flaws (as every piece of software does - no code is perfect), are often plenty secure for an average user. Vendors tend to lock down their devices in ways that even a potential attacker would probably not bother exploiting. Requiring the firmware to be signed essentially removes the possibility of creating aftermarket solutions, as the chip won't function properly if the signature doesn't match the manufacturer's. While sounding like a feature, it is indeed a fatal flaw. When the vendor support ends, say 2 years after the device's release, users are stuck with potentially unsafe firmware that they are not able to replace. It does not have to be that way, as it seems not to be enforced by either chipmakers or OS makers. Yet many device manufacturers choose to blow given fuses, or otherwise set some bits that disallow tinkering on your own.
+      </p>
+      <p>
+       <br/>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Sharing_schematics">
+        Sharing schematics
+       </span>
+      </h2>
+      <p>
+       Many OEMs take pride in their devices. Why not share the excitement with us, consumers on a deeper level? Having the access to schematics is often crucial for exploring new OS options. For example, how is one going to know whether it's safe to power on regulator A without regulator B if one isn't told how/whether these are connected? And then, how would one know the precise model number of a part, so that new developments can include the required code for it?
+      </p>
+      <p>
+       <br/>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Sharing_design_quirks">
+        Sharing design quirks
+       </span>
+      </h2>
+      <p>
+       Everybody makes mistakes. After all, we're just humans. It's a part of our nature. Do not be ashamed of the mistakes you've made in your design. Instead, embrace them by giving us, the developers a warning and an explanation on what can we do to overcome them. If, for example, your memory chip erases itself when it gets a certain command - tell us! We'll figure out how not to pass the deadly bitstreams to the chip, making it safer for device owners.
+      </p>
+      <p>
+       <br/>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Making_devices_available_to_developers">
+        Making devices available to developers
+       </span>
+      </h2>
+      <p>
+       The postmarketOS-mainline chat includes some prominent developers, who have proven their abilities by getting Mainline Linux (and various other pieces of software) to run on off-the-shelf consumer devices, like phones or tablets, that were never meant to be used with it. These people are often limited by two factors: lack of time and devices to develop on. While the first one is often a very complicated subject that can not be solved in a simple manner, the latter one very much could be. Some device makers are known for providing devices to known developers (like
+       <a class="external text" href="https://pine64.org" rel="nofollow">
+        Pine64
+       </a>
+       ). It's a great way to provide people with tools they need to build a better future for Free and Open Source projects. It's not even about giving them access to the latest and greatest - quite contrary in fact! postmarketOS's motto mentions a "10 year lifecycle", which - proven by the likes of ST-Ericsson U8500 being mainlined (i.e. having the Mainline Linux kernel ported to them) - is in fact possible! On the other hand, it's a good way to dispose of old stock in a responsible way :wink:
+      </p>
+      <p>
+       <br/>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Choosing_hardware_wisely">
+        Choosing hardware wisely
+       </span>
+      </h2>
+      <p>
+       There are some chips that are known for their closed nature, likes of which are PowerVR GPUs, or MediaTek SoCs - mainly due to the lack of public documentation and lackluster Open Source codebases. While price is often a great factor, there are vendors who choose their chips solely for the purpose of building a device as Freedom-respecting as possible (such as
+       <a class="external text" href="https://puri.sm" rel="nofollow">
+        Purism
+       </a>
+       with their I.MX8MQ-powered phone). This also goes for Wi-Fi/Bluetooth chips, basebands and other components, including the smallest ones, like sound codecs.
+      </p>
+      <p>
+       <br/>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Releasing_the_source_code">
+        Releasing the source code
+       </span>
+      </h2>
+      <p>
+       The GPL2 License requires one to make the source code of a modified program available at request. Sadly, many vendors violate the license by not releasing their modified versions of the Linux kernel and sweeping it under the rug. This harms the Open Source movement, as we cannot just guess what was inside and reverse engineering a monolithic kernel is not a pretty task, even with 95% of the common source available.
+      </p>
+      <p>
+       <br/>
+      </p>
+      <p>
+       <br/>
+      </p>
+      <h2>
+       <span id="But_why?">
+       </span>
+       <span class="mw-headline" id="But_why.3F">
+        But why?
+       </span>
+      </h2>
+      <p>
+       While many for-profit companies see no use in preserving electronic devices for longer, the buyers certainly do. This plays very well with the recent Right to Repair movements, because people realize that they do not need to swap out their hardware every year or so. Apart from saving money, keeping your devices for longer is a net positive for the planet, keeping them out of landfills.
+      </p>
+     </div>
+    </div>
+    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=What_can_vendors_do_to_help&amp;oldid=20038">
+      https://wiki.postmarketos.org/index.php?title=What_can_vendors_do_to_help&amp;oldid=20038
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 19 June 2021, at 09:14.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=What_can_vendors_do_to_help&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

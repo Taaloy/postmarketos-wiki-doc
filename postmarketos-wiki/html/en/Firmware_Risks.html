@@ -1,163 +1,458 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Firmware Risks - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Firmware_Risks rootpage-Firmware_Risks skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Firmware Risks</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>There are closed source components (like firmware and bootloaders) in every phone, and <a rel="nofollow" class="external text" href="https://ollieparanoid.github.io/post/security-warning/">they are dangerous</a>. It seems next to impossible to replace them with open source components, and it won't be feasible any time soon for postmarketOS. Yet, this is an interesting topic, so this page provides links for deeper insight into the topic. For packaging instructions, see <a href="../en/Device_specific_package.html#Proprietary_firmware_or_userland_blobs" title="Device specific package">Device_specific_package#Proprietary_firmware_or_userland_blobs</a>
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#What_can_we_do.3F"><span class="tocnumber">1</span> <span class="toctext">What can we do?</span></a></li>
-<li class="toclevel-1 tocsection-2">
-<a href="#Components"><span class="tocnumber">2</span> <span class="toctext">Components</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3">
-<a href="#Bootloaders"><span class="tocnumber">2.1</span> <span class="toctext">Bootloaders</span></a>
-<ul>
-<li class="toclevel-3 tocsection-4"><a href="#hboot_.28HTC.29"><span class="tocnumber">2.1.1</span> <span class="toctext">hboot (HTC)</span></a></li>
-<li class="toclevel-3 tocsection-5"><a href="#sboot_.28Samsung.29"><span class="tocnumber">2.1.2</span> <span class="toctext">sboot (Samsung)</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2 tocsection-6"><a href="#Cellular_modems"><span class="tocnumber">2.2</span> <span class="toctext">Cellular modems</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="#Wi-Fi_modems"><span class="tocnumber">2.3</span> <span class="toctext">Wi-Fi modems</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-8"><a href="#Security_risks"><span class="tocnumber">3</span> <span class="toctext">Security risks</span></a></li>
-<li class="toclevel-1 tocsection-9"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h2>
-<span id="What_can_we_do?"></span><span class="mw-headline" id="What_can_we_do.3F">What can we do?</span>
-</h2>
-<ul>
-<li>
-<b>Binary patch security holes in firmware</b> (e.g. with <a rel="nofollow" class="external text" href="https://github.com/seemoo-lab/nexmon">nexmon</a>). This seems to be the best approach we have since there won't be open firmware for all these components any time soon.</li>
-<li>Document whether firmware is partially based on open source code and try to reverse engineer the proprietary bits, like @McBitter does for his <a href="../en/Mediatek.html" title="Mediatek">Mediatek</a> device!</li>
-<li>Document which firmware components exist in your devices</li>
-<li>Document which of these have known security issues</li>
-<li>Learn more about the circumstances, in which the security bugs can be exploited. Example: Possibly an exploit in the wifi module can only be exploited, after we loaded the wifi firmware.</li>
-<li>Use alternative components, that are plugged in via USB, and therefore do not have access to the device's memory</li>
-<li>Connect to people who know more about this topic to get more help</li>
-<li>Consider bricking insecure components through firmware security holes on purpose, just to make sure that they aren't a risk anymore.</li>
-</ul>
-<h2><span class="mw-headline" id="Components">Components</span></h2>
-<h3><span class="mw-headline" id="Bootloaders">Bootloaders</span></h3>
-<ul><li>
-<a rel="nofollow" class="external text" href="https://github.com/ucsb-seclab/BootStomp">BootStomp</a> "a bootloader vulnerability finder" (also check the references at the bottom of README.md!)
-<ul><li><a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=ThXQ4oTowUQ">34c3 talk</a></li></ul>
-</li></ul>
-<h4>
-<span id="hboot_(HTC)"></span><span class="mw-headline" id="hboot_.28HTC.29">hboot (HTC)</span>
-</h4>
-<ul>
-<li>
-<a rel="nofollow" class="external text" href="http://archive.hack.lu/2013/hacklu2013_hbootdbg.pdf">hbootdbg</a> <i>pdf presentation slides</i>
-</li>
-<li><a rel="nofollow" class="external text" href="https://github.com/unrevoked/hboot-tools">hboot-tools</a></li>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/andreiw/nexus9_demo">Nexus 9: Low level boot process analysis and demo</a> <i>nvtboot -&gt; tos -&gt; hboot -&gt; demo code</i>
-</li>
-</ul>
-<h4>
-<span id="sboot_(Samsung)"></span><span class="mw-headline" id="sboot_.28Samsung.29">sboot (Samsung)</span>
-</h4>
-<ul>
-<li><a rel="nofollow" class="external text" href="https://hexdetective.blogspot.lt/2017/02/exploiting-android-s-boot-getting.html">Arbitrary Code Exec in the Samsung Bootloader</a></li>
-<li><a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=OY7OlY0OW2Q">34c3 - eMMc hacking, or: how I fixed long-dead Galaxy S3</a></li>
-</ul>
-<h3><span class="mw-headline" id="Cellular_modems">Cellular modems</span></h3>
-<ul><li><a rel="nofollow" class="external text" href="https://osmocom.org/projects/quectel-modems/wiki">Qualcomm based cellular data modems with Linux</a></li></ul>
-<h3><span class="mw-headline" id="Wi-Fi_modems">Wi-Fi modems</span></h3>
-<ul>
-<li>
-<a rel="nofollow" class="external text" href="https://www.blackhat.com/us-17/briefings.html#broadpwn-remotely-compromising-android-and-ios-via-a-bug-in-broadcoms-wi-fi-chipsets">Broadpwn: Remotely Compromising Android and iOS via a Bug in Broadcom's Wi-Fi Chipsets</a> <small>(note: <a rel="nofollow" class="external text" href="http://boosterok.com/blog/broadpwn/">doesn't affect</a> necessarily older firmware/chips versions)</small>
-</li>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/seemoo-lab/nexmon">nexmon</a>: "Firmware Patching Framework for Broadcom/Cypress WiFi Chips that enables Monitor Mode, Frame Injection and much more"</li>
-<li>Please be careful "mainline" linux-firmware brcm blobs are <a rel="nofollow" class="external text" href="https://bugzilla.kernel.org/show_bug.cgi?id=196541">severely outdated</a>. Make sure to check <a rel="nofollow" class="external text" href="https://android.googlesource.com/platform/hardware/broadcom/wlan/+/master/bcmdhd/firmware">Google's tree</a> if handling such hardware.</li>
-</ul>
-<h2><span class="mw-headline" id="Security_risks">Security risks</span></h2>
-<ul><li>
-<a rel="nofollow" class="external text" href="https://researchcenter.paloaltonetworks.com/2014/12/coolreaper-revealed-backdoor-coolpad-android-devices/">Coolreaper</a> (<a rel="nofollow" class="external text" href="https://www.paloaltonetworks.com/apps/pan/public/downloadResource?pagePath=/content/pan/en_US/resources/research/cool-reaper">PDF report</a>), discovered in 2014, is a backdoor software that Coolpad (sixth larger manufacturer of smartphones in the world) operated and installed in their stock Android ROMs.</li></ul>
-<p>CoolReaper can perform the following tasks:
-</p>
-<ul>
-<li>Download, install, or activate any Android application without user consent or notification</li>
-<li>Clear user data, uninstall existing applications, or disable system applications</li>
-<li>Notify users of a fake over-the-air (OTA) update that doesn’t update the device, but installs unwanted applications</li>
-<li>Send or insert arbitrary SMS or MMS messages into the phone.</li>
-<li>Dial arbitrary phone numbers</li>
-<li>Upload information about device, its location, application usage, calling and SMS history to a Coolpad server</li>
-</ul>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul><li><a rel="nofollow" class="external text" href="https://github.com/ReFirmLabs/binwalk">binwalk (firmware analysis tool)</a></li></ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Firmware_Risks&amp;oldid=9399">https://wiki.postmarketos.org/index.php?title=Firmware_Risks&amp;oldid=9399</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 19 January 2020, at 20:31.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Firmware_Risks&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Firmware Risks - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Firmware_Risks rootpage-Firmware_Risks skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Firmware Risks
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       There are closed source components (like firmware and bootloaders) in every phone, and
+       <a class="external text" href="https://ollieparanoid.github.io/post/security-warning/" rel="nofollow">
+        they are dangerous
+       </a>
+       . It seems next to impossible to replace them with open source components, and it won't be feasible any time soon for postmarketOS. Yet, this is an interesting topic, so this page provides links for deeper insight into the topic. For packaging instructions, see
+       <a href="../en/Device_specific_package.html#Proprietary_firmware_or_userland_blobs" title="Device specific package">
+        Device_specific_package#Proprietary_firmware_or_userland_blobs
+       </a>
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#What_can_we_do.3F">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           What can we do?
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Components">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Components
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#Bootloaders">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             Bootloaders
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-4">
+             <a href="#hboot_.28HTC.29">
+              <span class="tocnumber">
+               2.1.1
+              </span>
+              <span class="toctext">
+               hboot (HTC)
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-5">
+             <a href="#sboot_.28Samsung.29">
+              <span class="tocnumber">
+               2.1.2
+              </span>
+              <span class="toctext">
+               sboot (Samsung)
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Cellular_modems">
+            <span class="tocnumber">
+             2.2
+            </span>
+            <span class="toctext">
+             Cellular modems
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#Wi-Fi_modems">
+            <span class="tocnumber">
+             2.3
+            </span>
+            <span class="toctext">
+             Wi-Fi modems
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-8">
+         <a href="#Security_risks">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Security risks
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-9">
+         <a href="#See_also">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span id="What_can_we_do?">
+       </span>
+       <span class="mw-headline" id="What_can_we_do.3F">
+        What can we do?
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <b>
+         Binary patch security holes in firmware
+        </b>
+        (e.g. with
+        <a class="external text" href="https://github.com/seemoo-lab/nexmon" rel="nofollow">
+         nexmon
+        </a>
+        ). This seems to be the best approach we have since there won't be open firmware for all these components any time soon.
+       </li>
+       <li>
+        Document whether firmware is partially based on open source code and try to reverse engineer the proprietary bits, like @McBitter does for his
+        <a href="../en/Mediatek.html" title="Mediatek">
+         Mediatek
+        </a>
+        device!
+       </li>
+       <li>
+        Document which firmware components exist in your devices
+       </li>
+       <li>
+        Document which of these have known security issues
+       </li>
+       <li>
+        Learn more about the circumstances, in which the security bugs can be exploited. Example: Possibly an exploit in the wifi module can only be exploited, after we loaded the wifi firmware.
+       </li>
+       <li>
+        Use alternative components, that are plugged in via USB, and therefore do not have access to the device's memory
+       </li>
+       <li>
+        Connect to people who know more about this topic to get more help
+       </li>
+       <li>
+        Consider bricking insecure components through firmware security holes on purpose, just to make sure that they aren't a risk anymore.
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Components">
+        Components
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Bootloaders">
+        Bootloaders
+       </span>
+      </h3>
+      <ul>
+       <li>
+        <a class="external text" href="https://github.com/ucsb-seclab/BootStomp" rel="nofollow">
+         BootStomp
+        </a>
+        "a bootloader vulnerability finder" (also check the references at the bottom of README.md!)
+        <ul>
+         <li>
+          <a class="external text" href="https://www.youtube.com/watch?v=ThXQ4oTowUQ" rel="nofollow">
+           34c3 talk
+          </a>
+         </li>
+        </ul>
+       </li>
+      </ul>
+      <h4>
+       <span id="hboot_(HTC)">
+       </span>
+       <span class="mw-headline" id="hboot_.28HTC.29">
+        hboot (HTC)
+       </span>
+      </h4>
+      <ul>
+       <li>
+        <a class="external text" href="http://archive.hack.lu/2013/hacklu2013_hbootdbg.pdf" rel="nofollow">
+         hbootdbg
+        </a>
+        <i>
+         pdf presentation slides
+        </i>
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/unrevoked/hboot-tools" rel="nofollow">
+         hboot-tools
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/andreiw/nexus9_demo" rel="nofollow">
+         Nexus 9: Low level boot process analysis and demo
+        </a>
+        <i>
+         nvtboot -&gt; tos -&gt; hboot -&gt; demo code
+        </i>
+       </li>
+      </ul>
+      <h4>
+       <span id="sboot_(Samsung)">
+       </span>
+       <span class="mw-headline" id="sboot_.28Samsung.29">
+        sboot (Samsung)
+       </span>
+      </h4>
+      <ul>
+       <li>
+        <a class="external text" href="https://hexdetective.blogspot.lt/2017/02/exploiting-android-s-boot-getting.html" rel="nofollow">
+         Arbitrary Code Exec in the Samsung Bootloader
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://www.youtube.com/watch?v=OY7OlY0OW2Q" rel="nofollow">
+         34c3 - eMMc hacking, or: how I fixed long-dead Galaxy S3
+        </a>
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Cellular_modems">
+        Cellular modems
+       </span>
+      </h3>
+      <ul>
+       <li>
+        <a class="external text" href="https://osmocom.org/projects/quectel-modems/wiki" rel="nofollow">
+         Qualcomm based cellular data modems with Linux
+        </a>
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Wi-Fi_modems">
+        Wi-Fi modems
+       </span>
+      </h3>
+      <ul>
+       <li>
+        <a class="external text" href="https://www.blackhat.com/us-17/briefings.html#broadpwn-remotely-compromising-android-and-ios-via-a-bug-in-broadcoms-wi-fi-chipsets" rel="nofollow">
+         Broadpwn: Remotely Compromising Android and iOS via a Bug in Broadcom's Wi-Fi Chipsets
+        </a>
+        <small>
+         (note:
+         <a class="external text" href="http://boosterok.com/blog/broadpwn/" rel="nofollow">
+          doesn't affect
+         </a>
+         necessarily older firmware/chips versions)
+        </small>
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/seemoo-lab/nexmon" rel="nofollow">
+         nexmon
+        </a>
+        : "Firmware Patching Framework for Broadcom/Cypress WiFi Chips that enables Monitor Mode, Frame Injection and much more"
+       </li>
+       <li>
+        Please be careful "mainline" linux-firmware brcm blobs are
+        <a class="external text" href="https://bugzilla.kernel.org/show_bug.cgi?id=196541" rel="nofollow">
+         severely outdated
+        </a>
+        . Make sure to check
+        <a class="external text" href="https://android.googlesource.com/platform/hardware/broadcom/wlan/+/master/bcmdhd/firmware" rel="nofollow">
+         Google's tree
+        </a>
+        if handling such hardware.
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Security_risks">
+        Security risks
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="external text" href="https://researchcenter.paloaltonetworks.com/2014/12/coolreaper-revealed-backdoor-coolpad-android-devices/" rel="nofollow">
+         Coolreaper
+        </a>
+        (
+        <a class="external text" href="https://www.paloaltonetworks.com/apps/pan/public/downloadResource?pagePath=/content/pan/en_US/resources/research/cool-reaper" rel="nofollow">
+         PDF report
+        </a>
+        ), discovered in 2014, is a backdoor software that Coolpad (sixth larger manufacturer of smartphones in the world) operated and installed in their stock Android ROMs.
+       </li>
+      </ul>
+      <p>
+       CoolReaper can perform the following tasks:
+      </p>
+      <ul>
+       <li>
+        Download, install, or activate any Android application without user consent or notification
+       </li>
+       <li>
+        Clear user data, uninstall existing applications, or disable system applications
+       </li>
+       <li>
+        Notify users of a fake over-the-air (OTA) update that doesn’t update the device, but installs unwanted applications
+       </li>
+       <li>
+        Send or insert arbitrary SMS or MMS messages into the phone.
+       </li>
+       <li>
+        Dial arbitrary phone numbers
+       </li>
+       <li>
+        Upload information about device, its location, application usage, calling and SMS history to a Coolpad server
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="external text" href="https://github.com/ReFirmLabs/binwalk" rel="nofollow">
+         binwalk (firmware analysis tool)
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Firmware_Risks&amp;oldid=9399">
+      https://wiki.postmarketos.org/index.php?title=Firmware_Risks&amp;oldid=9399
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 19 January 2020, at 20:31.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Firmware_Risks&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

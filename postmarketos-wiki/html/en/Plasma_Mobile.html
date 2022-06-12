@@ -1,142 +1,445 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Plasma Mobile - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Plasma_Mobile rootpage-Plasma_Mobile skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Plasma Mobile</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
-<caption class="" style="">Plasma Mobile</caption>
-<tbody>
-<tr class=""><td colspan="2" class="" style="text-align:center;">
-<a href="../Plasma_Mobile_homescreen.png" class="image"><img alt="Plasma Mobile homescreen." src="../Plasma_Mobile_homescreen.png" decoding="async" width="200" height="356" srcset="../Plasma_Mobile_homescreen.png 1.5x ../Plasma_Mobile_homescreen.png 2x"></a><br><span style="">Plasma Mobile homescreen.</span>
-</td></tr>
-<tr class="">
-<th scope="row" style="text-align:left;">Name</th>
-    <td class="" style="">
-Plasma Mobile</td>
-</tr>
-<tr class="">
-<th scope="row" style="text-align:left;">Graphics stack</th>
-    <td class="" style="">
-KWin on Wayland</td>
-</tr>
-<tr class="">
-<th scope="row" style="text-align:left;">Toolkit</th>
-    <td class="" style="">
-Qt 5</td>
-</tr>
-<tr><th colspan="2" class="" style="text-align:center;">In postmarketOS</th></tr>
-<tr class="">
-<th scope="row" style="text-align:left;">Package</th>
-    <td class="" style="">
-postmarketos-ui-plasma-mobile</td>
-</tr>
-<tr class="">
-<th scope="row" style="text-align:left;">Status</th>
-    <td class="" style="">
-Available</td>
-</tr>
-<tr><td colspan="2" style="text-align:right"></td></tr>
-</tbody>
-</table>
-<p>A mobile variant of the KDE Plasma <a href="../en/Category:Interface.html" title="Category:Interface">user interface</a>, optimized for touchscreen.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Installation"><span class="tocnumber">1</span> <span class="toctext">Installation</span></a></li>
-<li class="toclevel-1 tocsection-2">
-<a href="#Usage"><span class="tocnumber">2</span> <span class="toctext">Usage</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3"><a href="#First_Boot"><span class="tocnumber">2.1</span> <span class="toctext">First Boot</span></a></li>
-<li class="toclevel-2 tocsection-4">
-<a href="#Connect_to_Wi-Fi"><span class="tocnumber">2.2</span> <span class="toctext">Connect to Wi-Fi</span></a>
-<ul>
-<li class="toclevel-3 tocsection-5"><a href="#Wi-Fi_kwallet_bug_for_images_before_2021-04-01"><span class="tocnumber">2.2.1</span> <span class="toctext">Wi-Fi kwallet bug for images before 2021-04-01</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2 tocsection-6"><a href="#Install_Updates"><span class="tocnumber">2.3</span> <span class="toctext">Install Updates</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="#Running_Apps_from_SSH_session"><span class="tocnumber">2.4</span> <span class="toctext">Running Apps from SSH session</span></a></li>
-<li class="toclevel-2 tocsection-8"><a href="#Taking_screenshots"><span class="tocnumber">2.5</span> <span class="toctext">Taking screenshots</span></a></li>
-<li class="toclevel-2 tocsection-9"><a href="#Power_Off_and_Reboot"><span class="tocnumber">2.6</span> <span class="toctext">Power Off and Reboot</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-10">
-<a href="#Troubleshooting"><span class="tocnumber">3</span> <span class="toctext">Troubleshooting</span></a>
-<ul>
-<li class="toclevel-2 tocsection-11"><a href="#Scaling"><span class="tocnumber">3.1</span> <span class="toctext">Scaling</span></a></li>
-<li class="toclevel-2 tocsection-12"><a href="#Log_output"><span class="tocnumber">3.2</span> <span class="toctext">Log output</span></a></li>
-<li class="toclevel-2 tocsection-13"><a href="#Logging_isn.27t_verbose"><span class="tocnumber">3.3</span> <span class="toctext">Logging isn't verbose</span></a></li>
-<li class="toclevel-2 tocsection-14"><a href="#KWin_doesn.27t_work"><span class="tocnumber">3.4</span> <span class="toctext">KWin doesn't work</span></a></li>
-<li class="toclevel-2 tocsection-15"><a href="#Some_env_vars_that_may_help_Angelfish_browser"><span class="tocnumber">3.5</span> <span class="toctext">Some env vars that may help Angelfish browser</span></a></li>
-<li class="toclevel-2 tocsection-16"><a href="#Software_rendering"><span class="tocnumber">3.6</span> <span class="toctext">Software rendering</span></a></li>
-<li class="toclevel-2 tocsection-17"><a href="#Starting_Plasma_Mobile_from_the_Terminal"><span class="tocnumber">3.7</span> <span class="toctext">Starting Plasma Mobile from the Terminal</span></a></li>
-<li class="toclevel-2 tocsection-18"><a href="#Flickering_in_Mozilla_Firefox"><span class="tocnumber">3.8</span> <span class="toctext">Flickering in Mozilla Firefox</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h1><span class="mw-headline" id="Installation">Installation</span></h1>
-<p>Use the pre-built images from the downloads section of <a rel="nofollow" class="external text" href="https://postmarketos.org">postmarketos.org</a>, or build your own image with <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a>. If using the latter, Plasma Mobile can be installed by selecting it as the UI in <code>pmbootstrap init</code>.
-</p>
-<p>On existing systems, it can be installed by installing the <code>postmarketos-ui-plasma-mobile</code> meta package or <code>plasma-phone-components</code> if postmarketOS specific customization is not wanted.
-</p>
-<p>When running <code>pmbootstrap install</code> you'll be prompted for a user password. Make sure to only use numeric characters [0-9] in this password as the Plasma Mobile lock screen uses this password as a PIN. On an existing Plasma Mobile install you can change your user password and PIN in the Terminal with the standard <code>passwd</code> command.
-</p>
-<div class="thumb tright"><div class="thumbinner" style="width:252px;">
-<a href="../Postmarketos-pinephone-plasma-mobile-v21.03.jpg" class="image"><img alt="" src="../Postmarketos-pinephone-plasma-mobile-v21.03.jpg" decoding="async" width="250" height="167" class="thumbimage" srcset="../375px-Postmarketos-pinephone-plasma-mobile-v21.03.jpg 1.5x ../500px-Postmarketos-pinephone-plasma-mobile-v21.03.jpg 2x"></a>  <div class="thumbcaption">
-<div class="magnify"><a href="../Postmarketos-pinephone-plasma-mobile-v21.03.jpg" class="internal" title="Enlarge"></a></div>postmarketOS v21.03 with Plasma Mobile on the PinePhone</div>
-</div></div>
-<h1><span class="mw-headline" id="Usage">Usage</span></h1>
-<h2><span class="mw-headline" id="First_Boot">First Boot</span></h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">If you get stuck, head over to <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">Matrix and IRC chats</a>. <a href="../en/How_to_report_issues.html" title="How to report issues">Report issues</a>.</td>
-</tr></tbody></table>
-<p>As with all other interfaces in postmarketOS, the first boot takes longer than usual: the file system will be resized to use the entire device.
-</p>
-<p>After boot, you are asked for your PIN. For pre-built images, this is <code>147147</code>.
-</p>
-<h2><span class="mw-headline" id="Connect_to_Wi-Fi">Connect to Wi-Fi</span></h2>
-<p>Swipe the top bar down to reveal a menu with a Wifi symbol. Tapping the symbol itself will turn Wifi on or off. To connect to a network the first time, tap the Wifi word below the symbol (the one with the small down arrow next to it). Now select an access point.
-</p>
-<h3><span class="mw-headline" id="Wi-Fi_kwallet_bug_for_images_before_2021-04-01">Wi-Fi kwallet bug for images before 2021-04-01</span></h3>
-<p>When connecting to an access point with a password, due to <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1037">pmaports#1037</a>, you are required to set a kwallet password, and unfortunately the dialog is a bit awkward to navigate. Type in a password, then click the visibility button to show the password, and click OK to set it. You will be asked for this password after rebooting the phone and trying to connect to Wi-Fi again.
-</p>
-<p>Images from 2021-04-01 onwards will have the kwallet bug fixed. If you have installed an image before, run the following commands over <a href="../en/SSH.html" title="SSH">SSH</a> after successfully connecting to Wi-Fi:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> apk update
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Plasma Mobile - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Plasma_Mobile rootpage-Plasma_Mobile skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Plasma Mobile
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <table cellspacing="3" class="infobox" style="border-spacing: 3px; width:22em;">
+       <caption class="" style="">
+        Plasma Mobile
+       </caption>
+       <tbody>
+        <tr class="">
+         <td class="" colspan="2" style="text-align:center;">
+          <a class="image" href="../Plasma_Mobile_homescreen.png">
+           <img alt="Plasma Mobile homescreen." decoding="async" height="356" src="../Plasma_Mobile_homescreen.png" srcset="../Plasma_Mobile_homescreen.png 1.5x ../Plasma_Mobile_homescreen.png 2x" width="200"/>
+          </a>
+          <br/>
+          <span style="">
+           Plasma Mobile homescreen.
+          </span>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Name
+         </th>
+         <td class="" style="">
+          Plasma Mobile
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Graphics stack
+         </th>
+         <td class="" style="">
+          KWin on Wayland
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Toolkit
+         </th>
+         <td class="" style="">
+          Qt 5
+         </td>
+        </tr>
+        <tr>
+         <th class="" colspan="2" style="text-align:center;">
+          In postmarketOS
+         </th>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Package
+         </th>
+         <td class="" style="">
+          postmarketos-ui-plasma-mobile
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Status
+         </th>
+         <td class="" style="">
+          Available
+         </td>
+        </tr>
+        <tr>
+         <td colspan="2" style="text-align:right">
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       A mobile variant of the KDE Plasma
+       <a href="../en/Category:Interface.html" title="Category:Interface">
+        user interface
+       </a>
+       , optimized for touchscreen.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Installation">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Installation
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Usage">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Usage
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#First_Boot">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             First Boot
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Connect_to_Wi-Fi">
+            <span class="tocnumber">
+             2.2
+            </span>
+            <span class="toctext">
+             Connect to Wi-Fi
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-5">
+             <a href="#Wi-Fi_kwallet_bug_for_images_before_2021-04-01">
+              <span class="tocnumber">
+               2.2.1
+              </span>
+              <span class="toctext">
+               Wi-Fi kwallet bug for images before 2021-04-01
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Install_Updates">
+            <span class="tocnumber">
+             2.3
+            </span>
+            <span class="toctext">
+             Install Updates
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#Running_Apps_from_SSH_session">
+            <span class="tocnumber">
+             2.4
+            </span>
+            <span class="toctext">
+             Running Apps from SSH session
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#Taking_screenshots">
+            <span class="tocnumber">
+             2.5
+            </span>
+            <span class="toctext">
+             Taking screenshots
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-9">
+           <a href="#Power_Off_and_Reboot">
+            <span class="tocnumber">
+             2.6
+            </span>
+            <span class="toctext">
+             Power Off and Reboot
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-10">
+         <a href="#Troubleshooting">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Troubleshooting
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-11">
+           <a href="#Scaling">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             Scaling
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-12">
+           <a href="#Log_output">
+            <span class="tocnumber">
+             3.2
+            </span>
+            <span class="toctext">
+             Log output
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-13">
+           <a href="#Logging_isn.27t_verbose">
+            <span class="tocnumber">
+             3.3
+            </span>
+            <span class="toctext">
+             Logging isn't verbose
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-14">
+           <a href="#KWin_doesn.27t_work">
+            <span class="tocnumber">
+             3.4
+            </span>
+            <span class="toctext">
+             KWin doesn't work
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-15">
+           <a href="#Some_env_vars_that_may_help_Angelfish_browser">
+            <span class="tocnumber">
+             3.5
+            </span>
+            <span class="toctext">
+             Some env vars that may help Angelfish browser
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-16">
+           <a href="#Software_rendering">
+            <span class="tocnumber">
+             3.6
+            </span>
+            <span class="toctext">
+             Software rendering
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-17">
+           <a href="#Starting_Plasma_Mobile_from_the_Terminal">
+            <span class="tocnumber">
+             3.7
+            </span>
+            <span class="toctext">
+             Starting Plasma Mobile from the Terminal
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-18">
+           <a href="#Flickering_in_Mozilla_Firefox">
+            <span class="tocnumber">
+             3.8
+            </span>
+            <span class="toctext">
+             Flickering in Mozilla Firefox
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
+      <h1>
+       <span class="mw-headline" id="Installation">
+        Installation
+       </span>
+      </h1>
+      <p>
+       Use the pre-built images from the downloads section of
+       <a class="external text" href="https://postmarketos.org" rel="nofollow">
+        postmarketos.org
+       </a>
+       , or build your own image with
+       <a href="../en/Pmbootstrap.html" title="Pmbootstrap">
+        pmbootstrap
+       </a>
+       . If using the latter, Plasma Mobile can be installed by selecting it as the UI in
+       <code>
+        pmbootstrap init
+       </code>
+       .
+      </p>
+      <p>
+       On existing systems, it can be installed by installing the
+       <code>
+        postmarketos-ui-plasma-mobile
+       </code>
+       meta package or
+       <code>
+        plasma-phone-components
+       </code>
+       if postmarketOS specific customization is not wanted.
+      </p>
+      <p>
+       When running
+       <code>
+        pmbootstrap install
+       </code>
+       you'll be prompted for a user password. Make sure to only use numeric characters [0-9] in this password as the Plasma Mobile lock screen uses this password as a PIN. On an existing Plasma Mobile install you can change your user password and PIN in the Terminal with the standard
+       <code>
+        passwd
+       </code>
+       command.
+      </p>
+      <div class="thumb tright">
+       <div class="thumbinner" style="width:252px;">
+        <a class="image" href="../Postmarketos-pinephone-plasma-mobile-v21.03.jpg">
+         <img alt="" class="thumbimage" decoding="async" height="167" src="../Postmarketos-pinephone-plasma-mobile-v21.03.jpg" srcset="../375px-Postmarketos-pinephone-plasma-mobile-v21.03.jpg 1.5x ../500px-Postmarketos-pinephone-plasma-mobile-v21.03.jpg 2x" width="250"/>
+        </a>
+        <div class="thumbcaption">
+         <div class="magnify">
+          <a class="internal" href="../Postmarketos-pinephone-plasma-mobile-v21.03.jpg" title="Enlarge">
+          </a>
+         </div>
+         postmarketOS v21.03 with Plasma Mobile on the PinePhone
+        </div>
+       </div>
+      </div>
+      <h1>
+       <span class="mw-headline" id="Usage">
+        Usage
+       </span>
+      </h1>
+      <h2>
+       <span class="mw-headline" id="First_Boot">
+        First Boot
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          If you get stuck, head over to
+          <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+           Matrix and IRC chats
+          </a>
+          .
+          <a href="../en/How_to_report_issues.html" title="How to report issues">
+           Report issues
+          </a>
+          .
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       As with all other interfaces in postmarketOS, the first boot takes longer than usual: the file system will be resized to use the entire device.
+      </p>
+      <p>
+       After boot, you are asked for your PIN. For pre-built images, this is
+       <code>
+        147147
+       </code>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Connect_to_Wi-Fi">
+        Connect to Wi-Fi
+       </span>
+      </h2>
+      <p>
+       Swipe the top bar down to reveal a menu with a Wifi symbol. Tapping the symbol itself will turn Wifi on or off. To connect to a network the first time, tap the Wifi word below the symbol (the one with the small down arrow next to it). Now select an access point.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Wi-Fi_kwallet_bug_for_images_before_2021-04-01">
+        Wi-Fi kwallet bug for images before 2021-04-01
+       </span>
+      </h3>
+      <p>
+       When connecting to an access point with a password, due to
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1037" rel="nofollow">
+        pmaports#1037
+       </a>
+       , you are required to set a kwallet password, and unfortunately the dialog is a bit awkward to navigate. Type in a password, then click the visibility button to show the password, and click OK to set it. You will be asked for this password after rebooting the phone and trying to connect to Wi-Fi again.
+      </p>
+      <p>
+       Images from 2021-04-01 onwards will have the kwallet bug fixed. If you have installed an image before, run the following commands over
+       <a href="../en/SSH.html" title="SSH">
+        SSH
+       </a>
+       after successfully connecting to Wi-Fi:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> apk update
 <span class="gp">#</span> apk upgrade -a
 <span class="gp">$</span> mv ~/.local/share/kwalletd ~/.local/share/kwalletd_backup
 <span class="gp">$</span> mkdir -p ~/.local/share/kwalletd
@@ -144,86 +447,252 @@ Available</td>
 <span class="gp">#</span> cp /etc/skel/.local/share/kwalletd/kdewallet.kwl .
 <span class="gp">#</span> cp /etc/skel/.local/share/kwalletd/kdewallet.salt .
 <span class="gp">#</span> chown &lt;your user&gt;:&lt;your user&gt; kdewallet.*
-</pre></div>
-<h2><span class="mw-headline" id="Install_Updates">Install Updates</span></h2>
-<p>Go to the Home Screen (tap the bottom right X if you have an application open). Swipe from the bottom upwards to reveal the app menu and start Discover, KDE's graphical package manager frontend. When Discover asks for privileges (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1036">pmaports#1036</a>), type in your user's PIN (e.g. <code>147147</code> for pre-built images).
-</p>
-<p>Swipe from the left to center to open Discover's menu, and select the entry with the up-arrow at the very bottom (it may say "Fetching updates" or the number of updates available). From here you can perform the updates. Depending on what has been updated, you need to reboot the device afterwards for changes to take effect.
-</p>
-<h2><span class="mw-headline" id="Running_Apps_from_SSH_session">Running Apps from SSH session</span></h2>
-<p>In order to run applications on the device, you need to set up your environment similar to the environment in which the plasmashell is running:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="nb">export</span> <span class="k">$(</span>cat /proc/<span class="k">$(</span>pidof plasmashell<span class="k">)</span>/environ <span class="p">|</span> tr <span class="s1">'\0'</span> <span class="s1">'\n'</span><span class="k">)</span>
-</pre></div>
-<p>For the official KDE instructions on running Plasma Mobile, see <a rel="nofollow" class="external free" href="https://develop.kde.org/docs/plasma-mobile/running-apps/">https://develop.kde.org/docs/plasma-mobile/running-apps/</a>.
-</p>
-<h2><span class="mw-headline" id="Taking_screenshots">Taking screenshots</span></h2>
-<p>In command line:
-</p>
-<pre>qdbus org.kde.KWin /Screenshot org.kde.kwin.Screenshot.screenshotArea 0 0 1080 1920
 </pre>
-<p>qdbus-qt5 is from package qt5-qttools.
-</p>
-<h2><span class="mw-headline" id="Power_Off_and_Reboot">Power Off and Reboot</span></h2>
-<p>Hold the power button for about three seconds, then let go. Do not hold it too long, or else you will force-reboot your device. You will be presented with the options to reboot, power off or cancel. <a rel="nofollow" class="external text" href="https://invent.kde.org/plasma/plasma-phone-components/-/issues/71">plasma-phone-components#71</a> is about making this a bit more intuitive.
-</p>
-<h1><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h1>
-<h2><span class="mw-headline" id="Scaling">Scaling</span></h2>
-<p>On devices such as the <a href="../en/Samsung_Galaxy_A5_2015_(samsung-a5).html" class="mw-redirect" title="Samsung Galaxy A5 2015 (samsung-a5ulte)">Samsung_Galaxy_A5_2015_(samsung-a5ulte)</a>, <a href="../en/Samsung_Galaxy_A3_2015_(samsung-a3).html" title="Samsung Galaxy A3 2015 (samsung-a3)">Samsung_Galaxy_A3_2015_(samsung-a3)</a>, <a href="../en/BQ_Aquaris_X5_(bq-paella).html" title="BQ Aquaris X5 (bq-paella)">BQ Aquaris X5 (bq-paella)</a> or <a href="../en/Motorola_Moto_G4_Play_(motorola-harpia).html" class="mw-redirect" title="Moto G4 Play (motorola-harpia)">Moto_G4_Play_(motorola-harpia)</a>, you may need to set a custom scaling factor.
-</p>
-<p>The following sets a 2x scale factor:
-</p>
-<p><code>kscreen-doctor output.1.scale.2</code>
-</p>
-<p>If you're trying to run this from SSH session, you need to set extra env vars:
-</p>
-<p><code>XDG_RUNTIME_DIR=/run/user/10000 QT_QPA_PLATFORM=wayland kscreen-doctor output.1.scale.2</code>
-</p>
-<h2><span class="mw-headline" id="Log_output">Log output</span></h2>
-<p>Logs are written to <code>~/.cache/tinydm.log</code>.
-</p>
-<h2>
-<span id="Logging_isn't_verbose"></span><span class="mw-headline" id="Logging_isn.27t_verbose">Logging isn't verbose</span>
-</h2>
-<p>One needs to enable debug logging for certain components in <code>~/.config/QtProject/qtlogging.ini</code>. Without that, you barely see any log output. We <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/917f03d5f9f015fa9fc0be8093d87b7f21d98d4a/aports/main/postmarketos-ui-plasma-mobile/APKBUILD#L27">ship such a qtlogging.ini file</a> in <code>postmarketos-ui-plasma-mobile</code> because Plasma Mobile is relatively new and we want to be able to debug it properly.
-</p>
-<p>If the file did not get installed for you, please double check if it is there and report in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/issues/1038">1038</a>.
-</p>
-<h2>
-<span id="KWin_doesn't_work"></span><span class="mw-headline" id="KWin_doesn.27t_work">KWin doesn't work</span>
-</h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Plasma Mobile shell uses some Wayland protocols, so you can't run it on X11 in case you tried to do that.</td>
-</tr></tbody></table>
-<p>Please follow <a rel="nofollow" class="external text" href="https://blog.martin-graesslin.com/blog/2016/07/why-does-kwin_wayland-not-start/">these instructions</a> for debugging.
-</p>
-<h2><span class="mw-headline" id="Some_env_vars_that_may_help_Angelfish_browser">Some env vars that may help Angelfish browser</span></h2>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># Recommended in https://bugreports.qt.io/browse/QTBUG-80665</span>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Install_Updates">
+        Install Updates
+       </span>
+      </h2>
+      <p>
+       Go to the Home Screen (tap the bottom right X if you have an application open). Swipe from the bottom upwards to reveal the app menu and start Discover, KDE's graphical package manager frontend. When Discover asks for privileges (
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1036" rel="nofollow">
+        pmaports#1036
+       </a>
+       ), type in your user's PIN (e.g.
+       <code>
+        147147
+       </code>
+       for pre-built images).
+      </p>
+      <p>
+       Swipe from the left to center to open Discover's menu, and select the entry with the up-arrow at the very bottom (it may say "Fetching updates" or the number of updates available). From here you can perform the updates. Depending on what has been updated, you need to reboot the device afterwards for changes to take effect.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Running_Apps_from_SSH_session">
+        Running Apps from SSH session
+       </span>
+      </h2>
+      <p>
+       In order to run applications on the device, you need to set up your environment similar to the environment in which the plasmashell is running:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="nb">export</span> <span class="k">$(</span>cat /proc/<span class="k">$(</span>pidof plasmashell<span class="k">)</span>/environ <span class="p">|</span> tr <span class="s1">'\0'</span> <span class="s1">'\n'</span><span class="k">)</span>
+</pre>
+      </div>
+      <p>
+       For the official KDE instructions on running Plasma Mobile, see
+       <a class="external free" href="https://develop.kde.org/docs/plasma-mobile/running-apps/" rel="nofollow">
+        https://develop.kde.org/docs/plasma-mobile/running-apps/
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Taking_screenshots">
+        Taking screenshots
+       </span>
+      </h2>
+      <p>
+       In command line:
+      </p>
+      <pre>qdbus org.kde.KWin /Screenshot org.kde.kwin.Screenshot.screenshotArea 0 0 1080 1920
+</pre>
+      <p>
+       qdbus-qt5 is from package qt5-qttools.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Power_Off_and_Reboot">
+        Power Off and Reboot
+       </span>
+      </h2>
+      <p>
+       Hold the power button for about three seconds, then let go. Do not hold it too long, or else you will force-reboot your device. You will be presented with the options to reboot, power off or cancel.
+       <a class="external text" href="https://invent.kde.org/plasma/plasma-phone-components/-/issues/71" rel="nofollow">
+        plasma-phone-components#71
+       </a>
+       is about making this a bit more intuitive.
+      </p>
+      <h1>
+       <span class="mw-headline" id="Troubleshooting">
+        Troubleshooting
+       </span>
+      </h1>
+      <h2>
+       <span class="mw-headline" id="Scaling">
+        Scaling
+       </span>
+      </h2>
+      <p>
+       On devices such as the
+       <a class="mw-redirect" href="../en/Samsung_Galaxy_A5_2015_(samsung-a5).html" title="Samsung Galaxy A5 2015 (samsung-a5ulte)">
+        Samsung_Galaxy_A5_2015_(samsung-a5ulte)
+       </a>
+       ,
+       <a href="../en/Samsung_Galaxy_A3_2015_(samsung-a3).html" title="Samsung Galaxy A3 2015 (samsung-a3)">
+        Samsung_Galaxy_A3_2015_(samsung-a3)
+       </a>
+       ,
+       <a href="../en/BQ_Aquaris_X5_(bq-paella).html" title="BQ Aquaris X5 (bq-paella)">
+        BQ Aquaris X5 (bq-paella)
+       </a>
+       or
+       <a class="mw-redirect" href="../en/Motorola_Moto_G4_Play_(motorola-harpia).html" title="Moto G4 Play (motorola-harpia)">
+        Moto_G4_Play_(motorola-harpia)
+       </a>
+       , you may need to set a custom scaling factor.
+      </p>
+      <p>
+       The following sets a 2x scale factor:
+      </p>
+      <p>
+       <code>
+        kscreen-doctor output.1.scale.2
+       </code>
+      </p>
+      <p>
+       If you're trying to run this from SSH session, you need to set extra env vars:
+      </p>
+      <p>
+       <code>
+        XDG_RUNTIME_DIR=/run/user/10000 QT_QPA_PLATFORM=wayland kscreen-doctor output.1.scale.2
+       </code>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Log_output">
+        Log output
+       </span>
+      </h2>
+      <p>
+       Logs are written to
+       <code>
+        ~/.cache/tinydm.log
+       </code>
+       .
+      </p>
+      <h2>
+       <span id="Logging_isn't_verbose">
+       </span>
+       <span class="mw-headline" id="Logging_isn.27t_verbose">
+        Logging isn't verbose
+       </span>
+      </h2>
+      <p>
+       One needs to enable debug logging for certain components in
+       <code>
+        ~/.config/QtProject/qtlogging.ini
+       </code>
+       . Without that, you barely see any log output. We
+       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/917f03d5f9f015fa9fc0be8093d87b7f21d98d4a/aports/main/postmarketos-ui-plasma-mobile/APKBUILD#L27" rel="nofollow">
+        ship such a qtlogging.ini file
+       </a>
+       in
+       <code>
+        postmarketos-ui-plasma-mobile
+       </code>
+       because Plasma Mobile is relatively new and we want to be able to debug it properly.
+      </p>
+      <p>
+       If the file did not get installed for you, please double check if it is there and report in
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/issues/1038" rel="nofollow">
+        1038
+       </a>
+       .
+      </p>
+      <h2>
+       <span id="KWin_doesn't_work">
+       </span>
+       <span class="mw-headline" id="KWin_doesn.27t_work">
+        KWin doesn't work
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Plasma Mobile shell uses some Wayland protocols, so you can't run it on X11 in case you tried to do that.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       Please follow
+       <a class="external text" href="https://blog.martin-graesslin.com/blog/2016/07/why-does-kwin_wayland-not-start/" rel="nofollow">
+        these instructions
+       </a>
+       for debugging.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Some_env_vars_that_may_help_Angelfish_browser">
+        Some env vars that may help Angelfish browser
+       </span>
+      </h2>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="c1"># Recommended in https://bugreports.qt.io/browse/QTBUG-80665</span>
 <span class="nb">export</span> <span class="nv">QTWEBENGINE_DISABLE_GPU_THREAD</span><span class="o">=</span><span class="m">1</span>
 <span class="c1"># Flags are based on workaround for SFOS (disable-gpu-compositing) and default Android settings:</span>
 <span class="c1"># Multiple Raster Threads: Disabled</span>
 <span class="c1"># Flags enabled by Qt if enable-embedded-switches is given</span>
 <span class="nb">export</span> <span class="nv">QTWEBENGINE_CHROMIUM_FLAGS</span><span class="o">=</span><span class="s2">"--disable-gpu-compositing --num-raster-threads=1 --enable-viewport --disable-composited-antialiasing"</span>
-</pre></div>
-<p>( <a rel="nofollow" class="external text" href="https://github.com/sailfishos-flatpak/flatpak-runner/blob/a49f60f3347972eb673fc35b94c4ef1c2024297d/src/appsettings.cpp#L79">source</a> )
-</p>
-<h2><span class="mw-headline" id="Software_rendering">Software rendering</span></h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Famebuffer backend for kwin <a rel="nofollow" class="external text" href="https://invent.kde.org/plasma/kwin/-/merge_requests/1906">is now</a> <a rel="nofollow" class="external text" href="https://invent.kde.org/plasma/kwin/-/commit/994c5c24ae4857dea40c4068a34a38f210323219">dropped</a>, so this section will no longer work, presumably since plasma-5.25</td>
-</tr></tbody></table>
-<p>Plasma can also be used if your device doesn't support hardware acceleration (if it's a non-armhf device) yet by using software rendering. Please note that the interface will be slow, and it might not be usable for the average user.
-</p>
-<p>Software rendering is not enabled automatically for now. Make sure <code>mesa-dri-gallium</code> is installed (it contains swrast dri module).
-</p>
-<p>Edit kwin wrapper startup script
-</p>
-<pre>$ sudo nano /usr/bin/kwinwrapper
 </pre>
-<p>Comment out existing startplasma invocation command at the end of file and replace it with
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="nb">export</span> <span class="nv">KWIN_COMPOSE</span><span class="o">=</span>QPainter
+      </div>
+      <p>
+       (
+       <a class="external text" href="https://github.com/sailfishos-flatpak/flatpak-runner/blob/a49f60f3347972eb673fc35b94c4ef1c2024297d/src/appsettings.cpp#L79" rel="nofollow">
+        source
+       </a>
+       )
+      </p>
+      <h2>
+       <span class="mw-headline" id="Software_rendering">
+        Software rendering
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Famebuffer backend for kwin
+          <a class="external text" href="https://invent.kde.org/plasma/kwin/-/merge_requests/1906" rel="nofollow">
+           is now
+          </a>
+          <a class="external text" href="https://invent.kde.org/plasma/kwin/-/commit/994c5c24ae4857dea40c4068a34a38f210323219" rel="nofollow">
+           dropped
+          </a>
+          , so this section will no longer work, presumably since plasma-5.25
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       Plasma can also be used if your device doesn't support hardware acceleration (if it's a non-armhf device) yet by using software rendering. Please note that the interface will be slow, and it might not be usable for the average user.
+      </p>
+      <p>
+       Software rendering is not enabled automatically for now. Make sure
+       <code>
+        mesa-dri-gallium
+       </code>
+       is installed (it contains swrast dri module).
+      </p>
+      <p>
+       Edit kwin wrapper startup script
+      </p>
+      <pre>$ sudo nano /usr/bin/kwinwrapper
+</pre>
+      <p>
+       Comment out existing startplasma invocation command at the end of file and replace it with
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="nb">export</span> <span class="nv">KWIN_COMPOSE</span><span class="o">=</span>QPainter
 <span class="nb">export</span> <span class="nv">GALLIUM_DRIVER</span><span class="o">=</span>softpipe
 <span class="nb">export</span> <span class="nv">LIBGL_ALWAYS_SOFTWARE</span><span class="o">=</span><span class="m">1</span>
 
@@ -233,15 +702,19 @@ startplasma-wayland <span class="se">\</span>
         --libinput <span class="se">\</span>
         --inputmethod maliit-server <span class="se">\</span>
         --exit-with-session<span class="o">=</span>/usr/lib/libexec/startplasma-waylandsession
-</pre></div>
-<p>Then restart tinydm
-</p>
-<pre>$ sudo rc-service tinydm restart
 </pre>
-<p><br>
-You can alternatively try this script to run e.g. plasma-desktop on X11
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh</span>
+      </div>
+      <p>
+       Then restart tinydm
+      </p>
+      <pre>$ sudo rc-service tinydm restart
+</pre>
+      <p>
+       <br/>
+       You can alternatively try this script to run e.g. plasma-desktop on X11
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="ch">#!/bin/sh</span>
 
 <span class="nb">export</span> <span class="nv">KWIN_COMPOSE</span><span class="o">=</span>QPainter
 <span class="nb">export</span> <span class="nv">GALLIUM_DRIVER</span><span class="o">=</span>llvmpipe
@@ -250,13 +723,24 @@ You can alternatively try this script to run e.g. plasma-desktop on X11
 <span class="nb">export</span> <span class="nv">KIRIGAMI_LOWPOWER_HARDWARE</span><span class="o">=</span><span class="m">1</span>
 
 startx /usr/bin/startplasma-x11
-</pre></div>
-<h2><span class="mw-headline" id="Starting_Plasma_Mobile_from_the_Terminal">Starting Plasma Mobile from the Terminal</span></h2>
-<p>If <code>postmarketos-ui-plasma-mobile</code> is installed, Plasma Mobile will be automatically launched via tinydm.
-</p>
-<p>It can also be launched manually by running the following script:
-</p>
-<pre>#!/bin/sh
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Starting_Plasma_Mobile_from_the_Terminal">
+        Starting Plasma Mobile from the Terminal
+       </span>
+      </h2>
+      <p>
+       If
+       <code>
+        postmarketos-ui-plasma-mobile
+       </code>
+       is installed, Plasma Mobile will be automatically launched via tinydm.
+      </p>
+      <p>
+       It can also be launched manually by running the following script:
+      </p>
+      <pre>#!/bin/sh
 
 export QML2_IMPORT_PATH=/usr/lib/qt/qml:/usr/lib/qt5/qml
 export QT_QPA_PLATFORMTHEME=KDE
@@ -283,43 +767,108 @@ else
 	kwin_wayland --framebuffer --xwayland plasma-phone 2&gt;&amp;1 | logger -t "$(whoami):plasma-mobile"
 fi
 </pre>
-<h2><span class="mw-headline" id="Flickering_in_Mozilla_Firefox">Flickering in Mozilla Firefox</span></h2>
-<p>In case you experience flickering with the Mozilla Firefox web browser, it is because of <a rel="nofollow" class="external text" href="https://bugs.kde.org/show_bug.cgi?id=424586">a rendering bug in the browser</a>, and can be mitigated by switching to the WebRenderer rendering backend by setting <code>gfx.webrender.all</code> to <code>true</code> in the browser's <code>about:config</code> window.
-</p>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Interface.html" title="Category:Interface">Interface</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Plasma_Mobile&amp;oldid=26590">https://wiki.postmarketos.org/index.php?title=Plasma_Mobile&amp;oldid=26590</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 29 March 2022, at 11:35.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Plasma_Mobile&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <h2>
+       <span class="mw-headline" id="Flickering_in_Mozilla_Firefox">
+        Flickering in Mozilla Firefox
+       </span>
+      </h2>
+      <p>
+       In case you experience flickering with the Mozilla Firefox web browser, it is because of
+       <a class="external text" href="https://bugs.kde.org/show_bug.cgi?id=424586" rel="nofollow">
+        a rendering bug in the browser
+       </a>
+       , and can be mitigated by switching to the WebRenderer rendering backend by setting
+       <code>
+        gfx.webrender.all
+       </code>
+       to
+       <code>
+        true
+       </code>
+       in the browser's
+       <code>
+        about:config
+       </code>
+       window.
+      </p>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Interface.html" title="Category:Interface">
+         Interface
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Plasma_Mobile&amp;oldid=26590">
+      https://wiki.postmarketos.org/index.php?title=Plasma_Mobile&amp;oldid=26590
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 29 March 2022, at 11:35.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Plasma_Mobile&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

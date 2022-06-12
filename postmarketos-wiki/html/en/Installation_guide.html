@@ -1,120 +1,361 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Installation guide - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Installation_guide rootpage-Installation_guide skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Installation guide</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This page describes the generic steps for installing postmarketOS using <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a>, a special deploy and development tool. pmbootstrap installation is very flexible as it gives the user many choices, however other options are available for select devices: You can find pre-built images and on-device installers on the <a rel="nofollow" class="external text" href="https://postmarketos.org/download/">download page</a> of postmarketOS website.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Requirements"><span class="tocnumber">2</span> <span class="toctext">Requirements</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Safety_first"><span class="tocnumber">3</span> <span class="toctext">Safety first</span></a></li>
-<li class="toclevel-1 tocsection-4">
-<a href="#Initialization"><span class="tocnumber">4</span> <span class="toctext">Initialization</span></a>
-<ul>
-<li class="toclevel-2 tocsection-5"><a href="#Work_path"><span class="tocnumber">4.1</span> <span class="toctext">Work path</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#Device"><span class="tocnumber">4.2</span> <span class="toctext">Device</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="#User_interface"><span class="tocnumber">4.3</span> <span class="toctext">User interface</span></a></li>
-<li class="toclevel-2 tocsection-8"><a href="#More_questions"><span class="tocnumber">4.4</span> <span class="toctext">More questions</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-9">
-<a href="#Installation_and_flashing"><span class="tocnumber">5</span> <span class="toctext">Installation and flashing</span></a>
-<ul>
-<li class="toclevel-2 tocsection-10"><a href="#pmbootstrap_install"><span class="tocnumber">5.1</span> <span class="toctext">pmbootstrap install</span></a></li>
-<li class="toclevel-2 tocsection-11"><a href="#pmbootstrap_flash"><span class="tocnumber">5.2</span> <span class="toctext">pmbootstrap flash</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-12"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<p>If you own <a href="../en/Devices.html" title="Devices">a device which postmarketOS has been ported to</a>, this page will help you to obtain, build, and install postmarketOS to this device.
-</p>
-<p>Any commands that are expected to be entered into a terminal are prefixed with <code>$</code>. You should not enter that character, it is merely to designate that the following commands are intended to be input/executed within a terminal. For example, the following command to list contents of the current working directory, <code>ls</code>, will be mentioned on this page as:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ls
-</pre></div>
-<h2><span class="mw-headline" id="Requirements">Requirements</span></h2>
-<ul>
-<li>We assume that you are using Linux. If you don't have Linux installed, please <a rel="nofollow" class="external text" href="http://www.brianlinkletter.com/installing-debian-linux-in-a-virtualbox-virtual-machine/">set up a virtual machine with VirtualBox</a> first. Or you can use <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux">Windows subsystem for Linux (WSL)</a> (You will need this <a rel="nofollow" class="external text" href="https://devblogs.microsoft.com/commandline/connecting-usb-devices-to-wsl">USB setup guide</a>).</li>
-<li>The host operating system needs to run Linux 3.17 or newer (first kernel with getrandom syscall)</li>
-<li>A few gigabytes of free space</li>
-<li>Some devices will come with a locked bootloader, in such cases you will need to unlock it before proceeding. Check the <a href="../en/Devices.html" title="Devices">device-specific wiki page</a> for more details.</li>
-</ul>
-<h2><span class="mw-headline" id="Safety_first">Safety first</span></h2>
-<p>Beware that by following these instructions, you will <b>overwrite</b> everything that is currently on your device. You will lose all data and it might not be possible to restore the original operating system. There is a risk of hard-bricking your device, meaning it may be impossible to recover without specialist tools.
-</p>
-<p>Fortunately, most Android-based devices are fairly foolproof; even if your flashed images don't boot, you can still access the flashing mode and fix the mistakes. For details, have a look at your <a href="../en/Devices.html" title="Devices">device-specific wiki page</a>. 
-</p>
-<p><b>TL;DR: do your research, don't have important data on your device.</b>
-</p>
-<h2><span class="mw-headline" id="Initialization">Initialization</span></h2>
-<p><a href="../en/Installing_pmbootstrap.html" title="Installing pmbootstrap">Install pmbootstrap</a>, our lightweight postmarketOS development and installation tool. If you already had pmbootstrap installed make sure that it is updated to the latest version and update your files, to get the newest patches:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap pull  <span class="c1"># (only if pmbootstrap was already installed!)</span>
-</pre></div>
-<p>Then run the following in a Linux terminal:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
-</pre></div>
-<p>Make sure that when you are asked for the username, you specify something different from <i>root</i> as this will cause issues and make you unable to log in.
-</p>
-<h3><span class="mw-headline" id="Work_path">Work path</span></h3>
-<p>Make sure that the location has a few GB of space available, and that it is a relatively standard Linux filesystem (one that supports device nodes and symbolic links). Notably <i>unsupported</i> are: eCryptFS, encfs, fat, ntfs, nfs shares, tmpvs, and VirtualBox shared folders.
-</p>
-<pre>Location of the 'work' path. Multiple chroots (native, device arch, device rootfs) will be created in there.
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Installation guide - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Installation_guide rootpage-Installation_guide skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Installation guide
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       This page describes the generic steps for installing postmarketOS using
+       <a href="../en/Pmbootstrap.html" title="Pmbootstrap">
+        pmbootstrap
+       </a>
+       , a special deploy and development tool. pmbootstrap installation is very flexible as it gives the user many choices, however other options are available for select devices: You can find pre-built images and on-device installers on the
+       <a class="external text" href="https://postmarketos.org/download/" rel="nofollow">
+        download page
+       </a>
+       of postmarketOS website.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Introduction">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Introduction
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Requirements">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Requirements
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Safety_first">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Safety first
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Initialization">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Initialization
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Work_path">
+            <span class="tocnumber">
+             4.1
+            </span>
+            <span class="toctext">
+             Work path
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Device">
+            <span class="tocnumber">
+             4.2
+            </span>
+            <span class="toctext">
+             Device
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#User_interface">
+            <span class="tocnumber">
+             4.3
+            </span>
+            <span class="toctext">
+             User interface
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#More_questions">
+            <span class="tocnumber">
+             4.4
+            </span>
+            <span class="toctext">
+             More questions
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-9">
+         <a href="#Installation_and_flashing">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           Installation and flashing
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-10">
+           <a href="#pmbootstrap_install">
+            <span class="tocnumber">
+             5.1
+            </span>
+            <span class="toctext">
+             pmbootstrap install
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-11">
+           <a href="#pmbootstrap_flash">
+            <span class="tocnumber">
+             5.2
+            </span>
+            <span class="toctext">
+             pmbootstrap flash
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-12">
+         <a href="#See_also">
+          <span class="tocnumber">
+           6
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Introduction">
+        Introduction
+       </span>
+      </h2>
+      <p>
+       If you own
+       <a href="../en/Devices.html" title="Devices">
+        a device which postmarketOS has been ported to
+       </a>
+       , this page will help you to obtain, build, and install postmarketOS to this device.
+      </p>
+      <p>
+       Any commands that are expected to be entered into a terminal are prefixed with
+       <code>
+        $
+       </code>
+       . You should not enter that character, it is merely to designate that the following commands are intended to be input/executed within a terminal. For example, the following command to list contents of the current working directory,
+       <code>
+        ls
+       </code>
+       , will be mentioned on this page as:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> ls
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Requirements">
+        Requirements
+       </span>
+      </h2>
+      <ul>
+       <li>
+        We assume that you are using Linux. If you don't have Linux installed, please
+        <a class="external text" href="http://www.brianlinkletter.com/installing-debian-linux-in-a-virtualbox-virtual-machine/" rel="nofollow">
+         set up a virtual machine with VirtualBox
+        </a>
+        first. Or you can use
+        <a class="external text" href="http://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux" rel="nofollow">
+         Windows subsystem for Linux (WSL)
+        </a>
+        (You will need this
+        <a class="external text" href="https://devblogs.microsoft.com/commandline/connecting-usb-devices-to-wsl" rel="nofollow">
+         USB setup guide
+        </a>
+        ).
+       </li>
+       <li>
+        The host operating system needs to run Linux 3.17 or newer (first kernel with getrandom syscall)
+       </li>
+       <li>
+        A few gigabytes of free space
+       </li>
+       <li>
+        Some devices will come with a locked bootloader, in such cases you will need to unlock it before proceeding. Check the
+        <a href="../en/Devices.html" title="Devices">
+         device-specific wiki page
+        </a>
+        for more details.
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Safety_first">
+        Safety first
+       </span>
+      </h2>
+      <p>
+       Beware that by following these instructions, you will
+       <b>
+        overwrite
+       </b>
+       everything that is currently on your device. You will lose all data and it might not be possible to restore the original operating system. There is a risk of hard-bricking your device, meaning it may be impossible to recover without specialist tools.
+      </p>
+      <p>
+       Fortunately, most Android-based devices are fairly foolproof; even if your flashed images don't boot, you can still access the flashing mode and fix the mistakes. For details, have a look at your
+       <a href="../en/Devices.html" title="Devices">
+        device-specific wiki page
+       </a>
+       .
+      </p>
+      <p>
+       <b>
+        TL;DR: do your research, don't have important data on your device.
+       </b>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Initialization">
+        Initialization
+       </span>
+      </h2>
+      <p>
+       <a href="../en/Installing_pmbootstrap.html" title="Installing pmbootstrap">
+        Install pmbootstrap
+       </a>
+       , our lightweight postmarketOS development and installation tool. If you already had pmbootstrap installed make sure that it is updated to the latest version and update your files, to get the newest patches:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap pull  <span class="c1"># (only if pmbootstrap was already installed!)</span>
+</pre>
+      </div>
+      <p>
+       Then run the following in a Linux terminal:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap init
+</pre>
+      </div>
+      <p>
+       Make sure that when you are asked for the username, you specify something different from
+       <i>
+        root
+       </i>
+       as this will cause issues and make you unable to log in.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Work_path">
+        Work path
+       </span>
+      </h3>
+      <p>
+       Make sure that the location has a few GB of space available, and that it is a relatively standard Linux filesystem (one that supports device nodes and symbolic links). Notably
+       <i>
+        unsupported
+       </i>
+       are: eCryptFS, encfs, fat, ntfs, nfs shares, tmpvs, and VirtualBox shared folders.
+      </p>
+      <pre>Location of the 'work' path. Multiple chroots (native, device arch, device rootfs) will be created in there.
 Work path [/home/user/.local/var/pmbootstrap]:
 </pre>
-<h3><span class="mw-headline" id="Device">Device</span></h3>
-<p>Type in the vendor and code-name of your device as listed <a href="../en/Devices.html" title="Devices">here</a>, and optionally a custom username.
-</p>
-<pre>Choose your target device vendor (either an existing one, or a new one for porting).
+      <h3>
+       <span class="mw-headline" id="Device">
+        Device
+       </span>
+      </h3>
+      <p>
+       Type in the vendor and code-name of your device as listed
+       <a href="../en/Devices.html" title="Devices">
+        here
+       </a>
+       , and optionally a custom username.
+      </p>
+      <pre>Choose your target device vendor (either an existing one, or a new one for porting).
 Available vendors (50): alcatel, amazon, arrow, asus, bq, chuwi, fairphone, finepower, fly, fujitsu, google, gp, hisense, htc, huawei, infocus, jolla, leeco, lenovo, lg, medion, meizu, motorola, nextbit, nobby, nokia, oneplus, oppo, ouya, pine64, planet, purism, qemu, raspberry, samsung, semc, sharp, sony, surftab, t2m, tablet, teclast, tokio, wiko, wileyfox, wingtech, xiaomi, yu, zte, zuk
 </pre>
-<pre>Vendor [nokia]: samsung
+      <pre>Vendor [nokia]: samsung
 Available codenames (43): a3ulte, a5ulte, a5y17lte, apexq, ariesve, espresso10, expressatt, golden, gt510wifi, gts210velte, gts210vewifi, hero2lte, herolte, i747m, i8200, i9003, i9070, i9100, i9195, i927, i9305, j1mini3g, j3nxlte, jflte, klte, kminilte, kylepro, kylessopen, kylevess, lt01wifi, lt023g, maguro, manta, matissewifi, n5110, n7100, nevisp, p4wifi, royss, s6500d, serranodsdd, serranovelte, zanin
 </pre>
-<p><br>
-</p>
-<h3><span class="mw-headline" id="User_interface">User interface</span></h3>
-<p>Carefully choose the user interface you would like to install. Check your <a href="../en/Devices.html" title="Devices">device's wiki page</a> for interfaces that are known to be working with your device. Weston and XFCE4 are usable on devices which do not have hardware 3D acceleration (most of them!), the others are notably slowed down. Please read the corresponding <a href="../en/Category:Interface.html" title="Category:Interface">user interface</a> article for information about how usable each interface is and keep in mind that most of them are not that usable yet.
-</p>
-<pre>Available user interfaces (17): 
+      <p>
+       <br/>
+      </p>
+      <h3>
+       <span class="mw-headline" id="User_interface">
+        User interface
+       </span>
+      </h3>
+      <p>
+       Carefully choose the user interface you would like to install. Check your
+       <a href="../en/Devices.html" title="Devices">
+        device's wiki page
+       </a>
+       for interfaces that are known to be working with your device. Weston and XFCE4 are usable on devices which do not have hardware 3D acceleration (most of them!), the others are notably slowed down. Please read the corresponding
+       <a href="../en/Category:Interface.html" title="Category:Interface">
+        user interface
+       </a>
+       article for information about how usable each interface is and keep in mind that most of them are not that usable yet.
+      </p>
+      <pre>Available user interfaces (17): 
  * none: No graphical environment
  * asteroid: (Wayland) Smartwatch UI from AsteroidOS
  * fbkeyboard: Plain framebuffer console with touchscreen keyboard support
@@ -134,10 +375,19 @@ Available codenames (43): a3ulte, a5ulte, a5y17lte, apexq, ariesve, espresso10, 
  * weston: (Wayland) Reference compositor (demo, not a phone interface)
  * xfce4: (X11) Lightweight desktop (stylus recommended)
 </pre>
-<h3><span class="mw-headline" id="More_questions">More questions</span></h3>
-<p>Unless you know that you want to change something, it's fine to answer with the defaults here by just pressing the <code>return</code> key.
-</p>
-<pre>Build options: Parallel jobs: 3, ccache per arch: 5G
+      <h3>
+       <span class="mw-headline" id="More_questions">
+        More questions
+       </span>
+      </h3>
+      <p>
+       Unless you know that you want to change something, it's fine to answer with the defaults here by just pressing the
+       <code>
+        return
+       </code>
+       key.
+      </p>
+      <pre>Build options: Parallel jobs: 3, ccache per arch: 5G
 Change them? (y/n) [n]: 
 Additional packages that will be installed to rootfs. Specify them in a comma separated list (e.g.: vim,file) or "none"
 Extra packages [none]: 
@@ -150,108 +400,304 @@ Run 'pmbootstrap zap' to delete all chroots once a day before working with pmboo
 It only takes a few seconds, and all packages are cached.
 Done!
 </pre>
-<h2><span class="mw-headline" id="Installation_and_flashing">Installation and flashing</span></h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Not all installation and flash methods work for all devices. <b>Please check your <a href="../en/Devices.html" title="Devices">device wiki page</a> for further instructions!</b> Below you will find generic explanations of what the <code>install</code> and <code>flash</code> actions do, just in case the installation instructions are missing for your device. If that is the case, please extend the device wiki accordingly.</td>
-</tr></tbody></table>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">When running the install process, you will be prompted for a password. If your user interface doesn't allow a full keyboard at the lock screen, or you do not have a keyboard attached to your device, you should create a numeric password.</td>
-</tr></tbody></table>
-<h3><span class="mw-headline" id="pmbootstrap_install">pmbootstrap install</span></h3>
-<p>The install action essentially does the following:
-</p>
-<ul>
-<li>Build a chroot with the full installation as it will be placed on the device</li>
-<li>Copy that to an encrypted system image file</li>
-<li>Ask you for the user and encryption passwords</li>
-</ul>
-<p>Furthermore you can change the output type (system image) to something else with the following parameters.
-</p>
-<ul>
-<li>
-<code>--sdcard</code>: Format and copy everything to an SD card (use <code>lsblk</code> to figure out the correct path to your SD card)</li>
-<li>
-<code>--android-recovery-zip</code>: Create a zip file, that can be used with TWRP, CWM or other Android recovery systems (<a href="../en/Installation_from_recovery_mode.html" title="Installation from recovery mode">detailed instructions</a>)</li>
-</ul>
-<p>Example commands (only using one at a time makes sense):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install
+      <h2>
+       <span class="mw-headline" id="Installation_and_flashing">
+        Installation and flashing
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Not all installation and flash methods work for all devices.
+          <b>
+           Please check your
+           <a href="../en/Devices.html" title="Devices">
+            device wiki page
+           </a>
+           for further instructions!
+          </b>
+          Below you will find generic explanations of what the
+          <code>
+           install
+          </code>
+          and
+          <code>
+           flash
+          </code>
+          actions do, just in case the installation instructions are missing for your device. If that is the case, please extend the device wiki accordingly.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          When running the install process, you will be prompted for a password. If your user interface doesn't allow a full keyboard at the lock screen, or you do not have a keyboard attached to your device, you should create a numeric password.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h3>
+       <span class="mw-headline" id="pmbootstrap_install">
+        pmbootstrap install
+       </span>
+      </h3>
+      <p>
+       The install action essentially does the following:
+      </p>
+      <ul>
+       <li>
+        Build a chroot with the full installation as it will be placed on the device
+       </li>
+       <li>
+        Copy that to an encrypted system image file
+       </li>
+       <li>
+        Ask you for the user and encryption passwords
+       </li>
+      </ul>
+      <p>
+       Furthermore you can change the output type (system image) to something else with the following parameters.
+      </p>
+      <ul>
+       <li>
+        <code>
+         --sdcard
+        </code>
+        : Format and copy everything to an SD card (use
+        <code>
+         lsblk
+        </code>
+        to figure out the correct path to your SD card)
+       </li>
+       <li>
+        <code>
+         --android-recovery-zip
+        </code>
+        : Create a zip file, that can be used with TWRP, CWM or other Android recovery systems (
+        <a href="../en/Installation_from_recovery_mode.html" title="Installation from recovery mode">
+         detailed instructions
+        </a>
+        )
+       </li>
+      </ul>
+      <p>
+       Example commands (only using one at a time makes sense):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap install
 <span class="gp">$</span> pmbootstrap install --sdcard<span class="o">=</span>/dev/mmcblk
 <span class="gp">$</span> pmbootstrap install --android-recovery-zip
 <span class="gp">$</span> pmbootstrap install --fde
 <span class="gp">$</span> pmbootstrap install --help
-</pre></div>
-<p>If your device has a Y in the FDE column of the <a href="../en/All_devices.html" title="All devices">all devices</a> table, you can enable full disk encryption with the <code>--fde</code> parameter. To format with FDE enabled and flash directly to an SD card, use:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install --fde --sdcard<span class="o">=</span>/dev/mmcblk
-</pre></div>
-<h3><span class="mw-headline" id="pmbootstrap_flash">pmbootstrap flash</span></h3>
-<p>This command wraps various flash programs (e.g. fastboot and heimdall) with a common syntax, and automatically fills out the paths to the generated files. Usually you need to flash the system image (unless you did the SD card or recovery zip installation):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs
-</pre></div>
-<p>In case your system partition is too small for the generated image (e.g. because you chose Plasma Mobile as your UI), it is possible to flash to another partition as well. Just be sure to erase any previous installations of postmarketOS in other partitions, because the init script will start with the first one that it encounters. (To delete a previous version either use <code>fastboot format system</code> for fastboot compatible devices, or simply install the known working OS, e.g. Android, on it. And if you really know what you are doing, you might consider using <code>dd</code>). Using multiple partitions with LVM is planned (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/60">pmbootstrap#60</a>).
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs --partition userdata
-</pre></div>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Partition names are caSE_senSitive. If flashing onto a Samsung device, use <code>heimdall print-pit</code> to verify.</td>
-</tr></tbody></table>
-<p>And then you need to boot or flash the kernel (so run only one of the commands). Again, this is not necessary when you have used the recovery zip. But it is necessary in most cases with the SD card (unless the device can boot the kernel from the SD card like the N900). To boot from SD, with the device in fastboot mode (with device off, press Power + Volume Down until it enters fastboot mode), type the first line into your computer:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher boot
+</pre>
+      </div>
+      <p>
+       If your device has a Y in the FDE column of the
+       <a href="../en/All_devices.html" title="All devices">
+        all devices
+       </a>
+       table, you can enable full disk encryption with the
+       <code>
+        --fde
+       </code>
+       parameter. To format with FDE enabled and flash directly to an SD card, use:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap install --fde --sdcard<span class="o">=</span>/dev/mmcblk
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="pmbootstrap_flash">
+        pmbootstrap flash
+       </span>
+      </h3>
+      <p>
+       This command wraps various flash programs (e.g. fastboot and heimdall) with a common syntax, and automatically fills out the paths to the generated files. Usually you need to flash the system image (unless you did the SD card or recovery zip installation):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs
+</pre>
+      </div>
+      <p>
+       In case your system partition is too small for the generated image (e.g. because you chose Plasma Mobile as your UI), it is possible to flash to another partition as well. Just be sure to erase any previous installations of postmarketOS in other partitions, because the init script will start with the first one that it encounters. (To delete a previous version either use
+       <code>
+        fastboot format system
+       </code>
+       for fastboot compatible devices, or simply install the known working OS, e.g. Android, on it. And if you really know what you are doing, you might consider using
+       <code>
+        dd
+       </code>
+       ). Using multiple partitions with LVM is planned (
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/60" rel="nofollow">
+        pmbootstrap#60
+       </a>
+       ).
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs --partition userdata
+</pre>
+      </div>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Partition names are caSE_senSitive. If flashing onto a Samsung device, use
+          <code>
+           heimdall print-pit
+          </code>
+          to verify.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       And then you need to boot or flash the kernel (so run only one of the commands). Again, this is not necessary when you have used the recovery zip. But it is necessary in most cases with the SD card (unless the device can boot the kernel from the SD card like the N900). To boot from SD, with the device in fastboot mode (with device off, press Power + Volume Down until it enters fastboot mode), type the first line into your computer:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap flasher boot
 <span class="gp">$</span> pmbootstrap flasher flash_kernel
-</pre></div>
-<p>As with all <code>pmbootstrap</code> commands, you can check the help pages for details:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher --help
+</pre>
+      </div>
+      <p>
+       As with all
+       <code>
+        pmbootstrap
+       </code>
+       commands, you can check the help pages for details:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap flasher --help
 <span class="gp">$</span> pmbootstrap flasher flash_rootfs --help
-</pre></div>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul>
-<li><a href="../en/Porting_to_a_new_device.html#Alternatives_to_regular_flashing" title="Porting to a new device">Alternatives to regular flashing</a></li>
-<li><a href="../en/Existing_Alpine_installation.html" title="Existing Alpine installation">Existing Alpine installation</a></li>
-<li><a href="../en/Porting_to_a_new_device.html" title="Porting to a new device">Porting to a new device</a></li>
-<li><a rel="nofollow" class="external text" href="https://postmarketos.org/blog/2021/05/26/four-years/#pmbootstrap-the-swiss-army-knife-of-postmarketos-development">Video explaining how to use pmbootstrap to install to a device, among other things</a></li>
-<li><a href="../en/Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Installation_guide&amp;oldid=28434">https://wiki.postmarketos.org/index.php?title=Installation_guide&amp;oldid=28434</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 9 June 2022, at 14:39.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Installation_guide&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a href="../en/Porting_to_a_new_device.html#Alternatives_to_regular_flashing" title="Porting to a new device">
+         Alternatives to regular flashing
+        </a>
+       </li>
+       <li>
+        <a href="../en/Existing_Alpine_installation.html" title="Existing Alpine installation">
+         Existing Alpine installation
+        </a>
+       </li>
+       <li>
+        <a href="../en/Porting_to_a_new_device.html" title="Porting to a new device">
+         Porting to a new device
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://postmarketos.org/blog/2021/05/26/four-years/#pmbootstrap-the-swiss-army-knife-of-postmarketos-development" rel="nofollow">
+         Video explaining how to use pmbootstrap to install to a device, among other things
+        </a>
+       </li>
+       <li>
+        <a href="../en/Troubleshooting.html" title="Troubleshooting">
+         Troubleshooting
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Installation_guide&amp;oldid=28434">
+      https://wiki.postmarketos.org/index.php?title=Installation_guide&amp;oldid=28434
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 9 June 2022, at 14:39.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Installation_guide&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

@@ -1,116 +1,395 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Packaging - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Packaging rootpage-Packaging skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Packaging</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This page explains how to create packages in postmarketOS, so they can be built with the usual <code>pmbootstrap build hello-world</code>.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#General_information"><span class="tocnumber">1</span> <span class="toctext">General information</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Generate_a_template"><span class="tocnumber">2</span> <span class="toctext">Generate a template</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Packaging_git_commits"><span class="tocnumber">3</span> <span class="toctext">Packaging git commits</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#Subpackages"><span class="tocnumber">4</span> <span class="toctext">Subpackages</span></a></li>
-<li class="toclevel-1 tocsection-5">
-<a href="#OpenRC_subpackages"><span class="tocnumber">5</span> <span class="toctext">OpenRC subpackages</span></a>
-<ul>
-<li class="toclevel-2 tocsection-6"><a href="#When_to_depend_on_-openrc_subpackages"><span class="tocnumber">5.1</span> <span class="toctext">When to depend on -openrc subpackages</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-7">
-<a href="#When_should_pkgver.2Fpkgrel_get_increased.3F"><span class="tocnumber">6</span> <span class="toctext">When should pkgver/pkgrel get increased?</span></a>
-<ul>
-<li class="toclevel-2 tocsection-8"><a href="#How_to_change_versions_when_changing_a_package_multiple_times_in_one_MR.3F"><span class="tocnumber">6.1</span> <span class="toctext">How to change versions when changing a package multiple times in one MR?</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-9"><a href="#Guidelines_for_packaging_patches"><span class="tocnumber">7</span> <span class="toctext">Guidelines for packaging patches</span></a></li>
-<li class="toclevel-1 tocsection-10"><a href="#Should_my_package_be_in_postmarketOS_or_Alpine.3F"><span class="tocnumber">8</span> <span class="toctext">Should my package be in postmarketOS or Alpine?</span></a></li>
-<li class="toclevel-1 tocsection-11"><a href="#Device_specific_quirks"><span class="tocnumber">9</span> <span class="toctext">Device specific quirks</span></a></li>
-<li class="toclevel-1 tocsection-12"><a href="#Outdated_config.sub.2Fconfig.guess_from_autotools"><span class="tocnumber">10</span> <span class="toctext">Outdated config.sub/config.guess from autotools</span></a></li>
-<li class="toclevel-1 tocsection-13"><a href="#Related"><span class="tocnumber">11</span> <span class="toctext">Related</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="General_information">General information</span></h2>
-<ul>
-<li>Read the <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD_Reference">APKBUILD_Reference</a>
-</li>
-<li>Don't add <code># Contributor:</code> lines in pmaports (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/543">pmaports#543</a>)</li>
-<li>Don't copy maintainers from the other packages to packages you add (e.g. when temporarily forking them from Alpine).</li>
-<li>Use <code>pmbootstrap lint</code> to lint your package</li>
-<li>Alpine uses busybox' <code>sh</code> for building packages. Do not use bash specific features.</li>
-<li>If the software doesn't have a proper release yet, ask upstream to make a release.</li>
-</ul>
-<h2><span class="mw-headline" id="Generate_a_template">Generate a template</span></h2>
-<p>Create a template for a new package called <code>mynewpackage</code> in <code>aports/main</code>:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap newapkbuild mynewpackage
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Packaging - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Packaging rootpage-Packaging skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Packaging
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       This page explains how to create packages in postmarketOS, so they can be built with the usual
+       <code>
+        pmbootstrap build hello-world
+       </code>
+       .
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#General_information">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           General information
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Generate_a_template">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Generate a template
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Packaging_git_commits">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Packaging git commits
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Subpackages">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Subpackages
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-5">
+         <a href="#OpenRC_subpackages">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           OpenRC subpackages
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#When_to_depend_on_-openrc_subpackages">
+            <span class="tocnumber">
+             5.1
+            </span>
+            <span class="toctext">
+             When to depend on -openrc subpackages
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-7">
+         <a href="#When_should_pkgver.2Fpkgrel_get_increased.3F">
+          <span class="tocnumber">
+           6
+          </span>
+          <span class="toctext">
+           When should pkgver/pkgrel get increased?
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#How_to_change_versions_when_changing_a_package_multiple_times_in_one_MR.3F">
+            <span class="tocnumber">
+             6.1
+            </span>
+            <span class="toctext">
+             How to change versions when changing a package multiple times in one MR?
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-9">
+         <a href="#Guidelines_for_packaging_patches">
+          <span class="tocnumber">
+           7
+          </span>
+          <span class="toctext">
+           Guidelines for packaging patches
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-10">
+         <a href="#Should_my_package_be_in_postmarketOS_or_Alpine.3F">
+          <span class="tocnumber">
+           8
+          </span>
+          <span class="toctext">
+           Should my package be in postmarketOS or Alpine?
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-11">
+         <a href="#Device_specific_quirks">
+          <span class="tocnumber">
+           9
+          </span>
+          <span class="toctext">
+           Device specific quirks
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-12">
+         <a href="#Outdated_config.sub.2Fconfig.guess_from_autotools">
+          <span class="tocnumber">
+           10
+          </span>
+          <span class="toctext">
+           Outdated config.sub/config.guess from autotools
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-13">
+         <a href="#Related">
+          <span class="tocnumber">
+           11
+          </span>
+          <span class="toctext">
+           Related
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="General_information">
+        General information
+       </span>
+      </h2>
+      <ul>
+       <li>
+        Read the
+        <a class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD_Reference" rel="nofollow">
+         APKBUILD_Reference
+        </a>
+       </li>
+       <li>
+        Don't add
+        <code>
+         # Contributor:
+        </code>
+        lines in pmaports (
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/543" rel="nofollow">
+         pmaports#543
+        </a>
+        )
+       </li>
+       <li>
+        Don't copy maintainers from the other packages to packages you add (e.g. when temporarily forking them from Alpine).
+       </li>
+       <li>
+        Use
+        <code>
+         pmbootstrap lint
+        </code>
+        to lint your package
+       </li>
+       <li>
+        Alpine uses busybox'
+        <code>
+         sh
+        </code>
+        for building packages. Do not use bash specific features.
+       </li>
+       <li>
+        If the software doesn't have a proper release yet, ask upstream to make a release.
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Generate_a_template">
+        Generate a template
+       </span>
+      </h2>
+      <p>
+       Create a template for a new package called
+       <code>
+        mynewpackage
+       </code>
+       in
+       <code>
+        aports/main
+       </code>
+       :
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap newapkbuild mynewpackage
 <span class="go">[21:34:27] Create /home/user/code/pmbootstrap/aports/main/mynewpackage</span>
 <span class="go">[21:34:27] Done</span>
-</pre></div>
-<p>We pass the arguments to <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/newapkbuild">newapkbuild</a> from Alpine, which has lots of parameters to quickly customize the templates it generates. It is even possible to just specify the URL and let it download the tarball and automatically recognize the build system, package name and version:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap newapkbuild <span class="s2">"https://github.com/alpinelinux/abuild/archive/v3.1.0.tar.gz"</span>
-</pre></div>
-<p>For reference, see the full help output:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap newapkbuild -h
-</pre></div>
-<p>Remember to update the checksums after changing the sources:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap checksum hello-world
-</pre></div>
-<h2><span class="mw-headline" id="Packaging_git_commits">Packaging git commits</span></h2>
-<p>Only package git commits when necessary. Stable releases are preferred. Consider asking upstream to tag releases.
-</p>
-<ul>
-<li>
-<code>pkgver</code>: We use the following format: <code>$lastrelease_gitYYYYMMDD</code>, e.g. <code>1.0_git20171101</code> (that makes it easy to see how old the commit is and <code>apk</code> is able to upgrade the package properly when the next release, e.g. <code>1.1</code>, comes out)</li>
-<li>Save the git commit in a variable <code>_commit=....</code> and use it throughout the <code>APKBUILD</code> (e.g. in the <code>builddir</code>), so it's easy to update it.</li>
-<li>The <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD_Reference#source"><code>source</code></a> should be saved with the <code>$_commit</code> in the filename. For GitHub links, this means:</li>
-</ul>
-<pre> source="$pkgname-$_commit.tar.gz::https://github.com/ORG/NAME/archive/$_commit.tar.gz"
 </pre>
-<h2><span class="mw-headline" id="Subpackages">Subpackages</span></h2>
-<p>In some cases it's required to split up a package. For example if some files are not required unless specific software exists. With the <code>subpackages=</code> variable it's possible to define split functions that will run after the <code>package()</code> function to move specific files to
-a subpackage. Abuild provides a few helper functions that automatically do some common split operations. Some of these are <code>$pkgname-dev</code>, <code>$pkgname-doc</code>, <code>$pkgname-openrc</code> and <code>$pkgname-static</code>. The abuild output will usually contain a warning telling you
+      </div>
+      <p>
+       We pass the arguments to
+       <a class="external text" href="https://wiki.alpinelinux.org/wiki/newapkbuild" rel="nofollow">
+        newapkbuild
+       </a>
+       from Alpine, which has lots of parameters to quickly customize the templates it generates. It is even possible to just specify the URL and let it download the tarball and automatically recognize the build system, package name and version:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap newapkbuild <span class="s2">"https://github.com/alpinelinux/abuild/archive/v3.1.0.tar.gz"</span>
+</pre>
+      </div>
+      <p>
+       For reference, see the full help output:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap newapkbuild -h
+</pre>
+      </div>
+      <p>
+       Remember to update the checksums after changing the sources:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap checksum hello-world
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Packaging_git_commits">
+        Packaging git commits
+       </span>
+      </h2>
+      <p>
+       Only package git commits when necessary. Stable releases are preferred. Consider asking upstream to tag releases.
+      </p>
+      <ul>
+       <li>
+        <code>
+         pkgver
+        </code>
+        : We use the following format:
+        <code>
+         $lastrelease_gitYYYYMMDD
+        </code>
+        , e.g.
+        <code>
+         1.0_git20171101
+        </code>
+        (that makes it easy to see how old the commit is and
+        <code>
+         apk
+        </code>
+        is able to upgrade the package properly when the next release, e.g.
+        <code>
+         1.1
+        </code>
+        , comes out)
+       </li>
+       <li>
+        Save the git commit in a variable
+        <code>
+         _commit=....
+        </code>
+        and use it throughout the
+        <code>
+         APKBUILD
+        </code>
+        (e.g. in the
+        <code>
+         builddir
+        </code>
+        ), so it's easy to update it.
+       </li>
+       <li>
+        The
+        <a class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD_Reference#source" rel="nofollow">
+         <code>
+          source
+         </code>
+        </a>
+        should be saved with the
+        <code>
+         $_commit
+        </code>
+        in the filename. For GitHub links, this means:
+       </li>
+      </ul>
+      <pre> source="$pkgname-$_commit.tar.gz::https://github.com/ORG/NAME/archive/$_commit.tar.gz"
+</pre>
+      <h2>
+       <span class="mw-headline" id="Subpackages">
+        Subpackages
+       </span>
+      </h2>
+      <p>
+       In some cases it's required to split up a package. For example if some files are not required unless specific software exists. With the
+       <code>
+        subpackages=
+       </code>
+       variable it's possible to define split functions that will run after the
+       <code>
+        package()
+       </code>
+       function to move specific files to
+a subpackage. Abuild provides a few helper functions that automatically do some common split operations. Some of these are
+       <code>
+        $pkgname-dev
+       </code>
+       ,
+       <code>
+        $pkgname-doc
+       </code>
+       ,
+       <code>
+        $pkgname-openrc
+       </code>
+       and
+       <code>
+        $pkgname-static
+       </code>
+       . The abuild output will usually contain a warning telling you
 to add these subpackages when those files are detected in the main package.
-</p>
-<p>Sometimes you need to add custom subpackages, these can be defined with <code>$pkgname-coolname:functionname</code>. Here's an example:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># some variables skipped for smaller example</span>
+      </p>
+      <p>
+       Sometimes you need to add custom subpackages, these can be defined with
+       <code>
+        $pkgname-coolname:functionname
+       </code>
+       . Here's an example:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="c1"># some variables skipped for smaller example</span>
 <span class="nv">pkgname</span><span class="o">=</span>hello-world
 <span class="nv">pkgver</span><span class="o">=</span><span class="m">1</span>
 <span class="nv">arch</span><span class="o">=</span><span class="s2">"all"</span>
@@ -135,153 +414,468 @@ example<span class="o">()</span> <span class="o">{</span>
 	<span class="c1"># The amove command is a utility that basically does this but with more error checking:</span>
 	mv <span class="nv">$pkgdir</span>/usr/share/example <span class="nv">$subpkgdir</span>/usr/share/example
 <span class="o">}</span>
-</pre></div>
-<p>It's not required that the files in the split functions are installed by package() first. It's possible to create split functions that create completely independent packages by taking files from $srcdir instead of $pkgdir
-</p>
-<h2><span class="mw-headline" id="OpenRC_subpackages">OpenRC subpackages</span></h2>
-<p>Alpine Linux and postmarketOS packages that provide openrc related files should have an <code>-openrc</code> subpackage <a rel="nofollow" class="external autonumber" href="https://gitlab.alpinelinux.org/alpine/abuild/-/blob/10aa67a0cab480c9df2a050e0d102aca0cf18a02/abuild.in#L784">[1]</a>. To add such a package, just put <code>$pkgname-openrc</code> in <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD_Reference#subpackages"><code>subpackages</code></a>. abuild will then use the <a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/alpine/abuild/-/blob/10aa67a0cab480c9df2a050e0d102aca0cf18a02/abuild.in#L1943">default function</a> to split the appropriate files into the subpackage, and to install the subpackage automatically if <code>openrc</code> is installed.
-</p>
-<h3><span class="mw-headline" id="When_to_depend_on_-openrc_subpackages">When to depend on -openrc subpackages</span></h3>
-<p>OpenRC is always installed in postmarketOS, meaning the <code>-openrc</code> subpackage always gets installed automatically if the main package is installed.
-</p>
-<p>Nevertheless, packages that enable OpenRC services in their post-install scripts must depend on the <code>-openrc</code> subpackages. Only that way the order is guaranteed, otherwise the post-install script may run before the <code>-openrc</code> subpackage is installed and then fail <a rel="nofollow" class="external autonumber" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1658">[2]</a>.
-</p>
-<p>Example:
-</p>
-<p><code>postmarketos-ui-phosh</code> enables <code>iio-sensor-proxy</code> in its post-install script. Therefore it must depend on <code>iio-sensor-proxy-openrc</code>.
-</p>
-<h2>
-<span id="When_should_pkgver/pkgrel_get_increased?"></span><span class="mw-headline" id="When_should_pkgver.2Fpkgrel_get_increased.3F">When should pkgver/pkgrel get increased?</span>
-</h2>
-<p>Whenever you update a package, it must have a new version. A version consists of <code>$pkgver-r$pkgrel</code>. The <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD_Reference">APKBUILD_Reference</a> says:
-</p>
-<ul>
-<li>
-<code>pkgver</code>: The version of the software being packaged.</li>
-<li>
-<code>pkgrel</code>: Alpine/postmarketOS package release number. Starts at 0 (zero). Always increment <code>pkgrel</code> when making updates to an aport; reset <code>pkgrel</code> to 0 (zero) when incrementing <code>pkgver</code>.</li>
-</ul>
-<p>As a general rule, whenever a change is made to upstream sources, pkgver should be increased.
+</pre>
+      </div>
+      <p>
+       It's not required that the files in the split functions are installed by package() first. It's possible to create split functions that create completely independent packages by taking files from $srcdir instead of $pkgdir
+      </p>
+      <h2>
+       <span class="mw-headline" id="OpenRC_subpackages">
+        OpenRC subpackages
+       </span>
+      </h2>
+      <p>
+       Alpine Linux and postmarketOS packages that provide openrc related files should have an
+       <code>
+        -openrc
+       </code>
+       subpackage
+       <a class="external autonumber" href="https://gitlab.alpinelinux.org/alpine/abuild/-/blob/10aa67a0cab480c9df2a050e0d102aca0cf18a02/abuild.in#L784" rel="nofollow">
+        [1]
+       </a>
+       . To add such a package, just put
+       <code>
+        $pkgname-openrc
+       </code>
+       in
+       <a class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD_Reference#subpackages" rel="nofollow">
+        <code>
+         subpackages
+        </code>
+       </a>
+       . abuild will then use the
+       <a class="external text" href="https://gitlab.alpinelinux.org/alpine/abuild/-/blob/10aa67a0cab480c9df2a050e0d102aca0cf18a02/abuild.in#L1943" rel="nofollow">
+        default function
+       </a>
+       to split the appropriate files into the subpackage, and to install the subpackage automatically if
+       <code>
+        openrc
+       </code>
+       is installed.
+      </p>
+      <h3>
+       <span class="mw-headline" id="When_to_depend_on_-openrc_subpackages">
+        When to depend on -openrc subpackages
+       </span>
+      </h3>
+      <p>
+       OpenRC is always installed in postmarketOS, meaning the
+       <code>
+        -openrc
+       </code>
+       subpackage always gets installed automatically if the main package is installed.
+      </p>
+      <p>
+       Nevertheless, packages that enable OpenRC services in their post-install scripts must depend on the
+       <code>
+        -openrc
+       </code>
+       subpackages. Only that way the order is guaranteed, otherwise the post-install script may run before the
+       <code>
+        -openrc
+       </code>
+       subpackage is installed and then fail
+       <a class="external autonumber" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1658" rel="nofollow">
+        [2]
+       </a>
+       .
+      </p>
+      <p>
+       Example:
+      </p>
+      <p>
+       <code>
+        postmarketos-ui-phosh
+       </code>
+       enables
+       <code>
+        iio-sensor-proxy
+       </code>
+       in its post-install script. Therefore it must depend on
+       <code>
+        iio-sensor-proxy-openrc
+       </code>
+       .
+      </p>
+      <h2>
+       <span id="When_should_pkgver/pkgrel_get_increased?">
+       </span>
+       <span class="mw-headline" id="When_should_pkgver.2Fpkgrel_get_increased.3F">
+        When should pkgver/pkgrel get increased?
+       </span>
+      </h2>
+      <p>
+       Whenever you update a package, it must have a new version. A version consists of
+       <code>
+        $pkgver-r$pkgrel
+       </code>
+       . The
+       <a class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD_Reference" rel="nofollow">
+        APKBUILD_Reference
+       </a>
+       says:
+      </p>
+      <ul>
+       <li>
+        <code>
+         pkgver
+        </code>
+        : The version of the software being packaged.
+       </li>
+       <li>
+        <code>
+         pkgrel
+        </code>
+        : Alpine/postmarketOS package release number. Starts at 0 (zero). Always increment
+        <code>
+         pkgrel
+        </code>
+        when making updates to an aport; reset
+        <code>
+         pkgrel
+        </code>
+        to 0 (zero) when incrementing
+        <code>
+         pkgver
+        </code>
+        .
+       </li>
+      </ul>
+      <p>
+       As a general rule, whenever a change is made to upstream sources, pkgver should be increased.
 When packaging-related files (APKBUILD, any post-install scripts, patch files to upstream sources, etc) are changed, pkgrel should be increased.
-</p>
-<p>Edge cases are packages without upstream sources (e.g. main/postmarketos-base), where the source files are included in the package directory.
+      </p>
+      <p>
+       Edge cases are packages without upstream sources (e.g. main/postmarketos-base), where the source files are included in the package directory.
 In those cases, the packaged sources should be treated as upstream sources, and the pkgver should increase when they are edited.
-</p>
-<p>Other special cases, where this is not so obvious:
-</p>
-<ul>
-<li>
-<code>linux-*</code> packages: We always set the <code>pkgver</code> to the kernel version number and only increase it when the kernel source code has a new version number. All kernel config changes only increase the <code>pkgrel</code> number. In the case, that the linux kernel sources need to be updated, but the kernel version was not changed (Android kernel forks often do this), we can add a <code>_gitYYYYMMDD</code> suffix (see "Packaging git commits" above).</li>
-<li>
-<code>device-*</code> packages: This was not done consistently in the past, but it makes sense to update the <code>pkgver</code> when anything but the <code>APKBUILD</code> was changed. Because that is essentially the version of the software being packaged.</li>
-</ul>
-<h3>
-<span id="How_to_change_versions_when_changing_a_package_multiple_times_in_one_MR?"></span><span class="mw-headline" id="How_to_change_versions_when_changing_a_package_multiple_times_in_one_MR.3F">How to change versions when changing a package multiple times in one MR?</span>
-</h3>
-<p>Each commit that changes an apkbuild has to increase pkgver/rel. So it should be fine if pkgrel in a single MR changed several times from -r1 to -r4 for example. (See <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1463">pmaports#1463</a>.)
-</p>
-<p>Note that CI currently expects the pkgrel to release by one in a MR, use <a href="../en/CI_tags.html" title="CI tags">CI tag</a> <code>[ci:skip-vercheck]</code> in the commit message of the last commit if it was increased multiple times. Creating a patch to fix this in CI scripts and editing this wiki page afterwards is welcome.
-</p>
-<h2><span class="mw-headline" id="Guidelines_for_packaging_patches">Guidelines for packaging patches</span></h2>
-<ul>
-<li>The release branches (v21.03 etc.) should be a snapshot of edge (master branch), therefore all patches that are desired on release branches need to be on edge too.</li>
-<li>The maintenance effort for patches must be reasonable.</li>
-<li>Patches must align with our <a href="../en/About_postmarketOS.html#Principles" title="About postmarketOS">principles</a>.
-<ul><li>Having patches that make software align to our principles are desired, even if they cannot be upstreamed.</li></ul>
-</li>
-<li>Device specific patches/hacks should be contained in the device package, if possible. Or self-contained and affect only the patched package, if possible.</li>
-<li>Upstream patches (if they can be upstreamed) as we add them to <a href="../en/Pmaports.git.html" class="mw-redirect" title="Pmaports">pmaports</a>. Link to where the patch is being upstreamed in the packaged patch.</li>
-<li>Each patch must have a meaningful description (explanation what it does and why it is needed).</li>
-</ul>
-<h2>
-<span id="Should_my_package_be_in_postmarketOS_or_Alpine?"></span><span class="mw-headline" id="Should_my_package_be_in_postmarketOS_or_Alpine.3F">Should my package be in postmarketOS or Alpine?</span>
-</h2>
-<p>You should submit to and maintain your package in Alpine's <a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/alpine/aports/">aports</a> instead of postmarketOS if possible, so more people can use it.
-</p>
-<p>Exceptions:
-</p>
-<ul>
-<li>packages that are needed for postmarketOS and will not get accepted in Alpine (example: anbox-image)</li>
-<li>packages that override configs from alpine (usually these go in postmarketos-* packages)</li>
-<li>packages with postmarketOS branding (e.g. mobile-config-firefox mentions pmOS on the start page)</li>
-<li>packages with postmarketOS specific hooks (osk-sdl triggers initramfs rebuild)</li>
-<li>packages that define services to get enabled (usually in postmarketos-ui-* packages)</li>
-<li>cross compiler related / old gcc versions (everything in cross/, see <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/551">pmaports#551</a>)</li>
-<li>packages starting with: device-*, linux-*, firmware-*, soc-* (everything in device/)</li>
-<li>device specific forks of packages (e.g. u-boot)</li>
-<li>when upstreaming a package to alpine means it can't be moved out of aports/testing (e.g. crust depends on cross compiler pkg from testing)</li>
-<li>packages used in pmOS testsuites (main/hello-world*)</li>
-</ul>
-<p>Note that packages are initially submitted to the "testing" dir of Alpine's aports, and as soon as they are built and tested, you are expected to make another merge request that moves the package to the "community" dir. This is also important for postmarketOS, because without having your package in "community", it will not become available in the stable releases of Alpine.
-</p>
-<h2><span class="mw-headline" id="Device_specific_quirks">Device specific quirks</span></h2>
-<p>Device specific quirks should be in <a href="../en/Device_specific_package.html" title="Device specific package">device specific packages</a>, if they only affect one device. If they affect more than one device:
-</p>
-<ul>
-<li>udev rules:
-<ul>
-<li>since they only run on specific kernel modules, they are unlikely to cause problems with other devices that don't need them</li>
-<li>so as long as they don't cause problems with devices that don't need the quirk, put them in postmarketos-base</li>
-<li>this is consistent with how udev rules are done in general, by other packages (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2300#note_620921930">example</a>)</li>
-<li>we decided for now that it's not worth the overhead of creating a separate (sub)package for these lighweight udev rules</li>
-</ul>
-</li>
-<li>for other quirks: a subpackage (postmarketos-quirks-... or devicepkg-quirk-...? see <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1149">pmaports#1149</a>)
-<ul>
-<li>at time of writing, this is just a proposal</li>
-<li>create a quirks package, and one subpackage per quirk</li>
-<li>let other devices that need them depend on these quirks</li>
-<li>(nothing depends on the main quirks package)</li>
-</ul>
-</li>
-</ul>
-<h2>
-<span id="Outdated_config.sub/config.guess_from_autotools"></span><span class="mw-headline" id="Outdated_config.sub.2Fconfig.guess_from_autotools">Outdated config.sub/config.guess from autotools</span>
-</h2>
-<p>In case the <code>config.sub</code> or <code>config.guess</code> are outdated, change the APKBUILD's prepare block to the following:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>prepare<span class="o">()</span> <span class="o">{</span>
+      </p>
+      <p>
+       Other special cases, where this is not so obvious:
+      </p>
+      <ul>
+       <li>
+        <code>
+         linux-*
+        </code>
+        packages: We always set the
+        <code>
+         pkgver
+        </code>
+        to the kernel version number and only increase it when the kernel source code has a new version number. All kernel config changes only increase the
+        <code>
+         pkgrel
+        </code>
+        number. In the case, that the linux kernel sources need to be updated, but the kernel version was not changed (Android kernel forks often do this), we can add a
+        <code>
+         _gitYYYYMMDD
+        </code>
+        suffix (see "Packaging git commits" above).
+       </li>
+       <li>
+        <code>
+         device-*
+        </code>
+        packages: This was not done consistently in the past, but it makes sense to update the
+        <code>
+         pkgver
+        </code>
+        when anything but the
+        <code>
+         APKBUILD
+        </code>
+        was changed. Because that is essentially the version of the software being packaged.
+       </li>
+      </ul>
+      <h3>
+       <span id="How_to_change_versions_when_changing_a_package_multiple_times_in_one_MR?">
+       </span>
+       <span class="mw-headline" id="How_to_change_versions_when_changing_a_package_multiple_times_in_one_MR.3F">
+        How to change versions when changing a package multiple times in one MR?
+       </span>
+      </h3>
+      <p>
+       Each commit that changes an apkbuild has to increase pkgver/rel. So it should be fine if pkgrel in a single MR changed several times from -r1 to -r4 for example. (See
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1463" rel="nofollow">
+        pmaports#1463
+       </a>
+       .)
+      </p>
+      <p>
+       Note that CI currently expects the pkgrel to release by one in a MR, use
+       <a href="../en/CI_tags.html" title="CI tags">
+        CI tag
+       </a>
+       <code>
+        [ci:skip-vercheck]
+       </code>
+       in the commit message of the last commit if it was increased multiple times. Creating a patch to fix this in CI scripts and editing this wiki page afterwards is welcome.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Guidelines_for_packaging_patches">
+        Guidelines for packaging patches
+       </span>
+      </h2>
+      <ul>
+       <li>
+        The release branches (v21.03 etc.) should be a snapshot of edge (master branch), therefore all patches that are desired on release branches need to be on edge too.
+       </li>
+       <li>
+        The maintenance effort for patches must be reasonable.
+       </li>
+       <li>
+        Patches must align with our
+        <a href="../en/About_postmarketOS.html#Principles" title="About postmarketOS">
+         principles
+        </a>
+        .
+        <ul>
+         <li>
+          Having patches that make software align to our principles are desired, even if they cannot be upstreamed.
+         </li>
+        </ul>
+       </li>
+       <li>
+        Device specific patches/hacks should be contained in the device package, if possible. Or self-contained and affect only the patched package, if possible.
+       </li>
+       <li>
+        Upstream patches (if they can be upstreamed) as we add them to
+        <a class="mw-redirect" href="../en/Pmaports.git.html" title="Pmaports">
+         pmaports
+        </a>
+        . Link to where the patch is being upstreamed in the packaged patch.
+       </li>
+       <li>
+        Each patch must have a meaningful description (explanation what it does and why it is needed).
+       </li>
+      </ul>
+      <h2>
+       <span id="Should_my_package_be_in_postmarketOS_or_Alpine?">
+       </span>
+       <span class="mw-headline" id="Should_my_package_be_in_postmarketOS_or_Alpine.3F">
+        Should my package be in postmarketOS or Alpine?
+       </span>
+      </h2>
+      <p>
+       You should submit to and maintain your package in Alpine's
+       <a class="external text" href="https://gitlab.alpinelinux.org/alpine/aports/" rel="nofollow">
+        aports
+       </a>
+       instead of postmarketOS if possible, so more people can use it.
+      </p>
+      <p>
+       Exceptions:
+      </p>
+      <ul>
+       <li>
+        packages that are needed for postmarketOS and will not get accepted in Alpine (example: anbox-image)
+       </li>
+       <li>
+        packages that override configs from alpine (usually these go in postmarketos-* packages)
+       </li>
+       <li>
+        packages with postmarketOS branding (e.g. mobile-config-firefox mentions pmOS on the start page)
+       </li>
+       <li>
+        packages with postmarketOS specific hooks (osk-sdl triggers initramfs rebuild)
+       </li>
+       <li>
+        packages that define services to get enabled (usually in postmarketos-ui-* packages)
+       </li>
+       <li>
+        cross compiler related / old gcc versions (everything in cross/, see
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/551" rel="nofollow">
+         pmaports#551
+        </a>
+        )
+       </li>
+       <li>
+        packages starting with: device-*, linux-*, firmware-*, soc-* (everything in device/)
+       </li>
+       <li>
+        device specific forks of packages (e.g. u-boot)
+       </li>
+       <li>
+        when upstreaming a package to alpine means it can't be moved out of aports/testing (e.g. crust depends on cross compiler pkg from testing)
+       </li>
+       <li>
+        packages used in pmOS testsuites (main/hello-world*)
+       </li>
+      </ul>
+      <p>
+       Note that packages are initially submitted to the "testing" dir of Alpine's aports, and as soon as they are built and tested, you are expected to make another merge request that moves the package to the "community" dir. This is also important for postmarketOS, because without having your package in "community", it will not become available in the stable releases of Alpine.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Device_specific_quirks">
+        Device specific quirks
+       </span>
+      </h2>
+      <p>
+       Device specific quirks should be in
+       <a href="../en/Device_specific_package.html" title="Device specific package">
+        device specific packages
+       </a>
+       , if they only affect one device. If they affect more than one device:
+      </p>
+      <ul>
+       <li>
+        udev rules:
+        <ul>
+         <li>
+          since they only run on specific kernel modules, they are unlikely to cause problems with other devices that don't need them
+         </li>
+         <li>
+          so as long as they don't cause problems with devices that don't need the quirk, put them in postmarketos-base
+         </li>
+         <li>
+          this is consistent with how udev rules are done in general, by other packages (
+          <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2300#note_620921930" rel="nofollow">
+           example
+          </a>
+          )
+         </li>
+         <li>
+          we decided for now that it's not worth the overhead of creating a separate (sub)package for these lighweight udev rules
+         </li>
+        </ul>
+       </li>
+       <li>
+        for other quirks: a subpackage (postmarketos-quirks-... or devicepkg-quirk-...? see
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1149" rel="nofollow">
+         pmaports#1149
+        </a>
+        )
+        <ul>
+         <li>
+          at time of writing, this is just a proposal
+         </li>
+         <li>
+          create a quirks package, and one subpackage per quirk
+         </li>
+         <li>
+          let other devices that need them depend on these quirks
+         </li>
+         <li>
+          (nothing depends on the main quirks package)
+         </li>
+        </ul>
+       </li>
+      </ul>
+      <h2>
+       <span id="Outdated_config.sub/config.guess_from_autotools">
+       </span>
+       <span class="mw-headline" id="Outdated_config.sub.2Fconfig.guess_from_autotools">
+        Outdated config.sub/config.guess from autotools
+       </span>
+      </h2>
+      <p>
+       In case the
+       <code>
+        config.sub
+       </code>
+       or
+       <code>
+        config.guess
+       </code>
+       are outdated, change the APKBUILD's prepare block to the following:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span>prepare<span class="o">()</span> <span class="o">{</span>
 	default_prepare
 	update_config_sub
 	update_config_guess
 <span class="o">}</span>
-</pre></div>
-<h2><span class="mw-headline" id="Related">Related</span></h2>
-<ul><li><a href="../en/Patching.html" class="mw-redirect" title="How to create a patch when packaging software">How to create a patch when packaging software</a></li></ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Packaging&amp;oldid=27396">https://wiki.postmarketos.org/index.php?title=Packaging&amp;oldid=27396</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 4 May 2022, at 05:58.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Packaging&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Related">
+        Related
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="mw-redirect" href="../en/Patching.html" title="How to create a patch when packaging software">
+         How to create a patch when packaging software
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Packaging&amp;oldid=27396">
+      https://wiki.postmarketos.org/index.php?title=Packaging&amp;oldid=27396
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 4 May 2022, at 05:58.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Packaging&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

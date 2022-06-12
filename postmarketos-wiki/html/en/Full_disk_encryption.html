@@ -1,108 +1,226 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Full disk encryption - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Full_disk_encryption rootpage-Full_disk_encryption skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Full disk encryption</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>Also known as FDE for short.
-</p>
-<p>If your device has a <code>Y</code> in the FDE column of the <a href="../en/All_devices.html" title="All devices">all devices</a> table, you can enable full disk encryption with the <code>--fde</code> parameter.
-</p>
-<p>Needs to be ported to devices individually following this <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/Osk-sdl#Porting_to_New_Devices">https://wiki.postmarketos.org/wiki/Osk-sdl#Porting_to_New_Devices</a>
-</p>
-<h2><span class="mw-headline" id="Changing_Luks_Password">Changing Luks Password</span></h2>
-<p>To change your luks password, connect your phone's storage medium to a Linux computer with <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;"><a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/packages?name=cryptsetup&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=">cryptsetup</a></span> installed.
-</p>
-<p>Run the following command:
-</p>
-<p><code>
-sudo cryptsetup luksChangeKey &lt;target-device&gt; -S 0
-</code>
-</p>
-<p>I can get the target device by running the <code>lsblk</code> command. For example, if my storage medium's partition table looked like:
-</p>
-<p><code>
-sde                  8:64   1  14.7G  0 disk
-</code></p>
-<p><code>├─sde1               8:65   1   110M  0 part
-</code></p>
-<p><code>└─sde2               8:66   1  14.6G  0 part
-</code>
-</p>
-<p>To change my password, I would run:
-</p>
-<p><code>
-sudo cryptsetup luksChangeKey /dev/sde2 -S 0
-</code>
-</p>
-<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
-<h3><span class="mw-headline" id="Blank_screen">Blank screen</span></h3>
-<p>Touchscreen works but you can't see what you are typing. Use a keyboard and an OTG cable to enter the password and unlock it. You can also see the phone is still alive by switching with <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Ctrl</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Alt</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">F1</span> ~ <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">F6</span>. FDE prompt is usually on second console(F2).
-</p>
-<p>Install <code>msm-fb-refresher</code> to solve the issue:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> apk add msm-fb-refresher
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Full disk encryption - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Full_disk_encryption rootpage-Full_disk_encryption skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Full disk encryption
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       Also known as FDE for short.
+      </p>
+      <p>
+       If your device has a
+       <code>
+        Y
+       </code>
+       in the FDE column of the
+       <a href="../en/All_devices.html" title="All devices">
+        all devices
+       </a>
+       table, you can enable full disk encryption with the
+       <code>
+        --fde
+       </code>
+       parameter.
+      </p>
+      <p>
+       Needs to be ported to devices individually following this
+       <a class="external free" href="https://wiki.postmarketos.org/wiki/Osk-sdl#Porting_to_New_Devices" rel="nofollow">
+        https://wiki.postmarketos.org/wiki/Osk-sdl#Porting_to_New_Devices
+       </a>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Changing_Luks_Password">
+        Changing Luks Password
+       </span>
+      </h2>
+      <p>
+       To change your luks password, connect your phone's storage medium to a Linux computer with
+       <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;">
+        <a class="external text" href="https://pkgs.alpinelinux.org/packages?name=cryptsetup&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=" rel="nofollow">
+         cryptsetup
+        </a>
+       </span>
+       installed.
+      </p>
+      <p>
+       Run the following command:
+      </p>
+      <p>
+       <code>
+        sudo cryptsetup luksChangeKey &lt;target-device&gt; -S 0
+       </code>
+      </p>
+      <p>
+       I can get the target device by running the
+       <code>
+        lsblk
+       </code>
+       command. For example, if my storage medium's partition table looked like:
+      </p>
+      <p>
+       <code>
+        sde                  8:64   1  14.7G  0 disk
+       </code>
+      </p>
+      <p>
+       <code>
+        ├─sde1               8:65   1   110M  0 part
+       </code>
+      </p>
+      <p>
+       <code>
+        └─sde2               8:66   1  14.6G  0 part
+       </code>
+      </p>
+      <p>
+       To change my password, I would run:
+      </p>
+      <p>
+       <code>
+        sudo cryptsetup luksChangeKey /dev/sde2 -S 0
+       </code>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Troubleshooting">
+        Troubleshooting
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Blank_screen">
+        Blank screen
+       </span>
+      </h3>
+      <p>
+       Touchscreen works but you can't see what you are typing. Use a keyboard and an OTG cable to enter the password and unlock it. You can also see the phone is still alive by switching with
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        Ctrl
+       </span>
+       +
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        Alt
+       </span>
+       +
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        F1
+       </span>
+       ~
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        F6
+       </span>
+       . FDE prompt is usually on second console(F2).
+      </p>
+      <p>
+       Install
+       <code>
+        msm-fb-refresher
+       </code>
+       to solve the issue:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> apk add msm-fb-refresher
 <span class="gp">#</span> mkinitfs
-</pre></div>
-</div></div>
-		
-		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Full_disk_encryption&amp;oldid=24655">https://wiki.postmarketos.org/index.php?title=Full_disk_encryption&amp;oldid=24655</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 31 December 2021, at 16:41.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Full_disk_encryption&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+     </div>
+    </div>
+    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Full_disk_encryption&amp;oldid=24655">
+      https://wiki.postmarketos.org/index.php?title=Full_disk_encryption&amp;oldid=24655
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 31 December 2021, at 16:41.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Full_disk_encryption&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

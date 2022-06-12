@@ -1,98 +1,231 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Unl0kr - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Unl0kr rootpage-Unl0kr skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Unl0kr</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>Unl0kr is an experimental disk unlocker UI aiming to eventually replace <a href="../en/Osk-sdl.html" title="Osk-sdl">Osk-sdl</a>. It is written in C using LVGL and runs on the Linux framebuffer without hardware acceleration.
-</p>
-<p>By itself unl0kr doesn't actually perform any unlocking. Instead it uses the so called "keyscript mode" in which the entered password is piped through STDOUT into the actual unlocking program. The unl0kr package in pmOS's aports implements the latter as a shell script.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Installation"><span class="tocnumber">1</span> <span class="toctext">Installation</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Running_outside_the_initramfs"><span class="tocnumber">2</span> <span class="toctext">Running outside the initramfs</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Configuration"><span class="tocnumber">3</span> <span class="toctext">Configuration</span></a></li>
-<li class="toclevel-1 tocsection-4">
-<a href="#Troubleshooting"><span class="tocnumber">4</span> <span class="toctext">Troubleshooting</span></a>
-<ul>
-<li class="toclevel-2 tocsection-5"><a href="#Input_devices_are_not_working"><span class="tocnumber">4.1</span> <span class="toctext">Input devices are not working</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-6"><a href="#Reporting_issues"><span class="tocnumber">5</span> <span class="toctext">Reporting issues</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">
-Unl0kr conflicts with osk-sdl and you won't be able to install both at the same time</td>
-</tr></tbody></table>
-<p>The unl0kr package is part of pmOS's aports directory. When installing pmOS, you can select unl0kr over osk-sdl via
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install --fde --add unl0kr
-</pre></div>
-<p>Alternatively, you may also install unl0kr into a running system with apk. Installing the package automatically triggers regeneration of the initramfs.
-</p>
-<h2><span class="mw-headline" id="Running_outside_the_initramfs">Running outside the initramfs</span></h2>
-<p>For testing purposes, you can run unl0kr outside the boot process. Simply switch to a TTY (e.g. with chvt) and run
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo unl0kr
-</pre></div>
-<p>As mentioned above, unl0kr only prints the entered password to STDOUT so this won't actually do anything to your disks.
-</p>
-<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
-<p>Unl0kr's configuration file resides in /etc/unl0kr.conf. There is currently no documentation for the existing options but you may refer to the <a rel="nofollow" class="external text" href="https://gitlab.com/cherrypicker/unl0kr/-/blob/master/unl0kr.conf">example config</a> for inspiration.
-</p>
-<p>Among others, a number of built-in UI themes can be selected through the config file. For screenshots of the currently available themes see <a rel="nofollow" class="external text" href="https://gitlab.com/cherrypicker/unl0kr/-/tree/master/screenshots">here</a>.
-</p>
-<p>To verify the effect of changing config options, you can run unl0kr manually from a TTY as described in the "Running outside the initramfs" section. To actually apply the changes during boot, you need to regenerate the initramfs.
-</p>
-<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
-<p>The initramfs environment in which unl0kr runs during boot is notably different from your normal system environment. Therefore, the first step in verifying whether unl0kr works on your system is to run it <i>outside</i> the initramfs as described in the "Running outside the initramfs" section. If it doesn't work there, it won't work during boot either.
-</p>
-<p>If you've verified that unl0kr runs outside the initramfs but it still fails during boot, you can use the <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">debug-shell</a> to debug the initramfs environment.
-</p>
-<h3><span class="mw-headline" id="Input_devices_are_not_working">Input devices are not working</span></h3>
-<p>The debug-shell ships with several tools you may use for debugging input devices. Unl0kr uses libinput which relies on udev and wraps around the input device handling provided by evdev / the kernel.
-</p>
-<p>As a first step, you can use evtest to list and test the input devices made available by the kernel. If your devices don't show up here, your kernel likely isn't configured correctly.
-</p>
-<p>Afterwards, to verify that the devices have been set up correctly for use with libinput, you can use the eponymous program.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> libinput list-devices
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Unl0kr - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Unl0kr rootpage-Unl0kr skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Unl0kr
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       Unl0kr is an experimental disk unlocker UI aiming to eventually replace
+       <a href="../en/Osk-sdl.html" title="Osk-sdl">
+        Osk-sdl
+       </a>
+       . It is written in C using LVGL and runs on the Linux framebuffer without hardware acceleration.
+      </p>
+      <p>
+       By itself unl0kr doesn't actually perform any unlocking. Instead it uses the so called "keyscript mode" in which the entered password is piped through STDOUT into the actual unlocking program. The unl0kr package in pmOS's aports implements the latter as a shell script.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Installation">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Installation
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Running_outside_the_initramfs">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Running outside the initramfs
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Configuration">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Configuration
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Troubleshooting">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Troubleshooting
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Input_devices_are_not_working">
+            <span class="tocnumber">
+             4.1
+            </span>
+            <span class="toctext">
+             Input devices are not working
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-6">
+         <a href="#Reporting_issues">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           Reporting issues
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Installation">
+        Installation
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Unl0kr conflicts with osk-sdl and you won't be able to install both at the same time
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       The unl0kr package is part of pmOS's aports directory. When installing pmOS, you can select unl0kr over osk-sdl via
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap install --fde --add unl0kr
+</pre>
+      </div>
+      <p>
+       Alternatively, you may also install unl0kr into a running system with apk. Installing the package automatically triggers regeneration of the initramfs.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Running_outside_the_initramfs">
+        Running outside the initramfs
+       </span>
+      </h2>
+      <p>
+       For testing purposes, you can run unl0kr outside the boot process. Simply switch to a TTY (e.g. with chvt) and run
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo unl0kr
+</pre>
+      </div>
+      <p>
+       As mentioned above, unl0kr only prints the entered password to STDOUT so this won't actually do anything to your disks.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Configuration">
+        Configuration
+       </span>
+      </h2>
+      <p>
+       Unl0kr's configuration file resides in /etc/unl0kr.conf. There is currently no documentation for the existing options but you may refer to the
+       <a class="external text" href="https://gitlab.com/cherrypicker/unl0kr/-/blob/master/unl0kr.conf" rel="nofollow">
+        example config
+       </a>
+       for inspiration.
+      </p>
+      <p>
+       Among others, a number of built-in UI themes can be selected through the config file. For screenshots of the currently available themes see
+       <a class="external text" href="https://gitlab.com/cherrypicker/unl0kr/-/tree/master/screenshots" rel="nofollow">
+        here
+       </a>
+       .
+      </p>
+      <p>
+       To verify the effect of changing config options, you can run unl0kr manually from a TTY as described in the "Running outside the initramfs" section. To actually apply the changes during boot, you need to regenerate the initramfs.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Troubleshooting">
+        Troubleshooting
+       </span>
+      </h2>
+      <p>
+       The initramfs environment in which unl0kr runs during boot is notably different from your normal system environment. Therefore, the first step in verifying whether unl0kr works on your system is to run it
+       <i>
+        outside
+       </i>
+       the initramfs as described in the "Running outside the initramfs" section. If it doesn't work there, it won't work during boot either.
+      </p>
+      <p>
+       If you've verified that unl0kr runs outside the initramfs but it still fails during boot, you can use the
+       <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">
+        debug-shell
+       </a>
+       to debug the initramfs environment.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Input_devices_are_not_working">
+        Input devices are not working
+       </span>
+      </h3>
+      <p>
+       The debug-shell ships with several tools you may use for debugging input devices. Unl0kr uses libinput which relies on udev and wraps around the input device handling provided by evdev / the kernel.
+      </p>
+      <p>
+       As a first step, you can use evtest to list and test the input devices made available by the kernel. If your devices don't show up here, your kernel likely isn't configured correctly.
+      </p>
+      <p>
+       Afterwards, to verify that the devices have been set up correctly for use with libinput, you can use the eponymous program.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> libinput list-devices
 <span class="go">Device:           ZSA Technology Labs Inc ErgoDox EZ</span>
 <span class="go">Kernel:           /dev/input/event0</span>
 <span class="go">Group:            7</span>
@@ -119,48 +252,104 @@ Unl0kr conflicts with osk-sdl and you won't be able to install both at the same 
 <span class="go"> event0   KEYBOARD_KEY            +0.776s      *** (-1) pressed</span>
 <span class="go"> event0   KEYBOARD_KEY            +0.784s      *** (-1) released</span>
 <span class="go">...</span>
-</pre></div>
-<p>If your devices don't show up here, you might be missing udev rules to make them work correctly.
-</p>
-<h2><span class="mw-headline" id="Reporting_issues">Reporting issues</span></h2>
-<p>Issues with unl0kr should be reported on <a rel="nofollow" class="external text" href="https://gitlab.com/cherrypicker/unl0kr/issues">the project's GitLab issues page</a>.
-</p>
-<p>There is currently no dedicated Matrix room but if needed you may contact @h3nn3s:matrix.org directly.
-</p>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Unl0kr&amp;oldid=28119">https://wiki.postmarketos.org/index.php?title=Unl0kr&amp;oldid=28119</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 31 May 2022, at 19:19.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Unl0kr&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <p>
+       If your devices don't show up here, you might be missing udev rules to make them work correctly.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Reporting_issues">
+        Reporting issues
+       </span>
+      </h2>
+      <p>
+       Issues with unl0kr should be reported on
+       <a class="external text" href="https://gitlab.com/cherrypicker/unl0kr/issues" rel="nofollow">
+        the project's GitLab issues page
+       </a>
+       .
+      </p>
+      <p>
+       There is currently no dedicated Matrix room but if needed you may contact @h3nn3s:matrix.org directly.
+      </p>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Unl0kr&amp;oldid=28119">
+      https://wiki.postmarketos.org/index.php?title=Unl0kr&amp;oldid=28119
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 31 May 2022, at 19:19.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Unl0kr&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

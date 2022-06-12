@@ -1,136 +1,338 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>I3wm - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-I3wm rootpage-I3wm skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">I3wm</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
-<caption class="" style="">i3wm</caption>
-<tbody>
-<tr class=""><td colspan="2" class="" style="text-align:center;">
-<a href="../I3wm-n900.jpg" class="image"><img alt="i3wm on the Nokia N900" src="../I3wm-n900.jpg" decoding="async" width="200" height="132" srcset="../300px-I3wm-n900.jpg 1.5x ../400px-I3wm-n900.jpg 2x"></a><br><span style="">i3wm on the <a href="../en/Nokia_N900_(nokia-n900).html" class="mw-redirect" title="Nokia N900">Nokia N900</a></span>
-</td></tr>
-<tr class="">
-<th scope="row" style="text-align:left;">Name</th>
-    <td class="" style="">
-i3wm</td>
-</tr>
-<tr class="">
-<th scope="row" style="text-align:left;">Graphics stack</th>
-    <td class="" style="">
-i3wm on Xorg</td>
-</tr>
-<tr><th colspan="2" class="" style="text-align:center;">In postmarketOS</th></tr>
-<tr class="">
-<th scope="row" style="text-align:left;">Package</th>
-    <td class="" style="">
-postmarketos-ui-i3wm</td>
-</tr>
-<tr class="">
-<th scope="row" style="text-align:left;">Status</th>
-    <td class="" style="">
-Available</td>
-</tr>
-<tr><td colspan="2" style="text-align:right"></td></tr>
-</tbody>
-</table>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Status"><span class="tocnumber">1</span> <span class="toctext">Status</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Installation"><span class="tocnumber">2</span> <span class="toctext">Installation</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Ideas"><span class="tocnumber">3</span> <span class="toctext">Ideas</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#Guide"><span class="tocnumber">4</span> <span class="toctext">Guide</span></a></li>
-<li class="toclevel-1 tocsection-5"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Status">Status</span></h2>
-<p>i3wm is working quite well on the N900. It does not make sense to run this interface on a device without a hardware keyboard, because it is a tiling window manager. Since the N900 keyboard does not provide the same keys, as a regular keyboard does, the N900 device package has its own i3 config. It is easy to add such a config to your device as well, just look at how it's done in <code>device-nokia-n900</code>, modify your device package accordingly and make a pull request.
-</p>
-<h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Run <code>pmbootstrap init</code> and choose <code>i3wm</code> in the interface section.
-</p>
-<p>Currently this installs <code>lxdm</code> as display manager (a common display manager is planned, see <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/issues/88">gitlab issue 88</a>). When booting for the first time, you need to select i3 in the top left dropdown, where it allows you to choose the session.
-</p>
-<h2><span class="mw-headline" id="Ideas">Ideas</span></h2>
-<ul>
-<li>How about a wallpaper for the N900 with i3wm, that is based on the postmarketOS wallpaper, but shows the keybindings on the desktop?</li>
-<li>Someone <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/1343">started working</a> on porting <a rel="nofollow" class="external text" href="https://github.com/ssmolkin1/i3touchmenu/">this setup</a>, which would enable touch-only devices to use it.</li>
-</ul>
-<h2><span class="mw-headline" id="Guide">Guide</span></h2>
-<p>Follow the <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Display">Display</a> guide to change and fix display related issues.
-</p>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul>
-<li><a rel="nofollow" class="external text" href="https://www.reddit.com/r/unixporn/comments/7wt8ig/i3gaps_n900_restored_to_glory/">Popular /r/unixporn post</a></li>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1225">#1225</a> initial pull request</li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Interface.html" title="Category:Interface">Interface</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=I3wm&amp;oldid=13874">https://wiki.postmarketos.org/index.php?title=I3wm&amp;oldid=13874</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 26 August 2020, at 17:52.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=I3wm&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   I3wm - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-I3wm rootpage-I3wm skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    I3wm
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <table cellspacing="3" class="infobox" style="border-spacing: 3px; width:22em;">
+       <caption class="" style="">
+        i3wm
+       </caption>
+       <tbody>
+        <tr class="">
+         <td class="" colspan="2" style="text-align:center;">
+          <a class="image" href="../I3wm-n900.jpg">
+           <img alt="i3wm on the Nokia N900" decoding="async" height="132" src="../I3wm-n900.jpg" srcset="../300px-I3wm-n900.jpg 1.5x ../400px-I3wm-n900.jpg 2x" width="200"/>
+          </a>
+          <br/>
+          <span style="">
+           i3wm on the
+           <a class="mw-redirect" href="../en/Nokia_N900_(nokia-n900).html" title="Nokia N900">
+            Nokia N900
+           </a>
+          </span>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Name
+         </th>
+         <td class="" style="">
+          i3wm
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Graphics stack
+         </th>
+         <td class="" style="">
+          i3wm on Xorg
+         </td>
+        </tr>
+        <tr>
+         <th class="" colspan="2" style="text-align:center;">
+          In postmarketOS
+         </th>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Package
+         </th>
+         <td class="" style="">
+          postmarketos-ui-i3wm
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Status
+         </th>
+         <td class="" style="">
+          Available
+         </td>
+        </tr>
+        <tr>
+         <td colspan="2" style="text-align:right">
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Status">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Status
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Installation">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Installation
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Ideas">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Ideas
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Guide">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Guide
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-5">
+         <a href="#See_also">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Status">
+        Status
+       </span>
+      </h2>
+      <p>
+       i3wm is working quite well on the N900. It does not make sense to run this interface on a device without a hardware keyboard, because it is a tiling window manager. Since the N900 keyboard does not provide the same keys, as a regular keyboard does, the N900 device package has its own i3 config. It is easy to add such a config to your device as well, just look at how it's done in
+       <code>
+        device-nokia-n900
+       </code>
+       , modify your device package accordingly and make a pull request.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Installation">
+        Installation
+       </span>
+      </h2>
+      <p>
+       Run
+       <code>
+        pmbootstrap init
+       </code>
+       and choose
+       <code>
+        i3wm
+       </code>
+       in the interface section.
+      </p>
+      <p>
+       Currently this installs
+       <code>
+        lxdm
+       </code>
+       as display manager (a common display manager is planned, see
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/issues/88" rel="nofollow">
+        gitlab issue 88
+       </a>
+       ). When booting for the first time, you need to select i3 in the top left dropdown, where it allows you to choose the session.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Ideas">
+        Ideas
+       </span>
+      </h2>
+      <ul>
+       <li>
+        How about a wallpaper for the N900 with i3wm, that is based on the postmarketOS wallpaper, but shows the keybindings on the desktop?
+       </li>
+       <li>
+        Someone
+        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/1343" rel="nofollow">
+         started working
+        </a>
+        on porting
+        <a class="external text" href="https://github.com/ssmolkin1/i3touchmenu/" rel="nofollow">
+         this setup
+        </a>
+        , which would enable touch-only devices to use it.
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Guide">
+        Guide
+       </span>
+      </h2>
+      <p>
+       Follow the
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Display" rel="nofollow">
+        Display
+       </a>
+       guide to change and fix display related issues.
+      </p>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="external text" href="https://www.reddit.com/r/unixporn/comments/7wt8ig/i3gaps_n900_restored_to_glory/" rel="nofollow">
+         Popular /r/unixporn post
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1225" rel="nofollow">
+         #1225
+        </a>
+        initial pull request
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Interface.html" title="Category:Interface">
+         Interface
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=I3wm&amp;oldid=13874">
+      https://wiki.postmarketos.org/index.php?title=I3wm&amp;oldid=13874
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 26 August 2020, at 17:52.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=I3wm&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

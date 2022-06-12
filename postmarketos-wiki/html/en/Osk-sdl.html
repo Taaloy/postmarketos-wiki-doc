@@ -1,264 +1,798 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Osk-sdl - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Osk-sdl rootpage-Osk-sdl skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Osk-sdl</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This is an application developed by the postmarketOS community to unlock the LUKS volume in the beginning of the boot process. It implements a password box and on-screen keyboard directly on the linux framebuffer, but also supports (though largely untested at the moment) any of the other backends supported by SDL2.
-</p>
-<p>It is written in C++14 and uses libcryptsetup directly to unlock the partitions. The osk-sdl package is part of pmOS's aports.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Reporting_Issues"><span class="tocnumber">1</span> <span class="toctext">Reporting Issues</span></a></li>
-<li class="toclevel-1 tocsection-2">
-<a href="#Porting_to_New_Devices"><span class="tocnumber">2</span> <span class="toctext">Porting to New Devices</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3"><a href="#Running_osk-sdl_within_pmOS"><span class="tocnumber">2.1</span> <span class="toctext">Running osk-sdl within pmOS</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="#Enable_hardware_acceleration"><span class="tocnumber">2.2</span> <span class="toctext">Enable hardware acceleration</span></a></li>
-<li class="toclevel-2 tocsection-5"><a href="#Set_touchscreen_device"><span class="tocnumber">2.3</span> <span class="toctext">Set touchscreen device</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#Create_fb.modes"><span class="tocnumber">2.4</span> <span class="toctext">Create fb.modes</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="#Create_touchscreen_calibration_file"><span class="tocnumber">2.5</span> <span class="toctext">Create touchscreen calibration file</span></a></li>
-<li class="toclevel-2 tocsection-8"><a href="#Porting_References"><span class="tocnumber">2.6</span> <span class="toctext">Porting References</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-9">
-<a href="#Development"><span class="tocnumber">3</span> <span class="toctext">Development</span></a>
-<ul>
-<li class="toclevel-2 tocsection-10"><a href="#Testing_with_QEMU"><span class="tocnumber">3.1</span> <span class="toctext">Testing with QEMU</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-11">
-<a href="#Troubleshooting"><span class="tocnumber">4</span> <span class="toctext">Troubleshooting</span></a>
-<ul>
-<li class="toclevel-2 tocsection-12"><a href="#Updating_osk-sdl_without_flashing_the_rootfs"><span class="tocnumber">4.1</span> <span class="toctext">Updating osk-sdl without flashing the rootfs</span></a></li>
-<li class="toclevel-2 tocsection-13"><a href="#Unlocking_via_telnet"><span class="tocnumber">4.2</span> <span class="toctext">Unlocking via telnet</span></a></li>
-<li class="toclevel-2 tocsection-14"><a href="#ERROR:_Library_not_found:_libGL.so"><span class="tocnumber">4.3</span> <span class="toctext">ERROR: Library not found: libGL.so</span></a></li>
-<li class="toclevel-2 tocsection-15"><a href="#DirectFB.2FFBDev:_No_supported_modes_found_in_.2Fetc.2Ffb.modes_and_current_mode_not_supported.21"><span class="tocnumber">4.4</span> <span class="toctext">DirectFB/FBDev: No supported modes found in /etc/fb.modes and current mode not supported!</span></a></li>
-<li class="toclevel-2 tocsection-16"><a href="#ERROR:_Unknown_dfb_pixelformat"><span class="tocnumber">4.5</span> <span class="toctext">ERROR: Unknown dfb pixelformat</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-17"><a href="#Building_osk-sdl_from_repo"><span class="tocnumber">5</span> <span class="toctext">Building osk-sdl from repo</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Reporting_Issues">Reporting Issues</span></h2>
-<p>Issues with osk-sdl should be reported on <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/osk-sdl/issues">the project gitlab issues page</a>.
-</p>
-<p>The osk-sdl-dev room on Matrix can also be used to ask questions, see <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">Matrix_and_IRC</a>.
-</p>
-<h2><span class="mw-headline" id="Porting_to_New_Devices">Porting to New Devices</span></h2>
-<p>It's necessary to configure and/or create a few files when porting osk-sdl to a new device. Some of the files mentioned below are not necessary on all devices. Any files created out of necessity in the below steps should be included in your device package. See the <code>nokia-n900</code> device package for an example of how some of these files have been included/installed.
-</p>
-<p>It's highly recommended that you run osk-sdl from <b>within</b> pmOS, which means installing pmOS without the <code>--fde</code> parameter. Running osk-sdl from within pmOS during the porting process will allow you to run any additional tools required for generating some of the configuration files below, as well as collect additional diagnostic info if you run into any issues.
-</p>
-<h3><span class="mw-headline" id="Running_osk-sdl_within_pmOS">Running osk-sdl within pmOS</span></h3>
-<p>The osk-sdl package is in pmOS's aports directory. To prepare pmOS for running osk-sdl for porting: 
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://gitlab.com/postmarketOS/pmbootstrap.git
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Osk-sdl - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Osk-sdl rootpage-Osk-sdl skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Osk-sdl
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       This is an application developed by the postmarketOS community to unlock the LUKS volume in the beginning of the boot process. It implements a password box and on-screen keyboard directly on the linux framebuffer, but also supports (though largely untested at the moment) any of the other backends supported by SDL2.
+      </p>
+      <p>
+       It is written in C++14 and uses libcryptsetup directly to unlock the partitions. The osk-sdl package is part of pmOS's aports.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Reporting_Issues">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Reporting Issues
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Porting_to_New_Devices">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Porting to New Devices
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#Running_osk-sdl_within_pmOS">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             Running osk-sdl within pmOS
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Enable_hardware_acceleration">
+            <span class="tocnumber">
+             2.2
+            </span>
+            <span class="toctext">
+             Enable hardware acceleration
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Set_touchscreen_device">
+            <span class="tocnumber">
+             2.3
+            </span>
+            <span class="toctext">
+             Set touchscreen device
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Create_fb.modes">
+            <span class="tocnumber">
+             2.4
+            </span>
+            <span class="toctext">
+             Create fb.modes
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#Create_touchscreen_calibration_file">
+            <span class="tocnumber">
+             2.5
+            </span>
+            <span class="toctext">
+             Create touchscreen calibration file
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#Porting_References">
+            <span class="tocnumber">
+             2.6
+            </span>
+            <span class="toctext">
+             Porting References
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-9">
+         <a href="#Development">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Development
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-10">
+           <a href="#Testing_with_QEMU">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             Testing with QEMU
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-11">
+         <a href="#Troubleshooting">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Troubleshooting
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-12">
+           <a href="#Updating_osk-sdl_without_flashing_the_rootfs">
+            <span class="tocnumber">
+             4.1
+            </span>
+            <span class="toctext">
+             Updating osk-sdl without flashing the rootfs
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-13">
+           <a href="#Unlocking_via_telnet">
+            <span class="tocnumber">
+             4.2
+            </span>
+            <span class="toctext">
+             Unlocking via telnet
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-14">
+           <a href="#ERROR:_Library_not_found:_libGL.so">
+            <span class="tocnumber">
+             4.3
+            </span>
+            <span class="toctext">
+             ERROR: Library not found: libGL.so
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-15">
+           <a href="#DirectFB.2FFBDev:_No_supported_modes_found_in_.2Fetc.2Ffb.modes_and_current_mode_not_supported.21">
+            <span class="tocnumber">
+             4.4
+            </span>
+            <span class="toctext">
+             DirectFB/FBDev: No supported modes found in /etc/fb.modes and current mode not supported!
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-16">
+           <a href="#ERROR:_Unknown_dfb_pixelformat">
+            <span class="tocnumber">
+             4.5
+            </span>
+            <span class="toctext">
+             ERROR: Unknown dfb pixelformat
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-17">
+         <a href="#Building_osk-sdl_from_repo">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           Building osk-sdl from repo
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Reporting_Issues">
+        Reporting Issues
+       </span>
+      </h2>
+      <p>
+       Issues with osk-sdl should be reported on
+       <a class="external text" href="https://gitlab.com/postmarketOS/osk-sdl/issues" rel="nofollow">
+        the project gitlab issues page
+       </a>
+       .
+      </p>
+      <p>
+       The osk-sdl-dev room on Matrix can also be used to ask questions, see
+       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+        Matrix_and_IRC
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Porting_to_New_Devices">
+        Porting to New Devices
+       </span>
+      </h2>
+      <p>
+       It's necessary to configure and/or create a few files when porting osk-sdl to a new device. Some of the files mentioned below are not necessary on all devices. Any files created out of necessity in the below steps should be included in your device package. See the
+       <code>
+        nokia-n900
+       </code>
+       device package for an example of how some of these files have been included/installed.
+      </p>
+      <p>
+       It's highly recommended that you run osk-sdl from
+       <b>
+        within
+       </b>
+       pmOS, which means installing pmOS without the
+       <code>
+        --fde
+       </code>
+       parameter. Running osk-sdl from within pmOS during the porting process will allow you to run any additional tools required for generating some of the configuration files below, as well as collect additional diagnostic info if you run into any issues.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Running_osk-sdl_within_pmOS">
+        Running osk-sdl within pmOS
+       </span>
+      </h3>
+      <p>
+       The osk-sdl package is in pmOS's aports directory. To prepare pmOS for running osk-sdl for porting:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> git clone https://gitlab.com/postmarketOS/pmbootstrap.git
 <span class="gp">$</span> <span class="nb">cd</span> pmbootstrap
 <span class="gp">$</span> ./pmbootstrap init
 <span class="go">&lt;select device options&gt;</span>
 <span class="go">&lt;select 'none' for UI so that osk-sdl can be run from within pmos without conflicting with weston&gt;</span>
 <span class="gp">$</span> ./pmbootstrap install --add osk-sdl
-</pre></div>
-<p>Not using <code>--fde</code> will allow pmOS to boot straight into rootfs without requiring unlocking of the partition. This seems counter-intuitive for porting a keyboard made for initramfs, but this will allow you to manually run osk-sdl with various environment options set and/or osk.conf options for debug.
-</p>
-<p>To run osk-sdl from pmOS (not in initramfs):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo su
+</pre>
+      </div>
+      <p>
+       Not using
+       <code>
+        --fde
+       </code>
+       will allow pmOS to boot straight into rootfs without requiring unlocking of the partition. This seems counter-intuitive for porting a keyboard made for initramfs, but this will allow you to manually run osk-sdl with various environment options set and/or osk.conf options for debug.
+      </p>
+      <p>
+       To run osk-sdl from pmOS (not in initramfs):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo su
 <span class="gp">#</span> <span class="nb">export</span> <span class="nv">DFBARGS</span><span class="o">=</span><span class="s2">"system=fbdev,no-cursor,disable-module=linux_input"</span>
 <span class="gp">#</span> <span class="nb">export</span> <span class="nv">TSLIB_TSDEVICE</span><span class="o">=</span>/dev/input/eventX
 <span class="gp">#</span> osk-sdl -d a -n a -c /etc/osk.conf -v
-</pre></div>
-<p>Do <b>not</b> use the <code>-t</code> option when porting osk-sdl on a device, this mode of running osk-sdl will not be helpful for this purpose!
-</p>
-<h3><span class="mw-headline" id="Enable_hardware_acceleration">Enable hardware acceleration</span></h3>
-<p>osk-sdl can use hardware acceleration (instead of slowly drawing to the framebuffer). The necessary setup is automatically done by setting <code>deviceinfo_mesa_driver</code> (see <a href="../en/Deviceinfo_reference.html" title="Deviceinfo reference">deviceinfo reference</a>) in the device package. The driver that needs to be specified there can be found for example by running:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> strace kmscube <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> grep <span class="s2">"xorg/modules"</span>
+</pre>
+      </div>
+      <p>
+       Do
+       <b>
+        not
+       </b>
+       use the
+       <code>
+        -t
+       </code>
+       option when porting osk-sdl on a device, this mode of running osk-sdl will not be helpful for this purpose!
+      </p>
+      <h3>
+       <span class="mw-headline" id="Enable_hardware_acceleration">
+        Enable hardware acceleration
+       </span>
+      </h3>
+      <p>
+       osk-sdl can use hardware acceleration (instead of slowly drawing to the framebuffer). The necessary setup is automatically done by setting
+       <code>
+        deviceinfo_mesa_driver
+       </code>
+       (see
+       <a href="../en/Deviceinfo_reference.html" title="Deviceinfo reference">
+        deviceinfo reference
+       </a>
+       ) in the device package. The driver that needs to be specified there can be found for example by running:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> strace kmscube <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> grep <span class="s2">"xorg/modules"</span>
 <span class="go">...</span>
 <span class="go">openat(AT_FDCWD, "/usr/lib/xorg/modules/dri/sun4i-drm_dri.so", O_RDONLY|O_LARGEFILE|O_CLOEXEC) = 4</span>
-</pre></div>
-<p>In this example, "sun4i-drm" should be specified. In some cases also additional GPU firmware needs to be copied to the initramfs which can be done by putting e.g. <code>/etc/postmarketos-mkinitfs/files/30-gpu-firmware.files</code> into the device package with each file that should be copied on a separate line. See the Fairphone 2 device port for an example where a firmware file is copied.
-</p>
-<p>In addition to setting <code>deviceinfo_mesa_driver</code>, you must also add a dependency on <code>mesa-egl</code> (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/856">pmaports#856</a>) OR <code>mesa-dri-gallium</code> for newer devices.
-</p>
-<p>This feature was added in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1625">pmaports!1625</a>.
-</p>
-<h3><span class="mw-headline" id="Set_touchscreen_device">Set touchscreen device</span></h3>
-<p>See <a href="../en/Deviceinfo_dev_touchscreen.html" title="Deviceinfo dev touchscreen">deviceinfo_dev_touchscreen</a>.
-</p>
-<h3><span class="mw-headline" id="Create_fb.modes">Create fb.modes</span></h3>
-<p>Some devices require creating a file (<code>/etc/fb.modes</code>) to inform DirectFB of the correct mode that the display supports.
-</p>
-<p>To calculate the mode for your device you can run <code>fbset</code>, however beware that the mode it returns isn't always supported. Some things to be aware of:
-</p>
-<ul>
-<li>Make sure the last number of the geometry line (the color depth) is not 32 or 24, because this is not supported by directfb. If you need 32 or 24 there, set this value to 16 and set <code>pixelformat</code> in DFBARGS to a supported pixel format with color depth 32 or 24 (see <a rel="nofollow" class="external text" href="https://linux.die.net/man/5/directfbrc">man page of directfbrc</a> for all available pixelformat options).</li>
-<li>Normally the geometry line should have twice your resolution (both for physical and virtual resolution). Fbset sometimes returns wrong values with which osk-sdl cannot cope (generates segmentation fault when touching the keyboard).</li>
-</ul>
-<p>An example for a display with 1080x1920 resolution and 32-bit color depth:
-</p>
-<pre>mode "1080x1920-0"
+</pre>
+      </div>
+      <p>
+       In this example, "sun4i-drm" should be specified. In some cases also additional GPU firmware needs to be copied to the initramfs which can be done by putting e.g.
+       <code>
+        /etc/postmarketos-mkinitfs/files/30-gpu-firmware.files
+       </code>
+       into the device package with each file that should be copied on a separate line. See the Fairphone 2 device port for an example where a firmware file is copied.
+      </p>
+      <p>
+       In addition to setting
+       <code>
+        deviceinfo_mesa_driver
+       </code>
+       , you must also add a dependency on
+       <code>
+        mesa-egl
+       </code>
+       (
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/856" rel="nofollow">
+        pmaports#856
+       </a>
+       ) OR
+       <code>
+        mesa-dri-gallium
+       </code>
+       for newer devices.
+      </p>
+      <p>
+       This feature was added in
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1625" rel="nofollow">
+        pmaports!1625
+       </a>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Set_touchscreen_device">
+        Set touchscreen device
+       </span>
+      </h3>
+      <p>
+       See
+       <a href="../en/Deviceinfo_dev_touchscreen.html" title="Deviceinfo dev touchscreen">
+        deviceinfo_dev_touchscreen
+       </a>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Create_fb.modes">
+        Create fb.modes
+       </span>
+      </h3>
+      <p>
+       Some devices require creating a file (
+       <code>
+        /etc/fb.modes
+       </code>
+       ) to inform DirectFB of the correct mode that the display supports.
+      </p>
+      <p>
+       To calculate the mode for your device you can run
+       <code>
+        fbset
+       </code>
+       , however beware that the mode it returns isn't always supported. Some things to be aware of:
+      </p>
+      <ul>
+       <li>
+        Make sure the last number of the geometry line (the color depth) is not 32 or 24, because this is not supported by directfb. If you need 32 or 24 there, set this value to 16 and set
+        <code>
+         pixelformat
+        </code>
+        in DFBARGS to a supported pixel format with color depth 32 or 24 (see
+        <a class="external text" href="https://linux.die.net/man/5/directfbrc" rel="nofollow">
+         man page of directfbrc
+        </a>
+        for all available pixelformat options).
+       </li>
+       <li>
+        Normally the geometry line should have twice your resolution (both for physical and virtual resolution). Fbset sometimes returns wrong values with which osk-sdl cannot cope (generates segmentation fault when touching the keyboard).
+       </li>
+      </ul>
+      <p>
+       An example for a display with 1080x1920 resolution and 32-bit color depth:
+      </p>
+      <pre>mode "1080x1920-0"
     # D: 0.001 MHz, H: 0.001 kHz, V: 0.000 Hz
     geometry 1080 1920 1080 1920 16
     timings 898000000 75 129 4 8 5 4
     rgba 8/16,8/8,8/0,8/24
 endmode</pre>
-<p>If you had to create this file for osk-sdl to display on your device, make sure to include the <code>/etc/fb.modes</code> file in your device package.
-</p>
-<p>Source:
-<br>• <a rel="nofollow" class="external text" href="https://github.com/DirectFB/directfb/blob/e97c8d40ae10585ad10cb55800efcd2ea13fbdf8/systems/fbdev/fbdev.c#L1726">DirectFB modes</a>
-<br>• <a rel="nofollow" class="external text" href="https://github.com/SDL-mirror/SDL/blob/1aeeb6e96a9c19b4d73cbb492996910b5c69a55e/src/video/directfb/SDL_DirectFB_video.c#L312">SDL2 modes</a>
-</p>
-<h3><span class="mw-headline" id="Create_touchscreen_calibration_file">Create touchscreen calibration file</span></h3>
-<p>Some devices require touchscreen calibration for osk-sdl to properly handle taps on the screen. To create the calibration file necessary for osk-sdl, run the <code>ts_calibrate</code> utility and tap the small X's on screen as accurately as you can. This will generate a file <code>/etc/pointercal</code>. Use <code>ts_test</code> utility to check if touchscreen is working correctly after calibration.
-</p>
-<p>After running the calibration, re-run osk-sdl to confirm that touch input is being appropriately handled.
-</p>
-<p>If you had to create this file for osk-sdl to properly handle the touchscreen input on your device, make sure to include the <code>/etc/pointercal</code> file in your device package.
-</p>
-<p>The file format is quite similar to the calibration for <a href="../en/Screen_Calibration.html#libinput" title="Screen Calibration">libinput</a>. The file consists of 9 values. It starts with two groups of three values, the first is for the x coordinate and the second for the y coordinate. Each group consists of a multiplier for the x and a multiplier for the y coordinate and then an offset. However, as all values need to be integers, the values are scaled by a scaling factor. This is the 7th number in the file and is always 65536. The last two values are the screen width and height. Similar to the calibration matrix for libinput, some of the first two values of every group should be 0. While one might think that the other values should always be around the scaling factor or, for the offsets, 0 or the scaling factor times device width/height (as for libinput), this is not the case. E.g. for the <a href="../en/Google_Nexus_7_2012_(asus-grouper).html" title="Google Nexus 7 2012 (asus-grouper)">Google_Nexus_7_2012_(asus-grouper)</a> the x/y multipliers are around 0.6 (see <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/master/aports/device/device-asus-grouper/pointercal">pointercal</a>) even though for Weston no such scaling is necessary. This could actually be the width/height ratio (0.625) or something unrelated. If you have more information on this, please add it here so we can get more precise calibration files!
-</p>
-<h3><span class="mw-headline" id="Porting_References">Porting References</span></h3>
-<ul>
-<li><a rel="nofollow" class="external text" href="https://linux.die.net/man/5/fb.modes">fb.modes man page</a></li>
-<li><a rel="nofollow" class="external text" href="https://linux.die.net/man/8/fbset">fbset man page</a></li>
-<li><a rel="nofollow" class="external text" href="https://linux.die.net/man/5/directfbrc">directfbrc man page</a></li>
-</ul>
-<h2><span class="mw-headline" id="Development">Development</span></h2>
-<h3><span class="mw-headline" id="Testing_with_QEMU">Testing with QEMU</span></h3>
-<p>To build osk-sdl from a local source tree and test it in QEMU, run the following once:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap zap
+      <p>
+       If you had to create this file for osk-sdl to display on your device, make sure to include the
+       <code>
+        /etc/fb.modes
+       </code>
+       file in your device package.
+      </p>
+      <p>
+       Source:
+       <br/>
+       •
+       <a class="external text" href="https://github.com/DirectFB/directfb/blob/e97c8d40ae10585ad10cb55800efcd2ea13fbdf8/systems/fbdev/fbdev.c#L1726" rel="nofollow">
+        DirectFB modes
+       </a>
+       <br/>
+       •
+       <a class="external text" href="https://github.com/SDL-mirror/SDL/blob/1aeeb6e96a9c19b4d73cbb492996910b5c69a55e/src/video/directfb/SDL_DirectFB_video.c#L312" rel="nofollow">
+        SDL2 modes
+       </a>
+      </p>
+      <h3>
+       <span class="mw-headline" id="Create_touchscreen_calibration_file">
+        Create touchscreen calibration file
+       </span>
+      </h3>
+      <p>
+       Some devices require touchscreen calibration for osk-sdl to properly handle taps on the screen. To create the calibration file necessary for osk-sdl, run the
+       <code>
+        ts_calibrate
+       </code>
+       utility and tap the small X's on screen as accurately as you can. This will generate a file
+       <code>
+        /etc/pointercal
+       </code>
+       . Use
+       <code>
+        ts_test
+       </code>
+       utility to check if touchscreen is working correctly after calibration.
+      </p>
+      <p>
+       After running the calibration, re-run osk-sdl to confirm that touch input is being appropriately handled.
+      </p>
+      <p>
+       If you had to create this file for osk-sdl to properly handle the touchscreen input on your device, make sure to include the
+       <code>
+        /etc/pointercal
+       </code>
+       file in your device package.
+      </p>
+      <p>
+       The file format is quite similar to the calibration for
+       <a href="../en/Screen_Calibration.html#libinput" title="Screen Calibration">
+        libinput
+       </a>
+       . The file consists of 9 values. It starts with two groups of three values, the first is for the x coordinate and the second for the y coordinate. Each group consists of a multiplier for the x and a multiplier for the y coordinate and then an offset. However, as all values need to be integers, the values are scaled by a scaling factor. This is the 7th number in the file and is always 65536. The last two values are the screen width and height. Similar to the calibration matrix for libinput, some of the first two values of every group should be 0. While one might think that the other values should always be around the scaling factor or, for the offsets, 0 or the scaling factor times device width/height (as for libinput), this is not the case. E.g. for the
+       <a href="../en/Google_Nexus_7_2012_(asus-grouper).html" title="Google Nexus 7 2012 (asus-grouper)">
+        Google_Nexus_7_2012_(asus-grouper)
+       </a>
+       the x/y multipliers are around 0.6 (see
+       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/master/aports/device/device-asus-grouper/pointercal" rel="nofollow">
+        pointercal
+       </a>
+       ) even though for Weston no such scaling is necessary. This could actually be the width/height ratio (0.625) or something unrelated. If you have more information on this, please add it here so we can get more precise calibration files!
+      </p>
+      <h3>
+       <span class="mw-headline" id="Porting_References">
+        Porting References
+       </span>
+      </h3>
+      <ul>
+       <li>
+        <a class="external text" href="https://linux.die.net/man/5/fb.modes" rel="nofollow">
+         fb.modes man page
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://linux.die.net/man/8/fbset" rel="nofollow">
+         fbset man page
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://linux.die.net/man/5/directfbrc" rel="nofollow">
+         directfbrc man page
+        </a>
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Development">
+        Development
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Testing_with_QEMU">
+        Testing with QEMU
+       </span>
+      </h3>
+      <p>
+       To build osk-sdl from a local source tree and test it in QEMU, run the following once:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap zap
 <span class="gp">$</span> pmbootstrap config device qemu-amd64
 <span class="gp">$</span> pmbootstrap config ui none
-</pre></div>
-<p>Then for every time you want to test (it's faster the second time):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap build osk-sdl --src<span class="o">=</span>/path/to/osk-sdl/source/tree
+</pre>
+      </div>
+      <p>
+       Then for every time you want to test (it's faster the second time):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap build osk-sdl --src<span class="o">=</span>/path/to/osk-sdl/source/tree
 <span class="gp">$</span> yes <span class="p">|</span> pmbootstrap install --fde
 <span class="gp">$</span> pmbootstrap qemu
-</pre></div>
-<p>The <code>yes</code> command will set the password to <code>y</code>.
-</p>
-<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
-<h3><span class="mw-headline" id="Updating_osk-sdl_without_flashing_the_rootfs">Updating osk-sdl without flashing the rootfs</span></h3>
-<p><code>osk-sdl</code> does not get updated when flashing the kernel/initramfs/boot.img to your device. That is, because it is in the <code>initramfs-extra</code> file inside the boot partition of the rootfs. Here's a rough description of the steps you need to take to update it without flashing the entire rootfs (which is the easy way), in case you have flashed a version that doesn't boot up anymore. As usual, just ask in the channel for help if you get stuck.
-</p>
-<ul>
-<li>Install the <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">debug-shell</a> initramfs hook and connect via telnet</li>
-<li>Mount the boot partition of the rootfs image</li>
-<li>use netcat to upload the new <code>initramfs-extra</code> file via telnet</li>
-</ul>
-<h3><span class="mw-headline" id="Unlocking_via_telnet">Unlocking via telnet</span></h3>
-<p>If osk-sdl does not work for some reason, but you really need to access your data, you can <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">connect to the initramfs via telnet</a>, <a href="../en/Inspecting_the_initramfs.html#Enable_initramfs-extra" title="Inspecting the initramfs">enable initramfs-extra</a>, then run the following to unlock it:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> <span class="nb">source</span> /init_functions.sh
+</pre>
+      </div>
+      <p>
+       The
+       <code>
+        yes
+       </code>
+       command will set the password to
+       <code>
+        y
+       </code>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Troubleshooting">
+        Troubleshooting
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Updating_osk-sdl_without_flashing_the_rootfs">
+        Updating osk-sdl without flashing the rootfs
+       </span>
+      </h3>
+      <p>
+       <code>
+        osk-sdl
+       </code>
+       does not get updated when flashing the kernel/initramfs/boot.img to your device. That is, because it is in the
+       <code>
+        initramfs-extra
+       </code>
+       file inside the boot partition of the rootfs. Here's a rough description of the steps you need to take to update it without flashing the entire rootfs (which is the easy way), in case you have flashed a version that doesn't boot up anymore. As usual, just ask in the channel for help if you get stuck.
+      </p>
+      <ul>
+       <li>
+        Install the
+        <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">
+         debug-shell
+        </a>
+        initramfs hook and connect via telnet
+       </li>
+       <li>
+        Mount the boot partition of the rootfs image
+       </li>
+       <li>
+        use netcat to upload the new
+        <code>
+         initramfs-extra
+        </code>
+        file via telnet
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Unlocking_via_telnet">
+        Unlocking via telnet
+       </span>
+      </h3>
+      <p>
+       If osk-sdl does not work for some reason, but you really need to access your data, you can
+       <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">
+        connect to the initramfs via telnet
+       </a>
+       ,
+       <a href="../en/Inspecting_the_initramfs.html#Enable_initramfs-extra" title="Inspecting the initramfs">
+        enable initramfs-extra
+       </a>
+       , then run the following to unlock it:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> <span class="nb">source</span> /init_functions.sh
 <span class="gp">#</span> cryptsetup luksOpen <span class="s2">"</span><span class="k">$(</span>find_root_partition<span class="k">)</span><span class="s2">"</span> root
 <span class="go">Enter passphrase for /dev/mapper/mmcblk0p2:</span>
 <span class="gp">#</span> killall osk-sdl
-</pre></div>
-<h3><span class="mw-headline" id="ERROR:_Library_not_found:_libGL.so">ERROR: Library not found: libGL.so</span></h3>
-<p>This should be resolved in SDL2 2.0.6, however if this issue occurs then most likely the mesa-gl dependency for osk-sdl did not install properly. Please report this issue, see <a href="#Reporting_Issues">#Reporting Issues</a>.
-</p>
-<p>Make sure you've exported SDL_VIDEO_GL_DRIVER:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo su
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="ERROR:_Library_not_found:_libGL.so">
+        ERROR: Library not found: libGL.so
+       </span>
+      </h3>
+      <p>
+       This should be resolved in SDL2 2.0.6, however if this issue occurs then most likely the mesa-gl dependency for osk-sdl did not install properly. Please report this issue, see
+       <a href="#Reporting_Issues">
+        #Reporting Issues
+       </a>
+       .
+      </p>
+      <p>
+       Make sure you've exported SDL_VIDEO_GL_DRIVER:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo su
 <span class="gp">#</span> <span class="nb">export</span> <span class="nv">SDL_VIDEO_GL_DRIVER</span><span class="o">=</span><span class="s2">"libGL.so.1"</span>
-</pre></div>
-<p>If you have been testing earlier versions of <code>osk-sdl</code>, you may still have a custom SDL2 package with version <code>9999</code> in your packages directory. That is not required anymore, all necessary changes to SDL2 have been upstreamed, we can use the version from Alpine now. Delete it with the following steps:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo rm -v ~/.local/var/pmbootstrap/packages/*/sdl2*
+</pre>
+      </div>
+      <p>
+       If you have been testing earlier versions of
+       <code>
+        osk-sdl
+       </code>
+       , you may still have a custom SDL2 package with version
+       <code>
+        9999
+       </code>
+       in your packages directory. That is not required anymore, all necessary changes to SDL2 have been upstreamed, we can use the version from Alpine now. Delete it with the following steps:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo rm -v ~/.local/var/pmbootstrap/packages/*/sdl2*
 <span class="gp">$</span> pmbootstrap index
-</pre></div>
-<h3>
-<span id="DirectFB/FBDev:_No_supported_modes_found_in_/etc/fb.modes_and_current_mode_not_supported!"></span><span class="mw-headline" id="DirectFB.2FFBDev:_No_supported_modes_found_in_.2Fetc.2Ffb.modes_and_current_mode_not_supported.21">DirectFB/FBDev: No supported modes found in /etc/fb.modes and current mode not supported!</span>
-</h3>
-<p>You will need to create a <code>fb.modes</code> file for your device. See the above section <a href="#Create_fb.modes">#Create fb.modes</a>
-</p>
-<h3><span class="mw-headline" id="ERROR:_Unknown_dfb_pixelformat">ERROR: Unknown dfb pixelformat</span></h3>
-<p>osk-sdl is using SDL2 and DirectFB for rendering to the framebuffer (which is what we need to do for most devices, because they only have framebuffer drivers in the kernel, not the more modern DRI/DRM drivers). The error message means, that the SDL2 mode is not mapped to a DirectFB mode. See <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/osk-sdl/-/issues/85">osk-sdl#85</a> for detailed instructions on how to patch SDL2 to add a mapping for your mode.
-</p>
-<h2><span class="mw-headline" id="Building_osk-sdl_from_repo">Building osk-sdl from repo</span></h2>
-<p>Quote from <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/osk-sdl/issues/90">osk-sdl issue 90</a>:
-</p>
-<p>Here's the workflow for modifying the code and building it as postmarketOS package:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code
+</pre>
+      </div>
+      <h3>
+       <span id="DirectFB/FBDev:_No_supported_modes_found_in_/etc/fb.modes_and_current_mode_not_supported!">
+       </span>
+       <span class="mw-headline" id="DirectFB.2FFBDev:_No_supported_modes_found_in_.2Fetc.2Ffb.modes_and_current_mode_not_supported.21">
+        DirectFB/FBDev: No supported modes found in /etc/fb.modes and current mode not supported!
+       </span>
+      </h3>
+      <p>
+       You will need to create a
+       <code>
+        fb.modes
+       </code>
+       file for your device. See the above section
+       <a href="#Create_fb.modes">
+        #Create fb.modes
+       </a>
+      </p>
+      <h3>
+       <span class="mw-headline" id="ERROR:_Unknown_dfb_pixelformat">
+        ERROR: Unknown dfb pixelformat
+       </span>
+      </h3>
+      <p>
+       osk-sdl is using SDL2 and DirectFB for rendering to the framebuffer (which is what we need to do for most devices, because they only have framebuffer drivers in the kernel, not the more modern DRI/DRM drivers). The error message means, that the SDL2 mode is not mapped to a DirectFB mode. See
+       <a class="external text" href="https://gitlab.com/postmarketOS/osk-sdl/-/issues/85" rel="nofollow">
+        osk-sdl#85
+       </a>
+       for detailed instructions on how to patch SDL2 to add a mapping for your mode.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Building_osk-sdl_from_repo">
+        Building osk-sdl from repo
+       </span>
+      </h2>
+      <p>
+       Quote from
+       <a class="external text" href="https://gitlab.com/postmarketOS/osk-sdl/issues/90" rel="nofollow">
+        osk-sdl issue 90
+       </a>
+       :
+      </p>
+      <p>
+       Here's the workflow for modifying the code and building it as postmarketOS package:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code
 <span class="gp">$</span> git clone https://gitlab.com/postmarketOS/osk-sdl/
 <span class="gp">$</span> <span class="nb">cd</span> osk-sdl
 <span class="gp">$</span> nvim src/main.cpp <span class="c1"># make changes somewhere</span>
 <span class="gp">$</span> pmbootstrap build osk-sdl --arch<span class="o">=</span>armhf --src<span class="o">=</span>~/code/osk-sdl
-</pre></div>
-<p>Then you can copy the new package to the device, either with scp or with this guide: <a href="../en/Installing_packages_on_a_running_phone.html" title="Installing packages on a running phone">Installing_packages_on_a_running_phone</a>
-</p>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Osk-sdl&amp;oldid=18436">https://wiki.postmarketos.org/index.php?title=Osk-sdl&amp;oldid=18436</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 5 April 2021, at 18:09.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Osk-sdl&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <p>
+       Then you can copy the new package to the device, either with scp or with this guide:
+       <a href="../en/Installing_packages_on_a_running_phone.html" title="Installing packages on a running phone">
+        Installing_packages_on_a_running_phone
+       </a>
+      </p>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Osk-sdl&amp;oldid=18436">
+      https://wiki.postmarketos.org/index.php?title=Osk-sdl&amp;oldid=18436
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 5 April 2021, at 18:09.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Osk-sdl&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

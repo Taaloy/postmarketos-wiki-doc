@@ -1,407 +1,1464 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Phosh - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Phosh rootpage-Phosh skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Phosh</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
-<caption class="" style="">Phosh</caption>
-<tbody>
-<tr class=""><td colspan="2" class="" style="text-align:center;">
-<a href="../Phosh_homescreen.png" class="image"><img alt="Default Phosh homescreen." src="../Phosh_homescreen.png" decoding="async" width="200" height="356" srcset="../Phosh_homescreen.png 1.5x ../Phosh_homescreen.png 2x"></a><br><span style="">Default Phosh homescreen.</span>
-</td></tr>
-<tr class="">
-<th scope="row" style="text-align:left;">Name</th>
-    <td class="" style="">
-Phosh</td>
-</tr>
-<tr class="">
-<th scope="row" style="text-align:left;">Graphics stack</th>
-    <td class="" style="">
-Phoc on Wayland</td>
-</tr>
-<tr class="">
-<th scope="row" style="text-align:left;">Toolkit</th>
-    <td class="" style="">
-GTK3</td>
-</tr>
-<tr><th colspan="2" class="" style="text-align:center;">In postmarketOS</th></tr>
-<tr class="">
-<th scope="row" style="text-align:left;">Package</th>
-    <td class="" style="">
-postmarketos-ui-phosh</td>
-</tr>
-<tr class="">
-<th scope="row" style="text-align:left;">Status</th>
-    <td class="" style="">
-Available</td>
-</tr>
-<tr><td colspan="2" style="text-align:right"></td></tr>
-</tbody>
-</table>
-<p><a rel="nofollow" class="external text" href="https://developer.puri.sm/Librem5/Software_Reference/Environments/Phosh.html#phosh">Phosh</a> is a <i>pho</i>ne <i>sh</i>ell based on the <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/GNOME">GNOME</a> stack. It is developed by <a rel="nofollow" class="external text" href="https://puri.sm/">Purism</a> for their own Linux smartphone, the <a rel="nofollow" class="external text" href="https://puri.sm/products/librem-5/">Librem 5</a>. With postmarketOS, it can be used on various other mobile devices too. We have shipped the <a href="../en/PINE64_PinePhone_(pine64-pinephone).html" title="PINE64 PinePhone (pine64-pinephone)">PinePhone</a> <a rel="nofollow" class="external text" href="https://postmarketos.org/blog/2020/06/15/pinephone-postmarketos-community-edition/">postmarketOS community edition</a> with Phosh.
-</p>
-<div class="thumb tright"><div class="thumbinner" style="width:252px;">
-<a href="../Postmarketos-osprey-phosh.jpg" class="image"><img alt="" src="../Postmarketos-osprey-phosh.jpg" decoding="async" width="250" height="167" class="thumbimage" srcset="../375px-Postmarketos-osprey-phosh.jpg 1.5x ../500px-Postmarketos-osprey-phosh.jpg 2x"></a>  <div class="thumbcaption">
-<div class="magnify"><a href="../Postmarketos-osprey-phosh.jpg" class="internal" title="Enlarge"></a></div>postmarketOS with Phosh on the Motorola Moto G 2015</div>
-</div></div>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Installation"><span class="tocnumber">1</span> <span class="toctext">Installation</span></a></li>
-<li class="toclevel-1 tocsection-2">
-<a href="#Usage"><span class="tocnumber">2</span> <span class="toctext">Usage</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3">
-<a href="#First_Boot"><span class="tocnumber">2.1</span> <span class="toctext">First Boot</span></a>
-<ul>
-<li class="toclevel-3 tocsection-4">
-<a href="#Install_updates_and_reboot"><span class="tocnumber">2.1.1</span> <span class="toctext">Install updates and reboot</span></a>
-<ul>
-<li class="toclevel-4 tocsection-5"><a href="#SSL_handshake_failed_notification"><span class="tocnumber">2.1.1.1</span> <span class="toctext">SSL handshake failed notification</span></a></li>
-</ul>
-</li>
-<li class="toclevel-3 tocsection-6"><a href="#Enable_SSH"><span class="tocnumber">2.1.2</span> <span class="toctext">Enable SSH</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2 tocsection-7">
-<a href="#Contacts.2C_SMS_and_calls"><span class="tocnumber">2.2</span> <span class="toctext">Contacts, SMS and calls</span></a>
-<ul>
-<li class="toclevel-3 tocsection-8"><a href="#Unlock_SIM_card"><span class="tocnumber">2.2.1</span> <span class="toctext">Unlock SIM card</span></a></li>
-<li class="toclevel-3 tocsection-9">
-<a href="#Manage_contacts"><span class="tocnumber">2.2.2</span> <span class="toctext">Manage contacts</span></a>
-<ul>
-<li class="toclevel-4 tocsection-10"><a href="#Synchronization_with_an_online_account"><span class="tocnumber">2.2.2.1</span> <span class="toctext">Synchronization with an online account</span></a></li>
-<li class="toclevel-4 tocsection-11"><a href="#Import_contacts_from_a_vcf_file"><span class="tocnumber">2.2.2.2</span> <span class="toctext">Import contacts from a vcf file</span></a></li>
-</ul>
-</li>
-<li class="toclevel-3 tocsection-12"><a href="#Make_a_call"><span class="tocnumber">2.2.3</span> <span class="toctext">Make a call</span></a></li>
-<li class="toclevel-3 tocsection-13"><a href="#Write_SMS"><span class="tocnumber">2.2.4</span> <span class="toctext">Write SMS</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2 tocsection-14"><a href="#Install_software"><span class="tocnumber">2.3</span> <span class="toctext">Install software</span></a></li>
-<li class="toclevel-2 tocsection-15"><a href="#Take_a_screenshot"><span class="tocnumber">2.4</span> <span class="toctext">Take a screenshot</span></a></li>
-<li class="toclevel-2 tocsection-16"><a href="#Camera"><span class="tocnumber">2.5</span> <span class="toctext">Camera</span></a></li>
-<li class="toclevel-2 tocsection-17"><a href="#External_monitor"><span class="tocnumber">2.6</span> <span class="toctext">External monitor</span></a></li>
-<li class="toclevel-2 tocsection-18"><a href="#postmarketos-tweaks"><span class="tocnumber">2.7</span> <span class="toctext">postmarketos-tweaks</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-19">
-<a href="#Configuration"><span class="tocnumber">3</span> <span class="toctext">Configuration</span></a>
-<ul>
-<li class="toclevel-2 tocsection-20"><a href="#Starting_Phosh"><span class="tocnumber">3.1</span> <span class="toctext">Starting Phosh</span></a></li>
-<li class="toclevel-2 tocsection-21">
-<a href="#Screen_Scaling"><span class="tocnumber">3.2</span> <span class="toctext">Screen Scaling</span></a>
-<ul>
-<li class="toclevel-3 tocsection-22"><a href="#Manual_Scaling"><span class="tocnumber">3.2.1</span> <span class="toctext">Manual Scaling</span></a></li>
-<li class="toclevel-3 tocsection-23"><a href="#Automatic_Scaling"><span class="tocnumber">3.2.2</span> <span class="toctext">Automatic Scaling</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2 tocsection-24"><a href="#Modem"><span class="tocnumber">3.3</span> <span class="toctext">Modem</span></a></li>
-<li class="toclevel-2 tocsection-25">
-<a href="#Haptics"><span class="tocnumber">3.4</span> <span class="toctext">Haptics</span></a>
-<ul>
-<li class="toclevel-3 tocsection-26"><a href="#Overview"><span class="tocnumber">3.4.1</span> <span class="toctext">Overview</span></a></li>
-<li class="toclevel-3 tocsection-27"><a href="#Supported_devices"><span class="tocnumber">3.4.2</span> <span class="toctext">Supported devices</span></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-28">
-<a href="#Troubleshooting"><span class="tocnumber">4</span> <span class="toctext">Troubleshooting</span></a>
-<ul>
-<li class="toclevel-2 tocsection-29"><a href="#Firefox_looks_weird"><span class="tocnumber">4.1</span> <span class="toctext">Firefox looks weird</span></a></li>
-<li class="toclevel-2 tocsection-30"><a href="#Reading_the_log"><span class="tocnumber">4.2</span> <span class="toctext">Reading the log</span></a></li>
-<li class="toclevel-2 tocsection-31"><a href="#Inspecting_sessions"><span class="tocnumber">4.3</span> <span class="toctext">Inspecting sessions</span></a></li>
-<li class="toclevel-2 tocsection-32"><a href="#Some_apps_don.27t_show_up_in_the_shell_.2F_Terminal_apps_don.27t_open"><span class="tocnumber">4.4</span> <span class="toctext">Some apps don't show up in the shell / Terminal apps don't open</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-33"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h1><span class="mw-headline" id="Installation">Installation</span></h1>
-<p>Use the pre-built images from the downloads section of <a rel="nofollow" class="external text" href="https://postmarketos.org">postmarketos.org</a>, or build your own image with <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a>. If using the latter, Phosh can be installed by selecting it as the UI in <code>pmbootstrap init</code>.
-</p>
-<p>On existing systems, it can be installed by installing the <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;"><a rel="nofollow" class="external text" href="http://pkgs.postmarketos.org/packages?name=postmarketos-ui-phosh">postmarketos-ui-phosh<sup>PMOS</sup></a></span> meta package or <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;"><a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/packages?name=phosh&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=">phosh</a></span> if postmarketOS specific customization is not wanted.
-</p>
-<p>When running <code>pmbootstrap install</code> you'll be prompted for a user password. Make sure to only use numeric characters [0-9] in this password as the Phosh lock screen uses this password as a PIN. On an existing Phosh install you can change your user password and PIN in the terminal with the standard <code>passwd</code> command.
-</p>
-<h1><span class="mw-headline" id="Usage">Usage</span></h1>
-<h2><span class="mw-headline" id="First_Boot">First Boot</span></h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">If you get stuck, head over to <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">Matrix and IRC chats</a>. <a href="../en/How_to_report_issues.html" title="How to report issues">Report issues</a>.</td>
-</tr></tbody></table>
-<p>As with all other interfaces in postmarketOS, the first boot takes longer than usual: the file system will be resized to use the entire device. The first start of Firefox also takes longer than the following starts.
-</p>
-<p>After boot, you are asked for your PIN. For pre-built images, this is <code>147147</code>.
-</p>
-<h3><span class="mw-headline" id="Install_updates_and_reboot">Install updates and reboot</span></h3>
-<div class="thumb tright"><div class="thumbinner" style="width:122px;">
-<a href="../Phosh-gnome-software-updates.png" class="image"><img alt="" src="../Phosh-gnome-software-updates.png" decoding="async" width="120" height="240" class="thumbimage" srcset="../180px-Phosh-gnome-software-updates.png 1.5x ../240px-Phosh-gnome-software-updates.png 2x"></a>  <div class="thumbcaption">
-<div class="magnify"><a href="../Phosh-gnome-software-updates.png" class="internal" title="Enlarge"></a></div>GNOME software with updates available</div>
-</div></div>
-<p>Unless you have just built your own postmarketOS image a few minutes before doing the installation, it is highly recommended to install updates and then reboot your device. To do that, open the "Software" app, tap the "Updates" button on the bottom right. Then tap "Update All". When the updates are finished, all listed packages will disappear and you will be left with a screen showing only a horizontal line.
-</p>
-<p>Once all updates are installed, reboot so you are actually using the newly installed software and not still the old versions. To do that, tap the top bar between the clock and the battery icon, tap the power symbol and then "Restart".
-</p>
-<p>After rebooting, update the "Software" app once again. If you are running the build that was shipped with the PinePhone, you will immediately see an update for <code>mobile-config-firefox</code> (<a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/Cogitri/apk-polkit/-/issues/18">apk-polkit#18</a>). Install this one too, so Firefox is configured for mobile. This tiny update does not need a reboot.
-</p>
-<p>Do not report issues unless you have made sure that you have rebooted into an up-to-date system.
-</p>
-<h4><span class="mw-headline" id="SSL_handshake_failed_notification">SSL handshake failed notification</span></h4>
-<p>The notification 'Unable to download updates from "odrs.gnome.org" ... SSL handshake failed' can be ignored. Just tap the "x" at the bottom, so it does not cover the "Update All" button anymore.
-</p>
-<p><small>
-This message appears if you have just connected to Wi-Fi, and your device's date was not synced with the Internet yet (see the clock that is visible in the top bar). Then GNOME software will fail to download some software ratings via the secure HTTPS protocol, because it can't verify the server's certificates without knowing the date (as they could have expired). For our use case, this is all irrelevant: we don't need the software ratings right now, we want to do updates. Because these updates are signed with a different mechanism already, we don't use HTTPS, but instead the plain HTTP to download them. So we don't even need to have the date synced.
-</small>
-</p>
-<p>This bug is tracked in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1407">pmaports#1407</a>.
-</p>
-<h3><span class="mw-headline" id="Enable_SSH">Enable SSH</span></h3>
-<p>It's highly recommended to enable and test <a href="../en/SSH.html" title="SSH">SSH access</a> to your phone, so you can control your phone from the terminal, transfer files and take part in development.
-</p>
-<h2>
-<span id="Contacts,_SMS_and_calls"></span><span class="mw-headline" id="Contacts.2C_SMS_and_calls">Contacts, SMS and calls</span>
-</h2>
-<h3><span class="mw-headline" id="Unlock_SIM_card">Unlock SIM card</span></h3>
-<p>If your SIM card needs a PIN, Phosh will display a SIM card icon with a question mark on top in the top bar. Open the top menu (tap between clock and battery icon), then tap the bigger SIM card icon again to type in the PIN.
-</p>
-<p>If you see a "No WWAN Adapter Found" message, tap the toggle-icon on the top right. It should turn blue and a "SIM Locked" message screen should appear instead, with an "Unlock" button.
-</p>
-<h3><span class="mw-headline" id="Manage_contacts">Manage contacts</span></h3>
-<p>Open the bottom menu, and open the "Contacts" app (blue book with <code>@</code> sign). The "Contacts Setup" screen will appear. Select the "Local Address Book" (read below for more options) and "Done". An empty contact list appears.
-</p>
-<p>Hit the <code>+</code> button on the left to add a contact. If you go to the bottom menu (tap the bottom arrow) and open the app again, the "New Contact" screen appears.
-</p>
-<p>Fill out at least the name and phone number, then hit "Add" on the top right.
-</p>
-<h4><span class="mw-headline" id="Synchronization_with_an_online_account">Synchronization with an online account</span></h4>
-<p>For convenience, some people may choose to synchronize their contacts with an online account. In order to do that, close the "Contacts" app (otherwise "Settings" will not open). Then open "Settings" from the bottom menu. Select "Online Accounts" and then add a provider where <a rel="nofollow" class="external text" href="https://wiki.gnome.org/Projects/GnomeOnlineAccounts/Providers">contact synchronization is supported</a>). After you have added your online account, you should be able to select it in the "Contacts" app.
-</p>
-<p>Note that the online account providers also list services, which are known bad actors in regards of privacy (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/725">pmaports#725</a>). From a privacy and anti-mass-surveillance point of view, the best solution is not using contact synchronization at all, or using a self-hosted solution (e.g. with Nextcloud).
-</p>
-<h4><span class="mw-headline" id="Import_contacts_from_a_vcf_file">Import contacts from a vcf file</span></h4>
-<p>The evolution program needs to communicate with various evolution user services, which is only possible when running commands with various DBUS_* environment variables set to the same value as in the Phosh environment. One way to accomplish this, is installing tmux (<code>sudo apk add tmux</code>), opening a terminal inside Phosh and running <code>tmux</code>, and then connecting via <a href="../en/SSH.html" title="SSH">SSH</a> and running <code>tmux a</code> to attach to the same session. You can verify the environment variables with <code>env | less</code>.
-</p>
-<p>Once the environment is set up, run the following commands to import contacts from a contacts.vcf file:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add evolution
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Phosh - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Phosh rootpage-Phosh skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Phosh
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <table cellspacing="3" class="infobox" style="border-spacing: 3px; width:22em;">
+       <caption class="" style="">
+        Phosh
+       </caption>
+       <tbody>
+        <tr class="">
+         <td class="" colspan="2" style="text-align:center;">
+          <a class="image" href="../Phosh_homescreen.png">
+           <img alt="Default Phosh homescreen." decoding="async" height="356" src="../Phosh_homescreen.png" srcset="../Phosh_homescreen.png 1.5x ../Phosh_homescreen.png 2x" width="200"/>
+          </a>
+          <br/>
+          <span style="">
+           Default Phosh homescreen.
+          </span>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Name
+         </th>
+         <td class="" style="">
+          Phosh
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Graphics stack
+         </th>
+         <td class="" style="">
+          Phoc on Wayland
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Toolkit
+         </th>
+         <td class="" style="">
+          GTK3
+         </td>
+        </tr>
+        <tr>
+         <th class="" colspan="2" style="text-align:center;">
+          In postmarketOS
+         </th>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Package
+         </th>
+         <td class="" style="">
+          postmarketos-ui-phosh
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Status
+         </th>
+         <td class="" style="">
+          Available
+         </td>
+        </tr>
+        <tr>
+         <td colspan="2" style="text-align:right">
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       <a class="external text" href="https://developer.puri.sm/Librem5/Software_Reference/Environments/Phosh.html#phosh" rel="nofollow">
+        Phosh
+       </a>
+       is a
+       <i>
+        pho
+       </i>
+       ne
+       <i>
+        sh
+       </i>
+       ell based on the
+       <a class="external text" href="https://en.wikipedia.org/wiki/GNOME" rel="nofollow">
+        GNOME
+       </a>
+       stack. It is developed by
+       <a class="external text" href="https://puri.sm/" rel="nofollow">
+        Purism
+       </a>
+       for their own Linux smartphone, the
+       <a class="external text" href="https://puri.sm/products/librem-5/" rel="nofollow">
+        Librem 5
+       </a>
+       . With postmarketOS, it can be used on various other mobile devices too. We have shipped the
+       <a href="../en/PINE64_PinePhone_(pine64-pinephone).html" title="PINE64 PinePhone (pine64-pinephone)">
+        PinePhone
+       </a>
+       <a class="external text" href="https://postmarketos.org/blog/2020/06/15/pinephone-postmarketos-community-edition/" rel="nofollow">
+        postmarketOS community edition
+       </a>
+       with Phosh.
+      </p>
+      <div class="thumb tright">
+       <div class="thumbinner" style="width:252px;">
+        <a class="image" href="../Postmarketos-osprey-phosh.jpg">
+         <img alt="" class="thumbimage" decoding="async" height="167" src="../Postmarketos-osprey-phosh.jpg" srcset="../375px-Postmarketos-osprey-phosh.jpg 1.5x ../500px-Postmarketos-osprey-phosh.jpg 2x" width="250"/>
+        </a>
+        <div class="thumbcaption">
+         <div class="magnify">
+          <a class="internal" href="../Postmarketos-osprey-phosh.jpg" title="Enlarge">
+          </a>
+         </div>
+         postmarketOS with Phosh on the Motorola Moto G 2015
+        </div>
+       </div>
+      </div>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Installation">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Installation
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Usage">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Usage
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#First_Boot">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             First Boot
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-4">
+             <a href="#Install_updates_and_reboot">
+              <span class="tocnumber">
+               2.1.1
+              </span>
+              <span class="toctext">
+               Install updates and reboot
+              </span>
+             </a>
+             <ul>
+              <li class="toclevel-4 tocsection-5">
+               <a href="#SSL_handshake_failed_notification">
+                <span class="tocnumber">
+                 2.1.1.1
+                </span>
+                <span class="toctext">
+                 SSL handshake failed notification
+                </span>
+               </a>
+              </li>
+             </ul>
+            </li>
+            <li class="toclevel-3 tocsection-6">
+             <a href="#Enable_SSH">
+              <span class="tocnumber">
+               2.1.2
+              </span>
+              <span class="toctext">
+               Enable SSH
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#Contacts.2C_SMS_and_calls">
+            <span class="tocnumber">
+             2.2
+            </span>
+            <span class="toctext">
+             Contacts, SMS and calls
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-8">
+             <a href="#Unlock_SIM_card">
+              <span class="tocnumber">
+               2.2.1
+              </span>
+              <span class="toctext">
+               Unlock SIM card
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-9">
+             <a href="#Manage_contacts">
+              <span class="tocnumber">
+               2.2.2
+              </span>
+              <span class="toctext">
+               Manage contacts
+              </span>
+             </a>
+             <ul>
+              <li class="toclevel-4 tocsection-10">
+               <a href="#Synchronization_with_an_online_account">
+                <span class="tocnumber">
+                 2.2.2.1
+                </span>
+                <span class="toctext">
+                 Synchronization with an online account
+                </span>
+               </a>
+              </li>
+              <li class="toclevel-4 tocsection-11">
+               <a href="#Import_contacts_from_a_vcf_file">
+                <span class="tocnumber">
+                 2.2.2.2
+                </span>
+                <span class="toctext">
+                 Import contacts from a vcf file
+                </span>
+               </a>
+              </li>
+             </ul>
+            </li>
+            <li class="toclevel-3 tocsection-12">
+             <a href="#Make_a_call">
+              <span class="tocnumber">
+               2.2.3
+              </span>
+              <span class="toctext">
+               Make a call
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-13">
+             <a href="#Write_SMS">
+              <span class="tocnumber">
+               2.2.4
+              </span>
+              <span class="toctext">
+               Write SMS
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="toclevel-2 tocsection-14">
+           <a href="#Install_software">
+            <span class="tocnumber">
+             2.3
+            </span>
+            <span class="toctext">
+             Install software
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-15">
+           <a href="#Take_a_screenshot">
+            <span class="tocnumber">
+             2.4
+            </span>
+            <span class="toctext">
+             Take a screenshot
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-16">
+           <a href="#Camera">
+            <span class="tocnumber">
+             2.5
+            </span>
+            <span class="toctext">
+             Camera
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-17">
+           <a href="#External_monitor">
+            <span class="tocnumber">
+             2.6
+            </span>
+            <span class="toctext">
+             External monitor
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-18">
+           <a href="#postmarketos-tweaks">
+            <span class="tocnumber">
+             2.7
+            </span>
+            <span class="toctext">
+             postmarketos-tweaks
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-19">
+         <a href="#Configuration">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Configuration
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-20">
+           <a href="#Starting_Phosh">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             Starting Phosh
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-21">
+           <a href="#Screen_Scaling">
+            <span class="tocnumber">
+             3.2
+            </span>
+            <span class="toctext">
+             Screen Scaling
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-22">
+             <a href="#Manual_Scaling">
+              <span class="tocnumber">
+               3.2.1
+              </span>
+              <span class="toctext">
+               Manual Scaling
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-23">
+             <a href="#Automatic_Scaling">
+              <span class="tocnumber">
+               3.2.2
+              </span>
+              <span class="toctext">
+               Automatic Scaling
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="toclevel-2 tocsection-24">
+           <a href="#Modem">
+            <span class="tocnumber">
+             3.3
+            </span>
+            <span class="toctext">
+             Modem
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-25">
+           <a href="#Haptics">
+            <span class="tocnumber">
+             3.4
+            </span>
+            <span class="toctext">
+             Haptics
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-26">
+             <a href="#Overview">
+              <span class="tocnumber">
+               3.4.1
+              </span>
+              <span class="toctext">
+               Overview
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-27">
+             <a href="#Supported_devices">
+              <span class="tocnumber">
+               3.4.2
+              </span>
+              <span class="toctext">
+               Supported devices
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-28">
+         <a href="#Troubleshooting">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Troubleshooting
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-29">
+           <a href="#Firefox_looks_weird">
+            <span class="tocnumber">
+             4.1
+            </span>
+            <span class="toctext">
+             Firefox looks weird
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-30">
+           <a href="#Reading_the_log">
+            <span class="tocnumber">
+             4.2
+            </span>
+            <span class="toctext">
+             Reading the log
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-31">
+           <a href="#Inspecting_sessions">
+            <span class="tocnumber">
+             4.3
+            </span>
+            <span class="toctext">
+             Inspecting sessions
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-32">
+           <a href="#Some_apps_don.27t_show_up_in_the_shell_.2F_Terminal_apps_don.27t_open">
+            <span class="tocnumber">
+             4.4
+            </span>
+            <span class="toctext">
+             Some apps don't show up in the shell / Terminal apps don't open
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-33">
+         <a href="#See_also">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h1>
+       <span class="mw-headline" id="Installation">
+        Installation
+       </span>
+      </h1>
+      <p>
+       Use the pre-built images from the downloads section of
+       <a class="external text" href="https://postmarketos.org" rel="nofollow">
+        postmarketos.org
+       </a>
+       , or build your own image with
+       <a href="../en/Pmbootstrap.html" title="Pmbootstrap">
+        pmbootstrap
+       </a>
+       . If using the latter, Phosh can be installed by selecting it as the UI in
+       <code>
+        pmbootstrap init
+       </code>
+       .
+      </p>
+      <p>
+       On existing systems, it can be installed by installing the
+       <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;">
+        <a class="external text" href="http://pkgs.postmarketos.org/packages?name=postmarketos-ui-phosh" rel="nofollow">
+         postmarketos-ui-phosh
+         <sup>
+          PMOS
+         </sup>
+        </a>
+       </span>
+       meta package or
+       <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;">
+        <a class="external text" href="https://pkgs.alpinelinux.org/packages?name=phosh&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=" rel="nofollow">
+         phosh
+        </a>
+       </span>
+       if postmarketOS specific customization is not wanted.
+      </p>
+      <p>
+       When running
+       <code>
+        pmbootstrap install
+       </code>
+       you'll be prompted for a user password. Make sure to only use numeric characters [0-9] in this password as the Phosh lock screen uses this password as a PIN. On an existing Phosh install you can change your user password and PIN in the terminal with the standard
+       <code>
+        passwd
+       </code>
+       command.
+      </p>
+      <h1>
+       <span class="mw-headline" id="Usage">
+        Usage
+       </span>
+      </h1>
+      <h2>
+       <span class="mw-headline" id="First_Boot">
+        First Boot
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          If you get stuck, head over to
+          <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+           Matrix and IRC chats
+          </a>
+          .
+          <a href="../en/How_to_report_issues.html" title="How to report issues">
+           Report issues
+          </a>
+          .
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       As with all other interfaces in postmarketOS, the first boot takes longer than usual: the file system will be resized to use the entire device. The first start of Firefox also takes longer than the following starts.
+      </p>
+      <p>
+       After boot, you are asked for your PIN. For pre-built images, this is
+       <code>
+        147147
+       </code>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Install_updates_and_reboot">
+        Install updates and reboot
+       </span>
+      </h3>
+      <div class="thumb tright">
+       <div class="thumbinner" style="width:122px;">
+        <a class="image" href="../Phosh-gnome-software-updates.png">
+         <img alt="" class="thumbimage" decoding="async" height="240" src="../Phosh-gnome-software-updates.png" srcset="../180px-Phosh-gnome-software-updates.png 1.5x ../240px-Phosh-gnome-software-updates.png 2x" width="120"/>
+        </a>
+        <div class="thumbcaption">
+         <div class="magnify">
+          <a class="internal" href="../Phosh-gnome-software-updates.png" title="Enlarge">
+          </a>
+         </div>
+         GNOME software with updates available
+        </div>
+       </div>
+      </div>
+      <p>
+       Unless you have just built your own postmarketOS image a few minutes before doing the installation, it is highly recommended to install updates and then reboot your device. To do that, open the "Software" app, tap the "Updates" button on the bottom right. Then tap "Update All". When the updates are finished, all listed packages will disappear and you will be left with a screen showing only a horizontal line.
+      </p>
+      <p>
+       Once all updates are installed, reboot so you are actually using the newly installed software and not still the old versions. To do that, tap the top bar between the clock and the battery icon, tap the power symbol and then "Restart".
+      </p>
+      <p>
+       After rebooting, update the "Software" app once again. If you are running the build that was shipped with the PinePhone, you will immediately see an update for
+       <code>
+        mobile-config-firefox
+       </code>
+       (
+       <a class="external text" href="https://gitlab.alpinelinux.org/Cogitri/apk-polkit/-/issues/18" rel="nofollow">
+        apk-polkit#18
+       </a>
+       ). Install this one too, so Firefox is configured for mobile. This tiny update does not need a reboot.
+      </p>
+      <p>
+       Do not report issues unless you have made sure that you have rebooted into an up-to-date system.
+      </p>
+      <h4>
+       <span class="mw-headline" id="SSL_handshake_failed_notification">
+        SSL handshake failed notification
+       </span>
+      </h4>
+      <p>
+       The notification 'Unable to download updates from "odrs.gnome.org" ... SSL handshake failed' can be ignored. Just tap the "x" at the bottom, so it does not cover the "Update All" button anymore.
+      </p>
+      <p>
+       <small>
+        This message appears if you have just connected to Wi-Fi, and your device's date was not synced with the Internet yet (see the clock that is visible in the top bar). Then GNOME software will fail to download some software ratings via the secure HTTPS protocol, because it can't verify the server's certificates without knowing the date (as they could have expired). For our use case, this is all irrelevant: we don't need the software ratings right now, we want to do updates. Because these updates are signed with a different mechanism already, we don't use HTTPS, but instead the plain HTTP to download them. So we don't even need to have the date synced.
+       </small>
+      </p>
+      <p>
+       This bug is tracked in
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1407" rel="nofollow">
+        pmaports#1407
+       </a>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Enable_SSH">
+        Enable SSH
+       </span>
+      </h3>
+      <p>
+       It's highly recommended to enable and test
+       <a href="../en/SSH.html" title="SSH">
+        SSH access
+       </a>
+       to your phone, so you can control your phone from the terminal, transfer files and take part in development.
+      </p>
+      <h2>
+       <span id="Contacts,_SMS_and_calls">
+       </span>
+       <span class="mw-headline" id="Contacts.2C_SMS_and_calls">
+        Contacts, SMS and calls
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Unlock_SIM_card">
+        Unlock SIM card
+       </span>
+      </h3>
+      <p>
+       If your SIM card needs a PIN, Phosh will display a SIM card icon with a question mark on top in the top bar. Open the top menu (tap between clock and battery icon), then tap the bigger SIM card icon again to type in the PIN.
+      </p>
+      <p>
+       If you see a "No WWAN Adapter Found" message, tap the toggle-icon on the top right. It should turn blue and a "SIM Locked" message screen should appear instead, with an "Unlock" button.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Manage_contacts">
+        Manage contacts
+       </span>
+      </h3>
+      <p>
+       Open the bottom menu, and open the "Contacts" app (blue book with
+       <code>
+        @
+       </code>
+       sign). The "Contacts Setup" screen will appear. Select the "Local Address Book" (read below for more options) and "Done". An empty contact list appears.
+      </p>
+      <p>
+       Hit the
+       <code>
+        +
+       </code>
+       button on the left to add a contact. If you go to the bottom menu (tap the bottom arrow) and open the app again, the "New Contact" screen appears.
+      </p>
+      <p>
+       Fill out at least the name and phone number, then hit "Add" on the top right.
+      </p>
+      <h4>
+       <span class="mw-headline" id="Synchronization_with_an_online_account">
+        Synchronization with an online account
+       </span>
+      </h4>
+      <p>
+       For convenience, some people may choose to synchronize their contacts with an online account. In order to do that, close the "Contacts" app (otherwise "Settings" will not open). Then open "Settings" from the bottom menu. Select "Online Accounts" and then add a provider where
+       <a class="external text" href="https://wiki.gnome.org/Projects/GnomeOnlineAccounts/Providers" rel="nofollow">
+        contact synchronization is supported
+       </a>
+       ). After you have added your online account, you should be able to select it in the "Contacts" app.
+      </p>
+      <p>
+       Note that the online account providers also list services, which are known bad actors in regards of privacy (
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/725" rel="nofollow">
+        pmaports#725
+       </a>
+       ). From a privacy and anti-mass-surveillance point of view, the best solution is not using contact synchronization at all, or using a self-hosted solution (e.g. with Nextcloud).
+      </p>
+      <h4>
+       <span class="mw-headline" id="Import_contacts_from_a_vcf_file">
+        Import contacts from a vcf file
+       </span>
+      </h4>
+      <p>
+       The evolution program needs to communicate with various evolution user services, which is only possible when running commands with various DBUS_* environment variables set to the same value as in the Phosh environment. One way to accomplish this, is installing tmux (
+       <code>
+        sudo apk add tmux
+       </code>
+       ), opening a terminal inside Phosh and running
+       <code>
+        tmux
+       </code>
+       , and then connecting via
+       <a href="../en/SSH.html" title="SSH">
+        SSH
+       </a>
+       and running
+       <code>
+        tmux a
+       </code>
+       to attach to the same session. You can verify the environment variables with
+       <code>
+        env | less
+       </code>
+       .
+      </p>
+      <p>
+       Once the environment is set up, run the following commands to import contacts from a contacts.vcf file:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo apk add evolution
 <span class="gp">$</span> scale-to-fit evolution
 <span class="gp">$</span> evolution -i contacts.vcf
 <span class="gp">$</span> sudo apk del evolution
-</pre></div>
-<h3><span class="mw-headline" id="Make_a_call">Make a call</span></h3>
-<p>Either open the "Contacts" app and tap on the call icon next to an existing contact. Or open the "Calls" app, select "DialPad" at the bottom and type in the number (selecting existing contacts from within the "Calls" app is currently not possible: <a rel="nofollow" class="external text" href="https://source.puri.sm/Librem5/calls/-/issues/88">calls#88</a>).
-</p>
-<p>Previously called contacts / typed in numbers and received calls appear in "Recent" and can be called again from there. If you want to avoid typing in a number, consider calling the phone running Phosh from another phone. Then the number will appear in "Recent" as well and can be called back.
-</p>
-<h3><span class="mw-headline" id="Write_SMS">Write SMS</span></h3>
-<p>Add the target phone number as contact (as described above). Then open the "Chats" app (the one with two message bubbles), hit the "+" on the top right, select the contact and start typing your SMS.
-</p>
-<p>Alternatively, write an SMS from another phone to your phone running Phosh to start a conversation.
-</p>
-<h2><span class="mw-headline" id="Install_software">Install software</span></h2>
-<p>The "Software" app doesn't show the applications available in postmarketOS and Alpine yet (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/699">pmaports#699</a>). The best way to install new software is currently via SSH with Alpine's package keeper (<code>apk</code>, no relation to the Android app format). Use <code>apk search</code> to find software, and <code>apk add</code> to install it. Read <code>apk -h</code> for usage information.
-</p>
-<p>To install the PDF reader <a rel="nofollow" class="external text" href="https://wiki.gnome.org/Apps/Evince">Evince</a> for example:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add evince
-</pre></div>
-<h2><span class="mw-headline" id="Take_a_screenshot">Take a screenshot</span></h2>
-<p>Currently there is no way to take a screenshot directly from the user interface, however you can take a screenshot from the terminal!
-</p>
-<p>First install <a rel="nofollow" class="external text" href="https://wayland.emersion.fr/grim/">grim</a> using <code>sudo apk add grim</code>. Invoking <code>grim</code> results in a screenshot of the entire screen being saved into the current working directory. 
-</p>
-<p>If you need to delay the screenshot for e.g. 10 seconds you can do that as well: <code>sleep 10 &amp;&amp; grim</code>.
-</p>
-<p>If you need to invoke grim from an SSH session you need to first log in as the <code>user</code> account (<code>su - user</code>) and then invoke grim with a special environment variable: <code>XDG_RUNTIME_DIR=/run/user/10000 grim</code>.
-</p>
-<p>If grim tries to take a screenshot of the wrong output (e.g. <code>failed to copy output HDMI-A-1</code>), specify the output with <code>grim -o output</code> with an output from <code>ls /sys/class/drm</code> without the <code>card1-</code> prefix.
-</p>
-<h2><span class="mw-headline" id="Camera">Camera</span></h2>
-<p>If your phone is able to make photos on postmarketOS (if unsure, check the device wiki page), run the Megapixels app to take photos.
-</p>
-<p>If it is not installed already, and it does not show up in the "software" app (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/699">pmaports#699</a>), install it via SSH:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add megapixels
-</pre></div>
-<p>It is also recommended to install <code>eog</code> and <code>nemo</code> to view and browse the images that were taken. Both can be opened from Megapixels once installed. New installations of postmarketOS with Phosh will come with all three apps installed by default.
-</p>
-<h2><span class="mw-headline" id="External_monitor">External monitor</span></h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">PinePhone: this appears to be broken for some users, see: <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1009">pmaports#1009</a>
-</td>
-</tr></tbody></table>
-<p>Plug in a cable to your external monitor into your phone. Phosh should recognize the screen automatically and you should be able to use it. For the PinePhone, see <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=yBeza4UNOm8">this demo video</a>.
-</p>
-<p>Need a reminder of <a rel="nofollow" class="external text" href="https://help.gnome.org/users/gnome-help/stable/shell-keyboard-shortcuts.html.en">keyboard shortcuts to move applications between screens</a>?
-</p>
-<h2><span class="mw-headline" id="postmarketos-tweaks">postmarketos-tweaks</span></h2>
-<p>Install <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-tweaks">postmarketos-tweaks</a> (via the Software app or <code>apk add postmarketos-tweaks</code>), to get a graphical application that allows various tweaks. For example:
-</p>
-<ul>
-<li>Change the GTK theme to a dark one (dark mode)</li>
-<li>Change icon themes</li>
-<li>Change the time after which the phone suspends</li>
-<li>Enable or disable all animations</li>
-</ul>
-<h1><span class="mw-headline" id="Configuration">Configuration</span></h1>
-<h2><span class="mw-headline" id="Starting_Phosh">Starting Phosh</span></h2>
-<p>If <code>postmarketos-ui-phosh</code> is installed, Phosh uses the GNOME login and session handling. A <i>session</i> is defined as the lifecycle of a user interaction with the system. Phosh will be automatically launched as a session using the login daemon <code>elogind</code>, the <code>autologin</code> credentials provider, and the <code>tinydm</code> display manager.
-</p>
-<p>The daemon actually managing the sessions is <code>elogind</code> which is the login daemon used with GNOME environments not integrated with the desktop system daemon <code>systemd</code> (Phosh on PostmarketOS currently does not use systemd). <code>elogind</code> is responsible for restarting the session if it crashes, and terminating all active sessions when the system powers off. Each user session occurs at a <i>seat</i>. Usually there will be just one seat: the session interacting with the screen. However if you also use a console (such as a serial port) this also becomes a seat.
-</p>
-<p>On the way up the <code>elogind</code> session interacting with the main screen seat will proceed to start the display manager <code>tinydm</code> (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/tinydm">TinyDM website</a>) using <code>autologin</code> to provide the default user with <i>Wayland</i> as the display server. On PostmarketOS the default user will be user ID 10000 which is what the installation scripts have set up.
-</p>
-<p>Tinydm in turn will launch Phosh by looking into the file <code>/var/lib/tinydm/default-session.desktop</code> which contains an <code>Exec</code> directive executing <code>dbus-run-session /usr/bin/phosh</code> which in turn will produce the passcode screen so you can proceed to log into your phone.
-</p>
-<p>It can also be launched manually by running <code>dbus-run-session /usr/bin/phosh</code>.
-</p>
-<h2><span class="mw-headline" id="Screen_Scaling">Screen Scaling</span></h2>
-<h3><span class="mw-headline" id="Manual_Scaling">Manual Scaling</span></h3>
-<p>The Phosh screen may be scaled lower for better compatibility with existing applications. Change the scale by modifying the scale factor variable found in /usr/share/phosh/phoc.ini, which has a default value of 2.
-</p>
-<p>Screen scaling may also be performed on-demand from the command line or by making an application by following the Purism <a rel="nofollow" class="external text" href="https://wp.puri.sm/posts/easy-librem-5-app-development-scale-the-screen/">Easy Librem 5 App Development: Scale the Screen</a> blog post. Those instructions work well for devices running Phosh even if written for a Librem5 running PureOS (Debian-based OS). Keep in mind some commands will need to be modified to work on postmarketOS.
-</p>
-<h3><span class="mw-headline" id="Automatic_Scaling">Automatic Scaling</span></h3>
-<p>Via <code>scale-to-fit</code> it is possible to scale selected applications so they fit the screen:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> scale-to-fit <span class="nv">$APPID</span> <span class="nb">true</span>
-</pre></div>
-<p><code>$APPID</code> may be determined as follows
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nv">WAYLAND_DEBUG</span><span class="o">=</span><span class="m">1</span> <span class="nv">$COMMAND</span> <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> grep <span class="s1">'xdg_toplevel@[0-9]\+\.set_app_id'</span>
-</pre></div>
-<p>where <code>$COMMAND</code> is the application's executable name. For further reference, look at <a rel="nofollow" class="external text" href="https://linmob.net/2021/02/13/pinephone-setup-scaling-in-phosh.html">LINMOB's article</a> about scaling.
-</p>
-<h2><span class="mw-headline" id="Modem">Modem</span></h2>
-<p>If you have trouble configuring everything with the graphical dialogs or just want to use the terminal, read along.
-</p>
-<p>Unlock your SIM card with the PIN:
-<code>
-mmcli -i 0 --pin=12345
-</code>
-</p>
-<p>Configure your APN for mobile data (example for mobile vikings in Belgium):
-<code>
-mmcli -m 0 --simple-connect='apn=web.be,user=web,password=web,pin=1111' 
-</code>
-</p>
-<h2><span class="mw-headline" id="Haptics">Haptics</span></h2>
-<h3><span class="mw-headline" id="Overview">Overview</span></h3>
-<p>Phosh uses feedbackd for haptics, the source repo is hosted on <a rel="nofollow" class="external text" href="https://source.puri.sm/Librem5/feedbackd">Purism's GitLab</a>, device specific configuration files are hosted in the <a rel="nofollow" class="external text" href="https://source.puri.sm/Librem5/feedbackd-device-themes">feedbackd-device-themes repo</a>.
-</p>
-<p>Feedbackd supports devices using the <code>EV_FF</code> (force feedback event) via the Linux input API, the <a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/blob/master/drivers/input/misc/pm8xxx-vibrator.c#L205">pm8xxx-vibrator driver</a> is a good example implementation of this.
-</p>
-<h3><span class="mw-headline" id="Supported_devices">Supported devices</span></h3>
-<p>Currently, feedbackd supports the Librem 5, PinePhone and most recently OnePlus 6/6T (and soon the PocoPhone F1). However it should be possible to get any MSM8996+ device working (and MSM8916), as long as the hardware is supported by the mainline driver.
-</p>
-<p>For more details see <a href="../en/Haptics.html" title="Haptics">Haptics</a>.
-</p>
-<h1><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h1>
-<h2><span class="mw-headline" id="Firefox_looks_weird">Firefox looks weird</span></h2>
-<p>Firefox should look <a rel="nofollow" class="external text" href="https://user-content.gitlab-static.net/7bfd7dd93d7b1ed2a0103bcd90bbd5ebce0eb1e5/68747470733a2f2f706f73746d61726b65746f732e6f72672f7374617469632f696d672f323032302d30382f6d6f62696c652d636f6e6669672d66697265666f782d65737237382e6a7067">like this</a> (on the right) after installing all updates. If the address bar is cut off, you don't have <code>mobile-config-firefox</code> installed. Make sure you have installed all updates, rebooted, and checked for updates again (as described in <a href="../en/Phosh.html#Install_updates_and_reboot" title="Phosh">install updates and reboot</a> above).
-</p>
-<p>If you would like to contribute to mobile-config-firefox, see the related <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/mobile-config-firefox/">project page</a>.
-</p>
-<h2><span class="mw-headline" id="Reading_the_log">Reading the log</span></h2>
-<p>Phosh related applications are logging to <code>~/.cache/tinydm.log</code> or <code>~/.local/state/tinydm.log</code>. It's recommended to only share the relevant piece of the log file, read through it and redact personal information (your phone number!) before sharing. Login via <a href="../en/SSH.html" title="SSH">SSH</a>, then read the file:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> su - user
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="Make_a_call">
+        Make a call
+       </span>
+      </h3>
+      <p>
+       Either open the "Contacts" app and tap on the call icon next to an existing contact. Or open the "Calls" app, select "DialPad" at the bottom and type in the number (selecting existing contacts from within the "Calls" app is currently not possible:
+       <a class="external text" href="https://source.puri.sm/Librem5/calls/-/issues/88" rel="nofollow">
+        calls#88
+       </a>
+       ).
+      </p>
+      <p>
+       Previously called contacts / typed in numbers and received calls appear in "Recent" and can be called again from there. If you want to avoid typing in a number, consider calling the phone running Phosh from another phone. Then the number will appear in "Recent" as well and can be called back.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Write_SMS">
+        Write SMS
+       </span>
+      </h3>
+      <p>
+       Add the target phone number as contact (as described above). Then open the "Chats" app (the one with two message bubbles), hit the "+" on the top right, select the contact and start typing your SMS.
+      </p>
+      <p>
+       Alternatively, write an SMS from another phone to your phone running Phosh to start a conversation.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Install_software">
+        Install software
+       </span>
+      </h2>
+      <p>
+       The "Software" app doesn't show the applications available in postmarketOS and Alpine yet (
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/699" rel="nofollow">
+        pmaports#699
+       </a>
+       ). The best way to install new software is currently via SSH with Alpine's package keeper (
+       <code>
+        apk
+       </code>
+       , no relation to the Android app format). Use
+       <code>
+        apk search
+       </code>
+       to find software, and
+       <code>
+        apk add
+       </code>
+       to install it. Read
+       <code>
+        apk -h
+       </code>
+       for usage information.
+      </p>
+      <p>
+       To install the PDF reader
+       <a class="external text" href="https://wiki.gnome.org/Apps/Evince" rel="nofollow">
+        Evince
+       </a>
+       for example:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo apk add evince
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Take_a_screenshot">
+        Take a screenshot
+       </span>
+      </h2>
+      <p>
+       Currently there is no way to take a screenshot directly from the user interface, however you can take a screenshot from the terminal!
+      </p>
+      <p>
+       First install
+       <a class="external text" href="https://wayland.emersion.fr/grim/" rel="nofollow">
+        grim
+       </a>
+       using
+       <code>
+        sudo apk add grim
+       </code>
+       . Invoking
+       <code>
+        grim
+       </code>
+       results in a screenshot of the entire screen being saved into the current working directory.
+      </p>
+      <p>
+       If you need to delay the screenshot for e.g. 10 seconds you can do that as well:
+       <code>
+        sleep 10 &amp;&amp; grim
+       </code>
+       .
+      </p>
+      <p>
+       If you need to invoke grim from an SSH session you need to first log in as the
+       <code>
+        user
+       </code>
+       account (
+       <code>
+        su - user
+       </code>
+       ) and then invoke grim with a special environment variable:
+       <code>
+        XDG_RUNTIME_DIR=/run/user/10000 grim
+       </code>
+       .
+      </p>
+      <p>
+       If grim tries to take a screenshot of the wrong output (e.g.
+       <code>
+        failed to copy output HDMI-A-1
+       </code>
+       ), specify the output with
+       <code>
+        grim -o output
+       </code>
+       with an output from
+       <code>
+        ls /sys/class/drm
+       </code>
+       without the
+       <code>
+        card1-
+       </code>
+       prefix.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Camera">
+        Camera
+       </span>
+      </h2>
+      <p>
+       If your phone is able to make photos on postmarketOS (if unsure, check the device wiki page), run the Megapixels app to take photos.
+      </p>
+      <p>
+       If it is not installed already, and it does not show up in the "software" app (
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/699" rel="nofollow">
+        pmaports#699
+       </a>
+       ), install it via SSH:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo apk add megapixels
+</pre>
+      </div>
+      <p>
+       It is also recommended to install
+       <code>
+        eog
+       </code>
+       and
+       <code>
+        nemo
+       </code>
+       to view and browse the images that were taken. Both can be opened from Megapixels once installed. New installations of postmarketOS with Phosh will come with all three apps installed by default.
+      </p>
+      <h2>
+       <span class="mw-headline" id="External_monitor">
+        External monitor
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          PinePhone: this appears to be broken for some users, see:
+          <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1009" rel="nofollow">
+           pmaports#1009
+          </a>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       Plug in a cable to your external monitor into your phone. Phosh should recognize the screen automatically and you should be able to use it. For the PinePhone, see
+       <a class="external text" href="https://www.youtube.com/watch?v=yBeza4UNOm8" rel="nofollow">
+        this demo video
+       </a>
+       .
+      </p>
+      <p>
+       Need a reminder of
+       <a class="external text" href="https://help.gnome.org/users/gnome-help/stable/shell-keyboard-shortcuts.html.en" rel="nofollow">
+        keyboard shortcuts to move applications between screens
+       </a>
+       ?
+      </p>
+      <h2>
+       <span class="mw-headline" id="postmarketos-tweaks">
+        postmarketos-tweaks
+       </span>
+      </h2>
+      <p>
+       Install
+       <a class="external text" href="https://gitlab.com/postmarketOS/postmarketos-tweaks" rel="nofollow">
+        postmarketos-tweaks
+       </a>
+       (via the Software app or
+       <code>
+        apk add postmarketos-tweaks
+       </code>
+       ), to get a graphical application that allows various tweaks. For example:
+      </p>
+      <ul>
+       <li>
+        Change the GTK theme to a dark one (dark mode)
+       </li>
+       <li>
+        Change icon themes
+       </li>
+       <li>
+        Change the time after which the phone suspends
+       </li>
+       <li>
+        Enable or disable all animations
+       </li>
+      </ul>
+      <h1>
+       <span class="mw-headline" id="Configuration">
+        Configuration
+       </span>
+      </h1>
+      <h2>
+       <span class="mw-headline" id="Starting_Phosh">
+        Starting Phosh
+       </span>
+      </h2>
+      <p>
+       If
+       <code>
+        postmarketos-ui-phosh
+       </code>
+       is installed, Phosh uses the GNOME login and session handling. A
+       <i>
+        session
+       </i>
+       is defined as the lifecycle of a user interaction with the system. Phosh will be automatically launched as a session using the login daemon
+       <code>
+        elogind
+       </code>
+       , the
+       <code>
+        autologin
+       </code>
+       credentials provider, and the
+       <code>
+        tinydm
+       </code>
+       display manager.
+      </p>
+      <p>
+       The daemon actually managing the sessions is
+       <code>
+        elogind
+       </code>
+       which is the login daemon used with GNOME environments not integrated with the desktop system daemon
+       <code>
+        systemd
+       </code>
+       (Phosh on PostmarketOS currently does not use systemd).
+       <code>
+        elogind
+       </code>
+       is responsible for restarting the session if it crashes, and terminating all active sessions when the system powers off. Each user session occurs at a
+       <i>
+        seat
+       </i>
+       . Usually there will be just one seat: the session interacting with the screen. However if you also use a console (such as a serial port) this also becomes a seat.
+      </p>
+      <p>
+       On the way up the
+       <code>
+        elogind
+       </code>
+       session interacting with the main screen seat will proceed to start the display manager
+       <code>
+        tinydm
+       </code>
+       (
+       <a class="external text" href="https://gitlab.com/postmarketOS/tinydm" rel="nofollow">
+        TinyDM website
+       </a>
+       ) using
+       <code>
+        autologin
+       </code>
+       to provide the default user with
+       <i>
+        Wayland
+       </i>
+       as the display server. On PostmarketOS the default user will be user ID 10000 which is what the installation scripts have set up.
+      </p>
+      <p>
+       Tinydm in turn will launch Phosh by looking into the file
+       <code>
+        /var/lib/tinydm/default-session.desktop
+       </code>
+       which contains an
+       <code>
+        Exec
+       </code>
+       directive executing
+       <code>
+        dbus-run-session /usr/bin/phosh
+       </code>
+       which in turn will produce the passcode screen so you can proceed to log into your phone.
+      </p>
+      <p>
+       It can also be launched manually by running
+       <code>
+        dbus-run-session /usr/bin/phosh
+       </code>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Screen_Scaling">
+        Screen Scaling
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Manual_Scaling">
+        Manual Scaling
+       </span>
+      </h3>
+      <p>
+       The Phosh screen may be scaled lower for better compatibility with existing applications. Change the scale by modifying the scale factor variable found in /usr/share/phosh/phoc.ini, which has a default value of 2.
+      </p>
+      <p>
+       Screen scaling may also be performed on-demand from the command line or by making an application by following the Purism
+       <a class="external text" href="https://wp.puri.sm/posts/easy-librem-5-app-development-scale-the-screen/" rel="nofollow">
+        Easy Librem 5 App Development: Scale the Screen
+       </a>
+       blog post. Those instructions work well for devices running Phosh even if written for a Librem5 running PureOS (Debian-based OS). Keep in mind some commands will need to be modified to work on postmarketOS.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Automatic_Scaling">
+        Automatic Scaling
+       </span>
+      </h3>
+      <p>
+       Via
+       <code>
+        scale-to-fit
+       </code>
+       it is possible to scale selected applications so they fit the screen:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> scale-to-fit <span class="nv">$APPID</span> <span class="nb">true</span>
+</pre>
+      </div>
+      <p>
+       <code>
+        $APPID
+       </code>
+       may be determined as follows
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> <span class="nv">WAYLAND_DEBUG</span><span class="o">=</span><span class="m">1</span> <span class="nv">$COMMAND</span> <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> grep <span class="s1">'xdg_toplevel@[0-9]\+\.set_app_id'</span>
+</pre>
+      </div>
+      <p>
+       where
+       <code>
+        $COMMAND
+       </code>
+       is the application's executable name. For further reference, look at
+       <a class="external text" href="https://linmob.net/2021/02/13/pinephone-setup-scaling-in-phosh.html" rel="nofollow">
+        LINMOB's article
+       </a>
+       about scaling.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Modem">
+        Modem
+       </span>
+      </h2>
+      <p>
+       If you have trouble configuring everything with the graphical dialogs or just want to use the terminal, read along.
+      </p>
+      <p>
+       Unlock your SIM card with the PIN:
+       <code>
+        mmcli -i 0 --pin=12345
+       </code>
+      </p>
+      <p>
+       Configure your APN for mobile data (example for mobile vikings in Belgium):
+       <code>
+        mmcli -m 0 --simple-connect='apn=web.be,user=web,password=web,pin=1111'
+       </code>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Haptics">
+        Haptics
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Overview">
+        Overview
+       </span>
+      </h3>
+      <p>
+       Phosh uses feedbackd for haptics, the source repo is hosted on
+       <a class="external text" href="https://source.puri.sm/Librem5/feedbackd" rel="nofollow">
+        Purism's GitLab
+       </a>
+       , device specific configuration files are hosted in the
+       <a class="external text" href="https://source.puri.sm/Librem5/feedbackd-device-themes" rel="nofollow">
+        feedbackd-device-themes repo
+       </a>
+       .
+      </p>
+      <p>
+       Feedbackd supports devices using the
+       <code>
+        EV_FF
+       </code>
+       (force feedback event) via the Linux input API, the
+       <a class="external text" href="https://github.com/torvalds/linux/blob/master/drivers/input/misc/pm8xxx-vibrator.c#L205" rel="nofollow">
+        pm8xxx-vibrator driver
+       </a>
+       is a good example implementation of this.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Supported_devices">
+        Supported devices
+       </span>
+      </h3>
+      <p>
+       Currently, feedbackd supports the Librem 5, PinePhone and most recently OnePlus 6/6T (and soon the PocoPhone F1). However it should be possible to get any MSM8996+ device working (and MSM8916), as long as the hardware is supported by the mainline driver.
+      </p>
+      <p>
+       For more details see
+       <a href="../en/Haptics.html" title="Haptics">
+        Haptics
+       </a>
+       .
+      </p>
+      <h1>
+       <span class="mw-headline" id="Troubleshooting">
+        Troubleshooting
+       </span>
+      </h1>
+      <h2>
+       <span class="mw-headline" id="Firefox_looks_weird">
+        Firefox looks weird
+       </span>
+      </h2>
+      <p>
+       Firefox should look
+       <a class="external text" href="https://user-content.gitlab-static.net/7bfd7dd93d7b1ed2a0103bcd90bbd5ebce0eb1e5/68747470733a2f2f706f73746d61726b65746f732e6f72672f7374617469632f696d672f323032302d30382f6d6f62696c652d636f6e6669672d66697265666f782d65737237382e6a7067" rel="nofollow">
+        like this
+       </a>
+       (on the right) after installing all updates. If the address bar is cut off, you don't have
+       <code>
+        mobile-config-firefox
+       </code>
+       installed. Make sure you have installed all updates, rebooted, and checked for updates again (as described in
+       <a href="../en/Phosh.html#Install_updates_and_reboot" title="Phosh">
+        install updates and reboot
+       </a>
+       above).
+      </p>
+      <p>
+       If you would like to contribute to mobile-config-firefox, see the related
+       <a class="external text" href="https://gitlab.com/postmarketOS/mobile-config-firefox/" rel="nofollow">
+        project page
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Reading_the_log">
+        Reading the log
+       </span>
+      </h2>
+      <p>
+       Phosh related applications are logging to
+       <code>
+        ~/.cache/tinydm.log
+       </code>
+       or
+       <code>
+        ~/.local/state/tinydm.log
+       </code>
+       . It's recommended to only share the relevant piece of the log file, read through it and redact personal information (your phone number!) before sharing. Login via
+       <a href="../en/SSH.html" title="SSH">
+        SSH
+       </a>
+       , then read the file:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> su - user
 <span class="gp">$</span> tail -F ~/.cache/tinydm.log
-</pre></div>
-<h2><span class="mw-headline" id="Inspecting_sessions">Inspecting sessions</span></h2>
-<p>It is possible to manipulate the elogind user sessions as <b>root</b> using <code>loginctl</code>. For example:
-</p>
-<ul>
-<li>
-<code>sudo loginctl list-sessions</code> will list the ongoing sessions, and on a normal phone or tablet you should have a one session called <b>c1</b> connected to <b>seat0</b>.</li>
-<li>
-<code>sudo loginctl seat-status seat0</code> will display the graphics, input and sound devices that <b>seat0</b> for session <b>c1</b> is connected to. This is a good way to verify that your graphics (both GPU and display controller), input, and sound devices are correctly set up.</li>
-<li>
-<code>sudo loginctl unlock-session c1</code> will unlock the screen lock from the command line, if the screen happened to lock on you. (This does not apply to the login screen though, you still have to log in properly.)</li>
-<li>
-<code>sudo loginctl terminate-session c1</code> will terminate the session and bring you back to the login screen. You will see a new <b>cN</b> session spawning (such as <b>c3</b>) since the session number increment by one for every new session.</li>
-</ul>
-<p>See also the <a rel="nofollow" class="external text" href="https://www.freedesktop.org/software/systemd/man/loginctl.html">official documentation</a> at Freedesktop.org.
-</p>
-<h2>
-<span id="Some_apps_don't_show_up_in_the_shell_/_Terminal_apps_don't_open"></span><span class="mw-headline" id="Some_apps_don.27t_show_up_in_the_shell_.2F_Terminal_apps_don.27t_open">Some apps don't show up in the shell / Terminal apps don't open</span>
-</h2>
-<p>Some apps are currently hidden from the shell by <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/postmarketos-hidden-desktop-entries/APKBUILD">postmarketos-hidden-desktop-entries</a>. This mainly consists of terminal apps as these currently do not work in Phosh unless you install an alternative terminal emulator, e.g. GNOME Terminal. King's Cross (the default terminal emulator in Phosh) does not support launching terminal apps from desktop files it seems. It is also debated how useful these are in a mobile shell.
-</p>
-<h1><span class="mw-headline" id="See_also">See also</span></h1>
-<ul><li><a href="../User:Knuxfanwin8_Phosh_Apps.html" title="User:Knuxfanwin8/Phosh Apps">User:Knuxfanwin8/Phosh Apps</a></li></ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../en/Category:Interface.html" title="Category:Interface">Interface</a></li>
-<li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li>
-</ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Phosh&amp;oldid=28440">https://wiki.postmarketos.org/index.php?title=Phosh&amp;oldid=28440</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 9 June 2022, at 21:07.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Phosh&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Inspecting_sessions">
+        Inspecting sessions
+       </span>
+      </h2>
+      <p>
+       It is possible to manipulate the elogind user sessions as
+       <b>
+        root
+       </b>
+       using
+       <code>
+        loginctl
+       </code>
+       . For example:
+      </p>
+      <ul>
+       <li>
+        <code>
+         sudo loginctl list-sessions
+        </code>
+        will list the ongoing sessions, and on a normal phone or tablet you should have a one session called
+        <b>
+         c1
+        </b>
+        connected to
+        <b>
+         seat0
+        </b>
+        .
+       </li>
+       <li>
+        <code>
+         sudo loginctl seat-status seat0
+        </code>
+        will display the graphics, input and sound devices that
+        <b>
+         seat0
+        </b>
+        for session
+        <b>
+         c1
+        </b>
+        is connected to. This is a good way to verify that your graphics (both GPU and display controller), input, and sound devices are correctly set up.
+       </li>
+       <li>
+        <code>
+         sudo loginctl unlock-session c1
+        </code>
+        will unlock the screen lock from the command line, if the screen happened to lock on you. (This does not apply to the login screen though, you still have to log in properly.)
+       </li>
+       <li>
+        <code>
+         sudo loginctl terminate-session c1
+        </code>
+        will terminate the session and bring you back to the login screen. You will see a new
+        <b>
+         cN
+        </b>
+        session spawning (such as
+        <b>
+         c3
+        </b>
+        ) since the session number increment by one for every new session.
+       </li>
+      </ul>
+      <p>
+       See also the
+       <a class="external text" href="https://www.freedesktop.org/software/systemd/man/loginctl.html" rel="nofollow">
+        official documentation
+       </a>
+       at Freedesktop.org.
+      </p>
+      <h2>
+       <span id="Some_apps_don't_show_up_in_the_shell_/_Terminal_apps_don't_open">
+       </span>
+       <span class="mw-headline" id="Some_apps_don.27t_show_up_in_the_shell_.2F_Terminal_apps_don.27t_open">
+        Some apps don't show up in the shell / Terminal apps don't open
+       </span>
+      </h2>
+      <p>
+       Some apps are currently hidden from the shell by
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/postmarketos-hidden-desktop-entries/APKBUILD" rel="nofollow">
+        postmarketos-hidden-desktop-entries
+       </a>
+       . This mainly consists of terminal apps as these currently do not work in Phosh unless you install an alternative terminal emulator, e.g. GNOME Terminal. King's Cross (the default terminal emulator in Phosh) does not support launching terminal apps from desktop files it seems. It is also debated how useful these are in a mobile shell.
+      </p>
+      <h1>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h1>
+      <ul>
+       <li>
+        <a href="../User:Knuxfanwin8_Phosh_Apps.html" title="User:Knuxfanwin8/Phosh Apps">
+         User:Knuxfanwin8/Phosh Apps
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Categories
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Interface.html" title="Category:Interface">
+         Interface
+        </a>
+       </li>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Phosh&amp;oldid=28440">
+      https://wiki.postmarketos.org/index.php?title=Phosh&amp;oldid=28440
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 9 June 2022, at 21:07.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Phosh&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

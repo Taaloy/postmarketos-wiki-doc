@@ -1,182 +1,530 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Compiling kernels with envkernel.sh - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Compiling_kernels_with_envkernel_sh rootpage-Compiling_kernels_with_envkernel_sh skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Compiling kernels with envkernel.sh</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This page details how to compile a kernel manually using the <code>envkernel.sh</code> helper script. This workflow can be used to quickly compile and test changes to the kernel source.  
-</p>
-<p>Usually when compiling a kernel, you would install <a rel="nofollow" class="external text" href="https://kernelnewbies.org/KernelBuild">all dependencies</a> and a cross compiler in your host system. To make it easier, we have the <code>envkernel.sh</code> script (for fish shell: <code>envkernel.fish</code>). It sets up an Alpine Linux chroot with all the dependencies by using <code>pmbootstrap</code> internally, exports the environment variables to use the right cross compiler and creates an alias to <code>make</code>. This means, whenever you type <code>make</code> after sourcing that script, it will actually run <code>make</code> in the chroot.  
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Selecting_a_kernel"><span class="tocnumber">1</span> <span class="toctext">Selecting a kernel</span></a></li>
-<li class="toclevel-1 tocsection-2">
-<a href="#Preparing_the_source_directory"><span class="tocnumber">2</span> <span class="toctext">Preparing the source directory</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3"><a href="#Applying_patches"><span class="tocnumber">2.1</span> <span class="toctext">Applying patches</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-4"><a href="#Compile_the_kernel"><span class="tocnumber">3</span> <span class="toctext">Compile the kernel</span></a></li>
-<li class="toclevel-1 tocsection-5">
-<a href="#Run_the_kernel"><span class="tocnumber">4</span> <span class="toctext">Run the kernel</span></a>
-<ul>
-<li class="toclevel-2 tocsection-6"><a href="#Post_make_scripts"><span class="tocnumber">4.1</span> <span class="toctext">Post make scripts</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="#Packaging_and_flashing_the_kernel"><span class="tocnumber">4.2</span> <span class="toctext">Packaging and flashing the kernel</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-8"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Selecting_a_kernel">Selecting a kernel</span></h2>
-<p>This section details how to fetch the kernel source of an existing postmarketOS device. Existing kernel aports can be found in the <code>aports/device</code> directory.
-</p>
-<p>In the following example we will use the <code>oneplus-bacon</code> device. The kernel aport is in the <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/blob/09ce31ca20b7d6b87a89cbb89a5aff7014e1d414/device/linux-oneplus-bacon/APKBUILD"><code>aports/device/linux-oneplus-bacon</code></a> directory. Within the APKBUILD is the <code>source</code> variable which lists the kernel source repository.  
-</p>
-<p>After determining the kernel you want to work with, download the source code.  
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://github.com/LineageOS/android_kernel_oneplus_msm8974.git
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Compiling kernels with envkernel.sh - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Compiling_kernels_with_envkernel_sh rootpage-Compiling_kernels_with_envkernel_sh skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Compiling kernels with envkernel.sh
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       This page details how to compile a kernel manually using the
+       <code>
+        envkernel.sh
+       </code>
+       helper script. This workflow can be used to quickly compile and test changes to the kernel source.
+      </p>
+      <p>
+       Usually when compiling a kernel, you would install
+       <a class="external text" href="https://kernelnewbies.org/KernelBuild" rel="nofollow">
+        all dependencies
+       </a>
+       and a cross compiler in your host system. To make it easier, we have the
+       <code>
+        envkernel.sh
+       </code>
+       script (for fish shell:
+       <code>
+        envkernel.fish
+       </code>
+       ). It sets up an Alpine Linux chroot with all the dependencies by using
+       <code>
+        pmbootstrap
+       </code>
+       internally, exports the environment variables to use the right cross compiler and creates an alias to
+       <code>
+        make
+       </code>
+       . This means, whenever you type
+       <code>
+        make
+       </code>
+       after sourcing that script, it will actually run
+       <code>
+        make
+       </code>
+       in the chroot.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Selecting_a_kernel">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Selecting a kernel
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Preparing_the_source_directory">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Preparing the source directory
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#Applying_patches">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             Applying patches
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Compile_the_kernel">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Compile the kernel
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-5">
+         <a href="#Run_the_kernel">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Run the kernel
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Post_make_scripts">
+            <span class="tocnumber">
+             4.1
+            </span>
+            <span class="toctext">
+             Post make scripts
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#Packaging_and_flashing_the_kernel">
+            <span class="tocnumber">
+             4.2
+            </span>
+            <span class="toctext">
+             Packaging and flashing the kernel
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-8">
+         <a href="#See_also">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Selecting_a_kernel">
+        Selecting a kernel
+       </span>
+      </h2>
+      <p>
+       This section details how to fetch the kernel source of an existing postmarketOS device. Existing kernel aports can be found in the
+       <code>
+        aports/device
+       </code>
+       directory.
+      </p>
+      <p>
+       In the following example we will use the
+       <code>
+        oneplus-bacon
+       </code>
+       device. The kernel aport is in the
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/blob/09ce31ca20b7d6b87a89cbb89a5aff7014e1d414/device/linux-oneplus-bacon/APKBUILD" rel="nofollow">
+        <code>
+         aports/device/linux-oneplus-bacon
+        </code>
+       </a>
+       directory. Within the APKBUILD is the
+       <code>
+        source
+       </code>
+       variable which lists the kernel source repository.
+      </p>
+      <p>
+       After determining the kernel you want to work with, download the source code.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> git clone https://github.com/LineageOS/android_kernel_oneplus_msm8974.git
 <span class="gp">$</span> <span class="nb">cd</span> android_kernel_oneplus_msm8974
-</pre></div>
-<h2><span class="mw-headline" id="Preparing_the_source_directory">Preparing the source directory</span></h2>
-<p>To compile the current version of the kernel, check out the git revision found in the APKBUILD.  
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git checkout dd65620ba04a8c6ba0e30553c9c95388daefae02
-</pre></div>
-<h3><span class="mw-headline" id="Applying_patches">Applying patches</span></h3>
-<p>Some kernel aports have patches applied on top of the remote source. You may want to apply these patches if they aren't in the source tree you have checked out.  
-</p>
-<p>For example <code>oneplus-bacon</code> has a patch which isn't in the git revision in the prior example.  
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git apply /code/pmboostrap/aports/device/linux-oneplus-bacon/02_gpu-msm-fix-gcc5-compile.patch
-</pre></div>
-<p>Kernels which can only be compiled with older GCC versions may need the <code>compiler-gcc6.h</code>. If this header exists in the kernel aport then copy it to the kernel source directory.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> cp /code/pmboostrap/aports/device/linux-oneplus-bacon/compiler-gcc6.h include/linux/
-</pre></div>
-<h2><span class="mw-headline" id="Compile_the_kernel">Compile the kernel</span></h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">The <code>envkernel.sh</code> script is not provided, when you installed pmbootstrap from pip. You have to install pmbootstrap from git to have it.</td>
-</tr></tbody></table>
-<p>The <code>envkernel.sh</code> script will set up a build environment based on the target device configured for <code>pmbootstrap</code>.  
-</p>
-<p>In this example we are using the <code>oneplus-bacon</code> device. So we should be sure to have run <code>pmbootstrap init</code> and select <code>oneplus-bacon</code> as the target device.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
-</pre></div>
-<p>Run the <code>envkernel.sh</code> script once in the kernel source directory to initialize the build environment. If the kernel can only be compiled with GCC6 then pass the <code>--gcc6</code> flag.  
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">source</span> /code/pmbootstrap/helpers/envkernel.sh --gcc6
-</pre></div>
-<p>Copy the defconfig from the kernel aport to the kernel source directory.  
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> cp /code/pmboostrap/aports/device/testing/linux-oneplus-bacon/config-oneplus-bacon.armv7 arch/arm/configs/oneplus_bacon_defconfig
-</pre></div>
-<p>Build the defconfig and kernel with the following commands.  
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> make oneplus_bacon_defconfig
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Preparing_the_source_directory">
+        Preparing the source directory
+       </span>
+      </h2>
+      <p>
+       To compile the current version of the kernel, check out the git revision found in the APKBUILD.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> git checkout dd65620ba04a8c6ba0e30553c9c95388daefae02
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="Applying_patches">
+        Applying patches
+       </span>
+      </h3>
+      <p>
+       Some kernel aports have patches applied on top of the remote source. You may want to apply these patches if they aren't in the source tree you have checked out.
+      </p>
+      <p>
+       For example
+       <code>
+        oneplus-bacon
+       </code>
+       has a patch which isn't in the git revision in the prior example.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> git apply /code/pmboostrap/aports/device/linux-oneplus-bacon/02_gpu-msm-fix-gcc5-compile.patch
+</pre>
+      </div>
+      <p>
+       Kernels which can only be compiled with older GCC versions may need the
+       <code>
+        compiler-gcc6.h
+       </code>
+       . If this header exists in the kernel aport then copy it to the kernel source directory.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> cp /code/pmboostrap/aports/device/linux-oneplus-bacon/compiler-gcc6.h include/linux/
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Compile_the_kernel">
+        Compile the kernel
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          The
+          <code>
+           envkernel.sh
+          </code>
+          script is not provided, when you installed pmbootstrap from pip. You have to install pmbootstrap from git to have it.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       The
+       <code>
+        envkernel.sh
+       </code>
+       script will set up a build environment based on the target device configured for
+       <code>
+        pmbootstrap
+       </code>
+       .
+      </p>
+      <p>
+       In this example we are using the
+       <code>
+        oneplus-bacon
+       </code>
+       device. So we should be sure to have run
+       <code>
+        pmbootstrap init
+       </code>
+       and select
+       <code>
+        oneplus-bacon
+       </code>
+       as the target device.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap init
+</pre>
+      </div>
+      <p>
+       Run the
+       <code>
+        envkernel.sh
+       </code>
+       script once in the kernel source directory to initialize the build environment. If the kernel can only be compiled with GCC6 then pass the
+       <code>
+        --gcc6
+       </code>
+       flag.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> <span class="nb">source</span> /code/pmbootstrap/helpers/envkernel.sh --gcc6
+</pre>
+      </div>
+      <p>
+       Copy the defconfig from the kernel aport to the kernel source directory.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> cp /code/pmboostrap/aports/device/testing/linux-oneplus-bacon/config-oneplus-bacon.armv7 arch/arm/configs/oneplus_bacon_defconfig
+</pre>
+      </div>
+      <p>
+       Build the defconfig and kernel with the following commands.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> make oneplus_bacon_defconfig
 <span class="gp">$</span> make
-</pre></div>
-<h2><span class="mw-headline" id="Run_the_kernel">Run the kernel</span></h2>
-<h3><span class="mw-headline" id="Post_make_scripts">Post make scripts</span></h3>
-<p>Some kernels require extra packaging steps such as <code>dtbtool</code>. The <code>envkernel.sh</code> build environment works within the pmbootstrap chroots. The <code>run-script</code> alias can be used to execute scripts within the source or build directory in the chroot.
-</p>
-<p>In this example we are using the <code>oneplus-bacon</code> which requires <code>dtbtool</code>. Create a script with the <code>dtbtool</code> command named <code>post-make.sh</code> in the kernel source directory.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span>!/bin/sh
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Run_the_kernel">
+        Run the kernel
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Post_make_scripts">
+        Post make scripts
+       </span>
+      </h3>
+      <p>
+       Some kernels require extra packaging steps such as
+       <code>
+        dtbtool
+       </code>
+       . The
+       <code>
+        envkernel.sh
+       </code>
+       build environment works within the pmbootstrap chroots. The
+       <code>
+        run-script
+       </code>
+       alias can be used to execute scripts within the source or build directory in the chroot.
+      </p>
+      <p>
+       In this example we are using the
+       <code>
+        oneplus-bacon
+       </code>
+       which requires
+       <code>
+        dtbtool
+       </code>
+       . Create a script with the
+       <code>
+        dtbtool
+       </code>
+       command named
+       <code>
+        post-make.sh
+       </code>
+       in the kernel source directory.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span>!/bin/sh
 <span class="go">dtbTool -s 2048 -p "${srcdir}/scripts/dtc/" -o \</span>
 <span class="go">	"${builddir}/arch/arm/boot/dt.img" \</span>
 <span class="go">	"${builddir}/arch/arm/boot"</span>
-</pre></div>
-<p>Run the script.  
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> run-script post-make.sh
-</pre></div>
-<h3><span class="mw-headline" id="Packaging_and_flashing_the_kernel">Packaging and flashing the kernel</span></h3>
-<p>A kernel compiled under <code>envkernel.sh</code> can be packaged by pmbootstrap by using the <code>--envkernel</code> build option.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap build --envkernel linux-oneplus-bacon
-</pre></div>
-<p>After compiling and packaging the kernel, it can be flashed to device using the standard pmbootstrap flash commands.  
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_kernel
-</pre></div>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1703">!1703</a> optional gcc6 argument</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1747">!1747</a> pmbootstrap build --envkernel</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/issues/1672#note_105668759">a quick Q&amp;A about using envkernel.sh for the Nexus 5</a> (if you have more questions, please open a new issue or ask in the chat).</li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Compiling_kernels_with_envkernel.sh&amp;oldid=22328">https://wiki.postmarketos.org/index.php?title=Compiling_kernels_with_envkernel.sh&amp;oldid=22328</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 14 September 2021, at 17:51.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Compiling_kernels_with_envkernel.sh&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <p>
+       Run the script.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> run-script post-make.sh
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="Packaging_and_flashing_the_kernel">
+        Packaging and flashing the kernel
+       </span>
+      </h3>
+      <p>
+       A kernel compiled under
+       <code>
+        envkernel.sh
+       </code>
+       can be packaged by pmbootstrap by using the
+       <code>
+        --envkernel
+       </code>
+       build option.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap build --envkernel linux-oneplus-bacon
+</pre>
+      </div>
+      <p>
+       After compiling and packaging the kernel, it can be flashed to device using the standard pmbootstrap flash commands.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_kernel
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1703" rel="nofollow">
+         !1703
+        </a>
+        optional gcc6 argument
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1747" rel="nofollow">
+         !1747
+        </a>
+        pmbootstrap build --envkernel
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/issues/1672#note_105668759" rel="nofollow">
+         a quick Q&amp;A about using envkernel.sh for the Nexus 5
+        </a>
+        (if you have more questions, please open a new issue or ask in the chat).
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Compiling_kernels_with_envkernel.sh&amp;oldid=22328">
+      https://wiki.postmarketos.org/index.php?title=Compiling_kernels_with_envkernel.sh&amp;oldid=22328
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 14 September 2021, at 17:51.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Compiling_kernels_with_envkernel.sh&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

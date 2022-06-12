@@ -1,84 +1,275 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Device specific package - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Device_specific_package rootpage-Device_specific_package skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Device specific package</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>We aim to have ideally only one device specific package. Other packages should be shared between all devices.
-</p>
-<p>However, in practice, we need an extra package for the kernel (unless the device has been <a href="../en/The_Mainline_Kernel.html" title="The Mainline Kernel">mainlined</a>). And sometimes one for device specific <a href="../en/Firmware.html" title="Firmware">firmware</a> (in theory it is possible to divide these in the firmware files for specific chips, and then share these chip-specific firmware packages across multiple devices, but we're not quite there yet).
-</p>
-<p>Every device specific package contains at least the <a href="../en/Deviceinfo_reference.html" class="mw-redirect" title="Deviceinfo">deviceinfo</a> file, and the <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD">APKBUILD</a>. This article describes special characteristics of the device <code>APKBUILD</code>.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Generate_a_template"><span class="tocnumber">1</span> <span class="toctext">Generate a template</span></a></li>
-<li class="toclevel-1 tocsection-2">
-<a href="#devicepkg-dev"><span class="tocnumber">2</span> <span class="toctext">devicepkg-dev</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3"><a href="#devicepkg_build"><span class="tocnumber">2.1</span> <span class="toctext">devicepkg_build</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="#devicepkg_package"><span class="tocnumber">2.2</span> <span class="toctext">devicepkg_package</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-5"><a href="#Use_install_if_to_pull_in_packages"><span class="tocnumber">3</span> <span class="toctext">Use install_if to pull in packages</span></a></li>
-<li class="toclevel-1 tocsection-6"><a href="#Add_a_device_specific_config_file"><span class="tocnumber">4</span> <span class="toctext">Add a device specific config file</span></a></li>
-<li class="toclevel-1 tocsection-7"><a href="#Proprietary_firmware_or_userland_blobs"><span class="tocnumber">5</span> <span class="toctext">Proprietary firmware or userland blobs</span></a></li>
-<li class="toclevel-1 tocsection-8">
-<a href="#Multiple_kernels"><span class="tocnumber">6</span> <span class="toctext">Multiple kernels</span></a>
-<ul>
-<li class="toclevel-2 tocsection-9"><a href="#Use_cases"><span class="tocnumber">6.1</span> <span class="toctext">Use cases</span></a></li>
-<li class="toclevel-2 tocsection-10"><a href="#How_to"><span class="tocnumber">6.2</span> <span class="toctext">How to</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-11">
-<a href="#Initramfs_hook"><span class="tocnumber">7</span> <span class="toctext">Initramfs hook</span></a>
-<ul>
-<li class="toclevel-2 tocsection-12"><a href="#Notes"><span class="tocnumber">7.1</span> <span class="toctext">Notes</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-13"><a href="#Android_dynamic_partitions"><span class="tocnumber">8</span> <span class="toctext">Android dynamic partitions</span></a></li>
-<li class="toclevel-1 tocsection-14"><a href="#See_also"><span class="tocnumber">9</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Generate_a_template">Generate a template</span></h2>
-<p>The recommended way to start with a new device package is using <code>pmbootstrap init</code> and typing in a new device name. But it is also possible to directly call the device package wizard with <code>pmbootstrap aportgen device-changeme-changeme</code> (adjust <i>changeme</i> accordingly).
-</p>
-<h2><span class="mw-headline" id="devicepkg-dev">devicepkg-dev</span></h2>
-<p>In order to share code between the <code>APKBUILD</code>s of these packages, all new device packages depend on a <code>devicepkg-dev</code> package and call its functions inside their <code>APKBUILD</code>s:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="nv">makedepends</span><span class="o">=</span><span class="s2">"devicepkg-dev"</span>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Device specific package - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Device_specific_package rootpage-Device_specific_package skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Device specific package
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       We aim to have ideally only one device specific package. Other packages should be shared between all devices.
+      </p>
+      <p>
+       However, in practice, we need an extra package for the kernel (unless the device has been
+       <a href="../en/The_Mainline_Kernel.html" title="The Mainline Kernel">
+        mainlined
+       </a>
+       ). And sometimes one for device specific
+       <a href="../en/Firmware.html" title="Firmware">
+        firmware
+       </a>
+       (in theory it is possible to divide these in the firmware files for specific chips, and then share these chip-specific firmware packages across multiple devices, but we're not quite there yet).
+      </p>
+      <p>
+       Every device specific package contains at least the
+       <a class="mw-redirect" href="../en/Deviceinfo_reference.html" title="Deviceinfo">
+        deviceinfo
+       </a>
+       file, and the
+       <a class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD" rel="nofollow">
+        APKBUILD
+       </a>
+       . This article describes special characteristics of the device
+       <code>
+        APKBUILD
+       </code>
+       .
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Generate_a_template">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Generate a template
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#devicepkg-dev">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           devicepkg-dev
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#devicepkg_build">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             devicepkg_build
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#devicepkg_package">
+            <span class="tocnumber">
+             2.2
+            </span>
+            <span class="toctext">
+             devicepkg_package
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-5">
+         <a href="#Use_install_if_to_pull_in_packages">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Use install_if to pull in packages
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-6">
+         <a href="#Add_a_device_specific_config_file">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Add a device specific config file
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-7">
+         <a href="#Proprietary_firmware_or_userland_blobs">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           Proprietary firmware or userland blobs
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-8">
+         <a href="#Multiple_kernels">
+          <span class="tocnumber">
+           6
+          </span>
+          <span class="toctext">
+           Multiple kernels
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-9">
+           <a href="#Use_cases">
+            <span class="tocnumber">
+             6.1
+            </span>
+            <span class="toctext">
+             Use cases
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-10">
+           <a href="#How_to">
+            <span class="tocnumber">
+             6.2
+            </span>
+            <span class="toctext">
+             How to
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-11">
+         <a href="#Initramfs_hook">
+          <span class="tocnumber">
+           7
+          </span>
+          <span class="toctext">
+           Initramfs hook
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-12">
+           <a href="#Notes">
+            <span class="tocnumber">
+             7.1
+            </span>
+            <span class="toctext">
+             Notes
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-13">
+         <a href="#Android_dynamic_partitions">
+          <span class="tocnumber">
+           8
+          </span>
+          <span class="toctext">
+           Android dynamic partitions
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-14">
+         <a href="#See_also">
+          <span class="tocnumber">
+           9
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Generate_a_template">
+        Generate a template
+       </span>
+      </h2>
+      <p>
+       The recommended way to start with a new device package is using
+       <code>
+        pmbootstrap init
+       </code>
+       and typing in a new device name. But it is also possible to directly call the device package wizard with
+       <code>
+        pmbootstrap aportgen device-changeme-changeme
+       </code>
+       (adjust
+       <i>
+        changeme
+       </i>
+       accordingly).
+      </p>
+      <h2>
+       <span class="mw-headline" id="devicepkg-dev">
+        devicepkg-dev
+       </span>
+      </h2>
+      <p>
+       In order to share code between the
+       <code>
+        APKBUILD
+       </code>
+       s of these packages, all new device packages depend on a
+       <code>
+        devicepkg-dev
+       </code>
+       package and call its functions inside their
+       <code>
+        APKBUILD
+       </code>
+       s:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="nv">makedepends</span><span class="o">=</span><span class="s2">"devicepkg-dev"</span>
 
 build<span class="o">()</span> <span class="o">{</span>
 	devicepkg_build <span class="nv">$startdir</span> <span class="nv">$pkgname</span>
@@ -87,38 +278,129 @@ build<span class="o">()</span> <span class="o">{</span>
 package<span class="o">()</span> <span class="o">{</span>
 	devicepkg_package <span class="nv">$startdir</span> <span class="nv">$pkgname</span>
 <span class="o">}</span>
-</pre></div>
-<p>The variables <code>$startdir</code> and <code>$pkgname</code> are always available where they are used, and must be passed to these functions. <code>devicepkg_build</code> and <code>devicepkg_package</code> are simple shell scripts, and they get packaged from <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/tree/master/main/devicepkg-dev">here</a>.
-</p>
-<h3><span class="mw-headline" id="devicepkg_build">devicepkg_build</span></h3>
-<p>Optionally creates an udev rule for the device's touch screen, based on the data from the <code>deviceinfo</code>. We can extend this to do more when it makes sense.
-</p>
-<p>The source code is in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/blob/master/main/devicepkg-dev/devicepkg_build.sh">devicepkg_build.sh</a> of the devicepkg-dev pmaport.
-</p>
-<h3><span class="mw-headline" id="devicepkg_package">devicepkg_package</span></h3>
-<p>Installs the <code>deviceinfo</code> file (to <code>/etc/deviceinfo</code>) and all other files, that may have been generated during <code>devicepkg_build</code>.
-</p>
-<p>The source code is in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/blob/master/main/devicepkg-dev/devicepkg_package.sh">devicepkg_package.sh</a> of the devicepkg-dev pmaport.
-</p>
-<h2><span class="mw-headline" id="Use_install_if_to_pull_in_packages">Use install_if to pull in packages</span></h2>
-<p>If your device requires a specific X11 driver for example, it is possible to say: "Install this driver when this device package and Xorg are installed.".
-</p>
-<p>Here is one example from <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/tree/master/device/device-qemu-amd64"><code>device-qemu-amd64</code></a>:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="nv">subpackages</span><span class="o">=</span><span class="s2">"</span><span class="nv">$pkgname</span><span class="s2">-x11"</span>
+</pre>
+      </div>
+      <p>
+       The variables
+       <code>
+        $startdir
+       </code>
+       and
+       <code>
+        $pkgname
+       </code>
+       are always available where they are used, and must be passed to these functions.
+       <code>
+        devicepkg_build
+       </code>
+       and
+       <code>
+        devicepkg_package
+       </code>
+       are simple shell scripts, and they get packaged from
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/tree/master/main/devicepkg-dev" rel="nofollow">
+        here
+       </a>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="devicepkg_build">
+        devicepkg_build
+       </span>
+      </h3>
+      <p>
+       Optionally creates an udev rule for the device's touch screen, based on the data from the
+       <code>
+        deviceinfo
+       </code>
+       . We can extend this to do more when it makes sense.
+      </p>
+      <p>
+       The source code is in
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/blob/master/main/devicepkg-dev/devicepkg_build.sh" rel="nofollow">
+        devicepkg_build.sh
+       </a>
+       of the devicepkg-dev pmaport.
+      </p>
+      <h3>
+       <span class="mw-headline" id="devicepkg_package">
+        devicepkg_package
+       </span>
+      </h3>
+      <p>
+       Installs the
+       <code>
+        deviceinfo
+       </code>
+       file (to
+       <code>
+        /etc/deviceinfo
+       </code>
+       ) and all other files, that may have been generated during
+       <code>
+        devicepkg_build
+       </code>
+       .
+      </p>
+      <p>
+       The source code is in
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/blob/master/main/devicepkg-dev/devicepkg_package.sh" rel="nofollow">
+        devicepkg_package.sh
+       </a>
+       of the devicepkg-dev pmaport.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Use_install_if_to_pull_in_packages">
+        Use install_if to pull in packages
+       </span>
+      </h2>
+      <p>
+       If your device requires a specific X11 driver for example, it is possible to say: "Install this driver when this device package and Xorg are installed.".
+      </p>
+      <p>
+       Here is one example from
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/tree/master/device/device-qemu-amd64" rel="nofollow">
+        <code>
+         device-qemu-amd64
+        </code>
+       </a>
+       :
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="nv">subpackages</span><span class="o">=</span><span class="s2">"</span><span class="nv">$pkgname</span><span class="s2">-x11"</span>
 
 x11<span class="o">()</span> <span class="o">{</span>
 	<span class="nv">install_if</span><span class="o">=</span><span class="s2">"</span><span class="nv">$pkgname</span><span class="s2">=</span><span class="nv">$pkgver</span><span class="s2">-r</span><span class="nv">$pkgrel</span><span class="s2"> xorg-server"</span>
 	<span class="nv">depends</span><span class="o">=</span><span class="s2">"xf86-video-qxl"</span>
 	mkdir <span class="s2">"</span><span class="nv">$subpkgdir</span><span class="s2">"</span>
 <span class="o">}</span>
-</pre></div>
-<p>We only create the <code>$subpkgdir</code>, because building subpackages fails, when the subpackage folder does not exist. You can add multiple subpackages per package, see <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD_Reference#subpackages">APKBUILD_Reference#subpackages</a>.
-</p>
-<h2><span class="mw-headline" id="Add_a_device_specific_config_file">Add a device specific config file</span></h2>
-<p>It might be, that you would like to disable Xweston for your device, because it does not work and then weston does not start. To accomplish this, we will also  make use of <code>install_if</code> and a subpackage. But this time we won't pull in another package, but install the config file:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="nv">subpackages</span><span class="o">=</span><span class="s2">"</span><span class="nv">$pkgname</span><span class="s2">-weston"</span>
+</pre>
+      </div>
+      <p>
+       We only create the
+       <code>
+        $subpkgdir
+       </code>
+       , because building subpackages fails, when the subpackage folder does not exist. You can add multiple subpackages per package, see
+       <a class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD_Reference#subpackages" rel="nofollow">
+        APKBUILD_Reference#subpackages
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Add_a_device_specific_config_file">
+        Add a device specific config file
+       </span>
+      </h2>
+      <p>
+       It might be, that you would like to disable Xweston for your device, because it does not work and then weston does not start. To accomplish this, we will also  make use of
+       <code>
+        install_if
+       </code>
+       and a subpackage. But this time we won't pull in another package, but install the config file:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="nv">subpackages</span><span class="o">=</span><span class="s2">"</span><span class="nv">$pkgname</span><span class="s2">-weston"</span>
 <span class="nv">source</span><span class="o">=</span><span class="s2">"deviceinfo weston.ini"</span>
 
 weston<span class="o">()</span> <span class="o">{</span>
@@ -126,65 +408,216 @@ weston<span class="o">()</span> <span class="o">{</span>
 	install -Dm644 <span class="s2">"</span><span class="nv">$srcdir</span><span class="s2">"</span>/weston.ini <span class="se">\</span>
 		<span class="s2">"</span><span class="nv">$subpkgdir</span><span class="s2">"</span>/etc/xdg/weston/weston.ini
 <span class="o">}</span>
-</pre></div>
-<p>This will only install the custom Weston config, when <code>weston</code> is installed. The <code>$subpkgdir</code> is implicitly created with <code>install -D</code>.
-</p>
-<h2><span class="mw-headline" id="Proprietary_firmware_or_userland_blobs">Proprietary firmware or userland blobs</span></h2>
-<p>The actual blobs don't belong into the device package, but into their own package:
-</p>
-<ul>
-<li>Either a <code>linux-firmware-*</code> package <a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/packages?name=linux-firmware-*&amp;branch=edge&amp;repo=main&amp;arch=armhf">from Alpine</a>
-</li>
-<li>Or a <code>firmware-</code> package (for firmware, use another name for userland blobs) from postmarketOS' aports
-<ul><li>check out the existing ones we already have for reference.</li></ul>
-</li>
-</ul>
-<p>Once you have that package, modify your device package:
-</p>
-<ul>
-<li>Add <code>$pkgname-nonfree-firmware:nonfree_firmware</code> or <code>$pkgname-nonfree-userland:nonfree_userland</code> to the <code>subpackages=""</code> line
-<ul>
-<li>Do not replace the <code>$pkgname</code> variable.</li>
-<li>If you're packaging both firmware and userland blobs, then add both subpackages.</li>
-</ul>
-</li>
-<li>Add a block based on the following at the end of your device package's <code>APKBUILD</code>, before the <code>sha512sums</code>.
-<ul>
-<li>Replace <code>nonfree_firmware</code> with <code>nonfree_userland</code> depending on what you're packaging.</li>
-<li>Change <code>firmware-motorola-titan</code> to the blob package that you found/made for your device.</li>
-<li>Adjust the <code>pkgdesc</code> accordingly. It will be shown to the user in <code>pmbootstrap init</code> when deciding how libre they want their postmarketOS installation to be.</li>
-<li>Keep the <code>$subpkgdir</code> variable, that variable exists in this context.</li>
-</ul>
-</li>
-</ul>
-<dl><dd><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>nonfree_firmware<span class="o">()</span> <span class="o">{</span>
+</pre>
+      </div>
+      <p>
+       This will only install the custom Weston config, when
+       <code>
+        weston
+       </code>
+       is installed. The
+       <code>
+        $subpkgdir
+       </code>
+       is implicitly created with
+       <code>
+        install -D
+       </code>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Proprietary_firmware_or_userland_blobs">
+        Proprietary firmware or userland blobs
+       </span>
+      </h2>
+      <p>
+       The actual blobs don't belong into the device package, but into their own package:
+      </p>
+      <ul>
+       <li>
+        Either a
+        <code>
+         linux-firmware-*
+        </code>
+        package
+        <a class="external text" href="https://pkgs.alpinelinux.org/packages?name=linux-firmware-*&amp;branch=edge&amp;repo=main&amp;arch=armhf" rel="nofollow">
+         from Alpine
+        </a>
+       </li>
+       <li>
+        Or a
+        <code>
+         firmware-
+        </code>
+        package (for firmware, use another name for userland blobs) from postmarketOS' aports
+        <ul>
+         <li>
+          check out the existing ones we already have for reference.
+         </li>
+        </ul>
+       </li>
+      </ul>
+      <p>
+       Once you have that package, modify your device package:
+      </p>
+      <ul>
+       <li>
+        Add
+        <code>
+         $pkgname-nonfree-firmware:nonfree_firmware
+        </code>
+        or
+        <code>
+         $pkgname-nonfree-userland:nonfree_userland
+        </code>
+        to the
+        <code>
+         subpackages=""
+        </code>
+        line
+        <ul>
+         <li>
+          Do not replace the
+          <code>
+           $pkgname
+          </code>
+          variable.
+         </li>
+         <li>
+          If you're packaging both firmware and userland blobs, then add both subpackages.
+         </li>
+        </ul>
+       </li>
+       <li>
+        Add a block based on the following at the end of your device package's
+        <code>
+         APKBUILD
+        </code>
+        , before the
+        <code>
+         sha512sums
+        </code>
+        .
+        <ul>
+         <li>
+          Replace
+          <code>
+           nonfree_firmware
+          </code>
+          with
+          <code>
+           nonfree_userland
+          </code>
+          depending on what you're packaging.
+         </li>
+         <li>
+          Change
+          <code>
+           firmware-motorola-titan
+          </code>
+          to the blob package that you found/made for your device.
+         </li>
+         <li>
+          Adjust the
+          <code>
+           pkgdesc
+          </code>
+          accordingly. It will be shown to the user in
+          <code>
+           pmbootstrap init
+          </code>
+          when deciding how libre they want their postmarketOS installation to be.
+         </li>
+         <li>
+          Keep the
+          <code>
+           $subpkgdir
+          </code>
+          variable, that variable exists in this context.
+         </li>
+        </ul>
+       </li>
+      </ul>
+      <dl>
+       <dd>
+        <div class="mw-highlight mw-content-ltr" dir="ltr">
+         <pre><span></span>nonfree_firmware<span class="o">()</span> <span class="o">{</span>
 	<span class="nv">pkgdesc</span><span class="o">=</span><span class="s2">"Wifi firmware"</span>
 	<span class="nv">depends</span><span class="o">=</span><span class="s2">"firmware-motorola-titan"</span>
 	mkdir <span class="s2">"</span><span class="nv">$subpkgdir</span><span class="s2">"</span>
 <span class="o">}</span>
-</pre></div></dd></dl>
-<p>Update the checksums and rebuild your device package.
-</p>
-<h2><span class="mw-headline" id="Multiple_kernels">Multiple kernels</span></h2>
-<h3><span class="mw-headline" id="Use_cases">Use cases</span></h3>
-<p>It is possible to let the user choose between multiple kernels for one device during <code>pmbootstrap init</code>. Some use cases:
-</p>
-<ul>
-<li>selection between downstream kernel and mainline kernel (e.g. because mainline isn't as functional as downstream yet)</li>
-<li>combining similar devices in one device package, with minor differences in:
-<ul>
-<li>the deviceinfo file (example: <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/4929c227edf935b3d62cc9c4643f8dc5efa44fe5/device/community/device-pine64-pinetab/deviceinfo#L9-10">two dtbs</a>)</li>
-<li>dependencies on other packages</li>
-</ul>
-</li>
-</ul>
-<h3><span class="mw-headline" id="How_to">How to</span></h3>
-<ul>
-<li>Remove the current kernel package from <code>depends</code> of your device's <code>APKBUILD</code>
-</li>
-<li>Add the kernel subpackages and subpackage functions. One example from <code>device-sony-amami</code>:</li>
-</ul>
-<dl><dd><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>...
+</pre>
+        </div>
+       </dd>
+      </dl>
+      <p>
+       Update the checksums and rebuild your device package.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Multiple_kernels">
+        Multiple kernels
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Use_cases">
+        Use cases
+       </span>
+      </h3>
+      <p>
+       It is possible to let the user choose between multiple kernels for one device during
+       <code>
+        pmbootstrap init
+       </code>
+       . Some use cases:
+      </p>
+      <ul>
+       <li>
+        selection between downstream kernel and mainline kernel (e.g. because mainline isn't as functional as downstream yet)
+       </li>
+       <li>
+        combining similar devices in one device package, with minor differences in:
+        <ul>
+         <li>
+          the deviceinfo file (example:
+          <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/4929c227edf935b3d62cc9c4643f8dc5efa44fe5/device/community/device-pine64-pinetab/deviceinfo#L9-10" rel="nofollow">
+           two dtbs
+          </a>
+          )
+         </li>
+         <li>
+          dependencies on other packages
+         </li>
+        </ul>
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="How_to">
+        How to
+       </span>
+      </h3>
+      <ul>
+       <li>
+        Remove the current kernel package from
+        <code>
+         depends
+        </code>
+        of your device's
+        <code>
+         APKBUILD
+        </code>
+       </li>
+       <li>
+        Add the kernel subpackages and subpackage functions. One example from
+        <code>
+         device-sony-amami
+        </code>
+        :
+       </li>
+      </ul>
+      <dl>
+       <dd>
+        <div class="mw-highlight mw-content-ltr" dir="ltr">
+         <pre><span></span>...
 <span class="nv">subpackages</span><span class="o">=</span><span class="s2">"</span>
 <span class="s2">	</span><span class="nv">$pkgname</span><span class="s2">-kernel-downstream:kernel_downstream</span>
 <span class="s2">	</span><span class="nv">$pkgname</span><span class="s2">-kernel-mainline:kernel_mainline</span>
@@ -203,91 +636,277 @@ kernel_mainline<span class="o">()</span> <span class="o">{</span>
 	devicepkg_subpackage_kernel <span class="nv">$startdir</span> <span class="nv">$pkgname</span> <span class="nv">$subpkgname</span>
 <span class="o">}</span>
 ...
-</pre></div></dd></dl>
-<ul><li>Additionally in your <code>deviceinfo</code> file you can use the suffix from your kernel subpackage (e.g. <code>_mainline</code> or <code>_downstream</code>) to limit the variables to one kernel variant in case you need different values. An example:</li></ul>
-<dl><dd><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>...
+</pre>
+        </div>
+       </dd>
+      </dl>
+      <ul>
+       <li>
+        Additionally in your
+        <code>
+         deviceinfo
+        </code>
+        file you can use the suffix from your kernel subpackage (e.g.
+        <code>
+         _mainline
+        </code>
+        or
+        <code>
+         _downstream
+        </code>
+        ) to limit the variables to one kernel variant in case you need different values. An example:
+       </li>
+      </ul>
+      <dl>
+       <dd>
+        <div class="mw-highlight mw-content-ltr" dir="ltr">
+         <pre><span></span>...
 <span class="nv">deviceinfo_dtb_mainline</span><span class="o">=</span><span class="s2">"qcom-msm8974-fairphone-fp2"</span>
 <span class="nv">deviceinfo_append_dtb_mainline</span><span class="o">=</span><span class="s2">"true"</span>
 ...
 <span class="nv">deviceinfo_bootimg_qcdt_downstream</span><span class="o">=</span><span class="s2">"true"</span>
 ...
-</pre></div></dd></dl>
-<ul>
-<li>Also consider adjusting the dependencies of your device package to not include downstream- or mainline-specific helper packages, such as <code>adsp-audio</code>, <code>wcnss-wlan</code> or <code>msm-modem-downstream</code>. You can use <code>device-fairphone-fp2</code> as an example for that.</li>
-<li>Run <code>pmbootstrap init</code> afterwards to test the change. It should ask you for the kernel now.</li>
-<li>See <code>device-qemu-amd64</code> for another example.</li>
-<li>Implementation details and discussion: <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1363">#1363</a>, <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/devicepkg-dev/devicepkg_subpackage_kernel.sh">devicepkg_subpackage_kernel source</a>
-</li>
-</ul>
-<h2><span class="mw-headline" id="Initramfs_hook">Initramfs hook</span></h2>
-<p>Some devices need to run special commands at boot time, for example turning on the display or kicking a watchdog. It is possible to do this with a device specific initramfs hook.
-</p>
-<p>Create a new <code>initfs-hook.sh</code> file in your device package's dir and fill it with the command that needs to be executed, along with a comment describing what it does:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh</span>
+</pre>
+        </div>
+       </dd>
+      </dl>
+      <ul>
+       <li>
+        Also consider adjusting the dependencies of your device package to not include downstream- or mainline-specific helper packages, such as
+        <code>
+         adsp-audio
+        </code>
+        ,
+        <code>
+         wcnss-wlan
+        </code>
+        or
+        <code>
+         msm-modem-downstream
+        </code>
+        . You can use
+        <code>
+         device-fairphone-fp2
+        </code>
+        as an example for that.
+       </li>
+       <li>
+        Run
+        <code>
+         pmbootstrap init
+        </code>
+        afterwards to test the change. It should ask you for the kernel now.
+       </li>
+       <li>
+        See
+        <code>
+         device-qemu-amd64
+        </code>
+        for another example.
+       </li>
+       <li>
+        Implementation details and discussion:
+        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1363" rel="nofollow">
+         #1363
+        </a>
+        ,
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/devicepkg-dev/devicepkg_subpackage_kernel.sh" rel="nofollow">
+         devicepkg_subpackage_kernel source
+        </a>
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Initramfs_hook">
+        Initramfs hook
+       </span>
+      </h2>
+      <p>
+       Some devices need to run special commands at boot time, for example turning on the display or kicking a watchdog. It is possible to do this with a device specific initramfs hook.
+      </p>
+      <p>
+       Create a new
+       <code>
+        initfs-hook.sh
+       </code>
+       file in your device package's dir and fill it with the command that needs to be executed, along with a comment describing what it does:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="ch">#!/bin/sh</span>
 
 <span class="c1"># set usb properties</span>
 <span class="nb">echo</span> <span class="m">4</span> &gt; /sys/devices/platform/android_usb/usb_function_switch
-</pre></div>
-<p>Then open the APKBUILD and add <code>initfs-hook.sh</code> to <code>source=</code>.
-</p>
-<p>As usually, update the checksums, build the package with <code>--force</code> and test the hook on your device.
-</p>
-<h3><span class="mw-headline" id="Notes">Notes</span></h3>
-<p>If you have a modern device-specific APKBUILD (i.e. because you have just generated it), it will use <code>devicepkg_package</code> in <code>package()</code>, which will detect the initfs hook and install it automatically (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/191">pmaports!191</a>). This is the preferred way to do things. Otherwise you would have to copy <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/blob/0d966c7a6fe92486c5b9b8fe4525fef7f89c3a90/main/devicepkg-dev/devicepkg_package.sh#L30-31">this install command</a> to the end of your <code>package()</code> function.
-</p>
-<p>For reference, you can look at the existing initfs-hooks:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code/pmbootstrap/aports/device
+</pre>
+      </div>
+      <p>
+       Then open the APKBUILD and add
+       <code>
+        initfs-hook.sh
+       </code>
+       to
+       <code>
+        source=
+       </code>
+       .
+      </p>
+      <p>
+       As usually, update the checksums, build the package with
+       <code>
+        --force
+       </code>
+       and test the hook on your device.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Notes">
+        Notes
+       </span>
+      </h3>
+      <p>
+       If you have a modern device-specific APKBUILD (i.e. because you have just generated it), it will use
+       <code>
+        devicepkg_package
+       </code>
+       in
+       <code>
+        package()
+       </code>
+       , which will detect the initfs hook and install it automatically (
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/191" rel="nofollow">
+        pmaports!191
+       </a>
+       ). This is the preferred way to do things. Otherwise you would have to copy
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/blob/0d966c7a6fe92486c5b9b8fe4525fef7f89c3a90/main/devicepkg-dev/devicepkg_package.sh#L30-31" rel="nofollow">
+        this install command
+       </a>
+       to the end of your
+       <code>
+        package()
+       </code>
+       function.
+      </p>
+      <p>
+       For reference, you can look at the existing initfs-hooks:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code/pmbootstrap/aports/device
 <span class="gp">$</span> find -name initfs-hook.sh
 <span class="go">./device-motorola-osprey/initfs-hook.sh</span>
 <span class="go">./device-samsung-i9070/initfs-hook.sh</span>
 <span class="go">./device-htc-m8/initfs-hook.sh</span>
 <span class="go">./device-htc-a5ul/initfs-hook.sh</span>
 <span class="go">...</span>
-</pre></div>
-<h2><span class="mw-headline" id="Android_dynamic_partitions">Android dynamic partitions</span></h2>
-<p>Some of the newer Android (10+) devices support so-called <a rel="nofollow" class="external text" href="https://source.android.com/devices/tech/ota/dynamic_partitions">dynamic partitions</a>. The separate <a href="../en/Android_dynamic_partitions.html" title="Android dynamic partitions">Android dynamic partitions</a> article explains how the deviceinfo package needs to be modified, so postmarketOS can be flashed to them without replacing the super partition. This makes it easier to switch back and forth between other operating systems.
-</p>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul>
-<li><a href="../en/Deviceinfo_reference.html" class="mw-redirect" title="Deviceinfo">deviceinfo</a></li>
-<li><a href="../en/Downstream_kernel_specific_package.html" class="mw-redirect" title="Vendor kernel specific package">vendor kernel specific package</a></li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Device_specific_package&amp;oldid=27609">https://wiki.postmarketos.org/index.php?title=Device_specific_package&amp;oldid=27609</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 10 May 2022, at 07:23.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Device_specific_package&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Android_dynamic_partitions">
+        Android dynamic partitions
+       </span>
+      </h2>
+      <p>
+       Some of the newer Android (10+) devices support so-called
+       <a class="external text" href="https://source.android.com/devices/tech/ota/dynamic_partitions" rel="nofollow">
+        dynamic partitions
+       </a>
+       . The separate
+       <a href="../en/Android_dynamic_partitions.html" title="Android dynamic partitions">
+        Android dynamic partitions
+       </a>
+       article explains how the deviceinfo package needs to be modified, so postmarketOS can be flashed to them without replacing the super partition. This makes it easier to switch back and forth between other operating systems.
+      </p>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="mw-redirect" href="../en/Deviceinfo_reference.html" title="Deviceinfo">
+         deviceinfo
+        </a>
+       </li>
+       <li>
+        <a class="mw-redirect" href="../en/Downstream_kernel_specific_package.html" title="Vendor kernel specific package">
+         vendor kernel specific package
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Device_specific_package&amp;oldid=27609">
+      https://wiki.postmarketos.org/index.php?title=Device_specific_package&amp;oldid=27609
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 10 May 2022, at 07:23.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Device_specific_package&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

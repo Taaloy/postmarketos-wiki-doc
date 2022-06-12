@@ -1,202 +1,568 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>SDM845 Mainlining - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-SDM845_Mainlining rootpage-SDM845_Mainlining skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">SDM845 Mainlining</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<h1><span class="mw-headline" id="Overview">Overview</span></h1>
-<p>Getting Linux to boot on your phone is a daunting prospect, luckily due to a large push by Google and <a rel="nofollow" class="external text" href="https://www.linaro.org/">Linaro</a>, support for more ARM based SOCs is being added to mainline constantly, and the Android kernel is slowly moving closer and closer to upstream. As a result, for a lucky few SOCs (ahem SDM845), it's pretty easy to get a large amount of core functionality working.
-</p>
-<p>This page is meant to serve as a guide for adding support for mainline Linux to your SDM845 based device, the table below shows which features you should expect to have functional once you get mainline Linux booting on your device. The general approach here is the easier it is to add support for new devices, the more devices we will be able to support and in turn the more developers and users we will get :D.
-</p>
-<h2><span class="mw-headline" id="Status">Status</span></h2>
-<p>The features marked as Y are confirmed to be functional on at least ONE device, as more devices are supported this number should be increased.
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   SDM845 Mainlining - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-SDM845_Mainlining rootpage-SDM845_Mainlining skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    SDM845 Mainlining
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <h1>
+       <span class="mw-headline" id="Overview">
+        Overview
+       </span>
+      </h1>
+      <p>
+       Getting Linux to boot on your phone is a daunting prospect, luckily due to a large push by Google and
+       <a class="external text" href="https://www.linaro.org/" rel="nofollow">
+        Linaro
+       </a>
+       , support for more ARM based SOCs is being added to mainline constantly, and the Android kernel is slowly moving closer and closer to upstream. As a result, for a lucky few SOCs (ahem SDM845), it's pretty easy to get a large amount of core functionality working.
+      </p>
+      <p>
+       This page is meant to serve as a guide for adding support for mainline Linux to your SDM845 based device, the table below shows which features you should expect to have functional once you get mainline Linux booting on your device. The general approach here is the easier it is to add support for new devices, the more devices we will be able to support and in turn the more developers and users we will get :D.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Status">
+        Status
+       </span>
+      </h2>
+      <p>
+       The features marked as Y are confirmed to be functional on at least ONE device, as more devices are supported this number should be increased.
 Features marked as P generally have some limited functionality but have issues that make them unsuitable for daily use.
-</p>
-<ul>
-<li>
-<b>CPU:</b> SMP (bring up secondary CPU cores), CPU frequency scaling, CPUidle</li>
-<li>
-<b>Storage:</b> eMMC, SD cards, UFS, ...</li>
-<li>
-<b>Video:</b> Hardware-accelerated video de/encoding</li>
-<li>
-<b>Modem:</b> Calls, SMS, Internet</li>
-</ul>
-<table class="cargoTable noMerge sortable">
-<thead><tr>
-<th class="field_SoC">SoC</th>
-<th class="field_Arch">Arch</th>
-<th class="field_Year">Year</th>
-<th class="field_CPU">CPU</th>
-<th class="field_UART">UART</th>
-<th class="field_Storage">Storage</th>
-<th class="field_USB">USB</th>
-<th class="field_Display">Display</th>
-<th class="field_GPU">GPU</th>
-<th class="field_Pinctrl">Pinctrl</th>
-<th class="field_I²C">I²C</th>
-<th class="field_Audio">Audio</th>
-<th class="field_Video">Video</th>
-<th class="field_Thermal">Thermal</th>
-<th class="field_WiFi">WiFi</th>
-<th class="field_BT">BT</th>
-<th class="field_Modem">Modem</th>
-<th class="field_Camera">Camera</th>
-</tr></thead>
-<tbody>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_845_(SDM845).html" title="Qualcomm Snapdragon 845 (SDM845)">Qualcomm SDM845</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2018</td>
-<td class="field_CPU">Y</td>
-<td class="field_UART">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">Y</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">Y</td>
-<td class="field_BT">Y</td>
-<td class="field_Modem">P</td>
-<td class="field_Camera">Y</td>
-</tr>
-</tbody>
-</table>
-<h2><span class="mw-headline" id="About">About</span></h2>
-<p><a rel="nofollow" class="external text" href="https://www.qualcomm.com/products/sdm845">SDM845</a> (or Snapdragon 845) is a Qualcomm SoC released in 2018, with mainline support originally added for the Dragonboard 845c.
-</p>
-<h2><span class="mw-headline" id="Relevant_Components">Relevant Components</span></h2>
-<h3><span class="mw-headline" id="SDM845_common_kernel"><a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/linux">SDM845 common kernel</a></span></h3>
-<p>This repo contains branches for the <a href="../en/OnePlus_6_(oneplus-enchilada).html" title="OnePlus 6 (oneplus-enchilada)">OnePlus 6/T</a> and <a href="../en/Xiaomi_Poco_F1_(xiaomi-beryllium).html" title="Xiaomi Poco F1 (xiaomi-beryllium)">Xiaomi Pocophone F1</a> and is where the majority of development currently happens. There are aims to merge into a common branch and minimise the commits so that they can potentially be submitted to the kernel. Once you have your device booting you should contact @kalube ([[ in the postmarketos-mainline
-</p>
-<h3><span class="mw-headline" id="Kernel_package"><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/main/linux-postmarketos-qcom-sdm845">Kernel package</a></span></h3>
-<p>This is the Alpine aports package source for the OnePlus 6 kernel, it is built by <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Installing_pmbootstrap">pmbootstrap</a> and used to create an android boot image.
-</p>
-<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
-<strong>TODO</strong> Make kernel package generic and use common branch.</div>
-<h3><span class="mw-headline" id="SoC_common_package"><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/community/soc-qcom-sdm845">SoC common package</a></span></h3>
-<p>This is the generic SDM845 SoC package. It pulls in all common dependencies like tqftpserv, rmtfs and pd-mapper which are used to bringup WLAN and remove processors. It also contains some configuration options, e.g. udev rules for the pmi8998 haptics engine used by most SDM845 devices.
-</p>
-<p>All SDM845 devices should depend on this package.
-</p>
-<h3><span class="mw-headline" id="OnePlus_6_device_package"><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/community/device-oneplus-enchilada">OnePlus 6 device package</a></span></h3>
-<p>This is the OnePlus 6 specific device package, it can be used as a reference guide for new SDM845 devices.
-</p>
-<h3><span class="mw-headline" id="Required_packages">Required packages</span></h3>
-<p>rmtfs, pd-mapper and tqftpserv are all required and are used to communicate with the modem in order to load wifi firmware and perform other tasks. These are included in the common device package.
-</p>
-<h1><span class="mw-headline" id="Device_Quirks">Device Quirks</span></h1>
-<h2><span class="mw-headline" id="Xperia_UFS">Xperia UFS</span></h2>
-<p>If you phone is a Sony Xperia, DO NOT EVEN TRY TO ADD UFS TO YOUR DEFCONFIG/DTS if you're not running a vendor-based or SODP-based kernel. It needs a workaround without which YOUR UFS WILL BE WIPED CLEAN (INCLUDING THE BOOTLOADER!). You can boot off of a SD Card or a USB drive.<sup id="cite_ref-1" class="reference"><a href="#cite_note-1">[1]</a></sup>
-</p>
-<h2>
-<span id="A/B_partitions"></span><span class="mw-headline" id="A.2FB_partitions">A/B partitions</span>
-</h2>
-<p>A/B partitions are both a blessing and a curse. Some SDM845 devices have 2 of system, vendor, boot, xbl and a few other partitions, this means that it's super easy to dual boot with android as only one slot is used at any one time, simply <code>fastboot --set-active=[a|b]</code> to change!
-For this guide I will be installing Linux to slot a, wherever you see a <code>_a</code> suffix after a partition, replace it with whichever slot you would like to install for, I recommend using not the one you currently have Android on if you plan on daily driving Android or Halium like I do.
-</p>
-<p>Check your current slot by booting TWRP and going into the reboot menu.
+      </p>
+      <ul>
+       <li>
+        <b>
+         CPU:
+        </b>
+        SMP (bring up secondary CPU cores), CPU frequency scaling, CPUidle
+       </li>
+       <li>
+        <b>
+         Storage:
+        </b>
+        eMMC, SD cards, UFS, ...
+       </li>
+       <li>
+        <b>
+         Video:
+        </b>
+        Hardware-accelerated video de/encoding
+       </li>
+       <li>
+        <b>
+         Modem:
+        </b>
+        Calls, SMS, Internet
+       </li>
+      </ul>
+      <table class="cargoTable noMerge sortable" style="border-collapse: collapse;">
+       <thead>
+        <tr style="background-color: #eeeeee;">
+         <th class="field_SoC">
+          SoC
+         </th>
+         <th class="field_Arch">
+          Arch
+         </th>
+         <th class="field_Year">
+          Year
+         </th>
+         <th class="field_CPU">
+          CPU
+         </th>
+         <th class="field_UART">
+          UART
+         </th>
+         <th class="field_Storage">
+          Storage
+         </th>
+         <th class="field_USB">
+          USB
+         </th>
+         <th class="field_Display">
+          Display
+         </th>
+         <th class="field_GPU">
+          GPU
+         </th>
+         <th class="field_Pinctrl">
+          Pinctrl
+         </th>
+         <th class="field_I²C">
+          I²C
+         </th>
+         <th class="field_Audio">
+          Audio
+         </th>
+         <th class="field_Video">
+          Video
+         </th>
+         <th class="field_Thermal">
+          Thermal
+         </th>
+         <th class="field_WiFi">
+          WiFi
+         </th>
+         <th class="field_BT">
+          BT
+         </th>
+         <th class="field_Modem">
+          Modem
+         </th>
+         <th class="field_Camera">
+          Camera
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_845_(SDM845).html" title="Qualcomm Snapdragon 845 (SDM845)">
+           Qualcomm SDM845
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2018
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h2>
+       <span class="mw-headline" id="About">
+        About
+       </span>
+      </h2>
+      <p>
+       <a class="external text" href="https://www.qualcomm.com/products/sdm845" rel="nofollow">
+        SDM845
+       </a>
+       (or Snapdragon 845) is a Qualcomm SoC released in 2018, with mainline support originally added for the Dragonboard 845c.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Relevant_Components">
+        Relevant Components
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="SDM845_common_kernel">
+        <a class="external text" href="https://gitlab.com/sdm845-mainline/linux" rel="nofollow">
+         SDM845 common kernel
+        </a>
+       </span>
+      </h3>
+      <p>
+       This repo contains branches for the
+       <a href="../en/OnePlus_6_(oneplus-enchilada).html" title="OnePlus 6 (oneplus-enchilada)">
+        OnePlus 6/T
+       </a>
+       and
+       <a href="../en/Xiaomi_Poco_F1_(xiaomi-beryllium).html" title="Xiaomi Poco F1 (xiaomi-beryllium)">
+        Xiaomi Pocophone F1
+       </a>
+       and is where the majority of development currently happens. There are aims to merge into a common branch and minimise the commits so that they can potentially be submitted to the kernel. Once you have your device booting you should contact @kalube ([[ in the postmarketos-mainline
+      </p>
+      <h3>
+       <span class="mw-headline" id="Kernel_package">
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/main/linux-postmarketos-qcom-sdm845" rel="nofollow">
+         Kernel package
+        </a>
+       </span>
+      </h3>
+      <p>
+       This is the Alpine aports package source for the OnePlus 6 kernel, it is built by
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Installing_pmbootstrap" rel="nofollow">
+        pmbootstrap
+       </a>
+       and used to create an android boot image.
+      </p>
+      <div class="todo" role="note" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+       <strong>
+        TODO
+       </strong>
+       Make kernel package generic and use common branch.
+      </div>
+      <h3>
+       <span class="mw-headline" id="SoC_common_package">
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/community/soc-qcom-sdm845" rel="nofollow">
+         SoC common package
+        </a>
+       </span>
+      </h3>
+      <p>
+       This is the generic SDM845 SoC package. It pulls in all common dependencies like tqftpserv, rmtfs and pd-mapper which are used to bringup WLAN and remove processors. It also contains some configuration options, e.g. udev rules for the pmi8998 haptics engine used by most SDM845 devices.
+      </p>
+      <p>
+       All SDM845 devices should depend on this package.
+      </p>
+      <h3>
+       <span class="mw-headline" id="OnePlus_6_device_package">
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/community/device-oneplus-enchilada" rel="nofollow">
+         OnePlus 6 device package
+        </a>
+       </span>
+      </h3>
+      <p>
+       This is the OnePlus 6 specific device package, it can be used as a reference guide for new SDM845 devices.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Required_packages">
+        Required packages
+       </span>
+      </h3>
+      <p>
+       rmtfs, pd-mapper and tqftpserv are all required and are used to communicate with the modem in order to load wifi firmware and perform other tasks. These are included in the common device package.
+      </p>
+      <h1>
+       <span class="mw-headline" id="Device_Quirks">
+        Device Quirks
+       </span>
+      </h1>
+      <h2>
+       <span class="mw-headline" id="Xperia_UFS">
+        Xperia UFS
+       </span>
+      </h2>
+      <p>
+       If you phone is a Sony Xperia, DO NOT EVEN TRY TO ADD UFS TO YOUR DEFCONFIG/DTS if you're not running a vendor-based or SODP-based kernel. It needs a workaround without which YOUR UFS WILL BE WIPED CLEAN (INCLUDING THE BOOTLOADER!). You can boot off of a SD Card or a USB drive.
+       <sup class="reference" id="cite_ref-1">
+        <a href="#cite_note-1">
+         [1]
+        </a>
+       </sup>
+      </p>
+      <h2>
+       <span id="A/B_partitions">
+       </span>
+       <span class="mw-headline" id="A.2FB_partitions">
+        A/B partitions
+       </span>
+      </h2>
+      <p>
+       A/B partitions are both a blessing and a curse. Some SDM845 devices have 2 of system, vendor, boot, xbl and a few other partitions, this means that it's super easy to dual boot with android as only one slot is used at any one time, simply
+       <code>
+        fastboot --set-active=[a|b]
+       </code>
+       to change!
+For this guide I will be installing Linux to slot a, wherever you see a
+       <code>
+        _a
+       </code>
+       suffix after a partition, replace it with whichever slot you would like to install for, I recommend using not the one you currently have Android on if you plan on daily driving Android or Halium like I do.
+      </p>
+      <p>
+       Check your current slot by booting TWRP and going into the reboot menu.
 Be aware that if you flash OTAs (from within Android or TWRP) they are flashed to the inactive slot, if that slot had Linux on it, it doesn't anymore...
-</p>
-<h1><span class="mw-headline" id="Starting_Off">Starting Off</span></h1>
-<h2><span class="mw-headline" id="pmtools">pmtools</span></h2>
-<p>The <a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/pmtools">pmtools</a> repo contains a few useful scripts:
-</p>
-<ul>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/pmtools/-/blob/master/pmenv.sh">pmenv.sh</a> a collection of aliases and functions, I will reference this script where it can be used.</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/pmtools/-/blob/master/mkbootimg.sh">mkbootimg.sh</a> an uncreatively-named wrapper for mkbootimg, edit the offsets to match your device (You can learn how to find these numbers <a href="../en/Porting_to_a_new_device.html#Flash_method" title="Porting to a new device">here</a>, you may also want to modify the default paths defined at the top to match your device codename, to avoid manually specifying parameters.</li>
-</ul>
-<h2><span class="mw-headline" id="Setting_up_your_build_environment">Setting up your build environment</span></h2>
-<p>This is still very much WIP, however the process is not too complicated once you understand it.
-</p>
-<h3><span class="mw-headline" id="pmbootstrap">pmbootstrap</span></h3>
-<p>The first thing to set up is pmbootstrap, it does a whole ton of the hard work for us, becoming comfortable with it and the pmaports repo let you create a reproducible build process and allows anybody to start developing for your device.
-</p>
-<p>To get started follow the <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Porting_to_a_new_device">porting guide</a> up until the kernel package section, then continue below.
-</p>
-<h3><span class="mw-headline" id="Kernel_building">Kernel building</span></h3>
-<p>This building guide is an alternative to the <a href="../en/Mainlining_Guide.html" title="Mainlining Guide">Mainlining guide</a>. It can also be referred to for help. This guide, and the scripts used in it, will assume that you're working from <code>$HOME/pmos</code>.
-</p>
-<p>The aim with my tools are to make the early bringup a bit faster, and avoid some of the quirks you can hit while using pmbootstrap. If you're new to kernel development you'd probably be better to follow the general mainlining guide once you're done adding a device tree for your device (see below).
-</p>
-<p>The mainlining guide uses pmbootstrap's <code>envkernel.sh</code> script to do all kernel compilation in a chroot, this allows for a reproducible build environment and removes the need to install extra dependencies to build. However it does come with a performance hit, and can occasionally cause issues due to permissions. This guide will instead build on your host. If you'd rather build using envkernel then refer to the <a href="../en/Mainlining_Guide.html#envkernel.sh" title="Mainlining Guide">relevant section</a> on the mainlining guide, the only functional difference is running their <code>make</code> alias, instead of the <code>mm</code> alias shown below.
-</p>
-<h4><span class="mw-headline" id="Clone_the_kernel">Clone the kernel</span></h4>
-<pre>cd $HOME
+      </p>
+      <h1>
+       <span class="mw-headline" id="Starting_Off">
+        Starting Off
+       </span>
+      </h1>
+      <h2>
+       <span class="mw-headline" id="pmtools">
+        pmtools
+       </span>
+      </h2>
+      <p>
+       The
+       <a class="external text" href="https://gitlab.com/sdm845-mainline/pmtools" rel="nofollow">
+        pmtools
+       </a>
+       repo contains a few useful scripts:
+      </p>
+      <ul>
+       <li>
+        <a class="external text" href="https://gitlab.com/sdm845-mainline/pmtools/-/blob/master/pmenv.sh" rel="nofollow">
+         pmenv.sh
+        </a>
+        a collection of aliases and functions, I will reference this script where it can be used.
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/sdm845-mainline/pmtools/-/blob/master/mkbootimg.sh" rel="nofollow">
+         mkbootimg.sh
+        </a>
+        an uncreatively-named wrapper for mkbootimg, edit the offsets to match your device (You can learn how to find these numbers
+        <a href="../en/Porting_to_a_new_device.html#Flash_method" title="Porting to a new device">
+         here
+        </a>
+        , you may also want to modify the default paths defined at the top to match your device codename, to avoid manually specifying parameters.
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Setting_up_your_build_environment">
+        Setting up your build environment
+       </span>
+      </h2>
+      <p>
+       This is still very much WIP, however the process is not too complicated once you understand it.
+      </p>
+      <h3>
+       <span class="mw-headline" id="pmbootstrap">
+        pmbootstrap
+       </span>
+      </h3>
+      <p>
+       The first thing to set up is pmbootstrap, it does a whole ton of the hard work for us, becoming comfortable with it and the pmaports repo let you create a reproducible build process and allows anybody to start developing for your device.
+      </p>
+      <p>
+       To get started follow the
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Porting_to_a_new_device" rel="nofollow">
+        porting guide
+       </a>
+       up until the kernel package section, then continue below.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Kernel_building">
+        Kernel building
+       </span>
+      </h3>
+      <p>
+       This building guide is an alternative to the
+       <a href="../en/Mainlining_Guide.html" title="Mainlining Guide">
+        Mainlining guide
+       </a>
+       . It can also be referred to for help. This guide, and the scripts used in it, will assume that you're working from
+       <code>
+        $HOME/pmos
+       </code>
+       .
+      </p>
+      <p>
+       The aim with my tools are to make the early bringup a bit faster, and avoid some of the quirks you can hit while using pmbootstrap. If you're new to kernel development you'd probably be better to follow the general mainlining guide once you're done adding a device tree for your device (see below).
+      </p>
+      <p>
+       The mainlining guide uses pmbootstrap's
+       <code>
+        envkernel.sh
+       </code>
+       script to do all kernel compilation in a chroot, this allows for a reproducible build environment and removes the need to install extra dependencies to build. However it does come with a performance hit, and can occasionally cause issues due to permissions. This guide will instead build on your host. If you'd rather build using envkernel then refer to the
+       <a href="../en/Mainlining_Guide.html#envkernel.sh" title="Mainlining Guide">
+        relevant section
+       </a>
+       on the mainlining guide, the only functional difference is running their
+       <code>
+        make
+       </code>
+       alias, instead of the
+       <code>
+        mm
+       </code>
+       alias shown below.
+      </p>
+      <h4>
+       <span class="mw-headline" id="Clone_the_kernel">
+        Clone the kernel
+       </span>
+      </h4>
+      <pre>cd $HOME
 mkdir -p pmos &amp;&amp; cd pmos
 git clone https://gitlab.com/sdm845-mainline/pmtools tools
 git clone https://gitlab.com/sdm845-mainline/linux linux
 </pre>
-<h1><span class="mw-headline" id="Initial_device_support">Initial device support</span></h1>
-<p>Getting an initial kernel boot with graphics is relatively simple, it consists of creating a new DTS for your device, and creating a simple framebuffer to output to.
-</p>
-<h2><span class="mw-headline" id="Creating_a_DTS">Creating a DTS</span></h2>
-<p>The first steps to adding support for your device is creating a new DTS file for your device, the basics for that are covered by <a href="../en/Mainlining_Guide.html#Device_Tree_Source" title="Mainlining Guide">the mainlining guide</a>, and should be read before continuing. Use the <a rel="nofollow" class="external autonumber" href="https://gitlab.com/sdm845-mainline/linux/-/blob/master/arch/arm64/boot/dts/qcom/sdm845-mtp.dts">[1]</a> file as your template.
-</p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Don't forget to <a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/linux/-/commit/b028f129dfdf7f8a67661b2b184909d90b509855#9b17b57d02f28064f56d71b1cf1aef9b1fb0fea7_25_25">add your DTS to the Makefile</a>
-</td>
-</tr></tbody></table>
-<h3><span class="mw-headline" id="Preparing_the_DTS">Preparing the DTS</span></h3>
-<p>You should comment out or remove the following nodes as they are either specific to the MTP device, not needed for testing or known to cause issues:
-</p>
-<ul>
-<li>
-<code>&amp;cdsp_pas</code> - a remote processor, requires firmware to boot and not important yet</li>
-<li>
-<code>&amp;dsi0</code> - All dsi related nodes are MTP specific and could interfere with the framebuffer.</li>
-<li><code>&amp;dsi0_phy</code></li>
-<li><code>&amp;dsi1</code></li>
-<li><code>&amp;dsi1_phy</code></li>
-<li>
-<code>&amp;gpu</code> - We want to leave the GPU alone so that it doesn't try and talk to the display.</li>
-<li>
-<code>&amp;mdss</code> - The MDSS handles display stuff too, we don't want that yet.</li>
-<li><code>&amp;mdss_mdp</code></li>
-<li>
-<code>&amp;mss_pil</code> - this is the modem, will only contribute to dmesg errors for now</li>
-<li>
-<code>&amp;sdhc_2</code> - this is the sdcard reader, your device may not have this</li>
-<li>All <code>sd*</code> nodes under <code>&amp;tlmm</code> - if you have an SD card you can add these back later.</li>
-</ul>
-<p>To use simplefb as below, you will also need to explicitly disable some nodes to prevent hangs / display going black after a few seconds, to do that add the following to your dts:
-</p>
-<pre>&amp;dispcc {
+      <h1>
+       <span class="mw-headline" id="Initial_device_support">
+        Initial device support
+       </span>
+      </h1>
+      <p>
+       Getting an initial kernel boot with graphics is relatively simple, it consists of creating a new DTS for your device, and creating a simple framebuffer to output to.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Creating_a_DTS">
+        Creating a DTS
+       </span>
+      </h2>
+      <p>
+       The first steps to adding support for your device is creating a new DTS file for your device, the basics for that are covered by
+       <a href="../en/Mainlining_Guide.html#Device_Tree_Source" title="Mainlining Guide">
+        the mainlining guide
+       </a>
+       , and should be read before continuing. Use the
+       <a class="external autonumber" href="https://gitlab.com/sdm845-mainline/linux/-/blob/master/arch/arm64/boot/dts/qcom/sdm845-mtp.dts" rel="nofollow">
+        [1]
+       </a>
+       file as your template.
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Don't forget to
+          <a class="external text" href="https://gitlab.com/sdm845-mainline/linux/-/commit/b028f129dfdf7f8a67661b2b184909d90b509855#9b17b57d02f28064f56d71b1cf1aef9b1fb0fea7_25_25" rel="nofollow">
+           add your DTS to the Makefile
+          </a>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h3>
+       <span class="mw-headline" id="Preparing_the_DTS">
+        Preparing the DTS
+       </span>
+      </h3>
+      <p>
+       You should comment out or remove the following nodes as they are either specific to the MTP device, not needed for testing or known to cause issues:
+      </p>
+      <ul>
+       <li>
+        <code>
+         &amp;cdsp_pas
+        </code>
+        - a remote processor, requires firmware to boot and not important yet
+       </li>
+       <li>
+        <code>
+         &amp;dsi0
+        </code>
+        - All dsi related nodes are MTP specific and could interfere with the framebuffer.
+       </li>
+       <li>
+        <code>
+         &amp;dsi0_phy
+        </code>
+       </li>
+       <li>
+        <code>
+         &amp;dsi1
+        </code>
+       </li>
+       <li>
+        <code>
+         &amp;dsi1_phy
+        </code>
+       </li>
+       <li>
+        <code>
+         &amp;gpu
+        </code>
+        - We want to leave the GPU alone so that it doesn't try and talk to the display.
+       </li>
+       <li>
+        <code>
+         &amp;mdss
+        </code>
+        - The MDSS handles display stuff too, we don't want that yet.
+       </li>
+       <li>
+        <code>
+         &amp;mdss_mdp
+        </code>
+       </li>
+       <li>
+        <code>
+         &amp;mss_pil
+        </code>
+        - this is the modem, will only contribute to dmesg errors for now
+       </li>
+       <li>
+        <code>
+         &amp;sdhc_2
+        </code>
+        - this is the sdcard reader, your device may not have this
+       </li>
+       <li>
+        All
+        <code>
+         sd*
+        </code>
+        nodes under
+        <code>
+         &amp;tlmm
+        </code>
+        - if you have an SD card you can add these back later.
+       </li>
+      </ul>
+      <p>
+       To use simplefb as below, you will also need to explicitly disable some nodes to prevent hangs / display going black after a few seconds, to do that add the following to your dts:
+      </p>
+      <pre>&amp;dispcc {
 	status = "disabled";
 };
 
@@ -204,84 +570,249 @@ git clone https://gitlab.com/sdm845-mainline/linux linux
 	status = "disabled";
 };
 </pre>
-<p>If the display clocks initialise then it will reset the states set up by the bootloader and cause the display to die.
-</p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">The qcom,board-id and soc-id values have not been needed on any SDM845 device yet as far as I know, they should be safe to ignore.</td>
-</tr></tbody></table>
-<h3><span class="mw-headline" id="Creating_a_framebuffer">Creating a framebuffer</span></h3>
-<p>Luckily for us, there's a neat feature in android that allows the kernel to inherit some SMMU mappings from the bootloader, this means we can be cheeky and reuse the framebuffer that the bootloader setup for us - the one used to render the splash screen you see when you first turn your phone on.
-</p>
-<h4><span class="mw-headline" id="Find_the_framebuffer_address">Find the framebuffer address</span></h4>
-<p>First you need to find the address of the framebuffer, you can do this by booting into TWRP or rooted android and running:
-</p>
-<pre>strings /dev/block/bootdevice/by-name/xbl_a | grep "Display Reserved"
+      <p>
+       If the display clocks initialise then it will reset the states set up by the bootloader and cause the display to die.
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          The qcom,board-id and soc-id values have not been needed on any SDM845 device yet as far as I know, they should be safe to ignore.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h3>
+       <span class="mw-headline" id="Creating_a_framebuffer">
+        Creating a framebuffer
+       </span>
+      </h3>
+      <p>
+       Luckily for us, there's a neat feature in android that allows the kernel to inherit some SMMU mappings from the bootloader, this means we can be cheeky and reuse the framebuffer that the bootloader setup for us - the one used to render the splash screen you see when you first turn your phone on.
+      </p>
+      <h4>
+       <span class="mw-headline" id="Find_the_framebuffer_address">
+        Find the framebuffer address
+       </span>
+      </h4>
+      <p>
+       First you need to find the address of the framebuffer, you can do this by booting into TWRP or rooted android and running:
+      </p>
+      <pre>strings /dev/block/bootdevice/by-name/xbl_a | grep "Display Reserved"
 </pre>
-<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">Example output</pre>
-<pre class="hc-bottom" style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">OnePlus6:/ # strings /dev/block/bootdevice/by-name/xbl_a | grep "Display Reserved"                           
+      <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">Example output</pre>
+      <pre class="hc-bottom" style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;">OnePlus6:/ # strings /dev/block/bootdevice/by-name/xbl_a | grep "Display Reserved"                           
 0x9D400000, 0x02400000, "Display Reserved",  AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN
 </pre>
-<p>The first value is the address (in this case <code>0x9D400000</code>), the second value is the size (<code>0x02400000</code> for us).
-</p>
-<h4><span class="mw-headline" id="Create_the_framebuffer_node">Create the framebuffer node</span></h4>
-<p>With that value noted down, you can now add <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/213d01a9/main/linux-postmarketos-qcom-sdm660/0001-arm64-dts-qcom-Add-sdm630-sdm660-SoC-and-xiaomi-lave.patch#L88-115">this framebuffer node</a> to your DTS file. Don't forget to copy the <code>reserved-memory</code> node underneath too.
-</p>
-<p>There are a few values that must be changed to match your device, this example is for xiaomi device which has a display width of 1080, and height of 2340, everywhere you see these 2 values they should be changed to match your device.
-Additionally, you have to change every reference to the <code>9d400000</code> address to match the value you got above.
-Make sure you update the <code>reserved-memory</code> node too.
-</p>
-<h2><span class="mw-headline" id="Compiling">Compiling</span></h2>
-<p>With your device now added to the kernel, it's ready to compile.
-</p>
-<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
-<strong>TODO</strong> pmtools is not the best way to do this, update the guide to use <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Compiling_kernels_with_envkernel.sh">envkernel</a> instead</div>
-<h3><span class="mw-headline" id="Source_the_tools">Source the tools</span></h3>
-<pre>cd $HOME/pmos/linux
+      <p>
+       The first value is the address (in this case
+       <code>
+        0x9D400000
+       </code>
+       ), the second value is the size (
+       <code>
+        0x02400000
+       </code>
+       for us).
+      </p>
+      <h4>
+       <span class="mw-headline" id="Create_the_framebuffer_node">
+        Create the framebuffer node
+       </span>
+      </h4>
+      <p>
+       With that value noted down, you can now add
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/213d01a9/main/linux-postmarketos-qcom-sdm660/0001-arm64-dts-qcom-Add-sdm630-sdm660-SoC-and-xiaomi-lave.patch#L88-115" rel="nofollow">
+        this framebuffer node
+       </a>
+       to your DTS file. Don't forget to copy the
+       <code>
+        reserved-memory
+       </code>
+       node underneath too.
+      </p>
+      <p>
+       There are a few values that must be changed to match your device, this example is for xiaomi device which has a display width of 1080, and height of 2340, everywhere you see these 2 values they should be changed to match your device.
+Additionally, you have to change every reference to the
+       <code>
+        9d400000
+       </code>
+       address to match the value you got above.
+Make sure you update the
+       <code>
+        reserved-memory
+       </code>
+       node too.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Compiling">
+        Compiling
+       </span>
+      </h2>
+      <p>
+       With your device now added to the kernel, it's ready to compile.
+      </p>
+      <div class="todo" role="note" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+       <strong>
+        TODO
+       </strong>
+       pmtools is not the best way to do this, update the guide to use
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Compiling_kernels_with_envkernel.sh" rel="nofollow">
+        envkernel
+       </a>
+       instead
+      </div>
+      <h3>
+       <span class="mw-headline" id="Source_the_tools">
+        Source the tools
+       </span>
+      </h3>
+      <pre>cd $HOME/pmos/linux
 source $HOME/pmos/tools/pmenv.sh
 </pre>
-<p>I'd recommend you add <code>pmenv.sh</code> to your bashrc/zshrc, it doesn't do anything too heavy :D, I will assume that you have sourced it for the rest of this guide.
-</p>
-<pre>echo -e "source \$HOME/pmos/tools/pmenv.sh" &gt;&gt; $HOME/.bashrc
+      <p>
+       I'd recommend you add
+       <code>
+        pmenv.sh
+       </code>
+       to your bashrc/zshrc, it doesn't do anything too heavy :D, I will assume that you have sourced it for the rest of this guide.
+      </p>
+      <pre>echo -e "source \$HOME/pmos/tools/pmenv.sh" &gt;&gt; $HOME/.bashrc
 </pre>
-<h3><span class="mw-headline" id="Enable_simplefb">Enable simplefb</span></h3>
-<p>We use a config fragment for all the kernel config options we need that aren't in the defconfig. It also disables some extra stuff to speed up build times. It's applies on top of the defconfig like this:
-</p>
-<pre>mm defconfig sdm845.config
+      <h3>
+       <span class="mw-headline" id="Enable_simplefb">
+        Enable simplefb
+       </span>
+      </h3>
+      <p>
+       We use a config fragment for all the kernel config options we need that aren't in the defconfig. It also disables some extra stuff to speed up build times. It's applies on top of the defconfig like this:
+      </p>
+      <pre>mm defconfig sdm845.config
 </pre>
-<p>This will create a <code>.config</code> file in the output directory (<code>.output</code> that contains every single config option, and either sets or unsets it.
+      <p>
+       This will create a
+       <code>
+        .config
+       </code>
+       file in the output directory (
+       <code>
+        .output
+       </code>
+       that contains every single config option, and either sets or unsets it.
 In order to make use of the framebuffer device we defined, we need to enable support for the simplefb framebuffer driver.
-</p>
-<pre>mm menuconfig
+      </p>
+      <pre>mm menuconfig
 </pre>
-<p>You can now use <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">/</span> to open a search box, search for <code>FB_SIMPLE</code> and press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">1</span> to go to the option, you can now press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">space</span> to toggle it on.
-</p>
-<p>Press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Escape</span> twice to go back, repeat until you are prompted to save and exit.
-</p>
-<h3><span class="mw-headline" id="Building">Building</span></h3>
-<p>Finally, we can compile the kernel with:
-</p>
-<pre>mm
+      <p>
+       You can now use
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        /
+       </span>
+       to open a search box, search for
+       <code>
+        FB_SIMPLE
+       </code>
+       and press
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        1
+       </span>
+       to go to the option, you can now press
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        space
+       </span>
+       to toggle it on.
+      </p>
+      <p>
+       Press
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        Escape
+       </span>
+       twice to go back, repeat until you are prompted to save and exit.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Building">
+        Building
+       </span>
+      </h3>
+      <p>
+       Finally, we can compile the kernel with:
+      </p>
+      <pre>mm
 </pre>
-<p>You can see what that's doing by running <code>alias mm</code> in a terminal where you've sourced <code>pmenv.sh</code>, or by <a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/pmtools/-/blob/master/pmenv.sh#L16">looking here</a>.
-</p>
-<h2><span class="mw-headline" id="Booting">Booting</span></h2>
-<p>With our kernel compiled, you'll find the kernel image at <code>.output/arch/arm64/boot/Image.gz</code>, and your device dtb file at <code>.output/arch/arm64/boot/dts/qcom/sdm845-&lt;device&gt;.dtb</code>.
-</p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">The output directory <code>.output</code> is defined in the make command, different kernel will use different output directories.</td>
-</tr></tbody></table>
-<p>The final step is to make an Android compatible boot image, unfortunately there's one final hitch, the ramdisk...
-</p>
-<h3><span class="mw-headline" id="Getting_a_ramdisk">Getting a ramdisk</span></h3>
-<p>Fortunately it doesn't take too long to make a postmarketOS ramdisk, simply do the following:
-</p>
-<pre>pmbootstrap export
+      <p>
+       You can see what that's doing by running
+       <code>
+        alias mm
+       </code>
+       in a terminal where you've sourced
+       <code>
+        pmenv.sh
+       </code>
+       , or by
+       <a class="external text" href="https://gitlab.com/sdm845-mainline/pmtools/-/blob/master/pmenv.sh#L16" rel="nofollow">
+        looking here
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Booting">
+        Booting
+       </span>
+      </h2>
+      <p>
+       With our kernel compiled, you'll find the kernel image at
+       <code>
+        .output/arch/arm64/boot/Image.gz
+       </code>
+       , and your device dtb file at
+       <code>
+        .output/arch/arm64/boot/dts/qcom/sdm845-&lt;device&gt;.dtb
+       </code>
+       .
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          The output directory
+          <code>
+           .output
+          </code>
+          is defined in the make command, different kernel will use different output directories.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       The final step is to make an Android compatible boot image, unfortunately there's one final hitch, the ramdisk...
+      </p>
+      <h3>
+       <span class="mw-headline" id="Getting_a_ramdisk">
+        Getting a ramdisk
+       </span>
+      </h3>
+      <p>
+       Fortunately it doesn't take too long to make a postmarketOS ramdisk, simply do the following:
+      </p>
+      <pre>pmbootstrap export
 cp /tmp/postmarketOS-export/initramfs-qcom-sdm845 $HOME/pmos/initramfs.cpio.gz
 </pre>
-<h3><span class="mw-headline" id="Making_a_boot_image">Making a boot image</span></h3>
-<pre>cat .output/arch/arm64/boot/Image.gz .output/arch/arm64/boot/dts/qcom/sdm845-&lt;device&gt;.dtb &gt; /tmp/kernel-dtb
+      <h3>
+       <span class="mw-headline" id="Making_a_boot_image">
+        Making a boot image
+       </span>
+      </h3>
+      <pre>cat .output/arch/arm64/boot/Image.gz .output/arch/arm64/boot/dts/qcom/sdm845-&lt;device&gt;.dtb &gt; /tmp/kernel-dtb
 mkbootimg \
 	--base 0x0 \
 	--kernel_offset 0x8000 \
@@ -295,108 +826,289 @@ mkbootimg \
 # Or, if you've already fixed the offsets in $HOME/pmos/tools/mkbootimg.sh
 mkb -r $HOME/pmos/initramfs.cpio.gz
 </pre>
-<p>That's it! With a kernel successfully built it's ready for a test run...
-</p>
-<h3><span class="mw-headline" id="The_boot_procedure">The boot procedure</span></h3>
-<p>Reboot your device into fastboot mode, unfortunately all treble device launching with Android Oreo (and some Pie devices) have a dtbo partition, this stores a whole bunch of dtb files that the bootloader can go slap on to the kernel, mainline doesn't like this much...
-</p>
-<p>On some devices we need to erase the dtbo partition before we can boot, it's wise to boot into TWRP and take a backup first, or alternatively <a href="#Treble">switch to the opposite slot</a> so as to keep whatever OS you're currently running intact.
-</p>
-<pre>fastboot erase dtbo
+      <p>
+       That's it! With a kernel successfully built it's ready for a test run...
+      </p>
+      <h3>
+       <span class="mw-headline" id="The_boot_procedure">
+        The boot procedure
+       </span>
+      </h3>
+      <p>
+       Reboot your device into fastboot mode, unfortunately all treble device launching with Android Oreo (and some Pie devices) have a dtbo partition, this stores a whole bunch of dtb files that the bootloader can go slap on to the kernel, mainline doesn't like this much...
+      </p>
+      <p>
+       On some devices we need to erase the dtbo partition before we can boot, it's wise to boot into TWRP and take a backup first, or alternatively
+       <a href="#Treble">
+        switch to the opposite slot
+       </a>
+       so as to keep whatever OS you're currently running intact.
+      </p>
+      <pre>fastboot erase dtbo
 fastboot reboot bootloader
 </pre>
-<p>You can now boot the kernel with
-</p>
-<pre>fastboot boot $HOME/pmos/mainline-boot.img
+      <p>
+       You can now boot the kernel with
+      </p>
+      <pre>fastboot boot $HOME/pmos/mainline-boot.img
 </pre>
-<p>If all has gone to plan, you'll see a few penguins at the top of your screen, and dmesg scrolling on by.
-</p>
-<p>Congrats, you did it :D
-</p>
-<h1><span class="mw-headline" id="The_next_step">The next step</span></h1>
-<p>Now that you have a booting phone, or if you've bumped into issues along the way, you should <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Matrix_and_IRC">hop on to Matrix</a> and talk about your progress, the wonderful folks there will be more than happy to offer guidance and support.
-</p>
-<p>More hardware specific details can be found on the SDM845 page.
-</p>
-<span style="display:block; height: 40px; float: left;"><div class="floatleft"><a href="../Icon-numix-light-system-run.svg" class="image"><img alt="Icon-numix-light-system-run.svg" src="../Icon-numix-light-system-run.svg" decoding="async" width="32" height="32" srcset="../48px-Icon-numix-light-system-run.svg 1.5x ../64px-Icon-numix-light-system-run.svg 2x"></a></div>
-<a href="../en/Qualcomm_Snapdragon_845_(SDM845).html" title="Qualcomm Snapdragon 845 (SDM845)"><span style="border: 1px solid lightgray; background: #f8f8f8; padding: 5px; width:200px; height: 20px; line-height: 20px; display: inline-block; margin-left: 5px;">SDM845 SoC</span></a></span><p><span style="clear:left; display: block"></span>
-</p>
-<h1><span class="mw-headline" id="Remote_Processors">Remote Processors</span></h1>
-<p>SDM845 and similar platforms have remote processors or DSPs (Digital Signal Processors) which are used for various device functionality. SDM845 has an ADSP, responsible for audio processing among others things, and a CDSP (compute DSP) capable or performing compute operations like machine learning. The modem is also exposed as a remote processor.
-</p>
-<p>You can bringup the modem by enabling it and configuring it <a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/blob/288ef8a42612df516e2e598a9ca5b3d9be846290/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi#L399">like done here</a>.
-</p>
-<h2><span class="mw-headline" id="Remote_Processor_errors">Remote Processor errors</span></h2>
-<p>On some devices (OnePlus 6 &amp; Lg V35 at least) the <code>rmtfs_mem</code> reserved memory region is assigned to some slightly odd locations on downstream. This must be addressed on Mainline.
-</p>
-<p>The rmtfs memory region is used to transfer data between processors (?), the downstream kernel memory region node doesn't hard code a region and instead uses a driver to allocate the region. Sometimes the region must be guarded to overcome some limitations in the XPU and prevent violations (and crashes) if memory is allocated too close to the region. See <a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/linux/-/commit/cc5d24af6660e75ce791940fe97995285f56d78c">this commit</a> for an example.
-</p>
-<h2><span class="mw-headline" id="Getting_WIFI">Getting WIFI</span></h2>
-<p>The WLAN chip on SDM845 devices lives on the Modem, this makes getting wifi up and running a bit challenging, however it should work on most devices.
-</p>
-<p>Follow the instruction on the <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Qualcomm_Snapdragon_835_(MSM8998)#WLAN">Snapdragon 835 SoC page</a> for enabling WiFi.
-</p>
-<h2><span class="mw-headline" id="The_layout">The layout</span></h2>
-<p>The ath10k driver is used for WLAN on SDM845, it must be enabled along with <code>CONFIG_ATH10k_SNOC</code> and <code>CONFIG_QRTR</code> in the kernel config.
-</p>
-<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
-<strong>TODO</strong> Add sections for adding hardware support (display, touch, buttons, modem, wlan), detail SMMU issues and more complex notes.</div>
-<h2><span class="mw-headline" id="Change_Kernel_parameters">Change Kernel parameters</span></h2>
-<p>1, sudo <b>vim /etc/deviceinfo</b>
-</p>
-<p>2, Change cmdline parameters to desired state
-</p>
-<p>3, <b>sudo apk fix linux-postmarketos-qcom-sdm845</b>
-</p>
-<p><br>
-</p>
-<h1><span class="mw-headline" id="Maintainers">Maintainers</span></h1>
-<ul><li><a href="../User:Kalube.html" title="User:Kalube">Caleb</a></li></ul>
-<h1><span class="mw-headline" id="See_also">See also</span></h1>
-<ul><li>
-<a rel="nofollow" class="external text" href="https://cast.postmarketos.org/episode/08-Interview-Caleb-Connolly-SDM-845-Mainlining/">postmarketOS podcast interview with Caleb about mainlining the OnePlus 6/SDM845</a><div class="mw-references-wrap"><ol class="references"></ol></div>
-</li></ul>
-<li id="cite_note-1">
-<span class="mw-cite-backlink"><a href="#cite_ref-1">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external text" href="https://github.com/sonyxperiadev/kernel/commit/cfd148999d17ad8f1a7cbce44bb108570ad631ad"><tt>sonyxperiadev</tt> commit with device-specific quirk</a></span>
-</li>
-
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li>
-<li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li>
-</ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=SDM845_Mainlining&amp;oldid=26859">https://wiki.postmarketos.org/index.php?title=SDM845_Mainlining&amp;oldid=26859</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 10 April 2022, at 08:35.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=SDM845_Mainlining&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <p>
+       If all has gone to plan, you'll see a few penguins at the top of your screen, and dmesg scrolling on by.
+      </p>
+      <p>
+       Congrats, you did it :D
+      </p>
+      <h1>
+       <span class="mw-headline" id="The_next_step">
+        The next step
+       </span>
+      </h1>
+      <p>
+       Now that you have a booting phone, or if you've bumped into issues along the way, you should
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Matrix_and_IRC" rel="nofollow">
+        hop on to Matrix
+       </a>
+       and talk about your progress, the wonderful folks there will be more than happy to offer guidance and support.
+      </p>
+      <p>
+       More hardware specific details can be found on the SDM845 page.
+      </p>
+      <span style="display:block; height: 40px; float: left;">
+       <div class="floatleft">
+        <a class="image" href="../Icon-numix-light-system-run.svg">
+         <img alt="Icon-numix-light-system-run.svg" decoding="async" height="32" src="../Icon-numix-light-system-run.svg" srcset="../48px-Icon-numix-light-system-run.svg 1.5x ../64px-Icon-numix-light-system-run.svg 2x" width="32"/>
+        </a>
+       </div>
+       <a href="../en/Qualcomm_Snapdragon_845_(SDM845).html" title="Qualcomm Snapdragon 845 (SDM845)">
+        <span style="border: 1px solid lightgray; background: #f8f8f8; padding: 5px; width:200px; height: 20px; line-height: 20px; display: inline-block; margin-left: 5px;">
+         SDM845 SoC
+        </span>
+       </a>
+      </span>
+      <p>
+       <span style="clear:left; display: block">
+       </span>
+      </p>
+      <h1>
+       <span class="mw-headline" id="Remote_Processors">
+        Remote Processors
+       </span>
+      </h1>
+      <p>
+       SDM845 and similar platforms have remote processors or DSPs (Digital Signal Processors) which are used for various device functionality. SDM845 has an ADSP, responsible for audio processing among others things, and a CDSP (compute DSP) capable or performing compute operations like machine learning. The modem is also exposed as a remote processor.
+      </p>
+      <p>
+       You can bringup the modem by enabling it and configuring it
+       <a class="external text" href="https://github.com/torvalds/linux/blob/288ef8a42612df516e2e598a9ca5b3d9be846290/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi#L399" rel="nofollow">
+        like done here
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Remote_Processor_errors">
+        Remote Processor errors
+       </span>
+      </h2>
+      <p>
+       On some devices (OnePlus 6 &amp; Lg V35 at least) the
+       <code>
+        rmtfs_mem
+       </code>
+       reserved memory region is assigned to some slightly odd locations on downstream. This must be addressed on Mainline.
+      </p>
+      <p>
+       The rmtfs memory region is used to transfer data between processors (?), the downstream kernel memory region node doesn't hard code a region and instead uses a driver to allocate the region. Sometimes the region must be guarded to overcome some limitations in the XPU and prevent violations (and crashes) if memory is allocated too close to the region. See
+       <a class="external text" href="https://gitlab.com/sdm845-mainline/linux/-/commit/cc5d24af6660e75ce791940fe97995285f56d78c" rel="nofollow">
+        this commit
+       </a>
+       for an example.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Getting_WIFI">
+        Getting WIFI
+       </span>
+      </h2>
+      <p>
+       The WLAN chip on SDM845 devices lives on the Modem, this makes getting wifi up and running a bit challenging, however it should work on most devices.
+      </p>
+      <p>
+       Follow the instruction on the
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Qualcomm_Snapdragon_835_(MSM8998)#WLAN" rel="nofollow">
+        Snapdragon 835 SoC page
+       </a>
+       for enabling WiFi.
+      </p>
+      <h2>
+       <span class="mw-headline" id="The_layout">
+        The layout
+       </span>
+      </h2>
+      <p>
+       The ath10k driver is used for WLAN on SDM845, it must be enabled along with
+       <code>
+        CONFIG_ATH10k_SNOC
+       </code>
+       and
+       <code>
+        CONFIG_QRTR
+       </code>
+       in the kernel config.
+      </p>
+      <div class="todo" role="note" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+       <strong>
+        TODO
+       </strong>
+       Add sections for adding hardware support (display, touch, buttons, modem, wlan), detail SMMU issues and more complex notes.
+      </div>
+      <h2>
+       <span class="mw-headline" id="Change_Kernel_parameters">
+        Change Kernel parameters
+       </span>
+      </h2>
+      <p>
+       1, sudo
+       <b>
+        vim /etc/deviceinfo
+       </b>
+      </p>
+      <p>
+       2, Change cmdline parameters to desired state
+      </p>
+      <p>
+       3,
+       <b>
+        sudo apk fix linux-postmarketos-qcom-sdm845
+       </b>
+      </p>
+      <p>
+       <br/>
+      </p>
+      <h1>
+       <span class="mw-headline" id="Maintainers">
+        Maintainers
+       </span>
+      </h1>
+      <ul>
+       <li>
+        <a href="../User:Kalube.html" title="User:Kalube">
+         Caleb
+        </a>
+       </li>
+      </ul>
+      <h1>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h1>
+      <ul>
+       <li>
+        <a class="external text" href="https://cast.postmarketos.org/episode/08-Interview-Caleb-Connolly-SDM-845-Mainlining/" rel="nofollow">
+         postmarketOS podcast interview with Caleb about mainlining the OnePlus 6/SDM845
+        </a>
+        <div class="mw-references-wrap">
+         <ol class="references">
+         </ol>
+        </div>
+       </li>
+      </ul>
+      <li id="cite_note-1">
+       <span class="mw-cite-backlink">
+        <a href="#cite_ref-1">
+         ↑
+        </a>
+       </span>
+       <span class="reference-text">
+        <a class="external text" href="https://github.com/sonyxperiadev/kernel/commit/cfd148999d17ad8f1a7cbce44bb108570ad631ad" rel="nofollow">
+         <tt>
+          sonyxperiadev
+         </tt>
+         commit with device-specific quirk
+        </a>
+       </span>
+      </li>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Categories
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Todo_Items.html" title="Category:Todo Items">
+         Todo Items
+        </a>
+       </li>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=SDM845_Mainlining&amp;oldid=26859">
+      https://wiki.postmarketos.org/index.php?title=SDM845_Mainlining&amp;oldid=26859
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 10 April 2022, at 08:35.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=SDM845_Mainlining&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

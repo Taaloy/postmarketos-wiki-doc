@@ -1,67 +1,126 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>QEMU - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-QEMU rootpage-QEMU skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">QEMU</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>QEMU allows running postmarketOS in virtual machines. The following architectures are available:
-</p>
-<ul>
-<li><a href="../en/QEMU_amd64_(qemu-amd64).html" title="QEMU amd64 (qemu-amd64)">QEMU for x86_64</a></li>
-<li><a href="../en/QEMU_aarch64_(qemu-aarch64).html" title="QEMU aarch64 (qemu-aarch64)">QEMU for aarch64</a></li>
-</ul>
-<p>Note that running a virtual machine for a foreign architecture (e.g. aarch64 on x86_64) requires CPU emulation which is rather slow. Prefer the native architecture when possible.
-</p>
-<h3><span class="mw-headline" id="Phosh">Phosh</span></h3>
-<p>By default, Phosh has the resolution hard-coded to 720x1440 (like the Librem 5), so the display is cut off on usual 1920x1080 (Full HD) monitors.
-</p>
-<p>You can change the resolution by editing <code>/usr/share/phosh/phoc.ini</code>. By default it contains:
-</p>
-<pre>[output:Virtual-1]
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   QEMU - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-QEMU rootpage-QEMU skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    QEMU
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       QEMU allows running postmarketOS in virtual machines. The following architectures are available:
+      </p>
+      <ul>
+       <li>
+        <a href="../en/QEMU_amd64_(qemu-amd64).html" title="QEMU amd64 (qemu-amd64)">
+         QEMU for x86_64
+        </a>
+       </li>
+       <li>
+        <a href="../en/QEMU_aarch64_(qemu-aarch64).html" title="QEMU aarch64 (qemu-aarch64)">
+         QEMU for aarch64
+        </a>
+       </li>
+      </ul>
+      <p>
+       Note that running a virtual machine for a foreign architecture (e.g. aarch64 on x86_64) requires CPU emulation which is rather slow. Prefer the native architecture when possible.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Phosh">
+        Phosh
+       </span>
+      </h3>
+      <p>
+       By default, Phosh has the resolution hard-coded to 720x1440 (like the Librem 5), so the display is cut off on usual 1920x1080 (Full HD) monitors.
+      </p>
+      <p>
+       You can change the resolution by editing
+       <code>
+        /usr/share/phosh/phoc.ini
+       </code>
+       . By default it contains:
+      </p>
+      <pre>[output:Virtual-1]
 # For the x86 VM using QXL to get a phone like geometry
 modeline = 87.25  720 776 848 976  1440 1443 1453 1493 -hsync +vsync
 mode = 720x1440
 scale = 2
 </pre>
-<p>To add a new resolution, you need to add a new <code>modeline</code>, then change the <code>mode</code> (and eventually the <code>scale</code>). You can generate the modelines using the <code>cvt</code> tool.
-</p>
-<p>For example, to set the resolution to qHD (540x960):
-</p>
-<pre>$ cvt -v 540 960
+      <p>
+       To add a new resolution, you need to add a new
+       <code>
+        modeline
+       </code>
+       , then change the
+       <code>
+        mode
+       </code>
+       (and eventually the
+       <code>
+        scale
+       </code>
+       ). You can generate the modelines using the
+       <code>
+        cvt
+       </code>
+       tool.
+      </p>
+      <p>
+       For example, to set the resolution to qHD (540x960):
+      </p>
+      <pre>$ cvt -v 540 960
 Warning: Aspect Ratio is not CVT standard.
 # 544x960 59.96 Hz (CVT) hsync: 59.72 kHz; pclk: 43.00 MHz
 Modeline "544x960_60.00"   43.00  544 576 632 720  960 963 973 996 -hsync +vsync
 </pre>
-<p>Note how it changed the horizontal resolution to <code>544</code> to match the CVT standard. Weird. Then add the new <code>modeline</code> and change <code>mode</code>:
-</p>
-<pre>[output:Virtual-1]
+      <p>
+       Note how it changed the horizontal resolution to
+       <code>
+        544
+       </code>
+       to match the CVT standard. Weird. Then add the new
+       <code>
+        modeline
+       </code>
+       and change
+       <code>
+        mode
+       </code>
+       :
+      </p>
+      <pre>[output:Virtual-1]
 # For the x86 VM using QXL to get a phone like geometry
 modeline = 87.25  720 776 848 976  1440 1443 1453 1493 -hsync +vsync
 modeline = 43.00  544 576 632 720  960 963 973 996 -hsync +vsync
@@ -69,48 +128,117 @@ mode = 544x960
 # Maybe it's a bit too large with scale 2 on this resolution? Or maybe not, just test it out :)
 scale = 1
 </pre>
-<p>Restart QEMU or <code>rc-service lightdm restart</code>, then Phosh should show up with the new resolution. Note that the <code>modeline</code> is necessary to support custom resolutions, you cannot just set the <code>mode</code>.
-</p>
-<h3><span class="mw-headline" id="See_also">See also</span></h3>
-<ul>
-<li><a href="../en/Troubleshooting:QEMU.html" title="Troubleshooting:QEMU">Troubleshooting:QEMU</a></li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1612">!1612</a> Use Alpine's QEMU rather than host system QEMU</li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=QEMU&amp;oldid=12940">https://wiki.postmarketos.org/index.php?title=QEMU&amp;oldid=12940</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 30 June 2020, at 09:45.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=QEMU&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <p>
+       Restart QEMU or
+       <code>
+        rc-service lightdm restart
+       </code>
+       , then Phosh should show up with the new resolution. Note that the
+       <code>
+        modeline
+       </code>
+       is necessary to support custom resolutions, you cannot just set the
+       <code>
+        mode
+       </code>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h3>
+      <ul>
+       <li>
+        <a href="../en/Troubleshooting:QEMU.html" title="Troubleshooting:QEMU">
+         Troubleshooting:QEMU
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1612" rel="nofollow">
+         !1612
+        </a>
+        Use Alpine's QEMU rather than host system QEMU
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=QEMU&amp;oldid=12940">
+      https://wiki.postmarketos.org/index.php?title=QEMU&amp;oldid=12940
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 30 June 2020, at 09:45.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=QEMU&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

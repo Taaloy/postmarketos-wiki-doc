@@ -1,161 +1,452 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Hybris - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Hybris rootpage-Hybris skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Hybris</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">
-<b>libhybris has been dropped from postmarketOS, and hybrisOS is no longer in development.</b> This page is left for legacy purposes.</td>
-</tr></tbody></table>
-<p><a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Hybris_(software)">Libhybris</a> is an Android compatibility layer, allowing libraries compiled with bionic (Android) libc to be loaded by applications built with different libc (originally glibc, musl in postmarketOS case). It allows a device to run proprietary Android userspace drivers on top of a downstream kernel by running parts of Android in a container. The upsides and downsides of this approach are discussed in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/703">pmaports#703</a>.
-</p>
-<p>Currently, libhybris for postmarketOS exists in the form of the <a rel="nofollow" class="external text" href="https://gitlab.com/hybrisos/hybrisaports">hybrisaports repo</a>, and exists as an unofficial method of running postmarketOS without having to work on mainline or kernel drivers (assuming your kernel is compatible). 
-</p>
-<p>The aim is for the <a rel="nofollow" class="external text" href="https://gitlab.com/hybrisos">hybrisOS project</a> to coexist with postmarketOS and ideally make it possible for users to experience postmarketOS on devices that otherwise wouldn't be able to run it (due to missing mainline support or poor quality kernels).
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1">
-<a href="#Booting_hybris_on_your_device"><span class="tocnumber">1</span> <span class="toctext">Booting hybris on your device</span></a>
-<ul>
-<li class="toclevel-2 tocsection-2"><a href="#Get_in_touch"><span class="tocnumber">1.1</span> <span class="toctext">Get in touch</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-3">
-<a href="#Halium_9_based_ports"><span class="tocnumber">2</span> <span class="toctext">Halium 9 based ports</span></a>
-<ul>
-<li class="toclevel-2 tocsection-4">
-<a href="#Requirements"><span class="tocnumber">2.1</span> <span class="toctext">Requirements</span></a>
-<ul>
-<li class="toclevel-3 tocsection-5"><a href="#Target_Device"><span class="tocnumber">2.1.1</span> <span class="toctext">Target Device</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2 tocsection-6">
-<a href="#Preparing_kernel"><span class="tocnumber">2.2</span> <span class="toctext">Preparing kernel</span></a>
-<ul>
-<li class="toclevel-3 tocsection-7"><a href="#pmaports"><span class="tocnumber">2.2.1</span> <span class="toctext">pmaports</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2 tocsection-8"><a href="#Building"><span class="tocnumber">2.3</span> <span class="toctext">Building</span></a></li>
-<li class="toclevel-2 tocsection-9"><a href="#Generate_udev_rules"><span class="tocnumber">2.4</span> <span class="toctext">Generate udev rules</span></a></li>
-<li class="toclevel-2 tocsection-10">
-<a href="#Make_device-specific_hybris_package"><span class="tocnumber">2.5</span> <span class="toctext">Make device-specific hybris package</span></a>
-<ul>
-<li class="toclevel-3 tocsection-11"><a href="#From_an_existing_device_package"><span class="tocnumber">2.5.1</span> <span class="toctext">From an existing device package</span></a></li>
-<li class="toclevel-3 tocsection-12"><a href="#Apply_needed_modifications_for_hybris"><span class="tocnumber">2.5.2</span> <span class="toctext">Apply needed modifications for hybris</span></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-13"><a href="#Halium_7_based_ports"><span class="tocnumber">3</span> <span class="toctext">Halium 7 based ports</span></a></li>
-<li class="toclevel-1 tocsection-14"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h1><span class="mw-headline" id="Booting_hybris_on_your_device">Booting hybris on your device</span></h1>
-<h2><span class="mw-headline" id="Get_in_touch">Get in touch</span></h2>
-<p>For help, feel free to come chat with us in #hybrisos:kde.org on Matrix, or <a rel="nofollow" class="external text" href="https://t.me/hybrisos">@hybrisOS</a> on Telegram!
-</p>
-<h1><span class="mw-headline" id="Halium_9_based_ports">Halium 9 based ports</span></h1>
-<h2><span class="mw-headline" id="Requirements">Requirements</span></h2>
-<h3><span class="mw-headline" id="Target_Device">Target Device</span></h3>
-<p>For Halium adaptation to work, your device must have:
-</p>
-<ul>
-<li>armv7 or aarch64 architecture</li>
-<li>Linux 3.17 or newer(need getrandom and memfd_create syscalls) - it is possible to backport these to 3.4 and perhaps 3.10</li>
-<li>Project Treble support and Android 9 /vendor partition OR official Halium-9 port without Treble <a rel="nofollow" class="external text" href="http://docs.halium.org/en/latest/supplementary/devices/index.html">halium devices list</a>.</li>
-</ul>
-<h2><span class="mw-headline" id="Preparing_kernel">Preparing kernel</span></h2>
-<p>For preparing kernel, you need to clone your device kernel repo (Lineage OS kernel is recommended), as well as the halium-boot repo:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://github.com/Halium/halium-boot
-</pre></div>
-<p>Then, check kernel config with this command:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ./halium-boot/check-kernel-config path/to/defconfig -w
-</pre></div>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">You can find out which defconfig your device uses by finding a lineageOS device tree and looking in the BoardConfig.mk file for the TARGET_KERNEL_CONFIG variable</td>
-</tr></tbody></table>
-<p>It is recommended to run the command twice to make sure everything got fixed. Then run the command again without <code>-w</code> flag to check that it was able to find and enable all needed config options.
-</p>
-<p>You should now push your defconfig changes up to a public git repository and follow <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Porting_to_a_new_device#Kernel_package">the porting guide</a> to create your kernel package using the kernel you just modified (don't forget to come back here after!).
-</p>
-<h3><span class="mw-headline" id="pmaports">pmaports</span></h3>
-<p>To add hybris packages to pmaports run the following:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> <span class="k">$(</span>pmbootstrap config aports<span class="k">)</span>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Hybris - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Hybris rootpage-Hybris skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Hybris
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           libhybris has been dropped from postmarketOS, and hybrisOS is no longer in development.
+          </b>
+          This page is left for legacy purposes.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       <a class="external text" href="https://en.wikipedia.org/wiki/Hybris_(software)" rel="nofollow">
+        Libhybris
+       </a>
+       is an Android compatibility layer, allowing libraries compiled with bionic (Android) libc to be loaded by applications built with different libc (originally glibc, musl in postmarketOS case). It allows a device to run proprietary Android userspace drivers on top of a downstream kernel by running parts of Android in a container. The upsides and downsides of this approach are discussed in
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/703" rel="nofollow">
+        pmaports#703
+       </a>
+       .
+      </p>
+      <p>
+       Currently, libhybris for postmarketOS exists in the form of the
+       <a class="external text" href="https://gitlab.com/hybrisos/hybrisaports" rel="nofollow">
+        hybrisaports repo
+       </a>
+       , and exists as an unofficial method of running postmarketOS without having to work on mainline or kernel drivers (assuming your kernel is compatible).
+      </p>
+      <p>
+       The aim is for the
+       <a class="external text" href="https://gitlab.com/hybrisos" rel="nofollow">
+        hybrisOS project
+       </a>
+       to coexist with postmarketOS and ideally make it possible for users to experience postmarketOS on devices that otherwise wouldn't be able to run it (due to missing mainline support or poor quality kernels).
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Booting_hybris_on_your_device">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Booting hybris on your device
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-2">
+           <a href="#Get_in_touch">
+            <span class="tocnumber">
+             1.1
+            </span>
+            <span class="toctext">
+             Get in touch
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Halium_9_based_ports">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Halium 9 based ports
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Requirements">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             Requirements
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-5">
+             <a href="#Target_Device">
+              <span class="tocnumber">
+               2.1.1
+              </span>
+              <span class="toctext">
+               Target Device
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Preparing_kernel">
+            <span class="tocnumber">
+             2.2
+            </span>
+            <span class="toctext">
+             Preparing kernel
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-7">
+             <a href="#pmaports">
+              <span class="tocnumber">
+               2.2.1
+              </span>
+              <span class="toctext">
+               pmaports
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#Building">
+            <span class="tocnumber">
+             2.3
+            </span>
+            <span class="toctext">
+             Building
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-9">
+           <a href="#Generate_udev_rules">
+            <span class="tocnumber">
+             2.4
+            </span>
+            <span class="toctext">
+             Generate udev rules
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-10">
+           <a href="#Make_device-specific_hybris_package">
+            <span class="tocnumber">
+             2.5
+            </span>
+            <span class="toctext">
+             Make device-specific hybris package
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-11">
+             <a href="#From_an_existing_device_package">
+              <span class="tocnumber">
+               2.5.1
+              </span>
+              <span class="toctext">
+               From an existing device package
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-12">
+             <a href="#Apply_needed_modifications_for_hybris">
+              <span class="tocnumber">
+               2.5.2
+              </span>
+              <span class="toctext">
+               Apply needed modifications for hybris
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-13">
+         <a href="#Halium_7_based_ports">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Halium 7 based ports
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-14">
+         <a href="#See_also">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h1>
+       <span class="mw-headline" id="Booting_hybris_on_your_device">
+        Booting hybris on your device
+       </span>
+      </h1>
+      <h2>
+       <span class="mw-headline" id="Get_in_touch">
+        Get in touch
+       </span>
+      </h2>
+      <p>
+       For help, feel free to come chat with us in #hybrisos:kde.org on Matrix, or
+       <a class="external text" href="https://t.me/hybrisos" rel="nofollow">
+        @hybrisOS
+       </a>
+       on Telegram!
+      </p>
+      <h1>
+       <span class="mw-headline" id="Halium_9_based_ports">
+        Halium 9 based ports
+       </span>
+      </h1>
+      <h2>
+       <span class="mw-headline" id="Requirements">
+        Requirements
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Target_Device">
+        Target Device
+       </span>
+      </h3>
+      <p>
+       For Halium adaptation to work, your device must have:
+      </p>
+      <ul>
+       <li>
+        armv7 or aarch64 architecture
+       </li>
+       <li>
+        Linux 3.17 or newer(need getrandom and memfd_create syscalls) - it is possible to backport these to 3.4 and perhaps 3.10
+       </li>
+       <li>
+        Project Treble support and Android 9 /vendor partition OR official Halium-9 port without Treble
+        <a class="external text" href="http://docs.halium.org/en/latest/supplementary/devices/index.html" rel="nofollow">
+         halium devices list
+        </a>
+        .
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Preparing_kernel">
+        Preparing kernel
+       </span>
+      </h2>
+      <p>
+       For preparing kernel, you need to clone your device kernel repo (Lineage OS kernel is recommended), as well as the halium-boot repo:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> git clone https://github.com/Halium/halium-boot
+</pre>
+      </div>
+      <p>
+       Then, check kernel config with this command:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> ./halium-boot/check-kernel-config path/to/defconfig -w
+</pre>
+      </div>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          You can find out which defconfig your device uses by finding a lineageOS device tree and looking in the BoardConfig.mk file for the TARGET_KERNEL_CONFIG variable
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       It is recommended to run the command twice to make sure everything got fixed. Then run the command again without
+       <code>
+        -w
+       </code>
+       flag to check that it was able to find and enable all needed config options.
+      </p>
+      <p>
+       You should now push your defconfig changes up to a public git repository and follow
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Porting_to_a_new_device#Kernel_package" rel="nofollow">
+        the porting guide
+       </a>
+       to create your kernel package using the kernel you just modified (don't forget to come back here after!).
+      </p>
+      <h3>
+       <span class="mw-headline" id="pmaports">
+        pmaports
+       </span>
+      </h3>
+      <p>
+       To add hybris packages to pmaports run the following:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> <span class="k">$(</span>pmbootstrap config aports<span class="k">)</span>
 <span class="gp">$</span> git submodule add https://gitlab.com/hybrisos/hybrisaports hybris
-</pre></div>
-<h2><span class="mw-headline" id="Building">Building</span></h2>
-<p>Make sure your kernel package is up to date:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap build linux-<span class="k">$(</span>pmbootstrap config device<span class="k">)</span> <span class="c1"># e.g. linux-oneplus-enchilada-hybris</span>
-</pre></div>
-<h2><span class="mw-headline" id="Generate_udev_rules">Generate udev rules</span></h2>
-<p>Similarly to the ubports GSI, you will need to generate udev rules to make sure android device nodes and files all get the right permissions. Boot your device into TWRP and get a shell, then run:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> cat /vendor/ueventd*.rc /system_root/ueventd*.rc /system/ueventd*.rc <span class="p">|</span> grep ^/dev <span class="p">|</span> sed -e <span class="s1">'s/^\/dev\///'</span> <span class="p">|</span> awk <span class="s1">'{printf "ACTION==\"add\", KERNEL==\"%s\", OWNER=\"%s\", GROUP=\"%s\", MODE=\"%s\"\n",$1,$3,$4,$2}'</span> <span class="p">|</span> sed -e <span class="s1">'s/\r//'</span> &gt; /sdcard/70-halium.rules
-</pre></div>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Adapted from <a rel="nofollow" class="external text" href="https://github.com/ubports/porting-notes/wiki/Halium-9#generating-udev-rules">ubports halium 9 porting notes</a>
-</td>
-</tr></tbody></table>
-<p>Then from your host:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> adb pull /sdcard/70-halium.rules
-</pre></div>
-<h2><span class="mw-headline" id="Make_device-specific_hybris_package">Make device-specific hybris package</span></h2>
-<p>Devices wishing to use hybris packages must use a slightly modified device package in order to make sure all the hybris packages get installed.
-</p>
-<h3><span class="mw-headline" id="From_an_existing_device_package">From an existing device package</span></h3>
-<p>If you already have a device package, you can simply make a copy - don't forget to change the device codename in the <code>deviceinfo</code> file!
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> cp -r <span class="k">$(</span>pmbootstrap config aports<span class="k">)</span>/device/testing/device-<span class="k">$(</span>pmbootstrap config device<span class="k">)</span> <span class="se">\</span>
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Building">
+        Building
+       </span>
+      </h2>
+      <p>
+       Make sure your kernel package is up to date:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap build linux-<span class="k">$(</span>pmbootstrap config device<span class="k">)</span> <span class="c1"># e.g. linux-oneplus-enchilada-hybris</span>
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Generate_udev_rules">
+        Generate udev rules
+       </span>
+      </h2>
+      <p>
+       Similarly to the ubports GSI, you will need to generate udev rules to make sure android device nodes and files all get the right permissions. Boot your device into TWRP and get a shell, then run:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> cat /vendor/ueventd*.rc /system_root/ueventd*.rc /system/ueventd*.rc <span class="p">|</span> grep ^/dev <span class="p">|</span> sed -e <span class="s1">'s/^\/dev\///'</span> <span class="p">|</span> awk <span class="s1">'{printf "ACTION==\"add\", KERNEL==\"%s\", OWNER=\"%s\", GROUP=\"%s\", MODE=\"%s\"\n",$1,$3,$4,$2}'</span> <span class="p">|</span> sed -e <span class="s1">'s/\r//'</span> &gt; /sdcard/70-halium.rules
+</pre>
+      </div>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Adapted from
+          <a class="external text" href="https://github.com/ubports/porting-notes/wiki/Halium-9#generating-udev-rules" rel="nofollow">
+           ubports halium 9 porting notes
+          </a>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       Then from your host:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> adb pull /sdcard/70-halium.rules
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Make_device-specific_hybris_package">
+        Make device-specific hybris package
+       </span>
+      </h2>
+      <p>
+       Devices wishing to use hybris packages must use a slightly modified device package in order to make sure all the hybris packages get installed.
+      </p>
+      <h3>
+       <span class="mw-headline" id="From_an_existing_device_package">
+        From an existing device package
+       </span>
+      </h3>
+      <p>
+       If you already have a device package, you can simply make a copy - don't forget to change the device codename in the
+       <code>
+        deviceinfo
+       </code>
+       file!
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> cp -r <span class="k">$(</span>pmbootstrap config aports<span class="k">)</span>/device/testing/device-<span class="k">$(</span>pmbootstrap config device<span class="k">)</span> <span class="se">\</span>
       <span class="k">$(</span>pmbootstrap config aports<span class="k">)</span>/device/testing/device-<span class="k">$(</span>pmbootstrap config device<span class="k">)</span>-hybris
-</pre></div>
-<h3><span class="mw-headline" id="Apply_needed_modifications_for_hybris">Apply needed modifications for hybris</span></h3>
-<p>Copy the <code>70-halium.rules</code> file you generated above to the new device package.
-</p>
-<p>Use the <a rel="nofollow" class="external text" href="https://gitlab.com/kalube/pmaports/-/tree/7ae101e5f83697c551294a3ade401e97d3662c61/device/testing/device-oneplus-enchilada-hybris">OnePlus 6 device repo</a> as an example to add the following changes to your APKBUILD.
-</p>
-<pre>source="
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="Apply_needed_modifications_for_hybris">
+        Apply needed modifications for hybris
+       </span>
+      </h3>
+      <p>
+       Copy the
+       <code>
+        70-halium.rules
+       </code>
+       file you generated above to the new device package.
+      </p>
+      <p>
+       Use the
+       <a class="external text" href="https://gitlab.com/kalube/pmaports/-/tree/7ae101e5f83697c551294a3ade401e97d3662c61/device/testing/device-oneplus-enchilada-hybris" rel="nofollow">
+        OnePlus 6 device repo
+       </a>
+       as an example to add the following changes to your APKBUILD.
+      </p>
+      <pre>source="
     ...
     70-halium.rules
     ...
@@ -203,77 +494,214 @@ hybris_quirks() {
 	mkdir $subpkgdir
 }
 </pre>
-<p>You can now follow the postmarketOS install guide as normal from <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Porting_to_a_new_device#Installation">the installation section</a>.
-</p>
-<h1><span class="mw-headline" id="Halium_7_based_ports">Halium 7 based ports</span></h1>
-<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
-<strong>TODO</strong> Halium 7 is theoretically supported, but requires a lot more work as Android 7 device don't have a vendor partition. This section will be updated when we have more devices to work with, if you want to get postmarketOS booting with halium on your Android 7 device definitely come chat!</div>
-<h1><span class="mw-headline" id="See_also">See also</span></h1>
-<ul>
-<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/cb22119c3d62c2d1bfbe79e1b6b67f82be31b8eb/hybris">Old hybris pmaports</a></li>
-<li>
-<a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/index.php?title=Hybris&amp;oldid=11809">Previous version of this wiki page</a> (before libhybris support was dropped from postmarketOS)</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1144">pmaports!1144</a> WIP Android 9 support for pmaports</li>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1402">#1402</a> Initial packaging of libhybris</li>
-<li>
-<a href="../en/Motorola_Droid_4_(motorola-maserati).html" title="Motorola Droid 4 (motorola-maserati)">Droid 4</a>: the device for which NotKit originally made the libhybris support</li>
-<li>
-<a href="../en/Planet_Computers_Gemini_PDA_(planet-geminipda).html" title="Planet Computers Gemini PDA (planet-geminipda)">Gemini PDA</a>: NotKit also made it work with libhybris</li>
-<li><a rel="nofollow" class="external text" href="https://postmarketos.org/blog/2018/06/09/one-year/#libhybris-and-optional-proprietary-components">One year of postmarketOS: libhybris and optional proprietary components</a></li>
-<li><a rel="nofollow" class="external text" href="https://postmarketos.org/blog/2017/12/31/219-days-of-postmarketOS/#libre-drivers-and-libhybris">219 days of postmarketOS: libre drivers and libhybris</a></li>
-<li><a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Team_meetings">Team meeting</a></li>
-<li><a rel="nofollow" class="external text" href="https://gitlab.com/hybrisos/hybrisaports">halium-related packages</a></li>
-<li><a rel="nofollow" class="external text" href="https://gitlab.com/hybrisos">hybrisOS project page</a></li>
-<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/cb22119c3d62c2d1bfbe79e1b6b67f82be31b8eb/hybris">Old hybris pmaports</a></li>
-<li>
-<a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/index.php?title=Hybris&amp;oldid=11809">Previous version of this wiki page</a> (before libhybris support was dropped from postmarketOS)</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1144">pmaports!1144</a> WIP Android 9 support for pmaports</li>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1402">#1402</a> Initial packaging of libhybris</li>
-<li>
-<a href="../en/Motorola_Droid_4_(motorola-maserati).html" title="Motorola Droid 4 (motorola-maserati)">Droid 4</a>: the device for which NotKit originally made the libhybris support</li>
-<li>
-<a href="../en/Planet_Computers_Gemini_PDA_(planet-geminipda).html" title="Planet Computers Gemini PDA (planet-geminipda)">Gemini PDA</a>: NotKit also made it work with libhybris</li>
-<li><a rel="nofollow" class="external text" href="https://postmarketos.org/blog/2018/06/09/one-year/#libhybris-and-optional-proprietary-components">One year of postmarketOS: libhybris and optional proprietary components</a></li>
-<li><a rel="nofollow" class="external text" href="https://postmarketos.org/blog/2017/12/31/219-days-of-postmarketOS/#libre-drivers-and-libhybris">219 days of postmarketOS: libre drivers and libhybris</a></li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Hybris&amp;oldid=23611">https://wiki.postmarketos.org/index.php?title=Hybris&amp;oldid=23611</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 8 November 2021, at 07:37.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Hybris&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <p>
+       You can now follow the postmarketOS install guide as normal from
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Porting_to_a_new_device#Installation" rel="nofollow">
+        the installation section
+       </a>
+       .
+      </p>
+      <h1>
+       <span class="mw-headline" id="Halium_7_based_ports">
+        Halium 7 based ports
+       </span>
+      </h1>
+      <div class="todo" role="note" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+       <strong>
+        TODO
+       </strong>
+       Halium 7 is theoretically supported, but requires a lot more work as Android 7 device don't have a vendor partition. This section will be updated when we have more devices to work with, if you want to get postmarketOS booting with halium on your Android 7 device definitely come chat!
+      </div>
+      <h1>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h1>
+      <ul>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/cb22119c3d62c2d1bfbe79e1b6b67f82be31b8eb/hybris" rel="nofollow">
+         Old hybris pmaports
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://wiki.postmarketos.org/index.php?title=Hybris&amp;oldid=11809" rel="nofollow">
+         Previous version of this wiki page
+        </a>
+        (before libhybris support was dropped from postmarketOS)
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1144" rel="nofollow">
+         pmaports!1144
+        </a>
+        WIP Android 9 support for pmaports
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1402" rel="nofollow">
+         #1402
+        </a>
+        Initial packaging of libhybris
+       </li>
+       <li>
+        <a href="../en/Motorola_Droid_4_(motorola-maserati).html" title="Motorola Droid 4 (motorola-maserati)">
+         Droid 4
+        </a>
+        : the device for which NotKit originally made the libhybris support
+       </li>
+       <li>
+        <a href="../en/Planet_Computers_Gemini_PDA_(planet-geminipda).html" title="Planet Computers Gemini PDA (planet-geminipda)">
+         Gemini PDA
+        </a>
+        : NotKit also made it work with libhybris
+       </li>
+       <li>
+        <a class="external text" href="https://postmarketos.org/blog/2018/06/09/one-year/#libhybris-and-optional-proprietary-components" rel="nofollow">
+         One year of postmarketOS: libhybris and optional proprietary components
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://postmarketos.org/blog/2017/12/31/219-days-of-postmarketOS/#libre-drivers-and-libhybris" rel="nofollow">
+         219 days of postmarketOS: libre drivers and libhybris
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://wiki.postmarketos.org/wiki/Team_meetings" rel="nofollow">
+         Team meeting
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/hybrisos/hybrisaports" rel="nofollow">
+         halium-related packages
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/hybrisos" rel="nofollow">
+         hybrisOS project page
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/cb22119c3d62c2d1bfbe79e1b6b67f82be31b8eb/hybris" rel="nofollow">
+         Old hybris pmaports
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://wiki.postmarketos.org/index.php?title=Hybris&amp;oldid=11809" rel="nofollow">
+         Previous version of this wiki page
+        </a>
+        (before libhybris support was dropped from postmarketOS)
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1144" rel="nofollow">
+         pmaports!1144
+        </a>
+        WIP Android 9 support for pmaports
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1402" rel="nofollow">
+         #1402
+        </a>
+        Initial packaging of libhybris
+       </li>
+       <li>
+        <a href="../en/Motorola_Droid_4_(motorola-maserati).html" title="Motorola Droid 4 (motorola-maserati)">
+         Droid 4
+        </a>
+        : the device for which NotKit originally made the libhybris support
+       </li>
+       <li>
+        <a href="../en/Planet_Computers_Gemini_PDA_(planet-geminipda).html" title="Planet Computers Gemini PDA (planet-geminipda)">
+         Gemini PDA
+        </a>
+        : NotKit also made it work with libhybris
+       </li>
+       <li>
+        <a class="external text" href="https://postmarketos.org/blog/2018/06/09/one-year/#libhybris-and-optional-proprietary-components" rel="nofollow">
+         One year of postmarketOS: libhybris and optional proprietary components
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://postmarketos.org/blog/2017/12/31/219-days-of-postmarketOS/#libre-drivers-and-libhybris" rel="nofollow">
+         219 days of postmarketOS: libre drivers and libhybris
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Todo_Items.html" title="Category:Todo Items">
+         Todo Items
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Hybris&amp;oldid=23611">
+      https://wiki.postmarketos.org/index.php?title=Hybris&amp;oldid=23611
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 8 November 2021, at 07:37.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Hybris&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

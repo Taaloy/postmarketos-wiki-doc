@@ -1,125 +1,323 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Low RAM usability - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Low_RAM_usability rootpage-Low_RAM_usability skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Low RAM usability</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>While postmarketOS has been historically used on devices with as little as 256MB RAM (see <a href="../en/Nokia_N900_(nokia-n900).html" title="Nokia N900 (nokia-n900)">Nokia N900</a>), modern usage on less than 2GB RAM can be challenging.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Interfaces"><span class="tocnumber">1</span> <span class="toctext">Interfaces</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Browsers"><span class="tocnumber">2</span> <span class="toctext">Browsers</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Apps"><span class="tocnumber">3</span> <span class="toctext">Apps</span></a></li>
-<li class="toclevel-1 tocsection-4">
-<a href="#Workarounds"><span class="tocnumber">4</span> <span class="toctext">Workarounds</span></a>
-<ul>
-<li class="toclevel-2 tocsection-5"><a href="#ZRAM"><span class="tocnumber">4.1</span> <span class="toctext">ZRAM</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#SWAP"><span class="tocnumber">4.2</span> <span class="toctext">SWAP</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-7"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Interfaces">Interfaces</span></h2>
-<p>UIs can be categorized as follows, considering at least some space left to running applications.
-</p>
-<ul>
-<li>LXQt, i3, sway for 256MB+ RAM</li>
-<li>MATE, Xfce4 for 768MB+ RAM.
-<ul><li>In both cases, make sure to disable the "compositing" window manager feature from settings to achieve much higher performance on older processors.</li></ul>
-</li>
-<li>Phosh, KDE Plasma for 1GB+ RAM.
-<ul><li>KDE Plasma Desktop should be used in "Xorg mode" for lower resource consumption</li></ul>
-</li>
-<li>GNOME for 2GB+ RAM</li>
-</ul>
-<h2><span class="mw-headline" id="Browsers">Browsers</span></h2>
-<p>Not much, since latest versions of both Firefox and Chromium are intensive on RAM usage. Netsurf is arguably still the best choice for low-power devices, but text-based browsers are ultimately the best choice for very limited devices.
-</p>
-<h2><span class="mw-headline" id="Apps">Apps</span></h2>
-<p>For basic GUI utility apps, the set of CoreApps (Qt5) may be a good choice to minimize the memory footprint.
-</p>
-<h2><span class="mw-headline" id="Workarounds">Workarounds</span></h2>
-<p>There are some ways to workaround the limited size of physical memory.
-</p>
-<h3><span class="mw-headline" id="ZRAM">ZRAM</span></h3>
-<p>A kernel module that compresses memory to allow for fitting more data onto physical memory. This however consumes CPU cycles to do the compression, so it is a tradeoff between memory and CPU. With that considered, it is still usually much better than running out of memory and having to deal with the instant degradation of performance caused by that.
-</p>
-<h3><span class="mw-headline" id="SWAP">SWAP</span></h3>
-<p><b>SWAP</b> or <b>SWAP file</b> can be added for additional memory, which enables you to run <a href="../en/Phosh.html" title="Phosh">Phosh</a> or <a href="../en/Plasma_Mobile.html" title="Plasma Mobile">Plasma Mobile</a> with smaller RAM, and even use <a href="../en/Firefox.html" title="Firefox">Firefox</a> to browse the web or playing video, etc.
-</p>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul>
-<li><a href="../en/ZRAM.html" title="ZRAM">ZRAM</a></li>
-<li><a href="../en/SWAP.html" title="SWAP">SWAP</a></li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Low_RAM_usability&amp;oldid=27568">https://wiki.postmarketos.org/index.php?title=Low_RAM_usability&amp;oldid=27568</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 7 May 2022, at 17:07.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Low_RAM_usability&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Low RAM usability - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Low_RAM_usability rootpage-Low_RAM_usability skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Low RAM usability
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       While postmarketOS has been historically used on devices with as little as 256MB RAM (see
+       <a href="../en/Nokia_N900_(nokia-n900).html" title="Nokia N900 (nokia-n900)">
+        Nokia N900
+       </a>
+       ), modern usage on less than 2GB RAM can be challenging.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Interfaces">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Interfaces
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Browsers">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Browsers
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Apps">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Apps
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Workarounds">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Workarounds
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#ZRAM">
+            <span class="tocnumber">
+             4.1
+            </span>
+            <span class="toctext">
+             ZRAM
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#SWAP">
+            <span class="tocnumber">
+             4.2
+            </span>
+            <span class="toctext">
+             SWAP
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-7">
+         <a href="#See_also">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Interfaces">
+        Interfaces
+       </span>
+      </h2>
+      <p>
+       UIs can be categorized as follows, considering at least some space left to running applications.
+      </p>
+      <ul>
+       <li>
+        LXQt, i3, sway for 256MB+ RAM
+       </li>
+       <li>
+        MATE, Xfce4 for 768MB+ RAM.
+        <ul>
+         <li>
+          In both cases, make sure to disable the "compositing" window manager feature from settings to achieve much higher performance on older processors.
+         </li>
+        </ul>
+       </li>
+       <li>
+        Phosh, KDE Plasma for 1GB+ RAM.
+        <ul>
+         <li>
+          KDE Plasma Desktop should be used in "Xorg mode" for lower resource consumption
+         </li>
+        </ul>
+       </li>
+       <li>
+        GNOME for 2GB+ RAM
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Browsers">
+        Browsers
+       </span>
+      </h2>
+      <p>
+       Not much, since latest versions of both Firefox and Chromium are intensive on RAM usage. Netsurf is arguably still the best choice for low-power devices, but text-based browsers are ultimately the best choice for very limited devices.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Apps">
+        Apps
+       </span>
+      </h2>
+      <p>
+       For basic GUI utility apps, the set of CoreApps (Qt5) may be a good choice to minimize the memory footprint.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Workarounds">
+        Workarounds
+       </span>
+      </h2>
+      <p>
+       There are some ways to workaround the limited size of physical memory.
+      </p>
+      <h3>
+       <span class="mw-headline" id="ZRAM">
+        ZRAM
+       </span>
+      </h3>
+      <p>
+       A kernel module that compresses memory to allow for fitting more data onto physical memory. This however consumes CPU cycles to do the compression, so it is a tradeoff between memory and CPU. With that considered, it is still usually much better than running out of memory and having to deal with the instant degradation of performance caused by that.
+      </p>
+      <h3>
+       <span class="mw-headline" id="SWAP">
+        SWAP
+       </span>
+      </h3>
+      <p>
+       <b>
+        SWAP
+       </b>
+       or
+       <b>
+        SWAP file
+       </b>
+       can be added for additional memory, which enables you to run
+       <a href="../en/Phosh.html" title="Phosh">
+        Phosh
+       </a>
+       or
+       <a href="../en/Plasma_Mobile.html" title="Plasma Mobile">
+        Plasma Mobile
+       </a>
+       with smaller RAM, and even use
+       <a href="../en/Firefox.html" title="Firefox">
+        Firefox
+       </a>
+       to browse the web or playing video, etc.
+      </p>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a href="../en/ZRAM.html" title="ZRAM">
+         ZRAM
+        </a>
+       </li>
+       <li>
+        <a href="../en/SWAP.html" title="SWAP">
+         SWAP
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Low_RAM_usability&amp;oldid=27568">
+      https://wiki.postmarketos.org/index.php?title=Low_RAM_usability&amp;oldid=27568
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 7 May 2022, at 17:07.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Low_RAM_usability&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

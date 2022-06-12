@@ -1,121 +1,337 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Installing packages on a running phone - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Installing_packages_on_a_running_phone rootpage-Installing_packages_on_a_running_phone skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Installing packages on a running phone</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"><br><b>Warning!</b></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Do not install suspicious apk packages from unknown sources!</td>
-</tr></tbody></table>
-<p>This article explains how to install packages that were built with <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a> on your phone via Wi-Fi or USB network.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#pmbootstrap_sideload"><span class="tocnumber">1</span> <span class="toctext">pmbootstrap sideload</span></a></li>
-<li class="toclevel-1 tocsection-2">
-<a href="#Host_repository_locally_using_a_web_server"><span class="tocnumber">2</span> <span class="toctext">Host repository locally using a web server</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3"><a href="#Start_the_webserver"><span class="tocnumber">2.1</span> <span class="toctext">Start the webserver</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="#Add_the_repository"><span class="tocnumber">2.2</span> <span class="toctext">Add the repository</span></a></li>
-<li class="toclevel-2 tocsection-5"><a href="#Copy_the_package_signing_keys"><span class="tocnumber">2.3</span> <span class="toctext">Copy the package signing keys</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#Use_your_repository"><span class="tocnumber">2.4</span> <span class="toctext">Use your repository</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-7">
-<a href="#pmos-update-kernel"><span class="tocnumber">3</span> <span class="toctext">pmos-update-kernel</span></a>
-<ul>
-<li class="toclevel-2 tocsection-8"><a href="#Run_it_manually"><span class="tocnumber">3.1</span> <span class="toctext">Run it manually</span></a></li>
-<li class="toclevel-2 tocsection-9"><a href="#Automate_with_a_script"><span class="tocnumber">3.2</span> <span class="toctext">Automate with a script</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="pmbootstrap_sideload">pmbootstrap sideload</span></h2>
-<p>This method copies a package via SSH to your phone and installs it. It makes installing a single package relatively easy. If you need to install multiple packages with dependencies on each other, hosting a repository locally (see below) is recommended instead.
-</p>
-<p>Connect your phone using <a href="../en/USB_Network.html" title="USB Network">USB Network</a> (or Wi-Fi) and make sure you can login into it with SSH. Then excecute the following:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">pc:~$</span> pmbootstrap sideload --host <span class="m">172</span>.16.42.1 --user user --arch &lt;arch&gt; package-name
-</pre></div>
-<p>replace <i>arch</i>  with actual architecture (for example, aarch64).
-</p>
-<p>Add <code>--install-key</code> argument if you see the error about untrusted signature.
-</p>
-<p>Add <code>--port NUM</code> if your device's SSH server is running on a non-standard port (not 22). This may be needed for example, for an image that is running using <b>pmbootstrap qemu</b> (see <a href="../en/QEMU.html" title="QEMU">QEMU</a>).
-</p>
-<p>For Wi-Fi use your device's Wi-Fi IP address.
-</p>
-<h2><span class="mw-headline" id="Host_repository_locally_using_a_web_server">Host repository locally using a web server</span></h2>
-<p>This method is easier when you need to install multiple dependent packages at once, or simulate the regular upgrade process from repositories. For single packages, <code>pmbootstrap sideload</code> is probably easier, see above.
-</p>
-<h4><span class="mw-headline" id="Start_the_webserver">Start the webserver</span></h4>
-<p>Go to the pmbootstrap packages dir and start a web server:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">pc:~$</span> <span class="nb">cd</span> ~/.local/var/pmbootstrap/packages/stable <span class="o">&amp;&amp;</span> python3 -m http.server
-</pre></div>
-<h4><span class="mw-headline" id="Add_the_repository">Add the repository</span></h4>
-<p>Install your favorite editor and open <code>/etc/apk/repositories</code> on your phone via <a href="../en/SSH.html" title="SSH">SSH</a>:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">phone:~$</span> sudo apk add neovim
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Installing packages on a running phone - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Installing_packages_on_a_running_phone rootpage-Installing_packages_on_a_running_phone skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Installing packages on a running phone
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Icon" decoding="async" height="20" src="../Red_warning_icon.svg" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x" title="Icon" width="20"/>
+           <br/>
+           <b>
+            Warning!
+           </b>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Do not install suspicious apk packages from unknown sources!
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       This article explains how to install packages that were built with
+       <a href="../en/Pmbootstrap.html" title="Pmbootstrap">
+        pmbootstrap
+       </a>
+       on your phone via Wi-Fi or USB network.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#pmbootstrap_sideload">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           pmbootstrap sideload
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Host_repository_locally_using_a_web_server">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Host repository locally using a web server
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#Start_the_webserver">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             Start the webserver
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Add_the_repository">
+            <span class="tocnumber">
+             2.2
+            </span>
+            <span class="toctext">
+             Add the repository
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Copy_the_package_signing_keys">
+            <span class="tocnumber">
+             2.3
+            </span>
+            <span class="toctext">
+             Copy the package signing keys
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Use_your_repository">
+            <span class="tocnumber">
+             2.4
+            </span>
+            <span class="toctext">
+             Use your repository
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-7">
+         <a href="#pmos-update-kernel">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           pmos-update-kernel
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#Run_it_manually">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             Run it manually
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-9">
+           <a href="#Automate_with_a_script">
+            <span class="tocnumber">
+             3.2
+            </span>
+            <span class="toctext">
+             Automate with a script
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="pmbootstrap_sideload">
+        pmbootstrap sideload
+       </span>
+      </h2>
+      <p>
+       This method copies a package via SSH to your phone and installs it. It makes installing a single package relatively easy. If you need to install multiple packages with dependencies on each other, hosting a repository locally (see below) is recommended instead.
+      </p>
+      <p>
+       Connect your phone using
+       <a href="../en/USB_Network.html" title="USB Network">
+        USB Network
+       </a>
+       (or Wi-Fi) and make sure you can login into it with SSH. Then excecute the following:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">pc:~$</span> pmbootstrap sideload --host <span class="m">172</span>.16.42.1 --user user --arch &lt;arch&gt; package-name
+</pre>
+      </div>
+      <p>
+       replace
+       <i>
+        arch
+       </i>
+       with actual architecture (for example, aarch64).
+      </p>
+      <p>
+       Add
+       <code>
+        --install-key
+       </code>
+       argument if you see the error about untrusted signature.
+      </p>
+      <p>
+       Add
+       <code>
+        --port NUM
+       </code>
+       if your device's SSH server is running on a non-standard port (not 22). This may be needed for example, for an image that is running using
+       <b>
+        pmbootstrap qemu
+       </b>
+       (see
+       <a href="../en/QEMU.html" title="QEMU">
+        QEMU
+       </a>
+       ).
+      </p>
+      <p>
+       For Wi-Fi use your device's Wi-Fi IP address.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Host_repository_locally_using_a_web_server">
+        Host repository locally using a web server
+       </span>
+      </h2>
+      <p>
+       This method is easier when you need to install multiple dependent packages at once, or simulate the regular upgrade process from repositories. For single packages,
+       <code>
+        pmbootstrap sideload
+       </code>
+       is probably easier, see above.
+      </p>
+      <h4>
+       <span class="mw-headline" id="Start_the_webserver">
+        Start the webserver
+       </span>
+      </h4>
+      <p>
+       Go to the pmbootstrap packages dir and start a web server:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">pc:~$</span> <span class="nb">cd</span> ~/.local/var/pmbootstrap/packages/stable <span class="o">&amp;&amp;</span> python3 -m http.server
+</pre>
+      </div>
+      <h4>
+       <span class="mw-headline" id="Add_the_repository">
+        Add the repository
+       </span>
+      </h4>
+      <p>
+       Install your favorite editor and open
+       <code>
+        /etc/apk/repositories
+       </code>
+       on your phone via
+       <a href="../en/SSH.html" title="SSH">
+        SSH
+       </a>
+       :
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">phone:~$</span> sudo apk add neovim
 <span class="gp">phone:~$</span> sudo nvim /etc/apk/repositories
-</pre></div>
-<p>Add your own repository on top:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>http://172.16.42.2:8000
+</pre>
+      </div>
+      <p>
+       Add your own repository on top:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span>http://172.16.42.2:8000
 
 http://mirror.postmarketos.org/postmarketos/v20.05
 http://dl-cdn.alpinelinux.org/alpine/v3.12/main
 http://dl-cdn.alpinelinux.org/alpine/v3.12/community
-</pre></div>
-<h4><span class="mw-headline" id="Copy_the_package_signing_keys">Copy the package signing keys</span></h4>
-<p>If you did not generate the postmarketOS installation from the same PC, which is now running pmbootstrap to build the packages you want to install, then you need to copy the package signing keys. Otherwise, apk will refuse to install the packages ("UNTRUSTED signature").
-</p>
-<p>On your PC (replace <code>172.16.42.1</code> with the IP of your phone, <code>user</code> with your ssh username, mind the <code>:</code> at the end of the <code>scp</code> command):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">pc:~$</span> scp ~/.local/var/pmbootstrap/config_apk_keys/pmos*.rsa.pub user@172.16.42.1:
+</pre>
+      </div>
+      <h4>
+       <span class="mw-headline" id="Copy_the_package_signing_keys">
+        Copy the package signing keys
+       </span>
+      </h4>
+      <p>
+       If you did not generate the postmarketOS installation from the same PC, which is now running pmbootstrap to build the packages you want to install, then you need to copy the package signing keys. Otherwise, apk will refuse to install the packages ("UNTRUSTED signature").
+      </p>
+      <p>
+       On your PC (replace
+       <code>
+        172.16.42.1
+       </code>
+       with the IP of your phone,
+       <code>
+        user
+       </code>
+       with your ssh username, mind the
+       <code>
+        :
+       </code>
+       at the end of the
+       <code>
+        scp
+       </code>
+       command):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">pc:~$</span> scp ~/.local/var/pmbootstrap/config_apk_keys/pmos*.rsa.pub user@172.16.42.1:
 <span class="gp">pc:~$</span> ssh user@172.16.42.1
-</pre></div>
-<p>Run on your phone via SSH:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">phone:~$</span> sudo mv pmos*.rsa.pub /etc/apk/keys/
-</pre></div>
-<h4><span class="mw-headline" id="Use_your_repository">Use your repository</span></h4>
-<p>Now <code>apk</code> should recognize your repository, and you should be able to install or upgrade packages built on your PC:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">phone:~$</span> sudo apk update
+</pre>
+      </div>
+      <p>
+       Run on your phone via SSH:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">phone:~$</span> sudo mv pmos*.rsa.pub /etc/apk/keys/
+</pre>
+      </div>
+      <h4>
+       <span class="mw-headline" id="Use_your_repository">
+        Use your repository
+       </span>
+      </h4>
+      <p>
+       Now
+       <code>
+        apk
+       </code>
+       should recognize your repository, and you should be able to install or upgrade packages built on your PC:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">phone:~$</span> sudo apk update
 <span class="go">fetch http://172.16.42.2:8000/aarch64/APKINDEX.tar.gz</span>
 <span class="go">fetch http://postmarketos1.brixit.nl/postmarketos/v20.05/aarch64/APKINDEX.tar.gz                                                                  </span>
 <span class="go">fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/aarch64/APKINDEX.tar.gz                                                                     </span>
@@ -126,28 +342,98 @@ http://dl-cdn.alpinelinux.org/alpine/v3.12/community
 <span class="go">v3.12.0-276-gbdd3966958 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]                                                                    </span>
 <span class="go">OK: 12967 distinct packages available</span>
 <span class="gp">phone:~$</span> sudo apk upgrade hello-world
-</pre></div>
-<h2><span class="mw-headline" id="pmos-update-kernel">pmos-update-kernel</span></h2>
-<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"><br><b>Warning!</b></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Do not use pmos-update-kernel on <b>lk2nd</b> devices, such as <b>MSM8916</b> devices. lk2nd in boot partition will be replaced and the booting will be broken!</td>
-</tr></tbody></table>
-<p>While devices in main and community categories are expected to update the kernel fully automatically, many Android devices currently need to run <code>pmos-update-kernel</code> after a kernel upgrade, to actually write the new kernel to the partition expected by the bootloader (see <a href="../en/Boot_process.html#LK_.28Android.29" title="Boot process">boot process</a>). You should check the page for your device or it's platform to know if you need this extra step.
-</p>
-<h4><span class="mw-headline" id="Run_it_manually">Run it manually</span></h4>
-<p>Install <code>postmarketos-update-kernel</code>, figure out the kernel flavor (in the example below: <code>postmarketos-qcom-msm8974</code>) and update the kernel:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">phone:~$</span> sudo apk add postmarketos-update-kernel
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="pmos-update-kernel">
+        pmos-update-kernel
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Icon" decoding="async" height="20" src="../Red_warning_icon.svg" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x" title="Icon" width="20"/>
+           <br/>
+           <b>
+            Warning!
+           </b>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Do not use pmos-update-kernel on
+          <b>
+           lk2nd
+          </b>
+          devices, such as
+          <b>
+           MSM8916
+          </b>
+          devices. lk2nd in boot partition will be replaced and the booting will be broken!
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       While devices in main and community categories are expected to update the kernel fully automatically, many Android devices currently need to run
+       <code>
+        pmos-update-kernel
+       </code>
+       after a kernel upgrade, to actually write the new kernel to the partition expected by the bootloader (see
+       <a href="../en/Boot_process.html#LK_.28Android.29" title="Boot process">
+        boot process
+       </a>
+       ). You should check the page for your device or it's platform to know if you need this extra step.
+      </p>
+      <h4>
+       <span class="mw-headline" id="Run_it_manually">
+        Run it manually
+       </span>
+      </h4>
+      <p>
+       Install
+       <code>
+        postmarketos-update-kernel
+       </code>
+       , figure out the kernel flavor (in the example below:
+       <code>
+        postmarketos-qcom-msm8974
+       </code>
+       ) and update the kernel:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">phone:~$</span> sudo apk add postmarketos-update-kernel
 <span class="gp">phone:~$</span> ls /boot/boot.img-*
 <span class="go">/boot/boot.img-postmarketos-qcom-msm8974</span>
 <span class="gp">phone:~$</span> sudo pmos-update-kernel postmarketos-qcom-msm8974
-</pre></div>
-<h4><span class="mw-headline" id="Automate_with_a_script">Automate with a script</span></h4>
-<p>If you're experimenting with mainline kernel and adding new features you might end up wanting to update your kernel and restart your phone very often. On the kernel building end you can use <a href="../en/Compiling_kernels_with_envkernel.sh.html" class="mw-redirect" title="Envkernel.sh">envkernel.sh</a> + <code>pmbootstrap build --envkernel MAINLINE_LINUX_PACKAGE_NAME</code>. That will produce a fresh new kernel package with the changes you made. Then you need to install that package to the phone.
-</p>
-<p>Use this script to automate the steps above (adjust <code>postmarketos-qcom-msm8974</code>!):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh -ex</span>
+</pre>
+      </div>
+      <h4>
+       <span class="mw-headline" id="Automate_with_a_script">
+        Automate with a script
+       </span>
+      </h4>
+      <p>
+       If you're experimenting with mainline kernel and adding new features you might end up wanting to update your kernel and restart your phone very often. On the kernel building end you can use
+       <a class="mw-redirect" href="../en/Compiling_kernels_with_envkernel.sh.html" title="Envkernel.sh">
+        envkernel.sh
+       </a>
+       +
+       <code>
+        pmbootstrap build --envkernel MAINLINE_LINUX_PACKAGE_NAME
+       </code>
+       . That will produce a fresh new kernel package with the changes you made. Then you need to install that package to the phone.
+      </p>
+      <p>
+       Use this script to automate the steps above (adjust
+       <code>
+        postmarketos-qcom-msm8974
+       </code>
+       !):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="ch">#!/bin/sh -ex</span>
 <span class="c1"># Upgrade all packages (should have your kernel upgrade)</span>
 sudo apk update
 sudo apk add postmarketos-update-kernel
@@ -161,41 +447,86 @@ sudo pmos-update-kernel postmarketos-qcom-msm8974
 <span class="nb">echo</span> -n <span class="s1">'reboot [yN]? '</span>
 <span class="nb">read</span> ans
 <span class="nb">test</span> <span class="s2">"</span><span class="nv">$ans</span><span class="s2">"</span> <span class="o">=</span> <span class="s1">'y'</span> <span class="o">&amp;&amp;</span> sudo reboot
-</pre></div>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Installing_packages_on_a_running_phone&amp;oldid=25679">https://wiki.postmarketos.org/index.php?title=Installing_packages_on_a_running_phone&amp;oldid=25679</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 12 February 2022, at 11:05.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Installing_packages_on_a_running_phone&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Installing_packages_on_a_running_phone&amp;oldid=25679">
+      https://wiki.postmarketos.org/index.php?title=Installing_packages_on_a_running_phone&amp;oldid=25679
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 12 February 2022, at 11:05.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Installing_packages_on_a_running_phone&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

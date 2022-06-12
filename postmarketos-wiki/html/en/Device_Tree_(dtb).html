@@ -1,144 +1,408 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Device Tree (dtb) - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Device_Tree_dtb rootpage-Device_Tree_dtb skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Device Tree (dtb)</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>The Device Tree Blob (or binary) is a file containing information about the board and its hardware.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Why_is_it_needed.3F"><span class="tocnumber">1</span> <span class="toctext">Why is it needed?</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#How_is_it_created.3F"><span class="tocnumber">2</span> <span class="toctext">How is it created?</span></a></li>
-<li class="toclevel-1 tocsection-3">
-<a href="#How_is_it_used.3F"><span class="tocnumber">3</span> <span class="toctext">How is it used?</span></a>
-<ul>
-<li class="toclevel-2 tocsection-4"><a href="#QCDT"><span class="tocnumber">3.1</span> <span class="toctext">QCDT</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-5"><a href="#Where_can_I_find_a_dts_for_my_device.3F"><span class="tocnumber">4</span> <span class="toctext">Where can I find a dts for my device?</span></a></li>
-<li class="toclevel-1 tocsection-6"><a href="#Writing_a_device_tree"><span class="tocnumber">5</span> <span class="toctext">Writing a device tree</span></a></li>
-<li class="toclevel-1 tocsection-7"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
-<li class="toclevel-1 tocsection-8"><a href="#Links"><span class="tocnumber">7</span> <span class="toctext">Links</span></a></li>
-</ul>
-</div>
-
-<h2>
-<span id="Why_is_it_needed?"></span><span class="mw-headline" id="Why_is_it_needed.3F">Why is it needed?</span>
-</h2>
-<p>Most embedded platforms do not provide a way of discovering the hardware they have. You either have to resort to guesswork (which is not viable), or provide the Linux kernel with information about the board and the peripherals.
-</p>
-<p>Before the dtb was introduced, each board needed a kernel specifically compiled for them, which was hardcoded to use the peripherals. With the dtb, a single kernel can run on multiple devices, if it is given the right dtb at boot time.
-</p>
-<h2>
-<span id="How_is_it_created?"></span><span class="mw-headline" id="How_is_it_created.3F">How is it created?</span>
-</h2>
-<p>The dtb is created from device tree source (dts) files. Those contain the hardware description in a readable format. The dtb format merely exists to make loading them simpler for the kernel. As such, dts can be converted to and from dtb with a device tree compiler, <b>dtc</b>, which is available on most linux distributions.
-</p>
-<h2>
-<span id="How_is_it_used?"></span><span class="mw-headline" id="How_is_it_used.3F">How is it used?</span>
-</h2>
-<p>The dtb is loaded in memory by the bootloader (often uboot) before the kernel is started.
-</p>
-<p>Some older versions of uboot do not support loading a separate dtb file, which means that the dtb has to be embedded in the kernel zImage.
-</p>
-<h3><span class="mw-headline" id="QCDT">QCDT</span></h3>
-<p>Some Qualcomm devices also use the <a href="../en/QCDT.html" title="QCDT">QCDT</a> format, where the dtb is appended to the end of the filesystem (<a href="../en/Glossary.html#boot.img" title="Glossary">boot.img</a>) instead of the zImage.
-</p>
-<h2>
-<span id="Where_can_I_find_a_dts_for_my_device?"></span><span class="mw-headline" id="Where_can_I_find_a_dts_for_my_device.3F">Where can I find a dts for my device?</span>
-</h2>
-<p>Those are generally present in the kernel fork your device uses. Look in the <code>boards/</code> directory, or in <code>arch/your_device_arch/boot/dts</code>. The compiled device tree can also be extracted from a boot image with <code>extract-dtb</code> and <code>unpackbootimg</code> (both packaged in postmarketOS), and converted back to a source file with the dtc compiler (though the comments will be lost, as well as the includes).
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Device Tree (dtb) - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Device_Tree_dtb rootpage-Device_Tree_dtb skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Device Tree (dtb)
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       The Device Tree Blob (or binary) is a file containing information about the board and its hardware.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Why_is_it_needed.3F">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Why is it needed?
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#How_is_it_created.3F">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           How is it created?
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#How_is_it_used.3F">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           How is it used?
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#QCDT">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             QCDT
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-5">
+         <a href="#Where_can_I_find_a_dts_for_my_device.3F">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Where can I find a dts for my device?
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-6">
+         <a href="#Writing_a_device_tree">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           Writing a device tree
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-7">
+         <a href="#See_also">
+          <span class="tocnumber">
+           6
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-8">
+         <a href="#Links">
+          <span class="tocnumber">
+           7
+          </span>
+          <span class="toctext">
+           Links
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span id="Why_is_it_needed?">
+       </span>
+       <span class="mw-headline" id="Why_is_it_needed.3F">
+        Why is it needed?
+       </span>
+      </h2>
+      <p>
+       Most embedded platforms do not provide a way of discovering the hardware they have. You either have to resort to guesswork (which is not viable), or provide the Linux kernel with information about the board and the peripherals.
+      </p>
+      <p>
+       Before the dtb was introduced, each board needed a kernel specifically compiled for them, which was hardcoded to use the peripherals. With the dtb, a single kernel can run on multiple devices, if it is given the right dtb at boot time.
+      </p>
+      <h2>
+       <span id="How_is_it_created?">
+       </span>
+       <span class="mw-headline" id="How_is_it_created.3F">
+        How is it created?
+       </span>
+      </h2>
+      <p>
+       The dtb is created from device tree source (dts) files. Those contain the hardware description in a readable format. The dtb format merely exists to make loading them simpler for the kernel. As such, dts can be converted to and from dtb with a device tree compiler,
+       <b>
+        dtc
+       </b>
+       , which is available on most linux distributions.
+      </p>
+      <h2>
+       <span id="How_is_it_used?">
+       </span>
+       <span class="mw-headline" id="How_is_it_used.3F">
+        How is it used?
+       </span>
+      </h2>
+      <p>
+       The dtb is loaded in memory by the bootloader (often uboot) before the kernel is started.
+      </p>
+      <p>
+       Some older versions of uboot do not support loading a separate dtb file, which means that the dtb has to be embedded in the kernel zImage.
+      </p>
+      <h3>
+       <span class="mw-headline" id="QCDT">
+        QCDT
+       </span>
+      </h3>
+      <p>
+       Some Qualcomm devices also use the
+       <a href="../en/QCDT.html" title="QCDT">
+        QCDT
+       </a>
+       format, where the dtb is appended to the end of the filesystem (
+       <a href="../en/Glossary.html#boot.img" title="Glossary">
+        boot.img
+       </a>
+       ) instead of the zImage.
+      </p>
+      <h2>
+       <span id="Where_can_I_find_a_dts_for_my_device?">
+       </span>
+       <span class="mw-headline" id="Where_can_I_find_a_dts_for_my_device.3F">
+        Where can I find a dts for my device?
+       </span>
+      </h2>
+      <p>
+       Those are generally present in the kernel fork your device uses. Look in the
+       <code>
+        boards/
+       </code>
+       directory, or in
+       <code>
+        arch/your_device_arch/boot/dts
+       </code>
+       . The compiled device tree can also be extracted from a boot image with
+       <code>
+        extract-dtb
+       </code>
+       and
+       <code>
+        unpackbootimg
+       </code>
+       (both packaged in postmarketOS), and converted back to a source file with the dtc compiler (though the comments will be lost, as well as the includes).
 When a board is mainlined, the corresponding dts file is mainlined as well (though those may be put in a separate repository in the future).
-</p>
-<h2><span class="mw-headline" id="Writing_a_device_tree">Writing a device tree</span></h2>
-<p>When <a href="../en/Mainlining_Guide.html" title="Mainlining Guide"> mainlining</a> a board, it is often needed to write one's own device tree (see also <a href="../en/Mainlining_Guide.html#Device_Tree_Source" title="Mainlining Guide">Mainlining_Guide#Device_Tree_Source</a>). Indeed, while the physical description part won't change, the name of the drivers will probably. Thus, you need to find kernel drivers that are compatible with your own device, and put them in the device tree (assuming there is one). You should at least read carefully the description <a rel="nofollow" class="external text" href="https://elinux.org/Device_Tree_Usage">on elinux.org</a>. Another good tutorial to writing your device trees is present on <a rel="nofollow" class="external text" href="http://xillybus.com/tutorials/device-tree-zynq-1">xillybus.com</a>.
-</p>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul>
-<li>
-<a href="../en/Dtbtool.html" title="Dtbtool">Dtbtool</a>, a tool to compile dtb in the <a href="../en/QCDT.html" title="QCDT">QCDT</a> format.</li>
-<li>
-<code>extract-dtb</code> (<code>pmbootstrap build extract-dtb</code>) to extract <code>dtb</code> files from Linux kernels and QCDT-style boot.img files</li>
-<li><a href="../en/Mainlining_Guide.html#Device_Tree_Source" title="Mainlining Guide"> The dedicated section in the mainlining guide</a></li>
-</ul>
-<h2><span class="mw-headline" id="Links">Links</span></h2>
-<ul>
-<li><a rel="nofollow" class="external text" href="http://www.informit.com/articles/article.aspx?p=1647051&amp;seqNum=5">Device Tree Blob (Flat Device Tree)</a></li>
-<li><a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/blob/master/Documentation/arm/booting.rst">Linux documentation on the ARM boot process</a></li>
-<li><a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/utils/dtc/dtc.git/tree/Documentation/manual.txt">DTC (device tree compiler) manual</a></li>
-<li><a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/usage-model.rst">Linux kernel docs Documentation/devicetree/usage-model.rst</a></li>
-<li><a rel="nofollow" class="external text" href="https://community.arm.com/developer/tools-software/oss-platforms/w/docs/525/device-tree">Device Tree on ARM</a></li>
-<li>YouTube: <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=m_NyYEBxfn8">Device Tree for Dummies! - Thomas Petazzoni, Free Electrons</a>
-</li>
-<li>YouTube: <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=PgQezmlst0w">Device Tree: Past, Present, and Future</a>
-</li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Device_Tree_(dtb)&amp;oldid=18767">https://wiki.postmarketos.org/index.php?title=Device_Tree_(dtb)&amp;oldid=18767</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 25 April 2021, at 04:16.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Device_Tree_(dtb)&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Writing_a_device_tree">
+        Writing a device tree
+       </span>
+      </h2>
+      <p>
+       When
+       <a href="../en/Mainlining_Guide.html" title="Mainlining Guide">
+        mainlining
+       </a>
+       a board, it is often needed to write one's own device tree (see also
+       <a href="../en/Mainlining_Guide.html#Device_Tree_Source" title="Mainlining Guide">
+        Mainlining_Guide#Device_Tree_Source
+       </a>
+       ). Indeed, while the physical description part won't change, the name of the drivers will probably. Thus, you need to find kernel drivers that are compatible with your own device, and put them in the device tree (assuming there is one). You should at least read carefully the description
+       <a class="external text" href="https://elinux.org/Device_Tree_Usage" rel="nofollow">
+        on elinux.org
+       </a>
+       . Another good tutorial to writing your device trees is present on
+       <a class="external text" href="http://xillybus.com/tutorials/device-tree-zynq-1" rel="nofollow">
+        xillybus.com
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a href="../en/Dtbtool.html" title="Dtbtool">
+         Dtbtool
+        </a>
+        , a tool to compile dtb in the
+        <a href="../en/QCDT.html" title="QCDT">
+         QCDT
+        </a>
+        format.
+       </li>
+       <li>
+        <code>
+         extract-dtb
+        </code>
+        (
+        <code>
+         pmbootstrap build extract-dtb
+        </code>
+        ) to extract
+        <code>
+         dtb
+        </code>
+        files from Linux kernels and QCDT-style boot.img files
+       </li>
+       <li>
+        <a href="../en/Mainlining_Guide.html#Device_Tree_Source" title="Mainlining Guide">
+         The dedicated section in the mainlining guide
+        </a>
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Links">
+        Links
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="external text" href="http://www.informit.com/articles/article.aspx?p=1647051&amp;seqNum=5" rel="nofollow">
+         Device Tree Blob (Flat Device Tree)
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/torvalds/linux/blob/master/Documentation/arm/booting.rst" rel="nofollow">
+         Linux documentation on the ARM boot process
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://git.kernel.org/pub/scm/utils/dtc/dtc.git/tree/Documentation/manual.txt" rel="nofollow">
+         DTC (device tree compiler) manual
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/usage-model.rst" rel="nofollow">
+         Linux kernel docs Documentation/devicetree/usage-model.rst
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://community.arm.com/developer/tools-software/oss-platforms/w/docs/525/device-tree" rel="nofollow">
+         Device Tree on ARM
+        </a>
+       </li>
+       <li>
+        YouTube:
+        <a class="external text" href="https://www.youtube.com/watch?v=m_NyYEBxfn8" rel="nofollow">
+         Device Tree for Dummies! - Thomas Petazzoni, Free Electrons
+        </a>
+       </li>
+       <li>
+        YouTube:
+        <a class="external text" href="https://www.youtube.com/watch?v=PgQezmlst0w" rel="nofollow">
+         Device Tree: Past, Present, and Future
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Device_Tree_(dtb)&amp;oldid=18767">
+      https://wiki.postmarketos.org/index.php?title=Device_Tree_(dtb)&amp;oldid=18767
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 25 April 2021, at 04:16.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Device_Tree_(dtb)&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

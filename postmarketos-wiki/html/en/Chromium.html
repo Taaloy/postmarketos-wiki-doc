@@ -1,137 +1,340 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Chromium - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Chromium rootpage-Chromium skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Chromium</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This page explains how to make chromium usable in mobile UIs like plasma-mobile.
-</p>
-<div class="thumb tright"><div class="thumbinner" style="width:302px;">
-<a href="../Wikipedia.jpg" class="image"><img alt="Alt text" src="../Wikipedia.jpg" decoding="async" width="300" height="598" class="thumbimage" srcset="../Wikipedia.jpg 1.5x ../Wikipedia.jpg 2x"></a>  <div class="thumbcaption">
-<div class="magnify"><a href="../Wikipedia.jpg" class="internal" title="Enlarge"></a></div>Chromium running on plasma-mobile</div>
-</div></div>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Installation"><span class="tocnumber">1</span> <span class="toctext">Installation</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Configure_startup_.28scale_.2B_useragent.29"><span class="tocnumber">2</span> <span class="toctext">Configure startup (scale + useragent)</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Wayland"><span class="tocnumber">3</span> <span class="toctext">Wayland</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#On-screen_keyboard"><span class="tocnumber">4</span> <span class="toctext">On-screen keyboard</span></a></li>
-<li class="toclevel-1 tocsection-5"><a href="#Scroll-bar"><span class="tocnumber">5</span> <span class="toctext">Scroll-bar</span></a></li>
-</ul>
-</div>
-
-<h3><span class="mw-headline" id="Installation">Installation</span></h3>
-<p>Install chromium package from alpine. The armv7 package is not available anymore (another solution for this architecture is to compile Chromium or use an alternate web browser: <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/Web_browsers">https://wiki.postmarketos.org/wiki/Web_browsers</a>).
-</p>
-<h3>
-<span id="Configure_startup_(scale_+_useragent)"></span><span class="mw-headline" id="Configure_startup_.28scale_.2B_useragent.29">Configure startup (scale + useragent)</span>
-</h3>
-<p>Edit  <b>/usr/share/applications/chromium.desktop</b> and set the following line:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">Exec</span><span class="o">=</span> <span class="n">chromium</span><span class="o">-</span><span class="n">browser</span> <span class="o">%</span><span class="n">U</span> <span class="o">--</span><span class="n">start</span><span class="o">-</span><span class="n">maximized</span>  <span class="o">--</span><span class="n">user</span><span class="o">-</span><span class="n">agent</span><span class="o">=</span><span class="s">"Mozilla/5.0 (Linux; Android 4.4.2; Nexus 5 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.99 Mobile Safari/537.36"</span>
-</pre></div>
-<p>You may adapt scale and useragent to your needs.
-</p>
-<h3><span class="mw-headline" id="Wayland">Wayland</span></h3>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Expect issues since <a rel="nofollow" class="external text" href="https://chromium.googlesource.com/chromium/src.git/+/master/docs/ozone_overview.md">Ozone</a> (which enables Wayland support) is still in development!</td>
-</tr></tbody></table>
-<p>There have been problems reported using Chromium under XWayland, getting <code>cannot open display: :0</code> errors.
-</p>
-<p>As described in the <a rel="nofollow" class="external text" href="https://wiki.archlinux.org/index.php/Chromium#Native_Wayland_support">ArchWiki</a>, since version 87 you should be able to use Chromium's native wayland support through the following flags:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> chromium-browser --enable-features<span class="o">=</span>UseOzonePlatform --ozone-platform<span class="o">=</span>wayland
-</pre></div>
-<p>You might want to make these arguments persistent through adding them to the desktop file, located under <code>/usr/share/applications/chromium.desktop</code>.
-</p>
-<p>Related issue: <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/998">pmaports#998</a>
-</p>
-<h3><span class="mw-headline" id="On-screen_keyboard">On-screen keyboard</span></h3>
-<p>Currently on-screen keyboard does not work with plasma-mobile (see <a rel="nofollow" class="external autonumber" href="https://gitlab.com/postmarketOS/pmaports/issues/108">[1]</a>).
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Chromium - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Chromium rootpage-Chromium skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Chromium
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       This page explains how to make chromium usable in mobile UIs like plasma-mobile.
+      </p>
+      <div class="thumb tright">
+       <div class="thumbinner" style="width:302px;">
+        <a class="image" href="../Wikipedia.jpg">
+         <img alt="Alt text" class="thumbimage" decoding="async" height="598" src="../Wikipedia.jpg" srcset="../Wikipedia.jpg 1.5x ../Wikipedia.jpg 2x" width="300"/>
+        </a>
+        <div class="thumbcaption">
+         <div class="magnify">
+          <a class="internal" href="../Wikipedia.jpg" title="Enlarge">
+          </a>
+         </div>
+         Chromium running on plasma-mobile
+        </div>
+       </div>
+      </div>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Installation">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Installation
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Configure_startup_.28scale_.2B_useragent.29">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Configure startup (scale + useragent)
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Wayland">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Wayland
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#On-screen_keyboard">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           On-screen keyboard
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-5">
+         <a href="#Scroll-bar">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           Scroll-bar
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h3>
+       <span class="mw-headline" id="Installation">
+        Installation
+       </span>
+      </h3>
+      <p>
+       Install chromium package from alpine. The armv7 package is not available anymore (another solution for this architecture is to compile Chromium or use an alternate web browser:
+       <a class="external free" href="https://wiki.postmarketos.org/wiki/Web_browsers" rel="nofollow">
+        https://wiki.postmarketos.org/wiki/Web_browsers
+       </a>
+       ).
+      </p>
+      <h3>
+       <span id="Configure_startup_(scale_+_useragent)">
+       </span>
+       <span class="mw-headline" id="Configure_startup_.28scale_.2B_useragent.29">
+        Configure startup (scale + useragent)
+       </span>
+      </h3>
+      <p>
+       Edit
+       <b>
+        /usr/share/applications/chromium.desktop
+       </b>
+       and set the following line:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="n">Exec</span><span class="o">=</span> <span class="n">chromium</span><span class="o">-</span><span class="n">browser</span> <span class="o">%</span><span class="n">U</span> <span class="o">--</span><span class="n">start</span><span class="o">-</span><span class="n">maximized</span>  <span class="o">--</span><span class="n">user</span><span class="o">-</span><span class="n">agent</span><span class="o">=</span><span class="s">"Mozilla/5.0 (Linux; Android 4.4.2; Nexus 5 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.99 Mobile Safari/537.36"</span>
+</pre>
+      </div>
+      <p>
+       You may adapt scale and useragent to your needs.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Wayland">
+        Wayland
+       </span>
+      </h3>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Expect issues since
+          <a class="external text" href="https://chromium.googlesource.com/chromium/src.git/+/master/docs/ozone_overview.md" rel="nofollow">
+           Ozone
+          </a>
+          (which enables Wayland support) is still in development!
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       There have been problems reported using Chromium under XWayland, getting
+       <code>
+        cannot open display: :0
+       </code>
+       errors.
+      </p>
+      <p>
+       As described in the
+       <a class="external text" href="https://wiki.archlinux.org/index.php/Chromium#Native_Wayland_support" rel="nofollow">
+        ArchWiki
+       </a>
+       , since version 87 you should be able to use Chromium's native wayland support through the following flags:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> chromium-browser --enable-features<span class="o">=</span>UseOzonePlatform --ozone-platform<span class="o">=</span>wayland
+</pre>
+      </div>
+      <p>
+       You might want to make these arguments persistent through adding them to the desktop file, located under
+       <code>
+        /usr/share/applications/chromium.desktop
+       </code>
+       .
+      </p>
+      <p>
+       Related issue:
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/998" rel="nofollow">
+        pmaports#998
+       </a>
+      </p>
+      <h3>
+       <span class="mw-headline" id="On-screen_keyboard">
+        On-screen keyboard
+       </span>
+      </h3>
+      <p>
+       Currently on-screen keyboard does not work with plasma-mobile (see
+       <a class="external autonumber" href="https://gitlab.com/postmarketOS/pmaports/issues/108" rel="nofollow">
+        [1]
+       </a>
+       ).
 You may install this extension to get a virtual keyboard nevertheless (though it does not work with every website):
-</p>
-<ul>
-<li><a rel="nofollow" class="external free" href="https://chrome.google.com/webstore/detail/virtual-keyboard/pflmllfnnabikmfkkaddkoolinlfninn">https://chrome.google.com/webstore/detail/virtual-keyboard/pflmllfnnabikmfkkaddkoolinlfninn</a></li>
-<li><a rel="nofollow" class="external free" href="https://github.com/xontab/chrome-virtual-keyboard">https://github.com/xontab/chrome-virtual-keyboard</a></li>
-</ul>
-<h3><span class="mw-headline" id="Scroll-bar">Scroll-bar</span></h3>
-<p>Access "chrome://flags". To do that type it in the plasma-mobile search bar (on home screen), and then copy and paste it in the chromium url bar.
-</p>
-<p>Enable the following flags:
-</p>
-<ul>
-<li>Smooth Scrolling</li>
-<li>Overlay Scrollbars</li>
-<li>Scroll prediction</li>
-</ul>
-<p>This will allow to have a good scrolling experience, and hide scrollbar, so that it does not take screen-space.
-</p>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Apps.html" title="Category:Apps">Apps</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Chromium&amp;oldid=26026">https://wiki.postmarketos.org/index.php?title=Chromium&amp;oldid=26026</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 1 March 2022, at 17:22.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Chromium&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      </p>
+      <ul>
+       <li>
+        <a class="external free" href="https://chrome.google.com/webstore/detail/virtual-keyboard/pflmllfnnabikmfkkaddkoolinlfninn" rel="nofollow">
+         https://chrome.google.com/webstore/detail/virtual-keyboard/pflmllfnnabikmfkkaddkoolinlfninn
+        </a>
+       </li>
+       <li>
+        <a class="external free" href="https://github.com/xontab/chrome-virtual-keyboard" rel="nofollow">
+         https://github.com/xontab/chrome-virtual-keyboard
+        </a>
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Scroll-bar">
+        Scroll-bar
+       </span>
+      </h3>
+      <p>
+       Access "chrome://flags". To do that type it in the plasma-mobile search bar (on home screen), and then copy and paste it in the chromium url bar.
+      </p>
+      <p>
+       Enable the following flags:
+      </p>
+      <ul>
+       <li>
+        Smooth Scrolling
+       </li>
+       <li>
+        Overlay Scrollbars
+       </li>
+       <li>
+        Scroll prediction
+       </li>
+      </ul>
+      <p>
+       This will allow to have a good scrolling experience, and hide scrollbar, so that it does not take screen-space.
+      </p>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Apps.html" title="Category:Apps">
+         Apps
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Chromium&amp;oldid=26026">
+      https://wiki.postmarketos.org/index.php?title=Chromium&amp;oldid=26026
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 1 March 2022, at 17:22.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Chromium&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

@@ -1,182 +1,428 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Waydroid - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Waydroid rootpage-Waydroid skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Waydroid</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Consider using native Linux programs instead, see <a href="../en/FAQ.html" title="FAQ">FAQ</a>.</td>
-</tr></tbody></table>
-<p><b><a rel="nofollow" class="external text" href="https://waydro.id">Waydroid</a></b> is the modern approach to run Android apps on Linux. It is similar to <a href="../en/Anbox.html" title="Anbox">Anbox</a>, but it works with Wayland and is more performant. Waydroid is available in postmarketOS v21.12 and newer. Running Android apps on mobile Linux is still kind of experimental, so be prepared to deal with problems.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Installation"><span class="tocnumber">1</span> <span class="toctext">Installation</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Usage"><span class="tocnumber">2</span> <span class="toctext">Usage</span></a></li>
-<li class="toclevel-1 tocsection-3">
-<a href="#Troubleshooting"><span class="tocnumber">3</span> <span class="toctext">Troubleshooting</span></a>
-<ul>
-<li class="toclevel-2 tocsection-4"><a href="#Networking"><span class="tocnumber">3.1</span> <span class="toctext">Networking</span></a></li>
-<li class="toclevel-2 tocsection-5"><a href="#Starting_the_Waydroid_service"><span class="tocnumber">3.2</span> <span class="toctext">Starting the Waydroid service</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#Run_.27waydroid_log.27_for_details"><span class="tocnumber">3.3</span> <span class="toctext">Run 'waydroid log' for details</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-7"><a href="#Related"><span class="tocnumber">4</span> <span class="toctext">Related</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add waydroid
-</pre></div>
-<p>If you wish to avoid installation of <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;"><a rel="nofollow" class="external text" href="http://pkgs.postmarketos.org/packages?name=waydroid-image">waydroid-image<sup>PMOS</sup></a></span> (to e.g. provide your own via <code>sudo waydroid init</code>):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">echo</span> <span class="s1">'!waydroid-image'</span> <span class="p">|</span> sudo tee -a /etc/apk/world
-</pre></div>
-<p>Additional <a rel="nofollow" class="external text" href="https://github.com/waydroid/waydroid/issues/108">steps</a>, or else the container won't start:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo rc-update add cgroups default <span class="c1"># optional</span>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Waydroid - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Waydroid rootpage-Waydroid skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Waydroid
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Consider using native Linux programs instead, see
+          <a href="../en/FAQ.html" title="FAQ">
+           FAQ
+          </a>
+          .
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       <b>
+        <a class="external text" href="https://waydro.id" rel="nofollow">
+         Waydroid
+        </a>
+       </b>
+       is the modern approach to run Android apps on Linux. It is similar to
+       <a href="../en/Anbox.html" title="Anbox">
+        Anbox
+       </a>
+       , but it works with Wayland and is more performant. Waydroid is available in postmarketOS v21.12 and newer. Running Android apps on mobile Linux is still kind of experimental, so be prepared to deal with problems.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Installation">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Installation
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Usage">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Usage
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Troubleshooting">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Troubleshooting
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Networking">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             Networking
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Starting_the_Waydroid_service">
+            <span class="tocnumber">
+             3.2
+            </span>
+            <span class="toctext">
+             Starting the Waydroid service
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Run_.27waydroid_log.27_for_details">
+            <span class="tocnumber">
+             3.3
+            </span>
+            <span class="toctext">
+             Run 'waydroid log' for details
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-7">
+         <a href="#Related">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Related
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Installation">
+        Installation
+       </span>
+      </h2>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo apk add waydroid
+</pre>
+      </div>
+      <p>
+       If you wish to avoid installation of
+       <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;">
+        <a class="external text" href="http://pkgs.postmarketos.org/packages?name=waydroid-image" rel="nofollow">
+         waydroid-image
+         <sup>
+          PMOS
+         </sup>
+        </a>
+       </span>
+       (to e.g. provide your own via
+       <code>
+        sudo waydroid init
+       </code>
+       ):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> <span class="nb">echo</span> <span class="s1">'!waydroid-image'</span> <span class="p">|</span> sudo tee -a /etc/apk/world
+</pre>
+      </div>
+      <p>
+       Additional
+       <a class="external text" href="https://github.com/waydroid/waydroid/issues/108" rel="nofollow">
+        steps
+       </a>
+       , or else the container won't start:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo rc-update add cgroups default <span class="c1"># optional</span>
 <span class="gp">$</span> sudo rc-service cgroups start
 <span class="gp">$</span> sudo apk add iptables dnsmasq
-</pre></div>
-<h2><span class="mw-headline" id="Usage">Usage</span></h2>
-<p>After installation, the Waydroid session is configured to start automatically on boot.
-</p>
-<p>In order to run apps, the container needs to be started as well. (Apparently it should start automatically when running apps? Also it appears to take quite some time to start up.)
-</p>
-<p><br>
-You can start the container and session as follows:
-</p>
-<p>"Container" refers to the Android LXC container itself
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo rc-service waydroid-container start
-</pre></div>
-<p>You can also let the container start on boot automatically:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo rc-update add waydroid-container default
-</pre></div>
-<p>"Session" refers to the Waydroid specific bits to integrate Android
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Usage">
+        Usage
+       </span>
+      </h2>
+      <p>
+       After installation, the Waydroid session is configured to start automatically on boot.
+      </p>
+      <p>
+       In order to run apps, the container needs to be started as well. (Apparently it should start automatically when running apps? Also it appears to take quite some time to start up.)
+      </p>
+      <p>
+       <br/>
+       You can start the container and session as follows:
+      </p>
+      <p>
+       "Container" refers to the Android LXC container itself
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo rc-service waydroid-container start
+</pre>
+      </div>
+      <p>
+       You can also let the container start on boot automatically:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo rc-update add waydroid-container default
+</pre>
+      </div>
+      <p>
+       "Session" refers to the Waydroid specific bits to integrate Android
 apps into your users environment (.desktop files etc).
 If it doesn't start up automatically on boot, you can launch it manually (and you have to do this if you stop the previously mentioned OpenRC service):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> waydroid session start
-</pre></div>
-<p>Note that this command will not terminate after starting the session but will stay in the foreground, so either open a new terminal afterwards or send it to background via `nohup`.
-</p>
-<p>Use the following command to inspect the status of Waydroid:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> waydroid status
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> waydroid session start
+</pre>
+      </div>
+      <p>
+       Note that this command will not terminate after starting the session but will stay in the foreground, so either open a new terminal afterwards or send it to background via `nohup`.
+      </p>
+      <p>
+       Use the following command to inspect the status of Waydroid:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> waydroid status
 <span class="go">Session:        RUNNING</span>
 <span class="go">Container:      RUNNING</span>
 <span class="go">Vendor type:    MAINLINE</span>
 <span class="go">Session user:   user(10000)</span>
 <span class="go">Wayland display:        wayland-0</span>
-</pre></div>
-<p>You can run the Android container in fullscreen (note that this isn't necessary to run apps):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> waydroid show-full-ui
-</pre></div>
-<p>Run apps from the command-line:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> waydroid app list
+</pre>
+      </div>
+      <p>
+       You can run the Android container in fullscreen (note that this isn't necessary to run apps):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> waydroid show-full-ui
+</pre>
+      </div>
+      <p>
+       Run apps from the command-line:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> waydroid app list
 <span class="gp">$</span> waydroid app launch com.android.settings
-</pre></div>
-<p>See <code>waydroid -h</code> for more information.
-</p>
-<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
-<h3><span class="mw-headline" id="Networking">Networking</span></h3>
-<p>The container may not have access to the Internet out of the box. To access the network 
-you need to allow access from and to the container via the firewall (otherwise DHCP will be blocked and the container will never get the IP) and configure a default gateway in the waydroid container (gateway IP is what your host device has on <code>waydroid0</code> interface):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">echo</span> <span class="s2">"ip route add default via 192.168.250.1"</span> <span class="p">|</span> sudo waydroid shell
-</pre></div>
-<p>If this fails with an error about an unreachable network, run:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add waydroid-nftables
-</pre></div>
-<h3><span class="mw-headline" id="Starting_the_Waydroid_service">Starting the Waydroid service</span></h3>
-<p>If you see something like this in your log:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>(004537) [17:13:07] % sudo mount /usr/share/waydroid-extra/images/system.img /var/lib/waydroid/rootfs
+</pre>
+      </div>
+      <p>
+       See
+       <code>
+        waydroid -h
+       </code>
+       for more information.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Troubleshooting">
+        Troubleshooting
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Networking">
+        Networking
+       </span>
+      </h3>
+      <p>
+       The container may not have access to the Internet out of the box. To access the network 
+you need to allow access from and to the container via the firewall (otherwise DHCP will be blocked and the container will never get the IP) and configure a default gateway in the waydroid container (gateway IP is what your host device has on
+       <code>
+        waydroid0
+       </code>
+       interface):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> <span class="nb">echo</span> <span class="s2">"ip route add default via 192.168.250.1"</span> <span class="p">|</span> sudo waydroid shell
+</pre>
+      </div>
+      <p>
+       If this fails with an error about an unreachable network, run:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo apk add waydroid-nftables
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="Starting_the_Waydroid_service">
+        Starting the Waydroid service
+       </span>
+      </h3>
+      <p>
+       If you see something like this in your log:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span>(004537) [17:13:07] % sudo mount /usr/share/waydroid-extra/images/system.img /var/lib/waydroid/rootfs
 mount: /var/lib/waydroid/rootfs: mount failed: Operation not permitted.
-</pre></div>
-<p>You most likely don't have the loop kernel module loaded or enabled. Try <code>modprobe loop</code>. If that doesn't work, make sure CONFIG_BLK_DEV_LOOP is enabled in your kernel.
-</p>
-<h3>
-<span id="Run_'waydroid_log'_for_details"></span><span class="mw-headline" id="Run_.27waydroid_log.27_for_details">Run 'waydroid log' for details</span>
-</h3>
-<p>If every time you try to start a command as a non-root user nothing happens, and it prints "Run 'waydroid log' for details", it is due to <a rel="nofollow" class="external text" href="https://github.com/waydroid/waydroid/issues/84">the following bug</a>, where the application crashed due to being unable to access the log. Until the fix is included in postmarketOS, <code>sudo chown $(whoami) /var/lib/waydroid/waydroid.log</code> should work as a temporary fix.
-</p>
-<h2><span class="mw-headline" id="Related">Related</span></h2>
-<ul>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1173">pmaports#1173</a> lets package it for postmarketOS</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2497">pmaports!2497</a> main/linux-postmarketos-*: enable CONFIG_PSI (with side-by-side performance video)</li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Waydroid&amp;oldid=27934">https://wiki.postmarketos.org/index.php?title=Waydroid&amp;oldid=27934</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 22 May 2022, at 18:12.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Waydroid&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <p>
+       You most likely don't have the loop kernel module loaded or enabled. Try
+       <code>
+        modprobe loop
+       </code>
+       . If that doesn't work, make sure CONFIG_BLK_DEV_LOOP is enabled in your kernel.
+      </p>
+      <h3>
+       <span id="Run_'waydroid_log'_for_details">
+       </span>
+       <span class="mw-headline" id="Run_.27waydroid_log.27_for_details">
+        Run 'waydroid log' for details
+       </span>
+      </h3>
+      <p>
+       If every time you try to start a command as a non-root user nothing happens, and it prints "Run 'waydroid log' for details", it is due to
+       <a class="external text" href="https://github.com/waydroid/waydroid/issues/84" rel="nofollow">
+        the following bug
+       </a>
+       , where the application crashed due to being unable to access the log. Until the fix is included in postmarketOS,
+       <code>
+        sudo chown $(whoami) /var/lib/waydroid/waydroid.log
+       </code>
+       should work as a temporary fix.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Related">
+        Related
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1173" rel="nofollow">
+         pmaports#1173
+        </a>
+        lets package it for postmarketOS
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2497" rel="nofollow">
+         pmaports!2497
+        </a>
+        main/linux-postmarketos-*: enable CONFIG_PSI (with side-by-side performance video)
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Waydroid&amp;oldid=27934">
+      https://wiki.postmarketos.org/index.php?title=Waydroid&amp;oldid=27934
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 22 May 2022, at 18:12.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Waydroid&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

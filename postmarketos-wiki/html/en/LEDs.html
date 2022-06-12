@@ -1,308 +1,1018 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>LEDs - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-LEDs rootpage-LEDs skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">LEDs</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1">
-<a href="#Triggers"><span class="tocnumber">1</span> <span class="toctext">Triggers</span></a>
-<ul>
-<li class="toclevel-2 tocsection-2"><a href="#List_of_kernel_LED_triggers"><span class="tocnumber">1.1</span> <span class="toctext">List of kernel LED triggers</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-3"><a href="#ULED_driver"><span class="tocnumber">2</span> <span class="toctext">ULED driver</span></a></li>
-<li class="toclevel-1 tocsection-4">
-<a href="#Access_via_sysfs"><span class="tocnumber">3</span> <span class="toctext">Access via sysfs</span></a>
-<ul>
-<li class="toclevel-2 tocsection-5"><a href="#visudo"><span class="tocnumber">3.1</span> <span class="toctext">visudo</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#Changing_permissions_in_sysfs"><span class="tocnumber">3.2</span> <span class="toctext">Changing permissions in sysfs</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-7"><a href="#Sync_with_backlight"><span class="tocnumber">4</span> <span class="toctext">Sync with backlight</span></a></li>
-<li class="toclevel-1 tocsection-8"><a href="#References"><span class="tocnumber">5</span> <span class="toctext">References</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Triggers">Triggers</span></h2>
-<p>There are two types of triggers: simple and complex.<sup id="cite_ref-1" class="reference"><a href="#cite_note-1">[1]</a></sup> Simple triggers are provided by other subsystems. Complex triggers need to be enabled in kernel configs. For a list of complex triggers, see <a href="../en/LEDs.html#List_of_kernel_LED_triggers" title="LEDs">LEDs#List of kernel LED triggers</a>.
-</p>
-<p>Both trigger types are merged together in the trigger file. To see the available triggers, cat the trigger file, e.g. <code>cat /sys/class/leds/tm2-touchkey/trigger</code>. The active trigger is shown in brackets.
-</p>
-<pre>[none] usb-gadget usb-host rfkill-any rfkill-none kbd-scrolllock kbd-numlock kbd-capslock kbd-kanalock kbd-shiftlock kbd-altgrlock kbd-ctrllock kbd-altlock kbd-shiftllock kbd-shiftrlock kbd-ctrlllock kbd-ctrlrlock timer heartbeat cpu cpu0 cpu1 cpu2 cpu3 default-on panic mmc1 mmc0 rfkill0 rt5033-battery-charging-or-full rt5033-battery-charging rt5033-battery-full rt5033-battery-charging-blink-full-solid bluetooth-power hci0-power rfkill1 phy0rx phy0tx phy0assoc phy0radio rfkill2
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   LEDs - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-LEDs rootpage-LEDs skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    LEDs
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Triggers">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Triggers
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-2">
+           <a href="#List_of_kernel_LED_triggers">
+            <span class="tocnumber">
+             1.1
+            </span>
+            <span class="toctext">
+             List of kernel LED triggers
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#ULED_driver">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           ULED driver
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Access_via_sysfs">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Access via sysfs
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#visudo">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             visudo
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Changing_permissions_in_sysfs">
+            <span class="tocnumber">
+             3.2
+            </span>
+            <span class="toctext">
+             Changing permissions in sysfs
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-7">
+         <a href="#Sync_with_backlight">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Sync with backlight
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-8">
+         <a href="#References">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           References
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Triggers">
+        Triggers
+       </span>
+      </h2>
+      <p>
+       There are two types of triggers: simple and complex.
+       <sup class="reference" id="cite_ref-1">
+        <a href="#cite_note-1">
+         [1]
+        </a>
+       </sup>
+       Simple triggers are provided by other subsystems. Complex triggers need to be enabled in kernel configs. For a list of complex triggers, see
+       <a href="../en/LEDs.html#List_of_kernel_LED_triggers" title="LEDs">
+        LEDs#List of kernel LED triggers
+       </a>
+       .
+      </p>
+      <p>
+       Both trigger types are merged together in the trigger file. To see the available triggers, cat the trigger file, e.g.
+       <code>
+        cat /sys/class/leds/tm2-touchkey/trigger
+       </code>
+       . The active trigger is shown in brackets.
+      </p>
+      <pre>[none] usb-gadget usb-host rfkill-any rfkill-none kbd-scrolllock kbd-numlock kbd-capslock kbd-kanalock kbd-shiftlock kbd-altgrlock kbd-ctrllock kbd-altlock kbd-shiftllock kbd-shiftrlock kbd-ctrlllock kbd-ctrlrlock timer heartbeat cpu cpu0 cpu1 cpu2 cpu3 default-on panic mmc1 mmc0 rfkill0 rt5033-battery-charging-or-full rt5033-battery-charging rt5033-battery-full rt5033-battery-charging-blink-full-solid bluetooth-power hci0-power rfkill1 phy0rx phy0tx phy0assoc phy0radio rfkill2
 </pre>
-<p>To assign a trigger, echo the trigger name to the trigger file, e.g. <code>echo heartbeat | sudo tee /sys/class/leds/tm2-touchkey/trigger</code>
-</p>
-<p>When rebooting, the trigger is lost again. To make it permanent, it needs to be set by an udev rule. If you're not sure about the udev matching and assignment keys, you can look them up by e.g. <code>udevadm info --attribute-walk /sys/class/leds/tm2-touchkey</code>. To set up the udev rule, do something like:
-</p>
-<ul><li>
-<code>sudo vi /etc/udev/rules.d/30-tm2-touchkey-leds.rules</code> (new file)</li></ul>
-<dl><dd><pre>ACTION=="add", SUBSYSTEM=="leds", KERNEL=="tm2-touchkey", ATTR{trigger}="heartbeat"</pre></dd></dl>
-<p>Most of the complex triggers are tristate in the kernel configs, they can be compiled as a module. The configs can be checked by e.g. <code>cat /boot/config | grep LEDS*_TRIGGER</code>. (The asterisk after the S includes LED trigger that are missing the S like LED_TRIGGER_PHY.)
-</p>
-<p>If a trigger is set as a module, let's say for example <code>CONFIG_LEDS_TRIGGER_HEARTBEAT=m</code>, the module needs to be loaded by <code>sudo modprobe ledtrig-heartbeat</code> before it becomes available in the trigger list. To use it permanently by an udev rule like described above, the module needs to be added to <code>/etc/modules</code>.
-</p>
-<h3><span class="mw-headline" id="List_of_kernel_LED_triggers">List of kernel LED triggers</span></h3>
-<p>For more information on a specific trigger, see the referenced links.
-</p>
-<dl>
-<dt>drivers/leds/trigger/Kconfig <sup id="cite_ref-2" class="reference"><a href="#cite_note-2">[2]</a></sup>
-</dt>
-<dd>CONFIG_LEDS_TRIGGER_TIMER <sup id="cite_ref-3" class="reference"><a href="#cite_note-3">[3]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_ONESHOT <sup id="cite_ref-4" class="reference"><a href="#cite_note-4">[4]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_DISK <sup id="cite_ref-5" class="reference"><a href="#cite_note-5">[5]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_MTD <sup id="cite_ref-6" class="reference"><a href="#cite_note-6">[6]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_HEARTBEAT <sup id="cite_ref-7" class="reference"><a href="#cite_note-7">[7]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_BACKLIGHT <sup id="cite_ref-8" class="reference"><a href="#cite_note-8">[8]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_CPU <sup id="cite_ref-9" class="reference"><a href="#cite_note-9">[9]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_ACTIVITY <sup id="cite_ref-10" class="reference"><a href="#cite_note-10">[10]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_GPIO <sup id="cite_ref-11" class="reference"><a href="#cite_note-11">[11]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_DEFAULT_ON <sup id="cite_ref-12" class="reference"><a href="#cite_note-12">[12]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_TRANSIENT <sup id="cite_ref-13" class="reference"><a href="#cite_note-13">[13]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_CAMERA <sup id="cite_ref-14" class="reference"><a href="#cite_note-14">[14]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_PANIC <sup id="cite_ref-15" class="reference"><a href="#cite_note-15">[15]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_NETDEV <sup id="cite_ref-16" class="reference"><a href="#cite_note-16">[16]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_PATTERN <sup id="cite_ref-17" class="reference"><a href="#cite_note-17">[17]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_AUDIO <sup id="cite_ref-18" class="reference"><a href="#cite_note-18">[18]</a></sup>
-</dd>
-<dd>CONFIG_LEDS_TRIGGER_TTY <sup id="cite_ref-19" class="reference"><a href="#cite_note-19">[19]</a></sup>
-</dd>
-</dl>
-<dl>
-<dt>drivers/usb/core/Kconfig <sup id="cite_ref-20" class="reference"><a href="#cite_note-20">[20]</a></sup>
-</dt>
-<dd>CONFIG_USB_LEDS_TRIGGER_USBPORT <sup id="cite_ref-21" class="reference"><a href="#cite_note-21">[21]</a></sup>
-</dd>
-</dl>
-<dl>
-<dt>drivers/net/phy/Kconfig <sup id="cite_ref-22" class="reference"><a href="#cite_note-22">[22]</a></sup>
-</dt>
-<dd>CONFIG_LED_TRIGGER_PHY <sup id="cite_ref-23" class="reference"><a href="#cite_note-23">[23]</a></sup> (note the "missing" S in LED)</dd>
-</dl>
-<dl>
-<dt>net/netfilter/Kconfig <sup id="cite_ref-24" class="reference"><a href="#cite_note-24">[24]</a></sup>
-</dt>
-<dd>CONFIG_NETFILTER_XT_TARGET_LED <sup id="cite_ref-25" class="reference"><a href="#cite_note-25">[25]</a></sup>
-</dd>
-</dl>
-<h2><span class="mw-headline" id="ULED_driver">ULED driver</span></h2>
-<p>The kernel documentation mentions an ULED driver.<sup id="cite_ref-26" class="reference"><a href="#cite_note-26">[26]</a></sup> Including this into a userspace program written in C creates a node in <code>/dev/uleds</code>, which can be accessed by the program. There is an example at tools/leds/uledmon.c.<sup id="cite_ref-27" class="reference"><a href="#cite_note-27">[27]</a></sup>
-</p>
-<h2><span class="mw-headline" id="Access_via_sysfs">Access via sysfs</span></h2>
-<p>LEDs are available in <code>/sys/class/leds</code>. They can be turned on/off by echoing a value to brightness. However, root access is required. The range of brightness can be checked by e.g. <code>cat /sys/class/leds/tm2-touchkey/max_brightness</code>. In the example tm2-touchkey LED, the max_brightnes is 1, so for this LED it's just on or off. Changing the brightness of a LED with sudo can be done like e.g.
-</p>
-<p><code>echo 1 | sudo tee /sys/class/leds/tm2-touchkey/brightness</code>
-</p>
-<p>or:
-</p>
-<p><code>sudo /bin/sh -c 'echo 1 &gt; /sys/class/leds/tm2-touchkey/brightness'</code>
-</p>
-<h3><span class="mw-headline" id="visudo">visudo</span></h3>
-<p>To use the commands in shell scripts without typing the password, the command(s) can be added to the sudoers file, e.g.:
-</p>
-<p><code>sudo visudo</code>
-</p>
-<p>add:
-</p>
-<pre>## Allow user to access tm2-touchkey leds withouth password
+      <p>
+       To assign a trigger, echo the trigger name to the trigger file, e.g.
+       <code>
+        echo heartbeat | sudo tee /sys/class/leds/tm2-touchkey/trigger
+       </code>
+      </p>
+      <p>
+       When rebooting, the trigger is lost again. To make it permanent, it needs to be set by an udev rule. If you're not sure about the udev matching and assignment keys, you can look them up by e.g.
+       <code>
+        udevadm info --attribute-walk /sys/class/leds/tm2-touchkey
+       </code>
+       . To set up the udev rule, do something like:
+      </p>
+      <ul>
+       <li>
+        <code>
+         sudo vi /etc/udev/rules.d/30-tm2-touchkey-leds.rules
+        </code>
+        (new file)
+       </li>
+      </ul>
+      <dl>
+       <dd>
+        <pre>ACTION=="add", SUBSYSTEM=="leds", KERNEL=="tm2-touchkey", ATTR{trigger}="heartbeat"</pre>
+       </dd>
+      </dl>
+      <p>
+       Most of the complex triggers are tristate in the kernel configs, they can be compiled as a module. The configs can be checked by e.g.
+       <code>
+        cat /boot/config | grep LEDS*_TRIGGER
+       </code>
+       . (The asterisk after the S includes LED trigger that are missing the S like LED_TRIGGER_PHY.)
+      </p>
+      <p>
+       If a trigger is set as a module, let's say for example
+       <code>
+        CONFIG_LEDS_TRIGGER_HEARTBEAT=m
+       </code>
+       , the module needs to be loaded by
+       <code>
+        sudo modprobe ledtrig-heartbeat
+       </code>
+       before it becomes available in the trigger list. To use it permanently by an udev rule like described above, the module needs to be added to
+       <code>
+        /etc/modules
+       </code>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="List_of_kernel_LED_triggers">
+        List of kernel LED triggers
+       </span>
+      </h3>
+      <p>
+       For more information on a specific trigger, see the referenced links.
+      </p>
+      <dl>
+       <dt>
+        drivers/leds/trigger/Kconfig
+        <sup class="reference" id="cite_ref-2">
+         <a href="#cite_note-2">
+          [2]
+         </a>
+        </sup>
+       </dt>
+       <dd>
+        CONFIG_LEDS_TRIGGER_TIMER
+        <sup class="reference" id="cite_ref-3">
+         <a href="#cite_note-3">
+          [3]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_ONESHOT
+        <sup class="reference" id="cite_ref-4">
+         <a href="#cite_note-4">
+          [4]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_DISK
+        <sup class="reference" id="cite_ref-5">
+         <a href="#cite_note-5">
+          [5]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_MTD
+        <sup class="reference" id="cite_ref-6">
+         <a href="#cite_note-6">
+          [6]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_HEARTBEAT
+        <sup class="reference" id="cite_ref-7">
+         <a href="#cite_note-7">
+          [7]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_BACKLIGHT
+        <sup class="reference" id="cite_ref-8">
+         <a href="#cite_note-8">
+          [8]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_CPU
+        <sup class="reference" id="cite_ref-9">
+         <a href="#cite_note-9">
+          [9]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_ACTIVITY
+        <sup class="reference" id="cite_ref-10">
+         <a href="#cite_note-10">
+          [10]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_GPIO
+        <sup class="reference" id="cite_ref-11">
+         <a href="#cite_note-11">
+          [11]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_DEFAULT_ON
+        <sup class="reference" id="cite_ref-12">
+         <a href="#cite_note-12">
+          [12]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_TRANSIENT
+        <sup class="reference" id="cite_ref-13">
+         <a href="#cite_note-13">
+          [13]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_CAMERA
+        <sup class="reference" id="cite_ref-14">
+         <a href="#cite_note-14">
+          [14]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_PANIC
+        <sup class="reference" id="cite_ref-15">
+         <a href="#cite_note-15">
+          [15]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_NETDEV
+        <sup class="reference" id="cite_ref-16">
+         <a href="#cite_note-16">
+          [16]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_PATTERN
+        <sup class="reference" id="cite_ref-17">
+         <a href="#cite_note-17">
+          [17]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_AUDIO
+        <sup class="reference" id="cite_ref-18">
+         <a href="#cite_note-18">
+          [18]
+         </a>
+        </sup>
+       </dd>
+       <dd>
+        CONFIG_LEDS_TRIGGER_TTY
+        <sup class="reference" id="cite_ref-19">
+         <a href="#cite_note-19">
+          [19]
+         </a>
+        </sup>
+       </dd>
+      </dl>
+      <dl>
+       <dt>
+        drivers/usb/core/Kconfig
+        <sup class="reference" id="cite_ref-20">
+         <a href="#cite_note-20">
+          [20]
+         </a>
+        </sup>
+       </dt>
+       <dd>
+        CONFIG_USB_LEDS_TRIGGER_USBPORT
+        <sup class="reference" id="cite_ref-21">
+         <a href="#cite_note-21">
+          [21]
+         </a>
+        </sup>
+       </dd>
+      </dl>
+      <dl>
+       <dt>
+        drivers/net/phy/Kconfig
+        <sup class="reference" id="cite_ref-22">
+         <a href="#cite_note-22">
+          [22]
+         </a>
+        </sup>
+       </dt>
+       <dd>
+        CONFIG_LED_TRIGGER_PHY
+        <sup class="reference" id="cite_ref-23">
+         <a href="#cite_note-23">
+          [23]
+         </a>
+        </sup>
+        (note the "missing" S in LED)
+       </dd>
+      </dl>
+      <dl>
+       <dt>
+        net/netfilter/Kconfig
+        <sup class="reference" id="cite_ref-24">
+         <a href="#cite_note-24">
+          [24]
+         </a>
+        </sup>
+       </dt>
+       <dd>
+        CONFIG_NETFILTER_XT_TARGET_LED
+        <sup class="reference" id="cite_ref-25">
+         <a href="#cite_note-25">
+          [25]
+         </a>
+        </sup>
+       </dd>
+      </dl>
+      <h2>
+       <span class="mw-headline" id="ULED_driver">
+        ULED driver
+       </span>
+      </h2>
+      <p>
+       The kernel documentation mentions an ULED driver.
+       <sup class="reference" id="cite_ref-26">
+        <a href="#cite_note-26">
+         [26]
+        </a>
+       </sup>
+       Including this into a userspace program written in C creates a node in
+       <code>
+        /dev/uleds
+       </code>
+       , which can be accessed by the program. There is an example at tools/leds/uledmon.c.
+       <sup class="reference" id="cite_ref-27">
+        <a href="#cite_note-27">
+         [27]
+        </a>
+       </sup>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Access_via_sysfs">
+        Access via sysfs
+       </span>
+      </h2>
+      <p>
+       LEDs are available in
+       <code>
+        /sys/class/leds
+       </code>
+       . They can be turned on/off by echoing a value to brightness. However, root access is required. The range of brightness can be checked by e.g.
+       <code>
+        cat /sys/class/leds/tm2-touchkey/max_brightness
+       </code>
+       . In the example tm2-touchkey LED, the max_brightnes is 1, so for this LED it's just on or off. Changing the brightness of a LED with sudo can be done like e.g.
+      </p>
+      <p>
+       <code>
+        echo 1 | sudo tee /sys/class/leds/tm2-touchkey/brightness
+       </code>
+      </p>
+      <p>
+       or:
+      </p>
+      <p>
+       <code>
+        sudo /bin/sh -c 'echo 1 &gt; /sys/class/leds/tm2-touchkey/brightness'
+       </code>
+      </p>
+      <h3>
+       <span class="mw-headline" id="visudo">
+        visudo
+       </span>
+      </h3>
+      <p>
+       To use the commands in shell scripts without typing the password, the command(s) can be added to the sudoers file, e.g.:
+      </p>
+      <p>
+       <code>
+        sudo visudo
+       </code>
+      </p>
+      <p>
+       add:
+      </p>
+      <pre>## Allow user to access tm2-touchkey leds withouth password
 user ALL=NOPASSWD: /usr/bin/tee /sys/class/leds/tm2-touchkey/brightness
 </pre>
-<p>The command <code>echo 1 | sudo tee /sys/class/leds/tm2-touchkey/brightness</code> now works without password prompt.
-</p>
-<h3><span class="mw-headline" id="Changing_permissions_in_sysfs">Changing permissions in sysfs</span></h3>
-<p>Alternatively, to change the LED brightness without sudo, permissions in sysfs can be changed. This seems to be rather unconventional. A project modifying game controllers suggests the follwing approach to change permission on all LEDs<sup id="cite_ref-28" class="reference"><a href="#cite_note-28">[28]</a></sup>:
-</p>
-<pre># Assign any new nodes in the 'leds' subsystem (nodes in /sys/class/leds) to the group 'leds' to write without root
+      <p>
+       The command
+       <code>
+        echo 1 | sudo tee /sys/class/leds/tm2-touchkey/brightness
+       </code>
+       now works without password prompt.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Changing_permissions_in_sysfs">
+        Changing permissions in sysfs
+       </span>
+      </h3>
+      <p>
+       Alternatively, to change the LED brightness without sudo, permissions in sysfs can be changed. This seems to be rather unconventional. A project modifying game controllers suggests the follwing approach to change permission on all LEDs
+       <sup class="reference" id="cite_ref-28">
+        <a href="#cite_note-28">
+         [28]
+        </a>
+       </sup>
+       :
+      </p>
+      <pre># Assign any new nodes in the 'leds' subsystem (nodes in /sys/class/leds) to the group 'leds' to write without root
 # Create a new group 'leds' before this will do anything!
 SUBSYSTEM=="leds", ACTION=="add", RUN+="/bin/chgrp -R leds /sys%p", RUN+="/bin/chmod -R g=u /sys%p"
 SUBSYSTEM=="leds", ACTION=="change", ENV{TRIGGER}!="none", RUN+="/bin/chgrp -R leds /sys%p", RUN+="/bin/chmod -R g=u /sys%p"
 </pre>
-<p>This changes the owning group from <code>root</code> to <code>leds</code> and transcribes the permission from user (root) to group (leds). It needs to be done on action "add" as well as on action "change" because when the kernel performes changes, the group permissions would be overwritten to <code>root</code> again.
-</p>
-<p>Based on this approach, for the tm2-tochkey leds udev rules were implemented to file /lib/udev/rules.d/20-tm2-touchkey-leds.rules after stable release v21.06 that look like this:
-</p>
-<pre># allow users in group "input" to control the tm2-touchkey leds
+      <p>
+       This changes the owning group from
+       <code>
+        root
+       </code>
+       to
+       <code>
+        leds
+       </code>
+       and transcribes the permission from user (root) to group (leds). It needs to be done on action "add" as well as on action "change" because when the kernel performes changes, the group permissions would be overwritten to
+       <code>
+        root
+       </code>
+       again.
+      </p>
+      <p>
+       Based on this approach, for the tm2-tochkey leds udev rules were implemented to file /lib/udev/rules.d/20-tm2-touchkey-leds.rules after stable release v21.06 that look like this:
+      </p>
+      <pre># allow users in group "input" to control the tm2-touchkey leds
 ACTION=="add", SUBSYSTEM=="leds", KERNEL=="tm2-touchkey", RUN+="/bin/chgrp -R input /sys%p", RUN+="/bin/chmod -R g=u /sys%p"
 ACTION=="change", SUBSYSTEM=="leds", KERNEL=="tm2-touchkey", ENV{TRIGGER}!="none", RUN+="/bin/chgrp -R input /sys%p", RUN+="/bin/chmod -R g=u /sys%p"
 </pre>
-<p>This permission change is limited to <code>tm2-touchkey</code>. And the permissions are changed to group <code>input</code> (postmarketOS users are usually already member of group <code>input</code>). Additionally, the order of the udev rule keys were put in a different order (has no technical effect).
-</p>
-<p>It's not fully clear if <code>ENV{TRIGGER}!="none"</code> in the last line is required. A comment on unix.stackexchange.com says it would be needed for kernel older than 4.9.<sup id="cite_ref-29" class="reference"><a href="#cite_note-29">[29]</a></sup>
-</p>
-<p>However, with these udev rules in place, an unpriviliged user that's member of the group <code>input</code> can now turn on the tm2-touchkey leds by simply <code>echo 1 &gt; /sys/class/leds/tm2-touchkey/brightness</code> without sudo. That's especially helpful for usage in shell scripts.
-</p>
-<h2><span class="mw-headline" id="Sync_with_backlight">Sync with backlight</span></h2>
-<p>See <a href="../en/LEDs:Sync_with_backlight.html" title="LEDs:Sync with backlight">LEDs:Sync with backlight</a>.
-</p>
-<h2><span class="mw-headline" id="References">References</span></h2>
-<div class="mw-references-wrap mw-references-columns"><ol class="references">
-<li id="cite_note-1">
-<span class="mw-cite-backlink"><a href="#cite_ref-1">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/Documentation/leds/leds-class.rst">https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/Documentation/leds/leds-class.rst</a></span>
-</li>
-<li id="cite_note-2">
-<span class="mw-cite-backlink"><a href="#cite_ref-2">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/leds/trigger/Kconfig">https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/leds/trigger/Kconfig</a></span>
-</li>
-<li id="cite_note-3">
-<span class="mw-cite-backlink"><a href="#cite_ref-3">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_TIMER.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_TIMER.html</a></span>
-</li>
-<li id="cite_note-4">
-<span class="mw-cite-backlink"><a href="#cite_ref-4">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_ONESHOT.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_ONESHOT.html</a></span>
-</li>
-<li id="cite_note-5">
-<span class="mw-cite-backlink"><a href="#cite_ref-5">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_DISK.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_DISK.html</a></span>
-</li>
-<li id="cite_note-6">
-<span class="mw-cite-backlink"><a href="#cite_ref-6">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_MTD.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_MTD.html</a></span>
-</li>
-<li id="cite_note-7">
-<span class="mw-cite-backlink"><a href="#cite_ref-7">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_HEARTBEAT.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_HEARTBEAT.html</a></span>
-</li>
-<li id="cite_note-8">
-<span class="mw-cite-backlink"><a href="#cite_ref-8">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_BACKLIGHT.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_BACKLIGHT.html</a></span>
-</li>
-<li id="cite_note-9">
-<span class="mw-cite-backlink"><a href="#cite_ref-9">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_CPU.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_CPU.html</a></span>
-</li>
-<li id="cite_note-10">
-<span class="mw-cite-backlink"><a href="#cite_ref-10">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_ACTIVITY.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_ACTIVITY.html</a></span>
-</li>
-<li id="cite_note-11">
-<span class="mw-cite-backlink"><a href="#cite_ref-11">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_GPIO.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_GPIO.html</a></span>
-</li>
-<li id="cite_note-12">
-<span class="mw-cite-backlink"><a href="#cite_ref-12">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_DEFAULT_ON.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_DEFAULT_ON.html</a></span>
-</li>
-<li id="cite_note-13">
-<span class="mw-cite-backlink"><a href="#cite_ref-13">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_TRANSIENT.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_TRANSIENT.html</a></span>
-</li>
-<li id="cite_note-14">
-<span class="mw-cite-backlink"><a href="#cite_ref-14">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_CAMERA.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_CAMERA.html</a></span>
-</li>
-<li id="cite_note-15">
-<span class="mw-cite-backlink"><a href="#cite_ref-15">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_PANIC.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_PANIC.html</a></span>
-</li>
-<li id="cite_note-16">
-<span class="mw-cite-backlink"><a href="#cite_ref-16">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_NETDEV.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_NETDEV.html</a></span>
-</li>
-<li id="cite_note-17">
-<span class="mw-cite-backlink"><a href="#cite_ref-17">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_PATTERN.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_PATTERN.html</a></span>
-</li>
-<li id="cite_note-18">
-<span class="mw-cite-backlink"><a href="#cite_ref-18">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_AUDIO.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_AUDIO.html</a></span>
-</li>
-<li id="cite_note-19">
-<span class="mw-cite-backlink"><a href="#cite_ref-19">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_TTY.html">https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_TTY.html</a></span>
-</li>
-<li id="cite_note-20">
-<span class="mw-cite-backlink"><a href="#cite_ref-20">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/usb/core/Kconfig">https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/usb/core/Kconfig</a></span>
-</li>
-<li id="cite_note-21">
-<span class="mw-cite-backlink"><a href="#cite_ref-21">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/USB_LEDS_TRIGGER_USBPORT.html">https://cateee.net/lkddb/web-lkddb/USB_LEDS_TRIGGER_USBPORT.html</a></span>
-</li>
-<li id="cite_note-22">
-<span class="mw-cite-backlink"><a href="#cite_ref-22">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/net/phy/Kconfig">https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/net/phy/Kconfig</a></span>
-</li>
-<li id="cite_note-23">
-<span class="mw-cite-backlink"><a href="#cite_ref-23">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/LED_TRIGGER_PHY.html">https://cateee.net/lkddb/web-lkddb/LED_TRIGGER_PHY.html</a></span>
-</li>
-<li id="cite_note-24">
-<span class="mw-cite-backlink"><a href="#cite_ref-24">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/net/netfilter/Kconfig">https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/net/netfilter/Kconfig</a></span>
-</li>
-<li id="cite_note-25">
-<span class="mw-cite-backlink"><a href="#cite_ref-25">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://cateee.net/lkddb/web-lkddb/NETFILTER_XT_TARGET_LED.html">https://cateee.net/lkddb/web-lkddb/NETFILTER_XT_TARGET_LED.html</a></span>
-</li>
-<li id="cite_note-26">
-<span class="mw-cite-backlink"><a href="#cite_ref-26">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/Documentation/leds/uleds.rst">https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/Documentation/leds/uleds.rst</a>.</span>
-</li>
-<li id="cite_note-27">
-<span class="mw-cite-backlink"><a href="#cite_ref-27">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/tools/leds/uledmon.c">https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/tools/leds/uledmon.c</a></span>
-</li>
-<li id="cite_note-28">
-<span class="mw-cite-backlink"><a href="#cite_ref-28">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://approxeng.github.io/approxeng.input/sys.html#version-2-6-1-2-6-2">https://approxeng.github.io/approxeng.input/sys.html#version-2-6-1-2-6-2</a></span>
-</li>
-<li id="cite_note-29">
-<span class="mw-cite-backlink"><a href="#cite_ref-29">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="https://unix.stackexchange.com/questions/20125/how-can-i-change-the-permissions-in-sys-to-alter-the-state-of-a-led-light-using/202870#202870">https://unix.stackexchange.com/questions/20125/how-can-i-change-the-permissions-in-sys-to-alter-the-state-of-a-led-light-using/202870#202870</a></span>
-</li>
-</ol></div>
-</div></div>
-		
-		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=LEDs&amp;oldid=25430">https://wiki.postmarketos.org/index.php?title=LEDs&amp;oldid=25430</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 2 February 2022, at 00:56.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=LEDs&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <p>
+       This permission change is limited to
+       <code>
+        tm2-touchkey
+       </code>
+       . And the permissions are changed to group
+       <code>
+        input
+       </code>
+       (postmarketOS users are usually already member of group
+       <code>
+        input
+       </code>
+       ). Additionally, the order of the udev rule keys were put in a different order (has no technical effect).
+      </p>
+      <p>
+       It's not fully clear if
+       <code>
+        ENV{TRIGGER}!="none"
+       </code>
+       in the last line is required. A comment on unix.stackexchange.com says it would be needed for kernel older than 4.9.
+       <sup class="reference" id="cite_ref-29">
+        <a href="#cite_note-29">
+         [29]
+        </a>
+       </sup>
+      </p>
+      <p>
+       However, with these udev rules in place, an unpriviliged user that's member of the group
+       <code>
+        input
+       </code>
+       can now turn on the tm2-touchkey leds by simply
+       <code>
+        echo 1 &gt; /sys/class/leds/tm2-touchkey/brightness
+       </code>
+       without sudo. That's especially helpful for usage in shell scripts.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Sync_with_backlight">
+        Sync with backlight
+       </span>
+      </h2>
+      <p>
+       See
+       <a href="../en/LEDs:Sync_with_backlight.html" title="LEDs:Sync with backlight">
+        LEDs:Sync with backlight
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="References">
+        References
+       </span>
+      </h2>
+      <div class="mw-references-wrap mw-references-columns">
+       <ol class="references">
+        <li id="cite_note-1">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-1">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/Documentation/leds/leds-class.rst" rel="nofollow">
+           https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/Documentation/leds/leds-class.rst
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-2">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-2">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/leds/trigger/Kconfig" rel="nofollow">
+           https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/leds/trigger/Kconfig
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-3">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-3">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_TIMER.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_TIMER.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-4">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-4">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_ONESHOT.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_ONESHOT.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-5">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-5">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_DISK.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_DISK.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-6">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-6">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_MTD.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_MTD.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-7">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-7">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_HEARTBEAT.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_HEARTBEAT.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-8">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-8">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_BACKLIGHT.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_BACKLIGHT.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-9">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-9">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_CPU.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_CPU.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-10">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-10">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_ACTIVITY.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_ACTIVITY.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-11">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-11">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_GPIO.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_GPIO.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-12">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-12">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_DEFAULT_ON.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_DEFAULT_ON.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-13">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-13">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_TRANSIENT.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_TRANSIENT.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-14">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-14">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_CAMERA.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_CAMERA.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-15">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-15">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_PANIC.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_PANIC.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-16">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-16">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_NETDEV.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_NETDEV.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-17">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-17">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_PATTERN.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_PATTERN.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-18">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-18">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_AUDIO.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_AUDIO.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-19">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-19">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_TTY.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LEDS_TRIGGER_TTY.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-20">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-20">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/usb/core/Kconfig" rel="nofollow">
+           https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/usb/core/Kconfig
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-21">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-21">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/USB_LEDS_TRIGGER_USBPORT.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/USB_LEDS_TRIGGER_USBPORT.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-22">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-22">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/net/phy/Kconfig" rel="nofollow">
+           https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/net/phy/Kconfig
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-23">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-23">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/LED_TRIGGER_PHY.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/LED_TRIGGER_PHY.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-24">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-24">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/net/netfilter/Kconfig" rel="nofollow">
+           https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/net/netfilter/Kconfig
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-25">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-25">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://cateee.net/lkddb/web-lkddb/NETFILTER_XT_TARGET_LED.html" rel="nofollow">
+           https://cateee.net/lkddb/web-lkddb/NETFILTER_XT_TARGET_LED.html
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-26">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-26">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/Documentation/leds/uleds.rst" rel="nofollow">
+           https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/Documentation/leds/uleds.rst
+          </a>
+          .
+         </span>
+        </li>
+        <li id="cite_note-27">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-27">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/tools/leds/uledmon.c" rel="nofollow">
+           https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/tools/leds/uledmon.c
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-28">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-28">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://approxeng.github.io/approxeng.input/sys.html#version-2-6-1-2-6-2" rel="nofollow">
+           https://approxeng.github.io/approxeng.input/sys.html#version-2-6-1-2-6-2
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-29">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-29">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://unix.stackexchange.com/questions/20125/how-can-i-change-the-permissions-in-sys-to-alter-the-state-of-a-led-light-using/202870#202870" rel="nofollow">
+           https://unix.stackexchange.com/questions/20125/how-can-i-change-the-permissions-in-sys-to-alter-the-state-of-a-led-light-using/202870#202870
+          </a>
+         </span>
+        </li>
+       </ol>
+      </div>
+     </div>
+    </div>
+    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=LEDs&amp;oldid=25430">
+      https://wiki.postmarketos.org/index.php?title=LEDs&amp;oldid=25430
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 2 February 2022, at 00:56.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=LEDs&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

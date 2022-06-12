@@ -1,148 +1,437 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>TTYescape - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-TTYescape rootpage-TTYescape skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">TTYescape</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1">
-<a href="#TTYescape_-_because_mobile_users_can_be_hackers_too"><span class="tocnumber">1</span> <span class="toctext">TTYescape - because mobile users can be hackers too</span></a>
-<ul>
-<li class="toclevel-2 tocsection-2"><a href="#Usage"><span class="tocnumber">1.1</span> <span class="toctext">Usage</span></a></li>
-<li class="toclevel-2 tocsection-3"><a href="#Configuration"><span class="tocnumber">1.2</span> <span class="toctext">Configuration</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="#Implementation"><span class="tocnumber">1.3</span> <span class="toctext">Implementation</span></a></li>
-<li class="toclevel-2 tocsection-5"><a href="#Security_considerations"><span class="tocnumber">1.4</span> <span class="toctext">Security considerations</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#Potential_improvements"><span class="tocnumber">1.5</span> <span class="toctext">Potential improvements</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="#Photos"><span class="tocnumber">1.6</span> <span class="toctext">Photos</span></a></li>
-<li class="toclevel-2 tocsection-8"><a href="#See_Also"><span class="tocnumber">1.7</span> <span class="toctext">See Also</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h1><span class="mw-headline" id="TTYescape_-_because_mobile_users_can_be_hackers_too">TTYescape - because mobile users can be hackers too</span></h1>
-<p>TTYescape is a collection of config files and a shell script enabling mobile users to escape the mortal limitations of "Desktop Environments" and "hardware acceleration", ascending to the one TRUE form of computer usage - the TTY.
-</p>
-<p>[ Extract from <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2309">pmaports!2309</a> ]
-</p>
-<p><i>One of the largest limitations with a mobile device is the lack of keyboard, for mainstream OSs like Android and iOS, this is a non-issue as the whole OS stack is built to automatically recover in case of a crash / hang, hiding the internal state of affairs from users and making use of careful design to minimise the impact.
-</i></p>
-<p><i>When bringing Linux to mobile, we carry not only the benefits of the Linux desktop but also it's limitations. In the event that your display manager goes haywire or hangs completely, or your graphics drivers get unhappy, the ability to quickly jump to a tty and start killing bad behaving programs or reset your display manager is one that most of us take for granted.
-But when hit by similar errors on a mobile device there is no such recourse available, users either have to reboot and hope that the issue doesn't occur again, or pull out a laptop and pull up a shell (assuming ssh is enabled and the rndis interface comes up).</i>
-</p>
-<h2><span class="mw-headline" id="Usage">Usage</span></h2>
-<p>TTYescape works by monitoring all input events on the system, if at any time you hold <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> and press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> three times you'll be quickly whisked away from the madness and dropped in TTY2.
-</p>
-<p>"<i>But how will I type?</i>" you cry! "<i>for all I have is this pesky touchscreen</i>". Fear not dear user, for <code>fbkeyboard</code> is here to save you!
-</p>
-<p><a rel="nofollow" class="external text" href="https://github.com/bakonyiferenc/fbkeyboard">fbkeyboard</a> is a tool for displaying a framebuffer keyboard on top of a TTY, it's both easy to use (simply tap the key you would like to press) and fun to look at with it's wonderful two-tone red and blue colour scheme.
-</p>
-<h2><span class="mw-headline" id="Configuration">Configuration</span></h2>
-<p>TTYescape is configured by editing the file <code>/etc/conf.d/ttyescape.conf</code>, currently it's possible to modify the font used in the TTY, adjust the number of times you have to press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> to switch to a TTY, and change the path to the tempfile used to count button presses.
-</p>
-<p>Run <code># echo 1 &gt; /sys/class/graphics/fbcon/rotate_all</code> to rotate the screen 90 degrees counter clockwise and <code># echo 3 &gt; /sys/class/graphics/fbcon/rotate_all</code> to rotate the screen 90 degrees clockwise
-</p>
-<h2><span class="mw-headline" id="Implementation">Implementation</span></h2>
-<p>TTYEscape itself is a simple script, it makes use of <code><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/hkdm">HKDM</a></code>, a tiny hotkey daemon which watches input devices with poll(), matches events to see if a certain command should be run and does so.
-</p>
-<p>On pressing <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> the <code>togglevt.sh</code> script is run with the argument "start", this creates the tempfile <code>/tmp/ttyescape.tmp</code> with the contents "1", releasing <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> deletes the file. Pressing <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> will run the script with the argument "inc", causing the number in the tempfile to be incremented. If the number is equal to the value <code>PRESSCOUNT</code> set in the config file (default: 3), the main body of the script is run, causing the user to switch TTYs, setting the font and launching buffyboard.
-</p>
-<p>No services need to be restarted when editing the ttyescape config, it is only read by the togglevt script which is only executed on button presses.
-</p>
-<p>TTYescape previously made use of <code><a rel="nofollow" class="external text" href="https://github.com/wertarbyte/triggerhappy">triggerhappy</a></code>, a relatively simple daemon capable of listening directly to input events and performing specific actions on certain keypresses (or combinations thereof). It also used fbkeyboard, both of these are in the process of being replaced for the newer HKDM and buffyboard (see links at the bottom of this page).
-</p>
-<h2><span class="mw-headline" id="Security_considerations">Security considerations</span></h2>
-<p>In order for this to work, both triggerhappy and the togglevt script must be run as root. It is important to ensure that their configuration files are only writable to root, otherwise it may be trivial for a user to gain root access via this tool. Absolutely zero security testing has been done on this tool, audit and use at your own discretion.
-</p>
-<h2><span class="mw-headline" id="Potential_improvements">Potential improvements</span></h2>
-<p>There is a usecase not covered yet by TTYescape - that being when you display manager dies and your device / kernel goes with it. In this case you'd need to be able to boot directly to a TTY rather than switch to one, this could be implemented by starting a service before the main display manager, checking for specific key events and somehow preventing the display manager from starting, instead jumping to a TTY. This would be a fantastic future improvement.
-</p>
-<h2><span class="mw-headline" id="Photos">Photos</span></h2>
-<p>|<a href="../Ttyescape-fbgrab-osprey.png" class="image"><img alt="Ttyescape-fbgrab-osprey.png" src="../Ttyescape-fbgrab-osprey.png" decoding="async" width="360" height="640" srcset="../540px-Ttyescape-fbgrab-osprey.png 1.5x ../fbgrab-osprey.png 2x"></a>
-</p>
-<h2><span class="mw-headline" id="See_Also">See Also</span></h2>
-<ul>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2309">pmaports!2309</a> - Merge request to add TTYescape to pmaports.</li>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/bakonyiferenc/fbkeyboard">fbkeyboard</a> - fbkeyboard source and docs</li>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/wertarbyte/triggerhappy">triggerhappy</a> - triggerhappy source and docs</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/cherrypicker/buffyboard">buffyboard</a> - buffyboard source and docs</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/hkdm">HKDM</a> - HKDM source and docs</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2713">pmaports!2713</a> - Merge request to replace triggerhappy and fbkeyboard with hkdm and buffyboard</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1314">pmaports#1314</a> - Issue tracking making TTYEscape installed by default on 21.12 stable</li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=TTYescape&amp;oldid=26624">https://wiki.postmarketos.org/index.php?title=TTYescape&amp;oldid=26624</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 31 March 2022, at 15:31.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=TTYescape&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   TTYescape - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-TTYescape rootpage-TTYescape skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    TTYescape
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#TTYescape_-_because_mobile_users_can_be_hackers_too">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           TTYescape - because mobile users can be hackers too
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-2">
+           <a href="#Usage">
+            <span class="tocnumber">
+             1.1
+            </span>
+            <span class="toctext">
+             Usage
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#Configuration">
+            <span class="tocnumber">
+             1.2
+            </span>
+            <span class="toctext">
+             Configuration
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Implementation">
+            <span class="tocnumber">
+             1.3
+            </span>
+            <span class="toctext">
+             Implementation
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Security_considerations">
+            <span class="tocnumber">
+             1.4
+            </span>
+            <span class="toctext">
+             Security considerations
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Potential_improvements">
+            <span class="tocnumber">
+             1.5
+            </span>
+            <span class="toctext">
+             Potential improvements
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#Photos">
+            <span class="tocnumber">
+             1.6
+            </span>
+            <span class="toctext">
+             Photos
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#See_Also">
+            <span class="tocnumber">
+             1.7
+            </span>
+            <span class="toctext">
+             See Also
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
+      <h1>
+       <span class="mw-headline" id="TTYescape_-_because_mobile_users_can_be_hackers_too">
+        TTYescape - because mobile users can be hackers too
+       </span>
+      </h1>
+      <p>
+       TTYescape is a collection of config files and a shell script enabling mobile users to escape the mortal limitations of "Desktop Environments" and "hardware acceleration", ascending to the one TRUE form of computer usage - the TTY.
+      </p>
+      <p>
+       [ Extract from
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2309" rel="nofollow">
+        pmaports!2309
+       </a>
+       ]
+      </p>
+      <p>
+       <i>
+        One of the largest limitations with a mobile device is the lack of keyboard, for mainstream OSs like Android and iOS, this is a non-issue as the whole OS stack is built to automatically recover in case of a crash / hang, hiding the internal state of affairs from users and making use of careful design to minimise the impact.
+       </i>
+      </p>
+      <p>
+       <i>
+        When bringing Linux to mobile, we carry not only the benefits of the Linux desktop but also it's limitations. In the event that your display manager goes haywire or hangs completely, or your graphics drivers get unhappy, the ability to quickly jump to a tty and start killing bad behaving programs or reset your display manager is one that most of us take for granted.
+But when hit by similar errors on a mobile device there is no such recourse available, users either have to reboot and hope that the issue doesn't occur again, or pull out a laptop and pull up a shell (assuming ssh is enabled and the rndis interface comes up).
+       </i>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Usage">
+        Usage
+       </span>
+      </h2>
+      <p>
+       TTYescape works by monitoring all input events on the system, if at any time you hold
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        Volume Down
+       </span>
+       and press
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        Power
+       </span>
+       three times you'll be quickly whisked away from the madness and dropped in TTY2.
+      </p>
+      <p>
+       "
+       <i>
+        But how will I type?
+       </i>
+       " you cry! "
+       <i>
+        for all I have is this pesky touchscreen
+       </i>
+       ". Fear not dear user, for
+       <code>
+        fbkeyboard
+       </code>
+       is here to save you!
+      </p>
+      <p>
+       <a class="external text" href="https://github.com/bakonyiferenc/fbkeyboard" rel="nofollow">
+        fbkeyboard
+       </a>
+       is a tool for displaying a framebuffer keyboard on top of a TTY, it's both easy to use (simply tap the key you would like to press) and fun to look at with it's wonderful two-tone red and blue colour scheme.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Configuration">
+        Configuration
+       </span>
+      </h2>
+      <p>
+       TTYescape is configured by editing the file
+       <code>
+        /etc/conf.d/ttyescape.conf
+       </code>
+       , currently it's possible to modify the font used in the TTY, adjust the number of times you have to press
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        Power
+       </span>
+       to switch to a TTY, and change the path to the tempfile used to count button presses.
+      </p>
+      <p>
+       Run
+       <code>
+        # echo 1 &gt; /sys/class/graphics/fbcon/rotate_all
+       </code>
+       to rotate the screen 90 degrees counter clockwise and
+       <code>
+        # echo 3 &gt; /sys/class/graphics/fbcon/rotate_all
+       </code>
+       to rotate the screen 90 degrees clockwise
+      </p>
+      <h2>
+       <span class="mw-headline" id="Implementation">
+        Implementation
+       </span>
+      </h2>
+      <p>
+       TTYEscape itself is a simple script, it makes use of
+       <code>
+        <a class="external text" href="https://gitlab.com/postmarketOS/hkdm" rel="nofollow">
+         HKDM
+        </a>
+       </code>
+       , a tiny hotkey daemon which watches input devices with poll(), matches events to see if a certain command should be run and does so.
+      </p>
+      <p>
+       On pressing
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        Volume Down
+       </span>
+       the
+       <code>
+        togglevt.sh
+       </code>
+       script is run with the argument "start", this creates the tempfile
+       <code>
+        /tmp/ttyescape.tmp
+       </code>
+       with the contents "1", releasing
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        Volume Down
+       </span>
+       deletes the file. Pressing
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        Power
+       </span>
+       will run the script with the argument "inc", causing the number in the tempfile to be incremented. If the number is equal to the value
+       <code>
+        PRESSCOUNT
+       </code>
+       set in the config file (default: 3), the main body of the script is run, causing the user to switch TTYs, setting the font and launching buffyboard.
+      </p>
+      <p>
+       No services need to be restarted when editing the ttyescape config, it is only read by the togglevt script which is only executed on button presses.
+      </p>
+      <p>
+       TTYescape previously made use of
+       <code>
+        <a class="external text" href="https://github.com/wertarbyte/triggerhappy" rel="nofollow">
+         triggerhappy
+        </a>
+       </code>
+       , a relatively simple daemon capable of listening directly to input events and performing specific actions on certain keypresses (or combinations thereof). It also used fbkeyboard, both of these are in the process of being replaced for the newer HKDM and buffyboard (see links at the bottom of this page).
+      </p>
+      <h2>
+       <span class="mw-headline" id="Security_considerations">
+        Security considerations
+       </span>
+      </h2>
+      <p>
+       In order for this to work, both triggerhappy and the togglevt script must be run as root. It is important to ensure that their configuration files are only writable to root, otherwise it may be trivial for a user to gain root access via this tool. Absolutely zero security testing has been done on this tool, audit and use at your own discretion.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Potential_improvements">
+        Potential improvements
+       </span>
+      </h2>
+      <p>
+       There is a usecase not covered yet by TTYescape - that being when you display manager dies and your device / kernel goes with it. In this case you'd need to be able to boot directly to a TTY rather than switch to one, this could be implemented by starting a service before the main display manager, checking for specific key events and somehow preventing the display manager from starting, instead jumping to a TTY. This would be a fantastic future improvement.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Photos">
+        Photos
+       </span>
+      </h2>
+      <p>
+       |
+       <a class="image" href="../Ttyescape-fbgrab-osprey.png">
+        <img alt="Ttyescape-fbgrab-osprey.png" decoding="async" height="640" src="../Ttyescape-fbgrab-osprey.png" srcset="../540px-Ttyescape-fbgrab-osprey.png 1.5x ../fbgrab-osprey.png 2x" width="360"/>
+       </a>
+      </p>
+      <h2>
+       <span class="mw-headline" id="See_Also">
+        See Also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2309" rel="nofollow">
+         pmaports!2309
+        </a>
+        - Merge request to add TTYescape to pmaports.
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/bakonyiferenc/fbkeyboard" rel="nofollow">
+         fbkeyboard
+        </a>
+        - fbkeyboard source and docs
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/wertarbyte/triggerhappy" rel="nofollow">
+         triggerhappy
+        </a>
+        - triggerhappy source and docs
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/cherrypicker/buffyboard" rel="nofollow">
+         buffyboard
+        </a>
+        - buffyboard source and docs
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/hkdm" rel="nofollow">
+         HKDM
+        </a>
+        - HKDM source and docs
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2713" rel="nofollow">
+         pmaports!2713
+        </a>
+        - Merge request to replace triggerhappy and fbkeyboard with hkdm and buffyboard
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1314" rel="nofollow">
+         pmaports#1314
+        </a>
+        - Issue tracking making TTYEscape installed by default on 21.12 stable
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=TTYescape&amp;oldid=26624">
+      https://wiki.postmarketos.org/index.php?title=TTYescape&amp;oldid=26624
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 31 March 2022, at 15:31.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=TTYescape&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

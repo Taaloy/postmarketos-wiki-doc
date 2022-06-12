@@ -1,180 +1,332 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Creating a release branch - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Creating_a_release_branch rootpage-Creating_a_release_branch skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Creating a release branch</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This is relevant for maintaining the repository only, regular users will not need this guide.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Alpine.27s_release_timeline"><span class="tocnumber">1</span> <span class="toctext">Alpine's release timeline</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Timeline"><span class="tocnumber">2</span> <span class="toctext">Timeline</span></a></li>
-<li class="toclevel-1 tocsection-3">
-<a href="#Detailed_tasks_for_Team"><span class="tocnumber">3</span> <span class="toctext">Detailed tasks for Team</span></a>
-<ul>
-<li class="toclevel-2 tocsection-4"><a href="#Drop_phase"><span class="tocnumber">3.1</span> <span class="toctext">Drop phase</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-5">
-<a href="#Maintenance"><span class="tocnumber">4</span> <span class="toctext">Maintenance</span></a>
-<ul>
-<li class="toclevel-2 tocsection-6"><a href="#Cherry-picking_commits_from_master"><span class="tocnumber">4.1</span> <span class="toctext">Cherry-picking commits from master</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2>
-<span id="Alpine's_release_timeline"></span><span class="mw-headline" id="Alpine.27s_release_timeline">Alpine's release timeline</span>
-</h2>
-<p><a rel="nofollow" class="external text" href="https://lists.alpinelinux.org/~alpine/devel/%3CYWsU6tiHtmsWIma7%40alpha%3E#%3C20211018085651.57a521f7@ncopa-desktop.lan%3E">From the alpine-devel mailing list:</a>
-</p>
-<pre> The freeze period for 3.16 will start around first half of April 2022, and the freeze period
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Creating a release branch - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Creating_a_release_branch rootpage-Creating_a_release_branch skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Creating a release branch
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       This is relevant for maintaining the repository only, regular users will not need this guide.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Alpine.27s_release_timeline">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Alpine's release timeline
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Timeline">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Timeline
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Detailed_tasks_for_Team">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Detailed tasks for Team
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Drop_phase">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             Drop phase
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-5">
+         <a href="#Maintenance">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Maintenance
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Cherry-picking_commits_from_master">
+            <span class="tocnumber">
+             4.1
+            </span>
+            <span class="toctext">
+             Cherry-picking commits from master
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span id="Alpine's_release_timeline">
+       </span>
+       <span class="mw-headline" id="Alpine.27s_release_timeline">
+        Alpine's release timeline
+       </span>
+      </h2>
+      <p>
+       <a class="external text" href="https://lists.alpinelinux.org/~alpine/devel/%3CYWsU6tiHtmsWIma7%40alpha%3E#%3C20211018085651.57a521f7@ncopa-desktop.lan%3E" rel="nofollow">
+        From the alpine-devel mailing list:
+       </a>
+      </p>
+      <pre> The freeze period for 3.16 will start around first half of April 2022, and the freeze period
  for 3.17 will start around first half of October 2022.
  
  We are aiming for releases every May and November, and should start set
  up the builders a month in advance.
 </pre>
-<p>In more detail: <a rel="nofollow" class="external text" href="https://ariadne.space/2021/10/22/the-alpine-release-process/">the Alpine release process</a>
-</p>
-<h2><span class="mw-headline" id="Timeline">Timeline</span></h2>
-<p>Alpine starts working on a new release approximately every six months. This is when the cycle described in the table below begins. The weeks are estimated based on experience, it will get more accurate the more often we go through the release cycle. (But of course, if something unexpected happens in either Alpine or postmarketOS, it may lead to a delay of the release.) All phases are announced in the <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">release party</a> chat.
-</p>
-<table class="wikitable">
-
-<tbody>
-<tr>
-<th>Calendar Week
-</th>
-<th>Phase Name
-</th>
-<th>Description
-</th>
-</tr>
-<tr>
-<td>CW 21
-<p><small>(2022-05-23 - 2022-05-29)</small>
-</p>
-</td>
-<td>Branch
-</td>
-<td>
-<p>Team:
-</p>
-<ul>
-<li>Create release branch in pmaports</li>
-<li>Build binary packages and images (configure BPO for that)</li>
-</ul>
-<p>Release branches are in <b>feature freeze</b>:
-</p>
-<p>We can cherry pick fixes where it makes sense, but new features need to go through master and can only go to stable via service packs.
-</p>
-</td>
-</tr>
-<tr>
-<td>CW 22
-<p><small>(2022-05-30 - 2022-06-05)</small>
-</p>
-</td>
-<td>Test
-</td>
-<td>
-<p>Maintainers:
-</p>
-<ul>
-<li>Test your devices and UIs.</li>
-<li>Report back in the issue (<a href="../en/Kernel_upgrade_testing.html#Stable_release_testing" title="Kernel upgrade testing">template for devices</a>)</li>
-<li>Fix stuff that is broken by creating MRs against pmaports master and noting that this should be cherry picked to the release branch.</li>
-</ul>
-<p>Devices that were not tested need to be dropped.
-</p>
-</td>
-</tr>
-<tr>
-<td>CW 23
-<p><small>(2022-06-06 - 2022-06-12)</small>
-</p>
-</td>
-<td>Release
-</td>
-<td>
-<p>Team:
-</p>
-<ul><li>Write the release blog post.</li></ul>
-<p>Team + Maintainers:
-</p>
-<ul><li>Conference call, celebrate with party hats and get wasted.</li></ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>One month later:
-</p>
-<table class="wikitable">
-
-<tbody>
-<tr>
-<th>Calender Week
-</th>
-<th>Phase Name
-</th>
-<th>Description
-</th>
-</tr>
-<tr>
-<td>CW 28
-<p><small>(2022-06-11 - 2022-06-17)</small>
-</p>
-</td>
-<td>Drop
-</td>
-<td>
-<p>Team:
-</p>
-<ul>
-<li>Mark previous release as unsupported.</li>
-<li>Release first service pack.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<h2><span class="mw-headline" id="Detailed_tasks_for_Team">Detailed tasks for Team</span></h2>
-<p>The tasks below are in a format that's convenient for copying/pasting into a gitlab issue, where each task is checkbox.
-</p>
-<pre>### Preparation
+      <p>
+       In more detail:
+       <a class="external text" href="https://ariadne.space/2021/10/22/the-alpine-release-process/" rel="nofollow">
+        the Alpine release process
+       </a>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Timeline">
+        Timeline
+       </span>
+      </h2>
+      <p>
+       Alpine starts working on a new release approximately every six months. This is when the cycle described in the table below begins. The weeks are estimated based on experience, it will get more accurate the more often we go through the release cycle. (But of course, if something unexpected happens in either Alpine or postmarketOS, it may lead to a delay of the release.) All phases are announced in the
+       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+        release party
+       </a>
+       chat.
+      </p>
+      <table class="wikitable">
+       <tbody>
+        <tr>
+         <th>
+          Calendar Week
+         </th>
+         <th>
+          Phase Name
+         </th>
+         <th>
+          Description
+         </th>
+        </tr>
+        <tr>
+         <td>
+          CW 21
+          <p>
+           <small>
+            (2022-05-23 - 2022-05-29)
+           </small>
+          </p>
+         </td>
+         <td>
+          Branch
+         </td>
+         <td>
+          <p>
+           Team:
+          </p>
+          <ul>
+           <li>
+            Create release branch in pmaports
+           </li>
+           <li>
+            Build binary packages and images (configure BPO for that)
+           </li>
+          </ul>
+          <p>
+           Release branches are in
+           <b>
+            feature freeze
+           </b>
+           :
+          </p>
+          <p>
+           We can cherry pick fixes where it makes sense, but new features need to go through master and can only go to stable via service packs.
+          </p>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          CW 22
+          <p>
+           <small>
+            (2022-05-30 - 2022-06-05)
+           </small>
+          </p>
+         </td>
+         <td>
+          Test
+         </td>
+         <td>
+          <p>
+           Maintainers:
+          </p>
+          <ul>
+           <li>
+            Test your devices and UIs.
+           </li>
+           <li>
+            Report back in the issue (
+            <a href="../en/Kernel_upgrade_testing.html#Stable_release_testing" title="Kernel upgrade testing">
+             template for devices
+            </a>
+            )
+           </li>
+           <li>
+            Fix stuff that is broken by creating MRs against pmaports master and noting that this should be cherry picked to the release branch.
+           </li>
+          </ul>
+          <p>
+           Devices that were not tested need to be dropped.
+          </p>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          CW 23
+          <p>
+           <small>
+            (2022-06-06 - 2022-06-12)
+           </small>
+          </p>
+         </td>
+         <td>
+          Release
+         </td>
+         <td>
+          <p>
+           Team:
+          </p>
+          <ul>
+           <li>
+            Write the release blog post.
+           </li>
+          </ul>
+          <p>
+           Team + Maintainers:
+          </p>
+          <ul>
+           <li>
+            Conference call, celebrate with party hats and get wasted.
+           </li>
+          </ul>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       One month later:
+      </p>
+      <table class="wikitable">
+       <tbody>
+        <tr>
+         <th>
+          Calender Week
+         </th>
+         <th>
+          Phase Name
+         </th>
+         <th>
+          Description
+         </th>
+        </tr>
+        <tr>
+         <td>
+          CW 28
+          <p>
+           <small>
+            (2022-06-11 - 2022-06-17)
+           </small>
+          </p>
+         </td>
+         <td>
+          Drop
+         </td>
+         <td>
+          <p>
+           Team:
+          </p>
+          <ul>
+           <li>
+            Mark previous release as unsupported.
+           </li>
+           <li>
+            Release first service pack.
+           </li>
+          </ul>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h2>
+       <span class="mw-headline" id="Detailed_tasks_for_Team">
+        Detailed tasks for Team
+       </span>
+      </h2>
+      <p>
+       The tasks below are in a format that's convenient for copying/pasting into a gitlab issue, where each task is checkbox.
+      </p>
+      <pre>### Preparation
 - [ ] Discuss who's in charge of the release (doesn't necessarily mean doing all the work, it can be delegated. just someone to keep pushing it forward)
 - [ ] Create gitlab milestone for the release
 - [ ] Create an issue in pmaports named "vYY.MM Infrastructure", add it to the milestone, copy paste the checkboxes from this list
@@ -305,8 +457,12 @@
 - [ ] Ping Martijn to add the branch to pkgs.postmarketos.org config
 - [ ] Do the conference call in jitsi and celebrate the release :)
 </pre>
-<h3><span class="mw-headline" id="Drop_phase">Drop phase</span></h3>
-<pre>A month after a new release has been published:
+      <h3>
+       <span class="mw-headline" id="Drop_phase">
+        Drop phase
+       </span>
+      </h3>
+      <pre>A month after a new release has been published:
 
 - [ ] drop the old release from [monitoring](https://gitlab.com/postmarketOS/monitoring)
 - [ ] bpo: configure images so they don't get built for the old release anymore
@@ -319,58 +475,163 @@
   - [ ] e.g. https://gitlab.com/postmarketOS/pmaports/-/issues?label_name[]=release-v21.03
   - [ ] close or re-label them as it makes sense
 </pre>
-<h2><span class="mw-headline" id="Maintenance">Maintenance</span></h2>
-<h3><span class="mw-headline" id="Cherry-picking_commits_from_master">Cherry-picking commits from master</span></h3>
-<ul>
-<li>In merge requests, that shall be cherry picked, add the <code>backport-to-vXX.YY</code> label.</li>
-<li>If the new release is not finished, backport the patch to the branch right after merging.</li>
-<li>If the new release is finished, add it to the service pack branch and issue (see <a href="../en/Creating_a_service_pack.html" title="Creating a service pack">creating a service pack</a>)</li>
-<li>It would be best if the person that merged the patch did the backport, but the author of the patch should double-check and do it in case it wasn't done, just to be sure.</li>
-<li>Use <code>git cherry-pick -x ffffffff</code> (insert commit to cherry pick accordingly). The <code>-x</code> will add a <code>(cherry picked from commit ffffffff)</code> line to the commit message.</li>
-<li>Cherry picked commits shall not be squashed, then it's hard to understand which commits were already picked and which were not.</li>
-<li>If git reports conflicts, resolve them.
-<ul>
-<li>If you have cherry-picked a commit, that has touched a lot of devices that don't exist in the stable branch, then you can use <code>git rm $(git status | grep "deleted by us" | cut -d ':' -f 2)</code>.</li>
-<li>Look at the <code>git diff</code> to make sure that the result is as expected.</li>
-</ul>
-</li>
-<li>If it's something non-trivial, then make a merge request for the cherry-picked commits so we see that it was done correctly, it builds and that we may test the packages before merging.</li>
-<li>Avoid cherry-picking multiple patches that touch the same pmaports in the wrong order (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1340#note_364975701">related comment</a>).</li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Creating_a_release_branch&amp;oldid=28371">https://wiki.postmarketos.org/index.php?title=Creating_a_release_branch&amp;oldid=28371</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 7 June 2022, at 06:09.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Creating_a_release_branch&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <h2>
+       <span class="mw-headline" id="Maintenance">
+        Maintenance
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Cherry-picking_commits_from_master">
+        Cherry-picking commits from master
+       </span>
+      </h3>
+      <ul>
+       <li>
+        In merge requests, that shall be cherry picked, add the
+        <code>
+         backport-to-vXX.YY
+        </code>
+        label.
+       </li>
+       <li>
+        If the new release is not finished, backport the patch to the branch right after merging.
+       </li>
+       <li>
+        If the new release is finished, add it to the service pack branch and issue (see
+        <a href="../en/Creating_a_service_pack.html" title="Creating a service pack">
+         creating a service pack
+        </a>
+        )
+       </li>
+       <li>
+        It would be best if the person that merged the patch did the backport, but the author of the patch should double-check and do it in case it wasn't done, just to be sure.
+       </li>
+       <li>
+        Use
+        <code>
+         git cherry-pick -x ffffffff
+        </code>
+        (insert commit to cherry pick accordingly). The
+        <code>
+         -x
+        </code>
+        will add a
+        <code>
+         (cherry picked from commit ffffffff)
+        </code>
+        line to the commit message.
+       </li>
+       <li>
+        Cherry picked commits shall not be squashed, then it's hard to understand which commits were already picked and which were not.
+       </li>
+       <li>
+        If git reports conflicts, resolve them.
+        <ul>
+         <li>
+          If you have cherry-picked a commit, that has touched a lot of devices that don't exist in the stable branch, then you can use
+          <code>
+           git rm $(git status | grep "deleted by us" | cut -d ':' -f 2)
+          </code>
+          .
+         </li>
+         <li>
+          Look at the
+          <code>
+           git diff
+          </code>
+          to make sure that the result is as expected.
+         </li>
+        </ul>
+       </li>
+       <li>
+        If it's something non-trivial, then make a merge request for the cherry-picked commits so we see that it was done correctly, it builds and that we may test the packages before merging.
+       </li>
+       <li>
+        Avoid cherry-picking multiple patches that touch the same pmaports in the wrong order (
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1340#note_364975701" rel="nofollow">
+         related comment
+        </a>
+        ).
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Creating_a_release_branch&amp;oldid=28371">
+      https://wiki.postmarketos.org/index.php?title=Creating_a_release_branch&amp;oldid=28371
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 7 June 2022, at 06:09.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Creating_a_release_branch&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

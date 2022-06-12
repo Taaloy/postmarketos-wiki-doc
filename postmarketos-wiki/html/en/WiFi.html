@@ -1,166 +1,659 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>WiFi - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-WiFi rootpage-WiFi skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">WiFi</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#General_information"><span class="tocnumber">1</span> <span class="toctext">General information</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Qualcomm_WiFi"><span class="tocnumber">2</span> <span class="toctext">Qualcomm WiFi</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Broadcom_WiFi"><span class="tocnumber">3</span> <span class="toctext">Broadcom WiFi</span></a></li>
-<li class="toclevel-1 tocsection-4">
-<a href="#Mediatek_WiFi"><span class="tocnumber">4</span> <span class="toctext">Mediatek WiFi</span></a>
-<ul>
-<li class="toclevel-2 tocsection-5"><a href="#Introduction.2C_software"><span class="tocnumber">4.1</span> <span class="toctext">Introduction, software</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#MT6589"><span class="tocnumber">4.2</span> <span class="toctext">MT6589</span></a></li>
-<li class="toclevel-2 tocsection-7">
-<a href="#MT6577_.28MT8317.29_with_MT6628_combochip"><span class="tocnumber">4.3</span> <span class="toctext">MT6577 (MT8317) with MT6628 combochip</span></a>
-<ul>
-<li class="toclevel-3 tocsection-8"><a href="#Sorting_out_possible_issues_with_downstream_kernels"><span class="tocnumber">4.3.1</span> <span class="toctext">Sorting out possible issues with downstream kernels</span></a></li>
-<li class="toclevel-3 tocsection-9"><a href="#Dumping_firmware_from_Android"><span class="tocnumber">4.3.2</span> <span class="toctext">Dumping firmware from Android</span></a></li>
-<li class="toclevel-3 tocsection-10"><a href="#Loading_modules"><span class="tocnumber">4.3.3</span> <span class="toctext">Loading modules</span></a></li>
-<li class="toclevel-3 tocsection-11"><a href="#Programs_overview"><span class="tocnumber">4.3.4</span> <span class="toctext">Programs overview</span></a></li>
-<li class="toclevel-3 tocsection-12"><a href="#.281.29_Bringing_up_wifi_using_downstream_executables"><span class="tocnumber">4.3.5</span> <span class="toctext">(1) Bringing up wifi using downstream executables</span></a></li>
-<li class="toclevel-3 tocsection-13"><a href="#.282.29_Bringing_up_wifi_using_modern_approach"><span class="tocnumber">4.3.6</span> <span class="toctext">(2) Bringing up wifi using modern approach</span></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-14">
-<a href="#HiSilicon_WiFi"><span class="tocnumber">5</span> <span class="toctext">HiSilicon WiFi</span></a>
-<ul>
-<li class="toclevel-2 tocsection-15"><a href="#Introduction.2C_software_2"><span class="tocnumber">5.1</span> <span class="toctext">Introduction, software</span></a></li>
-<li class="toclevel-2 tocsection-16"><a href="#Hi1101"><span class="tocnumber">5.2</span> <span class="toctext">Hi1101</span></a></li>
-<li class="toclevel-2 tocsection-17"><a href="#Hi1102"><span class="tocnumber">5.3</span> <span class="toctext">Hi1102</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-18"><a href="#Debugging"><span class="tocnumber">6</span> <span class="toctext">Debugging</span></a></li>
-<li class="toclevel-1 tocsection-19">
-<a href="#Connecting_to_APs"><span class="tocnumber">7</span> <span class="toctext">Connecting to APs</span></a>
-<ul>
-<li class="toclevel-2 tocsection-20"><a href="#Using_NetworkManager"><span class="tocnumber">7.1</span> <span class="toctext">Using NetworkManager</span></a></li>
-<li class="toclevel-2 tocsection-21"><a href="#Using_wpa_supplicant"><span class="tocnumber">7.2</span> <span class="toctext">Using wpa_supplicant</span></a></li>
-<li class="toclevel-2 tocsection-22"><a href="#Using_wpa_supplicant_.28manually.29"><span class="tocnumber">7.3</span> <span class="toctext">Using wpa_supplicant (manually)</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-23"><a href="#See_also"><span class="tocnumber">8</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="General_information">General information</span></h2>
-<p>To get wireless LAN working, most WiFi chips need a proprietary firmware blob. While it would be more secure to replace that with open source software in the long term, it isn't feasible right now, so we try to get it working with that closed source firmware.<br>
-A great place to start looking for information about many available WiFi chips is <a rel="nofollow" class="external text" href="https://wireless.wiki.kernel.org/en/users/drivers">this kernel.org page</a>. It often provides driver sources and the required firmware blobs as well. For a start if you want Internet working try the <a href="../en/USB_Internet.html" title="USB Internet">USB Internet</a> guide.
-</p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Instead of mounting Android's firmware partition, we package the files ourselves (see the <a href="../en/FAQ.html#Why_don.27t_we_use_firmware_files_from_Android.27s_firmware_partition.3F" title="FAQ">FAQ</a>).</td>
-</tr></tbody></table>
-<p>Useful links:
-</p>
-<ul>
-<li><a href="../en/Firmware.html" title="Firmware">How to find WiFi firmware files</a></li>
-<li><a href="../en/Device_specific_package.html#Proprietary_firmware_or_userland_blobs" title="Device specific package">How to package WiFi firmware</a></li>
-</ul>
-<h2><span class="mw-headline" id="Qualcomm_WiFi">Qualcomm WiFi</span></h2>
-<p>Devices with Qualcomm WiFi chips are usually very easy to get working. 
-</p>
-<p>You need to find the firmware files for your device, the main file is called <code>wcnss.mdt</code> and there should also be more files which are called <code>wcnss.b00</code>, <code>wcnss.b01</code>, etc. Copy them all onto your device into <code>/lib/firmware/postmarketos</code>.
-There may also be files starting with WCNSS, e.g. <code>WCNSS_cfg.dat WCNSS_qcom_cfg.ini WCNSS_qcom_wlan_nv.bin</code> - those should go into some path like <code>/lib/firmware/postmarketos/wlan/prima</code> or <code>/lib/firmware/postmarketos/wlan/qca_cld</code> depending on the device. You can use existing firmware packages as examples for which files go where, e.g. <code>aports/firmware/firmware-xiaomi-armani</code>.
-</p>
-<p>Then you can run as root (<code>sudo -i</code> first) <code>echo 1 &gt; /dev/wcnss_wlan</code> and <code>echo sta &gt; /sys/module/wlan/parameters/fwpath</code>. Check the output of <code>ip link</code> and a <code>wlan0</code> interface should have appeared! Now you can use NetworkManager to <a href="#Connecting_to_APs">connect to a WiFi network</a>!
-</p>
-<p>If that didn't work, please check the <a href="#Debugging">debugging</a> section how to find out what went wrong.
-</p>
-<p>For packaging, see <a href="../en/Device_specific_package.html#Proprietary_firmware_or_userland_blobs" title="Device specific package">that page</a> and add the <code>wcnss-wlan</code> package (which runs the two commands above at boot automatically) as a dependency to the WiFi subpackage.
-</p>
-<p>Test your packaging by flashing a new rootfs which includes your changes and see if WiFi works without any manual configuration.
-</p>
-<h2><span class="mw-headline" id="Broadcom_WiFi">Broadcom WiFi</span></h2>
-<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
-<strong>TODO</strong> This section needs expansion.</div>
-<p>Devices with Broadcom WiFi chips usually have the path to the firmware hardcoded in the kernel, mostly to <code>/system/vendor/firmware</code>. 
-</p>
-<p>In most cases you should be able to set <code>CONFIG_BCMDHD_FW_PATH</code> and <code>CONFIG_BCMDHD_NVRAM_PATH</code> in the kernel config. In other cases, you need to patch the kernel and change the path to <code>/lib/firmware/postmarketos</code> (see <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/blob/2fe8eb0fdfa37381d521844b6137c03593279002/aports/linux-samsung-i9070/04_change_dhd_firmware_dir.patch">this patch</a>).
-</p>
-<p>You can use the command <code>git grep "lib/firmware/postmarketos" device/linux-*</code> in pmaports to find how it's done for other devices.
-</p>
-<p>An example of how Broadcom was made to work can be found at <a href="../en/Samsung_Galaxy_S_Advance_(samsung-janice).html#How_drebrez_made_wifi_work" class="mw-redirect" title="Samsung Galaxy S Advance (samsung-i9070)">Samsung_Galaxy_S_Advance_(samsung-i9070)#How_drebrez_made_wifi_work</a> and <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/138/commits">in the corresponding GitHub pull request</a>. Another example is <a href="../en/Medion_Lifetab_S9714_(medion-kai).html#How_bonsaiblue_made_wifi_work" title="Medion Lifetab S9714 (medion-kai)">Medion_Lifetab_S9714_(medion-kai)#How_bonsaiblue_made_wifi_work</a>.
-</p>
-<p>Here's a quick rundown of the steps required to get Broadcom WiFi up and running:
-</p>
-<ul>
-<li>Locate the nvram and firmware files. You might be able to use the ones from <code>firmware-aosp-broadcom-wlan</code>, but if they don't work you can package your own.</li>
-<li>Modify your kernel config to point to the new firmware paths.</li>
-<li>Modify your kernel APKBUILD to build modules, so that you can use bcmdhd.</li>
-<li>Add a modules-load.conf file to your device package and put the bcmdhd module name (usually dhd) in it, then modify the APKBUILD to install the file. (This will auto-load the dhd module on startup.)</li>
-</ul>
-<p>See the <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/device-samsung-i9070">Galaxy S Advance device package</a>, <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/linux-samsung-i9070">Galaxy S Advance linux package</a> and <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/firmware-samsung-i9070">Galaxy S Advance firmware package</a> for reference.
-</p>
-<h2><span class="mw-headline" id="Mediatek_WiFi">Mediatek WiFi</span></h2>
-<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
-<strong>TODO</strong> Improve this section to include a general explanation for all MTK SoCs</div>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">There is at least one MediaTek device in pmaports with WiFi working. <a href="../en/Vernee_Thor_(vernee-k506).html#SoC_features" title="Vernee Thor (vernee-k506)">Vernee Thor Wifi Guide</a>
-</td>
-</tr></tbody></table>
-<h3>
-<span id="Introduction,_software"></span><span class="mw-headline" id="Introduction.2C_software">Introduction, software</span>
-</h3>
-<p>Devices with Mediatek WiFi chips are much more complicated to get working. The best way to know how your specific SoC works is to look at the init.rc scripts from an Android ROM available for your phone and look for the chip initialization (search for "/dev/stp", "mtk_stp" and "wmt").
-</p>
-<p>Usually, you may notice <code>wmt_loader</code> and <code>6620_loader</code> programs doing some work to initialize the wireless communication hardware. The tool called <code>6620_launcher</code> which (probably) loads the firmware from the filesystem into the kernel. Depending on device, <code>6620_launcher</code> can use different protocols for communicating with chip. This tool is a binary included in the Android installation and linked against the bionic libc, and could not be run on postmarketOS because it uses linking against musl. There are several solutions to this problem:
-</p>
-<ul>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/MediaDeb/android_hardware_mediatek/blob/master/combo_tool/src/stp_uart_launcher.c">Proprietary source code version of the original tool is available on GitHub</a>, and it can be compiled.</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/Dahrkael/openmttools">openmttools</a> written by <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/User:Dahrkael">Dahrkael</a>. At the time of writing this edit, openmttools does not support UART protocol.</li>
-</ul>
-<p>The <a rel="nofollow" class="external text" href="https://github.com/MediaDeb">MediaDeb project</a> has made systemd unit files running more or less the commands above on two of their supported devices:
-</p>
-<ul>
-<li>wifi_loader.service: runs <code>mt6620_loader.sh</code> (which does <code>mknod</code>) &amp; runs <code>wifi_loader</code> bin</li>
-<li>mt6620_launcher.service: runs 6620_launcher (<code>/usr/sbin/6620_launcher -b 4000000 -p /lib/firmware/ -d /dev/ttyMT2</code>)</li>
-<li>wifi.service: runs <code>echo 1 &gt; /dev/wmtWifi</code>
-</li>
-</ul>
-<h3><span class="mw-headline" id="MT6589">MT6589</span></h3>
-<p>On the <a href="../en/Fairphone_1_(fairphone-fp1).html" title="Fairphone 1 (fairphone-fp1)">Fairphone 1</a>, the order for initialization should be the following (based on the init.rc files from Android):
-</p>
-<pre># Install the files mt6628_ant_m1.cfg mt6628_patch_e1_hdr.bin mt6628_patch_e2_0_hdr.bin mt6628_patch_e2_1_hdr.bin WIFI_RAM_CODE_MT6628 WMT.cfg into /system/etc/firmware/ (path could be patched in the kernel sources)
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   WiFi - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-WiFi rootpage-WiFi skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    WiFi
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#General_information">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           General information
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Qualcomm_WiFi">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Qualcomm WiFi
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Broadcom_WiFi">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Broadcom WiFi
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Mediatek_WiFi">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Mediatek WiFi
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Introduction.2C_software">
+            <span class="tocnumber">
+             4.1
+            </span>
+            <span class="toctext">
+             Introduction, software
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#MT6589">
+            <span class="tocnumber">
+             4.2
+            </span>
+            <span class="toctext">
+             MT6589
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#MT6577_.28MT8317.29_with_MT6628_combochip">
+            <span class="tocnumber">
+             4.3
+            </span>
+            <span class="toctext">
+             MT6577 (MT8317) with MT6628 combochip
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-8">
+             <a href="#Sorting_out_possible_issues_with_downstream_kernels">
+              <span class="tocnumber">
+               4.3.1
+              </span>
+              <span class="toctext">
+               Sorting out possible issues with downstream kernels
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-9">
+             <a href="#Dumping_firmware_from_Android">
+              <span class="tocnumber">
+               4.3.2
+              </span>
+              <span class="toctext">
+               Dumping firmware from Android
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-10">
+             <a href="#Loading_modules">
+              <span class="tocnumber">
+               4.3.3
+              </span>
+              <span class="toctext">
+               Loading modules
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-11">
+             <a href="#Programs_overview">
+              <span class="tocnumber">
+               4.3.4
+              </span>
+              <span class="toctext">
+               Programs overview
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-12">
+             <a href="#.281.29_Bringing_up_wifi_using_downstream_executables">
+              <span class="tocnumber">
+               4.3.5
+              </span>
+              <span class="toctext">
+               (1) Bringing up wifi using downstream executables
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-13">
+             <a href="#.282.29_Bringing_up_wifi_using_modern_approach">
+              <span class="tocnumber">
+               4.3.6
+              </span>
+              <span class="toctext">
+               (2) Bringing up wifi using modern approach
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-14">
+         <a href="#HiSilicon_WiFi">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           HiSilicon WiFi
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-15">
+           <a href="#Introduction.2C_software_2">
+            <span class="tocnumber">
+             5.1
+            </span>
+            <span class="toctext">
+             Introduction, software
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-16">
+           <a href="#Hi1101">
+            <span class="tocnumber">
+             5.2
+            </span>
+            <span class="toctext">
+             Hi1101
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-17">
+           <a href="#Hi1102">
+            <span class="tocnumber">
+             5.3
+            </span>
+            <span class="toctext">
+             Hi1102
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-18">
+         <a href="#Debugging">
+          <span class="tocnumber">
+           6
+          </span>
+          <span class="toctext">
+           Debugging
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-19">
+         <a href="#Connecting_to_APs">
+          <span class="tocnumber">
+           7
+          </span>
+          <span class="toctext">
+           Connecting to APs
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-20">
+           <a href="#Using_NetworkManager">
+            <span class="tocnumber">
+             7.1
+            </span>
+            <span class="toctext">
+             Using NetworkManager
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-21">
+           <a href="#Using_wpa_supplicant">
+            <span class="tocnumber">
+             7.2
+            </span>
+            <span class="toctext">
+             Using wpa_supplicant
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-22">
+           <a href="#Using_wpa_supplicant_.28manually.29">
+            <span class="tocnumber">
+             7.3
+            </span>
+            <span class="toctext">
+             Using wpa_supplicant (manually)
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-23">
+         <a href="#See_also">
+          <span class="tocnumber">
+           8
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="General_information">
+        General information
+       </span>
+      </h2>
+      <p>
+       To get wireless LAN working, most WiFi chips need a proprietary firmware blob. While it would be more secure to replace that with open source software in the long term, it isn't feasible right now, so we try to get it working with that closed source firmware.
+       <br/>
+       A great place to start looking for information about many available WiFi chips is
+       <a class="external text" href="https://wireless.wiki.kernel.org/en/users/drivers" rel="nofollow">
+        this kernel.org page
+       </a>
+       . It often provides driver sources and the required firmware blobs as well. For a start if you want Internet working try the
+       <a href="../en/USB_Internet.html" title="USB Internet">
+        USB Internet
+       </a>
+       guide.
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Instead of mounting Android's firmware partition, we package the files ourselves (see the
+          <a href="../en/FAQ.html#Why_don.27t_we_use_firmware_files_from_Android.27s_firmware_partition.3F" title="FAQ">
+           FAQ
+          </a>
+          ).
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       Useful links:
+      </p>
+      <ul>
+       <li>
+        <a href="../en/Firmware.html" title="Firmware">
+         How to find WiFi firmware files
+        </a>
+       </li>
+       <li>
+        <a href="../en/Device_specific_package.html#Proprietary_firmware_or_userland_blobs" title="Device specific package">
+         How to package WiFi firmware
+        </a>
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Qualcomm_WiFi">
+        Qualcomm WiFi
+       </span>
+      </h2>
+      <p>
+       Devices with Qualcomm WiFi chips are usually very easy to get working.
+      </p>
+      <p>
+       You need to find the firmware files for your device, the main file is called
+       <code>
+        wcnss.mdt
+       </code>
+       and there should also be more files which are called
+       <code>
+        wcnss.b00
+       </code>
+       ,
+       <code>
+        wcnss.b01
+       </code>
+       , etc. Copy them all onto your device into
+       <code>
+        /lib/firmware/postmarketos
+       </code>
+       .
+There may also be files starting with WCNSS, e.g.
+       <code>
+        WCNSS_cfg.dat WCNSS_qcom_cfg.ini WCNSS_qcom_wlan_nv.bin
+       </code>
+       - those should go into some path like
+       <code>
+        /lib/firmware/postmarketos/wlan/prima
+       </code>
+       or
+       <code>
+        /lib/firmware/postmarketos/wlan/qca_cld
+       </code>
+       depending on the device. You can use existing firmware packages as examples for which files go where, e.g.
+       <code>
+        aports/firmware/firmware-xiaomi-armani
+       </code>
+       .
+      </p>
+      <p>
+       Then you can run as root (
+       <code>
+        sudo -i
+       </code>
+       first)
+       <code>
+        echo 1 &gt; /dev/wcnss_wlan
+       </code>
+       and
+       <code>
+        echo sta &gt; /sys/module/wlan/parameters/fwpath
+       </code>
+       . Check the output of
+       <code>
+        ip link
+       </code>
+       and a
+       <code>
+        wlan0
+       </code>
+       interface should have appeared! Now you can use NetworkManager to
+       <a href="#Connecting_to_APs">
+        connect to a WiFi network
+       </a>
+       !
+      </p>
+      <p>
+       If that didn't work, please check the
+       <a href="#Debugging">
+        debugging
+       </a>
+       section how to find out what went wrong.
+      </p>
+      <p>
+       For packaging, see
+       <a href="../en/Device_specific_package.html#Proprietary_firmware_or_userland_blobs" title="Device specific package">
+        that page
+       </a>
+       and add the
+       <code>
+        wcnss-wlan
+       </code>
+       package (which runs the two commands above at boot automatically) as a dependency to the WiFi subpackage.
+      </p>
+      <p>
+       Test your packaging by flashing a new rootfs which includes your changes and see if WiFi works without any manual configuration.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Broadcom_WiFi">
+        Broadcom WiFi
+       </span>
+      </h2>
+      <div class="todo" role="note" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+       <strong>
+        TODO
+       </strong>
+       This section needs expansion.
+      </div>
+      <p>
+       Devices with Broadcom WiFi chips usually have the path to the firmware hardcoded in the kernel, mostly to
+       <code>
+        /system/vendor/firmware
+       </code>
+       .
+      </p>
+      <p>
+       In most cases you should be able to set
+       <code>
+        CONFIG_BCMDHD_FW_PATH
+       </code>
+       and
+       <code>
+        CONFIG_BCMDHD_NVRAM_PATH
+       </code>
+       in the kernel config. In other cases, you need to patch the kernel and change the path to
+       <code>
+        /lib/firmware/postmarketos
+       </code>
+       (see
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/blob/2fe8eb0fdfa37381d521844b6137c03593279002/aports/linux-samsung-i9070/04_change_dhd_firmware_dir.patch" rel="nofollow">
+        this patch
+       </a>
+       ).
+      </p>
+      <p>
+       You can use the command
+       <code>
+        git grep "lib/firmware/postmarketos" device/linux-*
+       </code>
+       in pmaports to find how it's done for other devices.
+      </p>
+      <p>
+       An example of how Broadcom was made to work can be found at
+       <a class="mw-redirect" href="../en/Samsung_Galaxy_S_Advance_(samsung-janice).html#How_drebrez_made_wifi_work" title="Samsung Galaxy S Advance (samsung-i9070)">
+        Samsung_Galaxy_S_Advance_(samsung-i9070)#How_drebrez_made_wifi_work
+       </a>
+       and
+       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/138/commits" rel="nofollow">
+        in the corresponding GitHub pull request
+       </a>
+       . Another example is
+       <a href="../en/Medion_Lifetab_S9714_(medion-kai).html#How_bonsaiblue_made_wifi_work" title="Medion Lifetab S9714 (medion-kai)">
+        Medion_Lifetab_S9714_(medion-kai)#How_bonsaiblue_made_wifi_work
+       </a>
+       .
+      </p>
+      <p>
+       Here's a quick rundown of the steps required to get Broadcom WiFi up and running:
+      </p>
+      <ul>
+       <li>
+        Locate the nvram and firmware files. You might be able to use the ones from
+        <code>
+         firmware-aosp-broadcom-wlan
+        </code>
+        , but if they don't work you can package your own.
+       </li>
+       <li>
+        Modify your kernel config to point to the new firmware paths.
+       </li>
+       <li>
+        Modify your kernel APKBUILD to build modules, so that you can use bcmdhd.
+       </li>
+       <li>
+        Add a modules-load.conf file to your device package and put the bcmdhd module name (usually dhd) in it, then modify the APKBUILD to install the file. (This will auto-load the dhd module on startup.)
+       </li>
+      </ul>
+      <p>
+       See the
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/device-samsung-i9070" rel="nofollow">
+        Galaxy S Advance device package
+       </a>
+       ,
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/linux-samsung-i9070" rel="nofollow">
+        Galaxy S Advance linux package
+       </a>
+       and
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/firmware-samsung-i9070" rel="nofollow">
+        Galaxy S Advance firmware package
+       </a>
+       for reference.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Mediatek_WiFi">
+        Mediatek WiFi
+       </span>
+      </h2>
+      <div class="todo" role="note" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+       <strong>
+        TODO
+       </strong>
+       Improve this section to include a general explanation for all MTK SoCs
+      </div>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          There is at least one MediaTek device in pmaports with WiFi working.
+          <a href="../en/Vernee_Thor_(vernee-k506).html#SoC_features" title="Vernee Thor (vernee-k506)">
+           Vernee Thor Wifi Guide
+          </a>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h3>
+       <span id="Introduction,_software">
+       </span>
+       <span class="mw-headline" id="Introduction.2C_software">
+        Introduction, software
+       </span>
+      </h3>
+      <p>
+       Devices with Mediatek WiFi chips are much more complicated to get working. The best way to know how your specific SoC works is to look at the init.rc scripts from an Android ROM available for your phone and look for the chip initialization (search for "/dev/stp", "mtk_stp" and "wmt").
+      </p>
+      <p>
+       Usually, you may notice
+       <code>
+        wmt_loader
+       </code>
+       and
+       <code>
+        6620_loader
+       </code>
+       programs doing some work to initialize the wireless communication hardware. The tool called
+       <code>
+        6620_launcher
+       </code>
+       which (probably) loads the firmware from the filesystem into the kernel. Depending on device,
+       <code>
+        6620_launcher
+       </code>
+       can use different protocols for communicating with chip. This tool is a binary included in the Android installation and linked against the bionic libc, and could not be run on postmarketOS because it uses linking against musl. There are several solutions to this problem:
+      </p>
+      <ul>
+       <li>
+        <a class="external text" href="https://github.com/MediaDeb/android_hardware_mediatek/blob/master/combo_tool/src/stp_uart_launcher.c" rel="nofollow">
+         Proprietary source code version of the original tool is available on GitHub
+        </a>
+        , and it can be compiled.
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/Dahrkael/openmttools" rel="nofollow">
+         openmttools
+        </a>
+        written by
+        <a class="external text" href="https://wiki.postmarketos.org/wiki/User:Dahrkael" rel="nofollow">
+         Dahrkael
+        </a>
+        . At the time of writing this edit, openmttools does not support UART protocol.
+       </li>
+      </ul>
+      <p>
+       The
+       <a class="external text" href="https://github.com/MediaDeb" rel="nofollow">
+        MediaDeb project
+       </a>
+       has made systemd unit files running more or less the commands above on two of their supported devices:
+      </p>
+      <ul>
+       <li>
+        wifi_loader.service: runs
+        <code>
+         mt6620_loader.sh
+        </code>
+        (which does
+        <code>
+         mknod
+        </code>
+        ) &amp; runs
+        <code>
+         wifi_loader
+        </code>
+        bin
+       </li>
+       <li>
+        mt6620_launcher.service: runs 6620_launcher (
+        <code>
+         /usr/sbin/6620_launcher -b 4000000 -p /lib/firmware/ -d /dev/ttyMT2
+        </code>
+        )
+       </li>
+       <li>
+        wifi.service: runs
+        <code>
+         echo 1 &gt; /dev/wmtWifi
+        </code>
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="MT6589">
+        MT6589
+       </span>
+      </h3>
+      <p>
+       On the
+       <a href="../en/Fairphone_1_(fairphone-fp1).html" title="Fairphone 1 (fairphone-fp1)">
+        Fairphone 1
+       </a>
+       , the order for initialization should be the following (based on the init.rc files from Android):
+      </p>
+      <pre># Install the files mt6628_ant_m1.cfg mt6628_patch_e1_hdr.bin mt6628_patch_e2_0_hdr.bin mt6628_patch_e2_1_hdr.bin WIFI_RAM_CODE_MT6628 WMT.cfg into /system/etc/firmware/ (path could be patched in the kernel sources)
 insmod mtk_hif_sdio.ko
 insmod mtk_stp_wmt.ko
 insmod mtk_stp_uart.ko
@@ -179,47 +672,94 @@ insmod wlan_mt6628.ko
 
 echo 1 &gt; /dev/wmtWifi
 </pre>
-<h3>
-<span id="MT6577_(MT8317)_with_MT6628_combochip"></span><span class="mw-headline" id="MT6577_.28MT8317.29_with_MT6628_combochip">MT6577 (MT8317) with MT6628 combochip</span>
-</h3>
-<p>This section describes how <a href="../User:Arzamas-16.html" title="User:Arzamas-16">arzamas-16</a> made Wi-Fi work on Acer Iconia B1-A71 (not yet in pmaports) which has mt8317 (tablet revision of mt6577) SoC and mt6628 combochip on <a rel="nofollow" class="external text" href="https://github.com/arzam16/mt6577_kernel_Acer_B1_A71">downstream kernel (v3.4.113)</a>. The combochip on my device uses <b>UART</b> to communicate with operating system. Please keep in mind this section is meant to describe a set of «hacks» I went thru rather than being a complete guide. Also <a rel="nofollow" class="external text" href="https://www.urbandictionary.com/define.php?term=ymmv">YMMV</a> but at the time of writing scanning for networks, and connecting†, and accessing the internet work.
-</p>
-<p><b>Following my steps will not make wifi work on mt67xx</b> as these SoCs are more modern than the ancient stuff I have, and they use more tools which may be incompatible with those I describe below. I recommend checking out Dahrkael's and MediaDeb projects (see above).
-</p>
-<p>† there are 2 methods you can get working Wi-Fi right now: using the downstream executables and their dependencies or using the modern software offered by postmarketOS.
-</p>
-<table class="wikitable">
-<tbody>
-<tr>
-<th>Method
-</th>
-<th>Pros
-</th>
-<th>Cons
-</th>
-</tr>
-<tr>
-<td>Using downstream executables
-</td>
-<td>Less time demanding.
-</td>
-<td>Could only be configured through console. Incompatible with networkmanager. Effectively crashes wpa_supplicant and networkmanager services. Requires running many outdated proprietary executables. Needs a lot of space to store these binaries. Less flexible configuring.
-</td>
-</tr>
-<tr>
-<td>Modern approach
-</td>
-<td>Compatible with postmarketOS services. Configurable via GUI (tested in XFCE4). Uses more fresh open source software. Less dependent on precompiled binaries.
-</td>
-<td>Takes a lot of time in case when your device is specific or very old.
-</td>
-</tr>
-</tbody>
-</table>
-<h4><span class="mw-headline" id="Sorting_out_possible_issues_with_downstream_kernels">Sorting out possible issues with downstream kernels</span></h4>
-<p><b>1.</b> Ensure that kernel modules are compiled and packaged into your pmOS installation! In my <code>linux-.../APKBUILD</code> I package them the following way:
-</p>
-<pre>package() {
+      <h3>
+       <span id="MT6577_(MT8317)_with_MT6628_combochip">
+       </span>
+       <span class="mw-headline" id="MT6577_.28MT8317.29_with_MT6628_combochip">
+        MT6577 (MT8317) with MT6628 combochip
+       </span>
+      </h3>
+      <p>
+       This section describes how
+       <a href="../User:Arzamas-16.html" title="User:Arzamas-16">
+        arzamas-16
+       </a>
+       made Wi-Fi work on Acer Iconia B1-A71 (not yet in pmaports) which has mt8317 (tablet revision of mt6577) SoC and mt6628 combochip on
+       <a class="external text" href="https://github.com/arzam16/mt6577_kernel_Acer_B1_A71" rel="nofollow">
+        downstream kernel (v3.4.113)
+       </a>
+       . The combochip on my device uses
+       <b>
+        UART
+       </b>
+       to communicate with operating system. Please keep in mind this section is meant to describe a set of «hacks» I went thru rather than being a complete guide. Also
+       <a class="external text" href="https://www.urbandictionary.com/define.php?term=ymmv" rel="nofollow">
+        YMMV
+       </a>
+       but at the time of writing scanning for networks, and connecting†, and accessing the internet work.
+      </p>
+      <p>
+       <b>
+        Following my steps will not make wifi work on mt67xx
+       </b>
+       as these SoCs are more modern than the ancient stuff I have, and they use more tools which may be incompatible with those I describe below. I recommend checking out Dahrkael's and MediaDeb projects (see above).
+      </p>
+      <p>
+       † there are 2 methods you can get working Wi-Fi right now: using the downstream executables and their dependencies or using the modern software offered by postmarketOS.
+      </p>
+      <table class="wikitable">
+       <tbody>
+        <tr>
+         <th>
+          Method
+         </th>
+         <th>
+          Pros
+         </th>
+         <th>
+          Cons
+         </th>
+        </tr>
+        <tr>
+         <td>
+          Using downstream executables
+         </td>
+         <td>
+          Less time demanding.
+         </td>
+         <td>
+          Could only be configured through console. Incompatible with networkmanager. Effectively crashes wpa_supplicant and networkmanager services. Requires running many outdated proprietary executables. Needs a lot of space to store these binaries. Less flexible configuring.
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Modern approach
+         </td>
+         <td>
+          Compatible with postmarketOS services. Configurable via GUI (tested in XFCE4). Uses more fresh open source software. Less dependent on precompiled binaries.
+         </td>
+         <td>
+          Takes a lot of time in case when your device is specific or very old.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h4>
+       <span class="mw-headline" id="Sorting_out_possible_issues_with_downstream_kernels">
+        Sorting out possible issues with downstream kernels
+       </span>
+      </h4>
+      <p>
+       <b>
+        1.
+       </b>
+       Ensure that kernel modules are compiled and packaged into your pmOS installation! In my
+       <code>
+        linux-.../APKBUILD
+       </code>
+       I package them the following way:
+      </p>
+      <pre>package() {
 	downstreamkernel_package "$builddir" "$pkgdir" "$_carch" "$_flavor" "$_outdir"
 	# Modules
 	unset LDFLAGS
@@ -230,33 +770,93 @@ echo 1 &gt; /dev/wmtWifi
 
 }
 </pre>
-<p>In my case, they have been installed to <code>/lib/modules/3.4.113/kernel/mediatek/kernel/drivers/combo</code>
-</p>
-<p><b>2.</b> For some downstream mediatek kernels gcc6 complains about <code>gl_kal.h</code>, if you will get such errors apply <a rel="nofollow" class="external text" href="https://github.com/arzam16/mt6577_kernel_Acer_B1_A71/commit/72995fe0f9a1e30979d2dbe293b4af40add051f0">this simple kernel patch</a>!
-</p>
-<p><b>3.</b> In order to be able to connect to password-protected networks, be sure to have <a rel="nofollow" class="external text" href="https://github.com/arzam16/mt6577_kernel_Acer_B1_A71/commit/b54456513f1a00548cbfcea94839976231402d98">this kernel patch</a> applied!
-</p>
-<p><b>4.</b> All downstream kernels I've worked with have many hardcoded paths specific to Android. As stated at the top of this page, postmarketOS packages firmware blobs so they will definitely be in the other path. You can either:
-</p>
-<ul>
-<li>Manually replace hardcoded paths once in the source code</li>
-<li>Make firmware paths customizable with kernel config options so you could change many paths with a single kconfig change. See my commits which do it with <a rel="nofollow" class="external text" href="https://github.com/arzam16/mt6577_kernel_Acer_B1_A71/commit/3200ab47b0cf20864cb10bdf2315c2fad8b569f5">wifi</a> and <a rel="nofollow" class="external text" href="https://github.com/arzam16/mt6577_kernel_Acer_B1_A71/commit/7f6105f85b83bdcb289ac34c5eee2c0a4f91b179">nvram</a> paths. In my kernel config for postmarketOS I've set:</li>
-</ul>
-<pre>CONFIG_MTK_WMT_FW_PATH="/lib/firmware/postmarketos/"
+      <p>
+       In my case, they have been installed to
+       <code>
+        /lib/modules/3.4.113/kernel/mediatek/kernel/drivers/combo
+       </code>
+      </p>
+      <p>
+       <b>
+        2.
+       </b>
+       For some downstream mediatek kernels gcc6 complains about
+       <code>
+        gl_kal.h
+       </code>
+       , if you will get such errors apply
+       <a class="external text" href="https://github.com/arzam16/mt6577_kernel_Acer_B1_A71/commit/72995fe0f9a1e30979d2dbe293b4af40add051f0" rel="nofollow">
+        this simple kernel patch
+       </a>
+       !
+      </p>
+      <p>
+       <b>
+        3.
+       </b>
+       In order to be able to connect to password-protected networks, be sure to have
+       <a class="external text" href="https://github.com/arzam16/mt6577_kernel_Acer_B1_A71/commit/b54456513f1a00548cbfcea94839976231402d98" rel="nofollow">
+        this kernel patch
+       </a>
+       applied!
+      </p>
+      <p>
+       <b>
+        4.
+       </b>
+       All downstream kernels I've worked with have many hardcoded paths specific to Android. As stated at the top of this page, postmarketOS packages firmware blobs so they will definitely be in the other path. You can either:
+      </p>
+      <ul>
+       <li>
+        Manually replace hardcoded paths once in the source code
+       </li>
+       <li>
+        Make firmware paths customizable with kernel config options so you could change many paths with a single kconfig change. See my commits which do it with
+        <a class="external text" href="https://github.com/arzam16/mt6577_kernel_Acer_B1_A71/commit/3200ab47b0cf20864cb10bdf2315c2fad8b569f5" rel="nofollow">
+         wifi
+        </a>
+        and
+        <a class="external text" href="https://github.com/arzam16/mt6577_kernel_Acer_B1_A71/commit/7f6105f85b83bdcb289ac34c5eee2c0a4f91b179" rel="nofollow">
+         nvram
+        </a>
+        paths. In my kernel config for postmarketOS I've set:
+       </li>
+      </ul>
+      <pre>CONFIG_MTK_WMT_FW_PATH="/lib/firmware/postmarketos/"
 CONFIG_MTK_NVRAM_PATH="/lib/firmware/postmarketos/"
 </pre>
-<h4><span class="mw-headline" id="Dumping_firmware_from_Android">Dumping firmware from Android</span></h4>
-<p>This step should be done prior to flashing postmarketOS. If you plan to bring up wifi using downstream executables then also check the steps in corresponding section prior to flashing postmarketOS.
+      <h4>
+       <span class="mw-headline" id="Dumping_firmware_from_Android">
+        Dumping firmware from Android
+       </span>
+      </h4>
+      <p>
+       This step should be done prior to flashing postmarketOS. If you plan to bring up wifi using downstream executables then also check the steps in corresponding section prior to flashing postmarketOS.
 Dump the following:
-</p>
-<ul>
-<li>Contents of <code>/system/etc/firmware/</code> (there should be ~10 files)</li>
-<li>
-<code>/data/nvram</code> directory</li>
-</ul>
-<p>After flashing postmarketOS, copy the dumped files to <code>/lib/firmware/postmarketos</code> so the structure will look like
-</p>
-<pre>giordano:~$ ll /lib/firmware/postmarketos/
+      </p>
+      <ul>
+       <li>
+        Contents of
+        <code>
+         /system/etc/firmware/
+        </code>
+        (there should be ~10 files)
+       </li>
+       <li>
+        <code>
+         /data/nvram
+        </code>
+        directory
+       </li>
+      </ul>
+      <p>
+       After flashing postmarketOS, copy the dumped files to
+       <code>
+        /lib/firmware/postmarketos
+       </code>
+       so the structure will look like
+      </p>
+      <pre>giordano:~$ ll /lib/firmware/postmarketos/
 total 3.9M
 drwxr-xr-x 3 root 4.0K Aug 24 21:57 .
 drwxr-xr-x 3 root 4.0K Jan  1  2012 ..
@@ -266,14 +866,37 @@ drwxr-xr-x 5 root 4.0K Aug 24 21:57 nvram/
 -rw-r--r-- 1 root  28K Aug 24 21:53 mt6628_patch_e1_hdr.bin
 -rw-r--r-- 1 root  25K Aug 24 21:53 mt6628_patch_e2_hdr.bin
 </pre>
-<h4><span class="mw-headline" id="Loading_modules">Loading modules</span></h4>
-<p>First of all, it's important to understand how Wi-Fi initialization happens on your device when running Android. For this, you will need to acquire .rc scripts from the ramdisk. Look for init.rc and whatever it invokes. In my case I had 2 files: init.rc and init.project.rc. Here is the part related to wifi from init.rc (omitting unnecessary stuff like numerous chmod's and chown's):
-</p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Notice that .rc files mention mt662<b>0</b> while in fact the combochip in my device is mt662<b>8</b>. Check where the /system/lib/modules/wlan.ko links to!</td>
-</tr></tbody></table>
-<pre>#
+      <h4>
+       <span class="mw-headline" id="Loading_modules">
+        Loading modules
+       </span>
+      </h4>
+      <p>
+       First of all, it's important to understand how Wi-Fi initialization happens on your device when running Android. For this, you will need to acquire .rc scripts from the ramdisk. Look for init.rc and whatever it invokes. In my case I had 2 files: init.rc and init.project.rc. Here is the part related to wifi from init.rc (omitting unnecessary stuff like numerous chmod's and chown's):
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Notice that .rc files mention mt662
+          <b>
+           0
+          </b>
+          while in fact the combochip in my device is mt662
+          <b>
+           8
+          </b>
+          . Check where the /system/lib/modules/wlan.ko links to!
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <pre>#
 # MT6620 related device nodes &amp; configuration (begin)
 #
 
@@ -298,16 +921,40 @@ drwxr-xr-x 5 root 4.0K Aug 24 21:57 nvram/
 # MT6620 related device nodes &amp; configuration (end)
 #
 </pre>
-<p>The next step is to load said modules and I wrote a simple script for doing this on my device: <a rel="nofollow" class="external text" href="https://gist.github.com/arzam16/6b7680a82df394f8bb0b12af09b34b23">Github Gist</a>, invokation: <code>sudo ./01-load-wifi-modules.sh</code>. At this point we've replicated the work done in init.rc on Android regarding wifi.
-</p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">The modules should be loaded at every boot</td>
-</tr></tbody></table>
-<h4><span class="mw-headline" id="Programs_overview">Programs overview</span></h4>
-<p>Here is the part related to wifi from init.project.rc (omitting unnecessary parts like detailed service parameters):
-</p>
-<pre>service 6620_launcher /system/bin/6620_launcher -m 1 -b 4000000 -p /system/etc/firmware/ -d /dev/ttyMT2 (config omitted...)
+      <p>
+       The next step is to load said modules and I wrote a simple script for doing this on my device:
+       <a class="external text" href="https://gist.github.com/arzam16/6b7680a82df394f8bb0b12af09b34b23" rel="nofollow">
+        Github Gist
+       </a>
+       , invokation:
+       <code>
+        sudo ./01-load-wifi-modules.sh
+       </code>
+       . At this point we've replicated the work done in init.rc on Android regarding wifi.
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          The modules should be loaded at every boot
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h4>
+       <span class="mw-headline" id="Programs_overview">
+        Programs overview
+       </span>
+      </h4>
+      <p>
+       Here is the part related to wifi from init.project.rc (omitting unnecessary parts like detailed service parameters):
+      </p>
+      <pre>service 6620_launcher /system/bin/6620_launcher -m 1 -b 4000000 -p /system/etc/firmware/ -d /dev/ttyMT2 (config omitted...)
 service stp_dump /system/bin/stp_dump3 (config omitted...)
 service hald /system/bin/hald (config omitted...)   
 service p2p_supplicant (config omitted...)
@@ -316,153 +963,524 @@ service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
 	(config omitted...)
 service ap_daemon (config omitted...)
 </pre>
-<p>Now it's necessary to sort out which programs (services) are required to start wifi. Below is a very short description of programs mentioned in my init.project.rc file.
-</p>
-<ul>
-<li>6620_launcher<sup><b>required</b></sup> establishes a connection with a combochip, does some simple initialization and uploads a firmware blob.</li>
-<li>stp_dump3 is used for debugging. Comments in the code say this program can break/disrupt wpa_supplicant.</li>
-<li>hald<sup><b>required</b></sup>. On Android it loads and unloads kernel modules and manages combochip power. In fact, on postmarketOS this whole program could be replaced with one (worst case: two) shell command (more on that below).</li>
-<li>p2p_supplicant manages features such as Wi-Fi Direct. I don't need it in my case.</li>
-<li>wpa_supplicant<sup><b>required</b></sup> manages wifi connection. A vital part of wireless networking.</li>
-<li>ap_daemon allows to create a wireless access point. I don't need it in my case.</li>
-</ul>
-<p>As we can see, only 6620_launcher, and hald, and wpa_supplicant are required to start wifi.
-</p>
-<h4>
-<span id="(1)_Bringing_up_wifi_using_downstream_executables"></span><span class="mw-headline" id=".281.29_Bringing_up_wifi_using_downstream_executables">(1) Bringing up wifi using downstream executables</span>
-</h4>
-<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"><br><b>Warning!</b></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">This method is frowned upon in postmarketOS community. We encourage you to use as much open source software as possible. Proceed on your own!</td>
-</tr></tbody></table>
-<p>In this part I will lack some details but you'll be able to easily figure out what to do.
-</p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Note to save <code>/misc/wifi/wpa_supplicant.conf</code> from Android to prevent unnecessary headache. Better if it already has your network saved.</td>
-</tr></tbody></table>
-<p><b>1.</b> From the running Android, dump:
-</p>
-<ul>
-<li>
-<code>/system/bin/linker</code>, do not forget it as this thing is very important</li>
-<li><code>/system/bin/6620_launcher</code></li>
-<li><code>/system/bin/wpa_supplicant</code></li>
-<li>The whole <code>/system/lib</code> directory</li>
-</ul>
-<p>Recreate same structure in your postmarketOS installation: put dumped <code>/system/...</code> stuff in the root.
-</p>
-<p><b>2.</b> Stop and disable wpa_supplicant and networkmanager, I've made a stupid script for this:
-</p>
-<pre>#!/bin/sh
+      <p>
+       Now it's necessary to sort out which programs (services) are required to start wifi. Below is a very short description of programs mentioned in my init.project.rc file.
+      </p>
+      <ul>
+       <li>
+        6620_launcher
+        <sup>
+         <b>
+          required
+         </b>
+        </sup>
+        establishes a connection with a combochip, does some simple initialization and uploads a firmware blob.
+       </li>
+       <li>
+        stp_dump3 is used for debugging. Comments in the code say this program can break/disrupt wpa_supplicant.
+       </li>
+       <li>
+        hald
+        <sup>
+         <b>
+          required
+         </b>
+        </sup>
+        . On Android it loads and unloads kernel modules and manages combochip power. In fact, on postmarketOS this whole program could be replaced with one (worst case: two) shell command (more on that below).
+       </li>
+       <li>
+        p2p_supplicant manages features such as Wi-Fi Direct. I don't need it in my case.
+       </li>
+       <li>
+        wpa_supplicant
+        <sup>
+         <b>
+          required
+         </b>
+        </sup>
+        manages wifi connection. A vital part of wireless networking.
+       </li>
+       <li>
+        ap_daemon allows to create a wireless access point. I don't need it in my case.
+       </li>
+      </ul>
+      <p>
+       As we can see, only 6620_launcher, and hald, and wpa_supplicant are required to start wifi.
+      </p>
+      <h4>
+       <span id="(1)_Bringing_up_wifi_using_downstream_executables">
+       </span>
+       <span class="mw-headline" id=".281.29_Bringing_up_wifi_using_downstream_executables">
+        (1) Bringing up wifi using downstream executables
+       </span>
+      </h4>
+      <table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Icon" decoding="async" height="20" src="../Red_warning_icon.svg" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x" title="Icon" width="20"/>
+           <br/>
+           <b>
+            Warning!
+           </b>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          This method is frowned upon in postmarketOS community. We encourage you to use as much open source software as possible. Proceed on your own!
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       In this part I will lack some details but you'll be able to easily figure out what to do.
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Note to save
+          <code>
+           /misc/wifi/wpa_supplicant.conf
+          </code>
+          from Android to prevent unnecessary headache. Better if it already has your network saved.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       <b>
+        1.
+       </b>
+       From the running Android, dump:
+      </p>
+      <ul>
+       <li>
+        <code>
+         /system/bin/linker
+        </code>
+        , do not forget it as this thing is very important
+       </li>
+       <li>
+        <code>
+         /system/bin/6620_launcher
+        </code>
+       </li>
+       <li>
+        <code>
+         /system/bin/wpa_supplicant
+        </code>
+       </li>
+       <li>
+        The whole
+        <code>
+         /system/lib
+        </code>
+        directory
+       </li>
+      </ul>
+      <p>
+       Recreate same structure in your postmarketOS installation: put dumped
+       <code>
+        /system/...
+       </code>
+       stuff in the root.
+      </p>
+      <p>
+       <b>
+        2.
+       </b>
+       Stop and disable wpa_supplicant and networkmanager, I've made a stupid script for this:
+      </p>
+      <pre>#!/bin/sh
 
 for s in "networkmanager" "wpa_supplicant"; do
 	sudo rc-update del "$s" default
 	sudo rc-service "$s" stop
 	rc-service "$s" status
 done</pre>
-<p><b>3.</b> After you've loaded the kernel modules, start the 6620_loader using parameters from the .rc scripts from your device <b>but</b> change the path to firmware. As <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Vernee_Thor_(vernee-k506)">Vernee Thor wiki page</a> states, this program needs to keep running, so better send it to background with &amp;. Example:
-</p>
-<pre>/system/bin/6620_launcher -m 1 -b 4000000 -p /lib/firmware/postmarketos/ -d /dev/ttyMT2 &amp;
+      <p>
+       <b>
+        3.
+       </b>
+       After you've loaded the kernel modules, start the 6620_loader using parameters from the .rc scripts from your device
+       <b>
+        but
+       </b>
+       change the path to firmware. As
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Vernee_Thor_(vernee-k506)" rel="nofollow">
+        Vernee Thor wiki page
+       </a>
+       states, this program needs to keep running, so better send it to background with &amp;. Example:
+      </p>
+      <pre>/system/bin/6620_launcher -m 1 -b 4000000 -p /lib/firmware/postmarketos/ -d /dev/ttyMT2 &amp;
 </pre>
-<p>Hit enter second time to return to console.
-</p>
-<p><b>4.</b> Power on the combochip:
-</p>
-<pre>echo -n '1' &gt; /dev/wmtWifi
+      <p>
+       Hit enter second time to return to console.
+      </p>
+      <p>
+       <b>
+        4.
+       </b>
+       Power on the combochip:
+      </p>
+      <pre>echo -n '1' &gt; /dev/wmtWifi
 </pre>
-<p>This takes few seconds to run and you will see some logs from 6620_launcher indicating uploading firmware into the combochip which has been turned on.
-</p>
-<p><b>5.</b> Launch wpa_supplicant parameters from the .rc scripts from your device. It's safe to omit entropy file and don't forget to supply the conf file. Depending on the wpa_supplicant implementation, you may or may <i>not</i> see the log output. You can also run this program in background using the <code>&amp;</code>. Example:
-</p>
-<pre>/system/bin/wpa_supplicant -iwlan0 -Dnl80211 -c/home/user/my_wifi_network.conf -ddd
+      <p>
+       This takes few seconds to run and you will see some logs from 6620_launcher indicating uploading firmware into the combochip which has been turned on.
+      </p>
+      <p>
+       <b>
+        5.
+       </b>
+       Launch wpa_supplicant parameters from the .rc scripts from your device. It's safe to omit entropy file and don't forget to supply the conf file. Depending on the wpa_supplicant implementation, you may or may
+       <i>
+        not
+       </i>
+       see the log output. You can also run this program in background using the
+       <code>
+        &amp;
+       </code>
+       . Example:
+      </p>
+      <pre>/system/bin/wpa_supplicant -iwlan0 -Dnl80211 -c/home/user/my_wifi_network.conf -ddd
 </pre>
-<p><b>6.</b> The last thing is to acquire an IP address from your access point! Use whatever program you want, I used <code>dhcpcd</code>
-</p>
-<h4>
-<span id="(2)_Bringing_up_wifi_using_modern_approach"></span><span class="mw-headline" id=".282.29_Bringing_up_wifi_using_modern_approach">(2) Bringing up wifi using modern approach</span>
-</h4>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Author of this section performed all these steps directly on live postmarketOS installation. You packaging experience with pmbootstrap may vary</td>
-</tr></tbody></table>
-<p><b>1.</b> The first and the hardest step is to find compatible <code>6620_launcher</code> and build it.
-</p>
-<p>The problem is Mediatek doesn't provide the source code of this tool as part of the kernel source code. Chances are extremely low but if your device vendor supplies <code>6620_launcher</code> source code, you saved yourself tons of time. In my case I went straight to Github and began searching for the source code, usually there are various versions accidentally shared either by mediatek or device vendors.
-</p>
-<p><sup>Another <b>huge problem</b> is how Mediatek does versioning of <code>6620_launcher</code> - all executables I've seen have "1.0-release" version code but their functionality varies to the greatest extent. For example, the MediaDeb Project's source code did <b>not</b> work on my device at all because it invokes IOCTL calls which are not supported by the old WMT driver at all. You will need to either rely on luck or carefully read through the source code.</sup>
-</p>
-<p>You can use my <a rel="nofollow" class="external text" href="https://github.com/search?l=C&amp;q=CUST_COMBO_PATCH_PATH&amp;type=Code">Github search query</a> but you'll need to sign into your account. At the time of writing, there are 66 repositories with <code>6620_launcher</code>.
-</p>
-<p>I also had to load my <code>6620_launcher</code> from Android into <a rel="nofollow" class="external text" href="https://ghidra-sre.org/">Ghidra SRE</a> on my PC to compare algorithms with sources on GH and to dump strings - some of them are unique to specific versions and it makes searching easier, for example my version doesn't have this string: <code>"SOC chip no need do combo chip power on.\n"</code>. 
-</p>
-<p>After all of this, I've found working <code>stp_uart_launcher</code> in <a rel="nofollow" class="external text" href="https://github.com/wedoinnov/HD5_lichee/blob/cc52f12aad006f9ed12a6dbd308873989396f7e5/buildroot/target/dragonboard/src/testcases/wifitester/stp_uart_launcher/stp_uart_launcher.c">wedoinnov/HD5_lichee repo</a>, omitting the firmware blobs. <b>Most likely this tool will work on other old</b> mt6575/mt6577/mt8317/mt8377 <b>devices</b> with mt6620/mt6628 combochips <u>that work over UART</u>.
-</p>
-<p><b>2.</b> After you've loaded the kernel modules, start the freshly compiled <code>6620_launcher</code> using parameters from the .rc scripts from your device <b>but</b> change the path to firmware. As <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Vernee_Thor_(vernee-k506)">Vernee Thor wiki page</a> states, this program needs to keep running, so better send it to background with <code>&amp;</code>. Example:
-</p>
-<pre>/home/user/wifi/HD5_lichee/6620_launcher -m 1 -b 4000000 -p /lib/firmware/postmarketos/ -d /dev/ttyMT2 &amp;
+      <p>
+       <b>
+        6.
+       </b>
+       The last thing is to acquire an IP address from your access point! Use whatever program you want, I used
+       <code>
+        dhcpcd
+       </code>
+      </p>
+      <h4>
+       <span id="(2)_Bringing_up_wifi_using_modern_approach">
+       </span>
+       <span class="mw-headline" id=".282.29_Bringing_up_wifi_using_modern_approach">
+        (2) Bringing up wifi using modern approach
+       </span>
+      </h4>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Author of this section performed all these steps directly on live postmarketOS installation. You packaging experience with pmbootstrap may vary
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       <b>
+        1.
+       </b>
+       The first and the hardest step is to find compatible
+       <code>
+        6620_launcher
+       </code>
+       and build it.
+      </p>
+      <p>
+       The problem is Mediatek doesn't provide the source code of this tool as part of the kernel source code. Chances are extremely low but if your device vendor supplies
+       <code>
+        6620_launcher
+       </code>
+       source code, you saved yourself tons of time. In my case I went straight to Github and began searching for the source code, usually there are various versions accidentally shared either by mediatek or device vendors.
+      </p>
+      <p>
+       <sup>
+        Another
+        <b>
+         huge problem
+        </b>
+        is how Mediatek does versioning of
+        <code>
+         6620_launcher
+        </code>
+        - all executables I've seen have "1.0-release" version code but their functionality varies to the greatest extent. For example, the MediaDeb Project's source code did
+        <b>
+         not
+        </b>
+        work on my device at all because it invokes IOCTL calls which are not supported by the old WMT driver at all. You will need to either rely on luck or carefully read through the source code.
+       </sup>
+      </p>
+      <p>
+       You can use my
+       <a class="external text" href="https://github.com/search?l=C&amp;q=CUST_COMBO_PATCH_PATH&amp;type=Code" rel="nofollow">
+        Github search query
+       </a>
+       but you'll need to sign into your account. At the time of writing, there are 66 repositories with
+       <code>
+        6620_launcher
+       </code>
+       .
+      </p>
+      <p>
+       I also had to load my
+       <code>
+        6620_launcher
+       </code>
+       from Android into
+       <a class="external text" href="https://ghidra-sre.org/" rel="nofollow">
+        Ghidra SRE
+       </a>
+       on my PC to compare algorithms with sources on GH and to dump strings - some of them are unique to specific versions and it makes searching easier, for example my version doesn't have this string:
+       <code>
+        "SOC chip no need do combo chip power on.\n"
+       </code>
+       .
+      </p>
+      <p>
+       After all of this, I've found working
+       <code>
+        stp_uart_launcher
+       </code>
+       in
+       <a class="external text" href="https://github.com/wedoinnov/HD5_lichee/blob/cc52f12aad006f9ed12a6dbd308873989396f7e5/buildroot/target/dragonboard/src/testcases/wifitester/stp_uart_launcher/stp_uart_launcher.c" rel="nofollow">
+        wedoinnov/HD5_lichee repo
+       </a>
+       , omitting the firmware blobs.
+       <b>
+        Most likely this tool will work on other old
+       </b>
+       mt6575/mt6577/mt8317/mt8377
+       <b>
+        devices
+       </b>
+       with mt6620/mt6628 combochips
+       <u>
+        that work over UART
+       </u>
+       .
+      </p>
+      <p>
+       <b>
+        2.
+       </b>
+       After you've loaded the kernel modules, start the freshly compiled
+       <code>
+        6620_launcher
+       </code>
+       using parameters from the .rc scripts from your device
+       <b>
+        but
+       </b>
+       change the path to firmware. As
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Vernee_Thor_(vernee-k506)" rel="nofollow">
+        Vernee Thor wiki page
+       </a>
+       states, this program needs to keep running, so better send it to background with
+       <code>
+        &amp;
+       </code>
+       . Example:
+      </p>
+      <pre>/home/user/wifi/HD5_lichee/6620_launcher -m 1 -b 4000000 -p /lib/firmware/postmarketos/ -d /dev/ttyMT2 &amp;
 </pre>
-<p>Hit enter second time to return to console.
-</p>
-<p><b>3.</b> Power on the combochip:
-</p>
-<pre>echo -n '1' &gt; /dev/wmtWifi
+      <p>
+       Hit enter second time to return to console.
+      </p>
+      <p>
+       <b>
+        3.
+       </b>
+       Power on the combochip:
+      </p>
+      <pre>echo -n '1' &gt; /dev/wmtWifi
 </pre>
-<p>This takes few seconds to run and you will see some logs from <code>6620_launcher</code> indicating uploading firmware into the combochip which has been turned on.
-</p>
-<p><b>4.</b> Wait for a few seconds for the network interface to initialize and now you will be able to connect to wifi using network manager of your desktop environment. Enjoy the internet!
-</p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">There's a bug when the password prompt doesn't appear upon connecting to secure network in XFCE4. Use <code>nmtui</code> to work it around.</td>
-</tr></tbody></table>
-<h2><span class="mw-headline" id="HiSilicon_WiFi">HiSilicon WiFi</span></h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">This section is in WIP state. Feel free to add more information.</td>
-</tr></tbody></table>
-<h3>
-<span id="Introduction,_software_2"></span><span class="mw-headline" id="Introduction.2C_software_2">Introduction, software</span>
-</h3>
-<p>Devices with HiSilicon WiFi chips are comparatively easy to get working. If following instructions don't work for your device, you'll need to look at the *.rc scripts from an Android ROM available for your phone, as well as any other relevant for wifi scripts that they point to (search for hisi, hi110x, hi1101, hi1102, connectivity). In them you'll find `echo` (or `write` that can be translated to `echo`) commands that need to be run to initialize the wireless communication hardware.
-</p>
-<p>The path to the firmware is usually hardcoded in the kernel and firmware files themselves to <code>/vendor/firmware</code> or <code>/system/vendor/firmware</code>, so if you want to change the path to <code>/lib/firmware/postmarketos</code> you'll need to patch the kernel and edit the *_cfg firmware files (see <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/device/testing/linux-huawei-warsaw/06-change-bfgx-and-wifi-cfg-paths.patch">this patch</a>).
-</p>
-<p>An example of how HiSilicon was made to work can be found at <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/User:Ignapk#How_ignapk_made_wifi_work">https://wiki.postmarketos.org/wiki/User:Ignapk#How_ignapk_made_wifi_work</a> and <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2221">the corresponding merge request</a>
-</p>
-<p>For packaging, see <a href="../en/Device_specific_package.html#Proprietary_firmware_or_userland_blobs" title="Device specific package">that page</a> and add the <code>hisi-wlan</code> package as a dependency to the WiFi subpackage.
-</p>
-<h3><span class="mw-headline" id="Hi1101">Hi1101</span></h3>
-<p>On the <a href="../en/Huawei_P8_Lite_(huawei-alice).html" title="Huawei P8 Lite (huawei-alice)">Huawei P8 Lite</a>, the order of the initialization should be the following (based on the *.rc files from Android <a rel="nofollow" class="external text" href="https://github.com/DarkJoker360/android_vendor_huawei_alice/blob/cm-14.1/proprietary/bin/start_connectivity_hisi#L17-L20">1</a> <a rel="nofollow" class="external text" href="https://github.com/DarkJoker360/android_device_huawei_alice/blob/cm-14.1/rootdir/etc/init.hi6210sft.rc#L889-L891">2</a>):
-</p>
-<pre># Install the firmware blobs into /system/vendor/firmware
+      <p>
+       This takes few seconds to run and you will see some logs from
+       <code>
+        6620_launcher
+       </code>
+       indicating uploading firmware into the combochip which has been turned on.
+      </p>
+      <p>
+       <b>
+        4.
+       </b>
+       Wait for a few seconds for the network interface to initialize and now you will be able to connect to wifi using network manager of your desktop environment. Enjoy the internet!
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          There's a bug when the password prompt doesn't appear upon connecting to secure network in XFCE4. Use
+          <code>
+           nmtui
+          </code>
+          to work it around.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h2>
+       <span class="mw-headline" id="HiSilicon_WiFi">
+        HiSilicon WiFi
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          This section is in WIP state. Feel free to add more information.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h3>
+       <span id="Introduction,_software_2">
+       </span>
+       <span class="mw-headline" id="Introduction.2C_software_2">
+        Introduction, software
+       </span>
+      </h3>
+      <p>
+       Devices with HiSilicon WiFi chips are comparatively easy to get working. If following instructions don't work for your device, you'll need to look at the *.rc scripts from an Android ROM available for your phone, as well as any other relevant for wifi scripts that they point to (search for hisi, hi110x, hi1101, hi1102, connectivity). In them you'll find `echo` (or `write` that can be translated to `echo`) commands that need to be run to initialize the wireless communication hardware.
+      </p>
+      <p>
+       The path to the firmware is usually hardcoded in the kernel and firmware files themselves to
+       <code>
+        /vendor/firmware
+       </code>
+       or
+       <code>
+        /system/vendor/firmware
+       </code>
+       , so if you want to change the path to
+       <code>
+        /lib/firmware/postmarketos
+       </code>
+       you'll need to patch the kernel and edit the *_cfg firmware files (see
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/device/testing/linux-huawei-warsaw/06-change-bfgx-and-wifi-cfg-paths.patch" rel="nofollow">
+        this patch
+       </a>
+       ).
+      </p>
+      <p>
+       An example of how HiSilicon was made to work can be found at
+       <a class="external free" href="https://wiki.postmarketos.org/wiki/User:Ignapk#How_ignapk_made_wifi_work" rel="nofollow">
+        https://wiki.postmarketos.org/wiki/User:Ignapk#How_ignapk_made_wifi_work
+       </a>
+       and
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2221" rel="nofollow">
+        the corresponding merge request
+       </a>
+      </p>
+      <p>
+       For packaging, see
+       <a href="../en/Device_specific_package.html#Proprietary_firmware_or_userland_blobs" title="Device specific package">
+        that page
+       </a>
+       and add the
+       <code>
+        hisi-wlan
+       </code>
+       package as a dependency to the WiFi subpackage.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Hi1101">
+        Hi1101
+       </span>
+      </h3>
+      <p>
+       On the
+       <a href="../en/Huawei_P8_Lite_(huawei-alice).html" title="Huawei P8 Lite (huawei-alice)">
+        Huawei P8 Lite
+       </a>
+       , the order of the initialization should be the following (based on the *.rc files from Android
+       <a class="external text" href="https://github.com/DarkJoker360/android_vendor_huawei_alice/blob/cm-14.1/proprietary/bin/start_connectivity_hisi#L17-L20" rel="nofollow">
+        1
+       </a>
+       <a class="external text" href="https://github.com/DarkJoker360/android_device_huawei_alice/blob/cm-14.1/rootdir/etc/init.hi6210sft.rc#L889-L891" rel="nofollow">
+        2
+       </a>
+       ):
+      </p>
+      <pre># Install the firmware blobs into /system/vendor/firmware
 echo 1 &gt; /sys/devices/hi110x_ps/bfg_lowpower_enable
 echo 12 &gt; /sys/devices/hi110x_power/powerpin_state
 echo 1 &gt; /proc/wifi_enable/wifi_start
 echo 1 &gt; /proc/oam_enable/oam_start
 </pre>
-<h3><span class="mw-headline" id="Hi1102">Hi1102</span></h3>
-<p>On the <a href="../en/Huawei_P10_Lite_(huawei-warsaw).html" title="Huawei P10 Lite (huawei-warsaw)">Huawei P10 Lite</a>, the order of the initialization should be the following (based on the *.rc files from Android):
-</p>
-<pre># Install the files bfgx_and_wifi_cfg, wifi_cfg, bfgx_cfg, cr4_asic.bin, CPU_RAM_SCHED.bin, CPU_RAM_WBS.bin into /vendor/firmware/ (path could be
+      <h3>
+       <span class="mw-headline" id="Hi1102">
+        Hi1102
+       </span>
+      </h3>
+      <p>
+       On the
+       <a href="../en/Huawei_P10_Lite_(huawei-warsaw).html" title="Huawei P10 Lite (huawei-warsaw)">
+        Huawei P10 Lite
+       </a>
+       , the order of the initialization should be the following (based on the *.rc files from Android):
+      </p>
+      <pre># Install the files bfgx_and_wifi_cfg, wifi_cfg, bfgx_cfg, cr4_asic.bin, CPU_RAM_SCHED.bin, CPU_RAM_WBS.bin into /vendor/firmware/ (path could be
 # patched in the kernel sources) and make sure the wifi and platform drivers are set as builtin, not modules (Y instead of M in kernel config)
 echo 1 &gt; /sys/hisys/boot/plat
 echo 1 &gt; /sys/hisys/boot/wifi
 # The above commands can be run automatically on boot by installing hisi-wlan package
 </pre>
-<h2><span class="mw-headline" id="Debugging">Debugging</span></h2>
-<p>First check, if the network interface is available by running <code>ip link</code> (<code>wlan0</code> on most phones).
-</p>
-<p>If the network interface is not listed and you've followed the section for your WiFi chip above, it's most likely an error of missing or misplaced firmware files:
-</p>
-<ul>
-<li><code>dmesg</code></li>
-<li><code>tail /var/log/firmwareload.log</code></li>
-</ul>
-<p>If no issue pops up in the log files, it could also be that you are missing a configuration option in kernel config.
-For example: in the <a href="../en/Sony_Xperia_Z_(sony-yuga).html" title="Sony Xperia Z (sony-yuga)">Sony Xperia Z</a> downstream kernel we needed to enable these config options to get WiFi working:
-</p>
-<pre> #
+      <h2>
+       <span class="mw-headline" id="Debugging">
+        Debugging
+       </span>
+      </h2>
+      <p>
+       First check, if the network interface is available by running
+       <code>
+        ip link
+       </code>
+       (
+       <code>
+        wlan0
+       </code>
+       on most phones).
+      </p>
+      <p>
+       If the network interface is not listed and you've followed the section for your WiFi chip above, it's most likely an error of missing or misplaced firmware files:
+      </p>
+      <ul>
+       <li>
+        <code>
+         dmesg
+        </code>
+       </li>
+       <li>
+        <code>
+         tail /var/log/firmwareload.log
+        </code>
+       </li>
+      </ul>
+      <p>
+       If no issue pops up in the log files, it could also be that you are missing a configuration option in kernel config.
+For example: in the
+       <a href="../en/Sony_Xperia_Z_(sony-yuga).html" title="Sony Xperia Z (sony-yuga)">
+        Sony Xperia Z
+       </a>
+       downstream kernel we needed to enable these config options to get WiFi working:
+      </p>
+      <pre> #
  # Qualcomm Atheros Prima WLAN module
  #
 -# CONFIG_PRIMA_WLAN is not set
@@ -474,96 +1492,238 @@ For example: in the <a href="../en/Sony_Xperia_Z_(sony-yuga).html" title="Sony X
 +# CONFIG_QCOM_VOWIFI_11R is not set
 +CONFIG_QCOM_TDLS=y
 </pre>
-<p>In case you need any more help, just ask in our <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">Matrix/IRC channel</a>!
-</p>
-<h2><span class="mw-headline" id="Connecting_to_APs">Connecting to APs</span></h2>
-<h3><span class="mw-headline" id="Using_NetworkManager">Using NetworkManager</span></h3>
-<p>You can use NetworkManager from the command line either with <code>nmtui</code> (a terminal user interface) or <code>nmcli</code>.
-</p>
-<p>To use <code>nmtui</code>, just run <code>sudo nmtui</code> in your terminal.
-</p>
-<p>To use <code>nmcli</code>, you can use the following commands, modified for your use case:
-</p>
-<pre>$ sudo nmcli device wifi list ifname wlan0
+      <p>
+       In case you need any more help, just ask in our
+       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+        Matrix/IRC channel
+       </a>
+       !
+      </p>
+      <h2>
+       <span class="mw-headline" id="Connecting_to_APs">
+        Connecting to APs
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Using_NetworkManager">
+        Using NetworkManager
+       </span>
+      </h3>
+      <p>
+       You can use NetworkManager from the command line either with
+       <code>
+        nmtui
+       </code>
+       (a terminal user interface) or
+       <code>
+        nmcli
+       </code>
+       .
+      </p>
+      <p>
+       To use
+       <code>
+        nmtui
+       </code>
+       , just run
+       <code>
+        sudo nmtui
+       </code>
+       in your terminal.
+      </p>
+      <p>
+       To use
+       <code>
+        nmcli
+       </code>
+       , you can use the following commands, modified for your use case:
+      </p>
+      <pre>$ sudo nmcli device wifi list ifname wlan0
 $ sudo nmcli device wifi connect "$SSID" password "$PASSWORD" ifname "wlan0"
 </pre>
-<p>See also: <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/NetworkManager/DHCP">https://wiki.postmarketos.org/wiki/NetworkManager/DHCP</a>
-</p>
-<h3><span class="mw-headline" id="Using_wpa_supplicant">Using wpa_supplicant</span></h3>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">In most cases using NetworkManager is preferred! You might need to set your wlan interface to unmanaged in NetworkManager or stop NetworkManager to configure it manually.</td>
-</tr></tbody></table>
-<p>postmarketOS currently configures the wpa_supplicant service to start on boot. This service will fail to start unless <code>/etc/wpa_supplicant/wpa_supplicant.conf</code> has been defined. This can be configured using the <code>wpa_passphrase</code> utility:
-</p>
-<pre>$ wpa_passphrase YOUR_SSID YOUR_PASSPHRASE | sudo tee /etc/wpa_supplicant/wpa_supplicant.conf</pre>
-<p>Note: If you are connecting to a hidden wireless network, make sure to add line "scan_ssid=1" after the ssid line in your generated conf file
-</p>
-<p>Scanning for networks is possible with these commands
-</p>
-<pre>ifconfig wlan0 up
+      <p>
+       See also:
+       <a class="external free" href="https://wiki.postmarketos.org/wiki/NetworkManager/DHCP" rel="nofollow">
+        https://wiki.postmarketos.org/wiki/NetworkManager/DHCP
+       </a>
+      </p>
+      <h3>
+       <span class="mw-headline" id="Using_wpa_supplicant">
+        Using wpa_supplicant
+       </span>
+      </h3>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          In most cases using NetworkManager is preferred! You might need to set your wlan interface to unmanaged in NetworkManager or stop NetworkManager to configure it manually.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       postmarketOS currently configures the wpa_supplicant service to start on boot. This service will fail to start unless
+       <code>
+        /etc/wpa_supplicant/wpa_supplicant.conf
+       </code>
+       has been defined. This can be configured using the
+       <code>
+        wpa_passphrase
+       </code>
+       utility:
+      </p>
+      <pre>$ wpa_passphrase YOUR_SSID YOUR_PASSPHRASE | sudo tee /etc/wpa_supplicant/wpa_supplicant.conf</pre>
+      <p>
+       Note: If you are connecting to a hidden wireless network, make sure to add line "scan_ssid=1" after the ssid line in your generated conf file
+      </p>
+      <p>
+       Scanning for networks is possible with these commands
+      </p>
+      <pre>ifconfig wlan0 up
 iw dev wlan0 scan</pre>
-<p>Next you'll need to set up the <code>networking</code> service by adding interfaces to <code>/etc/network/interfaces</code>. In some cases, the loopback device may need to precede the wlan interface:
-</p>
-<pre>auto lo 
+      <p>
+       Next you'll need to set up the
+       <code>
+        networking
+       </code>
+       service by adding interfaces to
+       <code>
+        /etc/network/interfaces
+       </code>
+       . In some cases, the loopback device may need to precede the wlan interface:
+      </p>
+      <pre>auto lo 
 iface lo inet loopback 
 auto wlan0 
 iface wlan0 inet dhcp</pre>
-<p>Finally, set the networking service to start on boot:
-</p>
-<pre>$ sudo rc-update add networking default</pre>
-<p>Note that on some systems (e.g. the RX51 [this seems not to be required on RX-51 as of 16th May 2018 but YMMV]) you may have to configure wpa_supplicant to use the Linux kernel wireless extensions by editing <code>/etc/conf.d/wpa_supplicant</code>:
-</p>
-<pre>wpa_supplicant_args="-Dwext"</pre>
-<p>You will have to reboot, or manually restart the aforementioned services, before your device will connect to the access point.
-</p>
-<h3>
-<span id="Using_wpa_supplicant_(manually)"></span><span class="mw-headline" id="Using_wpa_supplicant_.28manually.29">Using wpa_supplicant (manually)</span>
-</h3>
-<p>If you experience problems or just want to test wifi you can start wpa supplicant (using -Dwext or nl80211 driver) and the dhcp service:
-</p>
-<pre>sudo wpa_supplicant -u -Dnl80211 -B -c /etc/wpa_supplicant/wpa_supplicant.conf -iwlan0
+      <p>
+       Finally, set the networking service to start on boot:
+      </p>
+      <pre>$ sudo rc-update add networking default</pre>
+      <p>
+       Note that on some systems (e.g. the RX51 [this seems not to be required on RX-51 as of 16th May 2018 but YMMV]) you may have to configure wpa_supplicant to use the Linux kernel wireless extensions by editing
+       <code>
+        /etc/conf.d/wpa_supplicant
+       </code>
+       :
+      </p>
+      <pre>wpa_supplicant_args="-Dwext"</pre>
+      <p>
+       You will have to reboot, or manually restart the aforementioned services, before your device will connect to the access point.
+      </p>
+      <h3>
+       <span id="Using_wpa_supplicant_(manually)">
+       </span>
+       <span class="mw-headline" id="Using_wpa_supplicant_.28manually.29">
+        Using wpa_supplicant (manually)
+       </span>
+      </h3>
+      <p>
+       If you experience problems or just want to test wifi you can start wpa supplicant (using -Dwext or nl80211 driver) and the dhcp service:
+      </p>
+      <pre>sudo wpa_supplicant -u -Dnl80211 -B -c /etc/wpa_supplicant/wpa_supplicant.conf -iwlan0
 sudo udhcpc -i wlan0
 </pre>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul><li><a href="../en/Samsung_Galaxy_S_Advance_(samsung-janice).html#How_drebrez_made_wifi_work" class="mw-redirect" title="Samsung Galaxy S Advance (samsung-i9070)">samsung-i9070: How drebrez made wifi work</a></li></ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li>
-<li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li>
-</ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=WiFi&amp;oldid=25994">https://wiki.postmarketos.org/index.php?title=WiFi&amp;oldid=25994</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 27 February 2022, at 22:16.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=WiFi&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="mw-redirect" href="../en/Samsung_Galaxy_S_Advance_(samsung-janice).html#How_drebrez_made_wifi_work" title="Samsung Galaxy S Advance (samsung-i9070)">
+         samsung-i9070: How drebrez made wifi work
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Categories
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Todo_Items.html" title="Category:Todo Items">
+         Todo Items
+        </a>
+       </li>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=WiFi&amp;oldid=25994">
+      https://wiki.postmarketos.org/index.php?title=WiFi&amp;oldid=25994
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 27 February 2022, at 22:16.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=WiFi&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

@@ -1,114 +1,316 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>USB Network - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-USB_Network rootpage-USB_Network skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">USB Network</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>After plugging a cable between your phone and PC, you should be able to do:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ssh <span class="m">172</span>.16.42.1
-</pre></div>
-<p>This article provides details in case this does not work out of the box (no IP assigned, doing a new port etc.).
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1">
-<a href="#Connecting"><span class="tocnumber">1</span> <span class="toctext">Connecting</span></a>
-<ul>
-<li class="toclevel-2 tocsection-2">
-<a href="#SSH"><span class="tocnumber">1.1</span> <span class="toctext">SSH</span></a>
-<ul>
-<li class="toclevel-3 tocsection-3"><a href="#Prevent_host_key_verification_clashes_when_connecting_to_different_devices"><span class="tocnumber">1.1.1</span> <span class="toctext">Prevent host key verification clashes when connecting to different devices</span></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-4">
-<a href="#Troubleshooting"><span class="tocnumber">2</span> <span class="toctext">Troubleshooting</span></a>
-<ul>
-<li class="toclevel-2 tocsection-5"><a href="#Try_IPv4_only"><span class="tocnumber">2.1</span> <span class="toctext">Try IPv4 only</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#Making_sure_the_USB_is_detected"><span class="tocnumber">2.2</span> <span class="toctext">Making sure the USB is detected</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="#No_IP_assigned_or_MAC_address_is_00:00:00:00:00:00"><span class="tocnumber">2.3</span> <span class="toctext">No IP assigned or MAC address is 00:00:00:00:00:00</span></a></li>
-<li class="toclevel-2 tocsection-8"><a href="#Kernel_configuration_parameters"><span class="tocnumber">2.4</span> <span class="toctext">Kernel configuration parameters</span></a></li>
-<li class="toclevel-2 tocsection-9">
-<a href="#SSH_issues"><span class="tocnumber">2.5</span> <span class="toctext">SSH issues</span></a>
-<ul>
-<li class="toclevel-3 tocsection-10"><a href="#Using_Dropbear"><span class="tocnumber">2.5.1</span> <span class="toctext">Using Dropbear</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2 tocsection-11"><a href="#Note_about_HTC_devices"><span class="tocnumber">2.6</span> <span class="toctext">Note about HTC devices</span></a></li>
-<li class="toclevel-2 tocsection-12"><a href="#Windows_driver"><span class="tocnumber">2.7</span> <span class="toctext">Windows driver</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-13"><a href="#See_also"><span class="tocnumber">3</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h1><span class="mw-headline" id="Connecting">Connecting</span></h1>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">
-<b>Note:</b> If you have multiple postmarketOS devices connected, you may want to manually set ip via setup-interfaces both on host and on second phone to 173.16.42.x (or any other) to have internet access on all devices.</td>
-</tr></tbody></table>
-<p>Power on your device and connect it to your USB port. A new network interface should appear, run <code>ip a</code> to list all of them. The new entry should look something like
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ip a
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   USB Network - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-USB_Network rootpage-USB_Network skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    USB Network
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       After plugging a cable between your phone and PC, you should be able to do:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> ssh <span class="m">172</span>.16.42.1
+</pre>
+      </div>
+      <p>
+       This article provides details in case this does not work out of the box (no IP assigned, doing a new port etc.).
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Connecting">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Connecting
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-2">
+           <a href="#SSH">
+            <span class="tocnumber">
+             1.1
+            </span>
+            <span class="toctext">
+             SSH
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-3">
+             <a href="#Prevent_host_key_verification_clashes_when_connecting_to_different_devices">
+              <span class="tocnumber">
+               1.1.1
+              </span>
+              <span class="toctext">
+               Prevent host key verification clashes when connecting to different devices
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Troubleshooting">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Troubleshooting
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Try_IPv4_only">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             Try IPv4 only
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Making_sure_the_USB_is_detected">
+            <span class="tocnumber">
+             2.2
+            </span>
+            <span class="toctext">
+             Making sure the USB is detected
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#No_IP_assigned_or_MAC_address_is_00:00:00:00:00:00">
+            <span class="tocnumber">
+             2.3
+            </span>
+            <span class="toctext">
+             No IP assigned or MAC address is 00:00:00:00:00:00
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#Kernel_configuration_parameters">
+            <span class="tocnumber">
+             2.4
+            </span>
+            <span class="toctext">
+             Kernel configuration parameters
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-9">
+           <a href="#SSH_issues">
+            <span class="tocnumber">
+             2.5
+            </span>
+            <span class="toctext">
+             SSH issues
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-10">
+             <a href="#Using_Dropbear">
+              <span class="tocnumber">
+               2.5.1
+              </span>
+              <span class="toctext">
+               Using Dropbear
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="toclevel-2 tocsection-11">
+           <a href="#Note_about_HTC_devices">
+            <span class="tocnumber">
+             2.6
+            </span>
+            <span class="toctext">
+             Note about HTC devices
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-12">
+           <a href="#Windows_driver">
+            <span class="tocnumber">
+             2.7
+            </span>
+            <span class="toctext">
+             Windows driver
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-13">
+         <a href="#See_also">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h1>
+       <span class="mw-headline" id="Connecting">
+        Connecting
+       </span>
+      </h1>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           Note:
+          </b>
+          If you have multiple postmarketOS devices connected, you may want to manually set ip via setup-interfaces both on host and on second phone to 173.16.42.x (or any other) to have internet access on all devices.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       Power on your device and connect it to your USB port. A new network interface should appear, run
+       <code>
+        ip a
+       </code>
+       to list all of them. The new entry should look something like
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> ip a
 <span class="go">1: enp0s19f2u1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UNKNOWN group default qlen 1000</span>
 <span class="go">    link/ether aa:bb:cc:dd:ee:ff brd ff:ff:ff:ff:ff:ff</span>
 <span class="go">    inet 172.16.42.2/24 brd 172.16.42.255 scope global dynamic noprefixroute enp0s19f2u1</span>
 <span class="go">       valid_lft 861920sec preferred_lft 861920sec</span>
 <span class="go">    inet6 fe80::aabb:ccdd:eeff:00aa/64 scope link noprefixroute</span>
 <span class="go">       valid_lft forever preferred_lft forever</span>
-</pre></div>
-<p>If you instead get something like
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ip a
+</pre>
+      </div>
+      <p>
+       If you instead get something like
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> ip a
 <span class="go">5: enp4s0u1u1: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000</span>
 <span class="go">    link/ether 00:00:00:00:00:00 brd ff:ff:ff:ff:ff:ff</span>
-</pre></div>
-<p>then you need to give the interface a proper MAC address to be able to get an ip address, run <code>sudo ip link set dev enp4s0u1u1 address 12:12:12:12:12:12</code>. Make sure you specify the right interface name.
-</p>
-<p>You should now have been assigned the IP <code>172.16.42.2</code> address (verify with <code>ip a</code> or <code>ifconfig</code>). If it still does not work automatically, you might need to run a DHCP client on your PC (<code>dhclient</code> or <code>dhcpcd</code>).
-</p>
-<h2><span class="mw-headline" id="SSH">SSH</span></h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">There is a dedicated article for <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">inspecting the initramfs</a> via telnet.</td>
-</tr></tbody></table>
-<p>When you are past the initramfs, you should be able to connect via <code>ssh</code> and the username and password you set during the install phase:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ssh user@172.16.42.1
+</pre>
+      </div>
+      <p>
+       then you need to give the interface a proper MAC address to be able to get an ip address, run
+       <code>
+        sudo ip link set dev enp4s0u1u1 address 12:12:12:12:12:12
+       </code>
+       . Make sure you specify the right interface name.
+      </p>
+      <p>
+       You should now have been assigned the IP
+       <code>
+        172.16.42.2
+       </code>
+       address (verify with
+       <code>
+        ip a
+       </code>
+       or
+       <code>
+        ifconfig
+       </code>
+       ). If it still does not work automatically, you might need to run a DHCP client on your PC (
+       <code>
+        dhclient
+       </code>
+       or
+       <code>
+        dhcpcd
+       </code>
+       ).
+      </p>
+      <h2>
+       <span class="mw-headline" id="SSH">
+        SSH
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          There is a dedicated article for
+          <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">
+           inspecting the initramfs
+          </a>
+          via telnet.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       When you are past the initramfs, you should be able to connect via
+       <code>
+        ssh
+       </code>
+       and the username and password you set during the install phase:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> ssh user@172.16.42.1
 <span class="go">user@172.16.42.1's password: </span>
 <span class="go">Welcome to postmarketOS!</span>
 
@@ -120,35 +322,103 @@
 <span class="go">You may change this message by editing /etc/motd.</span>
 
 <span class="gp">localhost:~$</span>
-</pre></div>
-<p>Use <code>sudo</code> to run commands as <code>root</code>, it is configured.
-</p>
-<h3><span class="mw-headline" id="Prevent_host_key_verification_clashes_when_connecting_to_different_devices">Prevent host key verification clashes when connecting to different devices</span></h3>
-<p>If you have multiple devices you want to SSH into, you will get issues with host key verification as your system will realize it's talking to different devices on the same IP address. To prevent this, disable host key verification entirely for the IP address used by postmarketOS devices when connected by USB.
-</p>
-<p>Add the following to <code>~/.ssh/config</code>:
-</p>
-<pre>Host pmos
+</pre>
+      </div>
+      <p>
+       Use
+       <code>
+        sudo
+       </code>
+       to run commands as
+       <code>
+        root
+       </code>
+       , it is configured.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Prevent_host_key_verification_clashes_when_connecting_to_different_devices">
+        Prevent host key verification clashes when connecting to different devices
+       </span>
+      </h3>
+      <p>
+       If you have multiple devices you want to SSH into, you will get issues with host key verification as your system will realize it's talking to different devices on the same IP address. To prevent this, disable host key verification entirely for the IP address used by postmarketOS devices when connected by USB.
+      </p>
+      <p>
+       Add the following to
+       <code>
+        ~/.ssh/config
+       </code>
+       :
+      </p>
+      <pre>Host pmos
     HostName 172.16.42.1
     UserKnownHostsFile /dev/null
     StrictHostKeyChecking=no
 </pre>
-<p>Afterwards you can connect to your device by running <code>ssh &lt;username&gt;@pmos</code>. Replace <code>&lt;username&gt;</code> with the proper username on your device.
-</p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">You can also add <code>User &lt;username&gt;</code> to <code>~/.ssh/config</code> in order to not have to enter your username everytime!</td>
-</tr></tbody></table>
-<h1><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h1>
-<h2><span class="mw-headline" id="Try_IPv4_only">Try IPv4 only</span></h2>
-<p>Especially while mainlining, getting an IP oftentimes only works with the following command:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> dhcpcd interface --nohook ipv6
-</pre></div>
-<h2><span class="mw-headline" id="Making_sure_the_USB_is_detected">Making sure the USB is detected</span></h2>
-<p>In case you don't get an IP address directly, make sure that your PC recognizes the phone after it booted into postmarketOS at all. It should show the following in <code>dmesg</code>.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">[ 6284.442088] usb 1-1: new high-speed USB device number 36 using xhci_hcd</span>
+      <p>
+       Afterwards you can connect to your device by running
+       <code>
+        ssh &lt;username&gt;@pmos
+       </code>
+       . Replace
+       <code>
+        &lt;username&gt;
+       </code>
+       with the proper username on your device.
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          You can also add
+          <code>
+           User &lt;username&gt;
+          </code>
+          to
+          <code>
+           ~/.ssh/config
+          </code>
+          in order to not have to enter your username everytime!
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h1>
+       <span class="mw-headline" id="Troubleshooting">
+        Troubleshooting
+       </span>
+      </h1>
+      <h2>
+       <span class="mw-headline" id="Try_IPv4_only">
+        Try IPv4 only
+       </span>
+      </h2>
+      <p>
+       Especially while mainlining, getting an IP oftentimes only works with the following command:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> dhcpcd interface --nohook ipv6
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Making_sure_the_USB_is_detected">
+        Making sure the USB is detected
+       </span>
+      </h2>
+      <p>
+       In case you don't get an IP address directly, make sure that your PC recognizes the phone after it booted into postmarketOS at all. It should show the following in
+       <code>
+        dmesg
+       </code>
+       .
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="go">[ 6284.442088] usb 1-1: new high-speed USB device number 36 using xhci_hcd</span>
 <span class="go">[ 6284.627106] usb 1-1: New USB device found, idVendor=18d1, idProduct=d001</span>
 <span class="go">[ 6284.627123] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3</span>
 <span class="go">[ 6284.627134] usb 1-1: Product: Android</span>
@@ -157,16 +427,30 @@
 <span class="go">[ 6284.632322] rndis_host 1-1:1.0 usb0: register 'rndis_host' at usb-0000:00:14.0-1, RNDIS device, b2:c4:1e:03:64:b9</span>
 <span class="go">[ 6285.239048] rndis_host 1-1:1.0 enp0s20f0u1: renamed from usb0</span>
 <span class="go">[ 6285.287058] IPv6: ADDRCONF(NETDEV_UP): enp0s20f0u1: link is not ready</span>
-</pre></div>
-<p>It should also show up on <code>lsusb</code> (the name doesn't necessarily match the model):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">Bus 001 Device 023: ID 18d1:d001 Google Inc. Nexus 4 (fastboot)</span>
+</pre>
+      </div>
+      <p>
+       It should also show up on
+       <code>
+        lsusb
+       </code>
+       (the name doesn't necessarily match the model):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="go">Bus 001 Device 023: ID 18d1:d001 Google Inc. Nexus 4 (fastboot)</span>
 <span class="go">Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub</span>
 <span class="go">Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub</span>
-</pre></div>
-<p>And <code>ip link</code> should show an additional entry as well (the last one, in the following list):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1</span>
+</pre>
+      </div>
+      <p>
+       And
+       <code>
+        ip link
+       </code>
+       should show an additional entry as well (the last one, in the following list):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="go">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1</span>
 <span class="go">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span>
 <span class="go">2: enp3s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000</span>
 <span class="go">    link/ether e2:88:85:58:0f:99 brd ff:ff:ff:ff:ff:ff</span>
@@ -174,71 +458,196 @@
 <span class="go">    link/ether e2:08:85:58:0f:99 brd ff:ff:ff:ff:ff:ff</span>
 <span class="go">14: enp0s29f7u3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UNKNOWN mode DEFAULT group default qlen 1000</span>
 <span class="go">    link/ether 86:11:85:5e:df:fa brd ff:ff:ff:ff:ff:ff</span>
-</pre></div>
-<p>If that's the case and you can't connect, your computer probably just doesn't have an IP address on its side of the link.
-</p>
-<p>If however, nothing shows up (even when <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">Inspecting the initramfs</a>), the most likely reason is a wrong <a href="../en/Kernel_configuration.html" title="Kernel configuration">Kernel_configuration</a>. This is highly device-specific, but some hints can be found in <a href="#Kernel_configuration_parameters">#Kernel configuration parameters</a>
-</p>
-<h2><span class="mw-headline" id="No_IP_assigned_or_MAC_address_is_00:00:00:00:00:00">No IP assigned or MAC address is 00:00:00:00:00:00</span></h2>
-<p>If USB gets detected, then you probably don't have a network manager that automatically requests IP addresses from new ethernet interfaces, so you'll have to set the interface up manually.
-</p>
-<p>If there's no MAC address assigned(00:00:00:00:00:00), you need to assign one.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> ip link <span class="nb">set</span> dev enp0s20f0u1 address <span class="m">12</span>:12:12:12:12:12
-</pre></div>
-<p>Use the following command to start a DHCP client. Replace the interface name with the one on your machine (see <code>ip a</code> before and after connecting the device via USB). Some Linux distributions have <code>dhcpcd</code> installed instead of <code>dhclient</code>.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> dhclient -v enp0s20f0u1
-</pre></div>
-<p>Some distribution use other tools that might interfere with <code>dhclient</code> and <code>dhcpcd</code>. In most cases, you should be able to set an IP address with
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> ip address add dev enp0s20f0u1 <span class="m">172</span>.16.42.2/24
-</pre></div>
-<p>If after assigning an IP address and <code>ip a</code> shows your device status as "DOWN" instead of "UNKNOWN", bring it up with 
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> ip link <span class="nb">set</span> enp0s20f0u1 up
-</pre></div>
-<p><br>
-P.S. If your device is Samsung with old kernel and <code>CONFIG_USB_ANDROID_SAMSUNG_COMPOSITE</code>, something like <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/device/unmaintained/linux-samsung-klte-downstream/0007-usb_gadget-set-random-rndis-host-MAC-address-to-prev.patch">usb_gadget-set-random-rndis-host-MAC-address.patch</a> can help with preventing zero MAC.
-</p>
-<p>After the interface is brought up you can SSH to the phone at the phone's ip address
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> ssh user@172.16.42.1
+</pre>
+      </div>
+      <p>
+       If that's the case and you can't connect, your computer probably just doesn't have an IP address on its side of the link.
+      </p>
+      <p>
+       If however, nothing shows up (even when
+       <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">
+        Inspecting the initramfs
+       </a>
+       ), the most likely reason is a wrong
+       <a href="../en/Kernel_configuration.html" title="Kernel configuration">
+        Kernel_configuration
+       </a>
+       . This is highly device-specific, but some hints can be found in
+       <a href="#Kernel_configuration_parameters">
+        #Kernel configuration parameters
+       </a>
+      </p>
+      <h2>
+       <span class="mw-headline" id="No_IP_assigned_or_MAC_address_is_00:00:00:00:00:00">
+        No IP assigned or MAC address is 00:00:00:00:00:00
+       </span>
+      </h2>
+      <p>
+       If USB gets detected, then you probably don't have a network manager that automatically requests IP addresses from new ethernet interfaces, so you'll have to set the interface up manually.
+      </p>
+      <p>
+       If there's no MAC address assigned(00:00:00:00:00:00), you need to assign one.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> ip link <span class="nb">set</span> dev enp0s20f0u1 address <span class="m">12</span>:12:12:12:12:12
+</pre>
+      </div>
+      <p>
+       Use the following command to start a DHCP client. Replace the interface name with the one on your machine (see
+       <code>
+        ip a
+       </code>
+       before and after connecting the device via USB). Some Linux distributions have
+       <code>
+        dhcpcd
+       </code>
+       installed instead of
+       <code>
+        dhclient
+       </code>
+       .
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> dhclient -v enp0s20f0u1
+</pre>
+      </div>
+      <p>
+       Some distribution use other tools that might interfere with
+       <code>
+        dhclient
+       </code>
+       and
+       <code>
+        dhcpcd
+       </code>
+       . In most cases, you should be able to set an IP address with
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> ip address add dev enp0s20f0u1 <span class="m">172</span>.16.42.2/24
+</pre>
+      </div>
+      <p>
+       If after assigning an IP address and
+       <code>
+        ip a
+       </code>
+       shows your device status as "DOWN" instead of "UNKNOWN", bring it up with
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> ip link <span class="nb">set</span> enp0s20f0u1 up
+</pre>
+      </div>
+      <p>
+       <br/>
+       P.S. If your device is Samsung with old kernel and
+       <code>
+        CONFIG_USB_ANDROID_SAMSUNG_COMPOSITE
+       </code>
+       , something like
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/device/unmaintained/linux-samsung-klte-downstream/0007-usb_gadget-set-random-rndis-host-MAC-address-to-prev.patch" rel="nofollow">
+        usb_gadget-set-random-rndis-host-MAC-address.patch
+       </a>
+       can help with preventing zero MAC.
+      </p>
+      <p>
+       After the interface is brought up you can SSH to the phone at the phone's ip address
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> ssh user@172.16.42.1
 <span class="go">username here is dependent on what you chose in the pmbootstrap init step</span>
-</pre></div>
-<h2><span class="mw-headline" id="Kernel_configuration_parameters">Kernel configuration parameters</span></h2>
-<p>If you think that the kernel configuration may be at fault, first double check with <code>pmbootstrap kconfig check</code> that the required parameters are all set.
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Kernel_configuration_parameters">
+        Kernel configuration parameters
+       </span>
+      </h2>
+      <p>
+       If you think that the kernel configuration may be at fault, first double check with
+       <code>
+        pmbootstrap kconfig check
+       </code>
+       that the required parameters are all set.
 The postmarketOS initramfs is able to configure two different USB systems in the kernel in order to let your PC talk to your phone via networking. One of them has to be enabled (exclusively?):
-</p>
-<ul>
-<li>
-<a href="../en/Kernel_configuration.html#CONFIG_USB_ETH" title="Kernel configuration">CONFIG_USB_ETH</a>
-<ul>
-<li>
-<a href="../en/Kernel_configuration.html#CONFIG_USB_ETH_RNDIS" title="Kernel configuration">CONFIG_USB_ETH_RNDIS</a> is usually needed as well, it enables a compatibility interface for microsoft hosts.</li>
-<li>Usually used in mainline kernels (see also: <a href="../en/Mainlining_FAQ.html" title="Mainlining FAQ">Mainlining FAQ</a>)</li>
-</ul>
-</li>
-<li>
-<a href="../en/Kernel_configuration.html#CONFIG_USB_G_ANDROID" title="Kernel configuration">CONFIG_USB_G_ANDROID</a>
-<ul><li>This option is usually enabled in Android kernel forks</li></ul>
-</li>
-</ul>
-<p>You can use <code>grep</code> on your kernel config to check which of these options are enabled or not (<code>option=y</code> means it is enabled). If you want to change the options, don't modify the file directly, but use <code>pmbootstrap kconfig edit</code> (<a href="../en/Kernel_configuration.html" title="Kernel configuration">usage instructions</a>). Otherwise the dependencies in that configuration file will not get resolved properly and cause other issues.
-</p>
-<p>Related: <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1462">#1462</a> linux-postmarketos-qcom: Remove composite usb gadget for networking
-</p>
-<h2><span class="mw-headline" id="SSH_issues">SSH issues</span></h2>
-<p>If SSH doesn't work for one reason or another, you can try enabling telnetd on your installation. For that, add the debug-shell initfs hook and connect to it. Then run the following commands to mount your root partition (writable):
-</p>
-<pre>source /etc/deviceinfo
+      </p>
+      <ul>
+       <li>
+        <a href="../en/Kernel_configuration.html#CONFIG_USB_ETH" title="Kernel configuration">
+         CONFIG_USB_ETH
+        </a>
+        <ul>
+         <li>
+          <a href="../en/Kernel_configuration.html#CONFIG_USB_ETH_RNDIS" title="Kernel configuration">
+           CONFIG_USB_ETH_RNDIS
+          </a>
+          is usually needed as well, it enables a compatibility interface for microsoft hosts.
+         </li>
+         <li>
+          Usually used in mainline kernels (see also:
+          <a href="../en/Mainlining_FAQ.html" title="Mainlining FAQ">
+           Mainlining FAQ
+          </a>
+          )
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="../en/Kernel_configuration.html#CONFIG_USB_G_ANDROID" title="Kernel configuration">
+         CONFIG_USB_G_ANDROID
+        </a>
+        <ul>
+         <li>
+          This option is usually enabled in Android kernel forks
+         </li>
+        </ul>
+       </li>
+      </ul>
+      <p>
+       You can use
+       <code>
+        grep
+       </code>
+       on your kernel config to check which of these options are enabled or not (
+       <code>
+        option=y
+       </code>
+       means it is enabled). If you want to change the options, don't modify the file directly, but use
+       <code>
+        pmbootstrap kconfig edit
+       </code>
+       (
+       <a href="../en/Kernel_configuration.html" title="Kernel configuration">
+        usage instructions
+       </a>
+       ). Otherwise the dependencies in that configuration file will not get resolved properly and cause other issues.
+      </p>
+      <p>
+       Related:
+       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1462" rel="nofollow">
+        #1462
+       </a>
+       linux-postmarketos-qcom: Remove composite usb gadget for networking
+      </p>
+      <h2>
+       <span class="mw-headline" id="SSH_issues">
+        SSH issues
+       </span>
+      </h2>
+      <p>
+       If SSH doesn't work for one reason or another, you can try enabling telnetd on your installation. For that, add the debug-shell initfs hook and connect to it. Then run the following commands to mount your root partition (writable):
+      </p>
+      <pre>source /etc/deviceinfo
 source init_functions.sh
 mount_root_partition
 mount -o rw,remount /sysroot
 </pre>
-<p>Put the following content into <code>/sysroot/etc/init.d/telnetd</code>
-</p>
-<pre>#!/sbin/openrc-run
+      <p>
+       Put the following content into
+       <code>
+        /sysroot/etc/init.d/telnetd
+       </code>
+      </p>
+      <pre>#!/sbin/openrc-run
 
 command="/usr/sbin/telnetd"
 command_args="-F"
@@ -250,16 +659,35 @@ depend() {
         after firewall
 }
 </pre>
-<p>Then make the file executable and enable the service so telnet gets launched by openrc:
-</p>
-<pre>chmod +x /sysroot/etc/init.d/telnetd &amp;&amp; chroot /sysroot rc-update add telnetd default
+      <p>
+       Then make the file executable and enable the service so telnet gets launched by openrc:
+      </p>
+      <pre>chmod +x /sysroot/etc/init.d/telnetd &amp;&amp; chroot /sysroot rc-update add telnetd default
 </pre>
-<p>Then resume boot by typing <code>pmos_continue_boot</code>. Telnetd should be started once the device boots and you should be able to connect to it.
-</p>
-<h3><span class="mw-headline" id="Using_Dropbear">Using Dropbear</span></h3>
-<p>Alternatively you can try to use <code>dropbear</code> SSH server instead of default <code>openssh</code>. For this you can avoid messing with debug-shell hook and modifying system on running phone, you can tweak rootfs before flashing it in this sequence:
-</p>
-<pre>1. pmbootstrap init
+      <p>
+       Then resume boot by typing
+       <code>
+        pmos_continue_boot
+       </code>
+       . Telnetd should be started once the device boots and you should be able to connect to it.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Using_Dropbear">
+        Using Dropbear
+       </span>
+      </h3>
+      <p>
+       Alternatively you can try to use
+       <code>
+        dropbear
+       </code>
+       SSH server instead of default
+       <code>
+        openssh
+       </code>
+       . For this you can avoid messing with debug-shell hook and modifying system on running phone, you can tweak rootfs before flashing it in this sequence:
+      </p>
+      <pre>1. pmbootstrap init
 2. pmbootstrap install
 3. pmbootstrap chroot -r    # go inside you phone's future rootfs
 4. # make modifications to rootfs
@@ -273,65 +701,170 @@ depend() {
 7. pmbootstrap flasher flash_kernel
 8. pmbootstrap flasher flash_rootfs
 </pre>
-<h2><span class="mw-headline" id="Note_about_HTC_devices">Note about HTC devices</span></h2>
-<ul>
-<li>HTC devices seem to be tricky in general, we have a <a href="../en/Troubleshooting:boot.html#See_also" title="Troubleshooting:boot">few open issues</a> with HTC devices that seem to be not booting</li>
-<li>The <a href="../en/HTC_Desire_(htc-bravo).html" title="HTC Desire (htc-bravo)">HTC desire</a> does work, and it required <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/bd4ebb3473764108daa92b308511be7e0a1b6948/aports/device/device-htc-bravo/initfs-hook.sh#L8">this line in the initfs-hook</a> to get USB network</li>
-<li>It was hard to discover: drebrez used the <a href="../en/Tuning_sysfs.html" title="Tuning sysfs">tuning sysfs</a> instructions, but he had to write it as a initfs hook and save it in the <code>cache</code> partition of the device, then reboot in TWRP to get that file.</li>
-<li>Without a working display, no USB network and no serial output, you can use the LEDs for debugging and the other partitions to store files.</li>
-</ul>
-<h2><span class="mw-headline" id="Windows_driver">Windows driver</span></h2>
-<p>Normally Windows should already have / should be able to assign the right drivers. If it's not the case and before going further first check if you can assign Microsoft RNDIS USB driver to the device. If no RNDIS driver is showing up, follow what's next.
-</p>
-<p>If your device is listed as an ADB device you'll have to uninstall it (with the driver) first. 
-</p>
-<p>if you can't find the RNDIS driver you'll have to create an inf file that match your computer OS version.
-</p>
-<p>Take the file in the <a rel="nofollow" class="external text" href="https://docs.microsoft.com/fr-fr/windows-hardware/drivers/network/remote-ndis-inf-template#rndis-inf-template-for-ndis-60-windows-7-and-later">guide from microsoft</a>.
-</p>
-<p>Once you have the file, go into device manager. Follow the dialogs up to the 'choose a driver', point it to your .inf , accept the security warnings and you're done, using a ssh client you should be able to login.
-</p>
-<h1><span class="mw-headline" id="See_also">See also</span></h1>
-<ul>
-<li>
-<a href="../en/USB_Internet.html" title="USB Internet">USB Internet</a>: Let your phone access the Internet by sharing your PC's Internet connection via USB.</li>
-<li><a href="../en/Osk-sdl.html#Troubleshooting" title="Osk-sdl">Osk-sdl#Troubleshooting</a></li>
-<li><a href="../en/Troubleshooting:boot.html" title="Troubleshooting:boot">Troubleshooting:boot</a></li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=USB_Network&amp;oldid=20433">https://wiki.postmarketos.org/index.php?title=USB_Network&amp;oldid=20433</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 5 July 2021, at 14:50.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=USB_Network&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <h2>
+       <span class="mw-headline" id="Note_about_HTC_devices">
+        Note about HTC devices
+       </span>
+      </h2>
+      <ul>
+       <li>
+        HTC devices seem to be tricky in general, we have a
+        <a href="../en/Troubleshooting:boot.html#See_also" title="Troubleshooting:boot">
+         few open issues
+        </a>
+        with HTC devices that seem to be not booting
+       </li>
+       <li>
+        The
+        <a href="../en/HTC_Desire_(htc-bravo).html" title="HTC Desire (htc-bravo)">
+         HTC desire
+        </a>
+        does work, and it required
+        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/bd4ebb3473764108daa92b308511be7e0a1b6948/aports/device/device-htc-bravo/initfs-hook.sh#L8" rel="nofollow">
+         this line in the initfs-hook
+        </a>
+        to get USB network
+       </li>
+       <li>
+        It was hard to discover: drebrez used the
+        <a href="../en/Tuning_sysfs.html" title="Tuning sysfs">
+         tuning sysfs
+        </a>
+        instructions, but he had to write it as a initfs hook and save it in the
+        <code>
+         cache
+        </code>
+        partition of the device, then reboot in TWRP to get that file.
+       </li>
+       <li>
+        Without a working display, no USB network and no serial output, you can use the LEDs for debugging and the other partitions to store files.
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Windows_driver">
+        Windows driver
+       </span>
+      </h2>
+      <p>
+       Normally Windows should already have / should be able to assign the right drivers. If it's not the case and before going further first check if you can assign Microsoft RNDIS USB driver to the device. If no RNDIS driver is showing up, follow what's next.
+      </p>
+      <p>
+       If your device is listed as an ADB device you'll have to uninstall it (with the driver) first.
+      </p>
+      <p>
+       if you can't find the RNDIS driver you'll have to create an inf file that match your computer OS version.
+      </p>
+      <p>
+       Take the file in the
+       <a class="external text" href="https://docs.microsoft.com/fr-fr/windows-hardware/drivers/network/remote-ndis-inf-template#rndis-inf-template-for-ndis-60-windows-7-and-later" rel="nofollow">
+        guide from microsoft
+       </a>
+       .
+      </p>
+      <p>
+       Once you have the file, go into device manager. Follow the dialogs up to the 'choose a driver', point it to your .inf , accept the security warnings and you're done, using a ssh client you should be able to login.
+      </p>
+      <h1>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h1>
+      <ul>
+       <li>
+        <a href="../en/USB_Internet.html" title="USB Internet">
+         USB Internet
+        </a>
+        : Let your phone access the Internet by sharing your PC's Internet connection via USB.
+       </li>
+       <li>
+        <a href="../en/Osk-sdl.html#Troubleshooting" title="Osk-sdl">
+         Osk-sdl#Troubleshooting
+        </a>
+       </li>
+       <li>
+        <a href="../en/Troubleshooting:boot.html" title="Troubleshooting:boot">
+         Troubleshooting:boot
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=USB_Network&amp;oldid=20433">
+      https://wiki.postmarketos.org/index.php?title=USB_Network&amp;oldid=20433
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 5 July 2021, at 14:50.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=USB_Network&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

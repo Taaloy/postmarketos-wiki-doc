@@ -1,129 +1,240 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>OnePlus 6 (oneplus-enchilada)/Custom Partitioning - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-OnePlus_6_oneplus-enchilada_Custom_Partitioning rootpage-OnePlus_6_oneplus-enchilada_Custom_Partitioning skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">OnePlus 6 (oneplus-enchilada)/Custom Partitioning</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"><br><b>Warning!</b></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">WARNING! THIS PROCESS MAY IRREVOCABLY BRICK YOUR PHONE! YOU HAVE BEEN WARNED!.</td>
-</tr></tbody></table>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1">
-<a href="#Partitioning_userdata"><span class="tocnumber">1</span> <span class="toctext">Partitioning userdata</span></a>
-<ul>
-<li class="toclevel-2 tocsection-2"><a href="#Updating_Android"><span class="tocnumber">1.1</span> <span class="toctext">Updating Android</span></a></li>
-<li class="toclevel-2 tocsection-3"><a href="#Reverting_back_to_stock_partition_layout"><span class="tocnumber">1.2</span> <span class="toctext">Reverting back to stock partition layout</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-4">
-<a href="#Erasing_unused_partitions.2FCustom_formatting"><span class="tocnumber">2</span> <span class="toctext">Erasing unused partitions/Custom formatting</span></a>
-<ul>
-<li class="toclevel-2 tocsection-5"><a href="#Reverting_to_stock_from_this_setup"><span class="tocnumber">2.1</span> <span class="toctext">Reverting to stock from this setup</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h1><span class="mw-headline" id="Partitioning_userdata">Partitioning userdata</span></h1>
-<p>Using a <a rel="nofollow" class="external text" href="https://github.com/Wishmasterflo/TWRP-DualBoot-Guac-Unified/releases">modified recovery</a>, it is possible to subpartition the userdata partition. A/B partitioning tested and works perfectly with FDE enabled on pmOS and FBE enabled on Android, although data sharing will not work with an A/B partition layout if encryption is used. A common data partition may be possible with the A/B/C layout option available. Since the pmOS initram searches for a partition label instead of a specific partition, it will automatically detect the partition that the pmOS rootfs was installed to. To install Android on slot A and pmOS on slot B (NOTE: if you would like to use Jumpdrive, then you will need to put pmOS on Slot A):
-</p>
-<p>First, install the latest version of OOS 10 onto both slots via recovery or via stock local upgrade. All zips will always flash to the opposite slot. Since OOS 10 is now installed, "fastboot boot" will stop working, so first, temporarilly flashing a working recovery (such as LineageOS recovery) to either boot_a or boot_b (or just boot to flash to your current slot) partitions from fastboot is necessary.
-</p>
-<pre>fastboot flash boot lineageos-18.1-202xxxxx-enchilada-recovery.img
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   OnePlus 6 (oneplus-enchilada)/Custom Partitioning - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-OnePlus_6_oneplus-enchilada_Custom_Partitioning rootpage-OnePlus_6_oneplus-enchilada_Custom_Partitioning skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    OnePlus 6 (oneplus-enchilada)/Custom Partitioning
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Icon" decoding="async" height="20" src="../Red_warning_icon.svg" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x" title="Icon" width="20"/>
+           <br/>
+           <b>
+            Warning!
+           </b>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          WARNING! THIS PROCESS MAY IRREVOCABLY BRICK YOUR PHONE! YOU HAVE BEEN WARNED!.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Partitioning_userdata">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Partitioning userdata
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-2">
+           <a href="#Updating_Android">
+            <span class="tocnumber">
+             1.1
+            </span>
+            <span class="toctext">
+             Updating Android
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#Reverting_back_to_stock_partition_layout">
+            <span class="tocnumber">
+             1.2
+            </span>
+            <span class="toctext">
+             Reverting back to stock partition layout
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Erasing_unused_partitions.2FCustom_formatting">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Erasing unused partitions/Custom formatting
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Reverting_to_stock_from_this_setup">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             Reverting to stock from this setup
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
+      <h1>
+       <span class="mw-headline" id="Partitioning_userdata">
+        Partitioning userdata
+       </span>
+      </h1>
+      <p>
+       Using a
+       <a class="external text" href="https://github.com/Wishmasterflo/TWRP-DualBoot-Guac-Unified/releases" rel="nofollow">
+        modified recovery
+       </a>
+       , it is possible to subpartition the userdata partition. A/B partitioning tested and works perfectly with FDE enabled on pmOS and FBE enabled on Android, although data sharing will not work with an A/B partition layout if encryption is used. A common data partition may be possible with the A/B/C layout option available. Since the pmOS initram searches for a partition label instead of a specific partition, it will automatically detect the partition that the pmOS rootfs was installed to. To install Android on slot A and pmOS on slot B (NOTE: if you would like to use Jumpdrive, then you will need to put pmOS on Slot A):
+      </p>
+      <p>
+       First, install the latest version of OOS 10 onto both slots via recovery or via stock local upgrade. All zips will always flash to the opposite slot. Since OOS 10 is now installed, "fastboot boot" will stop working, so first, temporarilly flashing a working recovery (such as LineageOS recovery) to either boot_a or boot_b (or just boot to flash to your current slot) partitions from fastboot is necessary.
+      </p>
+      <pre>fastboot flash boot lineageos-18.1-202xxxxx-enchilada-recovery.img
 </pre>
-<p>Then select Reboot Recovery and sideload a working version of TWRP.
-</p>
-<pre>adb sideload twrp-3.4.0-3-enchilada-installer.zip
+      <p>
+       Then select Reboot Recovery and sideload a working version of TWRP.
+      </p>
+      <pre>adb sideload twrp-3.4.0-3-enchilada-installer.zip
 </pre>
-<p>Then reboot recovery. Push the Dualboot zip:
-</p>
-<pre>adb push Dualboot_TWRP_OP6_enchilada_v6_2.zip /tmp/
+      <p>
+       Then reboot recovery. Push the Dualboot zip:
+      </p>
+      <pre>adb push Dualboot_TWRP_OP6_enchilada_v6_2.zip /tmp/
 </pre>
-<p>Now in TWRP, install and navigate to /tmp/Dualboot_TWRP_OP6_enchilada_v6_2.zip and install it.
-</p>
-<p>Select the options that you would like. For encryption, keep slot B as-is, and make sure you select no for Magisk on slot B. Options for Slot A are up to the user.
-</p>
-<p>After installation, Reboot to recovery. Go to reboot, select Slot B, and reboot to recovery again.
-</p>
-<p>Install the Android ROM you would like, then without rebooting, reflash the Dualboot mod to repatch the boot.img with the recovery ramdisk.
-</p>
-<p>Reboot to recovery again.
-</p>
-<p>Currently, there seems to be a bug with the Dualboot installer where it will always disable encryption on Android. If you would like file-based encryption enabled, you will have to manually patch the fstab.
-</p>
-<pre>#If you want encryption enabled in Android:
+      <p>
+       Now in TWRP, install and navigate to /tmp/Dualboot_TWRP_OP6_enchilada_v6_2.zip and install it.
+      </p>
+      <p>
+       Select the options that you would like. For encryption, keep slot B as-is, and make sure you select no for Magisk on slot B. Options for Slot A are up to the user.
+      </p>
+      <p>
+       After installation, Reboot to recovery. Go to reboot, select Slot B, and reboot to recovery again.
+      </p>
+      <p>
+       Install the Android ROM you would like, then without rebooting, reflash the Dualboot mod to repatch the boot.img with the recovery ramdisk.
+      </p>
+      <p>
+       Reboot to recovery again.
+      </p>
+      <p>
+       Currently, there seems to be a bug with the Dualboot installer where it will always disable encryption on Android. If you would like file-based encryption enabled, you will have to manually patch the fstab.
+      </p>
+      <pre>#If you want encryption enabled in Android:
 adb shell mount /dev/block/sde16 /vendor #Mounts vendor_a to /vendor
 adb pull /vendor/etc/fstab.qcom ./
 </pre>
-<p>In the line that mounts userdata, there will be an option listed as such: "... ,=ice, ...". If you would like encryption enabled, change that to "fileencryption=ice" and push it back with
-</p>
-<pre>#If you want encryption enabled in Android:
+      <p>
+       In the line that mounts userdata, there will be an option listed as such: "... ,=ice, ...". If you would like encryption enabled, change that to "fileencryption=ice" and push it back with
+      </p>
+      <pre>#If you want encryption enabled in Android:
 adb push ./fstab.qcom /vendor/etc/fstab.qcom
 </pre>
-<p>Select reboot and make sure Slot A is the current slot, then back out without rebooting. Install any addons you may want (GApps if you need them, for example). Format data (do not just wipe Internal Storage) and reboot. Once Android boots, verify that your phone is either encrypted or not encrypted as to your preference and reboot to the bootloader.
-</p>
-<p>To flash postmarketOS to slot B, follow the pmbootstrap install instructions above (optionally with --fde to enable full disk encryption) and flash:
-</p>
-<pre>fastboot --set-active=b
+      <p>
+       Select reboot and make sure Slot A is the current slot, then back out without rebooting. Install any addons you may want (GApps if you need them, for example). Format data (do not just wipe Internal Storage) and reboot. Once Android boots, verify that your phone is either encrypted or not encrypted as to your preference and reboot to the bootloader.
+      </p>
+      <p>
+       To flash postmarketOS to slot B, follow the pmbootstrap install instructions above (optionally with --fde to enable full disk encryption) and flash:
+      </p>
+      <pre>fastboot --set-active=b
 fastboot erase dtbo_b
 pmbootstrap flasher flash_rootfs --partition userdata_b
 pmbootstrap flasher flash_kernel --partition boot_b
 fastboot reboot
 </pre>
-<p>You should now be booting into postmarketOS. To switch to Android, reboot to bootloader, and use fastboot to switch slots:
-</p>
-<pre>fastboot --set-active=[a|b]
+      <p>
+       You should now be booting into postmarketOS. To switch to Android, reboot to bootloader, and use fastboot to switch slots:
+      </p>
+      <pre>fastboot --set-active=[a|b]
 fastboot reboot
 </pre>
-<ul><li>Note: Make sure OTA updates are disabled in your Android ROM. It will mess with things if it is not.</li></ul>
-<ul><li>Note: In mainline Linux, userdata_a is /dev/sda17 and userdata_b is /dev/sda18</li></ul>
-<p><br>
-</p>
-<h2><span class="mw-headline" id="Updating_Android">Updating Android</span></h2>
-<p>Updating Android is a bit more of a pain since Android ROMs are always flashed to the opposite slot. You will first have to backup your pmOS boot.img (located at /boot/boot.img) in pmOS, so copy that file over to your computer whatever way you'd prefer.
-</p>
-<p>You will need to copy your boot and dtbo partitions from Slot A to Slot B, temporarily overwriting the pmOS kernel/initram. <a rel="nofollow" class="external text" href="https://gitlab.com/syboxez1/op6-copy-partitions/-/raw/main/copy-boot.zip">A modified handy script from the LineageOS folks is available here</a> to handle this in TWRP on the slot that Android is running on. This script will copy the dtbo and boot partitions from the active slot to the inactive slot.
-</p>
-<p>Boot into TWRP on your Android slot (Slot A in this case) and start sideloading:
-</p>
-<pre>adb sideload copy-boot.zip
+      <ul>
+       <li>
+        Note: Make sure OTA updates are disabled in your Android ROM. It will mess with things if it is not.
+       </li>
+      </ul>
+      <ul>
+       <li>
+        Note: In mainline Linux, userdata_a is /dev/sda17 and userdata_b is /dev/sda18
+       </li>
+      </ul>
+      <p>
+       <br/>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Updating_Android">
+        Updating Android
+       </span>
+      </h2>
+      <p>
+       Updating Android is a bit more of a pain since Android ROMs are always flashed to the opposite slot. You will first have to backup your pmOS boot.img (located at /boot/boot.img) in pmOS, so copy that file over to your computer whatever way you'd prefer.
+      </p>
+      <p>
+       You will need to copy your boot and dtbo partitions from Slot A to Slot B, temporarily overwriting the pmOS kernel/initram.
+       <a class="external text" href="https://gitlab.com/syboxez1/op6-copy-partitions/-/raw/main/copy-boot.zip" rel="nofollow">
+        A modified handy script from the LineageOS folks is available here
+       </a>
+       to handle this in TWRP on the slot that Android is running on. This script will copy the dtbo and boot partitions from the active slot to the inactive slot.
+      </p>
+      <p>
+       Boot into TWRP on your Android slot (Slot A in this case) and start sideloading:
+      </p>
+      <pre>adb sideload copy-boot.zip
 </pre>
-<p>Switch to your pmOS slot (Slot B in this case), reboot to recovery, update your ROM, flash the Dualboot mod again, repatch the fstab on vendor_a in Slot A recovery for encryption if necessary (or just copy back the one you modified before), install GApps/other addons in Slot A if necessary, and reboot to bootloader. Then to reflash the pmOS kernel:
-</p>
-<pre>fastboot --set-active=b
+      <p>
+       Switch to your pmOS slot (Slot B in this case), reboot to recovery, update your ROM, flash the Dualboot mod again, repatch the fstab on vendor_a in Slot A recovery for encryption if necessary (or just copy back the one you modified before), install GApps/other addons in Slot A if necessary, and reboot to bootloader. Then to reflash the pmOS kernel:
+      </p>
+      <pre>fastboot --set-active=b
 fastboot erase dtbo_b
 
 #If you have a pmOS boot.img backup:
@@ -134,63 +245,130 @@ pmbootstrap flasher flash_kernel --partition boot_b
 
 fastboot reboot
 </pre>
-<h2><span class="mw-headline" id="Reverting_back_to_stock_partition_layout">Reverting back to stock partition layout</span></h2>
-<p>Reverting to a stock partition layout from the modified userdata layout is extremely simple. Simply boot into TWRP on either slot, push the Dualboot mod to /tmp/ as before, and flash. When the installer asks if you would like to keep your current layout, select no, and then select the stock layout when prompted. Follow the rest of the instructions as you would like (if you are going to be reflashing OOS afterwards, these options do not matter).
-</p>
-<h1>
-<span id="Erasing_unused_partitions/Custom_formatting"></span><span class="mw-headline" id="Erasing_unused_partitions.2FCustom_formatting">Erasing unused partitions/Custom formatting</span>
-</h1>
-<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"><br><b>Warning!</b></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">After performing these steps, it will be IMPOSSIBLE to run ANY downstream OS, including, but not limited to OxygenOS stock ROMS, ANY custom Android ROMs, ANY Halium-based Linux distro, or anything else not using a MAINLINE Linux kernel from the sdm845-mainline team/Linaro.</td>
-</tr></tbody></table>
-<p>It is safe to wipe partitions /dev/sda13-17 without any harm being done to the bootloader. Erasing these partitions will leave only mainline kernels bootable.
-</p>
-<p>Since only advanced users should be doing this, no detailed instructions are going to be provided in this guide (ie: no copy/pasting Terminal commands). man pages are helpful here if you do not know how to use a tool.
-</p>
-<p>First thing's first: You must have a working aarch64 binary of sgdisk. If you have an OS of any kind installed to your phone, you can get it from there. Find a way to run that binary in a Terminal on your device. TWRP or a mainline Linux liveboot (pmOS supports netboot) both work, so long as nothing is accessing the device storage.
-</p>
-<p>Using sgdisk, delete partitions /dev/sda13 (or /dev/block/sda13 if using TWRP) through /dev/sda17.
-</p>
-<p>Using sgdisk, create whatever partitions you want, then change the labels to whatever you want. I chose to create two partitions of different sizes: one named 'rootfs_stable' for postmarketOS, and one named 'rootfs_test' for other mainline distros. Make sure your labels do not conflict with any existing partitions.
-</p>
-<p>After creating the partitions, fastboot will successfully flash images to those partitions using the labels you assigned to them. So for instance, 'pmbootstrap flasher flash_rootfs -- partition rootfs_stable' would work fine, along with using 'fastboot flash rootfs_temp linuxdistrotwoelectricboogaloo.img' Converting to sparse images isn't necessary, since fastboot will do that for you.
-</p>
-<h2><span class="mw-headline" id="Reverting_to_stock_from_this_setup">Reverting to stock from this setup</span></h2>
-<p>To revert to stock, MsmDownloadTool or bkerler's edl tool with an extracted ops is necessary. Normal unbricking instructions through EDL mode apply here. If for any reason, it is impossible to access EDL mode anymore by plugging in a USB cable while the phone is off and volume up is being held down, then the phone is bricked.
-</p>
-</div></div>
-		
-		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Custom_Partitioning&amp;oldid=26244">https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Custom_Partitioning&amp;oldid=26244</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 14 March 2022, at 06:13.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Custom_Partitioning&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <h2>
+       <span class="mw-headline" id="Reverting_back_to_stock_partition_layout">
+        Reverting back to stock partition layout
+       </span>
+      </h2>
+      <p>
+       Reverting to a stock partition layout from the modified userdata layout is extremely simple. Simply boot into TWRP on either slot, push the Dualboot mod to /tmp/ as before, and flash. When the installer asks if you would like to keep your current layout, select no, and then select the stock layout when prompted. Follow the rest of the instructions as you would like (if you are going to be reflashing OOS afterwards, these options do not matter).
+      </p>
+      <h1>
+       <span id="Erasing_unused_partitions/Custom_formatting">
+       </span>
+       <span class="mw-headline" id="Erasing_unused_partitions.2FCustom_formatting">
+        Erasing unused partitions/Custom formatting
+       </span>
+      </h1>
+      <table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Icon" decoding="async" height="20" src="../Red_warning_icon.svg" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x" title="Icon" width="20"/>
+           <br/>
+           <b>
+            Warning!
+           </b>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          After performing these steps, it will be IMPOSSIBLE to run ANY downstream OS, including, but not limited to OxygenOS stock ROMS, ANY custom Android ROMs, ANY Halium-based Linux distro, or anything else not using a MAINLINE Linux kernel from the sdm845-mainline team/Linaro.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       It is safe to wipe partitions /dev/sda13-17 without any harm being done to the bootloader. Erasing these partitions will leave only mainline kernels bootable.
+      </p>
+      <p>
+       Since only advanced users should be doing this, no detailed instructions are going to be provided in this guide (ie: no copy/pasting Terminal commands). man pages are helpful here if you do not know how to use a tool.
+      </p>
+      <p>
+       First thing's first: You must have a working aarch64 binary of sgdisk. If you have an OS of any kind installed to your phone, you can get it from there. Find a way to run that binary in a Terminal on your device. TWRP or a mainline Linux liveboot (pmOS supports netboot) both work, so long as nothing is accessing the device storage.
+      </p>
+      <p>
+       Using sgdisk, delete partitions /dev/sda13 (or /dev/block/sda13 if using TWRP) through /dev/sda17.
+      </p>
+      <p>
+       Using sgdisk, create whatever partitions you want, then change the labels to whatever you want. I chose to create two partitions of different sizes: one named 'rootfs_stable' for postmarketOS, and one named 'rootfs_test' for other mainline distros. Make sure your labels do not conflict with any existing partitions.
+      </p>
+      <p>
+       After creating the partitions, fastboot will successfully flash images to those partitions using the labels you assigned to them. So for instance, 'pmbootstrap flasher flash_rootfs -- partition rootfs_stable' would work fine, along with using 'fastboot flash rootfs_temp linuxdistrotwoelectricboogaloo.img' Converting to sparse images isn't necessary, since fastboot will do that for you.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Reverting_to_stock_from_this_setup">
+        Reverting to stock from this setup
+       </span>
+      </h2>
+      <p>
+       To revert to stock, MsmDownloadTool or bkerler's edl tool with an extracted ops is necessary. Normal unbricking instructions through EDL mode apply here. If for any reason, it is impossible to access EDL mode anymore by plugging in a USB cable while the phone is off and volume up is being held down, then the phone is bricked.
+      </p>
+     </div>
+    </div>
+    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Custom_Partitioning&amp;oldid=26244">
+      https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Custom_Partitioning&amp;oldid=26244
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 14 March 2022, at 06:13.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Custom_Partitioning&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

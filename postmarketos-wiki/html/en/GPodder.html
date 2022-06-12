@@ -1,122 +1,302 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>GPodder - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-GPodder rootpage-GPodder skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">GPodder</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<div class="thumb tright"><div class="thumbinner" style="width:202px;">
-<a href="../Gpodder-adaptive.png" class="image"><img alt="" src="../Gpodder-adaptive.png" decoding="async" width="200" height="400" class="thumbimage" srcset="../300px-Gpodder-adaptive.png 1.5x ../400px-Gpodder-adaptive.png 2x"></a>  <div class="thumbcaption">
-<div class="magnify"><a href="../Gpodder-adaptive.png" class="internal" title="Enlarge"></a></div>gpodder-adaptive running in Phosh</div>
-</div></div>
-<p><a rel="nofollow" class="external text" href="https://gpodder.github.io/">gPodder</a> is a podcast client and media aggregator for desktop computers. We have packaged tpikonen's work in progress adaptive version and it works quite well.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Installation"><span class="tocnumber">1</span> <span class="toctext">Installation</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Usage"><span class="tocnumber">2</span> <span class="toctext">Usage</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Tips_and_Tricks"><span class="tocnumber">3</span> <span class="toctext">Tips and Tricks</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Install the adaptive fork of gPodder:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add gpodder-adaptive
-</pre></div>
-<p>Next, install a player such as <code>lollypop</code> or <code>vlc-qt</code>. (gPodder does not have an integrated player: <a rel="nofollow" class="external text" href="https://github.com/gpodder/gpodder/issues/924">gpodder#924</a>)
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add lollypop
-</pre></div>
-<h2><span class="mw-headline" id="Usage">Usage</span></h2>
-<p>Launch gPodder with the desktop icon. As soon as you select an episode to play, your default media player will open the episode.
-</p>
-<h2><span class="mw-headline" id="Tips_and_Tricks">Tips and Tricks</span></h2>
-<ul>
-<li>In addition to the graphical user interface, gPodder has a command-line client. Start it with <code>gpo</code>.</li>
-<li>VLC can be configured to automatically resume playback, and you can add seek buttons to the toolbar</li>
-<li>Seek buttons to phosh can be added with <a rel="nofollow" class="external text" href="https://source.puri.sm/Librem5/phosh/-/merge_requests/664">this patch</a> (requires building phosh from source)</li>
-</ul>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/gpodder/gpodder/issues/878">gpodder#878</a> gpodder should have an adaptive GTK / libhandy GUI</li>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/gpodder/gpodder/issues/924">gpodder#924</a> Adding an internal player to gpodder</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/872">pmaports#872</a> proper podcast player for postmarketOS (compares a few podcatchers)</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1822">pmaports!1822</a> initial MR for gpodder-adaptive</li>
-<li>
-<a rel="nofollow" class="external text" href="https://source.puri.sm/Librem5/phosh/-/merge_requests/664">phosh#664</a> media-player: add seek forward/back buttons</li>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/tpikonen/gpodder/tree/hdy">tpikonen/gpodder</a> libhandy enhanced Fork of gPodder</li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Apps.html" title="Category:Apps">Apps</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=GPodder&amp;oldid=19492">https://wiki.postmarketos.org/index.php?title=GPodder&amp;oldid=19492</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 27 May 2021, at 23:42.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=GPodder&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   GPodder - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-GPodder rootpage-GPodder skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    GPodder
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <div class="thumb tright">
+       <div class="thumbinner" style="width:202px;">
+        <a class="image" href="../Gpodder-adaptive.png">
+         <img alt="" class="thumbimage" decoding="async" height="400" src="../Gpodder-adaptive.png" srcset="../300px-Gpodder-adaptive.png 1.5x ../400px-Gpodder-adaptive.png 2x" width="200"/>
+        </a>
+        <div class="thumbcaption">
+         <div class="magnify">
+          <a class="internal" href="../Gpodder-adaptive.png" title="Enlarge">
+          </a>
+         </div>
+         gpodder-adaptive running in Phosh
+        </div>
+       </div>
+      </div>
+      <p>
+       <a class="external text" href="https://gpodder.github.io/" rel="nofollow">
+        gPodder
+       </a>
+       is a podcast client and media aggregator for desktop computers. We have packaged tpikonen's work in progress adaptive version and it works quite well.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Installation">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Installation
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Usage">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Usage
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Tips_and_Tricks">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Tips and Tricks
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#See_also">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Installation">
+        Installation
+       </span>
+      </h2>
+      <p>
+       Install the adaptive fork of gPodder:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo apk add gpodder-adaptive
+</pre>
+      </div>
+      <p>
+       Next, install a player such as
+       <code>
+        lollypop
+       </code>
+       or
+       <code>
+        vlc-qt
+       </code>
+       . (gPodder does not have an integrated player:
+       <a class="external text" href="https://github.com/gpodder/gpodder/issues/924" rel="nofollow">
+        gpodder#924
+       </a>
+       )
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo apk add lollypop
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Usage">
+        Usage
+       </span>
+      </h2>
+      <p>
+       Launch gPodder with the desktop icon. As soon as you select an episode to play, your default media player will open the episode.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Tips_and_Tricks">
+        Tips and Tricks
+       </span>
+      </h2>
+      <ul>
+       <li>
+        In addition to the graphical user interface, gPodder has a command-line client. Start it with
+        <code>
+         gpo
+        </code>
+        .
+       </li>
+       <li>
+        VLC can be configured to automatically resume playback, and you can add seek buttons to the toolbar
+       </li>
+       <li>
+        Seek buttons to phosh can be added with
+        <a class="external text" href="https://source.puri.sm/Librem5/phosh/-/merge_requests/664" rel="nofollow">
+         this patch
+        </a>
+        (requires building phosh from source)
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="external text" href="https://github.com/gpodder/gpodder/issues/878" rel="nofollow">
+         gpodder#878
+        </a>
+        gpodder should have an adaptive GTK / libhandy GUI
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/gpodder/gpodder/issues/924" rel="nofollow">
+         gpodder#924
+        </a>
+        Adding an internal player to gpodder
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/872" rel="nofollow">
+         pmaports#872
+        </a>
+        proper podcast player for postmarketOS (compares a few podcatchers)
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1822" rel="nofollow">
+         pmaports!1822
+        </a>
+        initial MR for gpodder-adaptive
+       </li>
+       <li>
+        <a class="external text" href="https://source.puri.sm/Librem5/phosh/-/merge_requests/664" rel="nofollow">
+         phosh#664
+        </a>
+        media-player: add seek forward/back buttons
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/tpikonen/gpodder/tree/hdy" rel="nofollow">
+         tpikonen/gpodder
+        </a>
+        libhandy enhanced Fork of gPodder
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Apps.html" title="Category:Apps">
+         Apps
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=GPodder&amp;oldid=19492">
+      https://wiki.postmarketos.org/index.php?title=GPodder&amp;oldid=19492
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 27 May 2021, at 23:42.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=GPodder&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

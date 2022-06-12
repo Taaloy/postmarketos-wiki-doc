@@ -1,142 +1,362 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Heimdall - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Heimdall rootpage-Heimdall skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Heimdall</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>Heimdall is a reverse-engineered, open-source, version of Samsung's flashing software <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Odin_(firmware_flashing_software)">Odin</a> for Galaxy S devices.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Getting_into_download_mode"><span class="tocnumber">1</span> <span class="toctext">Getting into download mode</span></a></li>
-<li class="toclevel-1 tocsection-2">
-<a href="#Known_issues_-_flashing_rootfs_fails"><span class="tocnumber">2</span> <span class="toctext">Known issues - flashing rootfs fails</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3"><a href="#The_sparse_image_format"><span class="tocnumber">2.1</span> <span class="toctext">The sparse image format</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="#Possible_solutions_for_postmarketOS"><span class="tocnumber">2.2</span> <span class="toctext">Possible solutions for postmarketOS</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-5"><a href="#See_also"><span class="tocnumber">3</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Getting_into_download_mode">Getting into download mode</span></h2>
-<p>Heimdall, and Odin, can flash devices that are in "download mode". It is usually possibly to reboot into download-mode by pressing and holding <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Home</span>. It is also possible to make a special usb cable (similar to a <a href="../en/Serial_debugging.html" title="Serial debugging">serial debugging cable</a>), where the ID pin in a micro-usb male header is connected to GND with (usually, check kernel driver for mfd/muic sources to be sure) a 150 kOhm resistor. When attached the device automatically boots into download mode.
-</p>
-<h2><span class="mw-headline" id="Known_issues_-_flashing_rootfs_fails">Known issues - flashing rootfs fails</span></h2>
-<p>Heimdall and Odin are unable to flash postmarketOS's rootfs image. The transfer always fails on the second chunk, which indicates that the bootloader tries to verify the first package and then rejects it. Looking at the format of Samsung's system.img from stock android, and comparing with what is created with postmarketOS, LineageOS or even AOSP reveals that Samsung seem to have made some changes to the <a rel="nofollow" class="external text" href="https://android.googlesource.com/platform/system/core/+/master/libsparse/sparse_format.h">sparse image format</a>. Both the file header and each chunk header contains an extra 32bit entry, and exactly what these entries mean is unknown, for some devices it seem to work to just use 0x0 everywhere though.
-</p>
-<h3><span class="mw-headline" id="The_sparse_image_format">The sparse image format</span></h3>
-<p>The <a rel="nofollow" class="external text" href="https://source.android.com/devices/bootloader/images#sparse-image-format">format specification</a> in AOSP specifies three different type of chunks:
-</p>
-<ul>
-<li>Raw chunk, containing data as it is (cannot be shrinked)</li>
-<li>Fill chunk, if image contains regions with a single repeated byte (typically lots of 0x0 or 0xF's), it can be shrinked into just a chunk header and information about which byte to later fill into the entire memory region.</li>
-<li>Don't care chunk, data region that is not important for some reason (not quite sure what it means, maybe a cache or /tmp region?), bootloader can just skip over it when writing image to memory.</li>
-</ul>
-<p>Generating a sparse image with a tool like img2simg generally shrinks an image by using these types of chunks. However, The fill chunk is not supported by Samsung's bootloaders (<a rel="nofollow" class="external text" href="https://issuetracker.google.com/issues/37077055">mentioned here</a>), and hence the img2simg tool cannot be used to create a sparse image suitable for flashing with Heimdall or Odin. img2simg also cannot create don't care chunks, due to it not being smart enough to analyse the compressed file system. This means that even if img2simg would be patched to no longer create fill chunks, then it would only contain raw chunks, and should hence be slightly larger than the original image. Other tools, like mke2fs, are better suited to create images in this case.
-</p>
-<p>To complicate things further, different devices seem to use different versions/formats of these sparse images:
-</p>
-<ul><li>In old devices like Galaxy S3 there are no extra entries header entries, the sparse format seem to be identical to the one in AOSP.</li></ul>
-<ul><li>In the android 5 firmwares for Galaxy S6, the extra entries are there and the file header entry is 0000 0000, while the chunk entry seem to be counting up with the block offset, possibly keeping track of the size of the expanded image.</li></ul>
-<ul><li>In android 7 firmwares for Galaxy S6, and in all other devices up to, and including, Galaxy S8, the extra entries are there. The file header has 0000 0000 and each chunk has a number that is the constant for most (but not always all) of the chunks.</li></ul>
-<ul><li>In Galaxy S9 and tab S6 lite (and supposedly other devices), the extra entries are gone, and the format seem to be identical to AOSP's images again.</li></ul>
-<p>In the PIT for these devices, there is a number in the PIT header that seem to be some sort of version. In most (but not all) of the old devices with normal sparse images, this number is 0000. In Galaxy S6 the number is 0003, in Galaxy S7 and S8 0004, and in Galaxy S9 and S6 lite 0005. 
-</p>
-<h3><span class="mw-headline" id="Possible_solutions_for_postmarketOS">Possible solutions for postmarketOS</span></h3>
-<p><code>pmbootstrap</code> can generate standard Android sparse images by adding the following deviceinfo option:
-</p>
-<pre>deviceinfo_flash_sparse="true"
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Heimdall - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Heimdall rootpage-Heimdall skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Heimdall
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       Heimdall is a reverse-engineered, open-source, version of Samsung's flashing software
+       <a class="external text" href="https://en.wikipedia.org/wiki/Odin_(firmware_flashing_software)" rel="nofollow">
+        Odin
+       </a>
+       for Galaxy S devices.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Getting_into_download_mode">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Getting into download mode
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Known_issues_-_flashing_rootfs_fails">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Known issues - flashing rootfs fails
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#The_sparse_image_format">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             The sparse image format
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Possible_solutions_for_postmarketOS">
+            <span class="tocnumber">
+             2.2
+            </span>
+            <span class="toctext">
+             Possible solutions for postmarketOS
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-5">
+         <a href="#See_also">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Getting_into_download_mode">
+        Getting into download mode
+       </span>
+      </h2>
+      <p>
+       Heimdall, and Odin, can flash devices that are in "download mode". It is usually possibly to reboot into download-mode by pressing and holding
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        Power
+       </span>
+       +
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        Volume Down
+       </span>
+       +
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        Home
+       </span>
+       . It is also possible to make a special usb cable (similar to a
+       <a href="../en/Serial_debugging.html" title="Serial debugging">
+        serial debugging cable
+       </a>
+       ), where the ID pin in a micro-usb male header is connected to GND with (usually, check kernel driver for mfd/muic sources to be sure) a 150 kOhm resistor. When attached the device automatically boots into download mode.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Known_issues_-_flashing_rootfs_fails">
+        Known issues - flashing rootfs fails
+       </span>
+      </h2>
+      <p>
+       Heimdall and Odin are unable to flash postmarketOS's rootfs image. The transfer always fails on the second chunk, which indicates that the bootloader tries to verify the first package and then rejects it. Looking at the format of Samsung's system.img from stock android, and comparing with what is created with postmarketOS, LineageOS or even AOSP reveals that Samsung seem to have made some changes to the
+       <a class="external text" href="https://android.googlesource.com/platform/system/core/+/master/libsparse/sparse_format.h" rel="nofollow">
+        sparse image format
+       </a>
+       . Both the file header and each chunk header contains an extra 32bit entry, and exactly what these entries mean is unknown, for some devices it seem to work to just use 0x0 everywhere though.
+      </p>
+      <h3>
+       <span class="mw-headline" id="The_sparse_image_format">
+        The sparse image format
+       </span>
+      </h3>
+      <p>
+       The
+       <a class="external text" href="https://source.android.com/devices/bootloader/images#sparse-image-format" rel="nofollow">
+        format specification
+       </a>
+       in AOSP specifies three different type of chunks:
+      </p>
+      <ul>
+       <li>
+        Raw chunk, containing data as it is (cannot be shrinked)
+       </li>
+       <li>
+        Fill chunk, if image contains regions with a single repeated byte (typically lots of 0x0 or 0xF's), it can be shrinked into just a chunk header and information about which byte to later fill into the entire memory region.
+       </li>
+       <li>
+        Don't care chunk, data region that is not important for some reason (not quite sure what it means, maybe a cache or /tmp region?), bootloader can just skip over it when writing image to memory.
+       </li>
+      </ul>
+      <p>
+       Generating a sparse image with a tool like img2simg generally shrinks an image by using these types of chunks. However, The fill chunk is not supported by Samsung's bootloaders (
+       <a class="external text" href="https://issuetracker.google.com/issues/37077055" rel="nofollow">
+        mentioned here
+       </a>
+       ), and hence the img2simg tool cannot be used to create a sparse image suitable for flashing with Heimdall or Odin. img2simg also cannot create don't care chunks, due to it not being smart enough to analyse the compressed file system. This means that even if img2simg would be patched to no longer create fill chunks, then it would only contain raw chunks, and should hence be slightly larger than the original image. Other tools, like mke2fs, are better suited to create images in this case.
+      </p>
+      <p>
+       To complicate things further, different devices seem to use different versions/formats of these sparse images:
+      </p>
+      <ul>
+       <li>
+        In old devices like Galaxy S3 there are no extra entries header entries, the sparse format seem to be identical to the one in AOSP.
+       </li>
+      </ul>
+      <ul>
+       <li>
+        In the android 5 firmwares for Galaxy S6, the extra entries are there and the file header entry is 0000 0000, while the chunk entry seem to be counting up with the block offset, possibly keeping track of the size of the expanded image.
+       </li>
+      </ul>
+      <ul>
+       <li>
+        In android 7 firmwares for Galaxy S6, and in all other devices up to, and including, Galaxy S8, the extra entries are there. The file header has 0000 0000 and each chunk has a number that is the constant for most (but not always all) of the chunks.
+       </li>
+      </ul>
+      <ul>
+       <li>
+        In Galaxy S9 and tab S6 lite (and supposedly other devices), the extra entries are gone, and the format seem to be identical to AOSP's images again.
+       </li>
+      </ul>
+      <p>
+       In the PIT for these devices, there is a number in the PIT header that seem to be some sort of version. In most (but not all) of the old devices with normal sparse images, this number is 0000. In Galaxy S6 the number is 0003, in Galaxy S7 and S8 0004, and in Galaxy S9 and S6 lite 0005.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Possible_solutions_for_postmarketOS">
+        Possible solutions for postmarketOS
+       </span>
+      </h3>
+      <p>
+       <code>
+        pmbootstrap
+       </code>
+       can generate standard Android sparse images by adding the following deviceinfo option:
+      </p>
+      <pre>deviceinfo_flash_sparse="true"
 </pre>
-<p>For device with non-standard Samsung sparse images, <a rel="nofollow" class="external text" href="https://gitlab.com/doppioandante/sm_sparse_image_tool">sm_sparse_image_tool.py</a> is used to patch the image so that the Odin loader accepts it. Adding this option to the deviceinfo in conjuction with <code>deviceinfo_flash_sparse</code> will do it automatically:
-</p>
-<pre>deviceinfo_flash_sparse_samsung_format="1"
+      <p>
+       For device with non-standard Samsung sparse images,
+       <a class="external text" href="https://gitlab.com/doppioandante/sm_sparse_image_tool" rel="nofollow">
+        sm_sparse_image_tool.py
+       </a>
+       is used to patch the image so that the Odin loader accepts it. Adding this option to the deviceinfo in conjuction with
+       <code>
+        deviceinfo_flash_sparse
+       </code>
+       will do it automatically:
+      </p>
+      <pre>deviceinfo_flash_sparse_samsung_format="1"
 </pre>
-<p>This has been tested only with <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Samsung_Galaxy_Note_10.1_2014_(samsung-n1awifi)">Samsung Galaxy Note 10.1 (2014)</a> at time of writing. The "1" refers to the strategy used by <code>sm-sparse-image-tool</code> to patch the vanilla sparse image; currently this it the only existing strategy and it does the following:
-</p>
-<ol>
-<li>extend the sparse image header and the header of every chunk with some null padding bytes</li>
-<li>translate fill chunks as dontcare chunks only if it is a zero fill, otherwise expand the fill chunk into a raw chunk</li>
-</ol>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/anestisb/android-simg2img/blob/223e415fb3b89c057e18c6655b034a1db60a21de/simg_dump.py">simg_dump.py</a> useful tool for analysing sparse image format (the one in the linked commit can handle Samsung's manipulations)</li>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/Chainfire/sgs4ext4fs">sgs4ext4fs</a> also has a --list option for showing image format</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gist.github.com/jedld/4f388496bda03b349f5744f367749a67">libsparse patch</a> to make pre-android 10 libsparse compatible with Samsung's images (changes for android 10 and newer are similar)</li>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/Benjamin-Dobell/Heimdall">Original Heimdall repository</a> (no longer maintained)</li>
-<li>
-<a rel="nofollow" class="external text" href="https://git.sr.ht/~grimler/Heimdall">Heimdall fork</a> (maintained)</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/doppioandante/sm_sparse_image_tool">sm_sparse_image_tool.py</a> Script inspired by samsungify.d and simg_dump.py, meant to analyze and patch sparse images to conform to Samsung's sparse image format</li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Heimdall&amp;oldid=26918">https://wiki.postmarketos.org/index.php?title=Heimdall&amp;oldid=26918</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 12 April 2022, at 14:15.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Heimdall&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <p>
+       This has been tested only with
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Samsung_Galaxy_Note_10.1_2014_(samsung-n1awifi)" rel="nofollow">
+        Samsung Galaxy Note 10.1 (2014)
+       </a>
+       at time of writing. The "1" refers to the strategy used by
+       <code>
+        sm-sparse-image-tool
+       </code>
+       to patch the vanilla sparse image; currently this it the only existing strategy and it does the following:
+      </p>
+      <ol>
+       <li>
+        extend the sparse image header and the header of every chunk with some null padding bytes
+       </li>
+       <li>
+        translate fill chunks as dontcare chunks only if it is a zero fill, otherwise expand the fill chunk into a raw chunk
+       </li>
+      </ol>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="external text" href="https://github.com/anestisb/android-simg2img/blob/223e415fb3b89c057e18c6655b034a1db60a21de/simg_dump.py" rel="nofollow">
+         simg_dump.py
+        </a>
+        useful tool for analysing sparse image format (the one in the linked commit can handle Samsung's manipulations)
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/Chainfire/sgs4ext4fs" rel="nofollow">
+         sgs4ext4fs
+        </a>
+        also has a --list option for showing image format
+       </li>
+       <li>
+        <a class="external text" href="https://gist.github.com/jedld/4f388496bda03b349f5744f367749a67" rel="nofollow">
+         libsparse patch
+        </a>
+        to make pre-android 10 libsparse compatible with Samsung's images (changes for android 10 and newer are similar)
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/Benjamin-Dobell/Heimdall" rel="nofollow">
+         Original Heimdall repository
+        </a>
+        (no longer maintained)
+       </li>
+       <li>
+        <a class="external text" href="https://git.sr.ht/~grimler/Heimdall" rel="nofollow">
+         Heimdall fork
+        </a>
+        (maintained)
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/doppioandante/sm_sparse_image_tool" rel="nofollow">
+         sm_sparse_image_tool.py
+        </a>
+        Script inspired by samsungify.d and simg_dump.py, meant to analyze and patch sparse images to conform to Samsung's sparse image format
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Heimdall&amp;oldid=26918">
+      https://wiki.postmarketos.org/index.php?title=Heimdall&amp;oldid=26918
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 12 April 2022, at 14:15.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Heimdall&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

@@ -1,1268 +1,3440 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Mainlining - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Mainlining rootpage-Mainlining skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Mainlining</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>Mainlining is the process of replacing the kernel provided by the device vendor (the "downstream" kernel), with a version close to the actively developed version released on <a rel="nofollow" class="external text" href="https://www.kernel.org">kernel.org</a> (the "mainline" kernel). It involves porting (and most importantly: cleaning up) device-specific code from the downstream kernel to the mainline kernel. For some <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/System_on_a_chip">SoCs</a>, common support already exists in mainline, so you can focus on device-specific components.
-</p>
-<h2>
-<span id="Why?"></span><span class="mw-headline" id="Why.3F">Why?</span>
-</h2>
-<p>Mainlining is a fairly complicated process, especially if you're one of the first to start work on a given SoC. However through community effort there is a growing number of SoCs that have increasingly stable mainline ports (see below). In general it is relatively simple to take your existing Android kernel and boot it without any of the Android blobs, however from that point it can be a lot of working to create a working system and at the end of it you don't receive any security patches or general improvements.
-</p>
-<p>Apart from purely practical insufficiencies, the cold hard truth is that the downstream code is simply not meant to be maintained or get used outside Android. The code quality is often several magnitudes worse, which makes maintenance rather complicated. Often large parts of the drivers are moved into proprietary parts in Android userspace - which are generally impossible to use without emulating the expected Android environment. At the end, the effort to make such drivers work properly on long term is often as much as rewriting them properly for mainline.
-</p>
-<p>Successfully mainlining an SoC or device means that you benefit from every improvement the Linux kernel has to offer, you can run a fairly standard Linux distro (in theory even <i>any</i> Linux distro) and benefit from kernel updates and improvements without needing to compile your own kernel or deal with frustrating patches. A notable easy-to-notice benefit of running mainline is minimal-effort-needed GPU support for almost all GPUs (except PowerVR unfortunately), which is needed for using modern phone DEs like Plasma Mobile or Phosh with acceptable performance. Lastly, mainlining is a terrific learning opportunity that you will never regret.
-</p>
-<p>If your device's SoC is in the list below there's a very decent chance that you can get the same functionality working on your device and eventually upstream your patches to the kernel, helping to build a solid base for other devices too!
-</p>
-<h2><span class="mw-headline" id="Overview">Overview</span></h2>
-<h3><span class="mw-headline" id="Supported_SoCs">Supported SoCs</span></h3>
-<p>Some SoCs are already supported quite well and are used for some devices in postmarketOS. Getting started with one of these might be easier for you, because you can get help from others working with the same SoC. The feature matrix below shows which features are already supported for a particular SoC. The pages for each SoC will provide more information, plus hints how to get started and who you can contact.
-</p>
-<ul>
-<li>
-<b>CPU:</b> SMP (bring up secondary CPU cores), CPU frequency scaling, CPUidle</li>
-<li>
-<b>Storage:</b> eMMC, SD cards, UFS, ...</li>
-<li>
-<b>Video:</b> Hardware-accelerated video de/encoding</li>
-<li>
-<b>Modem:</b> Calls, SMS, Internet</li>
-<li>
-<b>Suspend:</b> Can reach (all) low-power modes of the SoC during suspend (either system suspend or cpuidle).</li>
-<li>Unavailable (-) means that such a feature is not built directly into SoC. For example, WiFi/BT are also often used through SDIO/UART which can be chosen independently from the SoC.</li>
-</ul>
-<p><b>Note:</b> The statuses displayed below signify if a particular feature was tested on a device by someone in the postmarketOS community - not necessarily the components supported in the mainline kernel.
-</p>
-<table class="cargoTable noMerge sortable">
-<thead><tr>
-<th class="field_SoC">SoC</th>
-<th class="field_Arch">Arch</th>
-<th class="field_Year">Year</th>
-<th class="field_UART">UART</th>
-<th class="field_USB">USB</th>
-<th class="field_Storage">Storage</th>
-<th class="field_Display">Display</th>
-<th class="field_CPU">CPU</th>
-<th class="field_GPU">GPU</th>
-<th class="field_Pinctrl">Pinctrl</th>
-<th class="field_I²C">I²C</th>
-<th class="field_Audio">Audio</th>
-<th class="field_Video">Video</th>
-<th class="field_Thermal">Thermal</th>
-<th class="field_WiFi">WiFi</th>
-<th class="field_BT">BT</th>
-<th class="field_Modem">Modem</th>
-<th class="field_GPS">GPS</th>
-<th class="field_Camera">Camera</th>
-<th class="field_Suspend">Suspend</th>
-</tr></thead>
-<tbody>
-<tr>
-<td class="field_SoC"><a href="../en/Allwinner_A64.html" title="Allwinner A64">Allwinner A64</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2015</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">P</td>
-<td class="field_GPU">P</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video"></td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem">-</td>
-<td class="field_GPS">-</td>
-<td class="field_Camera">Y</td>
-<td class="field_Suspend">P</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Broadcom_Kona.html" title="Broadcom Kona">Broadcom BCM21664</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2012</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">N</td>
-<td class="field_Storage">P</td>
-<td class="field_Display"></td>
-<td class="field_CPU">P</td>
-<td class="field_GPU"></td>
-<td class="field_Pinctrl"></td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal"></td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem">-</td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Broadcom_Kona.html" title="Broadcom Kona">Broadcom BCM23550</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2012</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">N</td>
-<td class="field_Storage">P</td>
-<td class="field_Display"></td>
-<td class="field_CPU">P</td>
-<td class="field_GPU"></td>
-<td class="field_Pinctrl"></td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal"></td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem">-</td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Intel_Bay_Trail.html" title="Intel Bay Trail">Intel Bay Trail</a></td>
-<td class="field_Arch">x86_64</td>
-<td class="field_Year">2013</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">Y</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem">-</td>
-<td class="field_GPS">-</td>
-<td class="field_Camera">N</td>
-<td class="field_Suspend">Y</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/MediaTek_MT6582.html" title="MediaTek MT6582">MediaTek MT6582</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2013</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">N</td>
-<td class="field_Storage">N</td>
-<td class="field_Display">N</td>
-<td class="field_CPU">P</td>
-<td class="field_GPU">N</td>
-<td class="field_Pinctrl">N</td>
-<td class="field_I²C">N</td>
-<td class="field_Audio">N</td>
-<td class="field_Video">N</td>
-<td class="field_Thermal">N</td>
-<td class="field_WiFi">N</td>
-<td class="field_BT">N</td>
-<td class="field_Modem">N</td>
-<td class="field_GPS">N</td>
-<td class="field_Camera">N</td>
-<td class="field_Suspend">N</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/MediaTek_MT6589.html" title="MediaTek MT6589">MediaTek MT6589</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2013</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">N</td>
-<td class="field_Storage">N</td>
-<td class="field_Display">N</td>
-<td class="field_CPU">P</td>
-<td class="field_GPU">N</td>
-<td class="field_Pinctrl">N</td>
-<td class="field_I²C">N</td>
-<td class="field_Audio">N</td>
-<td class="field_Video">N</td>
-<td class="field_Thermal">N</td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem">N</td>
-<td class="field_GPS">-</td>
-<td class="field_Camera">N</td>
-<td class="field_Suspend">N</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Nvidia_Tegra_2_(tegra20).html" title="Nvidia Tegra 2 (tegra20)">Nvidia Tegra 2</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2010</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">P</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">Y</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem">-</td>
-<td class="field_GPS">-</td>
-<td class="field_Camera">P</td>
-<td class="field_Suspend">Y</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Nvidia_Tegra_3_(tegra30).html" title="Nvidia Tegra 3 (tegra30)">Nvidia Tegra 3</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2011</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">P</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">Y</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem">-</td>
-<td class="field_GPS">-</td>
-<td class="field_Camera">P</td>
-<td class="field_Suspend">Y</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Nvidia_Tegra_4_(tegra114).html" title="Nvidia Tegra 4 (tegra114)">Nvidia Tegra 4</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2013</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">P</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">P</td>
-<td class="field_GPU">P</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">P</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem">-</td>
-<td class="field_GPS">-</td>
-<td class="field_Camera"></td>
-<td class="field_Suspend">Y</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_600_(APQ8064).html" title="Qualcomm Snapdragon 600 (APQ8064)">Qualcomm APQ8064</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2013</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">N</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">N</td>
-<td class="field_Video"></td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">Y</td>
-<td class="field_BT"></td>
-<td class="field_Modem">N</td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_200_(MSM8212).html" title="Qualcomm Snapdragon 200 (MSM8212)">Qualcomm MSM8212</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2013</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display"></td>
-<td class="field_CPU">P</td>
-<td class="field_GPU"></td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal"></td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
-<td class="field_Modem"></td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_400_(MSM8226).html" title="Qualcomm Snapdragon 400 (MSM8226)">Qualcomm MSM8226</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2013</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">N</td>
-<td class="field_CPU">P</td>
-<td class="field_GPU">N</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">N</td>
-<td class="field_Video">N</td>
-<td class="field_Thermal">N</td>
-<td class="field_WiFi">Y</td>
-<td class="field_BT">N</td>
-<td class="field_Modem">N</td>
-<td class="field_GPS">N</td>
-<td class="field_Camera">N</td>
-<td class="field_Suspend">N</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm Snapdragon 410/412 (MSM8916)">Qualcomm MSM8916</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2014</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">Y</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">Y</td>
-<td class="field_BT">Y</td>
-<td class="field_Modem">Y</td>
-<td class="field_GPS">Y</td>
-<td class="field_Camera">P</td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_615_616_(MSM8939).html" title="Qualcomm Snapdragon 615/616 (MSM8939)">Qualcomm MSM8939</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2014</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">P</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video"></td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">Y</td>
-<td class="field_BT">Y</td>
-<td class="field_Modem">Y</td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_450_625_626_632_(MSM8953).html" title="Qualcomm Snapdragon 450/625/626/632 (MSM8953)">Qualcomm MSM8953</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2016</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">Y</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">Y</td>
-<td class="field_BT">Y</td>
-<td class="field_Modem">P</td>
-<td class="field_GPS"></td>
-<td class="field_Camera">P</td>
-<td class="field_Suspend">P</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_S4_Plus_(MSM8960).html" title="Qualcomm Snapdragon S4 Plus (MSM8960)">Qualcomm MSM8960</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2012</td>
-<td class="field_UART">Y</td>
-<td class="field_USB"></td>
-<td class="field_Storage"></td>
-<td class="field_Display"></td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU"></td>
-<td class="field_Pinctrl"></td>
-<td class="field_I²C"></td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal"></td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
-<td class="field_Modem"></td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_800_801_(MSM8974).html" title="Qualcomm Snapdragon 800/801 (MSM8974)">Qualcomm MSM8974</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2013</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">P</td>
-<td class="field_GPU">P</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">N</td>
-<td class="field_Video">N</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">Y</td>
-<td class="field_BT">Y</td>
-<td class="field_Modem">P</td>
-<td class="field_GPS">N</td>
-<td class="field_Camera">N</td>
-<td class="field_Suspend">N</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_650_652_653(MSM8956_MSM8976).html" title="Qualcomm Snapdragon 650/652/653(MSM8956/MSM8976)">Qualcomm MSM8976</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2016</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">P</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">N</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">N</td>
-<td class="field_Video">N</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">Y</td>
-<td class="field_BT">Y</td>
-<td class="field_Modem">P</td>
-<td class="field_GPS"></td>
-<td class="field_Camera">N</td>
-<td class="field_Suspend">N</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_820_821_(MSM8996).html" title="Qualcomm Snapdragon 820/821 (MSM8996)">Qualcomm MSM8996</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2016</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">P</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">P</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">Y</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem">P</td>
-<td class="field_GPS"></td>
-<td class="field_Camera">P</td>
-<td class="field_Suspend">N</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_835_(MSM8998).html" title="Qualcomm Snapdragon 835 (MSM8998)">Qualcomm MSM8998</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2017</td>
-<td class="field_UART"></td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">P</td>
-<td class="field_CPU">P</td>
-<td class="field_GPU">N</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">Y</td>
-<td class="field_BT">Y</td>
-<td class="field_Modem">P</td>
-<td class="field_GPS">Y</td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_660_(SDM660).html" title="Qualcomm Snapdragon 660 (SDM660)">Qualcomm SDM630</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2017</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">P</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">P</td>
-<td class="field_CPU">P</td>
-<td class="field_GPU"></td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal">P</td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
-<td class="field_Modem">P</td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_660_(SDM660).html" title="Qualcomm Snapdragon 660 (SDM660)">Qualcomm SDM636</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2017</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">P</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display"></td>
-<td class="field_CPU">P</td>
-<td class="field_GPU"></td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal"></td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
-<td class="field_Modem"></td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_660_(SDM660).html" title="Qualcomm Snapdragon 660 (SDM660)">Qualcomm SDM660</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2017</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">P</td>
-<td class="field_Storage">P</td>
-<td class="field_Display"></td>
-<td class="field_CPU">P</td>
-<td class="field_GPU"></td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C"></td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal"></td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
-<td class="field_Modem"></td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_845_(SDM845).html" title="Qualcomm Snapdragon 845 (SDM845)">Qualcomm SDM845</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2018</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">Y</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">Y</td>
-<td class="field_BT">Y</td>
-<td class="field_Modem">P</td>
-<td class="field_GPS"></td>
-<td class="field_Camera">Y</td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_690_5G_(SM6350).html" title="Qualcomm Snapdragon 690 5G (SM6350)">Qualcomm SM6350</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2020</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">N</td>
-<td class="field_Display">N</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">N</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">N</td>
-<td class="field_Video">N</td>
-<td class="field_Thermal">N</td>
-<td class="field_WiFi">N</td>
-<td class="field_BT">N</td>
-<td class="field_Modem">P</td>
-<td class="field_GPS"></td>
-<td class="field_Camera">N</td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_720G_(SM7125).html" title="Qualcomm Snapdragon 720G (SM7125)">Qualcomm SM7125</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2020</td>
-<td class="field_UART"></td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal"></td>
-<td class="field_WiFi">Y</td>
-<td class="field_BT">Y</td>
-<td class="field_Modem">P</td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_730_730G_732G_(SM7150).html" title="Qualcomm Snapdragon 730/730G/732G (SM7150)">Qualcomm SM7150</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2019/2020</td>
-<td class="field_UART"></td>
-<td class="field_USB"></td>
-<td class="field_Storage"></td>
-<td class="field_Display">P</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU"></td>
-<td class="field_Pinctrl"></td>
-<td class="field_I²C"></td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal"></td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
-<td class="field_Modem"></td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_855_(SM8150).html" title="Qualcomm Snapdragon 855 (SM8150)">Qualcomm SM8150</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2019</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal"></td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
-<td class="field_Modem"></td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_888_(SM8350).html" title="Qualcomm Snapdragon 888 (SM8350)">Qualcomm SM8350</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2021</td>
-<td class="field_UART"></td>
-<td class="field_USB">P</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display"></td>
-<td class="field_CPU">P</td>
-<td class="field_GPU"></td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C"></td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal"></td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
-<td class="field_Modem"></td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Rockchip_RK3399.html" title="Rockchip RK3399">Rockchip RK3399</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2016</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">Y</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem">-</td>
-<td class="field_GPS">-</td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">Samsung Exynos 3250</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2014</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
-<td class="field_Modem"></td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend">Y</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">Samsung Exynos 4210</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2011</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display"></td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU"></td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
-<td class="field_Modem"></td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">Samsung Exynos 4412</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2012</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video"></td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
-<td class="field_Modem"></td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend">Y</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">Samsung Exynos 5250</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2012</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">N</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">N</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem">-</td>
-<td class="field_GPS">-</td>
-<td class="field_Camera"></td>
-<td class="field_Suspend">Y</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">Samsung Exynos 5420</a></td>
-<td class="field_Arch">arm</td>
-<td class="field_Year">2013</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">N</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">N</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem">-</td>
-<td class="field_GPS">-</td>
-<td class="field_Camera"></td>
-<td class="field_Suspend">Y</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">Samsung Exynos 5422</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2014</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">Y</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
-<td class="field_Modem"></td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend">Y</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">Samsung Exynos 5433</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2014</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video"></td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
-<td class="field_Modem"></td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend">Y</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">Samsung Exynos 8895</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2017</td>
-<td class="field_UART"></td>
-<td class="field_USB"></td>
-<td class="field_Storage"></td>
-<td class="field_Display"></td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU"></td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C"></td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal"></td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
-<td class="field_Modem"></td>
-<td class="field_GPS"></td>
-<td class="field_Camera"></td>
-<td class="field_Suspend"></td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/ST-Ericsson_NovaThor_U8500.html" title="ST-Ericsson NovaThor U8500">ST-Ericsson NovaThor U8500</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2011</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio"></td>
-<td class="field_Video"></td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem"></td>
-<td class="field_GPS">-</td>
-<td class="field_Camera"></td>
-<td class="field_Suspend">Y</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Texas_Instruments_OMAP_3_(OMAP3xxx).html" title="Texas Instruments OMAP 3 (OMAP3xxx)">Texas Instruments OMAP3xx</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2008</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">P</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">N</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem">-</td>
-<td class="field_GPS">-</td>
-<td class="field_Camera">Y</td>
-<td class="field_Suspend">Y</td>
-</tr>
-<tr>
-<td class="field_SoC"><a href="../en/Texas_Instruments_OMAP_4_(OMAP44xx).html" title="Texas Instruments OMAP 4 (OMAP44xx)">Texas Instruments OMAP44xx</a></td>
-<td class="field_Arch">armv7</td>
-<td class="field_Year">2011</td>
-<td class="field_UART">Y</td>
-<td class="field_USB">Y</td>
-<td class="field_Storage">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_CPU">Y</td>
-<td class="field_GPU">P</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">N</td>
-<td class="field_Thermal">Y</td>
-<td class="field_WiFi">-</td>
-<td class="field_BT">-</td>
-<td class="field_Modem">-</td>
-<td class="field_GPS">-</td>
-<td class="field_Camera">P</td>
-<td class="field_Suspend">Y</td>
-</tr>
-</tbody>
-</table>
-<h3><span class="mw-headline" id="Getting_help">Getting help</span></h3>
-<p>Mainlining related to postmarketOS is primarily discussed in the <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">#postmarketOS-mainline</a> channel. For one of the SoCs above there should be someone around who is able to help you to some extent. Note that you will be on your own for some of the problems - there are often device specific problems or components that no one has experience with yet.
-</p>
-<p>Below are some more chat channels / mailing list that may be helpful for further help or if you want to work on a SoC that is not listed above (yet!):
-</p>
-<p>In Matrix, you can browse most of Linux kernel development related channels in <a rel="nofollow" class="external text" href="https://matrix.to/#/#linux-kernel-devspace:matrix.org">#linux-kernel-devspace</a>
-</p>
-<table class="wikitable">
-<tbody>
-<tr>
-<th>SoC
-</th>
-<th>Where to ask for help
-</th>
-</tr>
-<tr>
-<td>
-</td>
-<td>
-<a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">#postmarketOS-mainline</a> (SoC-specific questions might be limited to those listed above)
-</td>
-</tr>
-<tr>
-<td>Allwinner
-</td>
-<td>#linux-sunxi on <a rel="nofollow" class="external text" href="https://www.oftc.net/">OFTC</a>, <a rel="nofollow" class="external text" href="https://groups.google.com/g/linux-sunxi/">linux-sunxi@googlegroups.com</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="../en/Broadcom_Kona.html" title="Broadcom Kona">Broadcom Kona</a>
-</td>
-<td>ask <a href="../User:Knuxfanwin8.html" title="User:Knuxfanwin8">knuxify</a>, <a rel="nofollow" class="external text" href="https://github.com/bcm-kona-mainline">bcm-kona-mainline on GitHub</a>
-</td>
-</tr>
-<tr>
-<td>Exynos
-</td>
-<td>#replicant (with focus on older variants) or #linux-exynos on <a rel="nofollow" class="external text" href="https://libera.chat/">Libera.chat</a> (ask forkbomb, Putti, krzk), <a rel="nofollow" class="external text" href="https://lore.kernel.org/linux-samsung-soc/">linux-samsung-soc@vger.kernel.org</a>
-</td>
-</tr>
-<tr>
-<td>Mediatek
-</td>
-<td>#linux-mediatek on <a rel="nofollow" class="external text" href="https://libera.chat/">Libera.chat</a>, <a rel="nofollow" class="external text" href="https://lore.kernel.org/linux-mediatek/">linux-mediatek@lists.infradead.org</a>
-</td>
-</tr>
-<tr>
-<td>OMAP3 / OMAP4
-</td>
-<td>ask <a rel="nofollow" class="external text" href="https://gitlab.com/pavelm">@pavelm</a>, <a rel="nofollow" class="external text" href="https://lore.kernel.org/linux-omap/">linux-omap@vger.kernel.org</a>
-</td>
-</tr>
-<tr>
-<td>Qualcomm (msm...)
-</td>
-<td>#linux-msm on <a rel="nofollow" class="external text" href="https://www.oftc.net/">OFTC</a>, <a rel="nofollow" class="external text" href="https://lore.kernel.org/linux-arm-msm/">linux-arm-msm@vger.kernel.org</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="../en/Qualcomm_Snapdragon_600_(APQ8064).html" title="Qualcomm Snapdragon 600 (APQ8064)">Qualcomm Snapdragon 600 (APQ8064)</a> and <a href="../en/Qualcomm_Snapdragon_S4_Plus_(MSM8960).html" title="Qualcomm Snapdragon S4 Plus (MSM8960)">Qualcomm Snapdragon S4 Plus (MSM8960)</a>
-</td>
-<td>Qualcomm entry + join <a rel="nofollow" class="external text" href="https://matrix.to/#/#linux-apq8064:matrix.org">#linux-apq8064:matrix.org</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="../en/Qualcomm_Snapdragon_615_616_(MSM8939).html" title="Qualcomm Snapdragon 615/616 (MSM8939)">Qualcomm Snapdragon 615/616 (MSM8939)</a>
-</td>
-<td>Qualcomm entry + join <a rel="nofollow" class="external text" href="https://matrix.to/#/#msm8939:matrix.org">#msm8939:matrix.org</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="../en/Qualcomm_Snapdragon_820_821_(MSM8996).html" title="Qualcomm Snapdragon 820/821 (MSM8996)">Qualcomm Snapdragon 820/821 (MSM8996)</a>
-</td>
-<td>Qualcomm entry + join <a rel="nofollow" class="external text" href="https://matrix.to/#/#msm8996-mainline:matrix.org">#msm8996-mainline:matrix.org</a>
-</td>
-</tr>
-<tr>
-<td>
-<a href="../en/Qualcomm_Snapdragon_845_(SDM845).html" title="Qualcomm Snapdragon 845 (SDM845)">Qualcomm Snapdragon 845 (SDM845)</a>
-</td>
-<td>Qualcomm entry + ask <a href="../User:Kalube.html" title="User:Kalube">Caleb</a> and join <a rel="nofollow" class="external text" href="https://matrix.to/#/#sdm845:postmarketos.org">#sdm845:postmarketos.org</a>
-</td>
-</tr>
-<tr>
-<td>nVidia Tegra
-</td>
-<td>#postmarketOS-on-transformers on <a rel="nofollow" class="external text" href="https://matrix.org">matrix.org</a> (although focused on the Asus Eee Pad Transformer family, they also offer help with other Tegra devices), #tegra on <a rel="nofollow" class="external text" href="https://libera.chat/">Libera.chat</a>, <a rel="nofollow" class="external text" href="https://www.spinics.net/lists/linux-tegra/">linux-tegra@vger.kernel.org</a>
-</td>
-</tr>
-</tbody>
-</table>
-<h2><span class="mw-headline" id="Getting_Started">Getting Started</span></h2>
-<ul>
-<li>Collect as much information about your device as you can: downstream kernel sources, specifications, schematics (can be sometimes found with your favorite search engine) are all going to prove invaluable when attempting to port a device to mainline.</li>
-<li>
-<a href="../en/Serial_debugging.html" title="Serial debugging">Serial debugging</a> will be helpful especially in the beginning (before USB or network is working). Some devices expose it through the USB port or the audio jack; others have test points available on the mainboard.</li>
-<li>Choose a kernel tree:
-<ul>
-<li>
-<b>Mainline:</b> (the last kernel version released by Linus Torvalds) Usually a good compromise of being recent, yet quite stable. <a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git">torvalds/linux.git</a>
-</li>
-<li>
-<b>linux-next:</b> A collection of recently merged changes from many subsystems; use this if you are working on a very recent SoC. <a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git">next/linux-next.git</a>
-</li>
-<li>There may be more WIP changes available in Linux kernel trees specific to your SoC.</li>
-</ul>
-</li>
-<li>
-<a href="../en/Compiling_kernels_with_envkernel.sh.html" title="Compiling kernels with envkernel.sh">Compiling kernels with envkernel.sh</a> is very useful to integrate kernel development into postmarketOS.</li>
-<li>If you are attempting to port to a SoC listed above, check the SoC wiki page for further help and instructions.</li>
-<li>Do not attempt to copy any code as-is from downstream. In general this won't work, and most importantly: it won't be accepted for inclusion into the mainline kernel upstream.
-<ul><li>Instead, try to understand what the downstream code does, and rewrite it from scratch for mainline by looking at similar code.</li></ul>
-</li>
-</ul>
-<h2><span class="mw-headline" id="Materials_to_look_into">Materials to look into</span></h2>
-<p>This section include many useful sources to help you with mainlining as possible.
-</p>
-<p>Note: Linux architecture regarding to embedded devices moving fast forward, so be aware that some specific information can get outdated in 2 – 3 years.
-</p>
-<p><b>Books:</b>
-</p>
-<ul>
-<li>Mastering Linux Device Driver Development: Write custom device drivers to support computer peripherals in Linux operating systems (2021, John Madieu) <a rel="nofollow" class="external text" href="https://www.packtpub.com/product/mastering-linux-device-driver-development/9781789342048">Packtpub (on SALE for $ 5)</a> <a rel="nofollow" class="external text" href="https://1lib.cz/book/11637490/9a0f71">1lib.cz</a>
-</li>
-<li>Linux Driver Development for Embedded Processors - Second Edition: Learn to develop Linux embedded drivers with kernel 4.9 LTS (2018, Alberto Liberal De Los Ríos) <a rel="nofollow" class="external text" href="https://www.amazon.com/Linux-Driver-Development-Embedded-Processors/dp/1729321828">amazon.com</a> <a rel="nofollow" class="external text" href="https://1lib.cz/book/5325784/29ef3d">1lib.cz</a>
-</li>
-</ul>
-<p><b>Intro:</b>
-</p>
-<ul>
-<li>Porting mainline Linux to mobile phones, Luca Weiss, 2022 (40:00) <a rel="nofollow" class="external text" href="https://fosdem.org/2022/schedule/event/mobile_kernel_mainline/">FOSDEM</a>
-</li>
-<li>Running Mainline Linux on Snapdragon 410, Nikita Travkin, 2022 (40:00) <a rel="nofollow" class="external text" href="https://fosdem.org/2022/schedule/event/mobile_kernel_snapdragon_410/">FOSDEM</a>
-</li>
-<li>From Android to mainline on the Snapdragon 845, Caleb Connolly, 2022 (30:00) <a rel="nofollow" class="external text" href="https://fosdem.org/2022/schedule/event/mobile_kernel_snapdragon_845/">FOSDEM</a>
-</li>
-<li>Qualcomm SoC upstreaming adventures in 2020 <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=xu-3CmRefvc">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Qualcomm-SoC-upstreaming-adventures-in-2020-xu-3CmRefvc:9">Odysee</a>
-</li>
-<li>Porting Linux to your favorite obscure Arm SoC, 2020 <a rel="nofollow" class="external text" href="https://media.ccc.de/v/rc3-80571-porting_linux_to_your_favorite_obscure_arm_soc">media.ccc.de</a> <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=Ep5Mbz0mQQQ">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/rc3-r3s-5-eng-Porting_Linux_to_your_favorite_obscure_Arm_SoC_webm-hd:2">Odysee</a>
-</li>
-<li>Upstreaming a Qualcomm SoC, 2020 <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=WLBzl1AyJog">YouTube</a> <a rel="nofollow" class="external text" href="https://elinux.org/images/6/66/Qualcomm_Upstreaming_ELCNA20_v2.pdf">Slides</a> <i>Overview of porting 2020-era SoC</i>
-</li>
-<li>Introduction into how mainlining is done, 2017 (52:37) <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=77tuFtM4gjA">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Forward-Porting-Google-Nexus-5X---6P---Lessons-from-the-Trenches-and-What's-Next---Jeremy-McNicoll:d">Odysee</a>
-</li>
-</ul>
-<p><b>Basics:</b>
-</p>
-<ul>
-<li>Introduction into ARM architecture, 2017 (46:33) <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=NNol7fRGo2E">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/A-tour-of-the-ARM-architecture-and-its-Linux-support,-2017:4">Odysee</a> <a rel="nofollow" class="external text" href="https://bootlin.com/pub/conferences/2017/lca/petazzoni-arm-introduction/petazzoni-arm-introduction.pdf">Slides</a>
-</li>
-<li>ARM64 SoC Linux Support Check-List, 2017 (42:38) <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=LPG4EkXK9Us">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/ARM64-SoC-Linux-Support-Check-List-(2017):7">Odysee</a> <a rel="nofollow" class="external text" href="https://bootlin.com/pub/conferences/2016/elce/clement-arm64-soc-checklist/clement-arm64-soc-checklist.pdf">Slides</a> <i>Very useful step-by-step guide what should be done to bring in SoC support</i>
-</li>
-<li>Upstreaming ARM64 SoC's easier than before, 2019 (19:03) <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=RBB6qKLUpd8">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/SAN19-219-Upstreaming-ARM64-SoC's-easier-than-before:7">Odysee</a> <a rel="nofollow" class="external text" href="https://static.linaro.org/connect/san19/presentations/san19-219.pdf">Slides</a>
-</li>
-<li>
-<a rel="nofollow" class="external text" href="https://mainlining.dev/">Mainlining blog</a> by ichernev</li>
-<li>
-<a rel="nofollow" class="external text" href="https://people.kernel.org/linusw/how-the-arm32-kernel-starts">How the ARM32 kernel starts</a> by <a href="../Special:Contributions_Linusw.html" title="Special:Contributions/Linusw">Linus Walleij</a>
-</li>
-</ul>
-<p><b>Writing device trees:</b>
-</p>
-<ul>
-<li>Device Tree 101, 2021 (1:54:58) <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=a9CZ1Uk3OYQ">Youtube</a>
-</li>
-<li>Device Tree (DT) introduction, 2013 (1:12:14) <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=m_NyYEBxfn8">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Device-Tree-for-Dummies!---Thomas-Petazzoni,-Free-Electrons:b">Odysee</a> <a rel="nofollow" class="external text" href="https://elinux.org/images/f/f9/Petazzoni-device-tree-dummies_0.pdf">Slides</a>
-</li>
-<li>Device Tree: present, past, future, 2018 (37:28) <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=PgQezmlst0w">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Device-Tree--Past,-Present,-and-Future,-2018:c">Odysee</a> <a rel="nofollow" class="external text" href="https://elinux.org/images/0/06/ELCE_2019_DeviceTree_Past_Present_Future.pdf">Slides</a>
-</li>
-<li>Device tree bindings (i.e. documentation how to specify devices in your device tree) are mandatory for all mainline drivers. You can check those in the <code>Documentation/devicetree/bindings</code> directory to see which options are supported by a particular driver.</li>
-<li><a rel="nofollow" class="external text" href="https://elinux.org/Device_Tree_Usage">Device Tree Usage (beginner guide by elinux.org)</a></li>
-<li><a rel="nofollow" class="external text" href="https://www.devicetree.org/specifications/">Device Tree Specification</a></li>
-<li><a rel="nofollow" class="external text" href="https://elinux.org/Device_Tree_presentations_papers_articles">DT Resources on elinux.org</a></li>
-</ul>
-<p><b>Clocks:</b>
-</p>
-<ul>
-<li>Common Clock Framework: How To Use It, 2013 (44:50) <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=Mwr7eZUm1Nw">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Embedded-Linux-Conference-2013---Pin-Control-and-GPIO-Update-z4EkzJDGxFo:0">Odysee</a><i>Not so useful, old and only a basic overview</i>
-</li>
-<li>What The Clock! - Linux Clock Subsystem Internals, 2020 (33:12) <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Kernel-System-What-The-Clock!-Linux-Clock-Subsystem-Internals:9">Odysee</a> <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=bcxrSBIwZVU">Youtube</a> <a rel="nofollow" class="external text" href="https://static.sched.com/hosted_files/osseu2020/45/ELC-E%202020_%20What%20The%20Clock%20%21.pdf">Slides</a>
-</li>
-<li>
-<a rel="nofollow" class="external text" href="https://www.kernel.org/doc/html/latest/timers/timekeeping.html">Clock sources, Clock events, sched_clock() and delay timers</a> at kernel.org</li>
-</ul>
-<p><b>Power Management</b>
-</p>
-<ul><li>SAN19-421 Training: Device power management for idle <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=wbG1rXibzMY">Youtube</a>
-</li></ul>
-<p><b>Various topics:</b>
-</p>
-<ul>
-<li>Pin Control and GPIO, 2013 (48:03) <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=z4EkzJDGxFo">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Embedded-Linux-Conference-2013---Pin-Control-and-GPIO-Update:e">Odysee</a> <a rel="nofollow" class="external text" href="https://elinux.org/images/b/b6/Pin_Control_Subsystem_Overview.pdf">Slides</a> talk by <a href="../Special:Contributions_Linusw.html" title="Special:Contributions/Linusw">Linus Walleij</a>
-</li>
-<li>Timekeeping in the Linux Kernel - Stephen Boyd, Qualcomm Innovation Center, 2017 (34:41) <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=Puv4mW55bF8">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Timekeeping-in-the-Linux-Kernel---Stephen-Boyd,-Qualcomm-Innovation-Center-(2017):1">Odysee</a> <i>About how clocksource works.</i>
-</li>
-<li>How Dealing with Modern Interrupt Architectures can Affect Your Sanity <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=YE8cRHVIM4E">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/HowDealingwithModernInterruptArchitecturescanAffectYourSanity:6">Odysee</a> <a rel="nofollow" class="external text" href="https://www.linuxsecrets.com/elinux-wiki/images/8/8c/Zyngier.pdf">Slides</a> <i>About interrupt controllers and their relationships</i>
-</li>
-<li>Linux Kernel Display Architecture, 2013 (56:53) <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=l2ZSsOkfnz0">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Common-Clock-Framework--How-To-Use-It:9">Odysee</a> <i>DRM/KMS, MIPI DSI, panels,... slightly old, need something newer.</i>
-</li>
-<li>Demystifying Linux MIPI DSI Subsystem - Jagan Teki, 2019 (41:57) <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=UG7tMZM24UU">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Demystifying-Linux-MIPI-DSI-Subsystem---Jagan-Teki,-Amarula-Solutions:b">Odysee</a> <i>MIPI DSI, controllers, bridges, panels, DRM/KMS...</i>
-</li>
-<li>Power Management Integrated Circuits: Keep the Power in Your Hands, 2017 <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=GsDWgm0YiaU">Youtube</a> <a rel="nofollow" class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Power-Management-Integrated-Circuits--Keep-the-Power-in-Your-Hands:d">Odysee</a> <a rel="nofollow" class="external text" href="https://bootlin.com/pub/conferences/2017/elc/schulz-pmics-keep-power-in-your-hands/schulz-pmics-keep-power-in-your-hands.pdf">Slides</a> <i>About PMICs, regulators, power supply, fuelgauge, ...</i>
-</li>
-</ul>
-<p><b>Development tools</b>
-</p>
-<ul><li>Using Visual Studio Code for Embedded Development - Michael Opdenacker, Bootlin, 2021 (31:37) <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=YGOZIIOWujc">Youtube</a>
-</li></ul>
-<p>Note: for VSCodium, download extensions from <a rel="nofollow" class="external free" href="https://marketplace.visualstudio.com/">https://marketplace.visualstudio.com/</a> manually.
-</p>
-<p><b>Submitting patches:</b>
-</p>
-<ul>
-<li><a rel="nofollow" class="external text" href="https://www.kernel.org/doc/html/latest/process/submitting-patches.html">Submitting patches: the essential guide to getting your code into the kernel</a></li>
-<li><a rel="nofollow" class="external text" href="https://nickdesaulniers.github.io/blog/2017/05/16/submitting-your-first-patch-to-the-linux-kernel-and-responding-to-feedback/">Submitting Your First Patch to the Linux Kernel and Responding to Feedback</a></li>
-<li><a rel="nofollow" class="external text" href="https://git-send-email.io/">Guide for git-send-email</a></li>
-</ul>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul>
-<li>
-<a href="../en/Mainlining_Guide.html" title="Mainlining Guide">Mainlining Guide</a> (very generic, parts are slowly incorporated into this page)</li>
-<li>
-<a href="../en/MSM8916_Mainlining.html" title="MSM8916 Mainlining">MSM8916 Mainlining</a> (specific to MSM8916, but might be helpful for similar Qualcomm SoCs)</li>
-<li><a href="../en/MSM8996_Mainlining.html" title="MSM8996 Mainlining">MSM8996 Mainlining</a></li>
-<li><a href="../en/SDM845_Mainlining.html" title="SDM845 Mainlining">SDM845 Mainlining</a></li>
-<li><a href="../en/Mainlining_FAQ.html" title="Mainlining FAQ">Mainlining FAQ</a></li>
-<li><a href="../en/The_Mainline_Kernel.html" title="The Mainline Kernel">The Mainline Kernel</a></li>
-<li><a href="../en/Qualcomm_mainline_porting.html" title="Qualcomm mainline porting">Qualcomm mainline porting</a></li>
-<li><a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">Exynos mainline porting</a></li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/175">pmaports#175</a> Google Galaxy Nexus (samsung-maguro): Mainlining progress (initial tricks with RAM and some sleep calls before the reboots in the code to figure out where it was failing will also be useful for other devices)</li>
-<li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/153">pmaports#153</a> Google Pixel 3 XL (google-crosshatch): mainlining attempt: progress and questions (useful for newer SoCs, useful info about force-reboot code, stub dtbo partition)</li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Socs.html" title="Category:Socs">Socs</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Mainlining&amp;oldid=27588">https://wiki.postmarketos.org/index.php?title=Mainlining&amp;oldid=27588</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 8 May 2022, at 13:48.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Mainlining&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Mainlining - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Mainlining rootpage-Mainlining skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Mainlining
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       Mainlining is the process of replacing the kernel provided by the device vendor (the "downstream" kernel), with a version close to the actively developed version released on
+       <a class="external text" href="https://www.kernel.org" rel="nofollow">
+        kernel.org
+       </a>
+       (the "mainline" kernel). It involves porting (and most importantly: cleaning up) device-specific code from the downstream kernel to the mainline kernel. For some
+       <a class="external text" href="https://en.wikipedia.org/wiki/System_on_a_chip" rel="nofollow">
+        SoCs
+       </a>
+       , common support already exists in mainline, so you can focus on device-specific components.
+      </p>
+      <h2>
+       <span id="Why?">
+       </span>
+       <span class="mw-headline" id="Why.3F">
+        Why?
+       </span>
+      </h2>
+      <p>
+       Mainlining is a fairly complicated process, especially if you're one of the first to start work on a given SoC. However through community effort there is a growing number of SoCs that have increasingly stable mainline ports (see below). In general it is relatively simple to take your existing Android kernel and boot it without any of the Android blobs, however from that point it can be a lot of working to create a working system and at the end of it you don't receive any security patches or general improvements.
+      </p>
+      <p>
+       Apart from purely practical insufficiencies, the cold hard truth is that the downstream code is simply not meant to be maintained or get used outside Android. The code quality is often several magnitudes worse, which makes maintenance rather complicated. Often large parts of the drivers are moved into proprietary parts in Android userspace - which are generally impossible to use without emulating the expected Android environment. At the end, the effort to make such drivers work properly on long term is often as much as rewriting them properly for mainline.
+      </p>
+      <p>
+       Successfully mainlining an SoC or device means that you benefit from every improvement the Linux kernel has to offer, you can run a fairly standard Linux distro (in theory even
+       <i>
+        any
+       </i>
+       Linux distro) and benefit from kernel updates and improvements without needing to compile your own kernel or deal with frustrating patches. A notable easy-to-notice benefit of running mainline is minimal-effort-needed GPU support for almost all GPUs (except PowerVR unfortunately), which is needed for using modern phone DEs like Plasma Mobile or Phosh with acceptable performance. Lastly, mainlining is a terrific learning opportunity that you will never regret.
+      </p>
+      <p>
+       If your device's SoC is in the list below there's a very decent chance that you can get the same functionality working on your device and eventually upstream your patches to the kernel, helping to build a solid base for other devices too!
+      </p>
+      <h2>
+       <span class="mw-headline" id="Overview">
+        Overview
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Supported_SoCs">
+        Supported SoCs
+       </span>
+      </h3>
+      <p>
+       Some SoCs are already supported quite well and are used for some devices in postmarketOS. Getting started with one of these might be easier for you, because you can get help from others working with the same SoC. The feature matrix below shows which features are already supported for a particular SoC. The pages for each SoC will provide more information, plus hints how to get started and who you can contact.
+      </p>
+      <ul>
+       <li>
+        <b>
+         CPU:
+        </b>
+        SMP (bring up secondary CPU cores), CPU frequency scaling, CPUidle
+       </li>
+       <li>
+        <b>
+         Storage:
+        </b>
+        eMMC, SD cards, UFS, ...
+       </li>
+       <li>
+        <b>
+         Video:
+        </b>
+        Hardware-accelerated video de/encoding
+       </li>
+       <li>
+        <b>
+         Modem:
+        </b>
+        Calls, SMS, Internet
+       </li>
+       <li>
+        <b>
+         Suspend:
+        </b>
+        Can reach (all) low-power modes of the SoC during suspend (either system suspend or cpuidle).
+       </li>
+       <li>
+        Unavailable (-) means that such a feature is not built directly into SoC. For example, WiFi/BT are also often used through SDIO/UART which can be chosen independently from the SoC.
+       </li>
+      </ul>
+      <p>
+       <b>
+        Note:
+       </b>
+       The statuses displayed below signify if a particular feature was tested on a device by someone in the postmarketOS community - not necessarily the components supported in the mainline kernel.
+      </p>
+      <table class="cargoTable noMerge sortable" style="border-collapse: collapse;">
+       <thead>
+        <tr style="background-color: #eeeeee;">
+         <th class="field_SoC">
+          SoC
+         </th>
+         <th class="field_Arch">
+          Arch
+         </th>
+         <th class="field_Year">
+          Year
+         </th>
+         <th class="field_UART">
+          UART
+         </th>
+         <th class="field_USB">
+          USB
+         </th>
+         <th class="field_Storage">
+          Storage
+         </th>
+         <th class="field_Display">
+          Display
+         </th>
+         <th class="field_CPU">
+          CPU
+         </th>
+         <th class="field_GPU">
+          GPU
+         </th>
+         <th class="field_Pinctrl">
+          Pinctrl
+         </th>
+         <th class="field_I²C">
+          I²C
+         </th>
+         <th class="field_Audio">
+          Audio
+         </th>
+         <th class="field_Video">
+          Video
+         </th>
+         <th class="field_Thermal">
+          Thermal
+         </th>
+         <th class="field_WiFi">
+          WiFi
+         </th>
+         <th class="field_BT">
+          BT
+         </th>
+         <th class="field_Modem">
+          Modem
+         </th>
+         <th class="field_GPS">
+          GPS
+         </th>
+         <th class="field_Camera">
+          Camera
+         </th>
+         <th class="field_Suspend">
+          Suspend
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Allwinner_A64.html" title="Allwinner A64">
+           Allwinner A64
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2015
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Broadcom_Kona.html" title="Broadcom Kona">
+           Broadcom BCM21664
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2012
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_Display">
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_GPU">
+         </td>
+         <td class="field_Pinctrl">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="field_Thermal">
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Broadcom_Kona.html" title="Broadcom Kona">
+           Broadcom BCM23550
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2012
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_Display">
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_GPU">
+         </td>
+         <td class="field_Pinctrl">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="field_Thermal">
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Intel_Bay_Trail.html" title="Intel Bay Trail">
+           Intel Bay Trail
+          </a>
+         </td>
+         <td class="field_Arch">
+          x86_64
+         </td>
+         <td class="field_Year">
+          2013
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/MediaTek_MT6582.html" title="MediaTek MT6582">
+           MediaTek MT6582
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2013
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/MediaTek_MT6589.html" title="MediaTek MT6589">
+           MediaTek MT6589
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2013
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Nvidia_Tegra_2_(tegra20).html" title="Nvidia Tegra 2 (tegra20)">
+           Nvidia Tegra 2
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2010
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Nvidia_Tegra_3_(tegra30).html" title="Nvidia Tegra 3 (tegra30)">
+           Nvidia Tegra 3
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2011
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Nvidia_Tegra_4_(tegra114).html" title="Nvidia Tegra 4 (tegra114)">
+           Nvidia Tegra 4
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2013
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_600_(APQ8064).html" title="Qualcomm Snapdragon 600 (APQ8064)">
+           Qualcomm APQ8064
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2013
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_200_(MSM8212).html" title="Qualcomm Snapdragon 200 (MSM8212)">
+           Qualcomm MSM8212
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2013
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Display">
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_GPU">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="field_Thermal">
+         </td>
+         <td class="field_WiFi">
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="field_Modem">
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_400_(MSM8226).html" title="Qualcomm Snapdragon 400 (MSM8226)">
+           Qualcomm MSM8226
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2013
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm Snapdragon 410/412 (MSM8916)">
+           Qualcomm MSM8916
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2014
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_615_616_(MSM8939).html" title="Qualcomm Snapdragon 615/616 (MSM8939)">
+           Qualcomm MSM8939
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2014
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_450_625_626_632_(MSM8953).html" title="Qualcomm Snapdragon 450/625/626/632 (MSM8953)">
+           Qualcomm MSM8953
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2016
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_S4_Plus_(MSM8960).html" title="Qualcomm Snapdragon S4 Plus (MSM8960)">
+           Qualcomm MSM8960
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2012
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_USB">
+         </td>
+         <td class="field_Storage">
+         </td>
+         <td class="field_Display">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_GPU">
+         </td>
+         <td class="field_Pinctrl">
+         </td>
+         <td class="field_I²C">
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="field_Thermal">
+         </td>
+         <td class="field_WiFi">
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="field_Modem">
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_800_801_(MSM8974).html" title="Qualcomm Snapdragon 800/801 (MSM8974)">
+           Qualcomm MSM8974
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2013
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_650_652_653(MSM8956_MSM8976).html" title="Qualcomm Snapdragon 650/652/653(MSM8956/MSM8976)">
+           Qualcomm MSM8976
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2016
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_820_821_(MSM8996).html" title="Qualcomm Snapdragon 820/821 (MSM8996)">
+           Qualcomm MSM8996
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2016
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature">
+          N
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_835_(MSM8998).html" title="Qualcomm Snapdragon 835 (MSM8998)">
+           Qualcomm MSM8998
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2017
+         </td>
+         <td class="field_UART">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_660_(SDM660).html" title="Qualcomm Snapdragon 660 (SDM660)">
+           Qualcomm SDM630
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2017
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_GPU">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_WiFi">
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_660_(SDM660).html" title="Qualcomm Snapdragon 660 (SDM660)">
+           Qualcomm SDM636
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2017
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Display">
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_GPU">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="field_Thermal">
+         </td>
+         <td class="field_WiFi">
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="field_Modem">
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_660_(SDM660).html" title="Qualcomm Snapdragon 660 (SDM660)">
+           Qualcomm SDM660
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2017
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_Display">
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_GPU">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_I²C">
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="field_Thermal">
+         </td>
+         <td class="field_WiFi">
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="field_Modem">
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_845_(SDM845).html" title="Qualcomm Snapdragon 845 (SDM845)">
+           Qualcomm SDM845
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2018
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_690_5G_(SM6350).html" title="Qualcomm Snapdragon 690 5G (SM6350)">
+           Qualcomm SM6350
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2020
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_720G_(SM7125).html" title="Qualcomm Snapdragon 720G (SM7125)">
+           Qualcomm SM7125
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2020
+         </td>
+         <td class="field_UART">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="field_Thermal">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_730_730G_732G_(SM7150).html" title="Qualcomm Snapdragon 730/730G/732G (SM7150)">
+           Qualcomm SM7150
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2019/2020
+         </td>
+         <td class="field_UART">
+         </td>
+         <td class="field_USB">
+         </td>
+         <td class="field_Storage">
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_GPU">
+         </td>
+         <td class="field_Pinctrl">
+         </td>
+         <td class="field_I²C">
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="field_Thermal">
+         </td>
+         <td class="field_WiFi">
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="field_Modem">
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_855_(SM8150).html" title="Qualcomm Snapdragon 855 (SM8150)">
+           Qualcomm SM8150
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2019
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="field_Thermal">
+         </td>
+         <td class="field_WiFi">
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="field_Modem">
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_888_(SM8350).html" title="Qualcomm Snapdragon 888 (SM8350)">
+           Qualcomm SM8350
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2021
+         </td>
+         <td class="field_UART">
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Display">
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="field_GPU">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_I²C">
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="field_Thermal">
+         </td>
+         <td class="field_WiFi">
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="field_Modem">
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Rockchip_RK3399.html" title="Rockchip RK3399">
+           Rockchip RK3399
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2016
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">
+           Samsung Exynos 3250
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2014
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_WiFi">
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="field_Modem">
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">
+           Samsung Exynos 4210
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2011
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Display">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_GPU">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_WiFi">
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="field_Modem">
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">
+           Samsung Exynos 4412
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2012
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_WiFi">
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="field_Modem">
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">
+           Samsung Exynos 5250
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2012
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">
+           Samsung Exynos 5420
+          </a>
+         </td>
+         <td class="field_Arch">
+          arm
+         </td>
+         <td class="field_Year">
+          2013
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">
+           Samsung Exynos 5422
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2014
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_WiFi">
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="field_Modem">
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">
+           Samsung Exynos 5433
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2014
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_WiFi">
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="field_Modem">
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">
+           Samsung Exynos 8895
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2017
+         </td>
+         <td class="field_UART">
+         </td>
+         <td class="field_USB">
+         </td>
+         <td class="field_Storage">
+         </td>
+         <td class="field_Display">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_GPU">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_I²C">
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="field_Thermal">
+         </td>
+         <td class="field_WiFi">
+         </td>
+         <td class="field_BT">
+         </td>
+         <td class="field_Modem">
+         </td>
+         <td class="field_GPS">
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="field_Suspend">
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/ST-Ericsson_NovaThor_U8500.html" title="ST-Ericsson NovaThor U8500">
+           ST-Ericsson NovaThor U8500
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2011
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="field_Audio">
+         </td>
+         <td class="field_Video">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="field_Modem">
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="field_Camera">
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_SoC">
+          <a href="../en/Texas_Instruments_OMAP_3_(OMAP3xxx).html" title="Texas Instruments OMAP 3 (OMAP3xxx)">
+           Texas Instruments OMAP3xx
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2008
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Texas_Instruments_OMAP_4_(OMAP44xx).html" title="Texas Instruments OMAP 4 (OMAP44xx)">
+           Texas Instruments OMAP44xx
+          </a>
+         </td>
+         <td class="field_Arch">
+          armv7
+         </td>
+         <td class="field_Year">
+          2011
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-unavailable">
+          -
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h3>
+       <span class="mw-headline" id="Getting_help">
+        Getting help
+       </span>
+      </h3>
+      <p>
+       Mainlining related to postmarketOS is primarily discussed in the
+       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+        #postmarketOS-mainline
+       </a>
+       channel. For one of the SoCs above there should be someone around who is able to help you to some extent. Note that you will be on your own for some of the problems - there are often device specific problems or components that no one has experience with yet.
+      </p>
+      <p>
+       Below are some more chat channels / mailing list that may be helpful for further help or if you want to work on a SoC that is not listed above (yet!):
+      </p>
+      <p>
+       In Matrix, you can browse most of Linux kernel development related channels in
+       <a class="external text" href="https://matrix.to/#/#linux-kernel-devspace:matrix.org" rel="nofollow">
+        #linux-kernel-devspace
+       </a>
+      </p>
+      <table class="wikitable">
+       <tbody>
+        <tr>
+         <th>
+          SoC
+         </th>
+         <th>
+          Where to ask for help
+         </th>
+        </tr>
+        <tr>
+         <td>
+         </td>
+         <td>
+          <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+           #postmarketOS-mainline
+          </a>
+          (SoC-specific questions might be limited to those listed above)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Allwinner
+         </td>
+         <td>
+          #linux-sunxi on
+          <a class="external text" href="https://www.oftc.net/" rel="nofollow">
+           OFTC
+          </a>
+          ,
+          <a class="external text" href="https://groups.google.com/g/linux-sunxi/" rel="nofollow">
+           linux-sunxi@googlegroups.com
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <a href="../en/Broadcom_Kona.html" title="Broadcom Kona">
+           Broadcom Kona
+          </a>
+         </td>
+         <td>
+          ask
+          <a href="../User:Knuxfanwin8.html" title="User:Knuxfanwin8">
+           knuxify
+          </a>
+          ,
+          <a class="external text" href="https://github.com/bcm-kona-mainline" rel="nofollow">
+           bcm-kona-mainline on GitHub
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Exynos
+         </td>
+         <td>
+          #replicant (with focus on older variants) or #linux-exynos on
+          <a class="external text" href="https://libera.chat/" rel="nofollow">
+           Libera.chat
+          </a>
+          (ask forkbomb, Putti, krzk),
+          <a class="external text" href="https://lore.kernel.org/linux-samsung-soc/" rel="nofollow">
+           linux-samsung-soc@vger.kernel.org
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Mediatek
+         </td>
+         <td>
+          #linux-mediatek on
+          <a class="external text" href="https://libera.chat/" rel="nofollow">
+           Libera.chat
+          </a>
+          ,
+          <a class="external text" href="https://lore.kernel.org/linux-mediatek/" rel="nofollow">
+           linux-mediatek@lists.infradead.org
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          OMAP3 / OMAP4
+         </td>
+         <td>
+          ask
+          <a class="external text" href="https://gitlab.com/pavelm" rel="nofollow">
+           @pavelm
+          </a>
+          ,
+          <a class="external text" href="https://lore.kernel.org/linux-omap/" rel="nofollow">
+           linux-omap@vger.kernel.org
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Qualcomm (msm...)
+         </td>
+         <td>
+          #linux-msm on
+          <a class="external text" href="https://www.oftc.net/" rel="nofollow">
+           OFTC
+          </a>
+          ,
+          <a class="external text" href="https://lore.kernel.org/linux-arm-msm/" rel="nofollow">
+           linux-arm-msm@vger.kernel.org
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <a href="../en/Qualcomm_Snapdragon_600_(APQ8064).html" title="Qualcomm Snapdragon 600 (APQ8064)">
+           Qualcomm Snapdragon 600 (APQ8064)
+          </a>
+          and
+          <a href="../en/Qualcomm_Snapdragon_S4_Plus_(MSM8960).html" title="Qualcomm Snapdragon S4 Plus (MSM8960)">
+           Qualcomm Snapdragon S4 Plus (MSM8960)
+          </a>
+         </td>
+         <td>
+          Qualcomm entry + join
+          <a class="external text" href="https://matrix.to/#/#linux-apq8064:matrix.org" rel="nofollow">
+           #linux-apq8064:matrix.org
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <a href="../en/Qualcomm_Snapdragon_615_616_(MSM8939).html" title="Qualcomm Snapdragon 615/616 (MSM8939)">
+           Qualcomm Snapdragon 615/616 (MSM8939)
+          </a>
+         </td>
+         <td>
+          Qualcomm entry + join
+          <a class="external text" href="https://matrix.to/#/#msm8939:matrix.org" rel="nofollow">
+           #msm8939:matrix.org
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <a href="../en/Qualcomm_Snapdragon_820_821_(MSM8996).html" title="Qualcomm Snapdragon 820/821 (MSM8996)">
+           Qualcomm Snapdragon 820/821 (MSM8996)
+          </a>
+         </td>
+         <td>
+          Qualcomm entry + join
+          <a class="external text" href="https://matrix.to/#/#msm8996-mainline:matrix.org" rel="nofollow">
+           #msm8996-mainline:matrix.org
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <a href="../en/Qualcomm_Snapdragon_845_(SDM845).html" title="Qualcomm Snapdragon 845 (SDM845)">
+           Qualcomm Snapdragon 845 (SDM845)
+          </a>
+         </td>
+         <td>
+          Qualcomm entry + ask
+          <a href="../User:Kalube.html" title="User:Kalube">
+           Caleb
+          </a>
+          and join
+          <a class="external text" href="https://matrix.to/#/#sdm845:postmarketos.org" rel="nofollow">
+           #sdm845:postmarketos.org
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          nVidia Tegra
+         </td>
+         <td>
+          #postmarketOS-on-transformers on
+          <a class="external text" href="https://matrix.org" rel="nofollow">
+           matrix.org
+          </a>
+          (although focused on the Asus Eee Pad Transformer family, they also offer help with other Tegra devices), #tegra on
+          <a class="external text" href="https://libera.chat/" rel="nofollow">
+           Libera.chat
+          </a>
+          ,
+          <a class="external text" href="https://www.spinics.net/lists/linux-tegra/" rel="nofollow">
+           linux-tegra@vger.kernel.org
+          </a>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h2>
+       <span class="mw-headline" id="Getting_Started">
+        Getting Started
+       </span>
+      </h2>
+      <ul>
+       <li>
+        Collect as much information about your device as you can: downstream kernel sources, specifications, schematics (can be sometimes found with your favorite search engine) are all going to prove invaluable when attempting to port a device to mainline.
+       </li>
+       <li>
+        <a href="../en/Serial_debugging.html" title="Serial debugging">
+         Serial debugging
+        </a>
+        will be helpful especially in the beginning (before USB or network is working). Some devices expose it through the USB port or the audio jack; others have test points available on the mainboard.
+       </li>
+       <li>
+        Choose a kernel tree:
+        <ul>
+         <li>
+          <b>
+           Mainline:
+          </b>
+          (the last kernel version released by Linus Torvalds) Usually a good compromise of being recent, yet quite stable.
+          <a class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git" rel="nofollow">
+           torvalds/linux.git
+          </a>
+         </li>
+         <li>
+          <b>
+           linux-next:
+          </b>
+          A collection of recently merged changes from many subsystems; use this if you are working on a very recent SoC.
+          <a class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git" rel="nofollow">
+           next/linux-next.git
+          </a>
+         </li>
+         <li>
+          There may be more WIP changes available in Linux kernel trees specific to your SoC.
+         </li>
+        </ul>
+       </li>
+       <li>
+        <a href="../en/Compiling_kernels_with_envkernel.sh.html" title="Compiling kernels with envkernel.sh">
+         Compiling kernels with envkernel.sh
+        </a>
+        is very useful to integrate kernel development into postmarketOS.
+       </li>
+       <li>
+        If you are attempting to port to a SoC listed above, check the SoC wiki page for further help and instructions.
+       </li>
+       <li>
+        Do not attempt to copy any code as-is from downstream. In general this won't work, and most importantly: it won't be accepted for inclusion into the mainline kernel upstream.
+        <ul>
+         <li>
+          Instead, try to understand what the downstream code does, and rewrite it from scratch for mainline by looking at similar code.
+         </li>
+        </ul>
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Materials_to_look_into">
+        Materials to look into
+       </span>
+      </h2>
+      <p>
+       This section include many useful sources to help you with mainlining as possible.
+      </p>
+      <p>
+       Note: Linux architecture regarding to embedded devices moving fast forward, so be aware that some specific information can get outdated in 2 – 3 years.
+      </p>
+      <p>
+       <b>
+        Books:
+       </b>
+      </p>
+      <ul>
+       <li>
+        Mastering Linux Device Driver Development: Write custom device drivers to support computer peripherals in Linux operating systems (2021, John Madieu)
+        <a class="external text" href="https://www.packtpub.com/product/mastering-linux-device-driver-development/9781789342048" rel="nofollow">
+         Packtpub (on SALE for $ 5)
+        </a>
+        <a class="external text" href="https://1lib.cz/book/11637490/9a0f71" rel="nofollow">
+         1lib.cz
+        </a>
+       </li>
+       <li>
+        Linux Driver Development for Embedded Processors - Second Edition: Learn to develop Linux embedded drivers with kernel 4.9 LTS (2018, Alberto Liberal De Los Ríos)
+        <a class="external text" href="https://www.amazon.com/Linux-Driver-Development-Embedded-Processors/dp/1729321828" rel="nofollow">
+         amazon.com
+        </a>
+        <a class="external text" href="https://1lib.cz/book/5325784/29ef3d" rel="nofollow">
+         1lib.cz
+        </a>
+       </li>
+      </ul>
+      <p>
+       <b>
+        Intro:
+       </b>
+      </p>
+      <ul>
+       <li>
+        Porting mainline Linux to mobile phones, Luca Weiss, 2022 (40:00)
+        <a class="external text" href="https://fosdem.org/2022/schedule/event/mobile_kernel_mainline/" rel="nofollow">
+         FOSDEM
+        </a>
+       </li>
+       <li>
+        Running Mainline Linux on Snapdragon 410, Nikita Travkin, 2022 (40:00)
+        <a class="external text" href="https://fosdem.org/2022/schedule/event/mobile_kernel_snapdragon_410/" rel="nofollow">
+         FOSDEM
+        </a>
+       </li>
+       <li>
+        From Android to mainline on the Snapdragon 845, Caleb Connolly, 2022 (30:00)
+        <a class="external text" href="https://fosdem.org/2022/schedule/event/mobile_kernel_snapdragon_845/" rel="nofollow">
+         FOSDEM
+        </a>
+       </li>
+       <li>
+        Qualcomm SoC upstreaming adventures in 2020
+        <a class="external text" href="https://www.youtube.com/watch?v=xu-3CmRefvc" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Qualcomm-SoC-upstreaming-adventures-in-2020-xu-3CmRefvc:9" rel="nofollow">
+         Odysee
+        </a>
+       </li>
+       <li>
+        Porting Linux to your favorite obscure Arm SoC, 2020
+        <a class="external text" href="https://media.ccc.de/v/rc3-80571-porting_linux_to_your_favorite_obscure_arm_soc" rel="nofollow">
+         media.ccc.de
+        </a>
+        <a class="external text" href="https://www.youtube.com/watch?v=Ep5Mbz0mQQQ" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/rc3-r3s-5-eng-Porting_Linux_to_your_favorite_obscure_Arm_SoC_webm-hd:2" rel="nofollow">
+         Odysee
+        </a>
+       </li>
+       <li>
+        Upstreaming a Qualcomm SoC, 2020
+        <a class="external text" href="https://www.youtube.com/watch?v=WLBzl1AyJog" rel="nofollow">
+         YouTube
+        </a>
+        <a class="external text" href="https://elinux.org/images/6/66/Qualcomm_Upstreaming_ELCNA20_v2.pdf" rel="nofollow">
+         Slides
+        </a>
+        <i>
+         Overview of porting 2020-era SoC
+        </i>
+       </li>
+       <li>
+        Introduction into how mainlining is done, 2017 (52:37)
+        <a class="external text" href="https://www.youtube.com/watch?v=77tuFtM4gjA" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Forward-Porting-Google-Nexus-5X---6P---Lessons-from-the-Trenches-and-What's-Next---Jeremy-McNicoll:d" rel="nofollow">
+         Odysee
+        </a>
+       </li>
+      </ul>
+      <p>
+       <b>
+        Basics:
+       </b>
+      </p>
+      <ul>
+       <li>
+        Introduction into ARM architecture, 2017 (46:33)
+        <a class="external text" href="https://www.youtube.com/watch?v=NNol7fRGo2E" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/A-tour-of-the-ARM-architecture-and-its-Linux-support,-2017:4" rel="nofollow">
+         Odysee
+        </a>
+        <a class="external text" href="https://bootlin.com/pub/conferences/2017/lca/petazzoni-arm-introduction/petazzoni-arm-introduction.pdf" rel="nofollow">
+         Slides
+        </a>
+       </li>
+       <li>
+        ARM64 SoC Linux Support Check-List, 2017 (42:38)
+        <a class="external text" href="https://www.youtube.com/watch?v=LPG4EkXK9Us" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/ARM64-SoC-Linux-Support-Check-List-(2017):7" rel="nofollow">
+         Odysee
+        </a>
+        <a class="external text" href="https://bootlin.com/pub/conferences/2016/elce/clement-arm64-soc-checklist/clement-arm64-soc-checklist.pdf" rel="nofollow">
+         Slides
+        </a>
+        <i>
+         Very useful step-by-step guide what should be done to bring in SoC support
+        </i>
+       </li>
+       <li>
+        Upstreaming ARM64 SoC's easier than before, 2019 (19:03)
+        <a class="external text" href="https://www.youtube.com/watch?v=RBB6qKLUpd8" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/SAN19-219-Upstreaming-ARM64-SoC's-easier-than-before:7" rel="nofollow">
+         Odysee
+        </a>
+        <a class="external text" href="https://static.linaro.org/connect/san19/presentations/san19-219.pdf" rel="nofollow">
+         Slides
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://mainlining.dev/" rel="nofollow">
+         Mainlining blog
+        </a>
+        by ichernev
+       </li>
+       <li>
+        <a class="external text" href="https://people.kernel.org/linusw/how-the-arm32-kernel-starts" rel="nofollow">
+         How the ARM32 kernel starts
+        </a>
+        by
+        <a href="../Special:Contributions_Linusw.html" title="Special:Contributions/Linusw">
+         Linus Walleij
+        </a>
+       </li>
+      </ul>
+      <p>
+       <b>
+        Writing device trees:
+       </b>
+      </p>
+      <ul>
+       <li>
+        Device Tree 101, 2021 (1:54:58)
+        <a class="external text" href="https://www.youtube.com/watch?v=a9CZ1Uk3OYQ" rel="nofollow">
+         Youtube
+        </a>
+       </li>
+       <li>
+        Device Tree (DT) introduction, 2013 (1:12:14)
+        <a class="external text" href="https://www.youtube.com/watch?v=m_NyYEBxfn8" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Device-Tree-for-Dummies!---Thomas-Petazzoni,-Free-Electrons:b" rel="nofollow">
+         Odysee
+        </a>
+        <a class="external text" href="https://elinux.org/images/f/f9/Petazzoni-device-tree-dummies_0.pdf" rel="nofollow">
+         Slides
+        </a>
+       </li>
+       <li>
+        Device Tree: present, past, future, 2018 (37:28)
+        <a class="external text" href="https://www.youtube.com/watch?v=PgQezmlst0w" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Device-Tree--Past,-Present,-and-Future,-2018:c" rel="nofollow">
+         Odysee
+        </a>
+        <a class="external text" href="https://elinux.org/images/0/06/ELCE_2019_DeviceTree_Past_Present_Future.pdf" rel="nofollow">
+         Slides
+        </a>
+       </li>
+       <li>
+        Device tree bindings (i.e. documentation how to specify devices in your device tree) are mandatory for all mainline drivers. You can check those in the
+        <code>
+         Documentation/devicetree/bindings
+        </code>
+        directory to see which options are supported by a particular driver.
+       </li>
+       <li>
+        <a class="external text" href="https://elinux.org/Device_Tree_Usage" rel="nofollow">
+         Device Tree Usage (beginner guide by elinux.org)
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://www.devicetree.org/specifications/" rel="nofollow">
+         Device Tree Specification
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://elinux.org/Device_Tree_presentations_papers_articles" rel="nofollow">
+         DT Resources on elinux.org
+        </a>
+       </li>
+      </ul>
+      <p>
+       <b>
+        Clocks:
+       </b>
+      </p>
+      <ul>
+       <li>
+        Common Clock Framework: How To Use It, 2013 (44:50)
+        <a class="external text" href="https://www.youtube.com/watch?v=Mwr7eZUm1Nw" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Embedded-Linux-Conference-2013---Pin-Control-and-GPIO-Update-z4EkzJDGxFo:0" rel="nofollow">
+         Odysee
+        </a>
+        <i>
+         Not so useful, old and only a basic overview
+        </i>
+       </li>
+       <li>
+        What The Clock! - Linux Clock Subsystem Internals, 2020 (33:12)
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Kernel-System-What-The-Clock!-Linux-Clock-Subsystem-Internals:9" rel="nofollow">
+         Odysee
+        </a>
+        <a class="external text" href="https://www.youtube.com/watch?v=bcxrSBIwZVU" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://static.sched.com/hosted_files/osseu2020/45/ELC-E%202020_%20What%20The%20Clock%20%21.pdf" rel="nofollow">
+         Slides
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://www.kernel.org/doc/html/latest/timers/timekeeping.html" rel="nofollow">
+         Clock sources, Clock events, sched_clock() and delay timers
+        </a>
+        at kernel.org
+       </li>
+      </ul>
+      <p>
+       <b>
+        Power Management
+       </b>
+      </p>
+      <ul>
+       <li>
+        SAN19-421 Training: Device power management for idle
+        <a class="external text" href="https://www.youtube.com/watch?v=wbG1rXibzMY" rel="nofollow">
+         Youtube
+        </a>
+       </li>
+      </ul>
+      <p>
+       <b>
+        Various topics:
+       </b>
+      </p>
+      <ul>
+       <li>
+        Pin Control and GPIO, 2013 (48:03)
+        <a class="external text" href="https://www.youtube.com/watch?v=z4EkzJDGxFo" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Embedded-Linux-Conference-2013---Pin-Control-and-GPIO-Update:e" rel="nofollow">
+         Odysee
+        </a>
+        <a class="external text" href="https://elinux.org/images/b/b6/Pin_Control_Subsystem_Overview.pdf" rel="nofollow">
+         Slides
+        </a>
+        talk by
+        <a href="../Special:Contributions_Linusw.html" title="Special:Contributions/Linusw">
+         Linus Walleij
+        </a>
+       </li>
+       <li>
+        Timekeeping in the Linux Kernel - Stephen Boyd, Qualcomm Innovation Center, 2017 (34:41)
+        <a class="external text" href="https://www.youtube.com/watch?v=Puv4mW55bF8" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Timekeeping-in-the-Linux-Kernel---Stephen-Boyd,-Qualcomm-Innovation-Center-(2017):1" rel="nofollow">
+         Odysee
+        </a>
+        <i>
+         About how clocksource works.
+        </i>
+       </li>
+       <li>
+        How Dealing with Modern Interrupt Architectures can Affect Your Sanity
+        <a class="external text" href="https://www.youtube.com/watch?v=YE8cRHVIM4E" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/HowDealingwithModernInterruptArchitecturescanAffectYourSanity:6" rel="nofollow">
+         Odysee
+        </a>
+        <a class="external text" href="https://www.linuxsecrets.com/elinux-wiki/images/8/8c/Zyngier.pdf" rel="nofollow">
+         Slides
+        </a>
+        <i>
+         About interrupt controllers and their relationships
+        </i>
+       </li>
+       <li>
+        Linux Kernel Display Architecture, 2013 (56:53)
+        <a class="external text" href="https://www.youtube.com/watch?v=l2ZSsOkfnz0" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Common-Clock-Framework--How-To-Use-It:9" rel="nofollow">
+         Odysee
+        </a>
+        <i>
+         DRM/KMS, MIPI DSI, panels,... slightly old, need something newer.
+        </i>
+       </li>
+       <li>
+        Demystifying Linux MIPI DSI Subsystem - Jagan Teki, 2019 (41:57)
+        <a class="external text" href="https://www.youtube.com/watch?v=UG7tMZM24UU" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Demystifying-Linux-MIPI-DSI-Subsystem---Jagan-Teki,-Amarula-Solutions:b" rel="nofollow">
+         Odysee
+        </a>
+        <i>
+         MIPI DSI, controllers, bridges, panels, DRM/KMS...
+        </i>
+       </li>
+       <li>
+        Power Management Integrated Circuits: Keep the Power in Your Hands, 2017
+        <a class="external text" href="https://www.youtube.com/watch?v=GsDWgm0YiaU" rel="nofollow">
+         Youtube
+        </a>
+        <a class="external text" href="https://odysee.com/@PortingLinuxPhones:5/Power-Management-Integrated-Circuits--Keep-the-Power-in-Your-Hands:d" rel="nofollow">
+         Odysee
+        </a>
+        <a class="external text" href="https://bootlin.com/pub/conferences/2017/elc/schulz-pmics-keep-power-in-your-hands/schulz-pmics-keep-power-in-your-hands.pdf" rel="nofollow">
+         Slides
+        </a>
+        <i>
+         About PMICs, regulators, power supply, fuelgauge, ...
+        </i>
+       </li>
+      </ul>
+      <p>
+       <b>
+        Development tools
+       </b>
+      </p>
+      <ul>
+       <li>
+        Using Visual Studio Code for Embedded Development - Michael Opdenacker, Bootlin, 2021 (31:37)
+        <a class="external text" href="https://www.youtube.com/watch?v=YGOZIIOWujc" rel="nofollow">
+         Youtube
+        </a>
+       </li>
+      </ul>
+      <p>
+       Note: for VSCodium, download extensions from
+       <a class="external free" href="https://marketplace.visualstudio.com/" rel="nofollow">
+        https://marketplace.visualstudio.com/
+       </a>
+       manually.
+      </p>
+      <p>
+       <b>
+        Submitting patches:
+       </b>
+      </p>
+      <ul>
+       <li>
+        <a class="external text" href="https://www.kernel.org/doc/html/latest/process/submitting-patches.html" rel="nofollow">
+         Submitting patches: the essential guide to getting your code into the kernel
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://nickdesaulniers.github.io/blog/2017/05/16/submitting-your-first-patch-to-the-linux-kernel-and-responding-to-feedback/" rel="nofollow">
+         Submitting Your First Patch to the Linux Kernel and Responding to Feedback
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://git-send-email.io/" rel="nofollow">
+         Guide for git-send-email
+        </a>
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a href="../en/Mainlining_Guide.html" title="Mainlining Guide">
+         Mainlining Guide
+        </a>
+        (very generic, parts are slowly incorporated into this page)
+       </li>
+       <li>
+        <a href="../en/MSM8916_Mainlining.html" title="MSM8916 Mainlining">
+         MSM8916 Mainlining
+        </a>
+        (specific to MSM8916, but might be helpful for similar Qualcomm SoCs)
+       </li>
+       <li>
+        <a href="../en/MSM8996_Mainlining.html" title="MSM8996 Mainlining">
+         MSM8996 Mainlining
+        </a>
+       </li>
+       <li>
+        <a href="../en/SDM845_Mainlining.html" title="SDM845 Mainlining">
+         SDM845 Mainlining
+        </a>
+       </li>
+       <li>
+        <a href="../en/Mainlining_FAQ.html" title="Mainlining FAQ">
+         Mainlining FAQ
+        </a>
+       </li>
+       <li>
+        <a href="../en/The_Mainline_Kernel.html" title="The Mainline Kernel">
+         The Mainline Kernel
+        </a>
+       </li>
+       <li>
+        <a href="../en/Qualcomm_mainline_porting.html" title="Qualcomm mainline porting">
+         Qualcomm mainline porting
+        </a>
+       </li>
+       <li>
+        <a href="../en/Exynos_mainline_porting.html" title="Exynos mainline porting">
+         Exynos mainline porting
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/175" rel="nofollow">
+         pmaports#175
+        </a>
+        Google Galaxy Nexus (samsung-maguro): Mainlining progress (initial tricks with RAM and some sleep calls before the reboots in the code to figure out where it was failing will also be useful for other devices)
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/153" rel="nofollow">
+         pmaports#153
+        </a>
+        Google Pixel 3 XL (google-crosshatch): mainlining attempt: progress and questions (useful for newer SoCs, useful info about force-reboot code, stub dtbo partition)
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Socs.html" title="Category:Socs">
+         Socs
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Mainlining&amp;oldid=27588">
+      https://wiki.postmarketos.org/index.php?title=Mainlining&amp;oldid=27588
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 8 May 2022, at 13:48.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Mainlining&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

@@ -1,91 +1,230 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Run pmbootstrap on non-x86 64 arches - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Run_pmbootstrap_on_non-x86_64_arches rootpage-Run_pmbootstrap_on_non-x86_64_arches skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Run pmbootstrap on non-x86 64 arches</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>While most people are running <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a> on <code>x86_64</code>, it is also possible to run it on other architectures supported by postmarketOS. As of writing, some of the package/image building related tools are only built for <code>x86_64</code> in the official binary packages repository (blocked by <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/build.postmarketos.org/-/issues/75">build.postmarketos.org#75</a>). This article covers related errors, and how to work around them. If your problem is not listed here, ask in the <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">chat</a> or <a href="../en/How_to_report_issues.html" title="How to report issues">issues</a> for help and consider adding the solution to your problem.
-</p>
-<h3><span class="mw-headline" id="Building_a_PinePhone_image_on_stable_channel">Building a PinePhone image on stable channel</span></h3>
-<p>The PinePhone depends on the <code>crust</code> package, which is being cross compiled from the native arch to the <code>or1k-elf</code> architecture. When trying to build an image for the PinePhone on the stable channel, pmbootstrap will currently display the following error:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install --sdcard<span class="o">=</span>...
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Run pmbootstrap on non-x86 64 arches - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Run_pmbootstrap_on_non-x86_64_arches rootpage-Run_pmbootstrap_on_non-x86_64_arches skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Run pmbootstrap on non-x86 64 arches
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       While most people are running
+       <a href="../en/Pmbootstrap.html" title="Pmbootstrap">
+        pmbootstrap
+       </a>
+       on
+       <code>
+        x86_64
+       </code>
+       , it is also possible to run it on other architectures supported by postmarketOS. As of writing, some of the package/image building related tools are only built for
+       <code>
+        x86_64
+       </code>
+       in the official binary packages repository (blocked by
+       <a class="external text" href="https://gitlab.com/postmarketOS/build.postmarketos.org/-/issues/75" rel="nofollow">
+        build.postmarketos.org#75
+       </a>
+       ). This article covers related errors, and how to work around them. If your problem is not listed here, ask in the
+       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+        chat
+       </a>
+       or
+       <a href="../en/How_to_report_issues.html" title="How to report issues">
+        issues
+       </a>
+       for help and consider adding the solution to your problem.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Building_a_PinePhone_image_on_stable_channel">
+        Building a PinePhone image on stable channel
+       </span>
+      </h3>
+      <p>
+       The PinePhone depends on the
+       <code>
+        crust
+       </code>
+       package, which is being cross compiled from the native arch to the
+       <code>
+        or1k-elf
+       </code>
+       architecture. When trying to build an image for the PinePhone on the stable channel, pmbootstrap will currently display the following error:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap install --sdcard<span class="o">=</span>...
 <span class="go">...</span>
 <span class="go">[16:00:39] NOTE: You can edit the 'arch=' line inside the APKBUILD</span>
 <span class="go">[16:00:39] ERROR: Can't build 'binutils-or1k-elf' for architecture aarch64</span>
-</pre></div>
-<p>If you are fine with running <code>edge</code> as well, simply switch to the <code>edge</code> channel in  <code>pmbootstrap init</code> and try again. Only if you want to build for the <code>stable</code> channel, use the following workaround.
-</p>
-<p>Enter the <a href="../en/Pmaports.git.html" class="mw-redirect" title="Pmaports">pmaports</a> dir, then change <code>arch="x86_64"</code> to <code>arch="all"</code> in the following files:
-</p>
-<pre>temp/binutils-cross-embedded/APKBUILD
+</pre>
+      </div>
+      <p>
+       If you are fine with running
+       <code>
+        edge
+       </code>
+       as well, simply switch to the
+       <code>
+        edge
+       </code>
+       channel in
+       <code>
+        pmbootstrap init
+       </code>
+       and try again. Only if you want to build for the
+       <code>
+        stable
+       </code>
+       channel, use the following workaround.
+      </p>
+      <p>
+       Enter the
+       <a class="mw-redirect" href="../en/Pmaports.git.html" title="Pmaports">
+        pmaports
+       </a>
+       dir, then change
+       <code>
+        arch="x86_64"
+       </code>
+       to
+       <code>
+        arch="all"
+       </code>
+       in the following files:
+      </p>
+      <pre>temp/binutils-cross-embedded/APKBUILD
 temp/gcc-cross-embedded-stage1/APKBUILD                       
 temp/gcc-cross-embedded/APKBUILD
 temp/newlib-stage1/APKBUILD
 </pre>
-<p>Make sure that you have answered <code>Build outdated packages during 'pmbootstrap install'?</code> in <code>pmbootstrap init</code> with yes (<code>y</code>). Then try the <code>pmbootstrap install</code> command again, and pmbootstrap will build the missing dependencies for your host architecture (it may take some time, on the PinePhone two hours or so). Then it will proceed with building the image.
-</p>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Run_pmbootstrap_on_non-x86_64_arches&amp;oldid=14365">https://wiki.postmarketos.org/index.php?title=Run_pmbootstrap_on_non-x86_64_arches&amp;oldid=14365</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 20 September 2020, at 21:39.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Run_pmbootstrap_on_non-x86_64_arches&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <p>
+       Make sure that you have answered
+       <code>
+        Build outdated packages during 'pmbootstrap install'?
+       </code>
+       in
+       <code>
+        pmbootstrap init
+       </code>
+       with yes (
+       <code>
+        y
+       </code>
+       ). Then try the
+       <code>
+        pmbootstrap install
+       </code>
+       command again, and pmbootstrap will build the missing dependencies for your host architecture (it may take some time, on the PinePhone two hours or so). Then it will proceed with building the image.
+      </p>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Run_pmbootstrap_on_non-x86_64_arches&amp;oldid=14365">
+      https://wiki.postmarketos.org/index.php?title=Run_pmbootstrap_on_non-x86_64_arches&amp;oldid=14365
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 20 September 2020, at 21:39.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Run_pmbootstrap_on_non-x86_64_arches&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

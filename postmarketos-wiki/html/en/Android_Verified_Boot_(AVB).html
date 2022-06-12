@@ -1,83 +1,274 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Android Verified Boot (AVB) - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Android_Verified_Boot_AVB rootpage-Android_Verified_Boot_AVB skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Android Verified Boot (AVB)</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#What_is_it"><span class="tocnumber">1</span> <span class="toctext">What is it</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Implementation_details"><span class="tocnumber">2</span> <span class="toctext">Implementation details</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Verified_boot_process"><span class="tocnumber">3</span> <span class="toctext">Verified boot process</span></a></li>
-<li class="toclevel-1 tocsection-4">
-<a href="#Using_avbtool"><span class="tocnumber">4</span> <span class="toctext">Using avbtool</span></a>
-<ul>
-<li class="toclevel-2 tocsection-5"><a href="#Examining_contents_of_stock_images"><span class="tocnumber">4.1</span> <span class="toctext">Examining contents of stock images</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#Signing_.26_cheksumming_the_partitions"><span class="tocnumber">4.2</span> <span class="toctext">Signing &amp; cheksumming the partitions</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="#Creating_vbmeta_image"><span class="tocnumber">4.3</span> <span class="toctext">Creating vbmeta image</span></a></li>
-<li class="toclevel-2 tocsection-8"><a href="#Disabling_verified_boot"><span class="tocnumber">4.4</span> <span class="toctext">Disabling verified boot</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-9"><a href="#Links"><span class="tocnumber">5</span> <span class="toctext">Links</span></a></li>
-</ul>
-</div>
-
-<h1><span class="mw-headline" id="What_is_it">What is it</span></h1>
-<p>AVB is implementation of verified boot process, current version (since Android 8 Oreo) is called AVB 2.0. Verified boot is a process of assuring the end user of the integrity of the software running on a device. It typically starts with a read-only portion of the device firmware which loads code and executes it only after cryptographically verifying that the code is authentic. It also helps in implementing rollback protection.
-</p>
-<h1><span class="mw-headline" id="Implementation_details">Implementation details</span></h1>
-<p>It is implemented inside <a rel="nofollow" class="external text" href="https://android.googlesource.com/platform/external/avb/">libavb</a> - simple C library, that can be used both inside userspace programs (Android's avbctl?) and by kernel space (bootloader). Heart of the system is <b>VBMeta struct</b>, which contains <i>both</i> checksums of <i>contents</i> of several important partitions, <i>and</i> the public key used to cryptographically sign them. Several important partitions include <code>boot</code>, <code>recovery</code>, <code>dtbo</code>, <code>vendor</code> and <code>system</code>. Public key is meant to be verified by bootloader to the one that is embedded inside it, to be trusted.
-</p>
-<p>The vbmeta struct is described in <a rel="nofollow" class="external text" href="https://android.googlesource.com/platform/external/avb/+/refs/heads/master/libavb/avb_vbmeta_image.h#125">libavb/avb_vbmeta_image.h</a>. It contains header, auth data (reference to public key) and references to descriptors for several paritions. Read the comment above its declaration for more info.
-</p>
-<h1><span class="mw-headline" id="Verified_boot_process">Verified boot process</span></h1>
-<p>When device is locked, bootloader loads vbmeta struct from <b>vbmeta</b> partition. And then it calls <code>avb_slot_verify()</code> for each partition mentioned inside vbmeta struct. If some partition fails this check, then bootloader can know that system files were modified. From the result of this test bootloader sets <b>boot state</b>:
-</p>
-<ul>
-<li>YELLOW: Warning screen for LOCKED devices with custom root of trust set</li>
-<li>ORANGE: Warning screen for UNLOCKED devices</li>
-<li>RED (eio): Warning screen for dm-verity corruption</li>
-<li>RED (no os found): No valid OS found</li>
-</ul>
-<p>And then it can display warnings on the screen, and reflect boot state in kernel command line, like for example <code>androidboot.verifiedbootstate=orange</code>.
-</p>
-<p>For unlocked device bootloader skips the verification for <b>boot</b> partition, but can still verify others.
-See relevant <a rel="nofollow" class="external text" href="https://source.codeaurora.org/quic/la/kernel/lk/tree/app/aboot/aboot.c?h=LA.BR.1.3.3_rb1.3&amp;id=3b6a87e4556587b3cc0c652ada680b7284d2fae7#n956">LK aboot code</a>.
-</p>
-<p>Example bootloader debug output regarding verified boot process with original <code>boot.img</code>, unlocked device:
-</p>
-<pre>Booting Into Mission Mode
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Android Verified Boot (AVB) - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Android_Verified_Boot_AVB rootpage-Android_Verified_Boot_AVB skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Android Verified Boot (AVB)
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#What_is_it">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           What is it
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Implementation_details">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Implementation details
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Verified_boot_process">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Verified boot process
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Using_avbtool">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Using avbtool
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Examining_contents_of_stock_images">
+            <span class="tocnumber">
+             4.1
+            </span>
+            <span class="toctext">
+             Examining contents of stock images
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Signing_.26_cheksumming_the_partitions">
+            <span class="tocnumber">
+             4.2
+            </span>
+            <span class="toctext">
+             Signing &amp; cheksumming the partitions
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#Creating_vbmeta_image">
+            <span class="tocnumber">
+             4.3
+            </span>
+            <span class="toctext">
+             Creating vbmeta image
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#Disabling_verified_boot">
+            <span class="tocnumber">
+             4.4
+            </span>
+            <span class="toctext">
+             Disabling verified boot
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-9">
+         <a href="#Links">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           Links
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h1>
+       <span class="mw-headline" id="What_is_it">
+        What is it
+       </span>
+      </h1>
+      <p>
+       AVB is implementation of verified boot process, current version (since Android 8 Oreo) is called AVB 2.0. Verified boot is a process of assuring the end user of the integrity of the software running on a device. It typically starts with a read-only portion of the device firmware which loads code and executes it only after cryptographically verifying that the code is authentic. It also helps in implementing rollback protection.
+      </p>
+      <h1>
+       <span class="mw-headline" id="Implementation_details">
+        Implementation details
+       </span>
+      </h1>
+      <p>
+       It is implemented inside
+       <a class="external text" href="https://android.googlesource.com/platform/external/avb/" rel="nofollow">
+        libavb
+       </a>
+       - simple C library, that can be used both inside userspace programs (Android's avbctl?) and by kernel space (bootloader). Heart of the system is
+       <b>
+        VBMeta struct
+       </b>
+       , which contains
+       <i>
+        both
+       </i>
+       checksums of
+       <i>
+        contents
+       </i>
+       of several important partitions,
+       <i>
+        and
+       </i>
+       the public key used to cryptographically sign them. Several important partitions include
+       <code>
+        boot
+       </code>
+       ,
+       <code>
+        recovery
+       </code>
+       ,
+       <code>
+        dtbo
+       </code>
+       ,
+       <code>
+        vendor
+       </code>
+       and
+       <code>
+        system
+       </code>
+       . Public key is meant to be verified by bootloader to the one that is embedded inside it, to be trusted.
+      </p>
+      <p>
+       The vbmeta struct is described in
+       <a class="external text" href="https://android.googlesource.com/platform/external/avb/+/refs/heads/master/libavb/avb_vbmeta_image.h#125" rel="nofollow">
+        libavb/avb_vbmeta_image.h
+       </a>
+       . It contains header, auth data (reference to public key) and references to descriptors for several paritions. Read the comment above its declaration for more info.
+      </p>
+      <h1>
+       <span class="mw-headline" id="Verified_boot_process">
+        Verified boot process
+       </span>
+      </h1>
+      <p>
+       When device is locked, bootloader loads vbmeta struct from
+       <b>
+        vbmeta
+       </b>
+       partition. And then it calls
+       <code>
+        avb_slot_verify()
+       </code>
+       for each partition mentioned inside vbmeta struct. If some partition fails this check, then bootloader can know that system files were modified. From the result of this test bootloader sets
+       <b>
+        boot state
+       </b>
+       :
+      </p>
+      <ul>
+       <li>
+        YELLOW: Warning screen for LOCKED devices with custom root of trust set
+       </li>
+       <li>
+        ORANGE: Warning screen for UNLOCKED devices
+       </li>
+       <li>
+        RED (eio): Warning screen for dm-verity corruption
+       </li>
+       <li>
+        RED (no os found): No valid OS found
+       </li>
+      </ul>
+      <p>
+       And then it can display warnings on the screen, and reflect boot state in kernel command line, like for example
+       <code>
+        androidboot.verifiedbootstate=orange
+       </code>
+       .
+      </p>
+      <p>
+       For unlocked device bootloader skips the verification for
+       <b>
+        boot
+       </b>
+       partition, but can still verify others.
+See relevant
+       <a class="external text" href="https://source.codeaurora.org/quic/la/kernel/lk/tree/app/aboot/aboot.c?h=LA.BR.1.3.3_rb1.3&amp;id=3b6a87e4556587b3cc0c652ada680b7284d2fae7#n956" rel="nofollow">
+        LK aboot code
+       </a>
+       .
+      </p>
+      <p>
+       Example bootloader debug output regarding verified boot process with original
+       <code>
+        boot.img
+       </code>
+       , unlocked device:
+      </p>
+      <pre>Booting Into Mission Mode
 avb_slot_verify.c:432: DEBUG: Loading vbmeta struct from partition 'vbmeta'.
 Partition found: vbmeta
 avb_slot_verify.c:186: DEBUG: dtbo: Loading entire partition.
@@ -89,9 +280,14 @@ State: Unlocked, AvbSlotVerify returned OK, continue boot
 VB2: Authenticate complete! boot state is: orange
 VB2: boot state: orange(1)
 </pre>
-<p>Example bootloader debug output regarding verified boot process with custom <code>boot.img</code>, unlocked device:
-</p>
-<pre>Booting Into Mission Mode
+      <p>
+       Example bootloader debug output regarding verified boot process with custom
+       <code>
+        boot.img
+       </code>
+       , unlocked device:
+      </p>
+      <pre>Booting Into Mission Mode
 avb_slot_verify.c:432: DEBUG: Loading vbmeta struct from partition 'vbmeta'.
 Partition found: vbmeta
 avb_slot_verify.c:186: DEBUG: dtbo: Loading entire partition.
@@ -106,39 +302,98 @@ Display menu is not enabled!
 Device is unlocked, Skipping boot verification
 VB2: BootState = 1
 </pre>
-<h1><span class="mw-headline" id="Using_avbtool">Using avbtool</span></h1>
-<p><a rel="nofollow" class="external text" href="https://android.googlesource.com/platform/external/avb/+/refs/heads/master/avbtool">avbtool</a> is a python script that can be used to view, create and edit images for AVB process.
-</p>
-<p>Use <code>avbtool --help</code> to get list of commands, and <code>avbtool &lt;command&gt; --help</code> to view help on specific command.
-</p>
-<h2><span class="mw-headline" id="Examining_contents_of_stock_images">Examining contents of stock images</span></h2>
-<p><code>avbtool info_image</code> command can be used to query headers of vbmeta struct, or for partition images it will show contents of vbmeta footer signature. Example usage:
-</p>
-<pre>avbtool info_image --image /path/to/vbmeta.img
+      <h1>
+       <span class="mw-headline" id="Using_avbtool">
+        Using avbtool
+       </span>
+      </h1>
+      <p>
+       <a class="external text" href="https://android.googlesource.com/platform/external/avb/+/refs/heads/master/avbtool" rel="nofollow">
+        avbtool
+       </a>
+       is a python script that can be used to view, create and edit images for AVB process.
+      </p>
+      <p>
+       Use
+       <code>
+        avbtool --help
+       </code>
+       to get list of commands, and
+       <code>
+        avbtool &lt;command&gt; --help
+       </code>
+       to view help on specific command.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Examining_contents_of_stock_images">
+        Examining contents of stock images
+       </span>
+      </h2>
+      <p>
+       <code>
+        avbtool info_image
+       </code>
+       command can be used to query headers of vbmeta struct, or for partition images it will show contents of vbmeta footer signature. Example usage:
+      </p>
+      <pre>avbtool info_image --image /path/to/vbmeta.img
 avbtool info_image --image /path/to/boot.img
 </pre>
-<h2>
-<span id="Signing_&amp;_cheksumming_the_partitions"></span><span class="mw-headline" id="Signing_.26_cheksumming_the_partitions">Signing &amp; cheksumming the partitions</span>
-</h2>
-<p>For small partition images (boot, dtbo, recovery) you can add checksum/signature with: <code>avbtool add_hash_footer</code>.
-</p>
-<p>For larger partitions (vendor, system) you should use <code>avbtool add_hashtree_footer</code>. Arguments are the same. Example:
-</p>
-<pre>avbtool add_hash_footer --partition_name PARTITION_NAME --partition_size PARTITION_SIZE --image IMAGE [--key /path/to/key_used_for_signing_or_pub_key]
+      <h2>
+       <span id="Signing_&amp;_cheksumming_the_partitions">
+       </span>
+       <span class="mw-headline" id="Signing_.26_cheksumming_the_partitions">
+        Signing &amp; cheksumming the partitions
+       </span>
+      </h2>
+      <p>
+       For small partition images (boot, dtbo, recovery) you can add checksum/signature with:
+       <code>
+        avbtool add_hash_footer
+       </code>
+       .
+      </p>
+      <p>
+       For larger partitions (vendor, system) you should use
+       <code>
+        avbtool add_hashtree_footer
+       </code>
+       . Arguments are the same. Example:
+      </p>
+      <pre>avbtool add_hash_footer --partition_name PARTITION_NAME --partition_size PARTITION_SIZE --image IMAGE [--key /path/to/key_used_for_signing_or_pub_key]
 avbtool add_hash_footer --partition_name boot --partition_size 67108864 --image boot.img-postmarketos-qcom-sdm660
 </pre>
-<p>PARTITION_NAME will be written into vbmeta struct later and used by bootloader during verification process.
-</p>
-<p>PARTITION_SIZE should be equal to partition size <i>in bytes</i>. Image file will be padded to this size and vbmeta footer will be addded at the end of it.
-</p>
-<h2><span class="mw-headline" id="Creating_vbmeta_image">Creating vbmeta image</span></h2>
-<p>vbmeta.img is an image file that is intended to be flashed into <b>vbmeta</b> partition. It is used by bootloader as source for checksums in verification process.
-</p>
-<p>First you should checksum/sign all other partition images that are part of your AVB process (for example, boot, system, etc)! See example just above.
-</p>
-<p><code>avbtool make_vbmeta_image</code> Is the command that you will use in this case:
-</p>
-<pre>avbtool make_vbmeta_image \
+      <p>
+       PARTITION_NAME will be written into vbmeta struct later and used by bootloader during verification process.
+      </p>
+      <p>
+       PARTITION_SIZE should be equal to partition size
+       <i>
+        in bytes
+       </i>
+       . Image file will be padded to this size and vbmeta footer will be addded at the end of it.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Creating_vbmeta_image">
+        Creating vbmeta image
+       </span>
+      </h2>
+      <p>
+       vbmeta.img is an image file that is intended to be flashed into
+       <b>
+        vbmeta
+       </b>
+       partition. It is used by bootloader as source for checksums in verification process.
+      </p>
+      <p>
+       First you should checksum/sign all other partition images that are part of your AVB process (for example, boot, system, etc)! See example just above.
+      </p>
+      <p>
+       <code>
+        avbtool make_vbmeta_image
+       </code>
+       Is the command that you will use in this case:
+      </p>
+      <pre>avbtool make_vbmeta_image \
     --output my_vbmeta.img \
     --padding_size 4096 \
     --include_descriptors_from_image ./boot.img-postmarketos-qcom-sdm660 \
@@ -146,21 +401,45 @@ avbtool add_hash_footer --partition_name boot --partition_size 67108864 --image 
     ...
     [--key /path/to/key_used_for_signing_or_pub_key]
 </pre>
-<p>This command will create <code>my_vbmeta.img</code> file, at least 4096 bytes in size, that will contain hash/hashtree descriptors from all the partition images specified in <code>--include_descriptors_from_image</code> parameters.
-</p>
-<h2><span class="mw-headline" id="Disabling_verified_boot">Disabling verified boot</span></h2>
-<p>To disable verified boot you should create an empty vbmeta.img, which does not contain any hash/hashtree desriptors and specified a special flag in vbmeta header. The command for it should look like this:
-</p>
-<pre>avbtool make_vbmeta_image --flags 2 --padding_size 4096 --output vbmeta_disabled.img
+      <p>
+       This command will create
+       <code>
+        my_vbmeta.img
+       </code>
+       file, at least 4096 bytes in size, that will contain hash/hashtree descriptors from all the partition images specified in
+       <code>
+        --include_descriptors_from_image
+       </code>
+       parameters.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Disabling_verified_boot">
+        Disabling verified boot
+       </span>
+      </h2>
+      <p>
+       To disable verified boot you should create an empty vbmeta.img, which does not contain any hash/hashtree desriptors and specified a special flag in vbmeta header. The command for it should look like this:
+      </p>
+      <pre>avbtool make_vbmeta_image --flags 2 --padding_size 4096 --output vbmeta_disabled.img
 </pre>
-<p>Mysterious flag <b>2</b> is <a rel="nofollow" class="external text" href="https://android.googlesource.com/platform/external/avb/+/refs/heads/master/libavb/avb_vbmeta_image.h#61">AVB_VBMETA_IMAGE_FLAGS_VERIFICATION_DISABLED</a>, which is documented as:
-</p>
-<pre>AVB_VBMETA_IMAGE_FLAGS_VERIFICATION_DISABLED: If this flag is set,
+      <p>
+       Mysterious flag
+       <b>
+        2
+       </b>
+       is
+       <a class="external text" href="https://android.googlesource.com/platform/external/avb/+/refs/heads/master/libavb/avb_vbmeta_image.h#61" rel="nofollow">
+        AVB_VBMETA_IMAGE_FLAGS_VERIFICATION_DISABLED
+       </a>
+       , which is documented as:
+      </p>
+      <pre>AVB_VBMETA_IMAGE_FLAGS_VERIFICATION_DISABLED: If this flag is set,
 verification will be disabled and descriptors will not be parsed.
 </pre>
-<p>Example bootloader output when booting with vbmeta_disabled.img flashed to vbmeta partition:
-</p>
-<pre>Booting Into Mission Mode
+      <p>
+       Example bootloader output when booting with vbmeta_disabled.img flashed to vbmeta partition:
+      </p>
+      <pre>Booting Into Mission Mode
 avb_slot_verify.c:432: DEBUG: Loading vbmeta struct from partition 'vbmeta'.
 Partition found: vbmeta
 avb_slot_verify.c:544: ERROR: vbmeta: Error verifying vbmeta image: OK_NOT_SIGNED
@@ -173,50 +452,121 @@ State: Unlocked, AvbSlotVerify returned ERROR_VERIFICATION, continue boot
 VB2: Authenticate complete! boot state is: orange
 VB2: boot state: orange(1)
 </pre>
-<p>Note <code>VERIFICATION_DISABLED bit is set</code>. Apparently bootloader can detect that verification is disabled, but its reaction to this mode may be device specific?
-</p>
-<h1><span class="mw-headline" id="Links">Links</span></h1>
-<ul>
-<li>Google official documentation: <a rel="nofollow" class="external text" href="https://android.googlesource.com/platform/external/avb/+/master/README.md">platform/external/avb/README.md</a>
-</li>
-<li>Google official documentation: <a rel="nofollow" class="external text" href="https://source.android.com/security/verifiedboot/boot-flow">Verified boot flow</a> (boot states)</li>
-<li><a rel="nofollow" class="external text" href="https://source.codeaurora.org/quic/la/kernel/lk/commit/?h=LA.BR.1.3.3_rb1.3&amp;id=3b6a87e4556587b3cc0c652ada680b7284d2fae7">Commit in LK introducing verified boot and boot states</a></li>
-<li><a rel="nofollow" class="external text" href="https://gitlab.e.foundation/e/os/android_build/commit/cd9e2fcf5dc08a92369f913491d960893a95edd8?view=parallel">MR that sched some light on disabling verified boot</a></li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Android_Verified_Boot_(AVB)&amp;oldid=10000">https://wiki.postmarketos.org/index.php?title=Android_Verified_Boot_(AVB)&amp;oldid=10000</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 4 March 2020, at 00:08.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Android_Verified_Boot_(AVB)&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <p>
+       Note
+       <code>
+        VERIFICATION_DISABLED bit is set
+       </code>
+       . Apparently bootloader can detect that verification is disabled, but its reaction to this mode may be device specific?
+      </p>
+      <h1>
+       <span class="mw-headline" id="Links">
+        Links
+       </span>
+      </h1>
+      <ul>
+       <li>
+        Google official documentation:
+        <a class="external text" href="https://android.googlesource.com/platform/external/avb/+/master/README.md" rel="nofollow">
+         platform/external/avb/README.md
+        </a>
+       </li>
+       <li>
+        Google official documentation:
+        <a class="external text" href="https://source.android.com/security/verifiedboot/boot-flow" rel="nofollow">
+         Verified boot flow
+        </a>
+        (boot states)
+       </li>
+       <li>
+        <a class="external text" href="https://source.codeaurora.org/quic/la/kernel/lk/commit/?h=LA.BR.1.3.3_rb1.3&amp;id=3b6a87e4556587b3cc0c652ada680b7284d2fae7" rel="nofollow">
+         Commit in LK introducing verified boot and boot states
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.e.foundation/e/os/android_build/commit/cd9e2fcf5dc08a92369f913491d960893a95edd8?view=parallel" rel="nofollow">
+         MR that sched some light on disabling verified boot
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Android_Verified_Boot_(AVB)&amp;oldid=10000">
+      https://wiki.postmarketos.org/index.php?title=Android_Verified_Boot_(AVB)&amp;oldid=10000
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 4 March 2020, at 00:08.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Android_Verified_Boot_(AVB)&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

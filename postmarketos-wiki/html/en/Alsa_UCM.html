@@ -1,112 +1,270 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Alsa UCM - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Alsa_UCM rootpage-Alsa_UCM skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Alsa UCM</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>Alsa Use Case Manager describes how to set up the mixer for certain usecases (like "playing audio", "calling"). It also describes how to modify the mixer state to route audio to certain outputs and inputs and how to control those devices.
-</p>
-<p>This basically covers the same things profiles do in Pulseaudio except that UCM files are easier to write and also work without Pulseaudio running. If an UCM configuration is present for a card then pulseaudio will ignore the built-in profiles and generate a profile based on the UCM files.
-</p>
-<p>Official documentation: <a rel="nofollow" class="external free" href="https://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm__conf.html">https://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm__conf.html</a>
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Card_name"><span class="tocnumber">1</span> <span class="toctext">Card name</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#The_first_usecase"><span class="tocnumber">2</span> <span class="toctext">The first usecase</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#The_Use_case_definition"><span class="tocnumber">3</span> <span class="toctext">The Use case definition</span></a></li>
-<li class="toclevel-1 tocsection-4">
-<a href="#Debugging_UCM_configs"><span class="tocnumber">4</span> <span class="toctext">Debugging UCM configs</span></a>
-<ul>
-<li class="toclevel-2 tocsection-5"><a href="#Reload_UCM_configs"><span class="tocnumber">4.1</span> <span class="toctext">Reload UCM configs</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#Monitor_ALSA_events"><span class="tocnumber">4.2</span> <span class="toctext">Monitor ALSA events</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="#Using_plain_ALSA_for_finding_controls"><span class="tocnumber">4.3</span> <span class="toctext">Using plain ALSA for finding controls</span></a></li>
-<li class="toclevel-2 tocsection-8"><a href="#List_of_controls"><span class="tocnumber">4.4</span> <span class="toctext">List of controls</span></a></li>
-<li class="toclevel-2 tocsection-9"><a href="#Keywords"><span class="tocnumber">4.5</span> <span class="toctext">Keywords</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Card_name">Card name</span></h2>
-<p>The first thing you need is the card name, this is used as the directory and filename for the UCM main file. You can find it using the aplay command from the alsa-utils package
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> apk add alsa-utils
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Alsa UCM - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Alsa_UCM rootpage-Alsa_UCM skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Alsa UCM
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       Alsa Use Case Manager describes how to set up the mixer for certain usecases (like "playing audio", "calling"). It also describes how to modify the mixer state to route audio to certain outputs and inputs and how to control those devices.
+      </p>
+      <p>
+       This basically covers the same things profiles do in Pulseaudio except that UCM files are easier to write and also work without Pulseaudio running. If an UCM configuration is present for a card then pulseaudio will ignore the built-in profiles and generate a profile based on the UCM files.
+      </p>
+      <p>
+       Official documentation:
+       <a class="external free" href="https://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm__conf.html" rel="nofollow">
+        https://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm__conf.html
+       </a>
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Card_name">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Card name
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#The_first_usecase">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           The first usecase
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#The_Use_case_definition">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           The Use case definition
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Debugging_UCM_configs">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Debugging UCM configs
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Reload_UCM_configs">
+            <span class="tocnumber">
+             4.1
+            </span>
+            <span class="toctext">
+             Reload UCM configs
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Monitor_ALSA_events">
+            <span class="tocnumber">
+             4.2
+            </span>
+            <span class="toctext">
+             Monitor ALSA events
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#Using_plain_ALSA_for_finding_controls">
+            <span class="tocnumber">
+             4.3
+            </span>
+            <span class="toctext">
+             Using plain ALSA for finding controls
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#List_of_controls">
+            <span class="tocnumber">
+             4.4
+            </span>
+            <span class="toctext">
+             List of controls
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-9">
+           <a href="#Keywords">
+            <span class="tocnumber">
+             4.5
+            </span>
+            <span class="toctext">
+             Keywords
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Card_name">
+        Card name
+       </span>
+      </h2>
+      <p>
+       The first thing you need is the card name, this is used as the directory and filename for the UCM main file. You can find it using the aplay command from the alsa-utils package
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> apk add alsa-utils
 <span class="gp">$</span> aplay -l
 <span class="go">card 0: sun50ia64audio [sun50i-a64-audio], device 0: 1c22c00.dai-sun8i-codec-aif1 sun8i-codec-aif1-0 [1c22c00.dai-sun8i-codec-aif1 sun8i-codec-aif1-0]</span>
 <span class="go">  Subdevices: 1/1</span>
 <span class="go">  Subdevice #0: subdevice #0</span>
-</pre></div>
-<p>In this case the name you need is the first name in square brackets: <code>sun50i-a64-audio</code>
-</p>
-<h2><span class="mw-headline" id="The_first_usecase">The first usecase</span></h2>
-<p>The next step is creating a file that contains the list of available usecases for the mixer. This file will be named after the mixer name from the section above:
-</p>
-<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/share/alsa/ucm2/sun50i-a64-audio/sun50i-a64-audio.conf</pre>
-<pre class="hc-bottom" style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="na">Syntax</span> <span class="mi">2</span>
+</pre>
+      </div>
+      <p>
+       In this case the name you need is the first name in square brackets:
+       <code>
+        sun50i-a64-audio
+       </code>
+      </p>
+      <h2>
+       <span class="mw-headline" id="The_first_usecase">
+        The first usecase
+       </span>
+      </h2>
+      <p>
+       The next step is creating a file that contains the list of available usecases for the mixer. This file will be named after the mixer name from the section above:
+      </p>
+      <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/share/alsa/ucm2/sun50i-a64-audio/sun50i-a64-audio.conf</pre>
+      <pre class="hc-bottom" style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="na">Syntax</span> <span class="mi">2</span>
 
 <span class="na">SectionUseCase</span><span class="err">.</span><span class="s">"HiFi"</span> <span class="p">{</span>
 	<span class="k">File</span> <span class="s">"HiFi"</span>
 	<span class="na">Comment</span> <span class="s">"Play high quality music"</span>
 <span class="p">}</span>
 </pre></div></pre>
-<p>For every usecase there will be a <code>SectionUseCase</code> block. The name in quotes directly after that is the "verb", which is the internal name of the profile. This has to be one of the predefined usecases from alsa. The ones that are currently defined are:
-</p>
-<ul>
-<li>"Inactive"</li>
-<li>"HiFi"</li>
-<li>"HiFi Low Power"</li>
-<li>"Voice"</li>
-<li>"Voice Low Power"</li>
-<li>"Voice Call"</li>
-<li>"Voice Call IP"</li>
-<li>"FM Analog Radio"</li>
-<li>"FM Digital Radio"</li>
-</ul>
-<p>The most important profile to create is the HiFi one, that's the main audio playback profile for the card. For the other profiles the actual use of them isn't very well defined by Alsa.
-</p>
-<p>The first setting for the profile is the <code>File</code> line. This defines the filename for the file that contains the exact mixer configuration for that usecase.
-</p>
-<p>The second setting in this example is the <code>Comment</code>. This is used as the display name in the alsaucm tool and in Pulseaudio. This can be freely defined.
-</p>
-<h2><span class="mw-headline" id="The_Use_case_definition">The Use case definition</span></h2>
-<p>The most complicated part is the actual contents of the <code>HiFi</code> file that needs to be created. This file is basically a collection of scripts to enable/disable the mixer and commands to move from one input/output to another.
-</p>
-<p>This is a minimal example of a usecase file.
-</p>
-<pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/share/alsa/ucm2/sun50i-a64-audio/HiFi</pre>
-<pre class="hc-bottom" style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="na">SectionVerb</span> <span class="p">{</span>
+      <p>
+       For every usecase there will be a
+       <code>
+        SectionUseCase
+       </code>
+       block. The name in quotes directly after that is the "verb", which is the internal name of the profile. This has to be one of the predefined usecases from alsa. The ones that are currently defined are:
+      </p>
+      <ul>
+       <li>
+        "Inactive"
+       </li>
+       <li>
+        "HiFi"
+       </li>
+       <li>
+        "HiFi Low Power"
+       </li>
+       <li>
+        "Voice"
+       </li>
+       <li>
+        "Voice Low Power"
+       </li>
+       <li>
+        "Voice Call"
+       </li>
+       <li>
+        "Voice Call IP"
+       </li>
+       <li>
+        "FM Analog Radio"
+       </li>
+       <li>
+        "FM Digital Radio"
+       </li>
+      </ul>
+      <p>
+       The most important profile to create is the HiFi one, that's the main audio playback profile for the card. For the other profiles the actual use of them isn't very well defined by Alsa.
+      </p>
+      <p>
+       The first setting for the profile is the
+       <code>
+        File
+       </code>
+       line. This defines the filename for the file that contains the exact mixer configuration for that usecase.
+      </p>
+      <p>
+       The second setting in this example is the
+       <code>
+        Comment
+       </code>
+       . This is used as the display name in the alsaucm tool and in Pulseaudio. This can be freely defined.
+      </p>
+      <h2>
+       <span class="mw-headline" id="The_Use_case_definition">
+        The Use case definition
+       </span>
+      </h2>
+      <p>
+       The most complicated part is the actual contents of the
+       <code>
+        HiFi
+       </code>
+       file that needs to be created. This file is basically a collection of scripts to enable/disable the mixer and commands to move from one input/output to another.
+      </p>
+      <p>
+       This is a minimal example of a usecase file.
+      </p>
+      <pre style="margin-bottom: 0; border-bottom:none; padding-bottom:0.8em;">/usr/share/alsa/ucm2/sun50i-a64-audio/HiFi</pre>
+      <pre class="hc-bottom" style="margin-top: 0; border-top-style:dashed; padding-top: 0.8em;"><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="na">SectionVerb</span> <span class="p">{</span>
 	<span class="na">EnableSequence</span> <span class="p">[</span>
 		<span class="na">cset</span> <span class="s">"name='Headphone Playback Switch' off"</span>
 		<span class="na">cset</span> <span class="s">"name='Headphone Source Playback Route' DAC"</span>
@@ -121,88 +279,248 @@
 	<span class="p">}</span>
 <span class="p">}</span>
 </pre></div></pre>
-<p>The <code>SectionVerb</code> block defines what commands need to be run to enable or disable this usecase. This is mostly used to bring the whole mixer in a known state on start so it's probably a good idea to set a value for all controls in the mixer here.
-</p>
-<p>The commands in the sections in this  section are all <code>cset</code> commands. These commands correspond to commands you'd normally use with the <code>amixer</code> tool from the alsa-utils package. The first command does this when run with amixer:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> amixer cset <span class="nv">name</span><span class="o">=</span><span class="s1">'Headphone Playback Switch'</span> off
+      <p>
+       The
+       <code>
+        SectionVerb
+       </code>
+       block defines what commands need to be run to enable or disable this usecase. This is mostly used to bring the whole mixer in a known state on start so it's probably a good idea to set a value for all controls in the mixer here.
+      </p>
+      <p>
+       The commands in the sections in this  section are all
+       <code>
+        cset
+       </code>
+       commands. These commands correspond to commands you'd normally use with the
+       <code>
+        amixer
+       </code>
+       tool from the alsa-utils package. The first command does this when run with amixer:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> amixer cset <span class="nv">name</span><span class="o">=</span><span class="s1">'Headphone Playback Switch'</span> off
 <span class="go">numid=36,iface=MIXER,name='Headphone Playback Switch'</span>
 <span class="go">  ; type=BOOLEAN,access=rw------,values=2</span>
 <span class="go">  ; values=on,on</span>
-</pre></div>
-<p>To get a list of all the controls you can set you can also use the amixer command:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> amixer controls
+</pre>
+      </div>
+      <p>
+       To get a list of all the controls you can set you can also use the amixer command:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> amixer controls
 <span class="go">numid=35,iface=MIXER,name='Headphone Source Playback Route'</span>
 <span class="go">numid=36,iface=MIXER,name='Headphone Playback Switch'</span>
 <span class="go">numid=17,iface=MIXER,name='Headphone Playback Volume'</span>
 <span class="go">... a lot more lines here ...</span>
-</pre></div>
-<p>These should be fairly easy to correlate with the controls you see in alsamixer. The controls follow a standard naming scheme. The volume sliders for devices on the Playback page of alsamixer are called <code>$name Playback Volume</code>, the same control on the Capture page is called <code>$name Capture Volume</code>. The mute button underneath the playback volume sliders are called <code>$name Playback Switch</code> and the enable switches on the Capture page are called <code>$name Capture Switch</code>. Controls  that don't have a volume slider in it but a text selection the name is <code>$name Playback Route</code>
-</p>
-<p><a href="../Alsa_mixer_mapping.png" class="image"><img alt="Alsa mixer mapping.png" src="../Alsa_mixer_mapping.png" decoding="async" width="800" height="544" srcset="../"></a>
-</p>
-<h2><span class="mw-headline" id="Debugging_UCM_configs">Debugging UCM configs</span></h2>
-<h3><span class="mw-headline" id="Reload_UCM_configs">Reload UCM configs</span></h3>
-<p><code>alsaucm reload</code> reload the configuration, but if you're using PulseAudio you also need to restart PulseAudio somehow. To both reload alsaucm and PulseAudio conveniently, you can run <code>alsaucm reload &amp;&amp; killall -9 pulseaudio</code>.
-</p>
-<h3><span class="mw-headline" id="Monitor_ALSA_events">Monitor ALSA events</span></h3>
-<p><code>alsactl monitor</code> allows you to monitor the ALSA events, especially for jack detection.
-The event name in the log must match the UCM config <code>JackControl</code> 
-if you want to change ALSA settings when a jack is plugged in or removed.
-</p>
-<h3><span class="mw-headline" id="Using_plain_ALSA_for_finding_controls">Using plain ALSA for finding controls</span></h3>
-<p>Finding the right controls with ALSA UCM is a pain, to make your life easier:
-</p>
-<ol>
-<li>Disable PulseAudio or PipeWire so ALSA UCM is not active at all.</li>
-<li>Write a simple script with <code>amixer -c $CARD cset iface=MIXER,name='$CONTROL' '$VALUE'</code>
-</li>
-<li>Execute the script to set your mixers</li>
-<li>Test your sound with <code>aplay -D plughw:$CARD,$DEVICE /usr/share/sounds/alsa/Front_*.wav</code>
-</li>
-</ol>
-<p>Repeat this until you figured out a working list of mixers to play audio to the output device you want.
+</pre>
+      </div>
+      <p>
+       These should be fairly easy to correlate with the controls you see in alsamixer. The controls follow a standard naming scheme. The volume sliders for devices on the Playback page of alsamixer are called
+       <code>
+        $name Playback Volume
+       </code>
+       , the same control on the Capture page is called
+       <code>
+        $name Capture Volume
+       </code>
+       . The mute button underneath the playback volume sliders are called
+       <code>
+        $name Playback Switch
+       </code>
+       and the enable switches on the Capture page are called
+       <code>
+        $name Capture Switch
+       </code>
+       . Controls  that don't have a volume slider in it but a text selection the name is
+       <code>
+        $name Playback Route
+       </code>
+      </p>
+      <p>
+       <a class="image" href="../Alsa_mixer_mapping.png">
+        <img alt="Alsa mixer mapping.png" decoding="async" height="544" src="../Alsa_mixer_mapping.png" srcset="../" width="800"/>
+       </a>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Debugging_UCM_configs">
+        Debugging UCM configs
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Reload_UCM_configs">
+        Reload UCM configs
+       </span>
+      </h3>
+      <p>
+       <code>
+        alsaucm reload
+       </code>
+       reload the configuration, but if you're using PulseAudio you also need to restart PulseAudio somehow. To both reload alsaucm and PulseAudio conveniently, you can run
+       <code>
+        alsaucm reload &amp;&amp; killall -9 pulseaudio
+       </code>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Monitor_ALSA_events">
+        Monitor ALSA events
+       </span>
+      </h3>
+      <p>
+       <code>
+        alsactl monitor
+       </code>
+       allows you to monitor the ALSA events, especially for jack detection.
+The event name in the log must match the UCM config
+       <code>
+        JackControl
+       </code>
+       if you want to change ALSA settings when a jack is plugged in or removed.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Using_plain_ALSA_for_finding_controls">
+        Using plain ALSA for finding controls
+       </span>
+      </h3>
+      <p>
+       Finding the right controls with ALSA UCM is a pain, to make your life easier:
+      </p>
+      <ol>
+       <li>
+        Disable PulseAudio or PipeWire so ALSA UCM is not active at all.
+       </li>
+       <li>
+        Write a simple script with
+        <code>
+         amixer -c $CARD cset iface=MIXER,name='$CONTROL' '$VALUE'
+        </code>
+       </li>
+       <li>
+        Execute the script to set your mixers
+       </li>
+       <li>
+        Test your sound with
+        <code>
+         aplay -D plughw:$CARD,$DEVICE /usr/share/sounds/alsa/Front_*.wav
+        </code>
+       </li>
+      </ol>
+      <p>
+       Repeat this until you figured out a working list of mixers to play audio to the output device you want.
 Also make sure that the list of mixers is sufficient to work directly after a reboot.
 Once you have them figured out, you can transfer to ALSA UCM configs, this way you're sure that the mixers are at least correct without influence from ALSA UCM or PulseAudio/PipeWire.
-</p>
-<h3><span class="mw-headline" id="List_of_controls">List of controls</span></h3>
-<p><code>amixer</code> can provide you a lot of information about the available controls with: 
-</p>
-<ul>
-<li><code>amixer -c $CARD scontrols</code></li>
-<li><code>amixer -c $CARD scontents</code></li>
-</ul>
-<p>TinyALSA can provide you a more readable version of them.
+      </p>
+      <h3>
+       <span class="mw-headline" id="List_of_controls">
+        List of controls
+       </span>
+      </h3>
+      <p>
+       <code>
+        amixer
+       </code>
+       can provide you a lot of information about the available controls with:
+      </p>
+      <ul>
+       <li>
+        <code>
+         amixer -c $CARD scontrols
+        </code>
+       </li>
+       <li>
+        <code>
+         amixer -c $CARD scontents
+        </code>
+       </li>
+      </ul>
+      <p>
+       TinyALSA can provide you a more readable version of them.
 TinyALSA is not in the repos but can be compiled as followed:
-</p>
-<ol>
-<li><code>git clone <a rel="nofollow" class="external free" href="https://github.com/tinyalsa/tinyalsa">https://github.com/tinyalsa/tinyalsa</a></code></li>
-<li><code>apk add alpine-sdk linux-headers</code></li>
-<li><code>make</code></li>
-</ol>
-<p>After compiling TinyALSA, the tools are in <code>utils</code>, you probably might need <code>tinymixer</code>
-</p>
-<h3><span class="mw-headline" id="Keywords">Keywords</span></h3>
-<ul>
-<li>
-<code>ConflictingDevice</code>: indicates conflicts with other devices. For example: earpiece and headphones may be incompatible with each other when they are driven by the same codec.</li>
-<li>
-<code>EnableSequence</code>: specifies the amixer commands to enable the device or verb.</li>
-<li>
-<code>DisableSequence</code>: specifies the amixer commands to disable the device or verb.</li>
-<li>
-<code>TransitionSection."$SECTIONDEVICE"</code>: commands to execute to go from a device to an other device.</li>
-<li>
-<code>BootSequence</code>: commands to execute only once when the card configuration is not available yet, useful to set the initial volume.</li>
-<li>
-<code>FixedBootSequence</code>: commands to execute at each boot, useful to unmute certain things.</li>
-</ul>
-<p>Most keywords are documented in the official docs: <a rel="nofollow" class="external free" href="https://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm__conf.html">https://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm__conf.html</a>
-</p>
-<p>Configuration of a card:
-</p>
-<pre> SectionVerb {
+      </p>
+      <ol>
+       <li>
+        <code>
+         git clone
+         <a class="external free" href="https://github.com/tinyalsa/tinyalsa" rel="nofollow">
+          https://github.com/tinyalsa/tinyalsa
+         </a>
+        </code>
+       </li>
+       <li>
+        <code>
+         apk add alpine-sdk linux-headers
+        </code>
+       </li>
+       <li>
+        <code>
+         make
+        </code>
+       </li>
+      </ol>
+      <p>
+       After compiling TinyALSA, the tools are in
+       <code>
+        utils
+       </code>
+       , you probably might need
+       <code>
+        tinymixer
+       </code>
+      </p>
+      <h3>
+       <span class="mw-headline" id="Keywords">
+        Keywords
+       </span>
+      </h3>
+      <ul>
+       <li>
+        <code>
+         ConflictingDevice
+        </code>
+        : indicates conflicts with other devices. For example: earpiece and headphones may be incompatible with each other when they are driven by the same codec.
+       </li>
+       <li>
+        <code>
+         EnableSequence
+        </code>
+        : specifies the amixer commands to enable the device or verb.
+       </li>
+       <li>
+        <code>
+         DisableSequence
+        </code>
+        : specifies the amixer commands to disable the device or verb.
+       </li>
+       <li>
+        <code>
+         TransitionSection."$SECTIONDEVICE"
+        </code>
+        : commands to execute to go from a device to an other device.
+       </li>
+       <li>
+        <code>
+         BootSequence
+        </code>
+        : commands to execute only once when the card configuration is not available yet, useful to set the initial volume.
+       </li>
+       <li>
+        <code>
+         FixedBootSequence
+        </code>
+        : commands to execute at each boot, useful to unmute certain things.
+       </li>
+      </ul>
+      <p>
+       Most keywords are documented in the official docs:
+       <a class="external free" href="https://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm__conf.html" rel="nofollow">
+        https://www.alsa-project.org/alsa-doc/alsa-lib/group__ucm__conf.html
+       </a>
+      </p>
+      <p>
+       Configuration of a card:
+      </p>
+      <pre> SectionVerb {
    Value {
      // Values to config this card, example for HiFi profile:
      TQ "HiFi"
@@ -215,9 +533,10 @@ TinyALSA is not in the repos but can be compiled as followed:
    ]
  }
 </pre>
-<p>Configuration of a device:
-</p>
-<pre> SectionDevice."Speaker" { // The node name.
+      <p>
+       Configuration of a device:
+      </p>
+      <pre> SectionDevice."Speaker" { // The node name.
    Value {
      // Values to config this node
    }
@@ -228,42 +547,87 @@ TinyALSA is not in the repos but can be compiled as followed:
      // mixer control to be set when this node is unselected
    ]
 </pre>
-<p>}
-</p>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Alsa_UCM&amp;oldid=27999">https://wiki.postmarketos.org/index.php?title=Alsa_UCM&amp;oldid=27999</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 26 May 2022, at 13:07.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Alsa_UCM&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <p>
+       }
+      </p>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Alsa_UCM&amp;oldid=27999">
+      https://wiki.postmarketos.org/index.php?title=Alsa_UCM&amp;oldid=27999
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 26 May 2022, at 13:07.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Alsa_UCM&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

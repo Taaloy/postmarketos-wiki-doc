@@ -1,165 +1,384 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>NFC - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-NFC rootpage-NFC skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">NFC</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><a href="https://en.wikipedia.org/wiki/Near-field_communication" class="extiw" title="wikipedia:Near-field communication">Near-field communication (NFC)</a> can be used for contactless exchange of data over short distances. Different approaches exist on Linux to support it:
-</p>
-<ul>
-<li>
-<a rel="nofollow" class="external text" href="http://www.nfc-tools.org/index.php/Libnfc">libnfc</a>: userspace implementation, but mostly for desktop (e.g. USB) readers</li>
-<li>Android NFC HAL: doesn't really work outside Android, probably mostly proprietary implementations</li>
-<li>
-<a rel="nofollow" class="external text" href="https://www.kernel.org/doc/html/latest/networking/nfc.html">Linux NFC subsystem</a>: NFC abstraction in the (mainline) Linux kernel with support for many different (also embedded) NFC chips</li>
-</ul>
-<p>For smartphones/embedded devices the Linux NFC subsystem is the most suitable one, because it can be set up normally in the device tree like other hardware. Unfortunately, the NFC subsystem has been somewhat unmaintained for quite some time, and especially the userspace portion of it: <a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/network/nfc/neard.git/">Neard</a>.
-</p>
-<p>However, the main problem when testing NFC is a lack of applications that can make use of the Linux NFC subsystem. If you know any useful applications, please add them here. Also note that there is <a rel="nofollow" class="external text" href="https://doc.qt.io/qt-5/qtnfc-index.html">support for NFC/Neard in Qt</a> if you want to build an application that makes use of NFC yourself.
-</p>
-<h2><span class="mw-headline" id="Devices_with_NFC_support">Devices with NFC support</span></h2>
-<p>If your device runs the mainline kernel, and has a NFC chip that is supported in mainline's Linux NFC subsystem it should be fairly easy to add it to the device tree. Check the available NFC device tree bindings for details. Otherwise, these devices in postmarketOS already support NFC to some extent:
-</p>
-<table class="cargoTable noMerge sortable">
-<thead><tr>
-<th class="field_Device">Device</th>
-<th class="field_Codename">Codename</th>
-<th class="field_Category">Category</th>
-</tr></thead>
-<tbody>
-<tr>
-<td class="field_Device"><a href="../en/Samsung_Galaxy_A3_2015_(samsung-a3).html" title="Samsung Galaxy A3 2015 (samsung-a3)">Samsung Galaxy A3 (2015)</a></td>
-<td class="field_Codename">samsung-a3</td>
-<td class="field_Category">community</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Samsung_Galaxy_A5_2015_(samsung-a5).html" title="Samsung Galaxy A5 2015 (samsung-a5)">Samsung Galaxy A5 (2015)</a></td>
-<td class="field_Codename">samsung-a5</td>
-<td class="field_Category">community</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Samsung_Galaxy_E7_(samsung-e7).html" title="Samsung Galaxy E7 (samsung-e7)">Samsung Galaxy E7</a></td>
-<td class="field_Codename">samsung-e7</td>
-<td class="field_Category">community</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Samsung_Galaxy_S4_Mini_Value_Edition_(samsung-serranove).html" title="Samsung Galaxy S4 Mini Value Edition (samsung-serranove)">Samsung Galaxy S4 Mini Value Edition</a></td>
-<td class="field_Codename">samsung-serranove</td>
-<td class="field_Category">community</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Xiaomi_Mi_Note_2_(xiaomi-scorpio).html" title="Xiaomi Mi Note 2 (xiaomi-scorpio)">Xiaomi Mi Note 2</a></td>
-<td class="field_Codename">xiaomi-scorpio</td>
-<td class="field_Category">community</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Google_Nexus_7_2012_(asus-grouper).html" title="Google Nexus 7 2012 (asus-grouper)">Google (ASUS) Nexus 7 (2012)</a></td>
-<td class="field_Codename">asus-grouper</td>
-<td class="field_Category">testing</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Huawei_Ascend_G7_(huawei-g7).html" title="Huawei Ascend G7 (huawei-g7)">Huawei Ascend G7</a></td>
-<td class="field_Codename">huawei-g7</td>
-<td class="field_Category">testing</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Microsoft_Lumia_640_(microsoft-dempsey).html" title="Microsoft Lumia 640 (microsoft-dempsey)">Microsoft Lumia 640</a></td>
-<td class="field_Codename">microsoft-dempsey</td>
-<td class="field_Category">testing</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Nokia_Lumia_730_(nokia-superman).html" title="Nokia Lumia 730 (nokia-superman)">Nokia Lumia 730</a></td>
-<td class="field_Codename">nokia-superman</td>
-<td class="field_Category">testing</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Nokia_Lumia_830_(nokia-tesla).html" title="Nokia Lumia 830 (nokia-tesla)">Nokia Lumia 830</a></td>
-<td class="field_Codename">nokia-tesla</td>
-<td class="field_Category">testing</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/OnePlus_5_(oneplus-cheeseburger).html" title="OnePlus 5 (oneplus-cheeseburger)">OnePlus 5</a></td>
-<td class="field_Codename">oneplus-cheeseburger</td>
-<td class="field_Category">testing</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/OnePlus_5T_(oneplus-dumpling).html" title="OnePlus 5T (oneplus-dumpling)">OnePlus 5T</a></td>
-<td class="field_Codename">oneplus-dumpling</td>
-<td class="field_Category">testing</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Samsung_Galaxy_A7_2015_(samsung-a7).html" title="Samsung Galaxy A7 2015 (samsung-a7)">Samsung Galaxy A7 (2015)</a></td>
-<td class="field_Codename">samsung-a7</td>
-<td class="field_Category">testing</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Samsung_Galaxy_Ace_2_(samsung-codina).html" title="Samsung Galaxy Ace 2 (samsung-codina)">Samsung Galaxy Ace 2 GT-I8160</a></td>
-<td class="field_Codename">samsung-codina</td>
-<td class="field_Category">testing</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Samsung_Galaxy_Core_Prime_LTE_(samsung-coreprimelte).html" title="Samsung Galaxy Core Prime LTE (samsung-coreprimelte)">Samsung Galaxy Core Prime LTE</a></td>
-<td class="field_Codename">samsung-coreprimelte, sm-g360f</td>
-<td class="field_Category">testing</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Samsung_Galaxy_Grand_Prime_(samsung-gprime).html" title="Samsung Galaxy Grand Prime (samsung-gprime)">Samsung Galaxy Grand Prime</a></td>
-<td class="field_Codename">samsung-gprime, samsung-gprimeltecan, samsung-gprimeltexx, samsung-fortuna3g, samsung-fortunaltezt</td>
-<td class="field_Category">testing</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Samsung_Galaxy_S_Advance_(samsung-janice).html" title="Samsung Galaxy S Advance (samsung-janice)">Samsung Galaxy S Advance GT-I9070</a></td>
-<td class="field_Codename">samsung-janice</td>
-<td class="field_Category">testing</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Xiaomi_Mi_5_(xiaomi-gemini).html" title="Xiaomi Mi 5 (xiaomi-gemini)">Xiaomi Mi 5</a></td>
-<td class="field_Codename">xiaomi-gemini</td>
-<td class="field_Category">testing</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Xiaomi_Mi_5s_Plus_(xiaomi-natrium).html" title="Xiaomi Mi 5s Plus (xiaomi-natrium)">Xiaomi Mi 5s Plus</a></td>
-<td class="field_Codename">xiaomi-natrium</td>
-<td class="field_Category">testing</td>
-</tr>
-<tr>
-<td class="field_Device"><a href="../en/Xiaomi_Mi_6_(xiaomi-sagit).html" title="Xiaomi Mi 6 (xiaomi-sagit)">Xiaomi Mi 6</a></td>
-<td class="field_Codename">xiaomi-sagit</td>
-<td class="field_Category">testing</td>
-</tr>
-</tbody>
-</table>
-<h2><span class="mw-headline" id="Testing">Testing</span></h2>
-<p>At the moment there are not many useful applications for testing NFC. As a basic test, you can use <code>nfctool</code> (from <code>apk add neard</code>) to poll for devices:
-</p>
- <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> nfctool -d nfc0 -1 -p
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   NFC - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-NFC rootpage-NFC skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    NFC
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       <a class="extiw" href="https://en.wikipedia.org/wiki/Near-field_communication" title="wikipedia:Near-field communication">
+        Near-field communication (NFC)
+       </a>
+       can be used for contactless exchange of data over short distances. Different approaches exist on Linux to support it:
+      </p>
+      <ul>
+       <li>
+        <a class="external text" href="http://www.nfc-tools.org/index.php/Libnfc" rel="nofollow">
+         libnfc
+        </a>
+        : userspace implementation, but mostly for desktop (e.g. USB) readers
+       </li>
+       <li>
+        Android NFC HAL: doesn't really work outside Android, probably mostly proprietary implementations
+       </li>
+       <li>
+        <a class="external text" href="https://www.kernel.org/doc/html/latest/networking/nfc.html" rel="nofollow">
+         Linux NFC subsystem
+        </a>
+        : NFC abstraction in the (mainline) Linux kernel with support for many different (also embedded) NFC chips
+       </li>
+      </ul>
+      <p>
+       For smartphones/embedded devices the Linux NFC subsystem is the most suitable one, because it can be set up normally in the device tree like other hardware. Unfortunately, the NFC subsystem has been somewhat unmaintained for quite some time, and especially the userspace portion of it:
+       <a class="external text" href="https://git.kernel.org/pub/scm/network/nfc/neard.git/" rel="nofollow">
+        Neard
+       </a>
+       .
+      </p>
+      <p>
+       However, the main problem when testing NFC is a lack of applications that can make use of the Linux NFC subsystem. If you know any useful applications, please add them here. Also note that there is
+       <a class="external text" href="https://doc.qt.io/qt-5/qtnfc-index.html" rel="nofollow">
+        support for NFC/Neard in Qt
+       </a>
+       if you want to build an application that makes use of NFC yourself.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Devices_with_NFC_support">
+        Devices with NFC support
+       </span>
+      </h2>
+      <p>
+       If your device runs the mainline kernel, and has a NFC chip that is supported in mainline's Linux NFC subsystem it should be fairly easy to add it to the device tree. Check the available NFC device tree bindings for details. Otherwise, these devices in postmarketOS already support NFC to some extent:
+      </p>
+      <table class="cargoTable noMerge sortable" style="border-collapse: collapse;">
+       <thead>
+        <tr style="background-color: #eeeeee;">
+         <th class="field_Device">
+          Device
+         </th>
+         <th class="field_Codename">
+          Codename
+         </th>
+         <th class="field_Category">
+          Category
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td class="field_Device">
+          <a href="../en/Samsung_Galaxy_A3_2015_(samsung-a3).html" title="Samsung Galaxy A3 2015 (samsung-a3)">
+           Samsung Galaxy A3 (2015)
+          </a>
+         </td>
+         <td class="field_Codename">
+          samsung-a3
+         </td>
+         <td class="field_Category">
+          community
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_Device">
+          <a href="../en/Samsung_Galaxy_A5_2015_(samsung-a5).html" title="Samsung Galaxy A5 2015 (samsung-a5)">
+           Samsung Galaxy A5 (2015)
+          </a>
+         </td>
+         <td class="field_Codename">
+          samsung-a5
+         </td>
+         <td class="field_Category">
+          community
+         </td>
+        </tr>
+        <tr>
+         <td class="field_Device">
+          <a href="../en/Samsung_Galaxy_E7_(samsung-e7).html" title="Samsung Galaxy E7 (samsung-e7)">
+           Samsung Galaxy E7
+          </a>
+         </td>
+         <td class="field_Codename">
+          samsung-e7
+         </td>
+         <td class="field_Category">
+          community
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_Device">
+          <a href="../en/Samsung_Galaxy_S4_Mini_Value_Edition_(samsung-serranove).html" title="Samsung Galaxy S4 Mini Value Edition (samsung-serranove)">
+           Samsung Galaxy S4 Mini Value Edition
+          </a>
+         </td>
+         <td class="field_Codename">
+          samsung-serranove
+         </td>
+         <td class="field_Category">
+          community
+         </td>
+        </tr>
+        <tr>
+         <td class="field_Device">
+          <a href="../en/Xiaomi_Mi_Note_2_(xiaomi-scorpio).html" title="Xiaomi Mi Note 2 (xiaomi-scorpio)">
+           Xiaomi Mi Note 2
+          </a>
+         </td>
+         <td class="field_Codename">
+          xiaomi-scorpio
+         </td>
+         <td class="field_Category">
+          community
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_Device">
+          <a href="../en/Google_Nexus_7_2012_(asus-grouper).html" title="Google Nexus 7 2012 (asus-grouper)">
+           Google (ASUS) Nexus 7 (2012)
+          </a>
+         </td>
+         <td class="field_Codename">
+          asus-grouper
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+        <tr>
+         <td class="field_Device">
+          <a href="../en/Huawei_Ascend_G7_(huawei-g7).html" title="Huawei Ascend G7 (huawei-g7)">
+           Huawei Ascend G7
+          </a>
+         </td>
+         <td class="field_Codename">
+          huawei-g7
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_Device">
+          <a href="../en/Microsoft_Lumia_640_(microsoft-dempsey).html" title="Microsoft Lumia 640 (microsoft-dempsey)">
+           Microsoft Lumia 640
+          </a>
+         </td>
+         <td class="field_Codename">
+          microsoft-dempsey
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+        <tr>
+         <td class="field_Device">
+          <a href="../en/Nokia_Lumia_730_(nokia-superman).html" title="Nokia Lumia 730 (nokia-superman)">
+           Nokia Lumia 730
+          </a>
+         </td>
+         <td class="field_Codename">
+          nokia-superman
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_Device">
+          <a href="../en/Nokia_Lumia_830_(nokia-tesla).html" title="Nokia Lumia 830 (nokia-tesla)">
+           Nokia Lumia 830
+          </a>
+         </td>
+         <td class="field_Codename">
+          nokia-tesla
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+        <tr>
+         <td class="field_Device">
+          <a href="../en/OnePlus_5_(oneplus-cheeseburger).html" title="OnePlus 5 (oneplus-cheeseburger)">
+           OnePlus 5
+          </a>
+         </td>
+         <td class="field_Codename">
+          oneplus-cheeseburger
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_Device">
+          <a href="../en/OnePlus_5T_(oneplus-dumpling).html" title="OnePlus 5T (oneplus-dumpling)">
+           OnePlus 5T
+          </a>
+         </td>
+         <td class="field_Codename">
+          oneplus-dumpling
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+        <tr>
+         <td class="field_Device">
+          <a href="../en/Samsung_Galaxy_A7_2015_(samsung-a7).html" title="Samsung Galaxy A7 2015 (samsung-a7)">
+           Samsung Galaxy A7 (2015)
+          </a>
+         </td>
+         <td class="field_Codename">
+          samsung-a7
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_Device">
+          <a href="../en/Samsung_Galaxy_Ace_2_(samsung-codina).html" title="Samsung Galaxy Ace 2 (samsung-codina)">
+           Samsung Galaxy Ace 2 GT-I8160
+          </a>
+         </td>
+         <td class="field_Codename">
+          samsung-codina
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+        <tr>
+         <td class="field_Device">
+          <a href="../en/Samsung_Galaxy_Core_Prime_LTE_(samsung-coreprimelte).html" title="Samsung Galaxy Core Prime LTE (samsung-coreprimelte)">
+           Samsung Galaxy Core Prime LTE
+          </a>
+         </td>
+         <td class="field_Codename">
+          samsung-coreprimelte, sm-g360f
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_Device">
+          <a href="../en/Samsung_Galaxy_Grand_Prime_(samsung-gprime).html" title="Samsung Galaxy Grand Prime (samsung-gprime)">
+           Samsung Galaxy Grand Prime
+          </a>
+         </td>
+         <td class="field_Codename">
+          samsung-gprime, samsung-gprimeltecan, samsung-gprimeltexx, samsung-fortuna3g, samsung-fortunaltezt
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+        <tr>
+         <td class="field_Device">
+          <a href="../en/Samsung_Galaxy_S_Advance_(samsung-janice).html" title="Samsung Galaxy S Advance (samsung-janice)">
+           Samsung Galaxy S Advance GT-I9070
+          </a>
+         </td>
+         <td class="field_Codename">
+          samsung-janice
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_Device">
+          <a href="../en/Xiaomi_Mi_5_(xiaomi-gemini).html" title="Xiaomi Mi 5 (xiaomi-gemini)">
+           Xiaomi Mi 5
+          </a>
+         </td>
+         <td class="field_Codename">
+          xiaomi-gemini
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+        <tr>
+         <td class="field_Device">
+          <a href="../en/Xiaomi_Mi_5s_Plus_(xiaomi-natrium).html" title="Xiaomi Mi 5s Plus (xiaomi-natrium)">
+           Xiaomi Mi 5s Plus
+          </a>
+         </td>
+         <td class="field_Codename">
+          xiaomi-natrium
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_Device">
+          <a href="../en/Xiaomi_Mi_6_(xiaomi-sagit).html" title="Xiaomi Mi 6 (xiaomi-sagit)">
+           Xiaomi Mi 6
+          </a>
+         </td>
+         <td class="field_Codename">
+          xiaomi-sagit
+         </td>
+         <td class="field_Category">
+          testing
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h2>
+       <span class="mw-headline" id="Testing">
+        Testing
+       </span>
+      </h2>
+      <p>
+       At the moment there are not many useful applications for testing NFC. As a basic test, you can use
+       <code>
+        nfctool
+       </code>
+       (from
+       <code>
+        apk add neard
+       </code>
+       ) to poll for devices:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> nfctool -d nfc0 -1 -p
 <span class="go">nfc0:</span>
 <span class="go">          Tags: [ ]</span>
 <span class="go">          Devices: [ ]</span>
@@ -175,57 +394,160 @@
 <span class="go">Targets found for nfc0</span>
 <span class="go">  Tags: [ tag0 ]</span>
 <span class="go">  Devices: [ ]</span>
-</pre></div>
-<p>If you hold some other NFC-capable device close to the NFC antenna, it should find a NFC tag and show it. Many chip cards nowadays have NFC, or maybe you can use another smartphone.
-</p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">
-<b>Note</b>: You may need to search for a while to find a working spot on the phone close to the NFC antenna. It could be anywhere on the back or anywhere on the front so just search for a bit before you give up.</td>
-</tr></tbody></table>
-<h3><span class="mw-headline" id="Reading_NFC_tags">Reading NFC tags</span></h3>
-<p>For advanced usage you should start the Neard daemon (<code>rc-service neard start</code>). Neard then provides a DBUS API similar to BlueZ for Bluetooth that allows reading/writing NFC tags for example.
-</p>
-<p>The easiest way to test it is using the <a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/network/nfc/neard.git/tree/test">Neard test scripts</a>. Unfortunately Neard hasn't been updated for a long time so they still use Python 2. I had some success making <code>test-adapter</code> and <code>test-tag</code> work on Python 3 using <code>2to3</code> but overall it's incomplete and only partially working.
-</p>
-<p>Upstream is <a rel="nofollow" class="external text" href="https://lore.kernel.org/netdev/20210512170135.GB222094@animalcreek.com/">looking for potential maintainers and testers of the Linux NFC subsystem</a>, so if you would like to help, consider posting on the <a rel="nofollow" class="external text" href="https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/">linux-nfc mailing list</a>.
-</p>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul><li><a rel="nofollow" class="external text" href="https://lore.kernel.org/phone-devel/YJ0SYWJjq3ZmXMy3@gerhold.net/">Testing wanted for Linux NFC subsystem</a></li></ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=NFC&amp;oldid=27947">https://wiki.postmarketos.org/index.php?title=NFC&amp;oldid=27947</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 22 May 2022, at 18:46.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=NFC&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <p>
+       If you hold some other NFC-capable device close to the NFC antenna, it should find a NFC tag and show it. Many chip cards nowadays have NFC, or maybe you can use another smartphone.
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           Note
+          </b>
+          : You may need to search for a while to find a working spot on the phone close to the NFC antenna. It could be anywhere on the back or anywhere on the front so just search for a bit before you give up.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h3>
+       <span class="mw-headline" id="Reading_NFC_tags">
+        Reading NFC tags
+       </span>
+      </h3>
+      <p>
+       For advanced usage you should start the Neard daemon (
+       <code>
+        rc-service neard start
+       </code>
+       ). Neard then provides a DBUS API similar to BlueZ for Bluetooth that allows reading/writing NFC tags for example.
+      </p>
+      <p>
+       The easiest way to test it is using the
+       <a class="external text" href="https://git.kernel.org/pub/scm/network/nfc/neard.git/tree/test" rel="nofollow">
+        Neard test scripts
+       </a>
+       . Unfortunately Neard hasn't been updated for a long time so they still use Python 2. I had some success making
+       <code>
+        test-adapter
+       </code>
+       and
+       <code>
+        test-tag
+       </code>
+       work on Python 3 using
+       <code>
+        2to3
+       </code>
+       but overall it's incomplete and only partially working.
+      </p>
+      <p>
+       Upstream is
+       <a class="external text" href="https://lore.kernel.org/netdev/20210512170135.GB222094@animalcreek.com/" rel="nofollow">
+        looking for potential maintainers and testers of the Linux NFC subsystem
+       </a>
+       , so if you would like to help, consider posting on the
+       <a class="external text" href="https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/" rel="nofollow">
+        linux-nfc mailing list
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="external text" href="https://lore.kernel.org/phone-devel/YJ0SYWJjq3ZmXMy3@gerhold.net/" rel="nofollow">
+         Testing wanted for Linux NFC subsystem
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=NFC&amp;oldid=27947">
+      https://wiki.postmarketos.org/index.php?title=NFC&amp;oldid=27947
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 22 May 2022, at 18:46.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=NFC&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

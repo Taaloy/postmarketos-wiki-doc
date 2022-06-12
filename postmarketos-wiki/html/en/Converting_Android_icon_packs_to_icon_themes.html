@@ -1,146 +1,266 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Converting Android icon packs to icon themes - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Converting_Android_icon_packs_to_icon_themes rootpage-Converting_Android_icon_packs_to_icon_themes skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Converting Android icon packs to icon themes</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<h2><span class="mw-headline" id="Downloading_the_icon_pack">Downloading the icon pack</span></h2>
-<p>To use icons in Linux system one has to obtain them either bundled in .apk installation package or as separate images. Possible sources are:
-</p>
-<ol>
-<li>Application stores (Note that some application store clients - such as the official application of Google Play Store - do not save .apk files in storage to be accessed by user. In this case it is recommended to use other stores or third-party clients/frontends);</li>
-<li>Forums (e.g. <a rel="nofollow" class="external text" href="https://forum.xda-developers.com/">XDA</a>);</li>
-<li>Icon pack's repository.</li>
-</ol>
-<h2><span class="mw-headline" id="Getting_the_icons">Getting the icons</span></h2>
-<p>First of all, it is needed to find the directory which contains the icons. To do that, one has to check the list of files in the apk file first. It can be done with either an archiver application (e.g. xarchiver) or via command line.
-</p>
-<p>Example:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> unzip -Z -1 iconpack.apk <span class="p">|</span> less
-</pre></div>
-<p>where <code>-Z</code> means zipinfo mode and <code>-1</code> sets the verbosity level.
-</p>
-<p>Icons are most likely to be stored at one of <code>res/drawable*</code> folders or in <code>assets/</code>.
-</p>
-<p>If there are multiple folders with icons, extract the icons with needed dpi. Here is the list of folders from highest to lowest dpi:
-</p>
-<table class="wikitable">
-<tbody>
-<tr>
-<th>Directory
-</th>
-<th>Approximate dpi
-</th>
-<th>Icon size
-</th>
-</tr>
-<tr>
-<td>
-<code>res/drawable-xxxdpi*/</code>
-</td>
-<td>640
-</td>
-<td>192x192
-</td>
-</tr>
-<tr>
-<td>
-<code>res/drawable-xxdpi*/</code>
-</td>
-<td>480
-</td>
-<td>144x144
-</td>
-</tr>
-<tr>
-<td>
-<code>res/drawable-xdpi*/</code>
-</td>
-<td>320
-</td>
-<td>96x96
-</td>
-</tr>
-<tr>
-<td>
-<code>res/drawable-hdpi*/</code>
-</td>
-<td>240
-</td>
-<td>72x72
-</td>
-</tr>
-<tr>
-<td>
-<code>res/drawable-tvdpi*/</code>
-</td>
-<td>213
-</td>
-<td>N/A
-</td>
-</tr>
-<tr>
-<td>
-<code>res/drawable-mdpi*/</code>
-</td>
-<td>160
-</td>
-<td>48x48
-</td>
-</tr>
-<tr>
-<td>
-<code>res/drawable-ldpi*/</code>
-</td>
-<td>120
-</td>
-<td>36x36
-</td>
-</tr>
-</tbody>
-</table>
-<p>If not there, icons may be located at <code>res/drawable-nodpi*/</code> which is for density-independent resources.
-</p>
-<p>When the folder was found, one can do something like
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> unzip -j icon_pack.apk <span class="s2">"res/drawable-nodpi-v4/*"</span> -d <span class="s2">"icon_theme_dir"</span>
-</pre></div>
-<p>This command extracts all files from <code>res/drawable-nodpi-v4/</code> to directory named <code>icon_theme_dir</code>. If this directory doesn't exist, it is created.
-</p>
-<h2><span class="mw-headline" id="Creating_a_theme">Creating a theme</span></h2>
-<p>Icon themes can be located in <code>$HOME/.icons</code> and <code>/usr/share/icons/</code> and consist of <code>index.theme</code> file, which describes the theme, and directories with icons.
-</p>
-<p>The basic <code>index.theme</code> contents are as follows:
-</p>
-<pre>[Icon Theme]
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Converting Android icon packs to icon themes - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Converting_Android_icon_packs_to_icon_themes rootpage-Converting_Android_icon_packs_to_icon_themes skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Converting Android icon packs to icon themes
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <h2>
+       <span class="mw-headline" id="Downloading_the_icon_pack">
+        Downloading the icon pack
+       </span>
+      </h2>
+      <p>
+       To use icons in Linux system one has to obtain them either bundled in .apk installation package or as separate images. Possible sources are:
+      </p>
+      <ol>
+       <li>
+        Application stores (Note that some application store clients - such as the official application of Google Play Store - do not save .apk files in storage to be accessed by user. In this case it is recommended to use other stores or third-party clients/frontends);
+       </li>
+       <li>
+        Forums (e.g.
+        <a class="external text" href="https://forum.xda-developers.com/" rel="nofollow">
+         XDA
+        </a>
+        );
+       </li>
+       <li>
+        Icon pack's repository.
+       </li>
+      </ol>
+      <h2>
+       <span class="mw-headline" id="Getting_the_icons">
+        Getting the icons
+       </span>
+      </h2>
+      <p>
+       First of all, it is needed to find the directory which contains the icons. To do that, one has to check the list of files in the apk file first. It can be done with either an archiver application (e.g. xarchiver) or via command line.
+      </p>
+      <p>
+       Example:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> unzip -Z -1 iconpack.apk <span class="p">|</span> less
+</pre>
+      </div>
+      <p>
+       where
+       <code>
+        -Z
+       </code>
+       means zipinfo mode and
+       <code>
+        -1
+       </code>
+       sets the verbosity level.
+      </p>
+      <p>
+       Icons are most likely to be stored at one of
+       <code>
+        res/drawable*
+       </code>
+       folders or in
+       <code>
+        assets/
+       </code>
+       .
+      </p>
+      <p>
+       If there are multiple folders with icons, extract the icons with needed dpi. Here is the list of folders from highest to lowest dpi:
+      </p>
+      <table class="wikitable">
+       <tbody>
+        <tr>
+         <th>
+          Directory
+         </th>
+         <th>
+          Approximate dpi
+         </th>
+         <th>
+          Icon size
+         </th>
+        </tr>
+        <tr>
+         <td>
+          <code>
+           res/drawable-xxxdpi*/
+          </code>
+         </td>
+         <td>
+          640
+         </td>
+         <td>
+          192x192
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <code>
+           res/drawable-xxdpi*/
+          </code>
+         </td>
+         <td>
+          480
+         </td>
+         <td>
+          144x144
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <code>
+           res/drawable-xdpi*/
+          </code>
+         </td>
+         <td>
+          320
+         </td>
+         <td>
+          96x96
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <code>
+           res/drawable-hdpi*/
+          </code>
+         </td>
+         <td>
+          240
+         </td>
+         <td>
+          72x72
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <code>
+           res/drawable-tvdpi*/
+          </code>
+         </td>
+         <td>
+          213
+         </td>
+         <td>
+          N/A
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <code>
+           res/drawable-mdpi*/
+          </code>
+         </td>
+         <td>
+          160
+         </td>
+         <td>
+          48x48
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <code>
+           res/drawable-ldpi*/
+          </code>
+         </td>
+         <td>
+          120
+         </td>
+         <td>
+          36x36
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       If not there, icons may be located at
+       <code>
+        res/drawable-nodpi*/
+       </code>
+       which is for density-independent resources.
+      </p>
+      <p>
+       When the folder was found, one can do something like
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> unzip -j icon_pack.apk <span class="s2">"res/drawable-nodpi-v4/*"</span> -d <span class="s2">"icon_theme_dir"</span>
+</pre>
+      </div>
+      <p>
+       This command extracts all files from
+       <code>
+        res/drawable-nodpi-v4/
+       </code>
+       to directory named
+       <code>
+        icon_theme_dir
+       </code>
+       . If this directory doesn't exist, it is created.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Creating_a_theme">
+        Creating a theme
+       </span>
+      </h2>
+      <p>
+       Icon themes can be located in
+       <code>
+        $HOME/.icons
+       </code>
+       and
+       <code>
+        /usr/share/icons/
+       </code>
+       and consist of
+       <code>
+        index.theme
+       </code>
+       file, which describes the theme, and directories with icons.
+      </p>
+      <p>
+       The basic
+       <code>
+        index.theme
+       </code>
+       contents are as follows:
+      </p>
+      <pre>[Icon Theme]
 Name=Icon Theme Name
 Comment=Detailed icon theme description goes here
 Directories=48x48/apps,scalable/apps
@@ -157,60 +277,140 @@ Size=48
 Type=Fixed
 Context=Applications
 </pre>
-<p><code>Directories</code> key accepts the list of subdirectories separated by commas as value. There must be a section for every listed subdirectory. The subdirectories are checked from left to right. So, in this example, an icon from 48x48/apps is used if 48x48 icon is needed. If the size differs, a scalable icon is used instead.
-</p>
-<p>Refer to the latest <a rel="nofollow" class="external text" href="https://specifications.freedesktop.org/icon-theme-spec/latest/index.html">icon theme specification</a> for example and detailed documentation.
-</p>
-<p>To pick a proper filename for an icon, one should check the .desktop file of the related program in one of the directories
-</p>
-<ol>
-<li><code>/usr/share/applications</code></li>
-<li><code>/usr/share/applications</code></li>
-<li><code>~/.local/share/applications</code></li>
-</ol>
-<p>Example: for this desktop file
-</p>
-<pre>[Desktop Entry]
+      <p>
+       <code>
+        Directories
+       </code>
+       key accepts the list of subdirectories separated by commas as value. There must be a section for every listed subdirectory. The subdirectories are checked from left to right. So, in this example, an icon from 48x48/apps is used if 48x48 icon is needed. If the size differs, a scalable icon is used instead.
+      </p>
+      <p>
+       Refer to the latest
+       <a class="external text" href="https://specifications.freedesktop.org/icon-theme-spec/latest/index.html" rel="nofollow">
+        icon theme specification
+       </a>
+       for example and detailed documentation.
+      </p>
+      <p>
+       To pick a proper filename for an icon, one should check the .desktop file of the related program in one of the directories
+      </p>
+      <ol>
+       <li>
+        <code>
+         /usr/share/applications
+        </code>
+       </li>
+       <li>
+        <code>
+         /usr/share/applications
+        </code>
+       </li>
+       <li>
+        <code>
+         ~/.local/share/applications
+        </code>
+       </li>
+      </ol>
+      <p>
+       Example: for this desktop file
+      </p>
+      <pre>[Desktop Entry]
 Name=random.txt
 Exec=gedit /home/user/random.txt
 Icon=gedit
 </pre>
-<p>icon name must be <code>gedit.png</code>, <code>gedit.svg</code> or <code>gedit.xpm</code>. It is possible to use symlinks to reuse the same icon for multiple programs.
-</p>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Converting_Android_icon_packs_to_icon_themes&amp;oldid=27943">https://wiki.postmarketos.org/index.php?title=Converting_Android_icon_packs_to_icon_themes&amp;oldid=27943</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 22 May 2022, at 18:27.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Converting_Android_icon_packs_to_icon_themes&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <p>
+       icon name must be
+       <code>
+        gedit.png
+       </code>
+       ,
+       <code>
+        gedit.svg
+       </code>
+       or
+       <code>
+        gedit.xpm
+       </code>
+       . It is possible to use symlinks to reuse the same icon for multiple programs.
+      </p>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Converting_Android_icon_packs_to_icon_themes&amp;oldid=27943">
+      https://wiki.postmarketos.org/index.php?title=Converting_Android_icon_packs_to_icon_themes&amp;oldid=27943
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 22 May 2022, at 18:27.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Converting_Android_icon_packs_to_icon_themes&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

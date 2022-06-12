@@ -1,90 +1,180 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Dual Booting - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Dual_Booting rootpage-Dual_Booting skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Dual Booting</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>Dual Booting, also sometimes called Multiboot, is a process by which you can install multiple operating systems on your device, and select between them when booting it up.
-</p>
-<p>postmarketOS doesn't currently support dual booting through recovery, yet there are a few ways this can be achieved:
-</p>
-<ul>
-<li>On the <a href="../en/Nokia_N900_(nokia-n900).html" class="mw-redirect" title="Nokia N900">Nokia N900</a>, u-boot provides a mechanism to select the OS. See <a href="../en/Nokia_N900_(nokia-n900).html#Installation" class="mw-redirect" title="Nokia N900">Nokia N900#Installation</a>
-</li>
-<li>On fastboot devices that have an SD card, it is possible to install postmarketOS on the SD card, and boot through <code class="mw-highlight" dir="ltr">pmbootstrap flasher boot</code>. This has the advantage of not modifying anything on the phone itself, but a USB cable and a host device (like a computer) are needed to boot the device with this procedure.</li>
-<li>On (?some?) fastboot devices, the recovery partition holds nothing but a second fastboot boot image. With the postmarketOS boot image flashed to the recovery partition and the root image flashed to either an internal partition or an sdcard, you should be able to dualboot (this works on xiaomi-santoni and samsung-degaswifi)</li>
-<li>On msm8916 devices with lk2nd the boot image is loaded from an ext2 boot partition either on EMMC or SD card. Since lk2nd keeps backwards compatibility with android boot images, you can flash your android boot.img via lk2nd and it will boot that image unless an SD card with postmarketOS is inserted.</li>
-<li>
-<a rel="nofollow" class="external text" href="https://efidroid.org">efidroid</a> might be used together with postmarketOS, but has not been tested</li>
-<li>Probably multiboot can be implemented with any second stage bootloader, capable of running linux (for example lk2nd)</li>
-</ul>
-<h3><span class="mw-headline" id="See_also">See also</span></h3>
-<ul>
-<li><a href="../en/FAQ.html#Is_dual_boot_supported" title="FAQ"> FAQ Entry</a></li>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/421">#421</a> for implementation ideas</li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Dual_Booting&amp;oldid=23225">https://wiki.postmarketos.org/index.php?title=Dual_Booting&amp;oldid=23225</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 25 October 2021, at 08:26.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Dual_Booting&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Dual Booting - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Dual_Booting rootpage-Dual_Booting skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Dual Booting
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       Dual Booting, also sometimes called Multiboot, is a process by which you can install multiple operating systems on your device, and select between them when booting it up.
+      </p>
+      <p>
+       postmarketOS doesn't currently support dual booting through recovery, yet there are a few ways this can be achieved:
+      </p>
+      <ul>
+       <li>
+        On the
+        <a class="mw-redirect" href="../en/Nokia_N900_(nokia-n900).html" title="Nokia N900">
+         Nokia N900
+        </a>
+        , u-boot provides a mechanism to select the OS. See
+        <a class="mw-redirect" href="../en/Nokia_N900_(nokia-n900).html#Installation" title="Nokia N900">
+         Nokia N900#Installation
+        </a>
+       </li>
+       <li>
+        On fastboot devices that have an SD card, it is possible to install postmarketOS on the SD card, and boot through
+        <code class="mw-highlight" dir="ltr">
+         pmbootstrap flasher boot
+        </code>
+        . This has the advantage of not modifying anything on the phone itself, but a USB cable and a host device (like a computer) are needed to boot the device with this procedure.
+       </li>
+       <li>
+        On (?some?) fastboot devices, the recovery partition holds nothing but a second fastboot boot image. With the postmarketOS boot image flashed to the recovery partition and the root image flashed to either an internal partition or an sdcard, you should be able to dualboot (this works on xiaomi-santoni and samsung-degaswifi)
+       </li>
+       <li>
+        On msm8916 devices with lk2nd the boot image is loaded from an ext2 boot partition either on EMMC or SD card. Since lk2nd keeps backwards compatibility with android boot images, you can flash your android boot.img via lk2nd and it will boot that image unless an SD card with postmarketOS is inserted.
+       </li>
+       <li>
+        <a class="external text" href="https://efidroid.org" rel="nofollow">
+         efidroid
+        </a>
+        might be used together with postmarketOS, but has not been tested
+       </li>
+       <li>
+        Probably multiboot can be implemented with any second stage bootloader, capable of running linux (for example lk2nd)
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h3>
+      <ul>
+       <li>
+        <a href="../en/FAQ.html#Is_dual_boot_supported" title="FAQ">
+         FAQ Entry
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/421" rel="nofollow">
+         #421
+        </a>
+        for implementation ideas
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Dual_Booting&amp;oldid=23225">
+      https://wiki.postmarketos.org/index.php?title=Dual_Booting&amp;oldid=23225
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 25 October 2021, at 08:26.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Dual_Booting&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

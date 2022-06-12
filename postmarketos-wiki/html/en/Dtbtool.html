@@ -1,94 +1,246 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Dtbtool - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Dtbtool rootpage-Dtbtool skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Dtbtool</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>The <code>dtbtool</code> is needed to combine multiple <code>dtb</code> (<a href="../en/Device_Tree_(dtb).html" title="Device Tree (dtb)">device tree blob</a>) files into one <code>dt.img</code> file, that can then be attached to the end of the <code>boot.img</code> for Android devices (<code>postmarketos-mkinitfs</code> does that).
-</p>
-<h3>
-<span id="Do_I_need_it?"></span><span class="mw-headline" id="Do_I_need_it.3F">Do I need it?</span>
-</h3>
-<p>You only need this tool if <code>pmbootstrap bootimg_analyze</code> on a known working boot.img file for your device outputs:
-</p>
-<pre>deviceinfo_bootimg_qcdt="true"
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Dtbtool - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Dtbtool rootpage-Dtbtool skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Dtbtool
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       The
+       <code>
+        dtbtool
+       </code>
+       is needed to combine multiple
+       <code>
+        dtb
+       </code>
+       (
+       <a href="../en/Device_Tree_(dtb).html" title="Device Tree (dtb)">
+        device tree blob
+       </a>
+       ) files into one
+       <code>
+        dt.img
+       </code>
+       file, that can then be attached to the end of the
+       <code>
+        boot.img
+       </code>
+       for Android devices (
+       <code>
+        postmarketos-mkinitfs
+       </code>
+       does that).
+      </p>
+      <h3>
+       <span id="Do_I_need_it?">
+       </span>
+       <span class="mw-headline" id="Do_I_need_it.3F">
+        Do I need it?
+       </span>
+      </h3>
+      <p>
+       You only need this tool if
+       <code>
+        pmbootstrap bootimg_analyze
+       </code>
+       on a known working boot.img file for your device outputs:
+      </p>
+      <pre>deviceinfo_bootimg_qcdt="true"
 </pre>
-<h3><span class="mw-headline" id="Using_an_alternative_version">Using an alternative version</span></h3>
-<p>There exist lots of versions of this <code>dtbtool</code>. Most of our devices works with the (Python) version from Skales, which is properly versioned and maintained. However, it is incompatible with some (older?) kernels, where the <code>dt.img</code> file was properly generated with code based on the original C version. So, at the time of writing four different dtbTools have been packaged and are available:
-</p>
-<ul>
-<li>
-<code>dtbTool</code>, Skales version mentioned before</li>
-<li>
-<code>dtbTool-exynos</code>, required for exynos devices</li>
-<li>
-<code>dtbTool-sprd</code> - Spreadtrum version</li>
-<li>
-<code>pxa1088-dtbTool</code> and <code>pxa1908-dtbTool</code>, packaged into <code>pxa-mkbootimg</code> and used by devices with Marvell PXA SoCs</li>
-</ul>
-<p>If you would like to test if Skales' version produces the same output as the LineageOS version (which is what we had packaged before), download the files from <a rel="nofollow" class="external text" href="https://github.com/ollieparanoid/aports-extra/tree/master/dtbtool-lineage">here</a> and place them in <code>aports/main/dtbtool-lineage</code>. Build it with <code>pmbootstrap build dtbtool-lineage</code> and depend on <code>dtbtool-lineage</code> instead of <code>dtbtool</code> in your kernel package, then change the <code>dtbTool</code> line in your kernel APKBUILD to <code>dtbTool-lineage</code>.
-</p>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Dtbtool&amp;oldid=16312">https://wiki.postmarketos.org/index.php?title=Dtbtool&amp;oldid=16312</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 7 January 2021, at 22:50.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Dtbtool&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <h3>
+       <span class="mw-headline" id="Using_an_alternative_version">
+        Using an alternative version
+       </span>
+      </h3>
+      <p>
+       There exist lots of versions of this
+       <code>
+        dtbtool
+       </code>
+       . Most of our devices works with the (Python) version from Skales, which is properly versioned and maintained. However, it is incompatible with some (older?) kernels, where the
+       <code>
+        dt.img
+       </code>
+       file was properly generated with code based on the original C version. So, at the time of writing four different dtbTools have been packaged and are available:
+      </p>
+      <ul>
+       <li>
+        <code>
+         dtbTool
+        </code>
+        , Skales version mentioned before
+       </li>
+       <li>
+        <code>
+         dtbTool-exynos
+        </code>
+        , required for exynos devices
+       </li>
+       <li>
+        <code>
+         dtbTool-sprd
+        </code>
+        - Spreadtrum version
+       </li>
+       <li>
+        <code>
+         pxa1088-dtbTool
+        </code>
+        and
+        <code>
+         pxa1908-dtbTool
+        </code>
+        , packaged into
+        <code>
+         pxa-mkbootimg
+        </code>
+        and used by devices with Marvell PXA SoCs
+       </li>
+      </ul>
+      <p>
+       If you would like to test if Skales' version produces the same output as the LineageOS version (which is what we had packaged before), download the files from
+       <a class="external text" href="https://github.com/ollieparanoid/aports-extra/tree/master/dtbtool-lineage" rel="nofollow">
+        here
+       </a>
+       and place them in
+       <code>
+        aports/main/dtbtool-lineage
+       </code>
+       . Build it with
+       <code>
+        pmbootstrap build dtbtool-lineage
+       </code>
+       and depend on
+       <code>
+        dtbtool-lineage
+       </code>
+       instead of
+       <code>
+        dtbtool
+       </code>
+       in your kernel package, then change the
+       <code>
+        dtbTool
+       </code>
+       line in your kernel APKBUILD to
+       <code>
+        dtbTool-lineage
+       </code>
+       .
+      </p>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Dtbtool&amp;oldid=16312">
+      https://wiki.postmarketos.org/index.php?title=Dtbtool&amp;oldid=16312
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 7 January 2021, at 22:50.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Dtbtool&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

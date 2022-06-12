@@ -1,183 +1,734 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Porting to a new device - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Porting_to_a_new_device rootpage-Porting_to_a_new_device skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Porting to a new device</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Preparation"><span class="tocnumber">2</span> <span class="toctext">Preparation</span></a></li>
-<li class="toclevel-1 tocsection-3">
-<a href="#Requirements"><span class="tocnumber">3</span> <span class="toctext">Requirements</span></a>
-<ul>
-<li class="toclevel-2 tocsection-4"><a href="#Development_environment"><span class="tocnumber">3.1</span> <span class="toctext">Development environment</span></a></li>
-<li class="toclevel-2 tocsection-5"><a href="#Knowledge"><span class="tocnumber">3.2</span> <span class="toctext">Knowledge</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#Target_Device"><span class="tocnumber">3.3</span> <span class="toctext">Target Device</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-7">
-<a href="#Initialization"><span class="tocnumber">4</span> <span class="toctext">Initialization</span></a>
-<ul>
-<li class="toclevel-2 tocsection-8"><a href="#Flash_method"><span class="tocnumber">4.1</span> <span class="toctext">Flash method</span></a></li>
-<li class="toclevel-2 tocsection-9"><a href="#Interfaces"><span class="tocnumber">4.2</span> <span class="toctext">Interfaces</span></a></li>
-<li class="toclevel-2 tocsection-10"><a href="#Logging"><span class="tocnumber">4.3</span> <span class="toctext">Logging</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-11">
-<a href="#Kernel_package"><span class="tocnumber">5</span> <span class="toctext">Kernel package</span></a>
-<ul>
-<li class="toclevel-2 tocsection-12"><a href="#APKBUILD_file"><span class="tocnumber">5.1</span> <span class="toctext">APKBUILD file</span></a></li>
-<li class="toclevel-2 tocsection-13"><a href="#Source_code"><span class="tocnumber">5.2</span> <span class="toctext">Source code</span></a></li>
-<li class="toclevel-2 tocsection-14"><a href="#Kernel_version"><span class="tocnumber">5.3</span> <span class="toctext">Kernel version</span></a></li>
-<li class="toclevel-2 tocsection-15"><a href="#Defconfig"><span class="tocnumber">5.4</span> <span class="toctext">Defconfig</span></a></li>
-<li class="toclevel-2 tocsection-16"><a href="#Download_sources_and_update_checksums"><span class="tocnumber">5.5</span> <span class="toctext">Download sources and update checksums</span></a></li>
-<li class="toclevel-2 tocsection-17">
-<a href="#Kernel_configuration"><span class="tocnumber">5.6</span> <span class="toctext">Kernel configuration</span></a>
-<ul>
-<li class="toclevel-3 tocsection-18"><a href="#Remove_failed_patches"><span class="tocnumber">5.6.1</span> <span class="toctext">Remove failed patches</span></a></li>
-<li class="toclevel-3 tocsection-19"><a href="#Make_kconfig_check_happy"><span class="tocnumber">5.6.2</span> <span class="toctext">Make kconfig check happy</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2 tocsection-20"><a href="#Kernel_compilation"><span class="tocnumber">5.7</span> <span class="toctext">Kernel compilation</span></a></li>
-<li class="toclevel-2 tocsection-21"><a href="#Find_the_error_message"><span class="tocnumber">5.8</span> <span class="toctext">Find the error message</span></a></li>
-<li class="toclevel-2 tocsection-22">
-<a href="#Get_a_patch"><span class="tocnumber">5.9</span> <span class="toctext">Get a patch</span></a>
-<ul>
-<li class="toclevel-3 tocsection-23"><a href="#From_postmarketOS_aports"><span class="tocnumber">5.9.1</span> <span class="toctext">From postmarketOS aports</span></a></li>
-<li class="toclevel-3 tocsection-24"><a href="#From_elsewhere"><span class="tocnumber">5.9.2</span> <span class="toctext">From elsewhere</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2 tocsection-25">
-<a href="#Changing_compiler"><span class="tocnumber">5.10</span> <span class="toctext">Changing compiler</span></a>
-<ul>
-<li class="toclevel-3 tocsection-26"><a href="#Using_GCC6"><span class="tocnumber">5.10.1</span> <span class="toctext">Using GCC6</span></a></li>
-<li class="toclevel-3 tocsection-27"><a href="#Using_GCC4"><span class="tocnumber">5.10.2</span> <span class="toctext">Using GCC4</span></a></li>
-<li class="toclevel-3 tocsection-28"><a href="#Using_Clang"><span class="tocnumber">5.10.3</span> <span class="toctext">Using Clang</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2 tocsection-29"><a href="#Device_specific_package"><span class="tocnumber">5.11</span> <span class="toctext">Device specific package</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-30"><a href="#We_are_happy_to_help_you.21"><span class="tocnumber">6</span> <span class="toctext">We are happy to help you!</span></a></li>
-<li class="toclevel-1 tocsection-31"><a href="#Documentation"><span class="tocnumber">7</span> <span class="toctext">Documentation</span></a></li>
-<li class="toclevel-1 tocsection-32"><a href="#Installation"><span class="tocnumber">8</span> <span class="toctext">Installation</span></a></li>
-<li class="toclevel-1 tocsection-33"><a href="#Flashing"><span class="tocnumber">9</span> <span class="toctext">Flashing</span></a></li>
-<li class="toclevel-1 tocsection-34"><a href="#Alternatives_to_regular_flashing"><span class="tocnumber">10</span> <span class="toctext">Alternatives to regular flashing</span></a></li>
-<li class="toclevel-1 tocsection-35"><a href="#USB_Network"><span class="tocnumber">11</span> <span class="toctext">USB Network</span></a></li>
-<li class="toclevel-1 tocsection-36"><a href="#Upstreaming"><span class="tocnumber">12</span> <span class="toctext">Upstreaming</span></a></li>
-<li class="toclevel-1 tocsection-37"><a href="#Display"><span class="tocnumber">13</span> <span class="toctext">Display</span></a></li>
-<li class="toclevel-1 tocsection-38"><a href="#Touchscreen"><span class="tocnumber">14</span> <span class="toctext">Touchscreen</span></a></li>
-<li class="toclevel-1 tocsection-39">
-<a href="#Changing_your_installation"><span class="tocnumber">15</span> <span class="toctext">Changing your installation</span></a>
-<ul>
-<li class="toclevel-2 tocsection-40"><a href="#Install_packages_over_SSH"><span class="tocnumber">15.1</span> <span class="toctext">Install packages over SSH</span></a></li>
-<li class="toclevel-2 tocsection-41"><a href="#Building_a_new_system_image"><span class="tocnumber">15.2</span> <span class="toctext">Building a new system image</span></a></li>
-<li class="toclevel-2 tocsection-42"><a href="#Kernel"><span class="tocnumber">15.3</span> <span class="toctext">Kernel</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-43"><a href="#Full_disk_encryption:_osk-sdl_support"><span class="tocnumber">16</span> <span class="toctext">Full disk encryption: osk-sdl support</span></a></li>
-<li class="toclevel-1 tocsection-44"><a href="#Advanced_topics"><span class="tocnumber">17</span> <span class="toctext">Advanced topics</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<p><i>This is a step by step guide made for you to be able to port postmaketOS to a new device.</i>
-</p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Beginner speaks to beginners: Have a look at the summary to keep the whole process in mind!</td>
-</tr></tbody></table>
-<p>The main steps are:
-</p>
-<ul>
-<li>Set up postmarketOS development environment on your computer.</li>
-<li>Build a device-specific kernel and a device-specific system package for your device, or make use of a (close to) mainline kernel and a device-specific system package.</li>
-<li>Install the system and adapt it according to your device and usage.</li>
-</ul>
-<p>For help, simply connect to the main <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">Matrix/IRC</a> channel and kindly drop your question. People are happy to answer your questions!
-</p>
-<p>Before you follow this guide, identify what SoC (System on a Chip) the device you want to port has. We have dedicated mainlining guides for the following SoCs:
-</p>
-<ul>
-<li><a href="../en/MSM8916_Mainlining.html" title="MSM8916 Mainlining">Snapdragon 410/412 MSM8916/Snapdragon 615/616 MSM8939</a></li>
-<li><a href="../en/MSM8996_Mainlining.html" title="MSM8996 Mainlining">Snapdragon 820/821 MSM8996</a></li>
-<li><a href="../en/SDM845_Mainlining.html" title="SDM845 Mainlining">Snapdragon 845 SDM845</a></li>
-</ul>
-<p>Even if your SoC isn't listed here, it may have good mainline support. You can try to find yours in <a href="../en/SoC_Communities.html" title="SoC Communities">SoC Communities</a> and ask for help in postmarketOS mainline on <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">Matrix/IRC</a>.
-</p>
-<p>If your device is supported by a (close to) mainline Linux kernel, it is preferable to port it using that kernel. You will be able to achieve greater hardware support (GPU, modem, and so on) while also having more up-to-date software. In some cases, it can even be easier. However, if your device isn't well-supported by any (close to) mainline kernel, keep reading this guide.
-</p>
-<h2><span class="mw-headline" id="Preparation">Preparation</span></h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Please use a spare device for experimenting with postmarketOS! You won't be able to use typical phone features right now, such as making calls, sending text messages, or using Bluetooth. Although everything has been tested, there is no guarantee that you won't break your device.</td>
-</tr></tbody></table>
-<ul>
-<li>Search the <a href="../en/Devices.html" title="Devices">Devices</a> page for your device to avoid duplicate work. Also search the wiki for your device, and check for links to existing branches. If your target device has an x86-64 CPU, you may be able to use the <a href="../en/Generic_x64_UEFI_device.html" title="Generic x64 UEFI device">generic x64 UEFI device</a> port.</li>
-<li>Join <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">Matrix/IRC</a> to get help when you're stuck.</li>
-</ul>
-<h2><span class="mw-headline" id="Requirements">Requirements</span></h2>
-<p><span id="Host_PC"></span>
-</p>
-<h3><span class="mw-headline" id="Development_environment">Development environment</span></h3>
-<p>To set up a development environment, you will need a GNU/Linux system capable of making builds and running pmbootstrap, our development and installation tool. If you don't have a Linux-based OS installed, you may want to <a rel="nofollow" class="external text" href="http://www.brianlinkletter.com/installing-debian-linux-in-a-virtualbox-virtual-machine/">set up a virtual machine with VirtualBox</a> first.
-</p>
-<p>Your GNU/Linux system must have:
-</p>
-<ul>
-<li>A few gigabytes of free space</li>
-<li>Linux kernel 3.17 or newer (since earlier Linux kernels do not support the <code>getrandom</code> syscall).</li>
-</ul>
-<h3><span class="mw-headline" id="Knowledge">Knowledge</span></h3>
-<p>It is recommended that you at least somewhat know how to use Linux distributions and how to build software as the porting process is a bit harder than just running a few commands.
-</p>
-<h3><span class="mw-headline" id="Target_Device">Target Device</span></h3>
-<p>If your target device has an ARM processor, it must have a <a href="https://en.wikipedia.org/wiki/Floating-point_unit" class="extiw" title="wikipedia:Floating-point unit">floating-point unit</a> (FPU). If the device has at least an ARMv7 CPU, it should have an FPU; however, only some ARMv6 CPUs have one.
-</p>
-<p>Most smartphones have an FPU. Of the first 80+ ports that we started, only two phones lacked an FPU: the <a href="../en/HTC_Wildfire_(htc-buzz).html" title="HTC Wildfire (htc-buzz)">HTC Wildfire</a> from 2010 (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1203">#1203</a>) and the <a href="../en/Vodafone_858_Smart_(huawei-u8160).html" title="Vodafone 858 Smart (huawei-u8160)">Vodafone 858 Smart</a> from 2011 (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1592">#1592</a>)). Both phones use the MSM7225, an ARMv6 SoC. If your phone was made before 2012, <a rel="nofollow" class="external text" href="https://unix.stackexchange.com/a/185070">make sure it has an FPU</a>.
-</p>
-<h2><span class="mw-headline" id="Initialization">Initialization</span></h2>
-<p><a href="../en/Installing_pmbootstrap.html" title="Installing pmbootstrap">Install pmbootstrap</a>, our lightweight postmarketOS development and installation tool. Then run the following:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Porting to a new device - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Porting_to_a_new_device rootpage-Porting_to_a_new_device skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Porting to a new device
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Introduction">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Introduction
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Preparation">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Preparation
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Requirements">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Requirements
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Development_environment">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             Development environment
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Knowledge">
+            <span class="tocnumber">
+             3.2
+            </span>
+            <span class="toctext">
+             Knowledge
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Target_Device">
+            <span class="tocnumber">
+             3.3
+            </span>
+            <span class="toctext">
+             Target Device
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-7">
+         <a href="#Initialization">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Initialization
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#Flash_method">
+            <span class="tocnumber">
+             4.1
+            </span>
+            <span class="toctext">
+             Flash method
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-9">
+           <a href="#Interfaces">
+            <span class="tocnumber">
+             4.2
+            </span>
+            <span class="toctext">
+             Interfaces
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-10">
+           <a href="#Logging">
+            <span class="tocnumber">
+             4.3
+            </span>
+            <span class="toctext">
+             Logging
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-11">
+         <a href="#Kernel_package">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           Kernel package
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-12">
+           <a href="#APKBUILD_file">
+            <span class="tocnumber">
+             5.1
+            </span>
+            <span class="toctext">
+             APKBUILD file
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-13">
+           <a href="#Source_code">
+            <span class="tocnumber">
+             5.2
+            </span>
+            <span class="toctext">
+             Source code
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-14">
+           <a href="#Kernel_version">
+            <span class="tocnumber">
+             5.3
+            </span>
+            <span class="toctext">
+             Kernel version
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-15">
+           <a href="#Defconfig">
+            <span class="tocnumber">
+             5.4
+            </span>
+            <span class="toctext">
+             Defconfig
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-16">
+           <a href="#Download_sources_and_update_checksums">
+            <span class="tocnumber">
+             5.5
+            </span>
+            <span class="toctext">
+             Download sources and update checksums
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-17">
+           <a href="#Kernel_configuration">
+            <span class="tocnumber">
+             5.6
+            </span>
+            <span class="toctext">
+             Kernel configuration
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-18">
+             <a href="#Remove_failed_patches">
+              <span class="tocnumber">
+               5.6.1
+              </span>
+              <span class="toctext">
+               Remove failed patches
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-19">
+             <a href="#Make_kconfig_check_happy">
+              <span class="tocnumber">
+               5.6.2
+              </span>
+              <span class="toctext">
+               Make kconfig check happy
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="toclevel-2 tocsection-20">
+           <a href="#Kernel_compilation">
+            <span class="tocnumber">
+             5.7
+            </span>
+            <span class="toctext">
+             Kernel compilation
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-21">
+           <a href="#Find_the_error_message">
+            <span class="tocnumber">
+             5.8
+            </span>
+            <span class="toctext">
+             Find the error message
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-22">
+           <a href="#Get_a_patch">
+            <span class="tocnumber">
+             5.9
+            </span>
+            <span class="toctext">
+             Get a patch
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-23">
+             <a href="#From_postmarketOS_aports">
+              <span class="tocnumber">
+               5.9.1
+              </span>
+              <span class="toctext">
+               From postmarketOS aports
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-24">
+             <a href="#From_elsewhere">
+              <span class="tocnumber">
+               5.9.2
+              </span>
+              <span class="toctext">
+               From elsewhere
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="toclevel-2 tocsection-25">
+           <a href="#Changing_compiler">
+            <span class="tocnumber">
+             5.10
+            </span>
+            <span class="toctext">
+             Changing compiler
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-26">
+             <a href="#Using_GCC6">
+              <span class="tocnumber">
+               5.10.1
+              </span>
+              <span class="toctext">
+               Using GCC6
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-27">
+             <a href="#Using_GCC4">
+              <span class="tocnumber">
+               5.10.2
+              </span>
+              <span class="toctext">
+               Using GCC4
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-28">
+             <a href="#Using_Clang">
+              <span class="tocnumber">
+               5.10.3
+              </span>
+              <span class="toctext">
+               Using Clang
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="toclevel-2 tocsection-29">
+           <a href="#Device_specific_package">
+            <span class="tocnumber">
+             5.11
+            </span>
+            <span class="toctext">
+             Device specific package
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-30">
+         <a href="#We_are_happy_to_help_you.21">
+          <span class="tocnumber">
+           6
+          </span>
+          <span class="toctext">
+           We are happy to help you!
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-31">
+         <a href="#Documentation">
+          <span class="tocnumber">
+           7
+          </span>
+          <span class="toctext">
+           Documentation
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-32">
+         <a href="#Installation">
+          <span class="tocnumber">
+           8
+          </span>
+          <span class="toctext">
+           Installation
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-33">
+         <a href="#Flashing">
+          <span class="tocnumber">
+           9
+          </span>
+          <span class="toctext">
+           Flashing
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-34">
+         <a href="#Alternatives_to_regular_flashing">
+          <span class="tocnumber">
+           10
+          </span>
+          <span class="toctext">
+           Alternatives to regular flashing
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-35">
+         <a href="#USB_Network">
+          <span class="tocnumber">
+           11
+          </span>
+          <span class="toctext">
+           USB Network
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-36">
+         <a href="#Upstreaming">
+          <span class="tocnumber">
+           12
+          </span>
+          <span class="toctext">
+           Upstreaming
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-37">
+         <a href="#Display">
+          <span class="tocnumber">
+           13
+          </span>
+          <span class="toctext">
+           Display
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-38">
+         <a href="#Touchscreen">
+          <span class="tocnumber">
+           14
+          </span>
+          <span class="toctext">
+           Touchscreen
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-39">
+         <a href="#Changing_your_installation">
+          <span class="tocnumber">
+           15
+          </span>
+          <span class="toctext">
+           Changing your installation
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-40">
+           <a href="#Install_packages_over_SSH">
+            <span class="tocnumber">
+             15.1
+            </span>
+            <span class="toctext">
+             Install packages over SSH
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-41">
+           <a href="#Building_a_new_system_image">
+            <span class="tocnumber">
+             15.2
+            </span>
+            <span class="toctext">
+             Building a new system image
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-42">
+           <a href="#Kernel">
+            <span class="tocnumber">
+             15.3
+            </span>
+            <span class="toctext">
+             Kernel
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-43">
+         <a href="#Full_disk_encryption:_osk-sdl_support">
+          <span class="tocnumber">
+           16
+          </span>
+          <span class="toctext">
+           Full disk encryption: osk-sdl support
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-44">
+         <a href="#Advanced_topics">
+          <span class="tocnumber">
+           17
+          </span>
+          <span class="toctext">
+           Advanced topics
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Introduction">
+        Introduction
+       </span>
+      </h2>
+      <p>
+       <i>
+        This is a step by step guide made for you to be able to port postmaketOS to a new device.
+       </i>
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Beginner speaks to beginners: Have a look at the summary to keep the whole process in mind!
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       The main steps are:
+      </p>
+      <ul>
+       <li>
+        Set up postmarketOS development environment on your computer.
+       </li>
+       <li>
+        Build a device-specific kernel and a device-specific system package for your device, or make use of a (close to) mainline kernel and a device-specific system package.
+       </li>
+       <li>
+        Install the system and adapt it according to your device and usage.
+       </li>
+      </ul>
+      <p>
+       For help, simply connect to the main
+       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+        Matrix/IRC
+       </a>
+       channel and kindly drop your question. People are happy to answer your questions!
+      </p>
+      <p>
+       Before you follow this guide, identify what SoC (System on a Chip) the device you want to port has. We have dedicated mainlining guides for the following SoCs:
+      </p>
+      <ul>
+       <li>
+        <a href="../en/MSM8916_Mainlining.html" title="MSM8916 Mainlining">
+         Snapdragon 410/412 MSM8916/Snapdragon 615/616 MSM8939
+        </a>
+       </li>
+       <li>
+        <a href="../en/MSM8996_Mainlining.html" title="MSM8996 Mainlining">
+         Snapdragon 820/821 MSM8996
+        </a>
+       </li>
+       <li>
+        <a href="../en/SDM845_Mainlining.html" title="SDM845 Mainlining">
+         Snapdragon 845 SDM845
+        </a>
+       </li>
+      </ul>
+      <p>
+       Even if your SoC isn't listed here, it may have good mainline support. You can try to find yours in
+       <a href="../en/SoC_Communities.html" title="SoC Communities">
+        SoC Communities
+       </a>
+       and ask for help in postmarketOS mainline on
+       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+        Matrix/IRC
+       </a>
+       .
+      </p>
+      <p>
+       If your device is supported by a (close to) mainline Linux kernel, it is preferable to port it using that kernel. You will be able to achieve greater hardware support (GPU, modem, and so on) while also having more up-to-date software. In some cases, it can even be easier. However, if your device isn't well-supported by any (close to) mainline kernel, keep reading this guide.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Preparation">
+        Preparation
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Please use a spare device for experimenting with postmarketOS! You won't be able to use typical phone features right now, such as making calls, sending text messages, or using Bluetooth. Although everything has been tested, there is no guarantee that you won't break your device.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <ul>
+       <li>
+        Search the
+        <a href="../en/Devices.html" title="Devices">
+         Devices
+        </a>
+        page for your device to avoid duplicate work. Also search the wiki for your device, and check for links to existing branches. If your target device has an x86-64 CPU, you may be able to use the
+        <a href="../en/Generic_x64_UEFI_device.html" title="Generic x64 UEFI device">
+         generic x64 UEFI device
+        </a>
+        port.
+       </li>
+       <li>
+        Join
+        <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+         Matrix/IRC
+        </a>
+        to get help when you're stuck.
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Requirements">
+        Requirements
+       </span>
+      </h2>
+      <p>
+       <span id="Host_PC">
+       </span>
+      </p>
+      <h3>
+       <span class="mw-headline" id="Development_environment">
+        Development environment
+       </span>
+      </h3>
+      <p>
+       To set up a development environment, you will need a GNU/Linux system capable of making builds and running pmbootstrap, our development and installation tool. If you don't have a Linux-based OS installed, you may want to
+       <a class="external text" href="http://www.brianlinkletter.com/installing-debian-linux-in-a-virtualbox-virtual-machine/" rel="nofollow">
+        set up a virtual machine with VirtualBox
+       </a>
+       first.
+      </p>
+      <p>
+       Your GNU/Linux system must have:
+      </p>
+      <ul>
+       <li>
+        A few gigabytes of free space
+       </li>
+       <li>
+        Linux kernel 3.17 or newer (since earlier Linux kernels do not support the
+        <code>
+         getrandom
+        </code>
+        syscall).
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Knowledge">
+        Knowledge
+       </span>
+      </h3>
+      <p>
+       It is recommended that you at least somewhat know how to use Linux distributions and how to build software as the porting process is a bit harder than just running a few commands.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Target_Device">
+        Target Device
+       </span>
+      </h3>
+      <p>
+       If your target device has an ARM processor, it must have a
+       <a class="extiw" href="https://en.wikipedia.org/wiki/Floating-point_unit" title="wikipedia:Floating-point unit">
+        floating-point unit
+       </a>
+       (FPU). If the device has at least an ARMv7 CPU, it should have an FPU; however, only some ARMv6 CPUs have one.
+      </p>
+      <p>
+       Most smartphones have an FPU. Of the first 80+ ports that we started, only two phones lacked an FPU: the
+       <a href="../en/HTC_Wildfire_(htc-buzz).html" title="HTC Wildfire (htc-buzz)">
+        HTC Wildfire
+       </a>
+       from 2010 (
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1203" rel="nofollow">
+        #1203
+       </a>
+       ) and the
+       <a href="../en/Vodafone_858_Smart_(huawei-u8160).html" title="Vodafone 858 Smart (huawei-u8160)">
+        Vodafone 858 Smart
+       </a>
+       from 2011 (
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1592" rel="nofollow">
+        #1592
+       </a>
+       )). Both phones use the MSM7225, an ARMv6 SoC. If your phone was made before 2012,
+       <a class="external text" href="https://unix.stackexchange.com/a/185070" rel="nofollow">
+        make sure it has an FPU
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Initialization">
+        Initialization
+       </span>
+      </h2>
+      <p>
+       <a href="../en/Installing_pmbootstrap.html" title="Installing pmbootstrap">
+        Install pmbootstrap
+       </a>
+       , our lightweight postmarketOS development and installation tool. Then run the following:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap init
 <span class="go">Location of the 'work' path. Multiple chroots (native, device arch, device rootfs) will be created in there.</span>
 <span class="go">Work path [/home/user/.local/var/pmbootstrap]:</span>
-</pre></div>
-<p>Type in the code name of your device to start a new port, and answer each prompt. For help, see <a href="../en/How_to_find_device-specific_information.html" title="How to find device-specific information">how to find device-specific information</a>.
-</p>
-<pre>Target device (either an existing one, or a new one for porting).
+</pre>
+      </div>
+      <p>
+       Type in the code name of your device to start a new port, and answer each prompt. For help, see
+       <a href="../en/How_to_find_device-specific_information.html" title="How to find device-specific information">
+        how to find device-specific information
+       </a>
+       .
+      </p>
+      <pre>Target device (either an existing one, or a new one for porting).
 Available (60): asus-flo, asus-grouper, fairphone-fp2, ...
 Device [samsung-i9100]: wiki-example
 You are about to do a new device port for 'wiki-example'.
@@ -190,34 +741,122 @@ Name: Wiki Example
 Does the device have a hardware keyboard? (y/n) [n]:
 Does the device have a sdcard or other external storage medium? (y/n) [n]:
 </pre>
-<h3><span class="mw-headline" id="Flash_method">Flash method</span></h3>
-<p>It depends on the flashing protocol that comes with the device. For most Android devices, this is <code>fastboot</code>, some Samsung models need <code>heimdall</code> (which is compatible to "Odin") and Maemo/MeeGo-based Nokia phones work with <code>0xffff</code>. If you don't know which one it is, try to enter the bootloader on your device and check whether it says "Fastboot mode" or "Odin mode". Most of the time that can be done by pressing the <code>Volume Down</code> key when it is just booting. In case you can't figure that one out, try to search the internet - there might even be videos on YouTube on how to do that if you're lucky.
-</p>
-<p>For more information see the wiki page about <a href="../en/Deviceinfo_flash_methods.html" title="Deviceinfo flash methods">Deviceinfo flash methods</a>.
-</p>
-<pre>Which flash method does the device support?
+      <h3>
+       <span class="mw-headline" id="Flash_method">
+        Flash method
+       </span>
+      </h3>
+      <p>
+       It depends on the flashing protocol that comes with the device. For most Android devices, this is
+       <code>
+        fastboot
+       </code>
+       , some Samsung models need
+       <code>
+        heimdall
+       </code>
+       (which is compatible to "Odin") and Maemo/MeeGo-based Nokia phones work with
+       <code>
+        0xffff
+       </code>
+       . If you don't know which one it is, try to enter the bootloader on your device and check whether it says "Fastboot mode" or "Odin mode". Most of the time that can be done by pressing the
+       <code>
+        Volume Down
+       </code>
+       key when it is just booting. In case you can't figure that one out, try to search the internet - there might even be videos on YouTube on how to do that if you're lucky.
+      </p>
+      <p>
+       For more information see the wiki page about
+       <a href="../en/Deviceinfo_flash_methods.html" title="Deviceinfo flash methods">
+        Deviceinfo flash methods
+       </a>
+       .
+      </p>
+      <pre>Which flash method does the device support?
 Flash method (fastboot/heimdall/0xffff) [fastboot]:
 </pre>
-<p>Depending on your selection, <code>pmbootstrap</code> may ask you to analyze a <code>boot.img</code> file to get offset values required for the flash method. Get the right one for your device from <a rel="nofollow" class="external text" href="https://twrp.me/Devices/">TWRP</a> (<code>twrp-*.img</code>), <a rel="nofollow" class="external text" href="https://download.lineageos.org/">LineageOS</a> (<code>boot.img</code> inside the zip archive) or by <a href="../en/Using_prebuilt_kernels.html#Extracting_boot.img_from_an_Android_device" title="Using prebuilt kernels">extracting it from within a running Android</a>. If you can't find any, you can skip this step for now by just pressing the return key.
-</p>
-<pre>You can analyze a known working boot.img file to automatically fill out the flasher information for your deviceinfo file. Either specify the path to an image or press return to skip this step (you can do it later with 'pmbootstrap bootimg_analyze').
+      <p>
+       Depending on your selection,
+       <code>
+        pmbootstrap
+       </code>
+       may ask you to analyze a
+       <code>
+        boot.img
+       </code>
+       file to get offset values required for the flash method. Get the right one for your device from
+       <a class="external text" href="https://twrp.me/Devices/" rel="nofollow">
+        TWRP
+       </a>
+       (
+       <code>
+        twrp-*.img
+       </code>
+       ),
+       <a class="external text" href="https://download.lineageos.org/" rel="nofollow">
+        LineageOS
+       </a>
+       (
+       <code>
+        boot.img
+       </code>
+       inside the zip archive) or by
+       <a href="../en/Using_prebuilt_kernels.html#Extracting_boot.img_from_an_Android_device" title="Using prebuilt kernels">
+        extracting it from within a running Android
+       </a>
+       . If you can't find any, you can skip this step for now by just pressing the return key.
+      </p>
+      <pre>You can analyze a known working boot.img file to automatically fill out the flasher information for your deviceinfo file. Either specify the path to an image or press return to skip this step (you can do it later with 'pmbootstrap bootimg_analyze').
 Path: /home/user/Downloads/twrp-3.2.0-0-mako.img
 NOTE: You will be prompted for your sudo password, so we can set up a chroot to extract and analyze your boot.img file
 (native) install alpine-base
 (native) install file unpackbootimg
 </pre>
-<h3><span class="mw-headline" id="Interfaces">Interfaces</span></h3>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Don't choose Plasma Mobile, Phosh, Sway if you use downstream kernel for porting.</td>
-</tr></tbody></table>
-<p>We recommend that you start with <code>weston</code> first, because that has been around the longest in postmarketOS and while it is not really suitable for a phone, it works as a stable demo interface for making the graphics output work in the first place. After that one works, feel free to try out another interface (but expect that it will not necessarily work out of the box).
-</p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Weston is known to be broken on older kernels <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/579">pmaports#579</a>, if your device is using a kernel older then 4.3, you might be better of with xfce4 instead.</td>
-</tr></tbody></table>
-<pre>Username [user]:
+      <h3>
+       <span class="mw-headline" id="Interfaces">
+        Interfaces
+       </span>
+      </h3>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Don't choose Plasma Mobile, Phosh, Sway if you use downstream kernel for porting.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       We recommend that you start with
+       <code>
+        weston
+       </code>
+       first, because that has been around the longest in postmarketOS and while it is not really suitable for a phone, it works as a stable demo interface for making the graphics output work in the first place. After that one works, feel free to try out another interface (but expect that it will not necessarily work out of the box).
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Weston is known to be broken on older kernels
+          <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/579" rel="nofollow">
+           pmaports#579
+          </a>
+          , if your device is using a kernel older then 4.3, you might be better of with xfce4 instead.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <pre>Username [user]:
 Available user interfaces (5):
 * none: No graphical environment
 * hildon: (X11) Lightweight GTK+2 UI (optimized for single-touch touchscreens)
@@ -237,59 +876,229 @@ Run 'pmbootstrap zap' to delete all chroots once a day before working with pmboo
 It only takes a few seconds, and all packages are cached.
 Done!
 </pre>
-<h3><span class="mw-headline" id="Logging">Logging</span></h3>
-<p>Open a second terminal and run the following command to see detailed logging (such as compiler output). Whenever reporting that something does not work, please attach the detailed log output from this window.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap log
-</pre></div>
-<h2><span class="mw-headline" id="Kernel_package">Kernel package</span></h2>
-<p>While the goal is to use a <a href="../en/The_Mainline_Kernel.html" title="The Mainline Kernel">mainline kernel</a> for all devices in the long run, this can usually not be done in one step when porting to a new device. What we do in the meantime is shipping a Linux kernel fork, that is known to work with this device (e.g. from Android). 
-</p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">If your device does not have a known working Linux kernel fork around (e.g. because it is iPhone or <a href="../en/Windows_Phone.html" title="Windows Phone">Windows Phone</a>) this guide won't work straightforward. Have a look at how similar <a href="../en/Non-android_devices.html" title="Non-android devices">devices</a> to yours got ported, <a href="../en/Building_generic_kernels.html" title="Building generic kernels">build a generic kernel</a> or ask in the <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">chat</a> for help.</td>
-</tr></tbody></table>
-<p>The steps below are the straight forward changes you need to compile your kernel. For details see the <a href="../en/Downstream_kernel_specific_package.html" title="Downstream kernel specific package">downstream kernel specific package</a> article.
-</p>
-<h3><span class="mw-headline" id="APKBUILD_file">APKBUILD file</span></h3>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">
-<code>APKBUILD</code> has <a href="../en/Glossary.html#apk" title="Glossary">nothing to do</a> with Android's app format!</td>
-</tr></tbody></table>
-<p><code>APKBUILD</code> file is a script used to build a package. There are two APKBUILDs you have to edit: for device and linux packages related to your port. The APKBUILDs located at packages' folders.  
-</p>
-<p>Where to find device-related packages folders?
-</p>
-<p>In case you cloned pmbootstrap from git:
-</p>
-<pre>$workdir/aports/device/testing/device-wiki-example/APKBUILD
+      <h3>
+       <span class="mw-headline" id="Logging">
+        Logging
+       </span>
+      </h3>
+      <p>
+       Open a second terminal and run the following command to see detailed logging (such as compiler output). Whenever reporting that something does not work, please attach the detailed log output from this window.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap log
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Kernel_package">
+        Kernel package
+       </span>
+      </h2>
+      <p>
+       While the goal is to use a
+       <a href="../en/The_Mainline_Kernel.html" title="The Mainline Kernel">
+        mainline kernel
+       </a>
+       for all devices in the long run, this can usually not be done in one step when porting to a new device. What we do in the meantime is shipping a Linux kernel fork, that is known to work with this device (e.g. from Android).
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          If your device does not have a known working Linux kernel fork around (e.g. because it is iPhone or
+          <a href="../en/Windows_Phone.html" title="Windows Phone">
+           Windows Phone
+          </a>
+          ) this guide won't work straightforward. Have a look at how similar
+          <a href="../en/Non-android_devices.html" title="Non-android devices">
+           devices
+          </a>
+          to yours got ported,
+          <a href="../en/Building_generic_kernels.html" title="Building generic kernels">
+           build a generic kernel
+          </a>
+          or ask in the
+          <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+           chat
+          </a>
+          for help.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       The steps below are the straight forward changes you need to compile your kernel. For details see the
+       <a href="../en/Downstream_kernel_specific_package.html" title="Downstream kernel specific package">
+        downstream kernel specific package
+       </a>
+       article.
+      </p>
+      <h3>
+       <span class="mw-headline" id="APKBUILD_file">
+        APKBUILD file
+       </span>
+      </h3>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <code>
+           APKBUILD
+          </code>
+          has
+          <a href="../en/Glossary.html#apk" title="Glossary">
+           nothing to do
+          </a>
+          with Android's app format!
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       <code>
+        APKBUILD
+       </code>
+       file is a script used to build a package. There are two APKBUILDs you have to edit: for device and linux packages related to your port. The APKBUILDs located at packages' folders.
+      </p>
+      <p>
+       Where to find device-related packages folders?
+      </p>
+      <p>
+       In case you cloned pmbootstrap from git:
+      </p>
+      <pre>$workdir/aports/device/testing/device-wiki-example/APKBUILD
 $workdir/aports/device/testing/linux-wiki-example/APKBUILD
 </pre>
-<p>In case you have <i>not</i> cloned pmbootstrap from git: 
-</p>
-<pre>$workdir/cache_git/pmaports/device/testing/device-wiki-example/APKBUILD
+      <p>
+       In case you have
+       <i>
+        not
+       </i>
+       cloned pmbootstrap from git:
+      </p>
+      <pre>$workdir/cache_git/pmaports/device/testing/device-wiki-example/APKBUILD
 $workdir/cache_git/pmaports/device/testing/linux-wiki-example/APKBUILD
 </pre>
-<p><i>Where $workdir is the path you provided at the first step of <code>pmbootstrap init</code> process and "wiki-example" by the brand and codename you provided there.</i>
-</p>
-<p><br>
-</p>
-<h3><span class="mw-headline" id="Source_code">Source code</span></h3>
-<p><a href="../en/How_to_find_device-specific_information.html#LineageOS_kernel_source_repository" title="How to find device-specific information">Find the source code</a> of the known working kernel fork. Try to find a widely used kernel if possible, for example from LineageOS. The kernel version is also important, as of writing (April 2020), the lowest kernel version number we have packaged is 3.0.x. It might be possible to get even older kernels running (with <a href="../en/Downstream_kernel_specific_package.html#GCC_version" title="Downstream kernel specific package">old GCC versions</a>), but even if you get them to boot, you will likely run into problems down the road.
-</p>
-<p>Once you have your kernel, adjust the <code># Source</code> section in the <code>linux-wiki-example/APKBUILD</code> file. For LineageOS kernels, you will only need to change <code>_repository</code> and <code>_commit</code> variables. Usually it makes sense to use a commit from the most recently updated branch. For example, if the kernel repo is at <code><a rel="nofollow" class="external free" href="https://github.com/LineageOS/android_kernel_motorola_ghost.git">https://github.com/LineageOS/android_kernel_motorola_ghost.git</a></code>, you would use <code>_repository="android_kernel_motorola_ghost"</code> and <code>_commit="c4914db2f65ef63548b0af5d7b37d131581c9c62"</code> (find the commit by clicking on c4914db2 next to "Latest commit" at the top right corner of the directories box).
-</p>
-<p>If your kernel is not in a LineageOS repository but somewhere else, you also have to change the URL in <code>source</code> accordingly, e.g. to
-<code>https://github.com/jmrohwer/$_repository/archive/$_commit.tar.gz</code> if the kernel is in <code><a rel="nofollow" class="external free" href="https://github.com/jmrohwer/TF101-GNU-kernel">https://github.com/jmrohwer/TF101-GNU-kernel</a></code>. You still need to set <code>_repository</code> and <code>_commit</code> as described above.
-</p>
-<p>If your kernel is only available as archive (zip, tarball, etc.), you can unpack it and use <code>pmbootstrap build linux-wiki-example --src=/path/to/extracted/kernel/source</code> for now. Later on, when it's time to upstream your work into the official postmarketOS repositories so everybody can use it, <a href="../en/How_to_properly_backup_downstream_kernels.html#Backup" title="How to properly backup downstream kernels">talk to us</a> so we can publish the kernel in a good place.
-</p>
-<p><b>Do not fork the kernel and add patches there.</b> There are already enough Linux kernel forks out there, and it's next to impossible to understand which kernel repository has which patches applied. Let's not make the situation worse with creating another fork with random patches on top just to make it compile with postmarketOS. Instead, point to the kernel you found. All postmarketOS specific patches should be applied as patch files in the same directory as the APKBUILD. How this is done exactly is described further below in the porting guide. When doing it like that, we avoid downloading the huge kernel sources every time a new patch is applied (remember that not everybody in the world has fast Internet connections), and it makes it much more transparent as the actual patches show up in code reviews.
-</p>
-<p>Consider the reliability of the kernel source. If there is any chance that the source might disappear, a backup must be taken and used instead of the original source. See <a href="../en/How_to_properly_backup_downstream_kernels.html" title="How to properly backup downstream kernels">How to properly backup downstream kernels</a> for instructions.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="nv">_flavor</span><span class="o">=</span><span class="s2">"wiki-example"</span> <span class="c1"># be sure it's in form of &lt;vendor-codename&gt;, e.g. motorola-ghost</span>
+      <p>
+       <i>
+        Where $workdir is the path you provided at the first step of
+        <code>
+         pmbootstrap init
+        </code>
+        process and "wiki-example" by the brand and codename you provided there.
+       </i>
+      </p>
+      <p>
+       <br/>
+      </p>
+      <h3>
+       <span class="mw-headline" id="Source_code">
+        Source code
+       </span>
+      </h3>
+      <p>
+       <a href="../en/How_to_find_device-specific_information.html#LineageOS_kernel_source_repository" title="How to find device-specific information">
+        Find the source code
+       </a>
+       of the known working kernel fork. Try to find a widely used kernel if possible, for example from LineageOS. The kernel version is also important, as of writing (April 2020), the lowest kernel version number we have packaged is 3.0.x. It might be possible to get even older kernels running (with
+       <a href="../en/Downstream_kernel_specific_package.html#GCC_version" title="Downstream kernel specific package">
+        old GCC versions
+       </a>
+       ), but even if you get them to boot, you will likely run into problems down the road.
+      </p>
+      <p>
+       Once you have your kernel, adjust the
+       <code>
+        # Source
+       </code>
+       section in the
+       <code>
+        linux-wiki-example/APKBUILD
+       </code>
+       file. For LineageOS kernels, you will only need to change
+       <code>
+        _repository
+       </code>
+       and
+       <code>
+        _commit
+       </code>
+       variables. Usually it makes sense to use a commit from the most recently updated branch. For example, if the kernel repo is at
+       <code>
+        <a class="external free" href="https://github.com/LineageOS/android_kernel_motorola_ghost.git" rel="nofollow">
+         https://github.com/LineageOS/android_kernel_motorola_ghost.git
+        </a>
+       </code>
+       , you would use
+       <code>
+        _repository="android_kernel_motorola_ghost"
+       </code>
+       and
+       <code>
+        _commit="c4914db2f65ef63548b0af5d7b37d131581c9c62"
+       </code>
+       (find the commit by clicking on c4914db2 next to "Latest commit" at the top right corner of the directories box).
+      </p>
+      <p>
+       If your kernel is not in a LineageOS repository but somewhere else, you also have to change the URL in
+       <code>
+        source
+       </code>
+       accordingly, e.g. to
+       <code>
+        https://github.com/jmrohwer/$_repository/archive/$_commit.tar.gz
+       </code>
+       if the kernel is in
+       <code>
+        <a class="external free" href="https://github.com/jmrohwer/TF101-GNU-kernel" rel="nofollow">
+         https://github.com/jmrohwer/TF101-GNU-kernel
+        </a>
+       </code>
+       . You still need to set
+       <code>
+        _repository
+       </code>
+       and
+       <code>
+        _commit
+       </code>
+       as described above.
+      </p>
+      <p>
+       If your kernel is only available as archive (zip, tarball, etc.), you can unpack it and use
+       <code>
+        pmbootstrap build linux-wiki-example --src=/path/to/extracted/kernel/source
+       </code>
+       for now. Later on, when it's time to upstream your work into the official postmarketOS repositories so everybody can use it,
+       <a href="../en/How_to_properly_backup_downstream_kernels.html#Backup" title="How to properly backup downstream kernels">
+        talk to us
+       </a>
+       so we can publish the kernel in a good place.
+      </p>
+      <p>
+       <b>
+        Do not fork the kernel and add patches there.
+       </b>
+       There are already enough Linux kernel forks out there, and it's next to impossible to understand which kernel repository has which patches applied. Let's not make the situation worse with creating another fork with random patches on top just to make it compile with postmarketOS. Instead, point to the kernel you found. All postmarketOS specific patches should be applied as patch files in the same directory as the APKBUILD. How this is done exactly is described further below in the porting guide. When doing it like that, we avoid downloading the huge kernel sources every time a new patch is applied (remember that not everybody in the world has fast Internet connections), and it makes it much more transparent as the actual patches show up in code reviews.
+      </p>
+      <p>
+       Consider the reliability of the kernel source. If there is any chance that the source might disappear, a backup must be taken and used instead of the original source. See
+       <a href="../en/How_to_properly_backup_downstream_kernels.html" title="How to properly backup downstream kernels">
+        How to properly backup downstream kernels
+       </a>
+       for instructions.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="nv">_flavor</span><span class="o">=</span><span class="s2">"wiki-example"</span> <span class="c1"># be sure it's in form of &lt;vendor-codename&gt;, e.g. motorola-ghost</span>
 
 <span class="c1"># Source</span>
 <span class="nv">_repository</span><span class="o">=</span><span class="s2">"(CHANGEME!)"</span> <span class="c1"># e.g. android_kernel_motorola_ghost</span>
@@ -302,38 +1111,157 @@ $workdir/cache_git/pmaports/device/testing/linux-wiki-example/APKBUILD
 <span class="s2">    gcc8-fix-put-user.patch</span>
 <span class="s2">"</span>
 <span class="nv">builddir</span><span class="o">=</span><span class="s2">"</span><span class="nv">$srcdir</span><span class="s2">/</span><span class="nv">$_repository</span><span class="s2">-</span><span class="nv">$_commit</span><span class="s2">"</span>
-</pre></div>
-<h3><span class="mw-headline" id="Kernel_version">Kernel version</span></h3>
-<p>In the repository with the kernel source code, you will find a <code>Makefile</code>. Open this file and adjust the <code>pkgver</code> in the kernel <code>APKBUILD</code> to the information from the <code>VERSION</code>, <code>PATCHLEVEL</code> and <code>SUBLEVEL</code> variables (e.g. <a rel="nofollow" class="external text" href="https://github.com/LineageOS/lge-kernel-mako/blob/c76e1bc83219088b2ff1b2b5709a88ebda5e54e4/Makefile#L1-L3">3.4.0</a>).
-</p>
-<h3><span class="mw-headline" id="Defconfig">Defconfig</span></h3>
-<p>Next you will need to <a href="../en/How_to_find_device-specific_information.html#Kernel_defconfig_.28default_config.29" title="How to find device-specific information">find the kernel configuration</a> that is used to compile that kernel source for your device. Download it and save it as <code>aports/device/testing/linux-wiki-example/config-wiki-example.armhf</code> (replace <code>wiki-example</code> and <code>armhf</code>).
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> wget https://github.com/LineageOS/lge-kernel-mako/raw/cm-14.1/arch/arm/configs/lineageos_mako_defconfig
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="Kernel_version">
+        Kernel version
+       </span>
+      </h3>
+      <p>
+       In the repository with the kernel source code, you will find a
+       <code>
+        Makefile
+       </code>
+       . Open this file and adjust the
+       <code>
+        pkgver
+       </code>
+       in the kernel
+       <code>
+        APKBUILD
+       </code>
+       to the information from the
+       <code>
+        VERSION
+       </code>
+       ,
+       <code>
+        PATCHLEVEL
+       </code>
+       and
+       <code>
+        SUBLEVEL
+       </code>
+       variables (e.g.
+       <a class="external text" href="https://github.com/LineageOS/lge-kernel-mako/blob/c76e1bc83219088b2ff1b2b5709a88ebda5e54e4/Makefile#L1-L3" rel="nofollow">
+        3.4.0
+       </a>
+       ).
+      </p>
+      <h3>
+       <span class="mw-headline" id="Defconfig">
+        Defconfig
+       </span>
+      </h3>
+      <p>
+       Next you will need to
+       <a href="../en/How_to_find_device-specific_information.html#Kernel_defconfig_.28default_config.29" title="How to find device-specific information">
+        find the kernel configuration
+       </a>
+       that is used to compile that kernel source for your device. Download it and save it as
+       <code>
+        aports/device/testing/linux-wiki-example/config-wiki-example.armhf
+       </code>
+       (replace
+       <code>
+        wiki-example
+       </code>
+       and
+       <code>
+        armhf
+       </code>
+       ).
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> wget https://github.com/LineageOS/lge-kernel-mako/raw/cm-14.1/arch/arm/configs/lineageos_mako_defconfig
 <span class="gp">$</span> mv lineageos_mako_defconfig aports/device/testing/linux-wiki-example/config-wiki-example.armhf
-</pre></div>
-<p>If your device is 64bit (aarch64) replace <code>.armhf</code> with <code>.aarch64</code>
-</p>
-<h3><span class="mw-headline" id="Download_sources_and_update_checksums">Download sources and update checksums</span></h3>
-<p>Use the checksum command. It will not only generate the checksums of all source files, but also download them in case they have not been downloaded yet. If this command fails, most likely the download URL is invalid and needs to be adjusted in the <code>APKBUILD</code> again. Another cause could be, that the defconfig could not be found (e.g. because it was saved with a wrong file name). The actual download URL (with all variables replaced) and the download progress are visible in the log window.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap checksum linux-wiki-example
-</pre></div>
-<h3><span class="mw-headline" id="Kernel_configuration">Kernel configuration</span></h3>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">If <code>pmbootstrap</code> throws an error here, you need to <a href="#Remove_failed_patches">remove the example patch</a>!</td>
-</tr></tbody></table>
-<p>The magic command, which lets you change the kernel configuration is <code>pmbootstrap kconfig edit</code>. Don't try to manually change the defconfig file, because only by running menuconfig, the dependencies will get resolved properly. <code>menuconfig</code> always runs on the kernel with all patches applied, so we'll run it once to see if we need to remove patch files first.
-</p>
-<p>If there are no errors, you can exit menuconfig with ESC-ESC and move on to making kconfig check happy.
-</p>
-<h4><span class="mw-headline" id="Remove_failed_patches">Remove failed patches</span></h4>
-<p>You will find some example patches already in the generated kernel package. When a patch does not apply correctly, you will get something like the following in the log window (scroll up, the error is above the <code>^^^</code> line).
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap kconfig edit
-</pre></div>
-<pre>&gt;&gt;&gt; linux-wiki-example: Unpacking /var/cache/distfiles/linux-wiki-example-ffff.tar.gz...
+</pre>
+      </div>
+      <p>
+       If your device is 64bit (aarch64) replace
+       <code>
+        .armhf
+       </code>
+       with
+       <code>
+        .aarch64
+       </code>
+      </p>
+      <h3>
+       <span class="mw-headline" id="Download_sources_and_update_checksums">
+        Download sources and update checksums
+       </span>
+      </h3>
+      <p>
+       Use the checksum command. It will not only generate the checksums of all source files, but also download them in case they have not been downloaded yet. If this command fails, most likely the download URL is invalid and needs to be adjusted in the
+       <code>
+        APKBUILD
+       </code>
+       again. Another cause could be, that the defconfig could not be found (e.g. because it was saved with a wrong file name). The actual download URL (with all variables replaced) and the download progress are visible in the log window.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap checksum linux-wiki-example
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="Kernel_configuration">
+        Kernel configuration
+       </span>
+      </h3>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          If
+          <code>
+           pmbootstrap
+          </code>
+          throws an error here, you need to
+          <a href="#Remove_failed_patches">
+           remove the example patch
+          </a>
+          !
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       The magic command, which lets you change the kernel configuration is
+       <code>
+        pmbootstrap kconfig edit
+       </code>
+       . Don't try to manually change the defconfig file, because only by running menuconfig, the dependencies will get resolved properly.
+       <code>
+        menuconfig
+       </code>
+       always runs on the kernel with all patches applied, so we'll run it once to see if we need to remove patch files first.
+      </p>
+      <p>
+       If there are no errors, you can exit menuconfig with ESC-ESC and move on to making kconfig check happy.
+      </p>
+      <h4>
+       <span class="mw-headline" id="Remove_failed_patches">
+        Remove failed patches
+       </span>
+      </h4>
+      <p>
+       You will find some example patches already in the generated kernel package. When a patch does not apply correctly, you will get something like the following in the log window (scroll up, the error is above the
+       <code>
+        ^^^
+       </code>
+       line).
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap kconfig edit
+</pre>
+      </div>
+      <pre>&gt;&gt;&gt; linux-wiki-example: Unpacking /var/cache/distfiles/linux-wiki-example-ffff.tar.gz...
 &gt;&gt;&gt; linux-wiki-example: 01_msm-fix-perf_trace_counters.patch
 patching file arch/arm/mach-msm/perf_trace_counters.h
 Hunk #1 succeeded at 158 (offset 37 lines).
@@ -343,310 +1271,1081 @@ Hunk #1 FAILED at 121.
 1 out of 1 hunk FAILED -- saving rejects to file arch/arm/mach-msm/perf_trace_counters.h.rej
 &gt;&gt;&gt; ERROR: linux-wiki-example: all failed
 </pre>
-<p>When this happens, remove the failing patch from the <code>source=</code> variable in the <code>APKBUILD</code>, and delete the patch file from the same folder. Finally, correct the checksums and try kconfig edit again.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> nano aports/device/testing/linux-wiki-example/APKBUILD <span class="c1"># remove from source</span>
+      <p>
+       When this happens, remove the failing patch from the
+       <code>
+        source=
+       </code>
+       variable in the
+       <code>
+        APKBUILD
+       </code>
+       , and delete the patch file from the same folder. Finally, correct the checksums and try kconfig edit again.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> nano aports/device/testing/linux-wiki-example/APKBUILD <span class="c1"># remove from source</span>
 <span class="gp">$</span> rm aports/device/testing/linux-wiki-example/02_this_patch_fails.patch
 <span class="gp">$</span> pmbootstrap checksum linux-wiki-example
 <span class="gp">$</span> pmbootstrap kconfig edit
-</pre></div>
-<h4><span class="mw-headline" id="Make_kconfig_check_happy">Make kconfig check happy</span></h4>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Consider using <code>kconfig edit -x</code> to get a GUI instead of the terminal interface. Details: <code>pmbootstrap kconfig edit -h</code>
-</td>
-</tr></tbody></table>
-<p>Check what you need to adjust in the kernel config before it can be used with postmarketOS. Keep <a href="../en/Kernel_configuration.html" title="Kernel configuration">changing the options</a>, until everything passes.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap kconfig check
+</pre>
+      </div>
+      <h4>
+       <span class="mw-headline" id="Make_kconfig_check_happy">
+        Make kconfig check happy
+       </span>
+      </h4>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Consider using
+          <code>
+           kconfig edit -x
+          </code>
+          to get a GUI instead of the terminal interface. Details:
+          <code>
+           pmbootstrap kconfig edit -h
+          </code>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       Check what you need to adjust in the kernel config before it can be used with postmarketOS. Keep
+       <a href="../en/Kernel_configuration.html" title="Kernel configuration">
+        changing the options
+       </a>
+       , until everything passes.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap kconfig check
 <span class="gp">$</span> pmbootstrap kconfig edit
 <span class="gp">$</span> pmbootstrap kconfig check
-</pre></div>
-<h3><span class="mw-headline" id="Kernel_compilation">Kernel compilation</span></h3>
-<p>Next up is the kernel compilation, which will fail a few times before you get it working. Run it once to see where it fails.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap build linux-wiki-example
-</pre></div>
-<p>We most likely use a more modern version of GCC compared to what your device kernel was intended to be compiled with (which is good, we don't want outdated software). However, this means that you will probably need to patch your kernel before it compiles successfully. Don't be scared, we'll talk you through it. But in the unlikely case that everything runs through smoothly, continue reading <a href="#Device_specific_package">here</a>.
-</p>
-<h3><span class="mw-headline" id="Find_the_error_message">Find the error message</span></h3>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Tip: you can use <code>pmbootstrap log</code> to check the log quickly.</td>
-</tr></tbody></table>
-<p>To find the error message, you should open a log file in your favorite text editor, like
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> nano <span class="k">$(</span>pmbootstrap config work<span class="k">)</span>/log.txt
-</pre></div>
-<p>and use search to find error messages for the last build run (they contain <code>error:</code> or <code>Error</code> word). 
-</p>
-<p>Examples of errors:
-</p>
-<pre>In file included from arch/arm/mach-msm/perf_trace_counters.h:127:0,
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="Kernel_compilation">
+        Kernel compilation
+       </span>
+      </h3>
+      <p>
+       Next up is the kernel compilation, which will fail a few times before you get it working. Run it once to see where it fails.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap build linux-wiki-example
+</pre>
+      </div>
+      <p>
+       We most likely use a more modern version of GCC compared to what your device kernel was intended to be compiled with (which is good, we don't want outdated software). However, this means that you will probably need to patch your kernel before it compiles successfully. Don't be scared, we'll talk you through it. But in the unlikely case that everything runs through smoothly, continue reading
+       <a href="#Device_specific_package">
+        here
+       </a>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Find_the_error_message">
+        Find the error message
+       </span>
+      </h3>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Tip: you can use
+          <code>
+           pmbootstrap log
+          </code>
+          to check the log quickly.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       To find the error message, you should open a log file in your favorite text editor, like
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> nano <span class="k">$(</span>pmbootstrap config work<span class="k">)</span>/log.txt
+</pre>
+      </div>
+      <p>
+       and use search to find error messages for the last build run (they contain
+       <code>
+        error:
+       </code>
+       or
+       <code>
+        Error
+       </code>
+       word).
+      </p>
+      <p>
+       Examples of errors:
+      </p>
+      <pre>In file included from arch/arm/mach-msm/perf_trace_counters.h:127:0,
                  from arch/arm/mach-msm/perf_trace_counters.c:14:
 include/trace/define_trace.h:79:43: fatal error: ./perf_trace_counters.h: No such file or directory
 </pre>
-<pre>drivers/built-in.o: In function `.LANCHOR1':
+      <pre>drivers/built-in.o: In function `.LANCHOR1':
 msm_iommu_sec.c:(.data+0x9298): undefined reference to `kgsl_iommu_sync_lock'
 msm_iommu_sec.c:(.data+0x929c): undefined reference to `kgsl_iommu_sync_unlock'
 Makefile:877: recipe for target '.tmp_vmlinux1' failed
 make: *** [.tmp_vmlinux1] Error 1
 </pre>
-<p>It is possible to clear the log file right before compilation when you press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">ctrl</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">c</span> in the log window and use <code>log -c</code>:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">(old log output here)</span>
+      <p>
+       It is possible to clear the log file right before compilation when you press
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        ctrl
+       </span>
+       +
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        c
+       </span>
+       in the log window and use
+       <code>
+        log -c
+       </code>
+       :
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="go">(old log output here)</span>
 <span class="go">^C</span>
 <span class="gp">$</span> pmbootstrap log -c
-</pre></div>
-<p>Another trick to find the error message real quick is to open <code>log.txt</code> with <code>less</code> and use the follow mode (press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">F</span> while in <code>less</code> or open less with the <code>+F</code> option: <code>less +F log.txt</code>). This causes <code>less</code> to behave like <code>tail -f</code>. When an error occurs, you can exit the follow mode by pressing <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">ctrl</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">c</span> and use <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">?</span> to reverse search the output (for example: <code>?error</code>). Press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">F</span> to re-enable follow mode.
-</p>
-<h3><span class="mw-headline" id="Get_a_patch">Get a patch</span></h3>
-<h4><span class="mw-headline" id="From_postmarketOS_aports">From postmarketOS aports</span></h4>
-<p>It is highly likely that we already ran into the same issue with another kernel. Take (parts of) the offending file name and search for it inside <code>aports/device</code>.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> grep -r <span class="s1">'perf_trace_counters\.c'</span> aports/device/
+</pre>
+      </div>
+      <p>
+       Another trick to find the error message real quick is to open
+       <code>
+        log.txt
+       </code>
+       with
+       <code>
+        less
+       </code>
+       and use the follow mode (press
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        F
+       </span>
+       while in
+       <code>
+        less
+       </code>
+       or open less with the
+       <code>
+        +F
+       </code>
+       option:
+       <code>
+        less +F log.txt
+       </code>
+       ). This causes
+       <code>
+        less
+       </code>
+       to behave like
+       <code>
+        tail -f
+       </code>
+       . When an error occurs, you can exit the follow mode by pressing
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        ctrl
+       </span>
+       +
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        c
+       </span>
+       and use
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        ?
+       </span>
+       to reverse search the output (for example:
+       <code>
+        ?error
+       </code>
+       ). Press
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        F
+       </span>
+       to re-enable follow mode.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Get_a_patch">
+        Get a patch
+       </span>
+      </h3>
+      <h4>
+       <span class="mw-headline" id="From_postmarketOS_aports">
+        From postmarketOS aports
+       </span>
+      </h4>
+      <p>
+       It is highly likely that we already ran into the same issue with another kernel. Take (parts of) the offending file name and search for it inside
+       <code>
+        aports/device
+       </code>
+       .
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> grep -r <span class="s1">'perf_trace_counters\.c'</span> aports/device/
 <span class="go">aports/device/testing/linux-lg-mako/01_msm-fix-perf_trace_counters.patch:In-tree compilation for arch/arm/mach-msm/perf_trace_counters.c was</span>
 <span class="go">aports/device/testing/linux-lg-mako/01_msm-fix-perf_trace_counters.patch:                     from arch/arm/mach-msm/perf_trace_counters.c:14</span>
 <span class="gp">$</span> grep -r <span class="s1">'msm_iommu_sec'</span> aports/device/
 <span class="go">aports/device/testing/linux-lg-mako/02_gpu-msm-fix-gcc5-compile.patch:msm_iommu_sec.c:(.data+0x9298): undefined reference to `kgsl_iommu_sync_lock'</span>
 <span class="go">aports/device/testing/linux-lg-mako/02_gpu-msm-fix-gcc5-compile.patch:msm_iommu_sec.c:(.data+0x929c): undefined reference to `kgsl_iommu_sync_unlock'</span>
-</pre></div>
-<p>When there is a result, copy the patch file you found to your new kernel package, add it to the <code>source</code> variable in the <code>APKBUILD</code> and try building again.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> cp aports/device/testing/linux-lg-mako/01_msm-fix-perf_trace_counters.patch aports/device/testing/linux-wiki-example/
+</pre>
+      </div>
+      <p>
+       When there is a result, copy the patch file you found to your new kernel package, add it to the
+       <code>
+        source
+       </code>
+       variable in the
+       <code>
+        APKBUILD
+       </code>
+       and try building again.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> cp aports/device/testing/linux-lg-mako/01_msm-fix-perf_trace_counters.patch aports/device/testing/linux-wiki-example/
 <span class="gp">$</span> nano aports/device/testing/linux-wiki-example/APKBUILD <span class="c1"># add it to source</span>
 <span class="gp">$</span> pmbootstrap checksum linux-wiki-example
 <span class="gp">$</span> pmbootstrap build linux-wiki-example
-</pre></div>
-<h4><span class="mw-headline" id="From_elsewhere">From elsewhere</span></h4>
-<p>Fire up your favorite search engine and look at all results for the error message and variations of it. The <code>""</code> feature of most search engines is useful, so it searches for an exact string and not single words. Example queries for the error messages above:
-</p>
-<ul>
-<li><code>include/trace/define_trace.h: fatal error: ./perf_trace_counters.h: "No such file or directory"</code></li>
-<li><code>linux "./perf_trace_counters.h: No such file or directory"</code></li>
-<li><code>android "undefined reference to `kgsl_iommu_sync_unlock'"</code></li>
-</ul>
-<p>In most cases, this will yield a patch that you can apply to your kernel. Save what you have found as a patch file right next to the <code>APKBUILD</code> of your new kernel package. Mailing list posts are usually in the format of a patch file and can be used directly, while commits or pull requests (PRs) on GitHub can be downloaded as patch when you append <code>.patch</code> to the URL (e.g. <a rel="nofollow" class="external text" href="https://github.com/ShinySide/HispAsian_Lollipop_G6/commit/b7756b6fc4bb728722b14d2dfdbaf1dc843812e9">commit</a>, <a rel="nofollow" class="external text" href="https://github.com/ShinySide/HispAsian_Lollipop_G6/commit/b7756b6fc4bb728722b14d2dfdbaf1dc843812e9.patch">patch</a>).
-</p>
-<p>If what you found on the web can't be used as patch file directly (e.g. sometimes the files are in other folders), but you understood how you would need to patch the source (from the search results or simply because you already knew), please follow <a href="../en/Patching.html" class="mw-redirect" title="How to create a patch when packaging software">this guide</a>.
-</p>
-<p>Patch files can contain arbitrary text before the first line with <code>---</code> in the file. Please use this space to link to the source where you found a patch (in case it is from the Internet) and to paste the error message, that your patch fixes (so it is easier to find for other people).
-</p>
-<p>After creating the patch file and adding the source URL and error message, put the file name into <code>source</code> in your <code>APKBUILD</code> and give it another shot.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> nano aports/device/testing/linux-wiki-example/03_description-here.patch
+</pre>
+      </div>
+      <h4>
+       <span class="mw-headline" id="From_elsewhere">
+        From elsewhere
+       </span>
+      </h4>
+      <p>
+       Fire up your favorite search engine and look at all results for the error message and variations of it. The
+       <code>
+        ""
+       </code>
+       feature of most search engines is useful, so it searches for an exact string and not single words. Example queries for the error messages above:
+      </p>
+      <ul>
+       <li>
+        <code>
+         include/trace/define_trace.h: fatal error: ./perf_trace_counters.h: "No such file or directory"
+        </code>
+       </li>
+       <li>
+        <code>
+         linux "./perf_trace_counters.h: No such file or directory"
+        </code>
+       </li>
+       <li>
+        <code>
+         android "undefined reference to `kgsl_iommu_sync_unlock'"
+        </code>
+       </li>
+      </ul>
+      <p>
+       In most cases, this will yield a patch that you can apply to your kernel. Save what you have found as a patch file right next to the
+       <code>
+        APKBUILD
+       </code>
+       of your new kernel package. Mailing list posts are usually in the format of a patch file and can be used directly, while commits or pull requests (PRs) on GitHub can be downloaded as patch when you append
+       <code>
+        .patch
+       </code>
+       to the URL (e.g.
+       <a class="external text" href="https://github.com/ShinySide/HispAsian_Lollipop_G6/commit/b7756b6fc4bb728722b14d2dfdbaf1dc843812e9" rel="nofollow">
+        commit
+       </a>
+       ,
+       <a class="external text" href="https://github.com/ShinySide/HispAsian_Lollipop_G6/commit/b7756b6fc4bb728722b14d2dfdbaf1dc843812e9.patch" rel="nofollow">
+        patch
+       </a>
+       ).
+      </p>
+      <p>
+       If what you found on the web can't be used as patch file directly (e.g. sometimes the files are in other folders), but you understood how you would need to patch the source (from the search results or simply because you already knew), please follow
+       <a class="mw-redirect" href="../en/Patching.html" title="How to create a patch when packaging software">
+        this guide
+       </a>
+       .
+      </p>
+      <p>
+       Patch files can contain arbitrary text before the first line with
+       <code>
+        ---
+       </code>
+       in the file. Please use this space to link to the source where you found a patch (in case it is from the Internet) and to paste the error message, that your patch fixes (so it is easier to find for other people).
+      </p>
+      <p>
+       After creating the patch file and adding the source URL and error message, put the file name into
+       <code>
+        source
+       </code>
+       in your
+       <code>
+        APKBUILD
+       </code>
+       and give it another shot.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> nano aports/device/testing/linux-wiki-example/03_description-here.patch
 <span class="gp">$</span> nano aports/device/testing/linux-wiki-example/APKBUILD
 <span class="gp">$</span> pmbootstrap checksum linux-wiki-example
 <span class="gp">$</span> pmbootstrap build linux-wiki-example
-</pre></div>
-<p>We can't promise anything, but you shouldn't need to do this more than 2 times or so before the kernel build finally goes through.
-</p>
-<h3><span class="mw-headline" id="Changing_compiler">Changing compiler</span></h3>
-<h4><span class="mw-headline" id="Using_GCC6">Using GCC6</span></h4>
-<p>If you can't make your kernel compile or boot with the latest GCC from Alpine, you can also try to <a href="../en/Downstream_kernel_specific_package.html#Use_GCC_6" class="mw-redirect" title="Vendor kernel specific package">use GCC6 instead</a>.
-</p>
-<h4><span class="mw-headline" id="Using_GCC4">Using GCC4</span></h4>
-<p>As GCC4 was recently introduced in postmarketOS repos, you can follow the procedure for GCC6 above and replace all gcc6 occurrences with gcc4 and add gcc4 (armv7/armhf/...)-gcc4 to your list of dependencies.
-</p>
-<h4><span class="mw-headline" id="Using_Clang">Using Clang</span></h4>
-<p>To use Clang as compiler you have to do the following in kernel package's APKBUILD:
-</p>
-<ul>
-<li>Add <code>clang</code> to <code>makedepends</code>
-</li>
-<li>Add these lines:</li>
-</ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="nv">CC</span><span class="o">=</span><span class="s2">"clang"</span>
+</pre>
+      </div>
+      <p>
+       We can't promise anything, but you shouldn't need to do this more than 2 times or so before the kernel build finally goes through.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Changing_compiler">
+        Changing compiler
+       </span>
+      </h3>
+      <h4>
+       <span class="mw-headline" id="Using_GCC6">
+        Using GCC6
+       </span>
+      </h4>
+      <p>
+       If you can't make your kernel compile or boot with the latest GCC from Alpine, you can also try to
+       <a class="mw-redirect" href="../en/Downstream_kernel_specific_package.html#Use_GCC_6" title="Vendor kernel specific package">
+        use GCC6 instead
+       </a>
+       .
+      </p>
+      <h4>
+       <span class="mw-headline" id="Using_GCC4">
+        Using GCC4
+       </span>
+      </h4>
+      <p>
+       As GCC4 was recently introduced in postmarketOS repos, you can follow the procedure for GCC6 above and replace all gcc6 occurrences with gcc4 and add gcc4 (armv7/armhf/...)-gcc4 to your list of dependencies.
+      </p>
+      <h4>
+       <span class="mw-headline" id="Using_Clang">
+        Using Clang
+       </span>
+      </h4>
+      <p>
+       To use Clang as compiler you have to do the following in kernel package's APKBUILD:
+      </p>
+      <ul>
+       <li>
+        Add
+        <code>
+         clang
+        </code>
+        to
+        <code>
+         makedepends
+        </code>
+       </li>
+       <li>
+        Add these lines:
+       </li>
+      </ul>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="nv">CC</span><span class="o">=</span><span class="s2">"clang"</span>
 <span class="nv">HOSTCC</span><span class="o">=</span><span class="s2">"clang"</span>
-</pre></div>
-<h3><span class="mw-headline" id="Device_specific_package">Device specific package</span></h3>
-<p>Open the <code>deviceinfo</code> file in an editor (replace <code>wiki-example</code>).
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> nano aports/device/testing/device-wiki-example/deviceinfo
-</pre></div>
-<p>Now adjust:
-</p>
-<ul>
-<li><code>deviceinfo_screen_width</code></li>
-<li><code>deviceinfo_screen_height</code></li>
-</ul>
-<p>If your device uses UFS storage, you may need to configure the rootfs image sector size. It defaults to 512b, but some devices use 4096b.
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="Device_specific_package">
+        Device specific package
+       </span>
+      </h3>
+      <p>
+       Open the
+       <code>
+        deviceinfo
+       </code>
+       file in an editor (replace
+       <code>
+        wiki-example
+       </code>
+       ).
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> nano aports/device/testing/device-wiki-example/deviceinfo
+</pre>
+      </div>
+      <p>
+       Now adjust:
+      </p>
+      <ul>
+       <li>
+        <code>
+         deviceinfo_screen_width
+        </code>
+       </li>
+       <li>
+        <code>
+         deviceinfo_screen_height
+        </code>
+       </li>
+      </ul>
+      <p>
+       If your device uses UFS storage, you may need to configure the rootfs image sector size. It defaults to 512b, but some devices use 4096b.
 In TWRP, check your sector size through the terminal:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> fdisk -l /dev/block/sd* <span class="p">|</span> grep -i <span class="s2">"sector size"</span>
-</pre></div>
-<p>If the sector sizes are 4096 bytes, add the following line to the <code>deviceinfo</code> file:
-</p>
-<p><code>deviceinfo_rootfs_image_sector_size="4096"</code>
-</p>
-<p>You can read more about sector sizes on <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1725">this pull request thread.</a>
-</p>
-<p>In case you were asked for <code>boot.img</code> analyzing, and skipped that section during <a href="#Flash_method">init</a>: You can run <code>pmbootstrap bootimg_analyze path/to/boot.img</code> to get the right values for the <code>deviceinfo_flash_offset_</code> lines now. Filling out manually also works, but that is error-prone and therefore not recommended.
-</p>
-<p>See <a href="../en/Deviceinfo_reference.html" title="Deviceinfo reference">deviceinfo reference</a> for a listing of all available variables and their meanings. The <a href="../en/Device_specific_package.html" title="Device specific package">device specific package</a> article explains advanced customization of the <code>APKBUILD</code>.
-</p>
-<p>Create checksums and build the device package once to make sure it doesn't contain errors at this point (we didn't do that earlier, because <code>pmbootstrap</code> would have complained about the invalid <code>pkgver</code> of the kernel package):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap checksum device-wiki-example
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> fdisk -l /dev/block/sd* <span class="p">|</span> grep -i <span class="s2">"sector size"</span>
+</pre>
+      </div>
+      <p>
+       If the sector sizes are 4096 bytes, add the following line to the
+       <code>
+        deviceinfo
+       </code>
+       file:
+      </p>
+      <p>
+       <code>
+        deviceinfo_rootfs_image_sector_size="4096"
+       </code>
+      </p>
+      <p>
+       You can read more about sector sizes on
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1725" rel="nofollow">
+        this pull request thread.
+       </a>
+      </p>
+      <p>
+       In case you were asked for
+       <code>
+        boot.img
+       </code>
+       analyzing, and skipped that section during
+       <a href="#Flash_method">
+        init
+       </a>
+       : You can run
+       <code>
+        pmbootstrap bootimg_analyze path/to/boot.img
+       </code>
+       to get the right values for the
+       <code>
+        deviceinfo_flash_offset_
+       </code>
+       lines now. Filling out manually also works, but that is error-prone and therefore not recommended.
+      </p>
+      <p>
+       See
+       <a href="../en/Deviceinfo_reference.html" title="Deviceinfo reference">
+        deviceinfo reference
+       </a>
+       for a listing of all available variables and their meanings. The
+       <a href="../en/Device_specific_package.html" title="Device specific package">
+        device specific package
+       </a>
+       article explains advanced customization of the
+       <code>
+        APKBUILD
+       </code>
+       .
+      </p>
+      <p>
+       Create checksums and build the device package once to make sure it doesn't contain errors at this point (we didn't do that earlier, because
+       <code>
+        pmbootstrap
+       </code>
+       would have complained about the invalid
+       <code>
+        pkgver
+       </code>
+       of the kernel package):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap checksum device-wiki-example
 <span class="gp">$</span> pmbootstrap build device-wiki-example
-</pre></div>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">If you are getting a <code>dtb files not found</code> error, that may be because you used the model number of the device instead of the code name, see issue <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/35">#35</a>. To fix the problem, look at renaming the port, or simply create a new port with the correct name.</td>
-</tr></tbody></table>
-<h2>
-<span id="We_are_happy_to_help_you!"></span><span class="mw-headline" id="We_are_happy_to_help_you.21">We are happy to help you!</span>
-</h2>
-<p>If you get stuck, we are happy to help you <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">in the chat</a> and in the <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/issues">issues tracker</a>. When asking for help, always include the APKBUILD you have written, and any custom patches you have applied, as well as the error message you have gotten from <code>pmbootstrap log</code>.
-</p>
-<h2><span class="mw-headline" id="Documentation">Documentation</span></h2>
-<p>This is a wiki, so please adjust everything that isn't detailed enough or would have helped you with porting.
-</p>
-<p>If you have made some progress with a new port, please <a href="../en/Help:Device_Page.html" title="Help:Device Page">create a Device page</a> to document your findings. Even if you didn't get very far and the kernel does not compile, this will help others to continue your work. To create a device page, you will need to <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/index.php?title=Special:CreateAccount&amp;returnto=Porting+to+a+new+device">register an account</a> on this wiki. (You do not need to provide an e-mail address.)
-</p>
-<h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">If you get a "no space left on device" error, please report in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/928">#928</a>.</td>
-</tr></tbody></table>
-<p>To install to the system partition of an image file, run the following:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install
-</pre></div>
-<p>If you want to install to a SD card, insert it <b>into your PC</b> and run the following. Replace mmcblk0 with the actual device name (<code>lsblk</code> is handy to find out the correct device name). You don't need to format or partition it beforehand, <code>pmbootstrap</code> will take care of that.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install --sdcard<span class="o">=</span>/dev/mmcblk0
-</pre></div>
-<h2><span class="mw-headline" id="Flashing">Flashing</span></h2>
-<p>Before you can run any flash command, you must put your device in the flashing/bootloader mode. It is usually done holding Volume Down &amp; Power simultaneously when the device is switched off but it may vary depending on the device. For more information see the specific page for your device in the <a rel="nofollow" class="external text" href="https://wiki.lineageos.org/devices">LineageOS Wiki</a>.
-</p>
-<p>If you want to install to the system partition, run the following (not for the SD card installation!):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs
-</pre></div>
-<p>In case your system partition is too small for the generated image (e.g. because you chose Plasma Mobile as UI), it is possible to flash to another partition as well. Just be sure to erase any previous installations of postmarketOS in other partitions, because the init script will start with the first one that it encounters. (To delete a previous version either use <code>dd</code> or simply install the known working OS, e.g. Android, on it). Using multiple partitions with LVM is planned (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/60">#60</a>).
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs --partition userdata
-</pre></div>
-<p>If you have a device that works with fastboot, you can boot the kernel now without flashing it:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher boot
-</pre></div>
-<p>Otherwise, you will need to flash the kernel to the device boot partition:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_kernel
-</pre></div>
-<h2><span class="mw-headline" id="Alternatives_to_regular_flashing">Alternatives to regular flashing</span></h2>
-<p>If the flashing method does not work, it is also possible to export all generated image files to a specific directory (with symlinks), so you can flash it manually with your host Linux system (or even on Windows with proprietary flashers such as Odin, if this is the only way it works for you):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap <span class="nb">export</span>
+</pre>
+      </div>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          If you are getting a
+          <code>
+           dtb files not found
+          </code>
+          error, that may be because you used the model number of the device instead of the code name, see issue
+          <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/35" rel="nofollow">
+           #35
+          </a>
+          . To fix the problem, look at renaming the port, or simply create a new port with the correct name.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h2>
+       <span id="We_are_happy_to_help_you!">
+       </span>
+       <span class="mw-headline" id="We_are_happy_to_help_you.21">
+        We are happy to help you!
+       </span>
+      </h2>
+      <p>
+       If you get stuck, we are happy to help you
+       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+        in the chat
+       </a>
+       and in the
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/issues" rel="nofollow">
+        issues tracker
+       </a>
+       . When asking for help, always include the APKBUILD you have written, and any custom patches you have applied, as well as the error message you have gotten from
+       <code>
+        pmbootstrap log
+       </code>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Documentation">
+        Documentation
+       </span>
+      </h2>
+      <p>
+       This is a wiki, so please adjust everything that isn't detailed enough or would have helped you with porting.
+      </p>
+      <p>
+       If you have made some progress with a new port, please
+       <a href="../en/Help:Device_Page.html" title="Help:Device Page">
+        create a Device page
+       </a>
+       to document your findings. Even if you didn't get very far and the kernel does not compile, this will help others to continue your work. To create a device page, you will need to
+       <a class="external text" href="https://wiki.postmarketos.org/index.php?title=Special:CreateAccount&amp;returnto=Porting+to+a+new+device" rel="nofollow">
+        register an account
+       </a>
+       on this wiki. (You do not need to provide an e-mail address.)
+      </p>
+      <h2>
+       <span class="mw-headline" id="Installation">
+        Installation
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          If you get a "no space left on device" error, please report in
+          <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/928" rel="nofollow">
+           #928
+          </a>
+          .
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       To install to the system partition of an image file, run the following:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap install
+</pre>
+      </div>
+      <p>
+       If you want to install to a SD card, insert it
+       <b>
+        into your PC
+       </b>
+       and run the following. Replace mmcblk0 with the actual device name (
+       <code>
+        lsblk
+       </code>
+       is handy to find out the correct device name). You don't need to format or partition it beforehand,
+       <code>
+        pmbootstrap
+       </code>
+       will take care of that.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap install --sdcard<span class="o">=</span>/dev/mmcblk0
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Flashing">
+        Flashing
+       </span>
+      </h2>
+      <p>
+       Before you can run any flash command, you must put your device in the flashing/bootloader mode. It is usually done holding Volume Down &amp; Power simultaneously when the device is switched off but it may vary depending on the device. For more information see the specific page for your device in the
+       <a class="external text" href="https://wiki.lineageos.org/devices" rel="nofollow">
+        LineageOS Wiki
+       </a>
+       .
+      </p>
+      <p>
+       If you want to install to the system partition, run the following (not for the SD card installation!):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs
+</pre>
+      </div>
+      <p>
+       In case your system partition is too small for the generated image (e.g. because you chose Plasma Mobile as UI), it is possible to flash to another partition as well. Just be sure to erase any previous installations of postmarketOS in other partitions, because the init script will start with the first one that it encounters. (To delete a previous version either use
+       <code>
+        dd
+       </code>
+       or simply install the known working OS, e.g. Android, on it). Using multiple partitions with LVM is planned (
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/60" rel="nofollow">
+        #60
+       </a>
+       ).
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs --partition userdata
+</pre>
+      </div>
+      <p>
+       If you have a device that works with fastboot, you can boot the kernel now without flashing it:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap flasher boot
+</pre>
+      </div>
+      <p>
+       Otherwise, you will need to flash the kernel to the device boot partition:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_kernel
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Alternatives_to_regular_flashing">
+        Alternatives to regular flashing
+       </span>
+      </h2>
+      <p>
+       If the flashing method does not work, it is also possible to export all generated image files to a specific directory (with symlinks), so you can flash it manually with your host Linux system (or even on Windows with proprietary flashers such as Odin, if this is the only way it works for you):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap <span class="nb">export</span>
 <span class="gp">$</span> pmbootstrap <span class="nb">export</span> --odin
-</pre></div>
-<p>For Android based devices, you can do a <a href="../en/Installation_from_recovery_mode.html" title="Installation from recovery mode">recovery zip installation</a>.
-</p>
-<p>When all else fails, you might have success with installing via <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/issues/456">netcat</a> or booting via <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/merge_requests/547">NFS</a>.
-</p>
-<h2><span class="mw-headline" id="USB_Network">USB Network</span></h2>
-<p>If you are lucky, your screen may give some clues that you are booted into pmOS. If not, do not get discouraged, the graphics on your device may not yet be setup correctly. The next steps are to see if you can connect to the device through <a href="../en/USB_Network.html" title="USB Network">SSH over USB</a> (or if that fails, via telnet). See the <a href="../en/Boot_process.html" title="Boot process">Boot process</a> and <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">Inspecting the initramfs</a> pages for more details.
-</p>
-<p>It is quite easy to give your phone <a href="../en/USB_Internet.html" title="USB Internet">Internet access via USB</a> when your PC is connected to the Internet.
-</p>
-<p>In case it looks like your device did not even boot, have a look at <a href="../en/Troubleshooting:boot.html" title="Troubleshooting:boot">Troubleshooting:boot</a>.
-</p>
-<h2><span class="mw-headline" id="Upstreaming">Upstreaming</span></h2>
-<p>As soon as USB networking is functional, or you have another indication that booting the device works successfully, it is time to upstream your work into the official <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/">pmaports</a> repository. This way other people can benefit from your work, and build upon it.
-</p>
-<p>See the <a href="../en/Git_workflow.html" title="Git workflow">git workflow</a> article for detailed instructions.
-</p>
-<h2><span class="mw-headline" id="Display">Display</span></h2>
-<p>To make the display work in the first place, read <a href="../en/Troubleshooting:display.html" title="Troubleshooting:display">Troubleshooting:display</a> and <a href="../en/Tuning_sysfs.html" title="Tuning sysfs">Tuning sysfs</a>.
-</p>
-<p>After you have it working, please take some <a href="../en/Making_good_photos.html" title="Making good photos">nice photos</a> and add them to your device's wiki page. If you have a Reddit account, consider posting them in <a rel="nofollow" class="external text" href="https://www.reddit.com/r/postmarketOS/">/r/postmarketOS</a> as well.
-</p>
-<h2><span class="mw-headline" id="Touchscreen">Touchscreen</span></h2>
-<p>To get it working, visit <a href="../en/Screen_Calibration.html#Touch_screen" title="Screen Calibration">the screen calibration page</a>. If you're having trouble, visit <a href="../en/Troubleshooting:touchscreen.html" title="Troubleshooting:touchscreen">touchscreen troubleshooting</a>.
-</p>
-<h2><span class="mw-headline" id="Changing_your_installation">Changing your installation</span></h2>
-<h3><span class="mw-headline" id="Install_packages_over_SSH">Install packages over SSH</span></h3>
-<p>Get Internet access via <a href="../en/USB_Internet.html" title="USB Internet">USB</a> (easier) or <a href="../en/WiFi.html" class="mw-redirect" title="Wifi">Wifi</a>, then use the package manager to install new packages:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> apk add hello-world
-</pre></div>
-<p>You can also <a href="../en/Installing_packages_on_a_running_phone.html" title="Installing packages on a running phone">host packages you have built yourself</a> from your PC. Just make sure to increase the package version when you build your own version of a package that already exists. Otherwise the package manager can not know that your package is the newest one and should be installed. Check the output of <code>apk</code> to see whether it is really installing the package or not.
-</p>
-<h3><span class="mw-headline" id="Building_a_new_system_image">Building a new system image</span></h3>
-<p>Whenever you rebuild a package (or pick a new one to be installed by default in <code>pmbootstrap init</code>), you need to make sure that the package is actually installed in the chroot from which the system image gets generated. Achieve that by running <code>pmbootstrap install</code> again, it should update all outdated packages. Pay attention to the output of <code>pmbootstrap log</code> to see if it actually has been updated.
-If something did not work as expected, you can always <code>pmbootstrap zap</code> your chroots to start over with a clean installation.
-</p>
-<h3><span class="mw-headline" id="Kernel">Kernel</span></h3>
-<p>A simple way to recompile your kernel (e.g. because you want to change your kernel config) and flash it to your device is running the following commands:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap build --force linux-wiki-example
+</pre>
+      </div>
+      <p>
+       For Android based devices, you can do a
+       <a href="../en/Installation_from_recovery_mode.html" title="Installation from recovery mode">
+        recovery zip installation
+       </a>
+       .
+      </p>
+      <p>
+       When all else fails, you might have success with installing via
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/issues/456" rel="nofollow">
+        netcat
+       </a>
+       or booting via
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/merge_requests/547" rel="nofollow">
+        NFS
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="USB_Network">
+        USB Network
+       </span>
+      </h2>
+      <p>
+       If you are lucky, your screen may give some clues that you are booted into pmOS. If not, do not get discouraged, the graphics on your device may not yet be setup correctly. The next steps are to see if you can connect to the device through
+       <a href="../en/USB_Network.html" title="USB Network">
+        SSH over USB
+       </a>
+       (or if that fails, via telnet). See the
+       <a href="../en/Boot_process.html" title="Boot process">
+        Boot process
+       </a>
+       and
+       <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">
+        Inspecting the initramfs
+       </a>
+       pages for more details.
+      </p>
+      <p>
+       It is quite easy to give your phone
+       <a href="../en/USB_Internet.html" title="USB Internet">
+        Internet access via USB
+       </a>
+       when your PC is connected to the Internet.
+      </p>
+      <p>
+       In case it looks like your device did not even boot, have a look at
+       <a href="../en/Troubleshooting:boot.html" title="Troubleshooting:boot">
+        Troubleshooting:boot
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Upstreaming">
+        Upstreaming
+       </span>
+      </h2>
+      <p>
+       As soon as USB networking is functional, or you have another indication that booting the device works successfully, it is time to upstream your work into the official
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/" rel="nofollow">
+        pmaports
+       </a>
+       repository. This way other people can benefit from your work, and build upon it.
+      </p>
+      <p>
+       See the
+       <a href="../en/Git_workflow.html" title="Git workflow">
+        git workflow
+       </a>
+       article for detailed instructions.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Display">
+        Display
+       </span>
+      </h2>
+      <p>
+       To make the display work in the first place, read
+       <a href="../en/Troubleshooting:display.html" title="Troubleshooting:display">
+        Troubleshooting:display
+       </a>
+       and
+       <a href="../en/Tuning_sysfs.html" title="Tuning sysfs">
+        Tuning sysfs
+       </a>
+       .
+      </p>
+      <p>
+       After you have it working, please take some
+       <a href="../en/Making_good_photos.html" title="Making good photos">
+        nice photos
+       </a>
+       and add them to your device's wiki page. If you have a Reddit account, consider posting them in
+       <a class="external text" href="https://www.reddit.com/r/postmarketOS/" rel="nofollow">
+        /r/postmarketOS
+       </a>
+       as well.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Touchscreen">
+        Touchscreen
+       </span>
+      </h2>
+      <p>
+       To get it working, visit
+       <a href="../en/Screen_Calibration.html#Touch_screen" title="Screen Calibration">
+        the screen calibration page
+       </a>
+       . If you're having trouble, visit
+       <a href="../en/Troubleshooting:touchscreen.html" title="Troubleshooting:touchscreen">
+        touchscreen troubleshooting
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Changing_your_installation">
+        Changing your installation
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Install_packages_over_SSH">
+        Install packages over SSH
+       </span>
+      </h3>
+      <p>
+       Get Internet access via
+       <a href="../en/USB_Internet.html" title="USB Internet">
+        USB
+       </a>
+       (easier) or
+       <a class="mw-redirect" href="../en/WiFi.html" title="Wifi">
+        Wifi
+       </a>
+       , then use the package manager to install new packages:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> apk add hello-world
+</pre>
+      </div>
+      <p>
+       You can also
+       <a href="../en/Installing_packages_on_a_running_phone.html" title="Installing packages on a running phone">
+        host packages you have built yourself
+       </a>
+       from your PC. Just make sure to increase the package version when you build your own version of a package that already exists. Otherwise the package manager can not know that your package is the newest one and should be installed. Check the output of
+       <code>
+        apk
+       </code>
+       to see whether it is really installing the package or not.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Building_a_new_system_image">
+        Building a new system image
+       </span>
+      </h3>
+      <p>
+       Whenever you rebuild a package (or pick a new one to be installed by default in
+       <code>
+        pmbootstrap init
+       </code>
+       ), you need to make sure that the package is actually installed in the chroot from which the system image gets generated. Achieve that by running
+       <code>
+        pmbootstrap install
+       </code>
+       again, it should update all outdated packages. Pay attention to the output of
+       <code>
+        pmbootstrap log
+       </code>
+       to see if it actually has been updated.
+If something did not work as expected, you can always
+       <code>
+        pmbootstrap zap
+       </code>
+       your chroots to start over with a clean installation.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Kernel">
+        Kernel
+       </span>
+      </h3>
+      <p>
+       A simple way to recompile your kernel (e.g. because you want to change your kernel config) and flash it to your device is running the following commands:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap build --force linux-wiki-example
 <span class="gp">$</span> pmbootstrap install
 <span class="gp">$</span> pmbootstrap flasher flash_kernel
-</pre></div>
-<p>The last flash_kernel step is only needed if your device has the kernel stored on an extra boot partition.
-Android/fastboot compatible devices have such a partition, and Maemo/MeeGo Nokia devices (<a href="../en/Nokia_N900_(nokia-n900).html" title="Nokia N900 (nokia-n900)">N900</a>, etc.) typically don't use it. If your device does <i>not</i> have a boot partition, update your system partition or SD card.
-</p>
-<p>After you've gotten more familiar with postmarketOS, you could try out the <code>postmarketos-update-kernel</code> as well. It allows you to flash a new kernel to the device's <code>boot</code> partition (<a href="../en/Partition_Layout.html#Android_internal_storage" class="mw-redirect" title="Partition-layout">not to be confused</a> with postmarketOS' own boot subpartition <code>systemp1</code>).
-</p>
-<h2><span class="mw-headline" id="Full_disk_encryption:_osk-sdl_support">Full disk encryption: osk-sdl support</span></h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Our charging application <code>charging-sdl</code> uses the same software stack as <code>osk-sdl</code>, so following the instructions should make both components work.</td>
-</tr></tbody></table>
-<p>If the display and the touchscreen interface are working, then it's time to add support for <code>osk-sdl</code> so that you are able to use full disk encryption on the root filesystem. Instructions for adding support can be found here: <a href="../en/Osk-sdl.html#Porting_to_New_Devices" title="Osk-sdl">Porting osk-sdl to New Devices</a>
-</p>
-<h2><span class="mw-headline" id="Advanced_topics">Advanced topics</span></h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Out of ideas what to do next with postmarketOS? Check out the <a rel="nofollow" class="external text" href="https://postmarketos.org/blog/2018/06/09/one-year/#get-involved">get involved</a> section from the last big blog post!</td>
-</tr></tbody></table>
-<ul>
-<li><a href="../en/Category:Interface.html" title="Category:Interface">Interfaces</a></li>
-<li><a href="../en/WiFi.html" title="WiFi">WiFi</a></li>
-<li><a href="../en/Bluetooth.html" title="Bluetooth">Bluetooth</a></li>
-<li><a href="../en/Audio.html" title="Audio">Audio</a></li>
-<li><a href="../en/Modem.html" title="Modem">Modem</a></li>
-<li><a href="../en/Sensors.html" title="Sensors">Sensors</a></li>
-<li><a href="../en/The_Mainline_Kernel.html" class="mw-redirect" title="Mainline kernel">Mainline kernel</a></li>
-<li><a href="../en/Existing_Alpine_installation.html" title="Existing Alpine installation">Existing Alpine installation</a></li>
-<li><a href="../en/Hybris.html" title="Hybris">Hybris</a></li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Porting_to_a_new_device&amp;oldid=27608">https://wiki.postmarketos.org/index.php?title=Porting_to_a_new_device&amp;oldid=27608</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 10 May 2022, at 07:03.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Porting_to_a_new_device&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <p>
+       The last flash_kernel step is only needed if your device has the kernel stored on an extra boot partition.
+Android/fastboot compatible devices have such a partition, and Maemo/MeeGo Nokia devices (
+       <a href="../en/Nokia_N900_(nokia-n900).html" title="Nokia N900 (nokia-n900)">
+        N900
+       </a>
+       , etc.) typically don't use it. If your device does
+       <i>
+        not
+       </i>
+       have a boot partition, update your system partition or SD card.
+      </p>
+      <p>
+       After you've gotten more familiar with postmarketOS, you could try out the
+       <code>
+        postmarketos-update-kernel
+       </code>
+       as well. It allows you to flash a new kernel to the device's
+       <code>
+        boot
+       </code>
+       partition (
+       <a class="mw-redirect" href="../en/Partition_Layout.html#Android_internal_storage" title="Partition-layout">
+        not to be confused
+       </a>
+       with postmarketOS' own boot subpartition
+       <code>
+        systemp1
+       </code>
+       ).
+      </p>
+      <h2>
+       <span class="mw-headline" id="Full_disk_encryption:_osk-sdl_support">
+        Full disk encryption: osk-sdl support
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Our charging application
+          <code>
+           charging-sdl
+          </code>
+          uses the same software stack as
+          <code>
+           osk-sdl
+          </code>
+          , so following the instructions should make both components work.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       If the display and the touchscreen interface are working, then it's time to add support for
+       <code>
+        osk-sdl
+       </code>
+       so that you are able to use full disk encryption on the root filesystem. Instructions for adding support can be found here:
+       <a href="../en/Osk-sdl.html#Porting_to_New_Devices" title="Osk-sdl">
+        Porting osk-sdl to New Devices
+       </a>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Advanced_topics">
+        Advanced topics
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Out of ideas what to do next with postmarketOS? Check out the
+          <a class="external text" href="https://postmarketos.org/blog/2018/06/09/one-year/#get-involved" rel="nofollow">
+           get involved
+          </a>
+          section from the last big blog post!
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <ul>
+       <li>
+        <a href="../en/Category:Interface.html" title="Category:Interface">
+         Interfaces
+        </a>
+       </li>
+       <li>
+        <a href="../en/WiFi.html" title="WiFi">
+         WiFi
+        </a>
+       </li>
+       <li>
+        <a href="../en/Bluetooth.html" title="Bluetooth">
+         Bluetooth
+        </a>
+       </li>
+       <li>
+        <a href="../en/Audio.html" title="Audio">
+         Audio
+        </a>
+       </li>
+       <li>
+        <a href="../en/Modem.html" title="Modem">
+         Modem
+        </a>
+       </li>
+       <li>
+        <a href="../en/Sensors.html" title="Sensors">
+         Sensors
+        </a>
+       </li>
+       <li>
+        <a class="mw-redirect" href="../en/The_Mainline_Kernel.html" title="Mainline kernel">
+         Mainline kernel
+        </a>
+       </li>
+       <li>
+        <a href="../en/Existing_Alpine_installation.html" title="Existing Alpine installation">
+         Existing Alpine installation
+        </a>
+       </li>
+       <li>
+        <a href="../en/Hybris.html" title="Hybris">
+         Hybris
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Porting_to_a_new_device&amp;oldid=27608">
+      https://wiki.postmarketos.org/index.php?title=Porting_to_a_new_device&amp;oldid=27608
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 10 May 2022, at 07:03.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Porting_to_a_new_device&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

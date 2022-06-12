@@ -1,73 +1,162 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>nftables - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Nftables rootpage-Nftables skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">nftables</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><br>
-Nftables is a newer replacement for iptables, ip6tables, arptables and ebtables. It has a serialisation format for defining rules and it supports using the same rulefile for IPv4 and IPv6.
-</p>
-<p>The first kernel with nftables support is 3.13
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Installing"><span class="tocnumber">1</span> <span class="toctext">Installing</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Allowing_SSH"><span class="tocnumber">2</span> <span class="toctext">Allowing SSH</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#How_to_disable_firewall"><span class="tocnumber">3</span> <span class="toctext">How to disable firewall</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#More_information"><span class="tocnumber">4</span> <span class="toctext">More information</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Installing">Installing</span></h2>
-<p>The kernel on the device needs to have the kconfig options enabled for nftables, the main options for this are <code>CONFIG_NF_TABLES</code> and <code>CONFIG_NF_TABLES_INET</code>.
-</p>
-<p>The userspace part is in the Alpine package <code>nftables</code> which provides the nftables openrc service and the <code>nft</code> command to do runtime changes.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add nftables
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   nftables - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Nftables rootpage-Nftables skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    nftables
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       <br/>
+       Nftables is a newer replacement for iptables, ip6tables, arptables and ebtables. It has a serialisation format for defining rules and it supports using the same rulefile for IPv4 and IPv6.
+      </p>
+      <p>
+       The first kernel with nftables support is 3.13
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Installing">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Installing
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Allowing_SSH">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Allowing SSH
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#How_to_disable_firewall">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           How to disable firewall
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#More_information">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           More information
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Installing">
+        Installing
+       </span>
+      </h2>
+      <p>
+       The kernel on the device needs to have the kconfig options enabled for nftables, the main options for this are
+       <code>
+        CONFIG_NF_TABLES
+       </code>
+       and
+       <code>
+        CONFIG_NF_TABLES_INET
+       </code>
+       .
+      </p>
+      <p>
+       The userspace part is in the Alpine package
+       <code>
+        nftables
+       </code>
+       which provides the nftables openrc service and the
+       <code>
+        nft
+       </code>
+       command to do runtime changes.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo apk add nftables
 <span class="gp">$</span> sudo rc-update add nftables
 <span class="gp">$</span> sudo service nftables list
 <span class="go">table inet filter {</span>
 <span class="go">    chain input {</span>
 <span class="go">...</span>
-</pre></div>
-<p>The default configuration when adding the nftables package and enableing the service will drop all incoming connections and blocks no outbound connections. It will also ratelimit incoming icmp packets. This config is stored in <code>/etc/nftables.nft</code> and will include any ruleset files that are put in
-<code>/etc/nftables.d/*.nft</code>. This is a good place to put your own extra rules.
-</p>
-<h2><span class="mw-headline" id="Allowing_SSH">Allowing SSH</span></h2>
-<p>Since the default ruleset drops all incoming connections you will no longer be able to SSH into the device after starting the nftables service. To allow connections again you can create an extra ruleset that allows connections over USB networking and over wifi:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>table inet filter {
+</pre>
+      </div>
+      <p>
+       The default configuration when adding the nftables package and enableing the service will drop all incoming connections and blocks no outbound connections. It will also ratelimit incoming icmp packets. This config is stored in
+       <code>
+        /etc/nftables.nft
+       </code>
+       and will include any ruleset files that are put in
+       <code>
+        /etc/nftables.d/*.nft
+       </code>
+       . This is a good place to put your own extra rules.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Allowing_SSH">
+        Allowing SSH
+       </span>
+      </h2>
+      <p>
+       Since the default ruleset drops all incoming connections you will no longer be able to SSH into the device after starting the nftables service. To allow connections again you can create an extra ruleset that allows connections over USB networking and over wifi:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre>table inet filter {
     chain input {
         type filter hook input priority 0; policy drop;
 
@@ -77,55 +166,121 @@ Nftables is a newer replacement for iptables, ip6tables, arptables and ebtables.
         iifname "wlan*" tcp dport {ssh} accept \
         comment "Accept SSH over wifi"
     }
-}</pre></div>
-<p>These rules will be amended to the default ruleset and allow all connections from usb0, which is the network interface created by the usb networking in postmarketOS. The second added rule will allow incoming SSH connections on any interface starting with <code>wlan</code>.
-</p>
-<p>After creating or changing the rules files you can make them active with the reload command on the nftables service:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo service nftables reload
-</pre></div>
-<h2><span class="mw-headline" id="How_to_disable_firewall">How to disable firewall</span></h2>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo nft flush ruleset
+}</pre>
+      </div>
+      <p>
+       These rules will be amended to the default ruleset and allow all connections from usb0, which is the network interface created by the usb networking in postmarketOS. The second added rule will allow incoming SSH connections on any interface starting with
+       <code>
+        wlan
+       </code>
+       .
+      </p>
+      <p>
+       After creating or changing the rules files you can make them active with the reload command on the nftables service:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo service nftables reload
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="How_to_disable_firewall">
+        How to disable firewall
+       </span>
+      </h2>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo nft flush ruleset
 <span class="gp">$</span> sudo rc-service nftables stop
 <span class="gp">$</span> sudo rc-update del nftables default
-</pre></div>
-<h2><span class="mw-headline" id="More_information">More information</span></h2>
-<p><a rel="nofollow" class="external text" href="https://wiki.nftables.org/wiki-nftables/index.php/Main_Page">the nftables wiki</a>
-</p>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Pages_with_syntax_highlighting_errors.html" title="Category:Pages with syntax highlighting errors">Pages with syntax highlighting errors</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Nftables&amp;oldid=27366">https://wiki.postmarketos.org/index.php?title=Nftables&amp;oldid=27366</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 1 May 2022, at 23:28.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Nftables&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="More_information">
+        More information
+       </span>
+      </h2>
+      <p>
+       <a class="external text" href="https://wiki.nftables.org/wiki-nftables/index.php/Main_Page" rel="nofollow">
+        the nftables wiki
+       </a>
+      </p>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Pages_with_syntax_highlighting_errors.html" title="Category:Pages with syntax highlighting errors">
+         Pages with syntax highlighting errors
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Nftables&amp;oldid=27366">
+      https://wiki.postmarketos.org/index.php?title=Nftables&amp;oldid=27366
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 1 May 2022, at 23:28.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Nftables&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

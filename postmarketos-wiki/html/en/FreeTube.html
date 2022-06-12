@@ -1,94 +1,213 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>FreeTube - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-FreeTube rootpage-FreeTube skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">FreeTube</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">This app depends on proprietary network services! Consider using free alternatives (e.g. <a rel="nofollow" class="external text" href="https://joinpeertube.org/">PeerTube</a>).</td>
-</tr></tbody></table>
-<p><a rel="nofollow" class="external text" href="https://freetubeapp.io/">FreeTube</a> is a privacy-focused YouTube client, based on Electron. It has pretty good mobile &amp; touchscreen support.
-</p>
-<div class="thumb tright"><div class="thumbinner" style="width:202px;">
-<a href="../Freetube.png" class="image"><img alt="" src="../Freetube.png" decoding="async" width="200" height="400" class="thumbimage" srcset="../Freetube.png 1.5x ../Freetube.png 2x"></a>  <div class="thumbcaption">
-<div class="magnify"><a href="../Freetube.png" class="internal" title="Enlarge"></a></div>FreeTube running with its GUI scale reduced to 70% (via the settings)</div>
-</div></div>
-<h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Right now, FreeTube is only available as a <a href="../en/Flatpak.html" title="Flatpak">Flatpak</a> package via Flathub. Look at <a rel="nofollow" class="external text" href="https://flatpak.org/setup/Alpine/">this page</a> to setup Flatpak and Flathub on Alpine / pmOS. Once this is done, the following command installs PeerTube:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> flatpak install flathub io.freetubeapp.FreeTube
-</pre></div>
-<h2>
-<span id="Wayland_support_(under_Phosh)"></span><span class="mw-headline" id="Wayland_support_.28under_Phosh.29">Wayland support (under Phosh)</span>
-</h2>
-<p>FreeTube has at the moment no Wayland support and crashes on user interfaces using Wayland with <code>cannot open display</code>. On <a href="../en/Phosh.html" title="Phosh">Phosh</a>, you can force FreeTube to run under XWayland by unsetting the environment variable <code>GDK_BACKEND</code> or setting it to <code>x11</code>. Make these changes persistent through following command:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> flatpak override --user --env<span class="o">=</span><span class="nv">GDK_BACKEND</span><span class="o">=</span>x11 io.freetubeapp.FreeTube
-</pre></div>
-<p>Be aware that there are some oddities with XWayland under Phosh.
-</p>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Apps.html" title="Category:Apps">Apps</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=FreeTube&amp;oldid=17817">https://wiki.postmarketos.org/index.php?title=FreeTube&amp;oldid=17817</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 7 March 2021, at 21:14.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=FreeTube&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   FreeTube - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-FreeTube rootpage-FreeTube skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    FreeTube
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          This app depends on proprietary network services! Consider using free alternatives (e.g.
+          <a class="external text" href="https://joinpeertube.org/" rel="nofollow">
+           PeerTube
+          </a>
+          ).
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       <a class="external text" href="https://freetubeapp.io/" rel="nofollow">
+        FreeTube
+       </a>
+       is a privacy-focused YouTube client, based on Electron. It has pretty good mobile &amp; touchscreen support.
+      </p>
+      <div class="thumb tright">
+       <div class="thumbinner" style="width:202px;">
+        <a class="image" href="../Freetube.png">
+         <img alt="" class="thumbimage" decoding="async" height="400" src="../Freetube.png" srcset="../Freetube.png 1.5x ../Freetube.png 2x" width="200"/>
+        </a>
+        <div class="thumbcaption">
+         <div class="magnify">
+          <a class="internal" href="../Freetube.png" title="Enlarge">
+          </a>
+         </div>
+         FreeTube running with its GUI scale reduced to 70% (via the settings)
+        </div>
+       </div>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Installation">
+        Installation
+       </span>
+      </h2>
+      <p>
+       Right now, FreeTube is only available as a
+       <a href="../en/Flatpak.html" title="Flatpak">
+        Flatpak
+       </a>
+       package via Flathub. Look at
+       <a class="external text" href="https://flatpak.org/setup/Alpine/" rel="nofollow">
+        this page
+       </a>
+       to setup Flatpak and Flathub on Alpine / pmOS. Once this is done, the following command installs PeerTube:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> flatpak install flathub io.freetubeapp.FreeTube
+</pre>
+      </div>
+      <h2>
+       <span id="Wayland_support_(under_Phosh)">
+       </span>
+       <span class="mw-headline" id="Wayland_support_.28under_Phosh.29">
+        Wayland support (under Phosh)
+       </span>
+      </h2>
+      <p>
+       FreeTube has at the moment no Wayland support and crashes on user interfaces using Wayland with
+       <code>
+        cannot open display
+       </code>
+       . On
+       <a href="../en/Phosh.html" title="Phosh">
+        Phosh
+       </a>
+       , you can force FreeTube to run under XWayland by unsetting the environment variable
+       <code>
+        GDK_BACKEND
+       </code>
+       or setting it to
+       <code>
+        x11
+       </code>
+       . Make these changes persistent through following command:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> flatpak override --user --env<span class="o">=</span><span class="nv">GDK_BACKEND</span><span class="o">=</span>x11 io.freetubeapp.FreeTube
+</pre>
+      </div>
+      <p>
+       Be aware that there are some oddities with XWayland under Phosh.
+      </p>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Apps.html" title="Category:Apps">
+         Apps
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=FreeTube&amp;oldid=17817">
+      https://wiki.postmarketos.org/index.php?title=FreeTube&amp;oldid=17817
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 7 March 2021, at 21:14.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=FreeTube&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

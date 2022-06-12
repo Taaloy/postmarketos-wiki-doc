@@ -1,149 +1,443 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Deviceinfo flash methods - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Deviceinfo_flash_methods rootpage-Deviceinfo_flash_methods skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Deviceinfo flash methods</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
-<p>Here is a guide on how to find the correct value for <code>deviceinfo_flash_method</code>, and some pitfalls you need to look out for depending on your flasher application. Please note, that all flasher mode implementations on the phones
-listed here are proprietary (even if the flashing software is open source). But they are hard to <a href="../en/Firmware.html" title="Firmware">replace</a> (if we can do that at all), so we will use them for now to flash pmOS on the devices.
-</p>
-<h2><span class="mw-headline" id="Android">Android</span></h2>
-<p>Boot your phone into the bootloader menu. Usually this can be done by holding <code>Volume Down</code> and the <code>Power</code> button, until something changes on the screen, then only holding the <code>Volume Down</code> button until the menu appears. It should say either "Fastboot mode" or "Odin mode", read the appropriate section below. If
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Deviceinfo flash methods - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Deviceinfo_flash_methods rootpage-Deviceinfo_flash_methods skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Deviceinfo flash methods
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <h2>
+       <span class="mw-headline" id="Introduction">
+        Introduction
+       </span>
+      </h2>
+      <p>
+       Here is a guide on how to find the correct value for
+       <code>
+        deviceinfo_flash_method
+       </code>
+       , and some pitfalls you need to look out for depending on your flasher application. Please note, that all flasher mode implementations on the phones
+listed here are proprietary (even if the flashing software is open source). But they are hard to
+       <a href="../en/Firmware.html" title="Firmware">
+        replace
+       </a>
+       (if we can do that at all), so we will use them for now to flash pmOS on the devices.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Android">
+        Android
+       </span>
+      </h2>
+      <p>
+       Boot your phone into the bootloader menu. Usually this can be done by holding
+       <code>
+        Volume Down
+       </code>
+       and the
+       <code>
+        Power
+       </code>
+       button, until something changes on the screen, then only holding the
+       <code>
+        Volume Down
+       </code>
+       button until the menu appears. It should say either "Fastboot mode" or "Odin mode", read the appropriate section below. If
 you don't know the combination for your device, please search the Internet. (It is also a good idea to write this combination to your device's pmOS wiki page, so we can look it up quickly.)
-</p>
-<h3><span class="mw-headline" id="Fastboot_mode">Fastboot mode</span></h3>
-<p>Most Android devices are compatible with the open source fastboot protocol. That is good, because we simply can use the fastboot application to flash them, and no one needs to reverse engineer the protocol. You are done here, if you have a <code>fastboot</code> compatible device.
-</p>
-<h5><span class="mw-headline" id="fastboot"><code>fastboot</code></span></h5>
-<p>The standard Fastboot flasher using Android boot images. Use this for Fastboot unless you know what you are doing.
-</p>
-<h5><span class="mw-headline" id="fastboot-bootpart"><code>fastboot-bootpart</code></span></h5>
-<p>Some devices provide a Fastboot interface but using Android boot images is not practical for them (e.g. because they support booting from FAT32 partitions directly). This can be implemented using <code>--split</code> (separate image files for boot and rootfs). The <code>fastboot-bootpart</code> flash method allows flashing the split image files using Fastboot.
-</p>
-<p>The boot partition filesystem is flashed to <code>deviceinfo_flash_fastboot_partition_kernel</code> (without packing it into an Android boot image).
-</p>
-<h3><span class="mw-headline" id="Odin_mode">Odin mode</span></h3>
-<p>This uses a proprietary flashing protocol from Samsung. There has been great effort put into Heimdall, an open source program that tries to be compatible to the odin protocol. But it does not work perfectly yet, and some devices are not supported at all.
-</p>
-<p>So first check if your device also supports fastboot - some Samsung devices (such as the Galaxy Nexus) actually have both protocols (you would need to press another key combination to enter fastboot mode - search the Internet for the supported flash modes of your device). If you can use fastboot, please do so.
-</p>
-<p>For postmarketOS we're going to use Heimdall, but we use it in two different configurations - <code>heimdall-isorec</code> and <code>heimdall-bootimg</code>. You will need to find out the correct one for your device.
-</p>
-<h4>
-<span id="Isorec_or_bootimg?"></span><span class="mw-headline" id="Isorec_or_bootimg.3F">Isorec or bootimg?</span>
-</h4>
-<p>A <code>boot.img</code> file contains a Linux kernel and an initramfs, along with some other configuration, such as the kernel command line. Some Samsung devices support these <code>boot.img</code> files, while others only support flashing a kernel with a baked-in initramfs. To find out what your device has, download a known working image for your device (e.g. from the vendor, or a LineageOS ROM, ...). Usually they come in zip files. Extract the zip file, and you will find a <code>boot.img</code> inside. Run the command <code>file</code> on that to find out, whether it is a real <code>boot.img</code> file, or just a <code>vmlinuz</code> file:
-</p>
-<pre class="shell">file boot.img # real boot.img file -&gt; use heimdall-bootimg
+      </p>
+      <h3>
+       <span class="mw-headline" id="Fastboot_mode">
+        Fastboot mode
+       </span>
+      </h3>
+      <p>
+       Most Android devices are compatible with the open source fastboot protocol. That is good, because we simply can use the fastboot application to flash them, and no one needs to reverse engineer the protocol. You are done here, if you have a
+       <code>
+        fastboot
+       </code>
+       compatible device.
+      </p>
+      <h5>
+       <span class="mw-headline" id="fastboot">
+        <code>
+         fastboot
+        </code>
+       </span>
+      </h5>
+      <p>
+       The standard Fastboot flasher using Android boot images. Use this for Fastboot unless you know what you are doing.
+      </p>
+      <h5>
+       <span class="mw-headline" id="fastboot-bootpart">
+        <code>
+         fastboot-bootpart
+        </code>
+       </span>
+      </h5>
+      <p>
+       Some devices provide a Fastboot interface but using Android boot images is not practical for them (e.g. because they support booting from FAT32 partitions directly). This can be implemented using
+       <code>
+        --split
+       </code>
+       (separate image files for boot and rootfs). The
+       <code>
+        fastboot-bootpart
+       </code>
+       flash method allows flashing the split image files using Fastboot.
+      </p>
+      <p>
+       The boot partition filesystem is flashed to
+       <code>
+        deviceinfo_flash_fastboot_partition_kernel
+       </code>
+       (without packing it into an Android boot image).
+      </p>
+      <h3>
+       <span class="mw-headline" id="Odin_mode">
+        Odin mode
+       </span>
+      </h3>
+      <p>
+       This uses a proprietary flashing protocol from Samsung. There has been great effort put into Heimdall, an open source program that tries to be compatible to the odin protocol. But it does not work perfectly yet, and some devices are not supported at all.
+      </p>
+      <p>
+       So first check if your device also supports fastboot - some Samsung devices (such as the Galaxy Nexus) actually have both protocols (you would need to press another key combination to enter fastboot mode - search the Internet for the supported flash modes of your device). If you can use fastboot, please do so.
+      </p>
+      <p>
+       For postmarketOS we're going to use Heimdall, but we use it in two different configurations -
+       <code>
+        heimdall-isorec
+       </code>
+       and
+       <code>
+        heimdall-bootimg
+       </code>
+       . You will need to find out the correct one for your device.
+      </p>
+      <h4>
+       <span id="Isorec_or_bootimg?">
+       </span>
+       <span class="mw-headline" id="Isorec_or_bootimg.3F">
+        Isorec or bootimg?
+       </span>
+      </h4>
+      <p>
+       A
+       <code>
+        boot.img
+       </code>
+       file contains a Linux kernel and an initramfs, along with some other configuration, such as the kernel command line. Some Samsung devices support these
+       <code>
+        boot.img
+       </code>
+       files, while others only support flashing a kernel with a baked-in initramfs. To find out what your device has, download a known working image for your device (e.g. from the vendor, or a LineageOS ROM, ...). Usually they come in zip files. Extract the zip file, and you will find a
+       <code>
+        boot.img
+       </code>
+       inside. Run the command
+       <code>
+        file
+       </code>
+       on that to find out, whether it is a real
+       <code>
+        boot.img
+       </code>
+       file, or just a
+       <code>
+        vmlinuz
+       </code>
+       file:
+      </p>
+      <pre class="shell">file boot.img # real boot.img file -&gt; use heimdall-bootimg
 Android bootimg, kernel, ramdisk, page size: 2048</pre>
-<pre class="shell">file boot.img # actually a vmlinuz file -&gt; use heimdall-isorec
+      <pre class="shell">file boot.img # actually a vmlinuz file -&gt; use heimdall-isorec
 boot.img: Linux kernel ARM boot executable zImage (little-endian)</pre>
-<h4><span class="mw-headline" id="heimdall-bootimg">heimdall-bootimg</span></h4>
-<p>When using that flasher, make sure that you also add <code>mkbootimg</code> to your <code>depends</code> line in the <code>APKBUILD</code>, and that you set <code>deviceinfo_generate_bootimg</code> in your <code>deviceinfo</code> file to <code>"true"</code>.
-To generate a working boot.img, in the <code>deviceinfo</code> you also need to specify the variables for the various offset, follow this <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/How_to_find_device-specific_information#Fastboot_.28boot.img.29_flash_offsets">guide</a> to find the correct values for your device.
-</p>
-<h4><span class="mw-headline" id="heimdall-isorec">heimdall-isorec</span></h4>
-<p>Usually the initramfs would get packed into the vmlinuz file, when it has no support for the <code>boot.img</code> format. But this is a problem for postmarketOS, because we want to generate the initramfs explicitly <i>after</i> compiling the kernel, like it is done in typical Linux distributions.
-</p>
-<p>So what we do instead, is putting the real initramfs on the recovery partition (or any other free partition, such as "kernel2", but the name comes from "isolated recovery" and was coined by <a rel="nofollow" class="external text" href="https://forum.xda-developers.com/galaxy-s2/orig-development/isorec-isolated-recovery-galaxy-s2-t3291176">Lanchon</a>). The initramfs baked into the kernel only extracts the real initramfs, and executes its init script.
-</p>
-<p>You will need to adjust the <code>init</code> script of your kernel's built in initramfs to point to the right partition. See <a href="../en/Downstream_kernel_specific_package.html#heimdall-isorec" class="mw-redirect" title="Vendor kernel specific package">this section</a> for reference.
-</p>
-<h4><span class="mw-headline" id="Odin">Odin</span></h4>
-<p>In case you can't get it working with Heimdall, you could use the proprietary Odin program for Windows (e.g. in a VM) and flash from there. To do that, run the following commands to export all generated files from <code>pmbootstrap</code> and create an Odin-compatible tar file:
-</p>
-<pre class="shell">pmbootstrap install
+      <h4>
+       <span class="mw-headline" id="heimdall-bootimg">
+        heimdall-bootimg
+       </span>
+      </h4>
+      <p>
+       When using that flasher, make sure that you also add
+       <code>
+        mkbootimg
+       </code>
+       to your
+       <code>
+        depends
+       </code>
+       line in the
+       <code>
+        APKBUILD
+       </code>
+       , and that you set
+       <code>
+        deviceinfo_generate_bootimg
+       </code>
+       in your
+       <code>
+        deviceinfo
+       </code>
+       file to
+       <code>
+        "true"
+       </code>
+       .
+To generate a working boot.img, in the
+       <code>
+        deviceinfo
+       </code>
+       you also need to specify the variables for the various offset, follow this
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/How_to_find_device-specific_information#Fastboot_.28boot.img.29_flash_offsets" rel="nofollow">
+        guide
+       </a>
+       to find the correct values for your device.
+      </p>
+      <h4>
+       <span class="mw-headline" id="heimdall-isorec">
+        heimdall-isorec
+       </span>
+      </h4>
+      <p>
+       Usually the initramfs would get packed into the vmlinuz file, when it has no support for the
+       <code>
+        boot.img
+       </code>
+       format. But this is a problem for postmarketOS, because we want to generate the initramfs explicitly
+       <i>
+        after
+       </i>
+       compiling the kernel, like it is done in typical Linux distributions.
+      </p>
+      <p>
+       So what we do instead, is putting the real initramfs on the recovery partition (or any other free partition, such as "kernel2", but the name comes from "isolated recovery" and was coined by
+       <a class="external text" href="https://forum.xda-developers.com/galaxy-s2/orig-development/isorec-isolated-recovery-galaxy-s2-t3291176" rel="nofollow">
+        Lanchon
+       </a>
+       ). The initramfs baked into the kernel only extracts the real initramfs, and executes its init script.
+      </p>
+      <p>
+       You will need to adjust the
+       <code>
+        init
+       </code>
+       script of your kernel's built in initramfs to point to the right partition. See
+       <a class="mw-redirect" href="../en/Downstream_kernel_specific_package.html#heimdall-isorec" title="Vendor kernel specific package">
+        this section
+       </a>
+       for reference.
+      </p>
+      <h4>
+       <span class="mw-headline" id="Odin">
+        Odin
+       </span>
+      </h4>
+      <p>
+       In case you can't get it working with Heimdall, you could use the proprietary Odin program for Windows (e.g. in a VM) and flash from there. To do that, run the following commands to export all generated files from
+       <code>
+        pmbootstrap
+       </code>
+       and create an Odin-compatible tar file:
+      </p>
+      <pre class="shell">pmbootstrap install
 pmbootstrap export --odin</pre>
-<p>It would be great if you could record your flashing session with a USB sniffer and send it to the Heimdall developers (as ticket) or even implement support for your device in Heimdall yourself (C++ knowledge required). Please expand this wiki page on how to actually sniff the USB traffic, if you do that.
-</p>
-<h3>
-<span id="Recovery_mode_(adb)"></span><span class="mw-headline" id="Recovery_mode_.28adb.29">Recovery mode (adb)</span>
-</h3>
-<p>When all methods above fail (e.g. because fastboot does not allow you to flash the system partition or kernel), there is still the possibility to flash postmarketOS to your device as long as you can get into a recovery mode, and "sideload" a recovery zip file onto your device. In order to do that, you will need a recovery system installed on your phone, <a rel="nofollow" class="external text" href="https://twrp.me">TWRP</a> is recommended.
-</p>
-<p>To generate a recovery zip file and flash it, execute the following:
-</p>
-<ul>
-<li><code>pmbootstrap install --android-recovery-zip</code></li>
-<li>boot your device into TWRP</li>
-<li>swipe to allow modifications (if you get asked for that)</li>
-<li>click on "Advanced" / "ADB Sideload"</li>
-<li>swipe to start sideload</li>
-<li>run <code>pmbootstrap flasher --method adb sideload</code>
-</li>
-</ul>
-<h2><span class="mw-headline" id="Maemo">Maemo</span></h2>
-<p>The correct flasher is <code>0xffff</code> (which reverse engineered Nokia's proprietary flashing protocol). Right now we do not have abstracted it in the pmbootstrap config (so <code>pmbootstrap flasher flash_kernel</code> etc. will not work). That is because the Maemo devices have an SD card slot, and it is possible to install uboot on them - so flashing was not really required yet. But it is easy to extend the config to implement that abstraction when it is needed.
-Simply edit the <code>0xffff</code> part in <code>pmb/config/__init__.py</code> (and please make a pull-request after you have tested it).
-</p>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul>
-<li><a href="../en/Boot_process.html" title="Boot process">Boot process</a></li>
-<li><a href="../en/Partition_Layout.html" title="Partition Layout">Partition Layout</a></li>
-</ul>
-
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Deviceinfo_flash_methods&amp;oldid=17439">https://wiki.postmarketos.org/index.php?title=Deviceinfo_flash_methods&amp;oldid=17439</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 19 February 2021, at 16:58.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Deviceinfo_flash_methods&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <p>
+       It would be great if you could record your flashing session with a USB sniffer and send it to the Heimdall developers (as ticket) or even implement support for your device in Heimdall yourself (C++ knowledge required). Please expand this wiki page on how to actually sniff the USB traffic, if you do that.
+      </p>
+      <h3>
+       <span id="Recovery_mode_(adb)">
+       </span>
+       <span class="mw-headline" id="Recovery_mode_.28adb.29">
+        Recovery mode (adb)
+       </span>
+      </h3>
+      <p>
+       When all methods above fail (e.g. because fastboot does not allow you to flash the system partition or kernel), there is still the possibility to flash postmarketOS to your device as long as you can get into a recovery mode, and "sideload" a recovery zip file onto your device. In order to do that, you will need a recovery system installed on your phone,
+       <a class="external text" href="https://twrp.me" rel="nofollow">
+        TWRP
+       </a>
+       is recommended.
+      </p>
+      <p>
+       To generate a recovery zip file and flash it, execute the following:
+      </p>
+      <ul>
+       <li>
+        <code>
+         pmbootstrap install --android-recovery-zip
+        </code>
+       </li>
+       <li>
+        boot your device into TWRP
+       </li>
+       <li>
+        swipe to allow modifications (if you get asked for that)
+       </li>
+       <li>
+        click on "Advanced" / "ADB Sideload"
+       </li>
+       <li>
+        swipe to start sideload
+       </li>
+       <li>
+        run
+        <code>
+         pmbootstrap flasher --method adb sideload
+        </code>
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Maemo">
+        Maemo
+       </span>
+      </h2>
+      <p>
+       The correct flasher is
+       <code>
+        0xffff
+       </code>
+       (which reverse engineered Nokia's proprietary flashing protocol). Right now we do not have abstracted it in the pmbootstrap config (so
+       <code>
+        pmbootstrap flasher flash_kernel
+       </code>
+       etc. will not work). That is because the Maemo devices have an SD card slot, and it is possible to install uboot on them - so flashing was not really required yet. But it is easy to extend the config to implement that abstraction when it is needed.
+Simply edit the
+       <code>
+        0xffff
+       </code>
+       part in
+       <code>
+        pmb/config/__init__.py
+       </code>
+       (and please make a pull-request after you have tested it).
+      </p>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a href="../en/Boot_process.html" title="Boot process">
+         Boot process
+        </a>
+       </li>
+       <li>
+        <a href="../en/Partition_Layout.html" title="Partition Layout">
+         Partition Layout
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Deviceinfo_flash_methods&amp;oldid=17439">
+      https://wiki.postmarketos.org/index.php?title=Deviceinfo_flash_methods&amp;oldid=17439
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 19 February 2021, at 16:58.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Deviceinfo_flash_methods&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

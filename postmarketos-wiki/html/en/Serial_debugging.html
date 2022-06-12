@@ -1,404 +1,1306 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Serial debugging - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Serial_debugging rootpage-Serial_debugging skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Serial debugging</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>To get kernel or bootloader logs on a system without a working display/full USB configuration, a <b>serial cable</b> may be used, which allows us to preview the serial console on the device.
-</p>
-<p>To debug your device with a serial cable, you will need:
-</p>
-<ul>
-<li>A serial debugging cable for your device. <b>You will need to make this yourself</b>, so prior experience with soldering and soldering tools is recommended. (You might be able to make a cable without soldering if you find the right parts, though.)</li>
-<li>A USB-UART adapter that will allow you to connect the UART cable from your phone/tablet to your computer.</li>
-<li>A piece of software like microcom, minicom, screen, PuTTY or CuteCom that will be used to access the output from the USB-UART adapter on the computer.</li>
-</ul>
-<p>For the purpose of this page, the <i>device</i> is the phone/tablet you want to debug, and the <i>computer</i> is the device you want to access the logs from.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#USB_Serial_gadget"><span class="tocnumber">1</span> <span class="toctext">USB Serial gadget</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Working_USB-UART_adapters"><span class="tocnumber">2</span> <span class="toctext">Working USB-UART adapters</span></a></li>
-<li class="toclevel-1 tocsection-3">
-<a href="#Finding_the_UART_ports_on_your_device"><span class="tocnumber">3</span> <span class="toctext">Finding the UART ports on your device</span></a>
-<ul>
-<li class="toclevel-2 tocsection-4"><a href="#Identifying_the_MUIC"><span class="tocnumber">3.1</span> <span class="toctext">Identifying the MUIC</span></a></li>
-<li class="toclevel-2 tocsection-5">
-<a href="#Finding_the_UART_ports_on_your_device.27s_main_board"><span class="tocnumber">3.2</span> <span class="toctext">Finding the UART ports on your device's main board</span></a>
-<ul>
-<li class="toclevel-3 tocsection-6"><a href="#Main_board_UART_on_exynos_devices"><span class="tocnumber">3.2.1</span> <span class="toctext">Main board UART on exynos devices</span></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-7">
-<a href="#Building_the_cable"><span class="tocnumber">4</span> <span class="toctext">Building the cable</span></a>
-<ul>
-<li class="toclevel-2 tocsection-8"><a href="#microUSB-based_cables"><span class="tocnumber">4.1</span> <span class="toctext">microUSB-based cables</span></a></li>
-<li class="toclevel-2 tocsection-9"><a href="#USB-C_based_cables"><span class="tocnumber">4.2</span> <span class="toctext">USB-C based cables</span></a></li>
-<li class="toclevel-2 tocsection-10"><a href="#Soldering_a_connector_on_your_device"><span class="tocnumber">4.3</span> <span class="toctext">Soldering a connector on your device</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-11"><a href="#Kernel_configuration"><span class="tocnumber">5</span> <span class="toctext">Kernel configuration</span></a></li>
-<li class="toclevel-1 tocsection-12">
-<a href="#Plugging_in_the_cable"><span class="tocnumber">6</span> <span class="toctext">Plugging in the cable</span></a>
-<ul>
-<li class="toclevel-2 tocsection-13"><a href="#Connecting_to_the_serial_console_from_your_computer"><span class="tocnumber">6.1</span> <span class="toctext">Connecting to the serial console from your computer</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-14">
-<a href="#Troubleshooting"><span class="tocnumber">7</span> <span class="toctext">Troubleshooting</span></a>
-<ul>
-<li class="toclevel-2 tocsection-15"><a href="#On_Samsung_devices"><span class="tocnumber">7.1</span> <span class="toctext">On Samsung devices</span></a></li>
-<li class="toclevel-2 tocsection-16"><a href="#On_Google_devices"><span class="tocnumber">7.2</span> <span class="toctext">On Google devices</span></a></li>
-<li class="toclevel-2 tocsection-17"><a href="#No_kernel_output"><span class="tocnumber">7.3</span> <span class="toctext">No kernel output</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-18"><a href="#Alternatives_to_using_a_serial_cable"><span class="tocnumber">8</span> <span class="toctext">Alternatives to using a serial cable</span></a></li>
-<li class="toclevel-1 tocsection-19"><a href="#3.3V_vs_1.8V_UARTs"><span class="tocnumber">9</span> <span class="toctext">3.3V vs 1.8V UARTs</span></a></li>
-<li class="toclevel-1 tocsection-20"><a href="#See_also"><span class="tocnumber">10</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="USB_Serial_gadget">USB Serial gadget</span></h2>
-<p>If your device is already booting, but failing somewhere in the kernel or init, you might have some luck with <a href="../en/Serial_debugging_Serial_Gadget.html" title="Serial debugging/Serial Gadget">USB serial gadget</a>.
-</p>
-<h2><span class="mw-headline" id="Working_USB-UART_adapters">Working USB-UART adapters</span></h2>
-<p>Adapters based on FT232 (for example <a rel="nofollow" class="external text" href="https://www.sparkfun.com/products/12731">this one on sparkfun</a>), CH340 and CP2102 are known to work. All adapters *should* work though. Try to verify if your device uses 3.3 V or 1.8 V and get an adapter with the correct voltage, so you do not have to use a <a href="../en/Serial_debugging.html#3.3V_vs_1.8V_UARTs" title="Serial debugging">voltage divider</a>.
-</p>
-<h2><span class="mw-headline" id="Finding_the_UART_ports_on_your_device">Finding the UART ports on your device</span></h2>
-<p>The serial port can be accessed by different means, depending on the device - through the microUSB port with a special cable, through the headphone jack, or only through UART ports on the main board. As such, the first step will be finding the proper way to connect to the UART ports on your device.
-</p>
-<p>First, <b>look at your device's wiki page and the <a href="../en/Serial_debugging:Cable_schematics.html" title="Serial debugging:Cable schematics">Serial debugging:Cable schematics</a> page</b>. You may find your device on there already - in which case, this section can be skipped. If you can't find any info, or you're unsure, continue with this section.
-</p>
-<h3><span class="mw-headline" id="Identifying_the_MUIC">Identifying the MUIC</span></h3>
-<p>In some devices (for example, most Samsung phones) serial access can be gained through the microUSB port.
-</p>
-<p>Start by <b>identifying the <a href="../en/Micro-USB_Interface_Controller.html" title="Micro-USB Interface Controller">Micro-USB Interface Controller</a></b> used in your device. The MUIC is what handles things like USB-OTG - it usually figures out what a cable is supposed to do by checking the resistance between the ground pin and the ID pin. Most MUICs implement an <i>UART jig mode</i> as part of the Carkit standard (see the <a href="../en/Micro-USB_Interface_Controller.html" title="Micro-USB Interface Controller">Micro-USB Interface Controller</a> page), which allows the USB port to be used as a serial input/output port.
-</p>
-<p>You can try looking for kernel options with "MUIC", "USB" or "UART" in the name in the downstream kernel's defconfig - if you find a seemingly SOC-specific option, grep through the kernel source to find the driver (hint: don't include the CONFIG_ part). Sometimes the MUIC is integrated into the PMU/PMIC or handled by the device's chipset, in which case using generic values from the MUIC page may work.
-</p>
-<p>Once you've found the model of your MUIC, look for similar chips in the <a href="../en/Micro-USB_Interface_Controller.html" title="Micro-USB Interface Controller">MUIC</a> page to find the resistance values you should use for your cable. If you're unsure, look up your MUIC chip's datasheet; <b>if you can't find the MUIC</b> used in your device, or the datasheet does not have the resistance value table, use the default values from the MUIC page.
-</p>
-<h3>
-<span id="Finding_the_UART_ports_on_your_device's_main_board"></span><span class="mw-headline" id="Finding_the_UART_ports_on_your_device.27s_main_board">Finding the UART ports on your device's main board</span>
-</h3>
-<p>Sometimes there is no other solution but to poke at random motherboard pins to find the serial port. This is mostly a lucky process, and you need to have access to an <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Oscilloscope">oscilloscope</a> (maybe a sensitive multimeter would work as well?). With such an instrument you try to find tx (and gnd) by measuring between different pins when you:
-</p>
-<ul>
-<li>send either garbage, or a repeating pattern to the serial port at <code>/dev/ttysomething</code> (if you have a kernel where it's working)</li>
-<li>reboot your phone, hopefully it writes something during boot (but that's really trying luck)</li>
-</ul>
-<p>Locating tx is usually good enough for debugging, but rx should be quite close, with a high impedance, or more likely a pulling resistor. A pull-up or pull-down resistor will make the pin look like gnd or vcc.
-</p>
-<p>Most modern Qualcomm devices will dump bootloader logs via UART, measuring with a standard multimeter and looking for a pin which sits around 0.9v during early boot and then goes up to 1.8v or down to 0v is a good indicate that it's Tx.
-</p>
-<p><a rel="nofollow" class="external text" href="http://www.devttys0.com/2012/11/reverse-engineering-serial-ports">See also</a>
-</p>
-<h4><span class="mw-headline" id="Main_board_UART_on_exynos_devices">Main board UART on exynos devices</span></h4>
-<p>On Samsung's exynos devices (and maybe some other Samsung devices), UART is available as part of a 12 or 20 pin connector. The connector might, or might not, be soldered onto the board. If it is not you can find just the set of pads. On more recent devices the pads might also be covered by the pcb coating/solder mask. In this case you would need to physically peel off the top layer to expose the pads, and then solder the wires or connector onto it. Chapter 22, "JTAG (Joint Test Action Group)", of the book <a rel="nofollow" class="external text" href="https://www.sciencedirect.com/book/9780128110560/seeking-the-truth-from-mobile-evidence">Seeking the Truth from Mobile Evidence</a> show an example where this is done for some other Samsung Qualcomm device, for the purpose of getting JTAG access (check out the book if you have access).
-</p>
-<p>To peel of the mask you need a small flat screwdriver and a steady hand (<a rel="nofollow" class="external text" href="https://electronics.stackexchange.com/questions/81723/how-to-remove-solder-mask">stackexchange recommends a fiberglass brush</a> but that does not seem to cut through the plastic/epoxy surface layer of the pcb).
-</p>
-<p>Exynos4 devices, or at least galaxy S3, has the 20 pin molex connector, from which UART and JTAG can be accessed. In the xda thread <a rel="nofollow" class="external text" href="https://forum.xda-developers.com/t/ref-gt-i9305-hardware-hacking.2939891">gt-i9305 hardware hacking</a>, the different pads are identified, and the part number of the socket revealed to be AXE620124, a socket from Panasonic. The corresponding male, which we need to mount onto some sort of breakout board to easily access the pins, has part number AXE520127. The 12-pin molex connector found on other devices seem to be part of the same product family, and the female then has part number AXE612124 with the corresponding male AXE512127.
-</p>
-<p>In the figures below the pads are shown on a few exynos devices, with or without the connector, and with or without the pads being covered by solder mask.
-</p>
-<ul class="gallery mw-gallery-traditional">
-		<li class="gallerybox" style="width: 275px"><div style="width: 275px">
-			<div class="thumb" style="width: 270px;"><div style="margin:24px auto;"><a href="../03_gt-i9305_ap_uart.jpg" class="image"><img alt="" src="../03_gt-i9305_ap_uart.jpg" decoding="async" width="240" height="162" srcset="../360px-03_gt-i9305_ap_uart.jpg 1.5x ../480px-03_gt-i9305_ap_uart.jpg 2x"></a></div></div>
-			<div class="gallerytext">
-<p>Soldered 20 pin AXE620124 connector and pinout on <a href="../en/Samsung_Galaxy_S_III_(samsung-m0).html" class="mw-redirect" title="Samsung Galaxy SIII LTE (samsung-i9305)">samsung-i9305</a>. Taken from the xda thread <a rel="nofollow" class="external text" href="https://forum.xda-developers.com/t/ref-gt-i9305-hardware-hacking.2939891">gt-i9305 hardware hacking</a>.
-</p>
-			</div>
-		</div></li>
-		<li class="gallerybox" style="width: 275px"><div style="width: 275px">
-			<div class="thumb" style="width: 270px;"><div style="margin:15px auto;"><a href="../Chagallwifi_uart_jtag.jpg" class="image"><img alt="" src="../Chagallwifi_uart_jtag.jpg" decoding="async" width="201" height="180" srcset="../Chagallwifi_uart_jtag.jpg 1.5x ../Chagallwifi_uart_jtag.jpg 2x"></a></div></div>
-			<div class="gallerytext">
-<p>Soldered 20 pin AXE620124 connector on <a href="../en/Samsung_Galaxy_Tab_S_10.5_WiFi_(samsung-chagallwifi).html" title="Samsung Galaxy Tab S 10.5 WiFi (samsung-chagallwifi)">samsung-chagallwifi</a>.
-</p>
-			</div>
-		</div></li>
-		<li class="gallerybox" style="width: 275px"><div style="width: 275px">
-			<div class="thumb" style="width: 270px;"><div style="margin:20.5px auto;"><a href="../Zeroltexx_uart_jtag.jpg" class="image"><img alt="" src="../Zeroltexx_uart_jtag.jpg" decoding="async" width="240" height="169" srcset="../Zeroltexx_uart_jtag.jpg 1.5x ../Zeroltexx_uart_jtag.jpg 2x"></a></div></div>
-			<div class="gallerytext">
-<p>20 pin pads (without AXE620124, but with some tin on the pads) on <a href="../en/Samsung_Galaxy_S6_Edge_(samsung-zeroltexx).html" title="Samsung Galaxy S6 Edge (samsung-zeroltexx)">samsung-zeroltexx</a>.
-</p>
-			</div>
-		</div></li>
-		<li class="gallerybox" style="width: 275px"><div style="width: 275px">
-			<div class="thumb" style="width: 270px;"><div style="margin:15px auto;"><a href="../A5y17lte_uart_jtag.jpg" class="image"><img alt="" src="../A5y17lte_uart_jtag.jpg" decoding="async" width="195" height="180" srcset="../A5y17lte_uart_jtag.jpg 1.5x ../A5y17lte_uart_jtag.jpg 2x"></a></div></div>
-			<div class="gallerytext">
-<p>12 pin pads (without AXE612124) on <a href="../en/Samsung_Galaxy_A5_2017_(samsung-a5y17lte).html" title="Samsung Galaxy A5 2017 (samsung-a5y17lte)">samsung-a5y17lte</a>. The pads are quite inaccessible in between the cages. Some sort of flex cable with AXE512127 is needed to connect to it.
-</p>
-			</div>
-		</div></li>
-		<li class="gallerybox" style="width: 275px"><div style="width: 275px">
-			<div class="thumb" style="width: 270px;"><div style="margin:15px auto;"><a href="../Dreamlte_uart_jtag.jpg" class="image"><img alt="" src="../Dreamlte_uart_jtag.jpg" decoding="async" width="191" height="180" srcset="../"></a></div></div>
-			<div class="gallerytext">
-<p>12 pin pads covered by pcb mask on <a href="../en/Samsung_Galaxy_S8_(samsung-dreamlte).html" title="Samsung Galaxy S8 (samsung-dreamlte)">samsung-dreamlte</a>.
-</p>
-			</div>
-		</div></li>
-</ul> 
-<p>On the devices where the connector is missing it would need to be soldered for easy access to UART. To do that you would need a hot air soldering station. Below can be seen that AXE620124 and AXE612124 fit onto the pads:
-</p>
-<ul class="gallery mw-gallery-traditional">
-		<li class="gallerybox" style="width: 275px"><div style="width: 275px">
-			<div class="thumb" style="width: 270px;"><div style="margin:15px auto;"><a href="../Zeroltexx_with_AXE620124.jpg" class="image"><img alt="" src="../Zeroltexx_with_AXE620124.jpg" decoding="async" width="188" height="180" srcset="../Zeroltexx_with_AXE620124.jpg 1.5x ../Zeroltexx_with_AXE620124.jpg 2x"></a></div></div>
-			<div class="gallerytext">
-<p>AXE620124 (badly) aligned on zeroltexx's pads. Properly aligning is difficult due to the tin blobs on the pads.
-</p>
-			</div>
-		</div></li>
-		<li class="gallerybox" style="width: 275px"><div style="width: 275px">
-			<div class="thumb" style="width: 270px;"><div style="margin:15px auto;"><a href="../A5y17lte_with_AXE612124.jpg" class="image"><img alt="" src="../A5y17lte_with_AXE612124.jpg" decoding="async" width="180" height="180" srcset="../A5y17lte_with_AXE612124.jpg 1.5x ../A5y17lte_with_AXE612124.jpg 2x"></a></div></div>
-			<div class="gallerytext">
-<p>AXE612124 on top of a5y17lte's pads.
-</p>
-			</div>
-		</div></li>
-</ul>
-<h2><span class="mw-headline" id="Building_the_cable">Building the cable</span></h2>
-<p>Depending on the cable you need to make (microUSB, headphone jack, USB-C or just pins on the board) the process might be different. It's helpful to have a breadboard and some goldpin connector cables to go with it, as it makes putting together and tweaking the cable easier and reduces the amount of soldering that has to be done. You can find the build instructions for your cable on the <a href="../en/Serial_debugging:Cable_schematics.html" title="Serial debugging:Cable schematics">Serial debugging:Cable schematics</a> page.
-</p>
-<h3><span class="mw-headline" id="microUSB-based_cables">microUSB-based cables</span></h3>
-<p>There are several ways to connect wires to a microUSB plug:
-</p>
-<ul>
-<li>solder the wires to a <a rel="nofollow" class="external text" href="https://www.sparkfun.com/products/10031">microUSB type B breakout board</a>
-</li>
-<li>using a <a rel="nofollow" class="external text" href="https://www.adafruit.com/product/3972">USB Micro B Male Plug to 5-pin Terminal Block</a> - <b>this method does not require soldering!</b>
-</li>
-<li>solder the wires directly to a <a rel="nofollow" class="external text" href="https://www.adafruit.com/product/1826">microUSB type B plug</a> (note: the solder pads are very small, so it can be difficult to get just right. If you plan to use this method, order multiple plugs, in case you need to start over.)</li>
-</ul>
-<p>Before you try to modify an existing USB-microUSB cable, note that the microUSB plugs in USB-microUSB cables often don't have a connection for the ID pin, which makes them unsuitable for debugging cables.
-</p>
-<h3><span class="mw-headline" id="USB-C_based_cables">USB-C based cables</span></h3>
-<p>USB-C has 24 pins compared to the 5 pins in microUSB. For most device models it is not known where to put the resistor to get serial output. Simply putting it between CC and GND, similar to on the microUSB cable, does not seem to give any output. As an alternative it might be possible to find the UART pins on the main board of the device, see the <a href="../en/Serial_debugging.html#Finding_the_UART_ports_on_your_device.27s_main_board" title="Serial debugging">finding the UART ports on your device's main board</a> section.
-</p>
-<p>A Google engineer has also published schematics for a USB-C UART cable. It should be compatible with Google Pixel and possibly other devices, if (and only if) they are designed so that UART is available through the SBU1/2 pins. From the GitHub repository: "USB-Cereal is a debugging and development tool for designs that use USB-C port and bring out serial TX/RX lines into SBU1/2 pins. USB-Cereal is made compatible with both 1.8V and 3.3V signalling." -- <a rel="nofollow" class="external free" href="https://github.com/google/usb-cereal">https://github.com/google/usb-cereal</a>
-</p>
-<h3><span class="mw-headline" id="Soldering_a_connector_on_your_device">Soldering a connector on your device</span></h3>
-<p>This can be a bit involved, but is generally necessary if you want to use it:
-</p>
-<ul>
-<li>This procedure is <i>dangerous</i> for your device, even more so if you are not very experienced
-<ul>
-<li>Prefer to ask help in a hackerspace, makerspace, fablab or similar <i>you'll practice another day on something easier</i>
-</li>
-<li>If you have to solder it yourself, it's probably a good idea to practice on an old motherboard before</li>
-</ul>
-</li>
-<li>Prefer soldering short cables to the PCB instead of full-length ones
-<ul>
-<li>The smaller (diameter) the cables, the better, generally</li>
-<li>too long or too thick and the pads you have soldered risk being teared apart by the cables</li>
-<li>too small and it will be a hassle to work with</li>
-<li>The best is to have them a couple (4-8) centimeters long, to solder them, solder a connector on the other end, and scotch tape them to the pcb</li>
-<li>Please, don't forget to pick insulated wires</li>
-</ul>
-</li>
-</ul>
-<h2><span class="mw-headline" id="Kernel_configuration">Kernel configuration</span></h2>
-<p>In your device tree (or defconfig's <code>CONFIG_CMDLINE</code> setting) add <code>console=ttyXXX,115200n8</code> to your cmdline. (Make sure that <code>CONFIG_CMDLINE_EXTEND</code> is enabled.)
-</p>
-<p>Replace <code>ttyXXX</code> with the TTY used in your system for serial output. If you're unsure, check the device trees of similar devices, or your device's configuration in downstream; if still in doubt, you can try sending random data to the TTY through <code>/dev/ttyXXX</code> and seeing what works.
-</p>
-<p>Some chipsets also require an additional defconfig setting to be set to enable the serial console (e.g. for OMAP: <code>CONFIG_SERIAL_OMAP</code> and <code>CONFIG_SERIAL_OMAP_CONSOLE</code>).
-</p>
-<h2><span class="mw-headline" id="Plugging_in_the_cable">Plugging in the cable</span></h2>
-<p>Once your cable is assembled, it is time to plug it into your USB-UART converter. The most important pins you need to know about are:
-</p>
-<ul>
-<li>Ground - usually a black cable.</li>
-<li>Power/VCC - usually a red cable.</li>
-<li>TX - The <b>transmission</b> line, aka the <b>output</b>.</li>
-<li>RX - The <b>recieve</b> line, aka the <b>input</b>.</li>
-</ul>
-<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"><br><b>Warning!</b></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">
-<b>DO NOT CONNECT THE POWER PIN IF YOU DON'T KNOW YOUR DEVICE'S UART OUTPUT VOLTAGE!</b> Most UART adapters will send 5v or 3.3v by default and phones will usually use 1.8v (occasionally 3.3v). Plugging the power/VCC pin in when the voltages don't match on your adapter and device <b>may kill it</b>. See the "3.3v vs 1.8v" section at the bottom of this page.</td>
-</tr></tbody></table>
-<p>To recieve logs, <b>you will only need to connect the ground and TX wires of your cable</b>. To send information through the serial console, you will also need to connect the VCC and RX wires.
-</p>
-<p>On most schematics <b>"TX" and "RX" refer to the TX/RX port on the UART board.</b> Wire up your cable accordingly.
-</p>
-<p><small>If this is not the case, you'll have to plug the TX (output) wire from your cable to the RX (input) line on your adapter. (You'll need to do the reverse - RX to TX - if you want to send data.)</small>
-</p>
-<p>Then, plug the other end of the cable into your device. Some devices may automatically boot up when the jig is plugged in - if your device starts up without you pressing the power button when you plug the cable in, it means that the resistance is being detected and the serial mode has been triggered.
-</p>
-<h3><span class="mw-headline" id="Connecting_to_the_serial_console_from_your_computer">Connecting to the serial console from your computer</span></h3>
-<p>To connect to the serial console, you'll need a program that can do so. For this you can use:
-</p>
-<ul>
-<li>
-<b>microcom</b> (included in BusyBox) - <code>microcom -s &lt;baud_rate&gt; /dev/ttyXXX</code>
-</li>
-<li>
-<b>minicom</b> - <code>minicom -D /dev/ttyXXX -b &lt;baud_rate&gt;</code>
-</li>
-<li>
-<b>screen</b> - <code>screen /dev/ttyXXX &lt;baud_rate&gt;</code>
-</li>
-<li>
-<b><a rel="nofollow" class="external text" href="https://putty.org/">PuTTY</a></b> (GUI)</li>
-<li>
-<b><a rel="nofollow" class="external text" href="https://gitlab.com/cutecom/cutecom/">CuteCom</a></b> (GUI)</li>
-<li>...or any other program that supports connecting to the serial console.</li>
-</ul>
-<p>The baud rate used for the serial console will be stored in your device's device tree (assuming you are using mainline, otherwise you may have some luck looking around downstream's board and defconfig files).
-</p>
-<p>If you're using an USB serial adapter, the path to your TTY will be <code>/dev/ttyUSB[X]</code>, where <code>[X]</code> is a number. You can also look through the output of <code>ls /dev/tty*</code>; this will come up with a few different TTYs though, including ones that are used by the system.
-</p>
-<p>Note that on most Linux distributions only root and/or a special group (usually tty or dialout) can access serial ports; to access them as a regular user, see which group owns your TTY:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ls -l /dev/ttyUSB0
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Serial debugging - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Serial_debugging rootpage-Serial_debugging skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Serial debugging
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       To get kernel or bootloader logs on a system without a working display/full USB configuration, a
+       <b>
+        serial cable
+       </b>
+       may be used, which allows us to preview the serial console on the device.
+      </p>
+      <p>
+       To debug your device with a serial cable, you will need:
+      </p>
+      <ul>
+       <li>
+        A serial debugging cable for your device.
+        <b>
+         You will need to make this yourself
+        </b>
+        , so prior experience with soldering and soldering tools is recommended. (You might be able to make a cable without soldering if you find the right parts, though.)
+       </li>
+       <li>
+        A USB-UART adapter that will allow you to connect the UART cable from your phone/tablet to your computer.
+       </li>
+       <li>
+        A piece of software like microcom, minicom, screen, PuTTY or CuteCom that will be used to access the output from the USB-UART adapter on the computer.
+       </li>
+      </ul>
+      <p>
+       For the purpose of this page, the
+       <i>
+        device
+       </i>
+       is the phone/tablet you want to debug, and the
+       <i>
+        computer
+       </i>
+       is the device you want to access the logs from.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#USB_Serial_gadget">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           USB Serial gadget
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Working_USB-UART_adapters">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Working USB-UART adapters
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Finding_the_UART_ports_on_your_device">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Finding the UART ports on your device
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Identifying_the_MUIC">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             Identifying the MUIC
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Finding_the_UART_ports_on_your_device.27s_main_board">
+            <span class="tocnumber">
+             3.2
+            </span>
+            <span class="toctext">
+             Finding the UART ports on your device's main board
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-6">
+             <a href="#Main_board_UART_on_exynos_devices">
+              <span class="tocnumber">
+               3.2.1
+              </span>
+              <span class="toctext">
+               Main board UART on exynos devices
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-7">
+         <a href="#Building_the_cable">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Building the cable
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#microUSB-based_cables">
+            <span class="tocnumber">
+             4.1
+            </span>
+            <span class="toctext">
+             microUSB-based cables
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-9">
+           <a href="#USB-C_based_cables">
+            <span class="tocnumber">
+             4.2
+            </span>
+            <span class="toctext">
+             USB-C based cables
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-10">
+           <a href="#Soldering_a_connector_on_your_device">
+            <span class="tocnumber">
+             4.3
+            </span>
+            <span class="toctext">
+             Soldering a connector on your device
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-11">
+         <a href="#Kernel_configuration">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           Kernel configuration
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-12">
+         <a href="#Plugging_in_the_cable">
+          <span class="tocnumber">
+           6
+          </span>
+          <span class="toctext">
+           Plugging in the cable
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-13">
+           <a href="#Connecting_to_the_serial_console_from_your_computer">
+            <span class="tocnumber">
+             6.1
+            </span>
+            <span class="toctext">
+             Connecting to the serial console from your computer
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-14">
+         <a href="#Troubleshooting">
+          <span class="tocnumber">
+           7
+          </span>
+          <span class="toctext">
+           Troubleshooting
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-15">
+           <a href="#On_Samsung_devices">
+            <span class="tocnumber">
+             7.1
+            </span>
+            <span class="toctext">
+             On Samsung devices
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-16">
+           <a href="#On_Google_devices">
+            <span class="tocnumber">
+             7.2
+            </span>
+            <span class="toctext">
+             On Google devices
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-17">
+           <a href="#No_kernel_output">
+            <span class="tocnumber">
+             7.3
+            </span>
+            <span class="toctext">
+             No kernel output
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-18">
+         <a href="#Alternatives_to_using_a_serial_cable">
+          <span class="tocnumber">
+           8
+          </span>
+          <span class="toctext">
+           Alternatives to using a serial cable
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-19">
+         <a href="#3.3V_vs_1.8V_UARTs">
+          <span class="tocnumber">
+           9
+          </span>
+          <span class="toctext">
+           3.3V vs 1.8V UARTs
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-20">
+         <a href="#See_also">
+          <span class="tocnumber">
+           10
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="USB_Serial_gadget">
+        USB Serial gadget
+       </span>
+      </h2>
+      <p>
+       If your device is already booting, but failing somewhere in the kernel or init, you might have some luck with
+       <a href="../en/Serial_debugging_Serial_Gadget.html" title="Serial debugging/Serial Gadget">
+        USB serial gadget
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Working_USB-UART_adapters">
+        Working USB-UART adapters
+       </span>
+      </h2>
+      <p>
+       Adapters based on FT232 (for example
+       <a class="external text" href="https://www.sparkfun.com/products/12731" rel="nofollow">
+        this one on sparkfun
+       </a>
+       ), CH340 and CP2102 are known to work. All adapters *should* work though. Try to verify if your device uses 3.3 V or 1.8 V and get an adapter with the correct voltage, so you do not have to use a
+       <a href="../en/Serial_debugging.html#3.3V_vs_1.8V_UARTs" title="Serial debugging">
+        voltage divider
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Finding_the_UART_ports_on_your_device">
+        Finding the UART ports on your device
+       </span>
+      </h2>
+      <p>
+       The serial port can be accessed by different means, depending on the device - through the microUSB port with a special cable, through the headphone jack, or only through UART ports on the main board. As such, the first step will be finding the proper way to connect to the UART ports on your device.
+      </p>
+      <p>
+       First,
+       <b>
+        look at your device's wiki page and the
+        <a href="../en/Serial_debugging:Cable_schematics.html" title="Serial debugging:Cable schematics">
+         Serial debugging:Cable schematics
+        </a>
+        page
+       </b>
+       . You may find your device on there already - in which case, this section can be skipped. If you can't find any info, or you're unsure, continue with this section.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Identifying_the_MUIC">
+        Identifying the MUIC
+       </span>
+      </h3>
+      <p>
+       In some devices (for example, most Samsung phones) serial access can be gained through the microUSB port.
+      </p>
+      <p>
+       Start by
+       <b>
+        identifying the
+        <a href="../en/Micro-USB_Interface_Controller.html" title="Micro-USB Interface Controller">
+         Micro-USB Interface Controller
+        </a>
+       </b>
+       used in your device. The MUIC is what handles things like USB-OTG - it usually figures out what a cable is supposed to do by checking the resistance between the ground pin and the ID pin. Most MUICs implement an
+       <i>
+        UART jig mode
+       </i>
+       as part of the Carkit standard (see the
+       <a href="../en/Micro-USB_Interface_Controller.html" title="Micro-USB Interface Controller">
+        Micro-USB Interface Controller
+       </a>
+       page), which allows the USB port to be used as a serial input/output port.
+      </p>
+      <p>
+       You can try looking for kernel options with "MUIC", "USB" or "UART" in the name in the downstream kernel's defconfig - if you find a seemingly SOC-specific option, grep through the kernel source to find the driver (hint: don't include the CONFIG_ part). Sometimes the MUIC is integrated into the PMU/PMIC or handled by the device's chipset, in which case using generic values from the MUIC page may work.
+      </p>
+      <p>
+       Once you've found the model of your MUIC, look for similar chips in the
+       <a href="../en/Micro-USB_Interface_Controller.html" title="Micro-USB Interface Controller">
+        MUIC
+       </a>
+       page to find the resistance values you should use for your cable. If you're unsure, look up your MUIC chip's datasheet;
+       <b>
+        if you can't find the MUIC
+       </b>
+       used in your device, or the datasheet does not have the resistance value table, use the default values from the MUIC page.
+      </p>
+      <h3>
+       <span id="Finding_the_UART_ports_on_your_device's_main_board">
+       </span>
+       <span class="mw-headline" id="Finding_the_UART_ports_on_your_device.27s_main_board">
+        Finding the UART ports on your device's main board
+       </span>
+      </h3>
+      <p>
+       Sometimes there is no other solution but to poke at random motherboard pins to find the serial port. This is mostly a lucky process, and you need to have access to an
+       <a class="external text" href="https://en.wikipedia.org/wiki/Oscilloscope" rel="nofollow">
+        oscilloscope
+       </a>
+       (maybe a sensitive multimeter would work as well?). With such an instrument you try to find tx (and gnd) by measuring between different pins when you:
+      </p>
+      <ul>
+       <li>
+        send either garbage, or a repeating pattern to the serial port at
+        <code>
+         /dev/ttysomething
+        </code>
+        (if you have a kernel where it's working)
+       </li>
+       <li>
+        reboot your phone, hopefully it writes something during boot (but that's really trying luck)
+       </li>
+      </ul>
+      <p>
+       Locating tx is usually good enough for debugging, but rx should be quite close, with a high impedance, or more likely a pulling resistor. A pull-up or pull-down resistor will make the pin look like gnd or vcc.
+      </p>
+      <p>
+       Most modern Qualcomm devices will dump bootloader logs via UART, measuring with a standard multimeter and looking for a pin which sits around 0.9v during early boot and then goes up to 1.8v or down to 0v is a good indicate that it's Tx.
+      </p>
+      <p>
+       <a class="external text" href="http://www.devttys0.com/2012/11/reverse-engineering-serial-ports" rel="nofollow">
+        See also
+       </a>
+      </p>
+      <h4>
+       <span class="mw-headline" id="Main_board_UART_on_exynos_devices">
+        Main board UART on exynos devices
+       </span>
+      </h4>
+      <p>
+       On Samsung's exynos devices (and maybe some other Samsung devices), UART is available as part of a 12 or 20 pin connector. The connector might, or might not, be soldered onto the board. If it is not you can find just the set of pads. On more recent devices the pads might also be covered by the pcb coating/solder mask. In this case you would need to physically peel off the top layer to expose the pads, and then solder the wires or connector onto it. Chapter 22, "JTAG (Joint Test Action Group)", of the book
+       <a class="external text" href="https://www.sciencedirect.com/book/9780128110560/seeking-the-truth-from-mobile-evidence" rel="nofollow">
+        Seeking the Truth from Mobile Evidence
+       </a>
+       show an example where this is done for some other Samsung Qualcomm device, for the purpose of getting JTAG access (check out the book if you have access).
+      </p>
+      <p>
+       To peel of the mask you need a small flat screwdriver and a steady hand (
+       <a class="external text" href="https://electronics.stackexchange.com/questions/81723/how-to-remove-solder-mask" rel="nofollow">
+        stackexchange recommends a fiberglass brush
+       </a>
+       but that does not seem to cut through the plastic/epoxy surface layer of the pcb).
+      </p>
+      <p>
+       Exynos4 devices, or at least galaxy S3, has the 20 pin molex connector, from which UART and JTAG can be accessed. In the xda thread
+       <a class="external text" href="https://forum.xda-developers.com/t/ref-gt-i9305-hardware-hacking.2939891" rel="nofollow">
+        gt-i9305 hardware hacking
+       </a>
+       , the different pads are identified, and the part number of the socket revealed to be AXE620124, a socket from Panasonic. The corresponding male, which we need to mount onto some sort of breakout board to easily access the pins, has part number AXE520127. The 12-pin molex connector found on other devices seem to be part of the same product family, and the female then has part number AXE612124 with the corresponding male AXE512127.
+      </p>
+      <p>
+       In the figures below the pads are shown on a few exynos devices, with or without the connector, and with or without the pads being covered by solder mask.
+      </p>
+      <ul class="gallery mw-gallery-traditional">
+       <li class="gallerybox" style="width: 275px">
+        <div style="width: 275px">
+         <div class="thumb" style="width: 270px;">
+          <div style="margin:24px auto;">
+           <a class="image" href="../03_gt-i9305_ap_uart.jpg">
+            <img alt="" decoding="async" height="162" src="../03_gt-i9305_ap_uart.jpg" srcset="../360px-03_gt-i9305_ap_uart.jpg 1.5x ../480px-03_gt-i9305_ap_uart.jpg 2x" width="240"/>
+           </a>
+          </div>
+         </div>
+         <div class="gallerytext">
+          <p>
+           Soldered 20 pin AXE620124 connector and pinout on
+           <a class="mw-redirect" href="../en/Samsung_Galaxy_S_III_(samsung-m0).html" title="Samsung Galaxy SIII LTE (samsung-i9305)">
+            samsung-i9305
+           </a>
+           . Taken from the xda thread
+           <a class="external text" href="https://forum.xda-developers.com/t/ref-gt-i9305-hardware-hacking.2939891" rel="nofollow">
+            gt-i9305 hardware hacking
+           </a>
+           .
+          </p>
+         </div>
+        </div>
+       </li>
+       <li class="gallerybox" style="width: 275px">
+        <div style="width: 275px">
+         <div class="thumb" style="width: 270px;">
+          <div style="margin:15px auto;">
+           <a class="image" href="../Chagallwifi_uart_jtag.jpg">
+            <img alt="" decoding="async" height="180" src="../Chagallwifi_uart_jtag.jpg" srcset="../Chagallwifi_uart_jtag.jpg 1.5x ../Chagallwifi_uart_jtag.jpg 2x" width="201"/>
+           </a>
+          </div>
+         </div>
+         <div class="gallerytext">
+          <p>
+           Soldered 20 pin AXE620124 connector on
+           <a href="../en/Samsung_Galaxy_Tab_S_10.5_WiFi_(samsung-chagallwifi).html" title="Samsung Galaxy Tab S 10.5 WiFi (samsung-chagallwifi)">
+            samsung-chagallwifi
+           </a>
+           .
+          </p>
+         </div>
+        </div>
+       </li>
+       <li class="gallerybox" style="width: 275px">
+        <div style="width: 275px">
+         <div class="thumb" style="width: 270px;">
+          <div style="margin:20.5px auto;">
+           <a class="image" href="../Zeroltexx_uart_jtag.jpg">
+            <img alt="" decoding="async" height="169" src="../Zeroltexx_uart_jtag.jpg" srcset="../Zeroltexx_uart_jtag.jpg 1.5x ../Zeroltexx_uart_jtag.jpg 2x" width="240"/>
+           </a>
+          </div>
+         </div>
+         <div class="gallerytext">
+          <p>
+           20 pin pads (without AXE620124, but with some tin on the pads) on
+           <a href="../en/Samsung_Galaxy_S6_Edge_(samsung-zeroltexx).html" title="Samsung Galaxy S6 Edge (samsung-zeroltexx)">
+            samsung-zeroltexx
+           </a>
+           .
+          </p>
+         </div>
+        </div>
+       </li>
+       <li class="gallerybox" style="width: 275px">
+        <div style="width: 275px">
+         <div class="thumb" style="width: 270px;">
+          <div style="margin:15px auto;">
+           <a class="image" href="../A5y17lte_uart_jtag.jpg">
+            <img alt="" decoding="async" height="180" src="../A5y17lte_uart_jtag.jpg" srcset="../A5y17lte_uart_jtag.jpg 1.5x ../A5y17lte_uart_jtag.jpg 2x" width="195"/>
+           </a>
+          </div>
+         </div>
+         <div class="gallerytext">
+          <p>
+           12 pin pads (without AXE612124) on
+           <a href="../en/Samsung_Galaxy_A5_2017_(samsung-a5y17lte).html" title="Samsung Galaxy A5 2017 (samsung-a5y17lte)">
+            samsung-a5y17lte
+           </a>
+           . The pads are quite inaccessible in between the cages. Some sort of flex cable with AXE512127 is needed to connect to it.
+          </p>
+         </div>
+        </div>
+       </li>
+       <li class="gallerybox" style="width: 275px">
+        <div style="width: 275px">
+         <div class="thumb" style="width: 270px;">
+          <div style="margin:15px auto;">
+           <a class="image" href="../Dreamlte_uart_jtag.jpg">
+            <img alt="" decoding="async" height="180" src="../Dreamlte_uart_jtag.jpg" srcset="../" width="191"/>
+           </a>
+          </div>
+         </div>
+         <div class="gallerytext">
+          <p>
+           12 pin pads covered by pcb mask on
+           <a href="../en/Samsung_Galaxy_S8_(samsung-dreamlte).html" title="Samsung Galaxy S8 (samsung-dreamlte)">
+            samsung-dreamlte
+           </a>
+           .
+          </p>
+         </div>
+        </div>
+       </li>
+      </ul>
+      <p>
+       On the devices where the connector is missing it would need to be soldered for easy access to UART. To do that you would need a hot air soldering station. Below can be seen that AXE620124 and AXE612124 fit onto the pads:
+      </p>
+      <ul class="gallery mw-gallery-traditional">
+       <li class="gallerybox" style="width: 275px">
+        <div style="width: 275px">
+         <div class="thumb" style="width: 270px;">
+          <div style="margin:15px auto;">
+           <a class="image" href="../Zeroltexx_with_AXE620124.jpg">
+            <img alt="" decoding="async" height="180" src="../Zeroltexx_with_AXE620124.jpg" srcset="../Zeroltexx_with_AXE620124.jpg 1.5x ../Zeroltexx_with_AXE620124.jpg 2x" width="188"/>
+           </a>
+          </div>
+         </div>
+         <div class="gallerytext">
+          <p>
+           AXE620124 (badly) aligned on zeroltexx's pads. Properly aligning is difficult due to the tin blobs on the pads.
+          </p>
+         </div>
+        </div>
+       </li>
+       <li class="gallerybox" style="width: 275px">
+        <div style="width: 275px">
+         <div class="thumb" style="width: 270px;">
+          <div style="margin:15px auto;">
+           <a class="image" href="../A5y17lte_with_AXE612124.jpg">
+            <img alt="" decoding="async" height="180" src="../A5y17lte_with_AXE612124.jpg" srcset="../A5y17lte_with_AXE612124.jpg 1.5x ../A5y17lte_with_AXE612124.jpg 2x" width="180"/>
+           </a>
+          </div>
+         </div>
+         <div class="gallerytext">
+          <p>
+           AXE612124 on top of a5y17lte's pads.
+          </p>
+         </div>
+        </div>
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Building_the_cable">
+        Building the cable
+       </span>
+      </h2>
+      <p>
+       Depending on the cable you need to make (microUSB, headphone jack, USB-C or just pins on the board) the process might be different. It's helpful to have a breadboard and some goldpin connector cables to go with it, as it makes putting together and tweaking the cable easier and reduces the amount of soldering that has to be done. You can find the build instructions for your cable on the
+       <a href="../en/Serial_debugging:Cable_schematics.html" title="Serial debugging:Cable schematics">
+        Serial debugging:Cable schematics
+       </a>
+       page.
+      </p>
+      <h3>
+       <span class="mw-headline" id="microUSB-based_cables">
+        microUSB-based cables
+       </span>
+      </h3>
+      <p>
+       There are several ways to connect wires to a microUSB plug:
+      </p>
+      <ul>
+       <li>
+        solder the wires to a
+        <a class="external text" href="https://www.sparkfun.com/products/10031" rel="nofollow">
+         microUSB type B breakout board
+        </a>
+       </li>
+       <li>
+        using a
+        <a class="external text" href="https://www.adafruit.com/product/3972" rel="nofollow">
+         USB Micro B Male Plug to 5-pin Terminal Block
+        </a>
+        -
+        <b>
+         this method does not require soldering!
+        </b>
+       </li>
+       <li>
+        solder the wires directly to a
+        <a class="external text" href="https://www.adafruit.com/product/1826" rel="nofollow">
+         microUSB type B plug
+        </a>
+        (note: the solder pads are very small, so it can be difficult to get just right. If you plan to use this method, order multiple plugs, in case you need to start over.)
+       </li>
+      </ul>
+      <p>
+       Before you try to modify an existing USB-microUSB cable, note that the microUSB plugs in USB-microUSB cables often don't have a connection for the ID pin, which makes them unsuitable for debugging cables.
+      </p>
+      <h3>
+       <span class="mw-headline" id="USB-C_based_cables">
+        USB-C based cables
+       </span>
+      </h3>
+      <p>
+       USB-C has 24 pins compared to the 5 pins in microUSB. For most device models it is not known where to put the resistor to get serial output. Simply putting it between CC and GND, similar to on the microUSB cable, does not seem to give any output. As an alternative it might be possible to find the UART pins on the main board of the device, see the
+       <a href="../en/Serial_debugging.html#Finding_the_UART_ports_on_your_device.27s_main_board" title="Serial debugging">
+        finding the UART ports on your device's main board
+       </a>
+       section.
+      </p>
+      <p>
+       A Google engineer has also published schematics for a USB-C UART cable. It should be compatible with Google Pixel and possibly other devices, if (and only if) they are designed so that UART is available through the SBU1/2 pins. From the GitHub repository: "USB-Cereal is a debugging and development tool for designs that use USB-C port and bring out serial TX/RX lines into SBU1/2 pins. USB-Cereal is made compatible with both 1.8V and 3.3V signalling." --
+       <a class="external free" href="https://github.com/google/usb-cereal" rel="nofollow">
+        https://github.com/google/usb-cereal
+       </a>
+      </p>
+      <h3>
+       <span class="mw-headline" id="Soldering_a_connector_on_your_device">
+        Soldering a connector on your device
+       </span>
+      </h3>
+      <p>
+       This can be a bit involved, but is generally necessary if you want to use it:
+      </p>
+      <ul>
+       <li>
+        This procedure is
+        <i>
+         dangerous
+        </i>
+        for your device, even more so if you are not very experienced
+        <ul>
+         <li>
+          Prefer to ask help in a hackerspace, makerspace, fablab or similar
+          <i>
+           you'll practice another day on something easier
+          </i>
+         </li>
+         <li>
+          If you have to solder it yourself, it's probably a good idea to practice on an old motherboard before
+         </li>
+        </ul>
+       </li>
+       <li>
+        Prefer soldering short cables to the PCB instead of full-length ones
+        <ul>
+         <li>
+          The smaller (diameter) the cables, the better, generally
+         </li>
+         <li>
+          too long or too thick and the pads you have soldered risk being teared apart by the cables
+         </li>
+         <li>
+          too small and it will be a hassle to work with
+         </li>
+         <li>
+          The best is to have them a couple (4-8) centimeters long, to solder them, solder a connector on the other end, and scotch tape them to the pcb
+         </li>
+         <li>
+          Please, don't forget to pick insulated wires
+         </li>
+        </ul>
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Kernel_configuration">
+        Kernel configuration
+       </span>
+      </h2>
+      <p>
+       In your device tree (or defconfig's
+       <code>
+        CONFIG_CMDLINE
+       </code>
+       setting) add
+       <code>
+        console=ttyXXX,115200n8
+       </code>
+       to your cmdline. (Make sure that
+       <code>
+        CONFIG_CMDLINE_EXTEND
+       </code>
+       is enabled.)
+      </p>
+      <p>
+       Replace
+       <code>
+        ttyXXX
+       </code>
+       with the TTY used in your system for serial output. If you're unsure, check the device trees of similar devices, or your device's configuration in downstream; if still in doubt, you can try sending random data to the TTY through
+       <code>
+        /dev/ttyXXX
+       </code>
+       and seeing what works.
+      </p>
+      <p>
+       Some chipsets also require an additional defconfig setting to be set to enable the serial console (e.g. for OMAP:
+       <code>
+        CONFIG_SERIAL_OMAP
+       </code>
+       and
+       <code>
+        CONFIG_SERIAL_OMAP_CONSOLE
+       </code>
+       ).
+      </p>
+      <h2>
+       <span class="mw-headline" id="Plugging_in_the_cable">
+        Plugging in the cable
+       </span>
+      </h2>
+      <p>
+       Once your cable is assembled, it is time to plug it into your USB-UART converter. The most important pins you need to know about are:
+      </p>
+      <ul>
+       <li>
+        Ground - usually a black cable.
+       </li>
+       <li>
+        Power/VCC - usually a red cable.
+       </li>
+       <li>
+        TX - The
+        <b>
+         transmission
+        </b>
+        line, aka the
+        <b>
+         output
+        </b>
+        .
+       </li>
+       <li>
+        RX - The
+        <b>
+         recieve
+        </b>
+        line, aka the
+        <b>
+         input
+        </b>
+        .
+       </li>
+      </ul>
+      <table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Icon" decoding="async" height="20" src="../Red_warning_icon.svg" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x" title="Icon" width="20"/>
+           <br/>
+           <b>
+            Warning!
+           </b>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           DO NOT CONNECT THE POWER PIN IF YOU DON'T KNOW YOUR DEVICE'S UART OUTPUT VOLTAGE!
+          </b>
+          Most UART adapters will send 5v or 3.3v by default and phones will usually use 1.8v (occasionally 3.3v). Plugging the power/VCC pin in when the voltages don't match on your adapter and device
+          <b>
+           may kill it
+          </b>
+          . See the "3.3v vs 1.8v" section at the bottom of this page.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       To recieve logs,
+       <b>
+        you will only need to connect the ground and TX wires of your cable
+       </b>
+       . To send information through the serial console, you will also need to connect the VCC and RX wires.
+      </p>
+      <p>
+       On most schematics
+       <b>
+        "TX" and "RX" refer to the TX/RX port on the UART board.
+       </b>
+       Wire up your cable accordingly.
+      </p>
+      <p>
+       <small>
+        If this is not the case, you'll have to plug the TX (output) wire from your cable to the RX (input) line on your adapter. (You'll need to do the reverse - RX to TX - if you want to send data.)
+       </small>
+      </p>
+      <p>
+       Then, plug the other end of the cable into your device. Some devices may automatically boot up when the jig is plugged in - if your device starts up without you pressing the power button when you plug the cable in, it means that the resistance is being detected and the serial mode has been triggered.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Connecting_to_the_serial_console_from_your_computer">
+        Connecting to the serial console from your computer
+       </span>
+      </h3>
+      <p>
+       To connect to the serial console, you'll need a program that can do so. For this you can use:
+      </p>
+      <ul>
+       <li>
+        <b>
+         microcom
+        </b>
+        (included in BusyBox) -
+        <code>
+         microcom -s &lt;baud_rate&gt; /dev/ttyXXX
+        </code>
+       </li>
+       <li>
+        <b>
+         minicom
+        </b>
+        -
+        <code>
+         minicom -D /dev/ttyXXX -b &lt;baud_rate&gt;
+        </code>
+       </li>
+       <li>
+        <b>
+         screen
+        </b>
+        -
+        <code>
+         screen /dev/ttyXXX &lt;baud_rate&gt;
+        </code>
+       </li>
+       <li>
+        <b>
+         <a class="external text" href="https://putty.org/" rel="nofollow">
+          PuTTY
+         </a>
+        </b>
+        (GUI)
+       </li>
+       <li>
+        <b>
+         <a class="external text" href="https://gitlab.com/cutecom/cutecom/" rel="nofollow">
+          CuteCom
+         </a>
+        </b>
+        (GUI)
+       </li>
+       <li>
+        ...or any other program that supports connecting to the serial console.
+       </li>
+      </ul>
+      <p>
+       The baud rate used for the serial console will be stored in your device's device tree (assuming you are using mainline, otherwise you may have some luck looking around downstream's board and defconfig files).
+      </p>
+      <p>
+       If you're using an USB serial adapter, the path to your TTY will be
+       <code>
+        /dev/ttyUSB[X]
+       </code>
+       , where
+       <code>
+        [X]
+       </code>
+       is a number. You can also look through the output of
+       <code>
+        ls /dev/tty*
+       </code>
+       ; this will come up with a few different TTYs though, including ones that are used by the system.
+      </p>
+      <p>
+       Note that on most Linux distributions only root and/or a special group (usually tty or dialout) can access serial ports; to access them as a regular user, see which group owns your TTY:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> ls -l /dev/ttyUSB0
 <span class="go">0 crw-rw---- 1 root dialout 4, 64 Aug 28 08:32 /dev/ttyUSB0</span>
-</pre></div>
-<p>...then add yourself to that group by doing <code>sudo usermod -a -G dialout &lt;username&gt;</code> (replace <code>dialout</code> with the group you saw in the ls -l command above).
-</p>
-<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
-<ol>
-<li>Make sure you are using the correct connection settings: baud rate, parity, etc.</li>
-<li>Make sure your ground connection is stable. If in doubt, replace the cables.</li>
-<li>If you're only getting partial output, you may need to use a different resistance between the ID and Ground pins. Some devices return different things depending on the resistance given.</li>
-<li>If you're not getting any output, try swapping the RX and TX cables.</li>
-<li>If there's no serial cable schematic for your phone, you may try to <a href="../en/Bootloaders_porting_using_linux.html" title="Bootloaders porting using linux">port a chainloaded bootloader using linux</a>, which will force MUIC to multiplex uart out.</li>
-</ol>
-<h3><span class="mw-headline" id="On_Samsung_devices">On Samsung devices</span></h3>
-<p>On some Samsung devices, the bootloader will only print out very limited information (and in some rarer cases, nothing at all). In that case, you may need to do one of the following:
-</p>
-<ul>
-<li>While booting the device, mash the <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Enter</span> key on your PC to abort auto-boot and get into the bootloader config prompt. (There may not be any visible indication that you got into the prompt!). Then, type <code>log</code> and hit Enter again.
-<ul><li>You may also need to change the kernel log level; get your current level with <code>printenv</code> and save it somewhere, and use <code>setenv KERNEL_LOG_LEVEL 17740</code> to change it.</li></ul>
-</li>
-<li>On certain devices it is necessary to hold down the <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> button while booting for kernel logs to show up; without it, the bootloader only shows a very small portion of the bootloader logs.</li>
-</ul>
-<p>See also: <a href="../en/Samsung_Galaxy_Core_Plus_(samsung-cs02).html#Bootloader_.2F_S-Boot_4.0" title="Samsung Galaxy Core Plus (samsung-cs02)">Samsung Galaxy Core Plus (samsung-cs02)#Bootloader / S-Boot 4.0</a>
-</p>
-<h3><span class="mw-headline" id="On_Google_devices">On Google devices</span></h3>
-<p>On the Pixel 6, you may need to run <code>fastboot oem uart enable</code> in order to enable UART output.
-</p>
-<h3><span class="mw-headline" id="No_kernel_output">No kernel output</span></h3>
-<p>If you see <code>Uncompressing Linux... done, booting the kernel.</code>, that means your kernel is booting. (In some cases, and on some platforms, this message might not appear. The best way to make sure that the kernel is booting is to try the procedures described below.)
-</p>
-<p>Sometimes the kernel crashes before the serial console can be properly brought up. However, it's possible to print out the kernel log messages before that happens, using early printk.
-</p>
-<ol>
-<li>Enable <code>CONFIG_DEBUG_LL</code> (in menuconfig: <b>Kernel hacking</b> &gt; <b>arm Debugging</b> &gt;  <b>Kernel low-level debugging functions (read help!)</b>)</li>
-<li>Under this option in menuconfig, a new sub-option will appear, named <b>Kernel low-level debugging port</b>; set the correct debug port option for your architecture, if applicable.</li>
-<li>Select <code>CONFIG_EARLY_PRINTK</code> (in menuconfig: <b>Early printk</b>)</li>
-<li>Add <code>earlyprintk</code> to your kernel's CMDLINE parameters.</li>
-</ol>
-<p>In some cases however, this will not be enough, and you may get partial logs or no logs at all. In those scenarios, you'll have to use the infamous <b>printascii</b> hack.
-</p>
-<p>Due to the kernel changing very rapidly, the exact implementation of this hack differs; it generally involves finding the function which has the text buffer for the logs, and then adding code to print said buffer using the <code>printascii()</code> command provided by <code>CONFIG_EARLY_PRINTK</code>.
-</p>
-<p><a rel="nofollow" class="external text" href="https://gist.github.com/knuxify/98bc12e16ccf46234b708c662d6963df">Here's such a patch for the v5.15 kernel</a>. You can apply it by downloading the patch, then running <code>git am path/to/patch</code> in your kernel tree.
-</p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">With the printascii hack, once the serial console is brought up, you might get double (or triple) outputs; in some cases, some of these duplicate lines will appear garbled.</td>
-</tr></tbody></table>
-<p>Once you're done debugging, revert the hack to keep your kernel logs clean.
-</p>
-<h2><span class="mw-headline" id="Alternatives_to_using_a_serial_cable">Alternatives to using a serial cable</span></h2>
-<p>You may have some luck with using RAM-storage-based methods of serial debugging. Tools like pstore and ramoops make this easy - they usually just need to be enabled in mainline and downstream, and a downstream kernel can be used to access the pstore-reserved RAM region where logs are dumped. The path for this is <code>/sys/fs/pstore/console-ramoops</code>, although older devices may use <code>/proc/last_kmsg</code>.
-</p>
-<p>See <a href="../User:Knuxfanwin8_Enabling_pstore_and_ramoops.html" title="User:Knuxfanwin8/Enabling pstore and ramoops">Enabling pstore and ramoops</a> for a work-in-progress attempt at documenting this.
-</p>
-<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
-<strong>TODO</strong> Verify this and elaborate.</div>
-<h2><span class="mw-headline" id="3.3V_vs_1.8V_UARTs">3.3V vs 1.8V UARTs</span></h2>
-<div class="thumb tright"><div class="thumbinner" style="width:302px;">
-<a href="../Uart33_18_voltage_divider.png" class="image"><img alt="" src="../Uart33_18_voltage_divider.png" decoding="async" width="300" height="97" class="thumbimage" srcset="../Uart33_18_voltage_divider.png 1.5x ../Uart33_18_voltage_divider.png 2x"></a>  <div class="thumbcaption">
-<div class="magnify"><a href="../Uart33_18_voltage_divider.png" class="internal" title="Enlarge"></a></div>Schematic for a 3.3v-&gt;1.8v UART voltage divider</div>
-</div></div>
-<p>Most phones expose their UART pins on 1.8 V voltage, and most USB-UART converters expect UART side to have 3.3 V. This works well for receiving characters from device; this is enough to read bootloader logs or kernel boot logs (dmesg). However sending 3.3 V to device that expects 1.8 V is dangerous; so you can not use shell over UART without an additional effort. To check if your phone uses 3.3 V or 1.8 V you can connect an oscillioscope to the TX and GND on the phone (or maybe a sensitive multimeter?).
-</p>
-<p>You will need a voltage divider at least on converter-&gt;device TX line, which can be set up as in this stack exchange answer: <a rel="nofollow" class="external free" href="https://electronics.stackexchange.com/a/333230">https://electronics.stackexchange.com/a/333230</a>
-</p>
-<p>Use also this <a rel="nofollow" class="external free" href="https://ohmslawcalculator.com/voltage-divider-calculator">https://ohmslawcalculator.com/voltage-divider-calculator</a>
-</p>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul>
-<li><a href="../en/Serial_debugging:Cable_schematics.html" title="Serial debugging:Cable schematics">Serial debugging:Cable schematics</a></li>
-<li><a href="../en/Mainlining_FAQ.html#Serial_cable" title="Mainlining FAQ">Mainlining FAQ#Serial_cable</a></li>
-<li><a href="../en/Micro-USB_Interface_Controller.html" title="Micro-USB Interface Controller">Micro-USB Interface Controller</a></li>
-<li>
-<a href="../User:Knuxfanwin8_Enabling_pstore_and_ramoops.html" title="User:Knuxfanwin8/Enabling pstore and ramoops">Enabling pstore and ramoops</a>, as an alternative to building a serial cable - unfinished article, but might be useful</li>
-<li>
-<a rel="nofollow" class="external text" href="https://code.paulk.fr/article21/a-hacker-s-journey-freeing-a-phone-from-the-ground-up-second-part">exposing UART on the LG Optimus Black (P970)</a> (OMAP3)</li>
-<li>
-<a rel="nofollow" class="external text" href="https://linux-sunxi.org/UART">UART howto on the linux-sunxi wiki</a> (mostly non-sunxi specific!)</li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Serial_debugging&amp;oldid=28468">https://wiki.postmarketos.org/index.php?title=Serial_debugging&amp;oldid=28468</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 11 June 2022, at 12:20.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Serial_debugging&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <p>
+       ...then add yourself to that group by doing
+       <code>
+        sudo usermod -a -G dialout &lt;username&gt;
+       </code>
+       (replace
+       <code>
+        dialout
+       </code>
+       with the group you saw in the ls -l command above).
+      </p>
+      <h2>
+       <span class="mw-headline" id="Troubleshooting">
+        Troubleshooting
+       </span>
+      </h2>
+      <ol>
+       <li>
+        Make sure you are using the correct connection settings: baud rate, parity, etc.
+       </li>
+       <li>
+        Make sure your ground connection is stable. If in doubt, replace the cables.
+       </li>
+       <li>
+        If you're only getting partial output, you may need to use a different resistance between the ID and Ground pins. Some devices return different things depending on the resistance given.
+       </li>
+       <li>
+        If you're not getting any output, try swapping the RX and TX cables.
+       </li>
+       <li>
+        If there's no serial cable schematic for your phone, you may try to
+        <a href="../en/Bootloaders_porting_using_linux.html" title="Bootloaders porting using linux">
+         port a chainloaded bootloader using linux
+        </a>
+        , which will force MUIC to multiplex uart out.
+       </li>
+      </ol>
+      <h3>
+       <span class="mw-headline" id="On_Samsung_devices">
+        On Samsung devices
+       </span>
+      </h3>
+      <p>
+       On some Samsung devices, the bootloader will only print out very limited information (and in some rarer cases, nothing at all). In that case, you may need to do one of the following:
+      </p>
+      <ul>
+       <li>
+        While booting the device, mash the
+        <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+         Enter
+        </span>
+        key on your PC to abort auto-boot and get into the bootloader config prompt. (There may not be any visible indication that you got into the prompt!). Then, type
+        <code>
+         log
+        </code>
+        and hit Enter again.
+        <ul>
+         <li>
+          You may also need to change the kernel log level; get your current level with
+          <code>
+           printenv
+          </code>
+          and save it somewhere, and use
+          <code>
+           setenv KERNEL_LOG_LEVEL 17740
+          </code>
+          to change it.
+         </li>
+        </ul>
+       </li>
+       <li>
+        On certain devices it is necessary to hold down the
+        <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+         Volume Down
+        </span>
+        button while booting for kernel logs to show up; without it, the bootloader only shows a very small portion of the bootloader logs.
+       </li>
+      </ul>
+      <p>
+       See also:
+       <a href="../en/Samsung_Galaxy_Core_Plus_(samsung-cs02).html#Bootloader_.2F_S-Boot_4.0" title="Samsung Galaxy Core Plus (samsung-cs02)">
+        Samsung Galaxy Core Plus (samsung-cs02)#Bootloader / S-Boot 4.0
+       </a>
+      </p>
+      <h3>
+       <span class="mw-headline" id="On_Google_devices">
+        On Google devices
+       </span>
+      </h3>
+      <p>
+       On the Pixel 6, you may need to run
+       <code>
+        fastboot oem uart enable
+       </code>
+       in order to enable UART output.
+      </p>
+      <h3>
+       <span class="mw-headline" id="No_kernel_output">
+        No kernel output
+       </span>
+      </h3>
+      <p>
+       If you see
+       <code>
+        Uncompressing Linux... done, booting the kernel.
+       </code>
+       , that means your kernel is booting. (In some cases, and on some platforms, this message might not appear. The best way to make sure that the kernel is booting is to try the procedures described below.)
+      </p>
+      <p>
+       Sometimes the kernel crashes before the serial console can be properly brought up. However, it's possible to print out the kernel log messages before that happens, using early printk.
+      </p>
+      <ol>
+       <li>
+        Enable
+        <code>
+         CONFIG_DEBUG_LL
+        </code>
+        (in menuconfig:
+        <b>
+         Kernel hacking
+        </b>
+        &gt;
+        <b>
+         arm Debugging
+        </b>
+        &gt;
+        <b>
+         Kernel low-level debugging functions (read help!)
+        </b>
+        )
+       </li>
+       <li>
+        Under this option in menuconfig, a new sub-option will appear, named
+        <b>
+         Kernel low-level debugging port
+        </b>
+        ; set the correct debug port option for your architecture, if applicable.
+       </li>
+       <li>
+        Select
+        <code>
+         CONFIG_EARLY_PRINTK
+        </code>
+        (in menuconfig:
+        <b>
+         Early printk
+        </b>
+        )
+       </li>
+       <li>
+        Add
+        <code>
+         earlyprintk
+        </code>
+        to your kernel's CMDLINE parameters.
+       </li>
+      </ol>
+      <p>
+       In some cases however, this will not be enough, and you may get partial logs or no logs at all. In those scenarios, you'll have to use the infamous
+       <b>
+        printascii
+       </b>
+       hack.
+      </p>
+      <p>
+       Due to the kernel changing very rapidly, the exact implementation of this hack differs; it generally involves finding the function which has the text buffer for the logs, and then adding code to print said buffer using the
+       <code>
+        printascii()
+       </code>
+       command provided by
+       <code>
+        CONFIG_EARLY_PRINTK
+       </code>
+       .
+      </p>
+      <p>
+       <a class="external text" href="https://gist.github.com/knuxify/98bc12e16ccf46234b708c662d6963df" rel="nofollow">
+        Here's such a patch for the v5.15 kernel
+       </a>
+       . You can apply it by downloading the patch, then running
+       <code>
+        git am path/to/patch
+       </code>
+       in your kernel tree.
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          With the printascii hack, once the serial console is brought up, you might get double (or triple) outputs; in some cases, some of these duplicate lines will appear garbled.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       Once you're done debugging, revert the hack to keep your kernel logs clean.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Alternatives_to_using_a_serial_cable">
+        Alternatives to using a serial cable
+       </span>
+      </h2>
+      <p>
+       You may have some luck with using RAM-storage-based methods of serial debugging. Tools like pstore and ramoops make this easy - they usually just need to be enabled in mainline and downstream, and a downstream kernel can be used to access the pstore-reserved RAM region where logs are dumped. The path for this is
+       <code>
+        /sys/fs/pstore/console-ramoops
+       </code>
+       , although older devices may use
+       <code>
+        /proc/last_kmsg
+       </code>
+       .
+      </p>
+      <p>
+       See
+       <a href="../User:Knuxfanwin8_Enabling_pstore_and_ramoops.html" title="User:Knuxfanwin8/Enabling pstore and ramoops">
+        Enabling pstore and ramoops
+       </a>
+       for a work-in-progress attempt at documenting this.
+      </p>
+      <div class="todo" role="note" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+       <strong>
+        TODO
+       </strong>
+       Verify this and elaborate.
+      </div>
+      <h2>
+       <span class="mw-headline" id="3.3V_vs_1.8V_UARTs">
+        3.3V vs 1.8V UARTs
+       </span>
+      </h2>
+      <div class="thumb tright">
+       <div class="thumbinner" style="width:302px;">
+        <a class="image" href="../Uart33_18_voltage_divider.png">
+         <img alt="" class="thumbimage" decoding="async" height="97" src="../Uart33_18_voltage_divider.png" srcset="../Uart33_18_voltage_divider.png 1.5x ../Uart33_18_voltage_divider.png 2x" width="300"/>
+        </a>
+        <div class="thumbcaption">
+         <div class="magnify">
+          <a class="internal" href="../Uart33_18_voltage_divider.png" title="Enlarge">
+          </a>
+         </div>
+         Schematic for a 3.3v-&gt;1.8v UART voltage divider
+        </div>
+       </div>
+      </div>
+      <p>
+       Most phones expose their UART pins on 1.8 V voltage, and most USB-UART converters expect UART side to have 3.3 V. This works well for receiving characters from device; this is enough to read bootloader logs or kernel boot logs (dmesg). However sending 3.3 V to device that expects 1.8 V is dangerous; so you can not use shell over UART without an additional effort. To check if your phone uses 3.3 V or 1.8 V you can connect an oscillioscope to the TX and GND on the phone (or maybe a sensitive multimeter?).
+      </p>
+      <p>
+       You will need a voltage divider at least on converter-&gt;device TX line, which can be set up as in this stack exchange answer:
+       <a class="external free" href="https://electronics.stackexchange.com/a/333230" rel="nofollow">
+        https://electronics.stackexchange.com/a/333230
+       </a>
+      </p>
+      <p>
+       Use also this
+       <a class="external free" href="https://ohmslawcalculator.com/voltage-divider-calculator" rel="nofollow">
+        https://ohmslawcalculator.com/voltage-divider-calculator
+       </a>
+      </p>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a href="../en/Serial_debugging:Cable_schematics.html" title="Serial debugging:Cable schematics">
+         Serial debugging:Cable schematics
+        </a>
+       </li>
+       <li>
+        <a href="../en/Mainlining_FAQ.html#Serial_cable" title="Mainlining FAQ">
+         Mainlining FAQ#Serial_cable
+        </a>
+       </li>
+       <li>
+        <a href="../en/Micro-USB_Interface_Controller.html" title="Micro-USB Interface Controller">
+         Micro-USB Interface Controller
+        </a>
+       </li>
+       <li>
+        <a href="../User:Knuxfanwin8_Enabling_pstore_and_ramoops.html" title="User:Knuxfanwin8/Enabling pstore and ramoops">
+         Enabling pstore and ramoops
+        </a>
+        , as an alternative to building a serial cable - unfinished article, but might be useful
+       </li>
+       <li>
+        <a class="external text" href="https://code.paulk.fr/article21/a-hacker-s-journey-freeing-a-phone-from-the-ground-up-second-part" rel="nofollow">
+         exposing UART on the LG Optimus Black (P970)
+        </a>
+        (OMAP3)
+       </li>
+       <li>
+        <a class="external text" href="https://linux-sunxi.org/UART" rel="nofollow">
+         UART howto on the linux-sunxi wiki
+        </a>
+        (mostly non-sunxi specific!)
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Todo_Items.html" title="Category:Todo Items">
+         Todo Items
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Serial_debugging&amp;oldid=28468">
+      https://wiki.postmarketos.org/index.php?title=Serial_debugging&amp;oldid=28468
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 11 June 2022, at 12:20.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Serial_debugging&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

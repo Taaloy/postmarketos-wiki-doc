@@ -1,150 +1,434 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Bootchart2 - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Bootchart2 rootpage-Bootchart2 skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Bootchart2</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>Use bootchart2 to profile system boot or a running system.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Configure_bootchart2"><span class="tocnumber">1</span> <span class="toctext">Configure bootchart2</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Profile_system_boot"><span class="tocnumber">2</span> <span class="toctext">Profile system boot</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Profile_a_running_system"><span class="tocnumber">3</span> <span class="toctext">Profile a running system</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#Example_.28QEMU.29"><span class="tocnumber">4</span> <span class="toctext">Example (QEMU)</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Configure_bootchart2">Configure bootchart2</span></h2>
-<ol>
-<li>Add the bootchart2 package to your device.</li>
-<li>Add the following kernel command line parameters: <code>initcall_debug printk.time=y quiet</code>
-</li>
-</ol>
-<h2><span class="mw-headline" id="Profile_system_boot">Profile system boot</span></h2>
-<ol>
-<li>add the following kernel command line parameter: <code>PMOS_BOOTCHART2</code>.</li>
-<li>(optional) modify EXIT_PROC in /etc/bootchartd.conf to define when the collector is to stop.</li>
-<li>Boot the system.
-<ul>
-<li>mkinitfs will start <code>/sbin/bootchartd</code>.</li>
-<li>
-<code>/sbin/bootchartd</code> will run <code>/sbin/init</code>.</li>
-<li>Approximately 20 seconds after sshd starts (if using the default value of EXIT_PROC), the collector will exit.</li>
-<li>
-<code>/usr/bin/pybootchartgui</code> will create a visualization in <code>/var/log/bootchart.png</code>.</li>
-</ul>
-</li>
-</ol>
-<h2><span class="mw-headline" id="Profile_a_running_system">Profile a running system</span></h2>
-<ol>
-<li>Use the command <code>/sbin/bootchartd start</code> (as root) to start profiling</li>
-<li>Execute the commands or perform the activity that you want to profile.</li>
-<li>Use the command <code>/sbin/bootchartd stop</code> (as root) to stop profiling
-<ul><li>
-<code>/usr/bin/pybootchartgui</code> will create a visualization in <code>/var/log/bootchart.png</code>.</li></ul>
-</li>
-</ol>
-<h2>
-<span id="Example_(QEMU)"></span><span class="mw-headline" id="Example_.28QEMU.29">Example (QEMU)</span>
-</h2>
-<p>This example demonstrates how to use bootchart2 with device-qemu-amd64.
-</p>
-<ol>
-<li>Run <code>pmbootstrap init</code>. At the <code>Extra packages</code> prompt, enter <code>bootchart2</code>.
-<dl>
-<dd><code>&gt; pmbootstrap init</code></dd>
-<dd><code>[18:46:26] Location of the 'work' path. Multiple chroots (native, device arch, device rootfs) will be created in there.</code></dd>
-<dd><code>...</code></dd>
-<dd><code>[18:46:29] Choose your target device vendor (either an existing one, or a new one for porting).</code></dd>
-<dd><code>[18:46:29] Available vendors (43): amazon, asus, bq, chuwi, fairphone, finepower, google, gp, hisense, htc, huawei, infocus, jolla, leeco, lenovo, lg, medion, meizu, motorola, nextbit, nobby, nokia, oneplus, oppo, ouya, pine64, planet, purism, qemu, raspberry, samsung, semc, sony, surftab, t2m, tablet, teclast, wiko, wileyfox, wingtech, xiaomi, yu, zte</code></dd>
-<dd><code>[18:46:29] Vendor [qemu]: </code></dd>
-<dd><code>[18:46:30] Available codenames (3): aarch64, amd64, vexpress</code></dd>
-<dd><code>[18:46:30] Device codename [amd64]: </code></dd>
-<dd><code>...</code></dd>
-<dd><code>[18:46:35] Additional packages that will be installed to rootfs. Specify them in a comma separated list (e.g.: vim,file) or "none"</code></dd>
-<dd><code>[18:46:35] Extra packages [none]: <b>bootchart2</b></code></dd>
-<dd><code>...</code></dd>
-<dd><code>[18:46:40] Done!</code></dd>
-<dd><code>&gt;</code></dd>
-</dl>
-</li>
-<li>Run <code>pmbootstrap install</code>.</li>
-<li>Start qemu. Use the kernel command line parameters from the deviceinfo file, and add the bootchart2 parameters. For example:
-<dl><dd><code>pmbootstrap qemu --image-size=2G --host-qemu --display=gtk  --cmdline '<b>PMOS_BOOTCHART2 initcall_debug printk.time=y quiet</b> console=tty1 console=ttyS0 PMOS_NO_OUTPUT_REDIRECT PMOS_FORCE_PARTITION_RESIZE'</code></dd></dl>
-</li>
-<li>Wait until bootchart2 has written the image to <code>/var/log/bootchart.png</code>.
-<dl><dd><a href="../Qemu_bootchart2_example_boot.png" class="image"><img alt="Qemu bootchart2 example boot.png" src="../Qemu_bootchart2_example_boot.png" decoding="async" width="641" height="539"></a></dd></dl>
-</li>
-<li>Copy the file to your host system (<code>scp -P 2222 &lt;qemu username&gt;@localhost:/var/log/bootchart.png .</code>).
-<dl><dd><a href="../Qemu_bootchart2_example.png" class="image"><img alt="Qemu bootchart2 example.png" src="../Qemu_bootchart2_example.png" decoding="async" width="500" height="802" srcset="../Qemu_bootchart2_example.png 1.5x ../Qemu_bootchart2_example.png 2x"></a></dd></dl>
-</li>
-</ol>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Bootchart2&amp;oldid=9253">https://wiki.postmarketos.org/index.php?title=Bootchart2&amp;oldid=9253</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 15 January 2020, at 03:33.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Bootchart2&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Bootchart2 - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Bootchart2 rootpage-Bootchart2 skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Bootchart2
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       Use bootchart2 to profile system boot or a running system.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Configure_bootchart2">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Configure bootchart2
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Profile_system_boot">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Profile system boot
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Profile_a_running_system">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Profile a running system
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Example_.28QEMU.29">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Example (QEMU)
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Configure_bootchart2">
+        Configure bootchart2
+       </span>
+      </h2>
+      <ol>
+       <li>
+        Add the bootchart2 package to your device.
+       </li>
+       <li>
+        Add the following kernel command line parameters:
+        <code>
+         initcall_debug printk.time=y quiet
+        </code>
+       </li>
+      </ol>
+      <h2>
+       <span class="mw-headline" id="Profile_system_boot">
+        Profile system boot
+       </span>
+      </h2>
+      <ol>
+       <li>
+        add the following kernel command line parameter:
+        <code>
+         PMOS_BOOTCHART2
+        </code>
+        .
+       </li>
+       <li>
+        (optional) modify EXIT_PROC in /etc/bootchartd.conf to define when the collector is to stop.
+       </li>
+       <li>
+        Boot the system.
+        <ul>
+         <li>
+          mkinitfs will start
+          <code>
+           /sbin/bootchartd
+          </code>
+          .
+         </li>
+         <li>
+          <code>
+           /sbin/bootchartd
+          </code>
+          will run
+          <code>
+           /sbin/init
+          </code>
+          .
+         </li>
+         <li>
+          Approximately 20 seconds after sshd starts (if using the default value of EXIT_PROC), the collector will exit.
+         </li>
+         <li>
+          <code>
+           /usr/bin/pybootchartgui
+          </code>
+          will create a visualization in
+          <code>
+           /var/log/bootchart.png
+          </code>
+          .
+         </li>
+        </ul>
+       </li>
+      </ol>
+      <h2>
+       <span class="mw-headline" id="Profile_a_running_system">
+        Profile a running system
+       </span>
+      </h2>
+      <ol>
+       <li>
+        Use the command
+        <code>
+         /sbin/bootchartd start
+        </code>
+        (as root) to start profiling
+       </li>
+       <li>
+        Execute the commands or perform the activity that you want to profile.
+       </li>
+       <li>
+        Use the command
+        <code>
+         /sbin/bootchartd stop
+        </code>
+        (as root) to stop profiling
+        <ul>
+         <li>
+          <code>
+           /usr/bin/pybootchartgui
+          </code>
+          will create a visualization in
+          <code>
+           /var/log/bootchart.png
+          </code>
+          .
+         </li>
+        </ul>
+       </li>
+      </ol>
+      <h2>
+       <span id="Example_(QEMU)">
+       </span>
+       <span class="mw-headline" id="Example_.28QEMU.29">
+        Example (QEMU)
+       </span>
+      </h2>
+      <p>
+       This example demonstrates how to use bootchart2 with device-qemu-amd64.
+      </p>
+      <ol>
+       <li>
+        Run
+        <code>
+         pmbootstrap init
+        </code>
+        . At the
+        <code>
+         Extra packages
+        </code>
+        prompt, enter
+        <code>
+         bootchart2
+        </code>
+        .
+        <dl>
+         <dd>
+          <code>
+           &gt; pmbootstrap init
+          </code>
+         </dd>
+         <dd>
+          <code>
+           [18:46:26] Location of the 'work' path. Multiple chroots (native, device arch, device rootfs) will be created in there.
+          </code>
+         </dd>
+         <dd>
+          <code>
+           ...
+          </code>
+         </dd>
+         <dd>
+          <code>
+           [18:46:29] Choose your target device vendor (either an existing one, or a new one for porting).
+          </code>
+         </dd>
+         <dd>
+          <code>
+           [18:46:29] Available vendors (43): amazon, asus, bq, chuwi, fairphone, finepower, google, gp, hisense, htc, huawei, infocus, jolla, leeco, lenovo, lg, medion, meizu, motorola, nextbit, nobby, nokia, oneplus, oppo, ouya, pine64, planet, purism, qemu, raspberry, samsung, semc, sony, surftab, t2m, tablet, teclast, wiko, wileyfox, wingtech, xiaomi, yu, zte
+          </code>
+         </dd>
+         <dd>
+          <code>
+           [18:46:29] Vendor [qemu]:
+          </code>
+         </dd>
+         <dd>
+          <code>
+           [18:46:30] Available codenames (3): aarch64, amd64, vexpress
+          </code>
+         </dd>
+         <dd>
+          <code>
+           [18:46:30] Device codename [amd64]:
+          </code>
+         </dd>
+         <dd>
+          <code>
+           ...
+          </code>
+         </dd>
+         <dd>
+          <code>
+           [18:46:35] Additional packages that will be installed to rootfs. Specify them in a comma separated list (e.g.: vim,file) or "none"
+          </code>
+         </dd>
+         <dd>
+          <code>
+           [18:46:35] Extra packages [none]:
+           <b>
+            bootchart2
+           </b>
+          </code>
+         </dd>
+         <dd>
+          <code>
+           ...
+          </code>
+         </dd>
+         <dd>
+          <code>
+           [18:46:40] Done!
+          </code>
+         </dd>
+         <dd>
+          <code>
+           &gt;
+          </code>
+         </dd>
+        </dl>
+       </li>
+       <li>
+        Run
+        <code>
+         pmbootstrap install
+        </code>
+        .
+       </li>
+       <li>
+        Start qemu. Use the kernel command line parameters from the deviceinfo file, and add the bootchart2 parameters. For example:
+        <dl>
+         <dd>
+          <code>
+           pmbootstrap qemu --image-size=2G --host-qemu --display=gtk  --cmdline '
+           <b>
+            PMOS_BOOTCHART2 initcall_debug printk.time=y quiet
+           </b>
+           console=tty1 console=ttyS0 PMOS_NO_OUTPUT_REDIRECT PMOS_FORCE_PARTITION_RESIZE'
+          </code>
+         </dd>
+        </dl>
+       </li>
+       <li>
+        Wait until bootchart2 has written the image to
+        <code>
+         /var/log/bootchart.png
+        </code>
+        .
+        <dl>
+         <dd>
+          <a class="image" href="../Qemu_bootchart2_example_boot.png">
+           <img alt="Qemu bootchart2 example boot.png" decoding="async" height="539" src="../Qemu_bootchart2_example_boot.png" width="641"/>
+          </a>
+         </dd>
+        </dl>
+       </li>
+       <li>
+        Copy the file to your host system (
+        <code>
+         scp -P 2222 &lt;qemu username&gt;@localhost:/var/log/bootchart.png .
+        </code>
+        ).
+        <dl>
+         <dd>
+          <a class="image" href="../Qemu_bootchart2_example.png">
+           <img alt="Qemu bootchart2 example.png" decoding="async" height="802" src="../Qemu_bootchart2_example.png" srcset="../Qemu_bootchart2_example.png 1.5x ../Qemu_bootchart2_example.png 2x" width="500"/>
+          </a>
+         </dd>
+        </dl>
+       </li>
+      </ol>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Bootchart2&amp;oldid=9253">
+      https://wiki.postmarketos.org/index.php?title=Bootchart2&amp;oldid=9253
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 15 January 2020, at 03:33.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Bootchart2&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

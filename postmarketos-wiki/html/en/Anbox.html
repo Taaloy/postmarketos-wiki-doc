@@ -1,241 +1,890 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Anbox - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Anbox rootpage-Anbox skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Anbox</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;"><b>Anbox has been removed from postmarketOS v21.12 and newer in favor of <a href="../en/Waydroid.html" title="Waydroid">Waydroid</a>.</b></td>
-</tr></tbody></table>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Consider using native Linux programs instead, see <a href="../en/FAQ.html" title="FAQ">FAQ</a>.</td>
-</tr></tbody></table>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Development on this feature can be done without running pmOS on a real device with <a href="../en/QEMU.html" title="QEMU">QEMU</a>. Please use the <code>lts</code> kernel for that as the virt kernel doesn't include the necessary modules. You will likely need to pass the <code>-m2048</code> flag as the default 1GB will not be enough.</td>
-</tr></tbody></table>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Anbox is currently somewhat broken on armv7 because Anbox assumes 64 bits in some places, which breaks input (see <a rel="nofollow" class="external free" href="https://github.com/anbox/anbox/issues/1214#issuecomment-524578664">https://github.com/anbox/anbox/issues/1214#issuecomment-524578664</a>. Please manifest yourself if you can test and try that)</td>
-</tr></tbody></table>
-<div class="thumb tright"><div class="thumbinner" style="width:302px;">
-<a href="../Anbox_app_manager.png" class="image"><img alt="" src="../Anbox_app_manager.png" decoding="async" width="300" height="328" class="thumbimage" srcset="../"></a>  <div class="thumbcaption">
-<div class="magnify"><a href="../Anbox_app_manager.png" class="internal" title="Enlarge"></a></div>The anbox application manager with the default apps.</div>
-</div></div>
-<p><b><a rel="nofollow" class="external text" href="https://anbox.io">Anbox</a></b> runs Android apps on Linux using a trimmed down version of Android in a container. Anbox allows one to use Android applications sandboxed, running alongside the native Linux programs. It can be very handy to help people switch from Android to an operating that respects their privacy.
-</p>
-<p>See <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues?scope=all&amp;utf8=%E2%9C%93&amp;state=all&amp;label_name%5B%5D=Anbox">the Anbox label in the issue tracker</a> for current progress.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Installation"><span class="tocnumber">1</span> <span class="toctext">Installation</span></a></li>
-<li class="toclevel-1 tocsection-2">
-<a href="#Tips_and_Tricks"><span class="tocnumber">2</span> <span class="toctext">Tips and Tricks</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3"><a href="#Factory_reset"><span class="tocnumber">2.1</span> <span class="toctext">Factory reset</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="#Virtual_keyboard_input_in_Phosh"><span class="tocnumber">2.2</span> <span class="toctext">Virtual keyboard input in Phosh</span></a></li>
-<li class="toclevel-2 tocsection-5"><a href="#Workaround_for_Anbox_content_being_covered_by_Phosh.27_bottom_bar"><span class="tocnumber">2.3</span> <span class="toctext">Workaround for Anbox content being covered by Phosh' bottom bar</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-6">
-<a href="#Porting"><span class="tocnumber">3</span> <span class="toctext">Porting</span></a>
-<ul>
-<li class="toclevel-2 tocsection-7"><a href="#Requirements"><span class="tocnumber">3.1</span> <span class="toctext">Requirements</span></a></li>
-<li class="toclevel-2 tocsection-8"><a href="#Checking_defconfig"><span class="tocnumber">3.2</span> <span class="toctext">Checking defconfig</span></a></li>
-<li class="toclevel-2 tocsection-9"><a href="#Updating_defconfig"><span class="tocnumber">3.3</span> <span class="toctext">Updating defconfig</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-10">
-<a href="#Troubleshooting"><span class="tocnumber">4</span> <span class="toctext">Troubleshooting</span></a>
-<ul>
-<li class="toclevel-2 tocsection-11"><a href="#I_don.27t_have_access_to_the_internet"><span class="tocnumber">4.1</span> <span class="toctext">I don't have access to the internet</span></a></li>
-<li class="toclevel-2 tocsection-12"><a href="#The_name_org.anbox_was_not_provided_by_any_.service_files"><span class="tocnumber">4.2</span> <span class="toctext">The name org.anbox was not provided by any .service files</span></a></li>
-<li class="toclevel-2 tocsection-13"><a href="#Failed_to_request_DBus_service_name"><span class="tocnumber">4.3</span> <span class="toctext">Failed to request DBus service name</span></a></li>
-<li class="toclevel-2 tocsection-14"><a href="#Failed_to_select_EGL_configuration"><span class="tocnumber">4.4</span> <span class="toctext">Failed to select EGL configuration</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-15">
-<a href="#Serious_Debugging"><span class="tocnumber">5</span> <span class="toctext">Serious Debugging</span></a>
-<ul>
-<li class="toclevel-2 tocsection-16"><a href="#Check_the_openRC_service"><span class="tocnumber">5.1</span> <span class="toctext">Check the openRC service</span></a></li>
-<li class="toclevel-2 tocsection-17"><a href="#Check_if_the_container_is_up"><span class="tocnumber">5.2</span> <span class="toctext">Check if the container is up</span></a></li>
-<li class="toclevel-2 tocsection-18"><a href="#Check_the_session-manager_starts_correctly"><span class="tocnumber">5.3</span> <span class="toctext">Check the session-manager starts correctly</span></a></li>
-<li class="toclevel-2 tocsection-19"><a href="#Check_if_adb_works"><span class="tocnumber">5.4</span> <span class="toctext">Check if adb works</span></a></li>
-<li class="toclevel-2 tocsection-20"><a href="#Check_if_adb_install_works"><span class="tocnumber">5.5</span> <span class="toctext">Check if adb install works</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Install the <code>postmarketos-anbox</code> package, which pulls in anbox and the anbox image required to run it. Then start the <code>anbox-container-manager</code> service. Anbox takes several minutes to start up, and after the initial start, a lot of new desktop icons from Android should appear (Calendar, Clock, Contacts, F-Droid, Email, Files, ...).
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add postmarketos-anbox
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Anbox - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Anbox rootpage-Anbox skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Anbox
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           Anbox has been removed from postmarketOS v21.12 and newer in favor of
+           <a href="../en/Waydroid.html" title="Waydroid">
+            Waydroid
+           </a>
+           .
+          </b>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Consider using native Linux programs instead, see
+          <a href="../en/FAQ.html" title="FAQ">
+           FAQ
+          </a>
+          .
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Development on this feature can be done without running pmOS on a real device with
+          <a href="../en/QEMU.html" title="QEMU">
+           QEMU
+          </a>
+          . Please use the
+          <code>
+           lts
+          </code>
+          kernel for that as the virt kernel doesn't include the necessary modules. You will likely need to pass the
+          <code>
+           -m2048
+          </code>
+          flag as the default 1GB will not be enough.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          Anbox is currently somewhat broken on armv7 because Anbox assumes 64 bits in some places, which breaks input (see
+          <a class="external free" href="https://github.com/anbox/anbox/issues/1214#issuecomment-524578664" rel="nofollow">
+           https://github.com/anbox/anbox/issues/1214#issuecomment-524578664
+          </a>
+          . Please manifest yourself if you can test and try that)
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <div class="thumb tright">
+       <div class="thumbinner" style="width:302px;">
+        <a class="image" href="../Anbox_app_manager.png">
+         <img alt="" class="thumbimage" decoding="async" height="328" src="../Anbox_app_manager.png" srcset="../" width="300"/>
+        </a>
+        <div class="thumbcaption">
+         <div class="magnify">
+          <a class="internal" href="../Anbox_app_manager.png" title="Enlarge">
+          </a>
+         </div>
+         The anbox application manager with the default apps.
+        </div>
+       </div>
+      </div>
+      <p>
+       <b>
+        <a class="external text" href="https://anbox.io" rel="nofollow">
+         Anbox
+        </a>
+       </b>
+       runs Android apps on Linux using a trimmed down version of Android in a container. Anbox allows one to use Android applications sandboxed, running alongside the native Linux programs. It can be very handy to help people switch from Android to an operating that respects their privacy.
+      </p>
+      <p>
+       See
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues?scope=all&amp;utf8=%E2%9C%93&amp;state=all&amp;label_name%5B%5D=Anbox" rel="nofollow">
+        the Anbox label in the issue tracker
+       </a>
+       for current progress.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Installation">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Installation
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Tips_and_Tricks">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Tips and Tricks
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#Factory_reset">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             Factory reset
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Virtual_keyboard_input_in_Phosh">
+            <span class="tocnumber">
+             2.2
+            </span>
+            <span class="toctext">
+             Virtual keyboard input in Phosh
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Workaround_for_Anbox_content_being_covered_by_Phosh.27_bottom_bar">
+            <span class="tocnumber">
+             2.3
+            </span>
+            <span class="toctext">
+             Workaround for Anbox content being covered by Phosh' bottom bar
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-6">
+         <a href="#Porting">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Porting
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#Requirements">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             Requirements
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#Checking_defconfig">
+            <span class="tocnumber">
+             3.2
+            </span>
+            <span class="toctext">
+             Checking defconfig
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-9">
+           <a href="#Updating_defconfig">
+            <span class="tocnumber">
+             3.3
+            </span>
+            <span class="toctext">
+             Updating defconfig
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-10">
+         <a href="#Troubleshooting">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Troubleshooting
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-11">
+           <a href="#I_don.27t_have_access_to_the_internet">
+            <span class="tocnumber">
+             4.1
+            </span>
+            <span class="toctext">
+             I don't have access to the internet
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-12">
+           <a href="#The_name_org.anbox_was_not_provided_by_any_.service_files">
+            <span class="tocnumber">
+             4.2
+            </span>
+            <span class="toctext">
+             The name org.anbox was not provided by any .service files
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-13">
+           <a href="#Failed_to_request_DBus_service_name">
+            <span class="tocnumber">
+             4.3
+            </span>
+            <span class="toctext">
+             Failed to request DBus service name
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-14">
+           <a href="#Failed_to_select_EGL_configuration">
+            <span class="tocnumber">
+             4.4
+            </span>
+            <span class="toctext">
+             Failed to select EGL configuration
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-15">
+         <a href="#Serious_Debugging">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           Serious Debugging
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-16">
+           <a href="#Check_the_openRC_service">
+            <span class="tocnumber">
+             5.1
+            </span>
+            <span class="toctext">
+             Check the openRC service
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-17">
+           <a href="#Check_if_the_container_is_up">
+            <span class="tocnumber">
+             5.2
+            </span>
+            <span class="toctext">
+             Check if the container is up
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-18">
+           <a href="#Check_the_session-manager_starts_correctly">
+            <span class="tocnumber">
+             5.3
+            </span>
+            <span class="toctext">
+             Check the session-manager starts correctly
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-19">
+           <a href="#Check_if_adb_works">
+            <span class="tocnumber">
+             5.4
+            </span>
+            <span class="toctext">
+             Check if adb works
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-20">
+           <a href="#Check_if_adb_install_works">
+            <span class="tocnumber">
+             5.5
+            </span>
+            <span class="toctext">
+             Check if adb install works
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Installation">
+        Installation
+       </span>
+      </h2>
+      <p>
+       Install the
+       <code>
+        postmarketos-anbox
+       </code>
+       package, which pulls in anbox and the anbox image required to run it. Then start the
+       <code>
+        anbox-container-manager
+       </code>
+       service. Anbox takes several minutes to start up, and after the initial start, a lot of new desktop icons from Android should appear (Calendar, Clock, Contacts, F-Droid, Email, Files, ...).
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo apk add postmarketos-anbox
 <span class="gp">$</span> sudo rc-service anbox-container-manager start
-</pre></div>
-<h2><span class="mw-headline" id="Tips_and_Tricks">Tips and Tricks</span></h2>
-<h3><span class="mw-headline" id="Factory_reset">Factory reset</span></h3>
-<p>You can delete all data known by Anbox, effectively doing the equivalent of a factory reset for physical Android devices. To do that, stop the anbox service using <code>sudo rc-service anbox-container-manager stop</code> and remove everything in <code>/var/lib/anbox/</code>.
-</p>
-<h3><span class="mw-headline" id="Virtual_keyboard_input_in_Phosh">Virtual keyboard input in Phosh</span></h3>
-<p>Keyboard input is currently broken in Phosh because of some <a rel="nofollow" class="external text" href="https://source.puri.sm/Librem5/squeekboard/-/issues/218">bugs</a> in squeekboard. Previously a workaround was to use virtboard instead of squeekboard, however nowadays that package isn't available anymore.
-</p>
-<h3>
-<span id="Workaround_for_Anbox_content_being_covered_by_Phosh'_bottom_bar"></span><span class="mw-headline" id="Workaround_for_Anbox_content_being_covered_by_Phosh.27_bottom_bar">Workaround for Anbox content being covered by Phosh' bottom bar</span>
-</h3>
-<pre>$ adb shell wm overscan 0,0,0,70
 </pre>
-<p>You may need to adjust the dimensions depending on your device. These should work well for the PinePhone.
-</p>
-<h2><span class="mw-headline" id="Porting">Porting</span></h2>
-<h3><span class="mw-headline" id="Requirements">Requirements</span></h3>
-<ul><li>More than 1GB of RAM. Anbox is known to be broken on 512MB of RAM and has a lot of issues with 1GB. It is known to work well on 2GB (pinephone).</li></ul>
-<ul><li>Kernel v3.17+ or alternatively one with the <code>memfd_create</code> syscall available (required by LXC).</li></ul>
-<h3><span class="mw-headline" id="Checking_defconfig">Checking defconfig</span></h3>
-<p>First, you need to know which kernel package does your device use to perform a kconfig check (replace wiki-example with your actual device codename):
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> <span class="k">$(</span>pmbootstrap config aports<span class="k">)</span>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Tips_and_Tricks">
+        Tips and Tricks
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Factory_reset">
+        Factory reset
+       </span>
+      </h3>
+      <p>
+       You can delete all data known by Anbox, effectively doing the equivalent of a factory reset for physical Android devices. To do that, stop the anbox service using
+       <code>
+        sudo rc-service anbox-container-manager stop
+       </code>
+       and remove everything in
+       <code>
+        /var/lib/anbox/
+       </code>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Virtual_keyboard_input_in_Phosh">
+        Virtual keyboard input in Phosh
+       </span>
+      </h3>
+      <p>
+       Keyboard input is currently broken in Phosh because of some
+       <a class="external text" href="https://source.puri.sm/Librem5/squeekboard/-/issues/218" rel="nofollow">
+        bugs
+       </a>
+       in squeekboard. Previously a workaround was to use virtboard instead of squeekboard, however nowadays that package isn't available anymore.
+      </p>
+      <h3>
+       <span id="Workaround_for_Anbox_content_being_covered_by_Phosh'_bottom_bar">
+       </span>
+       <span class="mw-headline" id="Workaround_for_Anbox_content_being_covered_by_Phosh.27_bottom_bar">
+        Workaround for Anbox content being covered by Phosh' bottom bar
+       </span>
+      </h3>
+      <pre>$ adb shell wm overscan 0,0,0,70
+</pre>
+      <p>
+       You may need to adjust the dimensions depending on your device. These should work well for the PinePhone.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Porting">
+        Porting
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Requirements">
+        Requirements
+       </span>
+      </h3>
+      <ul>
+       <li>
+        More than 1GB of RAM. Anbox is known to be broken on 512MB of RAM and has a lot of issues with 1GB. It is known to work well on 2GB (pinephone).
+       </li>
+      </ul>
+      <ul>
+       <li>
+        Kernel v3.17+ or alternatively one with the
+        <code>
+         memfd_create
+        </code>
+        syscall available (required by LXC).
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Checking_defconfig">
+        Checking defconfig
+       </span>
+      </h3>
+      <p>
+       First, you need to know which kernel package does your device use to perform a kconfig check (replace wiki-example with your actual device codename):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> <span class="k">$(</span>pmbootstrap config aports<span class="k">)</span>
 <span class="gp">$</span> cat device/testing/device-wiki-example/APKBUILD <span class="p">|</span> grep linux
-</pre></div>
-<p>The output of the last command will be like this: <code>depends="<b>linux-postmarketos-wiki-example</b> mesa-git-dri-gallium"</code>. Your mainline Linux package name will be similar to the highlighted sample one.
-</p>
-<p>Then you need to verify the defconfig with pmbootstrap to make sure all the kernel modules Anbox require will be installed(replace linux-postmarketos-wiki-example with actual kernel package name).
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap kconfig check --anbox linux-postmarketos-wiki-example
-</pre></div>
-<p>If the check was successful, pmbootstrap will output <code>kconfig check succeeded!</code>. If the check is successful, you can install the postmarketos-anbox package and run <code>anbox-launch</code> to start Anbox.
-</p>
-<p>If some checks failed, you need to rebuild the kernel package with updated defconfig. Update the defconfig so <code>pmbootstrap kconfig check --anbox</code> command will output <code>kconfig check succeeded!</code>.
-</p>
-<h3><span class="mw-headline" id="Updating_defconfig">Updating defconfig</span></h3>
-<p>First, you need to bump pkgrel of your kernel package:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap pkgrel_bump linux-postmarketos-wiki-example
-</pre></div>
-<p>Then, use <code>pmbootstrap kconfig edit linux-postmarketos-wiki-example</code> to edit the defconfig. You can browse the options menu with arrow keys and select options with Space key. You can also search your needed kconfig option with "/" button.
-</p>
-<p>Once done, close the menuconfig with exit button on bottom. pmbootstrap will update your kernel defconfig and you'll be able to build the kernel.
-</p>
-<p>Try building the kernel with <code>pmbootstrap build linux-postmarketos-wiki-example</code>. If build succeeds, flash the kernel into your device <code>pmbootstrap install &amp;&amp; pmbootstrap flasher flash_kernel</code>, and install Anbox.
-</p>
-<p>Once you confirmed that your port is working, edit the kernel package APKBUILD options property to include pmb:kconfigcheck-anbox option(needed to get the package merged) and create new MR to pmaports.
-</p>
-<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
-<h3>
-<span id="I_don't_have_access_to_the_internet"></span><span class="mw-headline" id="I_don.27t_have_access_to_the_internet">I don't have access to the internet</span>
-</h3>
-<p>Anbox require an anbox0 bridge interface to access the internet. <code>ip link</code> should report an anbox0 interface for the network to work. There seem to be some kind of kernel requirement too, see <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/480">pmaports#480</a> (contains workaround) for the investigation about that.
-</p>
-<h3><span class="mw-headline" id="The_name_org.anbox_was_not_provided_by_any_.service_files"><code>The name org.anbox was not provided by any .service files</code></span></h3>
-<p>This error usually means the <code>anbox session-manager</code> command crashed. Launch it manually to see the actual error message.
-</p>
-<h3><span class="mw-headline" id="Failed_to_request_DBus_service_name"><code>Failed to request DBus service name</code></span></h3>
-<p>This error means dbus isn't running, or that you launched it incorrectly (check environment variables are set with <code>env</code>). Ensure you <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/issues/458">start dbus with your session</a> and that you are not starting Anbox with ssh.
-</p>
-<h3><span class="mw-headline" id="Failed_to_select_EGL_configuration"><code>Failed to select EGL configuration</code></span></h3>
-<p>You can try to run the session-manager as such: <code>EGL_PLATFORM=x11 SDL_VIDEODRIVER=x11 anbox session-manager</code>. You need to leave it running and click on the anbox icon to start the GUI.
-</p>
-<p><br>
-</p>
-<h2><span class="mw-headline" id="Serious_Debugging">Serious Debugging</span></h2>
-<p>If you never see the application manager, there can be plenty of problems. The first step to debug this is knowing roughly where it fails.
-</p>
-<h3><span class="mw-headline" id="Check_the_openRC_service">Check the openRC service</span></h3>
-<p><code>rc-service anbox-container-manager status</code> will give you the state of the container manager. If it reports to be stopped despite your attempts to start it, then the container manager exited. Tell me that <b>the container <i>manager</i> doesn't run</b> in a bug report and include <code>/var/lib/anbox/logs/container.log</code>.
-</p>
-<h3><span class="mw-headline" id="Check_if_the_container_is_up">Check if the container is up</span></h3>
-<p>If the container manager runs, it doesn't necessarily means the container android runs in is started. To check if the container is up and running, you can try two things can give interesting clues:
-</p>
-<dl>
-<dt>using <code>anbox session-manager</code>
-</dt>
-<dd>check what it answers when you run it. <code>Failed to start container</code> is a pretty obvious way to tell the container doesn't run; but sometimes the session manager will segfault instead. You usually can still tell if container is started.</dd>
-</dl>
-<dl>
-<dt>using <code>/var/lib/anbox/logs/container.log</code>
-</dt>
-<dd>the file will (hopefully) contain a non-empty log. Look for <q>Received container state "ABORTING" instead of "RUNNING"</q> or <q>Set container state to "STOPPED"</q>.</dd>
-</dl>
-<p>In this case, tell me in a bug report that <b>the container <i>itself</i> doesn't run</b> and include <code>/var/lib/anbox/logs/container.log</code>.
-</p>
-<h3><span class="mw-headline" id="Check_the_session-manager_starts_correctly">Check the session-manager starts correctly</span></h3>
-<p>From times to times, the session-manager will segfault or error out. You may want to check <a href="../en/Anbox.html#Failed_to_select_EGL_configuration" title="Anbox">EGL Configuration</a>. In any case open a bug report saying that <b>the session-manager fails to start</b> and include the output from the command, <code>/var/lib/anbox/logs/container.log</code> and  <code>/var/lib/anbox/logs/container.log</code>.
-</p>
-<h3><span class="mw-headline" id="Check_if_adb_works">Check if <code>adb</code> works</span></h3>
-<p>Install <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;"><a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/packages?name=android-tools&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=">android-tools</a></span> and run <code>adb shell</code>. If you do have a shell, that's great, Android at least started to start. If adb answers you that no devices/emulators are found and the container is running, then tell me in a bug report that <b>adb couldn't find the device</b> and include <code>/var/lib/anbox/logs/console.log</code>.
-</p>
-<h3><span class="mw-headline" id="Check_if_adb_install_works">Check if <code>adb install</code> works</span></h3>
-<p>Download an apk, for example the <a rel="nofollow" class="external text" href="https://f-droid.org/FDroid.apk">F-Droid one</a> and try to install it. For example, <code>adb install Dowloads/FDroid.apk</code>. If this doesn't work, then Zygote probably didn't start. If you can get a shell, but can't install an app with adb, tell me in a bug report that <b><i>adb install</i> doesn't work</b> and include <code>/var/lib/anbox/logs/console.log</code>.
-</p>
-<p>If <code>adb install</code> works, congratulations. Please still open an issue if you don't get the anbox application manager to show up, including <code>/var/lib/anbox/logs/console.log</code>.
-</p>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Anbox&amp;oldid=23943">https://wiki.postmarketos.org/index.php?title=Anbox&amp;oldid=23943</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 27 November 2021, at 10:55.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Anbox&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <p>
+       The output of the last command will be like this:
+       <code>
+        depends="
+        <b>
+         linux-postmarketos-wiki-example
+        </b>
+        mesa-git-dri-gallium"
+       </code>
+       . Your mainline Linux package name will be similar to the highlighted sample one.
+      </p>
+      <p>
+       Then you need to verify the defconfig with pmbootstrap to make sure all the kernel modules Anbox require will be installed(replace linux-postmarketos-wiki-example with actual kernel package name).
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap kconfig check --anbox linux-postmarketos-wiki-example
+</pre>
+      </div>
+      <p>
+       If the check was successful, pmbootstrap will output
+       <code>
+        kconfig check succeeded!
+       </code>
+       . If the check is successful, you can install the postmarketos-anbox package and run
+       <code>
+        anbox-launch
+       </code>
+       to start Anbox.
+      </p>
+      <p>
+       If some checks failed, you need to rebuild the kernel package with updated defconfig. Update the defconfig so
+       <code>
+        pmbootstrap kconfig check --anbox
+       </code>
+       command will output
+       <code>
+        kconfig check succeeded!
+       </code>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Updating_defconfig">
+        Updating defconfig
+       </span>
+      </h3>
+      <p>
+       First, you need to bump pkgrel of your kernel package:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap pkgrel_bump linux-postmarketos-wiki-example
+</pre>
+      </div>
+      <p>
+       Then, use
+       <code>
+        pmbootstrap kconfig edit linux-postmarketos-wiki-example
+       </code>
+       to edit the defconfig. You can browse the options menu with arrow keys and select options with Space key. You can also search your needed kconfig option with "/" button.
+      </p>
+      <p>
+       Once done, close the menuconfig with exit button on bottom. pmbootstrap will update your kernel defconfig and you'll be able to build the kernel.
+      </p>
+      <p>
+       Try building the kernel with
+       <code>
+        pmbootstrap build linux-postmarketos-wiki-example
+       </code>
+       . If build succeeds, flash the kernel into your device
+       <code>
+        pmbootstrap install &amp;&amp; pmbootstrap flasher flash_kernel
+       </code>
+       , and install Anbox.
+      </p>
+      <p>
+       Once you confirmed that your port is working, edit the kernel package APKBUILD options property to include pmb:kconfigcheck-anbox option(needed to get the package merged) and create new MR to pmaports.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Troubleshooting">
+        Troubleshooting
+       </span>
+      </h2>
+      <h3>
+       <span id="I_don't_have_access_to_the_internet">
+       </span>
+       <span class="mw-headline" id="I_don.27t_have_access_to_the_internet">
+        I don't have access to the internet
+       </span>
+      </h3>
+      <p>
+       Anbox require an anbox0 bridge interface to access the internet.
+       <code>
+        ip link
+       </code>
+       should report an anbox0 interface for the network to work. There seem to be some kind of kernel requirement too, see
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/480" rel="nofollow">
+        pmaports#480
+       </a>
+       (contains workaround) for the investigation about that.
+      </p>
+      <h3>
+       <span class="mw-headline" id="The_name_org.anbox_was_not_provided_by_any_.service_files">
+        <code>
+         The name org.anbox was not provided by any .service files
+        </code>
+       </span>
+      </h3>
+      <p>
+       This error usually means the
+       <code>
+        anbox session-manager
+       </code>
+       command crashed. Launch it manually to see the actual error message.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Failed_to_request_DBus_service_name">
+        <code>
+         Failed to request DBus service name
+        </code>
+       </span>
+      </h3>
+      <p>
+       This error means dbus isn't running, or that you launched it incorrectly (check environment variables are set with
+       <code>
+        env
+       </code>
+       ). Ensure you
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/issues/458" rel="nofollow">
+        start dbus with your session
+       </a>
+       and that you are not starting Anbox with ssh.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Failed_to_select_EGL_configuration">
+        <code>
+         Failed to select EGL configuration
+        </code>
+       </span>
+      </h3>
+      <p>
+       You can try to run the session-manager as such:
+       <code>
+        EGL_PLATFORM=x11 SDL_VIDEODRIVER=x11 anbox session-manager
+       </code>
+       . You need to leave it running and click on the anbox icon to start the GUI.
+      </p>
+      <p>
+       <br/>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Serious_Debugging">
+        Serious Debugging
+       </span>
+      </h2>
+      <p>
+       If you never see the application manager, there can be plenty of problems. The first step to debug this is knowing roughly where it fails.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Check_the_openRC_service">
+        Check the openRC service
+       </span>
+      </h3>
+      <p>
+       <code>
+        rc-service anbox-container-manager status
+       </code>
+       will give you the state of the container manager. If it reports to be stopped despite your attempts to start it, then the container manager exited. Tell me that
+       <b>
+        the container
+        <i>
+         manager
+        </i>
+        doesn't run
+       </b>
+       in a bug report and include
+       <code>
+        /var/lib/anbox/logs/container.log
+       </code>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Check_if_the_container_is_up">
+        Check if the container is up
+       </span>
+      </h3>
+      <p>
+       If the container manager runs, it doesn't necessarily means the container android runs in is started. To check if the container is up and running, you can try two things can give interesting clues:
+      </p>
+      <dl>
+       <dt>
+        using
+        <code>
+         anbox session-manager
+        </code>
+       </dt>
+       <dd>
+        check what it answers when you run it.
+        <code>
+         Failed to start container
+        </code>
+        is a pretty obvious way to tell the container doesn't run; but sometimes the session manager will segfault instead. You usually can still tell if container is started.
+       </dd>
+      </dl>
+      <dl>
+       <dt>
+        using
+        <code>
+         /var/lib/anbox/logs/container.log
+        </code>
+       </dt>
+       <dd>
+        the file will (hopefully) contain a non-empty log. Look for
+        <q>
+         Received container state "ABORTING" instead of "RUNNING"
+        </q>
+        or
+        <q>
+         Set container state to "STOPPED"
+        </q>
+        .
+       </dd>
+      </dl>
+      <p>
+       In this case, tell me in a bug report that
+       <b>
+        the container
+        <i>
+         itself
+        </i>
+        doesn't run
+       </b>
+       and include
+       <code>
+        /var/lib/anbox/logs/container.log
+       </code>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Check_the_session-manager_starts_correctly">
+        Check the session-manager starts correctly
+       </span>
+      </h3>
+      <p>
+       From times to times, the session-manager will segfault or error out. You may want to check
+       <a href="../en/Anbox.html#Failed_to_select_EGL_configuration" title="Anbox">
+        EGL Configuration
+       </a>
+       . In any case open a bug report saying that
+       <b>
+        the session-manager fails to start
+       </b>
+       and include the output from the command,
+       <code>
+        /var/lib/anbox/logs/container.log
+       </code>
+       and
+       <code>
+        /var/lib/anbox/logs/container.log
+       </code>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Check_if_adb_works">
+        Check if
+        <code>
+         adb
+        </code>
+        works
+       </span>
+      </h3>
+      <p>
+       Install
+       <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;">
+        <a class="external text" href="https://pkgs.alpinelinux.org/packages?name=android-tools&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=" rel="nofollow">
+         android-tools
+        </a>
+       </span>
+       and run
+       <code>
+        adb shell
+       </code>
+       . If you do have a shell, that's great, Android at least started to start. If adb answers you that no devices/emulators are found and the container is running, then tell me in a bug report that
+       <b>
+        adb couldn't find the device
+       </b>
+       and include
+       <code>
+        /var/lib/anbox/logs/console.log
+       </code>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Check_if_adb_install_works">
+        Check if
+        <code>
+         adb install
+        </code>
+        works
+       </span>
+      </h3>
+      <p>
+       Download an apk, for example the
+       <a class="external text" href="https://f-droid.org/FDroid.apk" rel="nofollow">
+        F-Droid one
+       </a>
+       and try to install it. For example,
+       <code>
+        adb install Dowloads/FDroid.apk
+       </code>
+       . If this doesn't work, then Zygote probably didn't start. If you can get a shell, but can't install an app with adb, tell me in a bug report that
+       <b>
+        <i>
+         adb install
+        </i>
+        doesn't work
+       </b>
+       and include
+       <code>
+        /var/lib/anbox/logs/console.log
+       </code>
+       .
+      </p>
+      <p>
+       If
+       <code>
+        adb install
+       </code>
+       works, congratulations. Please still open an issue if you don't get the anbox application manager to show up, including
+       <code>
+        /var/lib/anbox/logs/console.log
+       </code>
+       .
+      </p>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Anbox&amp;oldid=23943">
+      https://wiki.postmarketos.org/index.php?title=Anbox&amp;oldid=23943
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 27 November 2021, at 10:55.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Anbox&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

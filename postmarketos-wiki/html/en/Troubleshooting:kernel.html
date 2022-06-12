@@ -1,124 +1,423 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Troubleshooting:kernel - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Troubleshooting_kernel rootpage-Troubleshooting_kernel skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Troubleshooting:kernel</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>Here are some common kernel compilation problems listed. For debugging a kernel that compiles, but does not boot, see <a href="../en/Troubleshooting:boot.html" title="Troubleshooting:boot">Troubleshooting:boot</a>.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#How_to_create_a_patch"><span class="tocnumber">1</span> <span class="toctext">How to create a patch</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#undefined_reference_to_kgsl_iommu_sync_lock"><span class="tocnumber">2</span> <span class="toctext">undefined reference to kgsl_iommu_sync_lock</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#How_can_I_boot_the_kernel_with_some_specific_arguments.3F"><span class="tocnumber">3</span> <span class="toctext">How can I boot the kernel with some specific arguments?</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#MSM_framebuffer_doesn.27t_work"><span class="tocnumber">4</span> <span class="toctext">MSM framebuffer doesn't work</span></a></li>
-<li class="toclevel-1 tocsection-5"><a href="#PTY_allocation_request_failed"><span class="tocnumber">5</span> <span class="toctext">PTY allocation request failed</span></a></li>
-<li class="toclevel-1 tocsection-6"><a href="#Kernel_compilation:_.28some_header_file.29:_No_such_file_or_directory"><span class="tocnumber">6</span> <span class="toctext">Kernel compilation: (some header file): No such file or directory</span></a></li>
-<li class="toclevel-1 tocsection-7"><a href="#Kernel_compilation:_linux.2Ftypes.h:_No_such_file_or_directory"><span class="tocnumber">7</span> <span class="toctext">Kernel compilation: linux/types.h: No such file or directory</span></a></li>
-<li class="toclevel-1 tocsection-8"><a href="#Kernel_compilation:_thumb_conditional_instruction_should_be_in_IT_block"><span class="tocnumber">8</span> <span class="toctext">Kernel compilation: thumb conditional instruction should be in IT block</span></a></li>
-<li class="toclevel-1 tocsection-9"><a href="#Kernel_compilation:_BusyBox_lzma_compression_fails"><span class="tocnumber">9</span> <span class="toctext">Kernel compilation: BusyBox lzma compression fails</span></a></li>
-<li class="toclevel-1 tocsection-10"><a href="#Kernel_compilation:_Error:_.err_encountered_in_assembler_messages"><span class="tocnumber">10</span> <span class="toctext">Kernel compilation:  Error: .err encountered in assembler messages</span></a></li>
-<li class="toclevel-1 tocsection-11"><a href="#Android_Kernel_compilation_fails_on_warnings_.28not_on_errors.29_.28-Werror.29"><span class="tocnumber">11</span> <span class="toctext">Android Kernel compilation fails on warnings (not on errors) (-Werror)</span></a></li>
-<li class="toclevel-1 tocsection-12"><a href="#Building_the_kernel_with_Android.27s_build_system"><span class="tocnumber">12</span> <span class="toctext">Building the kernel with Android's build system</span></a></li>
-<li class="toclevel-1 tocsection-13"><a href="#Error:_selected_processor_does_not_support_ARM_mode_.60smc_.230.27"><span class="tocnumber">13</span> <span class="toctext">Error: selected processor does not support ARM mode `smc #0'</span></a></li>
-<li class="toclevel-1 tocsection-14"><a href="#X11_does_not_work_on_Qualcomm_devices"><span class="tocnumber">14</span> <span class="toctext">X11 does not work on Qualcomm devices</span></a></li>
-<li class="toclevel-1 tocsection-15"><a href="#TLS_.28SSL.2FHTTPS.29_is_broken.21"><span class="tocnumber">15</span> <span class="toctext">TLS (SSL/HTTPS) is broken!</span></a></li>
-<li class="toclevel-1 tocsection-16"><a href="#CROSS_COMPILE_ARM32_not_defined_or_empty"><span class="tocnumber">16</span> <span class="toctext">CROSS_COMPILE_ARM32 not defined or empty</span></a></li>
-<li class="toclevel-1 tocsection-17"><a href="#External_resources"><span class="tocnumber">17</span> <span class="toctext">External resources</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="How_to_create_a_patch">How to create a patch</span></h2>
-<p>Patching a kernel is as simple as putting a <code>.patch</code> file in your <code>aports/device/linux-vendor-flavor</code> folder and adding the patch name to the <code>source</code> variable in your <code>APKBUILD</code> file. See also: <a href="../en/Patching.html" title="Patching">Patching</a>.
-</p>
-<h2><span class="mw-headline" id="undefined_reference_to_kgsl_iommu_sync_lock">undefined reference to kgsl_iommu_sync_lock</span></h2>
-<pre>drivers/built-in.o:(.data.rel+0x68c): undefined reference to kgsl_iommu_sync_lock'
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Troubleshooting:kernel - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Troubleshooting_kernel rootpage-Troubleshooting_kernel skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Troubleshooting:kernel
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       Here are some common kernel compilation problems listed. For debugging a kernel that compiles, but does not boot, see
+       <a href="../en/Troubleshooting:boot.html" title="Troubleshooting:boot">
+        Troubleshooting:boot
+       </a>
+       .
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#How_to_create_a_patch">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           How to create a patch
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#undefined_reference_to_kgsl_iommu_sync_lock">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           undefined reference to kgsl_iommu_sync_lock
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#How_can_I_boot_the_kernel_with_some_specific_arguments.3F">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           How can I boot the kernel with some specific arguments?
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#MSM_framebuffer_doesn.27t_work">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           MSM framebuffer doesn't work
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-5">
+         <a href="#PTY_allocation_request_failed">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           PTY allocation request failed
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-6">
+         <a href="#Kernel_compilation:_.28some_header_file.29:_No_such_file_or_directory">
+          <span class="tocnumber">
+           6
+          </span>
+          <span class="toctext">
+           Kernel compilation: (some header file): No such file or directory
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-7">
+         <a href="#Kernel_compilation:_linux.2Ftypes.h:_No_such_file_or_directory">
+          <span class="tocnumber">
+           7
+          </span>
+          <span class="toctext">
+           Kernel compilation: linux/types.h: No such file or directory
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-8">
+         <a href="#Kernel_compilation:_thumb_conditional_instruction_should_be_in_IT_block">
+          <span class="tocnumber">
+           8
+          </span>
+          <span class="toctext">
+           Kernel compilation: thumb conditional instruction should be in IT block
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-9">
+         <a href="#Kernel_compilation:_BusyBox_lzma_compression_fails">
+          <span class="tocnumber">
+           9
+          </span>
+          <span class="toctext">
+           Kernel compilation: BusyBox lzma compression fails
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-10">
+         <a href="#Kernel_compilation:_Error:_.err_encountered_in_assembler_messages">
+          <span class="tocnumber">
+           10
+          </span>
+          <span class="toctext">
+           Kernel compilation:  Error: .err encountered in assembler messages
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-11">
+         <a href="#Android_Kernel_compilation_fails_on_warnings_.28not_on_errors.29_.28-Werror.29">
+          <span class="tocnumber">
+           11
+          </span>
+          <span class="toctext">
+           Android Kernel compilation fails on warnings (not on errors) (-Werror)
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-12">
+         <a href="#Building_the_kernel_with_Android.27s_build_system">
+          <span class="tocnumber">
+           12
+          </span>
+          <span class="toctext">
+           Building the kernel with Android's build system
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-13">
+         <a href="#Error:_selected_processor_does_not_support_ARM_mode_.60smc_.230.27">
+          <span class="tocnumber">
+           13
+          </span>
+          <span class="toctext">
+           Error: selected processor does not support ARM mode `smc #0'
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-14">
+         <a href="#X11_does_not_work_on_Qualcomm_devices">
+          <span class="tocnumber">
+           14
+          </span>
+          <span class="toctext">
+           X11 does not work on Qualcomm devices
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-15">
+         <a href="#TLS_.28SSL.2FHTTPS.29_is_broken.21">
+          <span class="tocnumber">
+           15
+          </span>
+          <span class="toctext">
+           TLS (SSL/HTTPS) is broken!
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-16">
+         <a href="#CROSS_COMPILE_ARM32_not_defined_or_empty">
+          <span class="tocnumber">
+           16
+          </span>
+          <span class="toctext">
+           CROSS_COMPILE_ARM32 not defined or empty
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-17">
+         <a href="#External_resources">
+          <span class="tocnumber">
+           17
+          </span>
+          <span class="toctext">
+           External resources
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="How_to_create_a_patch">
+        How to create a patch
+       </span>
+      </h2>
+      <p>
+       Patching a kernel is as simple as putting a
+       <code>
+        .patch
+       </code>
+       file in your
+       <code>
+        aports/device/linux-vendor-flavor
+       </code>
+       folder and adding the patch name to the
+       <code>
+        source
+       </code>
+       variable in your
+       <code>
+        APKBUILD
+       </code>
+       file. See also:
+       <a href="../en/Patching.html" title="Patching">
+        Patching
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="undefined_reference_to_kgsl_iommu_sync_lock">
+        undefined reference to kgsl_iommu_sync_lock
+       </span>
+      </h2>
+      <pre>drivers/built-in.o:(.data.rel+0x68c): undefined reference to kgsl_iommu_sync_lock'
 drivers/built-in.o:(.data.rel+0x690): undefined reference to kgsl_iommu_sync_unlock'</pre>
-<p>You need to apply the <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/device/testing/linux-lg-mako/02_gpu-msm-fix-gcc5-compile.patch">gpu-msm-fix-gcc5-compile.patch</a> patch.
-</p>
-<h2>
-<span id="How_can_I_boot_the_kernel_with_some_specific_arguments?"></span><span class="mw-headline" id="How_can_I_boot_the_kernel_with_some_specific_arguments.3F">How can I boot the kernel with some specific arguments?</span>
-</h2>
-<p>You can configure <code>CONFIG_CMDLINE</code> so that the arguments are permanent or change it in boot time using fastboot or pmbootstrap, for example:
-</p>
-<pre>fastboot boot -c "console=ttyHSL0,115200,n8" ...
+      <p>
+       You need to apply the
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/device/testing/linux-lg-mako/02_gpu-msm-fix-gcc5-compile.patch" rel="nofollow">
+        gpu-msm-fix-gcc5-compile.patch
+       </a>
+       patch.
+      </p>
+      <h2>
+       <span id="How_can_I_boot_the_kernel_with_some_specific_arguments?">
+       </span>
+       <span class="mw-headline" id="How_can_I_boot_the_kernel_with_some_specific_arguments.3F">
+        How can I boot the kernel with some specific arguments?
+       </span>
+      </h2>
+      <p>
+       You can configure
+       <code>
+        CONFIG_CMDLINE
+       </code>
+       so that the arguments are permanent or change it in boot time using fastboot or pmbootstrap, for example:
+      </p>
+      <pre>fastboot boot -c "console=ttyHSL0,115200,n8" ...
 
 pmbootstrap flasher boot --cmdline "PMOS_NO_OUTPUT_REDIRECT"</pre>
-<h2>
-<span id="MSM_framebuffer_doesn't_work"></span><span class="mw-headline" id="MSM_framebuffer_doesn.27t_work">MSM framebuffer doesn't work</span>
-</h2>
-<p>We found out that removing the 3D driver support makes the MSM framebuffer. See <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/66">!66</a>.
-</p>
-<pre>CONFIG_MSM_KGSL=n</pre>
-<h2><span class="mw-headline" id="PTY_allocation_request_failed">PTY allocation request failed</span></h2>
-<pre>PTY allocation request failed on channel 0
+      <h2>
+       <span id="MSM_framebuffer_doesn't_work">
+       </span>
+       <span class="mw-headline" id="MSM_framebuffer_doesn.27t_work">
+        MSM framebuffer doesn't work
+       </span>
+      </h2>
+      <p>
+       We found out that removing the 3D driver support makes the MSM framebuffer. See
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/66" rel="nofollow">
+        !66
+       </a>
+       .
+      </p>
+      <pre>CONFIG_MSM_KGSL=n</pre>
+      <h2>
+       <span class="mw-headline" id="PTY_allocation_request_failed">
+        PTY allocation request failed
+       </span>
+      </h2>
+      <pre>PTY allocation request failed on channel 0
 -ash: a: unknown operand</pre>
-<p>Go to <a href="../en/Kernel_configuration.html" title="Kernel configuration">kernel configuration</a>, you have probably missed <code>CONFIG_DEVTMPFS</code>!
-</p>
-<h2>
-<span id="Kernel_compilation:_(some_header_file):_No_such_file_or_directory"></span><span class="mw-headline" id="Kernel_compilation:_.28some_header_file.29:_No_such_file_or_directory">Kernel compilation: (some header file): No such file or directory</span>
-</h2>
-<p>Busybox' <code>zip</code> implementation does not extract symlinks. There are two workarounds. One is to use another archive type (typically kernel sources are downloaded from GitHub, where you can also get the source as <code>.tar.gz</code> - simply by changing the extension in the URL).
-</p>
-<p>The other workaround is to add <code>unzip</code> to the makedepends, so it uses the original unzip instead of the busybox version.
-</p>
-<p>(This has been fixed in busybox in the meantime.)
-</p>
-<h2>
-<span id="Kernel_compilation:_linux/types.h:_No_such_file_or_directory"></span><span class="mw-headline" id="Kernel_compilation:_linux.2Ftypes.h:_No_such_file_or_directory">Kernel compilation: linux/types.h: No such file or directory</span>
-</h2>
-<p>Add <code>linux-headers</code> to makedepends of linux-* APKBUILD.
-</p>
-<h2><span class="mw-headline" id="Kernel_compilation:_thumb_conditional_instruction_should_be_in_IT_block">Kernel compilation: thumb conditional instruction should be in IT block</span></h2>
-<pre>arch/arm/crypto/aesbs-core.S:449: Error: thumb conditional instruction should be in IT block -- `addeq r6,r6,#0x10'
+      <p>
+       Go to
+       <a href="../en/Kernel_configuration.html" title="Kernel configuration">
+        kernel configuration
+       </a>
+       , you have probably missed
+       <code>
+        CONFIG_DEVTMPFS
+       </code>
+       !
+      </p>
+      <h2>
+       <span id="Kernel_compilation:_(some_header_file):_No_such_file_or_directory">
+       </span>
+       <span class="mw-headline" id="Kernel_compilation:_.28some_header_file.29:_No_such_file_or_directory">
+        Kernel compilation: (some header file): No such file or directory
+       </span>
+      </h2>
+      <p>
+       Busybox'
+       <code>
+        zip
+       </code>
+       implementation does not extract symlinks. There are two workarounds. One is to use another archive type (typically kernel sources are downloaded from GitHub, where you can also get the source as
+       <code>
+        .tar.gz
+       </code>
+       - simply by changing the extension in the URL).
+      </p>
+      <p>
+       The other workaround is to add
+       <code>
+        unzip
+       </code>
+       to the makedepends, so it uses the original unzip instead of the busybox version.
+      </p>
+      <p>
+       (This has been fixed in busybox in the meantime.)
+      </p>
+      <h2>
+       <span id="Kernel_compilation:_linux/types.h:_No_such_file_or_directory">
+       </span>
+       <span class="mw-headline" id="Kernel_compilation:_linux.2Ftypes.h:_No_such_file_or_directory">
+        Kernel compilation: linux/types.h: No such file or directory
+       </span>
+      </h2>
+      <p>
+       Add
+       <code>
+        linux-headers
+       </code>
+       to makedepends of linux-* APKBUILD.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Kernel_compilation:_thumb_conditional_instruction_should_be_in_IT_block">
+        Kernel compilation: thumb conditional instruction should be in IT block
+       </span>
+      </h2>
+      <pre>arch/arm/crypto/aesbs-core.S:449: Error: thumb conditional instruction should be in IT block -- `addeq r6,r6,#0x10'
 arch/arm/crypto/aesbs-core.S:904: Error: thumb conditional instruction should be in IT block -- `addeq r6,r6,#0x10'
 arch/arm/crypto/aesbs-core.S:2100: Error: thumb conditional instruction should be in IT block -- `subne r9,#0x10'
 </pre>
-<p>You can fix it by disabling <code>CONFIG_CRYPTO_AES_ARM_BS</code> with:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>pmbootstrap kconfig edit
-</pre></div>
-<p>Then go to <code>Cryptographic API</code> and disable <code>Bit sliced AES using NEON instructions</code>.
-</p>
-<p>On some other devices, like Huawei P7, you might also need to disable all CRYPTO flags containing ARM (<code>CONFIG_CRYPTO_{algorithm name}_ARM</code>), which are ARM NEON optimizations.
-</p>
-<p>This was first noticed in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/144">pmaports!144</a>.
-</p>
-<h2><span class="mw-headline" id="Kernel_compilation:_BusyBox_lzma_compression_fails">Kernel compilation: BusyBox lzma compression fails</span></h2>
-<p>In case you get the following output:
-</p>
-<pre>LZMA    arch/arm/boot/compressed/piggy.lzma
+      <p>
+       You can fix it by disabling
+       <code>
+        CONFIG_CRYPTO_AES_ARM_BS
+       </code>
+       with:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span>pmbootstrap kconfig edit
+</pre>
+      </div>
+      <p>
+       Then go to
+       <code>
+        Cryptographic API
+       </code>
+       and disable
+       <code>
+        Bit sliced AES using NEON instructions
+       </code>
+       .
+      </p>
+      <p>
+       On some other devices, like Huawei P7, you might also need to disable all CRYPTO flags containing ARM (
+       <code>
+        CONFIG_CRYPTO_{algorithm name}_ARM
+       </code>
+       ), which are ARM NEON optimizations.
+      </p>
+      <p>
+       This was first noticed in
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/144" rel="nofollow">
+        pmaports!144
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Kernel_compilation:_BusyBox_lzma_compression_fails">
+        Kernel compilation: BusyBox lzma compression fails
+       </span>
+      </h2>
+      <p>
+       In case you get the following output:
+      </p>
+      <pre>LZMA    arch/arm/boot/compressed/piggy.lzma
 lzma: unrecognized option: 9
 BusyBox v1.26.2 (2017-06-11 06:37:13 GMT) multi-call binary.
 
@@ -129,29 +428,97 @@ Decompress FILE (or stdin)
         -d      Decompress
         -c      Write to stdout
         -f      Force</pre>
-<p>In the BusyBox version shipped with Alpine Linux, only lower compression levels are enabled (to reduce the binary size). The kernel you're building is configured to compress with LZMA at the highest compression level. Pick one of the following solutions:
-</p>
-<ul>
-<li>Add <code>xz</code> to the <code>makedepends=</code> line. Then the "real" lzma binary will be used instead of the Busybox version. This is <b>recommended</b>, because then your kernel will get built most similar to how it is built elsewhere, so you have the lowest risk of introducing a reason for the kernel not to boot (because the kernel is too big in size or something like that)</li>
-<li>Reduce the compression ratio by adding <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/device/testing/linux-samsung-i9070/02_reduce_lzo_compression.patch">this patch</a>. This will not introduce any dependency, but increase the kernel size.</li>
-<li>Use another compression algorithm (run <code>pmbootstrap menuconfig linux-...</code> and change it there). Gzip should work, but will produce a big kernel, because pmbootstrap currently installs a workaround to always use the fastest compression method (<code>-1</code>), when the most compressing one (<code>-9</code>) is chosen. This will increase the kernel size the most.</li>
-</ul>
-<h2><span class="mw-headline" id="Kernel_compilation:_Error:_.err_encountered_in_assembler_messages">Kernel compilation:  Error: .err encountered in assembler messages</span></h2>
-<p>If compilation errors out on something like this in logs:
-</p>
-<pre>/tmp/ccmAkEIJ.s: Assembler messages:
+      <p>
+       In the BusyBox version shipped with Alpine Linux, only lower compression levels are enabled (to reduce the binary size). The kernel you're building is configured to compress with LZMA at the highest compression level. Pick one of the following solutions:
+      </p>
+      <ul>
+       <li>
+        Add
+        <code>
+         xz
+        </code>
+        to the
+        <code>
+         makedepends=
+        </code>
+        line. Then the "real" lzma binary will be used instead of the Busybox version. This is
+        <b>
+         recommended
+        </b>
+        , because then your kernel will get built most similar to how it is built elsewhere, so you have the lowest risk of introducing a reason for the kernel not to boot (because the kernel is too big in size or something like that)
+       </li>
+       <li>
+        Reduce the compression ratio by adding
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/device/testing/linux-samsung-i9070/02_reduce_lzo_compression.patch" rel="nofollow">
+         this patch
+        </a>
+        . This will not introduce any dependency, but increase the kernel size.
+       </li>
+       <li>
+        Use another compression algorithm (run
+        <code>
+         pmbootstrap menuconfig linux-...
+        </code>
+        and change it there). Gzip should work, but will produce a big kernel, because pmbootstrap currently installs a workaround to always use the fastest compression method (
+        <code>
+         -1
+        </code>
+        ), when the most compressing one (
+        <code>
+         -9
+        </code>
+        ) is chosen. This will increase the kernel size the most.
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Kernel_compilation:_Error:_.err_encountered_in_assembler_messages">
+        Kernel compilation:  Error: .err encountered in assembler messages
+       </span>
+      </h2>
+      <p>
+       If compilation errors out on something like this in logs:
+      </p>
+      <pre>/tmp/ccmAkEIJ.s: Assembler messages:
 /tmp/ccmAkEIJ.s:2280: Error: .err encountered
 </pre>
-<p>Then <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Downstream_kernel_specific_package#GCC_version">older version of GCC</a> should be used for compilation.
-</p>
-<h2>
-<span id="Android_Kernel_compilation_fails_on_warnings_(not_on_errors)_(-Werror)"></span><span class="mw-headline" id="Android_Kernel_compilation_fails_on_warnings_.28not_on_errors.29_.28-Werror.29">Android Kernel compilation fails on warnings (not on errors) (-Werror)</span>
-</h2>
-<p>Don't even bother fixing all those warnings, there are too many of them and we don't want the outdated Android kernels in the long run anyway! When you generate your kernel APKBUILD with <code>pmbootstrap init</code>, then you should have code in the <code>prepare()</code> that automatically removes the <code>-Werror</code> parameter in all Makefiles.
-</p>
-<p>Example from <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/device/testing/linux-asus-z00vd/APKBUILD">linux-asus-z00vd</a>:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># Remove -Werror from all makefiles</span>
+      <p>
+       Then
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Downstream_kernel_specific_package#GCC_version" rel="nofollow">
+        older version of GCC
+       </a>
+       should be used for compilation.
+      </p>
+      <h2>
+       <span id="Android_Kernel_compilation_fails_on_warnings_(not_on_errors)_(-Werror)">
+       </span>
+       <span class="mw-headline" id="Android_Kernel_compilation_fails_on_warnings_.28not_on_errors.29_.28-Werror.29">
+        Android Kernel compilation fails on warnings (not on errors) (-Werror)
+       </span>
+      </h2>
+      <p>
+       Don't even bother fixing all those warnings, there are too many of them and we don't want the outdated Android kernels in the long run anyway! When you generate your kernel APKBUILD with
+       <code>
+        pmbootstrap init
+       </code>
+       , then you should have code in the
+       <code>
+        prepare()
+       </code>
+       that automatically removes the
+       <code>
+        -Werror
+       </code>
+       parameter in all Makefiles.
+      </p>
+      <p>
+       Example from
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/device/testing/linux-asus-z00vd/APKBUILD" rel="nofollow">
+        linux-asus-z00vd
+       </a>
+       :
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="c1"># Remove -Werror from all makefiles</span>
 <span class="nb">local</span> i
 <span class="nb">local</span> <span class="nv">makefiles</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>find . -type f -name Makefile<span class="k">)</span><span class="s2"></span>
 <span class="s2">    </span><span class="k">$(</span>find . -type f -name Kbuild<span class="k">)</span><span class="s2">"</span>
@@ -159,17 +526,30 @@ Decompress FILE (or stdin)
     sed -i <span class="s1">'s/-Werror-/-W/g'</span> <span class="s2">"</span><span class="nv">$i</span><span class="s2">"</span>
     sed -i <span class="s1">'s/-Werror//g'</span> <span class="s2">"</span><span class="nv">$i</span><span class="s2">"</span>
 <span class="k">done</span>
-</pre></div>
-<h2>
-<span id="Building_the_kernel_with_Android's_build_system"></span><span class="mw-headline" id="Building_the_kernel_with_Android.27s_build_system">Building the kernel with Android's build system</span>
-</h2>
-<p>It might be useful for debugging to build Android's kernel with Android's build system.
-</p>
-<p>You can follow the LineageOS building guide for your device (see <a rel="nofollow" class="external text" href="https://wiki.lineageos.org/devices/titan/build">this</a> for titan device as example).
-</p>
-<p>The process should be similar for other devices:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># make some directories</span>
+</pre>
+      </div>
+      <h2>
+       <span id="Building_the_kernel_with_Android's_build_system">
+       </span>
+       <span class="mw-headline" id="Building_the_kernel_with_Android.27s_build_system">
+        Building the kernel with Android's build system
+       </span>
+      </h2>
+      <p>
+       It might be useful for debugging to build Android's kernel with Android's build system.
+      </p>
+      <p>
+       You can follow the LineageOS building guide for your device (see
+       <a class="external text" href="https://wiki.lineageos.org/devices/titan/build" rel="nofollow">
+        this
+       </a>
+       for titan device as example).
+      </p>
+      <p>
+       The process should be similar for other devices:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="c1"># make some directories</span>
 mkdir -p ~/bin
 mkdir -p ~/android/lineage
 
@@ -194,77 +574,186 @@ mka kernel
 
 <span class="c1"># This command will also generate the device tree, initramfs and boot.img images</span>
 mka bootimage
-</pre></div>
-<p>You can check the <code>$OUT</code> environment variable and cd into it. In the case of titan the interesting generated files are:
-</p>
-<ul>
-<li>
-<code>~/android/lineage/out/target/product/titan/boot.img</code> (boot image ready to be flashed: kernel + initramfs)</li>
-<li>
-<code>~/android/lineage/out/target/product/titan/dt.img</code> (device trees)</li>
-<li>
-<code>~/android/lineage/out/target/product/titan/kernel</code> (linux image)</li>
-<li>
-<code>~/android/lineage/out/target/product/titan/ramdisk.img</code> (compressed initramfs)</li>
-</ul>
-<p>The defconfig used is available at <code>~/android/lineage/kernel/motorola/msm8226/arch/arm/configs/titan_defconfig</code>
-</p>
-<h2>
-<span id="Error:_selected_processor_does_not_support_ARM_mode_`smc_#0'"></span><span class="mw-headline" id="Error:_selected_processor_does_not_support_ARM_mode_.60smc_.230.27">Error: selected processor does not support ARM mode `smc #0'</span>
-</h2>
-<p>Try this patch: <a rel="nofollow" class="external free" href="https://github.com/imoseyon/leanKernel-galaxy-nexus/pull/6">https://github.com/imoseyon/leanKernel-galaxy-nexus/pull/6</a>
-</p>
-<h2><span class="mw-headline" id="X11_does_not_work_on_Qualcomm_devices">X11 does not work on Qualcomm devices</span></h2>
-<p>Try apply this <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/device/testing/linux-xiaomi-santoni/fix-xorg-mdss-update-fb-info.patch">patch</a>.
-</p>
-<h2>
-<span id="TLS_(SSL/HTTPS)_is_broken!"></span><span class="mw-headline" id="TLS_.28SSL.2FHTTPS.29_is_broken.21">TLS (SSL/HTTPS) is broken!</span>
-</h2>
-<p>If you see messages like these, when trying to access HTTPS pages, read on:
-</p>
-<pre>Connecting to pastebin.com (104.20.209.21:443)
+</pre>
+      </div>
+      <p>
+       You can check the
+       <code>
+        $OUT
+       </code>
+       environment variable and cd into it. In the case of titan the interesting generated files are:
+      </p>
+      <ul>
+       <li>
+        <code>
+         ~/android/lineage/out/target/product/titan/boot.img
+        </code>
+        (boot image ready to be flashed: kernel + initramfs)
+       </li>
+       <li>
+        <code>
+         ~/android/lineage/out/target/product/titan/dt.img
+        </code>
+        (device trees)
+       </li>
+       <li>
+        <code>
+         ~/android/lineage/out/target/product/titan/kernel
+        </code>
+        (linux image)
+       </li>
+       <li>
+        <code>
+         ~/android/lineage/out/target/product/titan/ramdisk.img
+        </code>
+        (compressed initramfs)
+       </li>
+      </ul>
+      <p>
+       The defconfig used is available at
+       <code>
+        ~/android/lineage/kernel/motorola/msm8226/arch/arm/configs/titan_defconfig
+       </code>
+      </p>
+      <h2>
+       <span id="Error:_selected_processor_does_not_support_ARM_mode_`smc_#0'">
+       </span>
+       <span class="mw-headline" id="Error:_selected_processor_does_not_support_ARM_mode_.60smc_.230.27">
+        Error: selected processor does not support ARM mode `smc #0'
+       </span>
+      </h2>
+      <p>
+       Try this patch:
+       <a class="external free" href="https://github.com/imoseyon/leanKernel-galaxy-nexus/pull/6" rel="nofollow">
+        https://github.com/imoseyon/leanKernel-galaxy-nexus/pull/6
+       </a>
+      </p>
+      <h2>
+       <span class="mw-headline" id="X11_does_not_work_on_Qualcomm_devices">
+        X11 does not work on Qualcomm devices
+       </span>
+      </h2>
+      <p>
+       Try apply this
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/device/testing/linux-xiaomi-santoni/fix-xorg-mdss-update-fb-info.patch" rel="nofollow">
+        patch
+       </a>
+       .
+      </p>
+      <h2>
+       <span id="TLS_(SSL/HTTPS)_is_broken!">
+       </span>
+       <span class="mw-headline" id="TLS_.28SSL.2FHTTPS.29_is_broken.21">
+        TLS (SSL/HTTPS) is broken!
+       </span>
+      </h2>
+      <p>
+       If you see messages like these, when trying to access HTTPS pages, read on:
+      </p>
+      <pre>Connecting to pastebin.com (104.20.209.21:443)
 ssl_client: pastebin.com: TLS connect failed
 wget: error getting response: Connection reset by peer
 </pre>
-<p>You are probably running an older kernel (pre 3.17), which does not yet have the "getrandom" syscall. This is required by modern openssl/libressl versions (Alpine was on libressl for a long time, then switched back to openssl). Check your kernel version, and if that is the case, and <a href="../en/The_Mainline_Kernel.html" title="The Mainline Kernel">mainlining</a> is not feasible for you, consider backporting the getrandom syscall like done in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/69">pmaports!69</a>. This issue was discussed in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/107">pmaports#107</a>.
-</p>
-<h2><span class="mw-headline" id="CROSS_COMPILE_ARM32_not_defined_or_empty">CROSS_COMPILE_ARM32 not defined or empty</span></h2>
-<p>Try unset CONFIG_COMPAT_VDSO from your kernel config.
-</p>
-<h2><span class="mw-headline" id="External_resources">External resources</span></h2>
-<ul><li><a rel="nofollow" class="external text" href="http://docs.halium.org/en/latest/porting/common-kernel-build-errors.html">Halium Docs</a></li></ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:kernel&amp;oldid=18543">https://wiki.postmarketos.org/index.php?title=Troubleshooting:kernel&amp;oldid=18543</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 11 April 2021, at 12:17.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:kernel&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <p>
+       You are probably running an older kernel (pre 3.17), which does not yet have the "getrandom" syscall. This is required by modern openssl/libressl versions (Alpine was on libressl for a long time, then switched back to openssl). Check your kernel version, and if that is the case, and
+       <a href="../en/The_Mainline_Kernel.html" title="The Mainline Kernel">
+        mainlining
+       </a>
+       is not feasible for you, consider backporting the getrandom syscall like done in
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/69" rel="nofollow">
+        pmaports!69
+       </a>
+       . This issue was discussed in
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/107" rel="nofollow">
+        pmaports#107
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="CROSS_COMPILE_ARM32_not_defined_or_empty">
+        CROSS_COMPILE_ARM32 not defined or empty
+       </span>
+      </h2>
+      <p>
+       Try unset CONFIG_COMPAT_VDSO from your kernel config.
+      </p>
+      <h2>
+       <span class="mw-headline" id="External_resources">
+        External resources
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="external text" href="http://docs.halium.org/en/latest/porting/common-kernel-build-errors.html" rel="nofollow">
+         Halium Docs
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:kernel&amp;oldid=18543">
+      https://wiki.postmarketos.org/index.php?title=Troubleshooting:kernel&amp;oldid=18543
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 11 April 2021, at 12:17.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:kernel&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

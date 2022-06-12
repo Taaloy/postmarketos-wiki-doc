@@ -1,126 +1,322 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>MSM8996 Mainlining - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-MSM8996_Mainlining rootpage-MSM8996_Mainlining skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">MSM8996 Mainlining</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">This page is WIP.</td>
-</tr></tbody></table>
-<p><a rel="nofollow" class="external text" href="https://www.qualcomm.com/products/snapdragon-820-mobile-platform">MSM8996</a>/APQ8096 (Snapdragon 820/820E), as well as <a rel="nofollow" class="external text" href="https://www.qualcomm.com/products/snapdragon-821-mobile-platform">MSM8996SG</a>/<a rel="nofollow" class="external text" href="https://www.qualcomm.com/products/apq8096sg">APQ8096SG</a> (Snapdragon 821, also known as MSM8996 Pro) are Qualcomm SoCs with good support in the mainline Linux kernel. Getting it to boot on them generally does not require a lot of effort.
-</p>
-<h2><span class="mw-headline" id="Status">Status</span></h2>
-<ul>
-<li>
-<b>CPU:</b> SMP (bring up secondary CPU cores), CPU frequency scaling, CPU idle</li>
-<li>
-<b>Storage:</b> eMMC, SD cards, UFS, ...</li>
-<li>
-<b>Video:</b> Hardware-accelerated video codec</li>
-<li>
-<b>Modem:</b> Calls, SMS, Mobile data</li>
-</ul>
-<table class="cargoTable noMerge sortable">
-<thead><tr>
-<th class="field_SoC">SoC</th>
-<th class="field_Arch">Arch</th>
-<th class="field_Year">Year</th>
-<th class="field_CPU">CPU</th>
-<th class="field_UART">UART</th>
-<th class="field_Storage">Storage</th>
-<th class="field_USB">USB</th>
-<th class="field_Display">Display</th>
-<th class="field_GPU">GPU</th>
-<th class="field_Pinctrl">Pinctrl</th>
-<th class="field_I²C">I²C</th>
-<th class="field_Audio">Audio</th>
-<th class="field_Video">Video</th>
-<th class="field_Thermal">Thermal</th>
-<th class="field_Modem">Modem</th>
-<th class="field_Camera">Camera</th>
-</tr></thead>
-<tbody>
-<tr>
-<td class="field_SoC"><a href="../en/Qualcomm_Snapdragon_820_821_(MSM8996).html" title="Qualcomm Snapdragon 820/821 (MSM8996)">Qualcomm MSM8996</a></td>
-<td class="field_Arch">aarch64</td>
-<td class="field_Year">2016</td>
-<td class="field_CPU">P</td>
-<td class="field_UART">Y</td>
-<td class="field_Storage">P</td>
-<td class="field_USB">Y</td>
-<td class="field_Display">Y</td>
-<td class="field_GPU">Y</td>
-<td class="field_Pinctrl">Y</td>
-<td class="field_I²C">Y</td>
-<td class="field_Audio">Y</td>
-<td class="field_Video">Y</td>
-<td class="field_Thermal">Y</td>
-<td class="field_Modem">P</td>
-<td class="field_Camera">P</td>
-</tr>
-</tbody>
-</table>
-<h1><span class="mw-headline" id="First_Steps">First Steps</span></h1>
-<h2><span class="mw-headline" id="Kernel">Kernel</span></h2>
-<h3><span class="mw-headline" id="SoC_Common_Kernel"><a rel="nofollow" class="external text" href="https://gitlab.com/msm8996-mainline/linux">SoC Common Kernel</a></span></h3>
-<p>This is a close to mainline fork which is used as a staging area for new devices and code. It has additional patches including fixes for some as well as new drivers that aren't ready for upstream, or haven't been merged there yet. Start off by cloning this kernel tree:
-</p>
-<pre>git clone <a rel="nofollow" class="external free" href="https://gitlab.com/msm8996-mainline/linux.git">https://gitlab.com/msm8996-mainline/linux.git</a>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   MSM8996 Mainlining - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-MSM8996_Mainlining rootpage-MSM8996_Mainlining skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    MSM8996 Mainlining
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          This page is WIP.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       <a class="external text" href="https://www.qualcomm.com/products/snapdragon-820-mobile-platform" rel="nofollow">
+        MSM8996
+       </a>
+       /APQ8096 (Snapdragon 820/820E), as well as
+       <a class="external text" href="https://www.qualcomm.com/products/snapdragon-821-mobile-platform" rel="nofollow">
+        MSM8996SG
+       </a>
+       /
+       <a class="external text" href="https://www.qualcomm.com/products/apq8096sg" rel="nofollow">
+        APQ8096SG
+       </a>
+       (Snapdragon 821, also known as MSM8996 Pro) are Qualcomm SoCs with good support in the mainline Linux kernel. Getting it to boot on them generally does not require a lot of effort.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Status">
+        Status
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <b>
+         CPU:
+        </b>
+        SMP (bring up secondary CPU cores), CPU frequency scaling, CPU idle
+       </li>
+       <li>
+        <b>
+         Storage:
+        </b>
+        eMMC, SD cards, UFS, ...
+       </li>
+       <li>
+        <b>
+         Video:
+        </b>
+        Hardware-accelerated video codec
+       </li>
+       <li>
+        <b>
+         Modem:
+        </b>
+        Calls, SMS, Mobile data
+       </li>
+      </ul>
+      <table class="cargoTable noMerge sortable" style="border-collapse: collapse;">
+       <thead>
+        <tr style="background-color: #eeeeee;">
+         <th class="field_SoC">
+          SoC
+         </th>
+         <th class="field_Arch">
+          Arch
+         </th>
+         <th class="field_Year">
+          Year
+         </th>
+         <th class="field_CPU">
+          CPU
+         </th>
+         <th class="field_UART">
+          UART
+         </th>
+         <th class="field_Storage">
+          Storage
+         </th>
+         <th class="field_USB">
+          USB
+         </th>
+         <th class="field_Display">
+          Display
+         </th>
+         <th class="field_GPU">
+          GPU
+         </th>
+         <th class="field_Pinctrl">
+          Pinctrl
+         </th>
+         <th class="field_I²C">
+          I²C
+         </th>
+         <th class="field_Audio">
+          Audio
+         </th>
+         <th class="field_Video">
+          Video
+         </th>
+         <th class="field_Thermal">
+          Thermal
+         </th>
+         <th class="field_Modem">
+          Modem
+         </th>
+         <th class="field_Camera">
+          Camera
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td class="field_SoC">
+          <a href="../en/Qualcomm_Snapdragon_820_821_(MSM8996).html" title="Qualcomm Snapdragon 820/821 (MSM8996)">
+           Qualcomm MSM8996
+          </a>
+         </td>
+         <td class="field_Arch">
+          aarch64
+         </td>
+         <td class="field_Year">
+          2016
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+         <td class="feature feature-partial">
+          P
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h1>
+       <span class="mw-headline" id="First_Steps">
+        First Steps
+       </span>
+      </h1>
+      <h2>
+       <span class="mw-headline" id="Kernel">
+        Kernel
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="SoC_Common_Kernel">
+        <a class="external text" href="https://gitlab.com/msm8996-mainline/linux" rel="nofollow">
+         SoC Common Kernel
+        </a>
+       </span>
+      </h3>
+      <p>
+       This is a close to mainline fork which is used as a staging area for new devices and code. It has additional patches including fixes for some as well as new drivers that aren't ready for upstream, or haven't been merged there yet. Start off by cloning this kernel tree:
+      </p>
+      <pre>git clone <a class="external free" href="https://gitlab.com/msm8996-mainline/linux.git" rel="nofollow">https://gitlab.com/msm8996-mainline/linux.git</a>
 </pre>
-<h2><span class="mw-headline" id="References">References</span></h2>
-<h3><span class="mw-headline" id="Downstream_DTS">Downstream DTS</span></h3>
-<p>This will probably be the most useful reference material. You should be able to find it in the downstream kernel somewhere in <code>arch/arm/boot/dts/qcom</code>, or <code>arch/arm64/boot/dts/qcom</code> which should be symlinked to the previous path.
-A DTB can also be extracted from the device in runtime from <code>/sys/firmware/fdt</code>, then decompiled with DTC:
-</p>
-<pre>dtc -I dtb -O dts fdt &gt; fdt.dts
+      <h2>
+       <span class="mw-headline" id="References">
+        References
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Downstream_DTS">
+        Downstream DTS
+       </span>
+      </h3>
+      <p>
+       This will probably be the most useful reference material. You should be able to find it in the downstream kernel somewhere in
+       <code>
+        arch/arm/boot/dts/qcom
+       </code>
+       , or
+       <code>
+        arch/arm64/boot/dts/qcom
+       </code>
+       which should be symlinked to the previous path.
+A DTB can also be extracted from the device in runtime from
+       <code>
+        /sys/firmware/fdt
+       </code>
+       , then decompiled with DTC:
+      </p>
+      <pre>dtc -I dtb -O dts fdt &gt; fdt.dts
 </pre>
-<p>This however will be stripped of any comments or labels, so it makes finding things a bit harder, but you can be certain that this is the correct DTS for the device variant you have.
-</p>
-<h3><span class="mw-headline" id="Schematics">Schematics</span></h3>
-<p>Having board schematics will help confirm connections between components, and especially regulators which can sometimes not be clear in downstream DTS. It can also help find UART pads or ports.
-</p>
-<h3><span class="mw-headline" id="Downstream_Kernel">Downstream Kernel</span></h3>
-<p>This will help when writing drivers. The downstream drivers can be used as reference.
-</p>
-<h3><span class="mw-headline" id="DTS_of_Other_Mainlined_Devices">DTS of Other Mainlined Devices</span></h3>
-<p>There's a good chance that your device shares some hardware with other mainlined devices. Usually that's the case for WiFi/Bluetooth and Audio.
+      <p>
+       This however will be stripped of any comments or labels, so it makes finding things a bit harder, but you can be certain that this is the correct DTS for the device variant you have.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Schematics">
+        Schematics
+       </span>
+      </h3>
+      <p>
+       Having board schematics will help confirm connections between components, and especially regulators which can sometimes not be clear in downstream DTS. It can also help find UART pads or ports.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Downstream_Kernel">
+        Downstream Kernel
+       </span>
+      </h3>
+      <p>
+       This will help when writing drivers. The downstream drivers can be used as reference.
+      </p>
+      <h3>
+       <span class="mw-headline" id="DTS_of_Other_Mainlined_Devices">
+        DTS of Other Mainlined Devices
+       </span>
+      </h3>
+      <p>
+       There's a good chance that your device shares some hardware with other mainlined devices. Usually that's the case for WiFi/Bluetooth and Audio.
 It can help to take a look in device trees of other mainlined devices to see how things are done, or even copy similar parts.
-</p>
-<h2><span class="mw-headline" id="Initial_Device_Tree">Initial Device Tree</span></h2>
-<p>Every device requires a <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Devicetree">device tree</a> that describes its hardware. Linux reads the device tree to determine what hardware is available, how it's connected, and what drivers are needed to operate it. Device trees in the kernel source tree can be found in <code>arch/*/boot/dts</code>. For MSM8996 devices, device trees are placed in <code>arch/arm64/boot/dts/qcom</code>.
-</p>
-<h3><span class="mw-headline" id="Creating_the_DTS">Creating the DTS</span></h3>
-<p>Create a new file there named <code>msm8996-&lt;vendor&gt;-&lt;codename&gt;.dts</code> using this template:
-</p>
-<pre>// SPDX-License-Identifier: Your-License
+      </p>
+      <h2>
+       <span class="mw-headline" id="Initial_Device_Tree">
+        Initial Device Tree
+       </span>
+      </h2>
+      <p>
+       Every device requires a
+       <a class="external text" href="https://en.wikipedia.org/wiki/Devicetree" rel="nofollow">
+        device tree
+       </a>
+       that describes its hardware. Linux reads the device tree to determine what hardware is available, how it's connected, and what drivers are needed to operate it. Device trees in the kernel source tree can be found in
+       <code>
+        arch/*/boot/dts
+       </code>
+       . For MSM8996 devices, device trees are placed in
+       <code>
+        arch/arm64/boot/dts/qcom
+       </code>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Creating_the_DTS">
+        Creating the DTS
+       </span>
+      </h3>
+      <p>
+       Create a new file there named
+       <code>
+        msm8996-&lt;vendor&gt;-&lt;codename&gt;.dts
+       </code>
+       using this template:
+      </p>
+      <pre>// SPDX-License-Identifier: Your-License
 /*
  * Copyright (c) YYYY, Your Name &lt;address@mail.xyz&gt;
  */
@@ -134,25 +330,47 @@ It can help to take a look in device trees of other mainlined devices to see how
 	compatible = "vendor,codename", "qcom,msm8996";
 };
 </pre>
-<p>Then add it to the Makefile in the same directory, respecting alphabetical order:
-</p>
-<pre>dtb-$(CONFIG_ARCH_QCOM)	+= msm8996-vendor-codename.dtb
+      <p>
+       Then add it to the Makefile in the same directory, respecting alphabetical order:
+      </p>
+      <pre>dtb-$(CONFIG_ARCH_QCOM)	+= msm8996-vendor-codename.dtb
 </pre>
-<h3>
-<span id="Adding_qcom,*-id"></span><span class="mw-headline" id="Adding_qcom.2C.2A-id">Adding <code>qcom,*-id</code></span>
-</h3>
-<p>The bootloader on devices with Qualcomm SoCs uses a set of device tree properties to pick a suitable DTB for the device variant it's running on:
-</p>
-<ul>
-<li><code>qcom,msm-id</code></li>
-<li><code>qcom,pmic-id</code></li>
-<li><code>qcom,board-id</code></li>
-</ul>
-<p>This allows vendors to pack multiple DTBs for several variants of their device into a single image and use it for all of them, instead of having to create an image for each variant.
+      <h3>
+       <span id="Adding_qcom,*-id">
+       </span>
+       <span class="mw-headline" id="Adding_qcom.2C.2A-id">
+        Adding
+        <code>
+         qcom,*-id
+        </code>
+       </span>
+      </h3>
+      <p>
+       The bootloader on devices with Qualcomm SoCs uses a set of device tree properties to pick a suitable DTB for the device variant it's running on:
+      </p>
+      <ul>
+       <li>
+        <code>
+         qcom,msm-id
+        </code>
+       </li>
+       <li>
+        <code>
+         qcom,pmic-id
+        </code>
+       </li>
+       <li>
+        <code>
+         qcom,board-id
+        </code>
+       </li>
+      </ul>
+      <p>
+       This allows vendors to pack multiple DTBs for several variants of their device into a single image and use it for all of them, instead of having to create an image for each variant.
 Setting those properties is necessary to make the bootloader pick our device tree. You should be able to find those in the downstream DTS.
 Once you find them, put them in the root node:
-</p>
-<pre>/ {
+      </p>
+      <pre>/ {
 	model = "Device Name";
 	compatible = "vendor,codename", "qcom,msm8996";
 	qcom,msm-id = &lt;0x131 0x10000&gt;;
@@ -160,32 +378,81 @@ Once you find them, put them in the root node:
 	qcom,board-id = &lt;34 0&gt;;
 };
 </pre>
-<p>This device tree should be enough to boot, but so far there is no way of getting any sort of feedback.
-</p>
-<h1><span class="mw-headline" id="Getting_Kernel_Output">Getting Kernel Output</span></h1>
-<p>Getting any kind of output from the kernel is necessary to confirm that it boots, and to know if anything is not working as expected. There are a few methods to get kernel logs:
-</p>
-<h2><span class="mw-headline" id="Simple_Framebuffer">Simple Framebuffer</span></h2>
-<div class="thumb tright"><div class="thumbinner" style="width:402px;">
-<a href="../Xiaomi-scorpio-simplefb-corner.jpg" class="image"><img alt="" src="../Xiaomi-scorpio-simplefb-corner.jpg" decoding="async" width="400" height="533" class="thumbimage" srcset="../600px-Xiaomi-scorpio-simplefb-corner.jpg 1.5x ../800px-Xiaomi-scorpio-simplefb-corner.jpg 2x"></a>  <div class="thumbcaption">
-<div class="magnify"><a href="../Xiaomi-scorpio-simplefb-corner.jpg" class="internal" title="Enlarge"></a></div>Framebuffer console with simplefb on Xiaomi Mi Note 2</div>
-</div></div>
-<p>Perhaps the easiest one to get working, provided you have suitable hardware and a nice bootloader.
-</p>
-<p>It's a fbdev driver that makes use of the framebuffer configured by the bootloader for boot splash. We can use it to draw a console on the screen with little effort. All it takes is to know the memory region where the bootloader configures the framebuffer, and fortunately that should be the same across all MSM8996 devices. Unfortunately however, it usually only works on video-mode panels and doesn't work on command-mode panels. To find out what type of panel you have, check the downstream cmdline (on Android or TWRP for example). This example is taken from a <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Xiaomi_Mi_Note_2_(xiaomi-scorpio)">Xiaomi Mi Note 2</a>:
-</p>
-<pre># cat /proc/cmdline
+      <p>
+       This device tree should be enough to boot, but so far there is no way of getting any sort of feedback.
+      </p>
+      <h1>
+       <span class="mw-headline" id="Getting_Kernel_Output">
+        Getting Kernel Output
+       </span>
+      </h1>
+      <p>
+       Getting any kind of output from the kernel is necessary to confirm that it boots, and to know if anything is not working as expected. There are a few methods to get kernel logs:
+      </p>
+      <h2>
+       <span class="mw-headline" id="Simple_Framebuffer">
+        Simple Framebuffer
+       </span>
+      </h2>
+      <div class="thumb tright">
+       <div class="thumbinner" style="width:402px;">
+        <a class="image" href="../Xiaomi-scorpio-simplefb-corner.jpg">
+         <img alt="" class="thumbimage" decoding="async" height="533" src="../Xiaomi-scorpio-simplefb-corner.jpg" srcset="../600px-Xiaomi-scorpio-simplefb-corner.jpg 1.5x ../800px-Xiaomi-scorpio-simplefb-corner.jpg 2x" width="400"/>
+        </a>
+        <div class="thumbcaption">
+         <div class="magnify">
+          <a class="internal" href="../Xiaomi-scorpio-simplefb-corner.jpg" title="Enlarge">
+          </a>
+         </div>
+         Framebuffer console with simplefb on Xiaomi Mi Note 2
+        </div>
+       </div>
+      </div>
+      <p>
+       Perhaps the easiest one to get working, provided you have suitable hardware and a nice bootloader.
+      </p>
+      <p>
+       It's a fbdev driver that makes use of the framebuffer configured by the bootloader for boot splash. We can use it to draw a console on the screen with little effort. All it takes is to know the memory region where the bootloader configures the framebuffer, and fortunately that should be the same across all MSM8996 devices. Unfortunately however, it usually only works on video-mode panels and doesn't work on command-mode panels. To find out what type of panel you have, check the downstream cmdline (on Android or TWRP for example). This example is taken from a
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Xiaomi_Mi_Note_2_(xiaomi-scorpio)" rel="nofollow">
+        Xiaomi Mi Note 2
+       </a>
+       :
+      </p>
+      <pre># cat /proc/cmdline
 sched_enable_hmp=1 sched_enable_power_aware=1 app_setting.use_32bit_app_setting_pro=1 kpti=1 androidboot.hardware=qcom ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff loop.max_part=7 buildvariant=userdebug androidboot.bootdevice=624000.ufshc androidboot.verifiedbootstate=orange androidboot.veritymode=eio androidboot.keymaster=1 androidboot.serialno=91000201 androidboot.secureboot=1 androidboot.hwversion=4.5.0 androidboot.baseband=msm mdss_mdp.panel=1:dsi:0:qcom,mdss_dsi_lgd_sw43101_fhd_video:1:none:cfg:single_dsi fpsimd.fpsimd_settings=0 app_setting.use_app_setting=0
 </pre>
-<p>This argument is what we're looking for:
-</p>
-<pre>mdss_mdp.panel=1:dsi:0:qcom,mdss_dsi_lgd_sw43101_fhd_video:1:none:cfg:single_dsi
+      <p>
+       This argument is what we're looking for:
+      </p>
+      <pre>mdss_mdp.panel=1:dsi:0:qcom,mdss_dsi_lgd_sw43101_fhd_video:1:none:cfg:single_dsi
 </pre>
-<p>In this case the panel name is <code>qcom,mdss_dsi_lgd_sw43101_fhd_video</code>. What's important here is <code>video</code> at the end of the name. This tells us that this panel is video-mode. Command-mode panels would have <code>cmd</code> in the panel name.
-</p>
-<p>Once you confirm that you have a suitable panel, you can proceed with enabling simplefb. You just have to add these nodes to the root node of your device tree, replacing <code>height</code> and <code>width</code> with the dimensions of your panel:
-</p>
-<pre>/ {
+      <p>
+       In this case the panel name is
+       <code>
+        qcom,mdss_dsi_lgd_sw43101_fhd_video
+       </code>
+       . What's important here is
+       <code>
+        video
+       </code>
+       at the end of the name. This tells us that this panel is video-mode. Command-mode panels would have
+       <code>
+        cmd
+       </code>
+       in the panel name.
+      </p>
+      <p>
+       Once you confirm that you have a suitable panel, you can proceed with enabling simplefb. You just have to add these nodes to the root node of your device tree, replacing
+       <code>
+        height
+       </code>
+       and
+       <code>
+        width
+       </code>
+       with the dimensions of your panel:
+      </p>
+      <pre>/ {
 	...
 	chosen {
 		#address-cells = &lt;2&gt;;
@@ -211,53 +478,125 @@ sched_enable_hmp=1 sched_enable_power_aware=1 app_setting.use_32bit_app_setting_
 	...
 };
 </pre>
-<p>Once done, build and flash/boot the kernel. If all went well, you should get some penguins on your screen!
-</p>
-<h2><span class="mw-headline" id="UART">UART</span></h2>
-<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
-<strong>TODO</strong> Add info about enabling UART output</div>
-<p><br>
-</p>
-<h2><span class="mw-headline" id="Notes">Notes</span></h2>
-<ul><li>Some discussion about mainline status on this platform occurs in the <b>#msm8996-mainline:matrix.org</b> chat room on Matrix</li></ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li>
-<li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li>
-<li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li>
-</ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=MSM8996_Mainlining&amp;oldid=25184">https://wiki.postmarketos.org/index.php?title=MSM8996_Mainlining&amp;oldid=25184</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 22 January 2022, at 08:43.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=MSM8996_Mainlining&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <p>
+       Once done, build and flash/boot the kernel. If all went well, you should get some penguins on your screen!
+      </p>
+      <h2>
+       <span class="mw-headline" id="UART">
+        UART
+       </span>
+      </h2>
+      <div class="todo" role="note" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+       <strong>
+        TODO
+       </strong>
+       Add info about enabling UART output
+      </div>
+      <p>
+       <br/>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Notes">
+        Notes
+       </span>
+      </h2>
+      <ul>
+       <li>
+        Some discussion about mainline status on this platform occurs in the
+        <b>
+         #msm8996-mainline:matrix.org
+        </b>
+        chat room on Matrix
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Categories
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+       <li>
+        <a href="../en/Category:Todo_Items.html" title="Category:Todo Items">
+         Todo Items
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=MSM8996_Mainlining&amp;oldid=25184">
+      https://wiki.postmarketos.org/index.php?title=MSM8996_Mainlining&amp;oldid=25184
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 22 January 2022, at 08:43.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=MSM8996_Mainlining&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

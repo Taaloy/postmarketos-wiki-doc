@@ -1,111 +1,321 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>VNC - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-VNC rootpage-VNC skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">VNC</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This guide explains how to setup a VNC server on your phone.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#x11vnc"><span class="tocnumber">1</span> <span class="toctext">x11vnc</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#wayvnc"><span class="tocnumber">2</span> <span class="toctext">wayvnc</span></a></li>
-<li class="toclevel-1 tocsection-3">
-<a href="#Troubleshooting"><span class="tocnumber">3</span> <span class="toctext">Troubleshooting</span></a>
-<ul>
-<li class="toclevel-2 tocsection-4"><a href="#XDG_RUNTIME_DIR_not_set_in_the_environment"><span class="tocnumber">3.1</span> <span class="toctext">XDG_RUNTIME_DIR not set in the environment</span></a></li>
-<li class="toclevel-2 tocsection-5"><a href="#Connection_refused.2Ftimed_out"><span class="tocnumber">3.2</span> <span class="toctext">Connection refused/timed out</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#No_route_to_host"><span class="tocnumber">3.3</span> <span class="toctext">No route to host</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-7"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="x11vnc">x11vnc</span></h2>
-<p>Using <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;"><a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/packages?name=x11vnc&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=">x11vnc</a></span>, which is in the Alpine repos. You need a running X server (e.g. running Xfce), then you just run x11vnc on the device in a terminal/tty and connect to it. From there, you can manipulate the previously running X server. You might need to specify the X server if x11vnc does not detect it (e.g. by passing <code>-display :0</code> to it or doing a <code>export DISPLAY=:0</code> before running it, assuming the display is at <code>:0</code>)
-</p>
-<h2><span class="mw-headline" id="wayvnc">wayvnc</span></h2>
-<p>This works for wayland sessions like <a href="../en/Phosh.html" title="Phosh">Phosh</a><sup id="cite_ref-1" class="reference"><a href="#cite_note-1">[1]</a></sup>. By default wayvnc listens to <code>127.0.0.1:5900</code>
-</p>
-<p>Install <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;"><a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/packages?name=wayvnc&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=">wayvnc</a></span>, and start a server listening to any network interface on the phone:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add wayvnc
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   VNC - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-VNC rootpage-VNC skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    VNC
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       This guide explains how to setup a VNC server on your phone.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#x11vnc">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           x11vnc
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#wayvnc">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           wayvnc
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Troubleshooting">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Troubleshooting
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#XDG_RUNTIME_DIR_not_set_in_the_environment">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             XDG_RUNTIME_DIR not set in the environment
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Connection_refused.2Ftimed_out">
+            <span class="tocnumber">
+             3.2
+            </span>
+            <span class="toctext">
+             Connection refused/timed out
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#No_route_to_host">
+            <span class="tocnumber">
+             3.3
+            </span>
+            <span class="toctext">
+             No route to host
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-7">
+         <a href="#See_also">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="x11vnc">
+        x11vnc
+       </span>
+      </h2>
+      <p>
+       Using
+       <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;">
+        <a class="external text" href="https://pkgs.alpinelinux.org/packages?name=x11vnc&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=" rel="nofollow">
+         x11vnc
+        </a>
+       </span>
+       , which is in the Alpine repos. You need a running X server (e.g. running Xfce), then you just run x11vnc on the device in a terminal/tty and connect to it. From there, you can manipulate the previously running X server. You might need to specify the X server if x11vnc does not detect it (e.g. by passing
+       <code>
+        -display :0
+       </code>
+       to it or doing a
+       <code>
+        export DISPLAY=:0
+       </code>
+       before running it, assuming the display is at
+       <code>
+        :0
+       </code>
+       )
+      </p>
+      <h2>
+       <span class="mw-headline" id="wayvnc">
+        wayvnc
+       </span>
+      </h2>
+      <p>
+       This works for wayland sessions like
+       <a href="../en/Phosh.html" title="Phosh">
+        Phosh
+       </a>
+       <sup class="reference" id="cite_ref-1">
+        <a href="#cite_note-1">
+         [1]
+        </a>
+       </sup>
+       . By default wayvnc listens to
+       <code>
+        127.0.0.1:5900
+       </code>
+      </p>
+      <p>
+       Install
+       <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;">
+        <a class="external text" href="https://pkgs.alpinelinux.org/packages?name=wayvnc&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=" rel="nofollow">
+         wayvnc
+        </a>
+       </span>
+       , and start a server listening to any network interface on the phone:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> sudo apk add wayvnc
 <span class="go">(1/3) Installing aml (0.2.1-r0)</span>
 <span class="go">(2/3) Installing neatvnc (0.4.0-r0)</span>
 <span class="go">(3/3) Installing wayvnc (0.4.1-r0)</span>
 <span class="go">Executing busybox-1.35.0-r13.trigger</span>
 <span class="go">OK: 971 MiB in 563 packages</span>
 <span class="gp">$</span> wayvnc <span class="m">0</span>.0.0.0
-</pre></div>
-<p>Or listen to <code>172.16.42.1</code> on port <code>9999</code>:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> wayvnc <span class="m">172</span>.16.42.1 <span class="m">9999</span>
-</pre></div>
-<p><br>
-After a server setup, use a client, for example, <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;"><a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/packages?name=tigervnc-client&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=">tigervnc-client</a></span> to connect to the server <code>172.16.42.1:9999</code>, and press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Connect</span>:
-</p>
-<p><a href="../Tigervnc.png" class="image"><img alt="Tigervnc.png" src="../Tigervnc.png" decoding="async" width="478" height="211"></a>
-</p>
-<p>Have fun with it.
-</p>
-<p><a href="../Wayvnc.png" class="image"><img alt="Wayvnc.png" src="../Wayvnc.png" decoding="async" width="640" height="360" srcset="../Wayvnc.png 1.5x ../Wayvnc.png 2x"></a>
-</p>
-<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
-<h3><span class="mw-headline" id="XDG_RUNTIME_DIR_not_set_in_the_environment">XDG_RUNTIME_DIR not set in the environment</span></h3>
-<p>This happens when <code>XDG_RUNTIME_DIR</code> is not set, usually in SSH sessions.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> wayvnc <span class="m">0</span>.0.0.0
+</pre>
+      </div>
+      <p>
+       Or listen to
+       <code>
+        172.16.42.1
+       </code>
+       on port
+       <code>
+        9999
+       </code>
+       :
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> wayvnc <span class="m">172</span>.16.42.1 <span class="m">9999</span>
+</pre>
+      </div>
+      <p>
+       <br/>
+       After a server setup, use a client, for example,
+       <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;">
+        <a class="external text" href="https://pkgs.alpinelinux.org/packages?name=tigervnc-client&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=" rel="nofollow">
+         tigervnc-client
+        </a>
+       </span>
+       to connect to the server
+       <code>
+        172.16.42.1:9999
+       </code>
+       , and press
+       <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+        Connect
+       </span>
+       :
+      </p>
+      <p>
+       <a class="image" href="../Tigervnc.png">
+        <img alt="Tigervnc.png" decoding="async" height="211" src="../Tigervnc.png" width="478"/>
+       </a>
+      </p>
+      <p>
+       Have fun with it.
+      </p>
+      <p>
+       <a class="image" href="../Wayvnc.png">
+        <img alt="Wayvnc.png" decoding="async" height="360" src="../Wayvnc.png" srcset="../Wayvnc.png 1.5x ../Wayvnc.png 2x" width="640"/>
+       </a>
+      </p>
+      <h2>
+       <span class="mw-headline" id="Troubleshooting">
+        Troubleshooting
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="XDG_RUNTIME_DIR_not_set_in_the_environment">
+        XDG_RUNTIME_DIR not set in the environment
+       </span>
+      </h3>
+      <p>
+       This happens when
+       <code>
+        XDG_RUNTIME_DIR
+       </code>
+       is not set, usually in SSH sessions.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> wayvnc <span class="m">0</span>.0.0.0
 <span class="go">error: XDG_RUNTIME_DIR not set in the environment.</span>
 <span class="go">ERROR: Failed to initialise wayland</span>
-</pre></div>
-<p>Just set it with:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">export</span> <span class="nv">XDG_RUNTIME_DIR</span><span class="o">=</span>/run/user/10000
-</pre></div>
-<p>And start the server again.
-</p>
-<h3>
-<span id="Connection_refused/timed_out"></span><span class="mw-headline" id="Connection_refused.2Ftimed_out">Connection refused/timed out</span>
-</h3>
-<p>Check if your VNC server is started, and the port is open to the clients.
-By default, incoming packets from <a href="../en/USB_Network.html" class="mw-redirect" title="USB Networking">USB Networking</a> are accepted by <a href="../en/Nftables.html" title="Nftables">nftables</a> on the phone <sup id="cite_ref-2" class="reference"><a href="#cite_note-2">[2]</a></sup>.
-</p>
-<p>But when connecting via Wi-Fi, you need to open the port.
-If using port <code>5900</code>, it's as simple as installing <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;"><a rel="nofollow" class="external text" href="http://pkgs.postmarketos.org/packages?name=postmarketos-config-nftables-vncserver">postmarketos-config-nftables-vncserver<sup>PMOS</sup></a></span> and restarting nftables:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> apk add postmarketos-config-nftables-vncserver
+</pre>
+      </div>
+      <p>
+       Just set it with:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> <span class="nb">export</span> <span class="nv">XDG_RUNTIME_DIR</span><span class="o">=</span>/run/user/10000
+</pre>
+      </div>
+      <p>
+       And start the server again.
+      </p>
+      <h3>
+       <span id="Connection_refused/timed_out">
+       </span>
+       <span class="mw-headline" id="Connection_refused.2Ftimed_out">
+        Connection refused/timed out
+       </span>
+      </h3>
+      <p>
+       Check if your VNC server is started, and the port is open to the clients.
+By default, incoming packets from
+       <a class="mw-redirect" href="../en/USB_Network.html" title="USB Networking">
+        USB Networking
+       </a>
+       are accepted by
+       <a href="../en/Nftables.html" title="Nftables">
+        nftables
+       </a>
+       on the phone
+       <sup class="reference" id="cite_ref-2">
+        <a href="#cite_note-2">
+         [2]
+        </a>
+       </sup>
+       .
+      </p>
+      <p>
+       But when connecting via Wi-Fi, you need to open the port.
+If using port
+       <code>
+        5900
+       </code>
+       , it's as simple as installing
+       <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;">
+        <a class="external text" href="http://pkgs.postmarketos.org/packages?name=postmarketos-config-nftables-vncserver" rel="nofollow">
+         postmarketos-config-nftables-vncserver
+         <sup>
+          PMOS
+         </sup>
+        </a>
+       </span>
+       and restarting nftables:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> apk add postmarketos-config-nftables-vncserver
 <span class="go">(1/1) Installing postmarketos-config-nftables-vncserver (0.10-r0)</span>
 <span class="go">Executing postmarketos-base-20-r0.trigger</span>
 <span class="go">Configuring a getty on port ttyMSM0 with baud rate 115200</span>
@@ -113,57 +323,138 @@ If using port <code>5900</code>, it's as simple as installing <span class="plain
 <span class="gp">#</span> service nftables restart
 <span class="go"> * Stopping firewall ...                                         [ ok ]</span>
 <span class="go"> * Loading nftables state and starting firewall ...</span>
-</pre></div>
-<p>However, when connecting to a custom port like <code>9999</code>, it requires to add a rule to accept the connection:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> nft add rule inet filter input iifname wlan0 tcp dport <span class="m">9999</span> accept comment <span class="s2">"Accept custom port over wifi"</span>
-</pre></div>
-<h3><span class="mw-headline" id="No_route_to_host">No route to host</span></h3>
-<p>Check if the host even exists on the LAN.
-</p>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<div class="mw-references-wrap"><ol class="references">
-<li id="cite_note-1">
-<span class="mw-cite-backlink"><a href="#cite_ref-1">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external text" href="https://danct12.github.io/VNC-on-PinePhone/">VNC on PinePhone (how to)</a></span>
-</li>
-<li id="cite_note-2">
-<span class="mw-cite-backlink"><a href="#cite_ref-2">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/postmarketos-config-nftables/rules/51_usb_inet.nft">postmarketos-config-nftables rules</a></span>
-</li>
-</ol></div>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=VNC&amp;oldid=28000">https://wiki.postmarketos.org/index.php?title=VNC&amp;oldid=28000</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 26 May 2022, at 14:05.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=VNC&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <p>
+       However, when connecting to a custom port like
+       <code>
+        9999
+       </code>
+       , it requires to add a rule to accept the connection:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> nft add rule inet filter input iifname wlan0 tcp dport <span class="m">9999</span> accept comment <span class="s2">"Accept custom port over wifi"</span>
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="No_route_to_host">
+        No route to host
+       </span>
+      </h3>
+      <p>
+       Check if the host even exists on the LAN.
+      </p>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <div class="mw-references-wrap">
+       <ol class="references">
+        <li id="cite_note-1">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-1">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external text" href="https://danct12.github.io/VNC-on-PinePhone/" rel="nofollow">
+           VNC on PinePhone (how to)
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-2">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-2">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/postmarketos-config-nftables/rules/51_usb_inet.nft" rel="nofollow">
+           postmarketos-config-nftables rules
+          </a>
+         </span>
+        </li>
+       </ol>
+      </div>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=VNC&amp;oldid=28000">
+      https://wiki.postmarketos.org/index.php?title=VNC&amp;oldid=28000
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 26 May 2022, at 14:05.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=VNC&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

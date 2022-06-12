@@ -1,102 +1,267 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Bootloaders porting using linux - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Bootloaders_porting_using_linux rootpage-Bootloaders_porting_using_linux skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Bootloaders porting using linux</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><br>
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#About"><span class="tocnumber">1</span> <span class="toctext">About</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Getting_started"><span class="tocnumber">2</span> <span class="toctext">Getting started</span></a></li>
-<li class="toclevel-1 tocsection-3">
-<a href="#Getting_uart_debug_output_from_linux"><span class="tocnumber">3</span> <span class="toctext">Getting uart debug output from linux</span></a>
-<ul>
-<li class="toclevel-2 tocsection-4"><a href="#Hack_MUIC_driver_to_expose_uart_on_request"><span class="tocnumber">3.1</span> <span class="toctext">Hack MUIC driver to expose uart on request</span></a></li>
-<li class="toclevel-2 tocsection-5"><a href="#Setup_pmos_to_switch_muic_on_key_combination"><span class="tocnumber">3.2</span> <span class="toctext">Setup pmos to switch muic on key combination</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#Build_a_cable"><span class="tocnumber">3.3</span> <span class="toctext">Build a cable</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-7"><a href="#Hack_kernel_to_execute_your_bootloader"><span class="tocnumber">4</span> <span class="toctext">Hack kernel to execute your bootloader</span></a></li>
-<li class="toclevel-1 tocsection-8"><a href="#Run_bootloader_builds"><span class="tocnumber">5</span> <span class="toctext">Run bootloader builds</span></a></li>
-<li class="toclevel-1 tocsection-9">
-<a href="#Troubleshooting"><span class="tocnumber">6</span> <span class="toctext">Troubleshooting</span></a>
-<ul>
-<li class="toclevel-2 tocsection-10">
-<a href="#No_output_from_your_uart"><span class="tocnumber">6.1</span> <span class="toctext">No output from your uart</span></a>
-<ul>
-<li class="toclevel-3 tocsection-11"><a href="#DMA_uart_mode."><span class="tocnumber">6.1.1</span> <span class="toctext">DMA uart mode.</span></a></li>
-<li class="toclevel-3 tocsection-12"><a href="#Uart_is_reset_by_bootloader."><span class="tocnumber">6.1.2</span> <span class="toctext">Uart is reset by bootloader.</span></a></li>
-</ul>
-</li>
-<li class="toclevel-2 tocsection-13"><a href="#Phone_reboots_after_executing_bootloader"><span class="tocnumber">6.2</span> <span class="toctext">Phone reboots after executing bootloader</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="About">About</span></h2>
-<p>This article describes how to get debug uart, when you don't have vendor's debug uart cable and don't want to disassemble your phone, and how to execute a payload (i.e. you bootloader port). 
-</p>
-<p>You must have debug uart, if you want to port bootloader on your phone. However, some bootloaders and/or MUIC chips does not allow you to connect to debug uart (like recent Samsung phones with usb type-c). In this case, you can either:  
-</p>
-<ul>
-<li>disassemble the phone, find and connect to debug uart pins, exposed on the board.</li>
-<li>Hack linux to force expose debug uart, and then test your bootloader.</li>
-</ul>
-<p>We'll speak about the latter.  
-</p>
-<p>This method is quite similar to kexec, though differs in some details:
-</p>
-<ul>
-<li>MMU should be turned off completely</li>
-<li>Use bin format, to simplify load process.</li>
-</ul>
-<h2><span class="mw-headline" id="Getting_started">Getting started</span></h2>
-<p>You'll need: 
-</p>
-<ul>
-<li>PmOs downstream port (TWRP can be used)</li>
-<li><a href="../en/Serial_debugging.html#Building_the_cable" title="Serial debugging">Stuff for building debug cable</a></li>
-</ul>
-<h2><span class="mw-headline" id="Getting_uart_debug_output_from_linux">Getting uart debug output from linux</span></h2>
-<h3><span class="mw-headline" id="Hack_MUIC_driver_to_expose_uart_on_request">Hack MUIC driver to expose uart on request</span></h3>
-<p>We can use sysfs attribute to tell muic driver, we need to switch debug uart to usb. 
-For example, MUIC driver patch for <a href="../en/Samsung_Galaxy_S9_(samsung-starqltechn).html" title="Samsung Galaxy S9 (samsung-starqltechn)">Samsung Galaxy S9</a>
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gh">diff --git a/drivers/muic/max77705-muic.c b/drivers/muic/max77705-muic.c</span>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Bootloaders porting using linux - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Bootloaders_porting_using_linux rootpage-Bootloaders_porting_using_linux skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Bootloaders porting using linux
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       <br/>
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#About">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           About
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Getting_started">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Getting started
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Getting_uart_debug_output_from_linux">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Getting uart debug output from linux
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Hack_MUIC_driver_to_expose_uart_on_request">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             Hack MUIC driver to expose uart on request
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Setup_pmos_to_switch_muic_on_key_combination">
+            <span class="tocnumber">
+             3.2
+            </span>
+            <span class="toctext">
+             Setup pmos to switch muic on key combination
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Build_a_cable">
+            <span class="tocnumber">
+             3.3
+            </span>
+            <span class="toctext">
+             Build a cable
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-7">
+         <a href="#Hack_kernel_to_execute_your_bootloader">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Hack kernel to execute your bootloader
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-8">
+         <a href="#Run_bootloader_builds">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           Run bootloader builds
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-9">
+         <a href="#Troubleshooting">
+          <span class="tocnumber">
+           6
+          </span>
+          <span class="toctext">
+           Troubleshooting
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-10">
+           <a href="#No_output_from_your_uart">
+            <span class="tocnumber">
+             6.1
+            </span>
+            <span class="toctext">
+             No output from your uart
+            </span>
+           </a>
+           <ul>
+            <li class="toclevel-3 tocsection-11">
+             <a href="#DMA_uart_mode.">
+              <span class="tocnumber">
+               6.1.1
+              </span>
+              <span class="toctext">
+               DMA uart mode.
+              </span>
+             </a>
+            </li>
+            <li class="toclevel-3 tocsection-12">
+             <a href="#Uart_is_reset_by_bootloader.">
+              <span class="tocnumber">
+               6.1.2
+              </span>
+              <span class="toctext">
+               Uart is reset by bootloader.
+              </span>
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="toclevel-2 tocsection-13">
+           <a href="#Phone_reboots_after_executing_bootloader">
+            <span class="tocnumber">
+             6.2
+            </span>
+            <span class="toctext">
+             Phone reboots after executing bootloader
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="About">
+        About
+       </span>
+      </h2>
+      <p>
+       This article describes how to get debug uart, when you don't have vendor's debug uart cable and don't want to disassemble your phone, and how to execute a payload (i.e. you bootloader port).
+      </p>
+      <p>
+       You must have debug uart, if you want to port bootloader on your phone. However, some bootloaders and/or MUIC chips does not allow you to connect to debug uart (like recent Samsung phones with usb type-c). In this case, you can either:
+      </p>
+      <ul>
+       <li>
+        disassemble the phone, find and connect to debug uart pins, exposed on the board.
+       </li>
+       <li>
+        Hack linux to force expose debug uart, and then test your bootloader.
+       </li>
+      </ul>
+      <p>
+       We'll speak about the latter.
+      </p>
+      <p>
+       This method is quite similar to kexec, though differs in some details:
+      </p>
+      <ul>
+       <li>
+        MMU should be turned off completely
+       </li>
+       <li>
+        Use bin format, to simplify load process.
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Getting_started">
+        Getting started
+       </span>
+      </h2>
+      <p>
+       You'll need:
+      </p>
+      <ul>
+       <li>
+        PmOs downstream port (TWRP can be used)
+       </li>
+       <li>
+        <a href="../en/Serial_debugging.html#Building_the_cable" title="Serial debugging">
+         Stuff for building debug cable
+        </a>
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Getting_uart_debug_output_from_linux">
+        Getting uart debug output from linux
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Hack_MUIC_driver_to_expose_uart_on_request">
+        Hack MUIC driver to expose uart on request
+       </span>
+      </h3>
+      <p>
+       We can use sysfs attribute to tell muic driver, we need to switch debug uart to usb. 
+For example, MUIC driver patch for
+       <a href="../en/Samsung_Galaxy_S9_(samsung-starqltechn).html" title="Samsung Galaxy S9 (samsung-starqltechn)">
+        Samsung Galaxy S9
+       </a>
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gh">diff --git a/drivers/muic/max77705-muic.c b/drivers/muic/max77705-muic.c</span>
 <span class="gh">index c424c03f9..156152daf 100644</span>
 <span class="gd">--- a/drivers/muic/max77705-muic.c</span>
 <span class="gi">+++ b/drivers/muic/max77705-muic.c</span>
@@ -252,31 +417,80 @@ For example, MUIC driver patch for <a href="../en/Samsung_Galaxy_S9_(samsung-sta
  static int max77705_muic_attach_usb_path(struct max77705_muic_data *muic_data,
  					muic_attached_dev_t new_dev)
  {
-</pre></div>
-<p>This patch will add new sysfs attribute <code>dev_attr_muic_switch_uart.attr</code>, so that MUIC driver will attach uart on '1' write to that attribute, and detach it on '0' write.
-</p>
-<h3><span class="mw-headline" id="Setup_pmos_to_switch_muic_on_key_combination">Setup pmos to switch muic on key combination</span></h3>
-<p>Use <a href="../en/Troubleshooting:HID_buttons.html#Using_triggerhappy_to_handle_HID_input_events" title="Troubleshooting:HID buttons">triggerhappy</a>
-</p>
-<h3><span class="mw-headline" id="Build_a_cable">Build a cable</span></h3>
-<ul><li>determine, on what pins MUIC multiplexes uart, i.e. find TX RX pins on usb.</li></ul>
-<p>The process is similar to <a href="../en/Serial_debugging.html#USB-C_based_cables" title="Serial debugging">finding TX RX pins on the PCB</a>
-For type-c devices it will likely be either D+D- or SBU pins.
-</p>
-<ul>
-<li>assemble cable</li>
-<li>ensure you get an output from your cable, when writing to corresponding tty on the phone</li>
-</ul>
-<h2><span class="mw-headline" id="Hack_kernel_to_execute_your_bootloader">Hack kernel to execute your bootloader</span></h2>
-<ul>
-<li>enable <code>CONFIG_DEVMEM</code>
-</li>
-<li>disable watchdog timer (it forces reboot, if kernel not responds)</li>
-</ul>
-<p>Simplest way is to delete device tree node, for qcom device usually <code>compatible = "qcom,msm-watchdog";</code>
-</p>
-<ul><li>apply a patch to launch bootloader from linux</li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gh">diff --git a/arch/arm64/kernel/cpu-reset.S b/arch/arm64/kernel/cpu-reset.S</span>
+</pre>
+      </div>
+      <p>
+       This patch will add new sysfs attribute
+       <code>
+        dev_attr_muic_switch_uart.attr
+       </code>
+       , so that MUIC driver will attach uart on '1' write to that attribute, and detach it on '0' write.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Setup_pmos_to_switch_muic_on_key_combination">
+        Setup pmos to switch muic on key combination
+       </span>
+      </h3>
+      <p>
+       Use
+       <a href="../en/Troubleshooting:HID_buttons.html#Using_triggerhappy_to_handle_HID_input_events" title="Troubleshooting:HID buttons">
+        triggerhappy
+       </a>
+      </p>
+      <h3>
+       <span class="mw-headline" id="Build_a_cable">
+        Build a cable
+       </span>
+      </h3>
+      <ul>
+       <li>
+        determine, on what pins MUIC multiplexes uart, i.e. find TX RX pins on usb.
+       </li>
+      </ul>
+      <p>
+       The process is similar to
+       <a href="../en/Serial_debugging.html#USB-C_based_cables" title="Serial debugging">
+        finding TX RX pins on the PCB
+       </a>
+       For type-c devices it will likely be either D+D- or SBU pins.
+      </p>
+      <ul>
+       <li>
+        assemble cable
+       </li>
+       <li>
+        ensure you get an output from your cable, when writing to corresponding tty on the phone
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Hack_kernel_to_execute_your_bootloader">
+        Hack kernel to execute your bootloader
+       </span>
+      </h2>
+      <ul>
+       <li>
+        enable
+        <code>
+         CONFIG_DEVMEM
+        </code>
+       </li>
+       <li>
+        disable watchdog timer (it forces reboot, if kernel not responds)
+       </li>
+      </ul>
+      <p>
+       Simplest way is to delete device tree node, for qcom device usually
+       <code>
+        compatible = "qcom,msm-watchdog";
+       </code>
+      </p>
+      <ul>
+       <li>
+        apply a patch to launch bootloader from linux
+       </li>
+      </ul>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gh">diff --git a/arch/arm64/kernel/cpu-reset.S b/arch/arm64/kernel/cpu-reset.S</span>
 <span class="gh">index 65f42d257..86c26955a 100644</span>
 <span class="gd">--- a/arch/arm64/kernel/cpu-reset.S</span>
 <span class="gi">+++ b/arch/arm64/kernel/cpu-reset.S</span>
@@ -444,9 +658,19 @@ new file mode 100644
 <span class="gi">+}</span>
 <span class="gi">+</span>
 <span class="gi">+late_initcall(init_events_group);</span>
-</pre></div>
-<ul><li>load and run your code with <b>run_file.py</b> script like:</li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/usr/bin/python3</span>
+</pre>
+      </div>
+      <ul>
+       <li>
+        load and run your code with
+        <b>
+         run_file.py
+        </b>
+        script like:
+       </li>
+      </ul>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="ch">#!/usr/bin/python3</span>
 
 <span class="c1"># Load executable file(bin format, use objcopy to convert obj file to bin),</span>
 <span class="c1"># to physical memory, starting from reboot code buffer address, found in kmsg.</span>
@@ -478,9 +702,15 @@ new file mode 100644
 
 <span class="k">print</span><span class="p">(</span><span class="s1">'go'</span><span class="p">)</span>
 <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">'sudo bash -c "echo 1 &gt; /sys/kernel/jump/jump"'</span><span class="p">)</span>
-</pre></div>
-<ul><li>On systems with no python, like TWRP use sh</li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh</span>
+</pre>
+      </div>
+      <ul>
+       <li>
+        On systems with no python, like TWRP use sh
+       </li>
+      </ul>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="ch">#!/bin/sh</span>
 
 <span class="nv">BASE_ADDRESS</span><span class="o">=</span><span class="sb">`</span>cat show_jump_address<span class="sb">`</span>
 <span class="nb">echo</span> <span class="s1">'Found address for code loading: '</span><span class="nv">$BASE_ADDRESS</span>
@@ -498,66 +728,166 @@ sleep <span class="nv">$TIMEOUT</span>
 <span class="nb">echo</span> <span class="s1">'go'</span>
 
 <span class="nb">echo</span> <span class="m">1</span> &gt; /sys/kernel/jump/jump
-</pre></div>
-<div role="note" class="todo" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
-<strong>TODO</strong> add a section to check, that we got uart on usb, and alive payload. We may check payload alive with ARM debug coprocessor. See also <a rel="nofollow" class="external free" href="https://stackoverflow.com/questions/69256603/arm-how-does-linux-decompression-routine-outputs-characters-on-uart">https://stackoverflow.com/questions/69256603/arm-how-does-linux-decompression-routine-outputs-characters-on-uart</a>
-</div>
-<h2><span class="mw-headline" id="Run_bootloader_builds">Run bootloader builds</span></h2>
-<ul>
-<li>Connect to phone via ssh</li>
-<li>Build bootloader bin file, upload it on phone.</li>
-<li>Run <code>nohup python3 -u <b>run_file.py</b> [bootloader file] &amp; tail -f nohup.out</code>. It will give you 20 secs timeout to plugin debug uart cable, and switch muic.</li>
-<li>After timeout is expired, your bin file will be launched, with MMU disabled.</li>
-</ul>
-<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
-<h3><span class="mw-headline" id="No_output_from_your_uart">No output from your uart</span></h3>
-<h4><span class="mw-headline" id="DMA_uart_mode.">DMA uart mode.</span></h4>
-<p>Linux may run uart in DMA mode, instead of FIFO, like typical bootloader. For example, qcom SOCs GENI core uart works in data mover mode, using DMA, so you need to switch it to FIFO mode. Refer to early_con uart setup in linux, setup uart via devmem accordingly
-</p>
-<h4><span class="mw-headline" id="Uart_is_reset_by_bootloader.">Uart is reset by bootloader.</span></h4>
-<p>Refer to early_con uart setup in linux
-</p>
-<h3><span class="mw-headline" id="Phone_reboots_after_executing_bootloader">Phone reboots after executing bootloader</span></h3>
-<p>Turn off watchdog
-</p>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../en/Category:Low-level.html" title="Category:Low-level">Low-level</a></li>
-<li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li>
-<li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li>
-</ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Bootloaders_porting_using_linux&amp;oldid=23093">https://wiki.postmarketos.org/index.php?title=Bootloaders_porting_using_linux&amp;oldid=23093</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 18 October 2021, at 10:27.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Bootloaders_porting_using_linux&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <div class="todo" role="note" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
+       <strong>
+        TODO
+       </strong>
+       add a section to check, that we got uart on usb, and alive payload. We may check payload alive with ARM debug coprocessor. See also
+       <a class="external free" href="https://stackoverflow.com/questions/69256603/arm-how-does-linux-decompression-routine-outputs-characters-on-uart" rel="nofollow">
+        https://stackoverflow.com/questions/69256603/arm-how-does-linux-decompression-routine-outputs-characters-on-uart
+       </a>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Run_bootloader_builds">
+        Run bootloader builds
+       </span>
+      </h2>
+      <ul>
+       <li>
+        Connect to phone via ssh
+       </li>
+       <li>
+        Build bootloader bin file, upload it on phone.
+       </li>
+       <li>
+        Run
+        <code>
+         nohup python3 -u
+         <b>
+          run_file.py
+         </b>
+         [bootloader file] &amp; tail -f nohup.out
+        </code>
+        . It will give you 20 secs timeout to plugin debug uart cable, and switch muic.
+       </li>
+       <li>
+        After timeout is expired, your bin file will be launched, with MMU disabled.
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Troubleshooting">
+        Troubleshooting
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="No_output_from_your_uart">
+        No output from your uart
+       </span>
+      </h3>
+      <h4>
+       <span class="mw-headline" id="DMA_uart_mode.">
+        DMA uart mode.
+       </span>
+      </h4>
+      <p>
+       Linux may run uart in DMA mode, instead of FIFO, like typical bootloader. For example, qcom SOCs GENI core uart works in data mover mode, using DMA, so you need to switch it to FIFO mode. Refer to early_con uart setup in linux, setup uart via devmem accordingly
+      </p>
+      <h4>
+       <span class="mw-headline" id="Uart_is_reset_by_bootloader.">
+        Uart is reset by bootloader.
+       </span>
+      </h4>
+      <p>
+       Refer to early_con uart setup in linux
+      </p>
+      <h3>
+       <span class="mw-headline" id="Phone_reboots_after_executing_bootloader">
+        Phone reboots after executing bootloader
+       </span>
+      </h3>
+      <p>
+       Turn off watchdog
+      </p>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Categories
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Low-level.html" title="Category:Low-level">
+         Low-level
+        </a>
+       </li>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+       <li>
+        <a href="../en/Category:Todo_Items.html" title="Category:Todo Items">
+         Todo Items
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Bootloaders_porting_using_linux&amp;oldid=23093">
+      https://wiki.postmarketos.org/index.php?title=Bootloaders_porting_using_linux&amp;oldid=23093
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 18 October 2021, at 10:27.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Bootloaders_porting_using_linux&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

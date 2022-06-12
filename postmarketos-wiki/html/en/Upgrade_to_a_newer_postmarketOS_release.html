@@ -1,68 +1,167 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Upgrade to a newer postmarketOS release - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Upgrade_to_a_newer_postmarketOS_release rootpage-Upgrade_to_a_newer_postmarketOS_release skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Upgrade to a newer postmarketOS release</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>Upgrading from one postmarketOS release to the next one is supported since v22.06 was released, meaning from v21.12 to v22.06 is the first supported upgrade. Upgrading from v22.06 to edge is also supported. In theory, <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-release-upgrade">postmarketos-release-upgrade</a> is capable of upgrading (or even downgrading) from any postmarketOS version to any other. But for the supported upgrades we have a <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-release-upgrade/-/pipelines">daily running CI check</a> that ensures the most commonly used UIs can be upgraded without errors.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Preparation"><span class="tocnumber">1</span> <span class="toctext">Preparation</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Run_the_script"><span class="tocnumber">2</span> <span class="toctext">Run the script</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Rebooting"><span class="tocnumber">3</span> <span class="toctext">Rebooting</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#Troubleshooting"><span class="tocnumber">4</span> <span class="toctext">Troubleshooting</span></a></li>
-<li class="toclevel-1 tocsection-5"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Preparation">Preparation</span></h2>
-<p>The upgrade steps will be done through the terminal. Using a separate computer and connecting to your phone over <a href="../en/SSH.html" title="SSH">SSH</a> is recommended, so you still have control even if the UI becomes unresponsive. Running <code>tmux</code> or <code>screen</code> is also recommended, so the upgrade does not stop in case the SSH connection breaks. Consider <a href="../en/Backup_and_restore_your_data.html" title="Backup and restore your data">creating a backup</a> if you have anything important on your device. Make sure you have a stable internet connection when attempting to upgrade.
-</p>
-<p>Install postmarketos-release-upgrade:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> apk add postmarketos-release-upgrade
-</pre></div>
-<p>If you are on a postmarketOS release older than v21.12, the script is not packaged. Grab it directly from the git repository, it has no dependencies.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> wget https://gitlab.com/postmarketOS/postmarketos-release-upgrade/-/raw/master/upgrade.sh
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Upgrade to a newer postmarketOS release - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Upgrade_to_a_newer_postmarketOS_release rootpage-Upgrade_to_a_newer_postmarketOS_release skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Upgrade to a newer postmarketOS release
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       Upgrading from one postmarketOS release to the next one is supported since v22.06 was released, meaning from v21.12 to v22.06 is the first supported upgrade. Upgrading from v22.06 to edge is also supported. In theory,
+       <a class="external text" href="https://gitlab.com/postmarketOS/postmarketos-release-upgrade" rel="nofollow">
+        postmarketos-release-upgrade
+       </a>
+       is capable of upgrading (or even downgrading) from any postmarketOS version to any other. But for the supported upgrades we have a
+       <a class="external text" href="https://gitlab.com/postmarketOS/postmarketos-release-upgrade/-/pipelines" rel="nofollow">
+        daily running CI check
+       </a>
+       that ensures the most commonly used UIs can be upgraded without errors.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Preparation">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Preparation
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Run_the_script">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Run the script
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-3">
+         <a href="#Rebooting">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Rebooting
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Troubleshooting">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Troubleshooting
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-5">
+         <a href="#See_also">
+          <span class="tocnumber">
+           5
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Preparation">
+        Preparation
+       </span>
+      </h2>
+      <p>
+       The upgrade steps will be done through the terminal. Using a separate computer and connecting to your phone over
+       <a href="../en/SSH.html" title="SSH">
+        SSH
+       </a>
+       is recommended, so you still have control even if the UI becomes unresponsive. Running
+       <code>
+        tmux
+       </code>
+       or
+       <code>
+        screen
+       </code>
+       is also recommended, so the upgrade does not stop in case the SSH connection breaks. Consider
+       <a href="../en/Backup_and_restore_your_data.html" title="Backup and restore your data">
+        creating a backup
+       </a>
+       if you have anything important on your device. Make sure you have a stable internet connection when attempting to upgrade.
+      </p>
+      <p>
+       Install postmarketos-release-upgrade:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> apk add postmarketos-release-upgrade
+</pre>
+      </div>
+      <p>
+       If you are on a postmarketOS release older than v21.12, the script is not packaged. Grab it directly from the git repository, it has no dependencies.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> wget https://gitlab.com/postmarketOS/postmarketos-release-upgrade/-/raw/master/upgrade.sh
 <span class="gp">$</span> chmod +x upgrade.sh
-</pre></div>
-<h2><span class="mw-headline" id="Run_the_script">Run the script</span></h2>
-<p>Once you run the script, it will ask if you want to upgrade to the latest stable release by default and explain exactly what it is about to do.
-</p>
-<pre># postmarketos-release-upgrade
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Run_the_script">
+        Run the script
+       </span>
+      </h2>
+      <p>
+       Once you run the script, it will ask if you want to upgrade to the latest stable release by default and explain exactly what it is about to do.
+      </p>
+      <pre># postmarketos-release-upgrade
 &gt;&gt;&gt; You are about to upgrade from v21.12 to v22.06.
 &gt;&gt;&gt; 
 &gt;&gt;&gt; This will be done in the following steps:
@@ -82,9 +181,11 @@
 &gt;&gt;&gt; 
 &gt;&gt;&gt; Proceed with upgrade to v22.06? [y/N]
 </pre>
-<p>If you want to upgrade to another channel, pass it as argument as shown in the help output.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> postmarketos-release-upgrade -h
+      <p>
+       If you want to upgrade to another channel, pass it as argument as shown in the help output.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> postmarketos-release-upgrade -h
 <span class="go">usage: postmarketos-release-upgrade [-h] [CHANNEL]</span>
 
 <span class="go">arguments:</span>
@@ -93,11 +194,17 @@
 <span class="go">           "v22.06" (default) or "edge"</span>
 
 <span class="go">CHANNEL must be set if you are already on edge.</span>
-</pre></div>
-<h2><span class="mw-headline" id="Rebooting">Rebooting</span></h2>
-<p>When it's done, you are asked to confirm the reboot:
-</p>
-<pre>&gt;&gt;&gt; (4/4) Reboot prompt
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Rebooting">
+        Rebooting
+       </span>
+      </h2>
+      <p>
+       When it's done, you are asked to confirm the reboot:
+      </p>
+      <pre>&gt;&gt;&gt; (4/4) Reboot prompt
 &gt;&gt;&gt; 
 &gt;&gt;&gt; Your system is in a weird state between v21.12 and v22.06 now.
 &gt;&gt;&gt; All bugs are features until rebooted. If you know what you are
@@ -105,52 +212,140 @@
 &gt;&gt;&gt; 
 &gt;&gt;&gt; Press return when you are ready to reboot.
 </pre>
-<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
-<p>If the upgrade failed and you don't know what to do, consider joining the <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">chat</a> to ask for help. Keep in mind that this is not a paid support contract, there are just some nice people who may help you out in their spare time.
-</p>
-<p>If the script fails before step 3 (upgrade packages to new release), your <code>/etc/apk/repositories</code> will still be configured for the old release. Read the log to figure out why it failed. Possibly running <code>apk fix</code> helps to resolve simple packaging errors. You are still on the old release in that scenario, and should be able to use it just like before trying to upgrade.
-</p>
-<p>If the script fails during step 3, the <code>/etc/apk/repositories</code> will be configured for the new release. Try to run the upgrade command manually (<code>apk upgrade -a</code>), maybe it passes now (e.g. if your internet was disconnected). Running <code>apk fix</code> may also help.
-</p>
-<p>Note that the old <code>/etc/apk/repositories</code> file is backed up in <code>/var/lib/postmarketos-release-upgrade/</code> along with a log of the upgrade. If you know what you are doing, you can use this to restore the old file.
-</p>
-<p>If the failure was caused by a bug in the script, please look for an existing bug report, extend it if it makes sense or if you can't find one, open a new bug report and attach the log and repositories files from the directory mentioned above. The bugs of postmarketos-release-upgrade are tracked <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-release-upgrade/-/issues">here</a>. The script is a simple shell script, consider trying to fix it yourself and submitting a patch.
-</p>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul><li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-release-upgrade">postmarketos-release-upgrade</a> git repository</li></ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Upgrade_to_a_newer_postmarketOS_release&amp;oldid=28497">https://wiki.postmarketos.org/index.php?title=Upgrade_to_a_newer_postmarketOS_release&amp;oldid=28497</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 12 June 2022, at 17:16.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Upgrade_to_a_newer_postmarketOS_release&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+      <h2>
+       <span class="mw-headline" id="Troubleshooting">
+        Troubleshooting
+       </span>
+      </h2>
+      <p>
+       If the upgrade failed and you don't know what to do, consider joining the
+       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+        chat
+       </a>
+       to ask for help. Keep in mind that this is not a paid support contract, there are just some nice people who may help you out in their spare time.
+      </p>
+      <p>
+       If the script fails before step 3 (upgrade packages to new release), your
+       <code>
+        /etc/apk/repositories
+       </code>
+       will still be configured for the old release. Read the log to figure out why it failed. Possibly running
+       <code>
+        apk fix
+       </code>
+       helps to resolve simple packaging errors. You are still on the old release in that scenario, and should be able to use it just like before trying to upgrade.
+      </p>
+      <p>
+       If the script fails during step 3, the
+       <code>
+        /etc/apk/repositories
+       </code>
+       will be configured for the new release. Try to run the upgrade command manually (
+       <code>
+        apk upgrade -a
+       </code>
+       ), maybe it passes now (e.g. if your internet was disconnected). Running
+       <code>
+        apk fix
+       </code>
+       may also help.
+      </p>
+      <p>
+       Note that the old
+       <code>
+        /etc/apk/repositories
+       </code>
+       file is backed up in
+       <code>
+        /var/lib/postmarketos-release-upgrade/
+       </code>
+       along with a log of the upgrade. If you know what you are doing, you can use this to restore the old file.
+      </p>
+      <p>
+       If the failure was caused by a bug in the script, please look for an existing bug report, extend it if it makes sense or if you can't find one, open a new bug report and attach the log and repositories files from the directory mentioned above. The bugs of postmarketos-release-upgrade are tracked
+       <a class="external text" href="https://gitlab.com/postmarketOS/postmarketos-release-upgrade/-/issues" rel="nofollow">
+        here
+       </a>
+       . The script is a simple shell script, consider trying to fix it yourself and submitting a patch.
+      </p>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/postmarketos-release-upgrade" rel="nofollow">
+         postmarketos-release-upgrade
+        </a>
+        git repository
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Upgrade_to_a_newer_postmarketOS_release&amp;oldid=28497">
+      https://wiki.postmarketos.org/index.php?title=Upgrade_to_a_newer_postmarketOS_release&amp;oldid=28497
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 12 June 2022, at 17:16.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Upgrade_to_a_newer_postmarketOS_release&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

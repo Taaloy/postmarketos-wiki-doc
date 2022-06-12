@@ -1,150 +1,365 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>Patching - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Patching rootpage-Patching skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">Patching</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>This wiki article explains how to patch the source code of a package. Such patching enables you to do the following:
-</p>
-<ul>
-<li>fix compiler errors</li>
-<li>add debug output to understand bugs</li>
-<li>fix bugs in the software</li>
-<li>develop new features</li>
-</ul>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Finding_the_aport"><span class="tocnumber">1</span> <span class="toctext">Finding the aport</span></a></li>
-<li class="toclevel-1 tocsection-2">
-<a href="#Using_.22build_--src.22"><span class="tocnumber">2</span> <span class="toctext">Using "build --src"</span></a>
-<ul>
-<li class="toclevel-2 tocsection-3"><a href="#Get_the_package.27s_source_code"><span class="tocnumber">2.1</span> <span class="toctext">Get the package's source code</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-4">
-<a href="#Apply_the_aport.27s_existing_patches"><span class="tocnumber">3</span> <span class="toctext">Apply the aport's existing patches</span></a>
-<ul>
-<li class="toclevel-2 tocsection-5"><a href="#Building"><span class="tocnumber">3.1</span> <span class="toctext">Building</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#Making_changes"><span class="tocnumber">3.2</span> <span class="toctext">Making changes</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="#Create_a_patch_file"><span class="tocnumber">3.3</span> <span class="toctext">Create a patch file</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-8">
-<a href="#Legacy_Guide"><span class="tocnumber">4</span> <span class="toctext">Legacy Guide</span></a>
-<ul>
-<li class="toclevel-2 tocsection-9"><a href="#Workflow"><span class="tocnumber">4.1</span> <span class="toctext">Workflow</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Finding_the_aport">Finding the aport</span></h2>
-<p>First of all, you need to find the aport of the package. The aport is the package build recipe, consisting at least of one APKBUILD file. In postmarketOS, these can be found in <code>pmbootstrap/aports</code> (that may change in the future, see <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/383">#383</a>). If you found it there already, you can continue with the next section.
-</p>
-<p>postmarketOS is building on Alpine Linux, which means if you can't find a certain package in our aports folder, you need to grab the aport from Alpine. They store their aports in a git repository as well. You can either manually download one file after another for your aport from a git frontend such as <a rel="nofollow" class="external text" href="https://github.com/alpinelinux/aports/tree/master/main/busybox">GitHub</a> or let pmbootstrap clone the repo and copy a package in pmaport's <code>temp</code> directory (e.g. <code>~/.local/var/pmbootstrap/cache_git/pmaports/temp</code>): <code>pmbootstrap aportgen --fork-alpine &lt;package&gt;</code>
-</p>
-<p>Alternatively, you can achieve this manually by cloning the entire git repository to your harddrive (see listing below). Make sure you put the original aport from Alpine into the <code>temp</code> folder of the postmarketOS aports.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone <span class="s2">"https://git.alpinelinux.org/cgit/aports"</span>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Patching - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Patching rootpage-Patching skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Patching
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       This wiki article explains how to patch the source code of a package. Such patching enables you to do the following:
+      </p>
+      <ul>
+       <li>
+        fix compiler errors
+       </li>
+       <li>
+        add debug output to understand bugs
+       </li>
+       <li>
+        fix bugs in the software
+       </li>
+       <li>
+        develop new features
+       </li>
+      </ul>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Finding_the_aport">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Finding the aport
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Using_.22build_--src.22">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Using "build --src"
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#Get_the_package.27s_source_code">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             Get the package's source code
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-4">
+         <a href="#Apply_the_aport.27s_existing_patches">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Apply the aport's existing patches
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Building">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             Building
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Making_changes">
+            <span class="tocnumber">
+             3.2
+            </span>
+            <span class="toctext">
+             Making changes
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#Create_a_patch_file">
+            <span class="tocnumber">
+             3.3
+            </span>
+            <span class="toctext">
+             Create a patch file
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-8">
+         <a href="#Legacy_Guide">
+          <span class="tocnumber">
+           4
+          </span>
+          <span class="toctext">
+           Legacy Guide
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-9">
+           <a href="#Workflow">
+            <span class="tocnumber">
+             4.1
+            </span>
+            <span class="toctext">
+             Workflow
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Finding_the_aport">
+        Finding the aport
+       </span>
+      </h2>
+      <p>
+       First of all, you need to find the aport of the package. The aport is the package build recipe, consisting at least of one APKBUILD file. In postmarketOS, these can be found in
+       <code>
+        pmbootstrap/aports
+       </code>
+       (that may change in the future, see
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/383" rel="nofollow">
+        #383
+       </a>
+       ). If you found it there already, you can continue with the next section.
+      </p>
+      <p>
+       postmarketOS is building on Alpine Linux, which means if you can't find a certain package in our aports folder, you need to grab the aport from Alpine. They store their aports in a git repository as well. You can either manually download one file after another for your aport from a git frontend such as
+       <a class="external text" href="https://github.com/alpinelinux/aports/tree/master/main/busybox" rel="nofollow">
+        GitHub
+       </a>
+       or let pmbootstrap clone the repo and copy a package in pmaport's
+       <code>
+        temp
+       </code>
+       directory (e.g.
+       <code>
+        ~/.local/var/pmbootstrap/cache_git/pmaports/temp
+       </code>
+       ):
+       <code>
+        pmbootstrap aportgen --fork-alpine &lt;package&gt;
+       </code>
+      </p>
+      <p>
+       Alternatively, you can achieve this manually by cloning the entire git repository to your harddrive (see listing below). Make sure you put the original aport from Alpine into the
+       <code>
+        temp
+       </code>
+       folder of the postmarketOS aports.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> git clone <span class="s2">"https://git.alpinelinux.org/cgit/aports"</span>
 <span class="gp">$</span> <span class="nb">cd</span> aports
 <span class="gp">$</span> cp -r main/busybox ~/code/pmbootstrap/aports/temp/
 <span class="go">(adjust the pmbootstrap path as necessary)</span>
-</pre></div>
-<h2>
-<span id='Using_"build_--src"'></span><span class="mw-headline" id="Using_.22build_--src.22">Using "build --src"</span>
-</h2>
-<p>Let's quickly take a look at the aport's <code>APKBUILD</code>. If it has a <code>builddir=</code> line inside it, you can use pmbootstrap's <code>build --src</code> feature, in that case read on here. Otherwise, see the legacy guide below.
-</p>
-<h3>
-<span id="Get_the_package's_source_code"></span><span class="mw-headline" id="Get_the_package.27s_source_code">Get the package's source code</span>
-</h3>
-<p>With this approach, we extract the package's source code somewhere on your disk (so you can easily modify it outside of the chroots). To directly use the source tarball, which pmbootstrap also uses to build the aport, do the following:
-</p>
-<ul>
-<li>start building the package: <code>pmbootstrap build hello-world</code>
-</li>
-<li>open a second terminal with <code>pmbootstrap log</code>
-</li>
-<li>in that terminal, you will see that it starts downloading the source package. mind the file name displayed there, and wait until the source has been downloaded.</li>
-<li>then abort the build with <code>^C</code> (or let it run through once to make sure this works, if the aport was not from pmOS but from Alpine - the compiler output will be cached, so it will be faster next time)</li>
-</ul>
-<p>Now extract the source in your desired location:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> mkdir -p ~/code/hello-world
+</pre>
+      </div>
+      <h2>
+       <span id='Using_"build_--src"'>
+       </span>
+       <span class="mw-headline" id="Using_.22build_--src.22">
+        Using "build --src"
+       </span>
+      </h2>
+      <p>
+       Let's quickly take a look at the aport's
+       <code>
+        APKBUILD
+       </code>
+       . If it has a
+       <code>
+        builddir=
+       </code>
+       line inside it, you can use pmbootstrap's
+       <code>
+        build --src
+       </code>
+       feature, in that case read on here. Otherwise, see the legacy guide below.
+      </p>
+      <h3>
+       <span id="Get_the_package's_source_code">
+       </span>
+       <span class="mw-headline" id="Get_the_package.27s_source_code">
+        Get the package's source code
+       </span>
+      </h3>
+      <p>
+       With this approach, we extract the package's source code somewhere on your disk (so you can easily modify it outside of the chroots). To directly use the source tarball, which pmbootstrap also uses to build the aport, do the following:
+      </p>
+      <ul>
+       <li>
+        start building the package:
+        <code>
+         pmbootstrap build hello-world
+        </code>
+       </li>
+       <li>
+        open a second terminal with
+        <code>
+         pmbootstrap log
+        </code>
+       </li>
+       <li>
+        in that terminal, you will see that it starts downloading the source package. mind the file name displayed there, and wait until the source has been downloaded.
+       </li>
+       <li>
+        then abort the build with
+        <code>
+         ^C
+        </code>
+        (or let it run through once to make sure this works, if the aport was not from pmOS but from Alpine - the compiler output will be cached, so it will be faster next time)
+       </li>
+      </ul>
+      <p>
+       Now extract the source in your desired location:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> mkdir -p ~/code/hello-world
 <span class="gp">$</span> <span class="nb">cd</span> ~/code/hello-world
 <span class="gp">$</span> tar -xvf ~/.local/var/pmbootstrap/cache_distfiles/source-1234.tar.gz
-</pre></div>
-<p>Initialize a git repository in that folder, so we can generate patch files from what you have changed in the source later:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git init .
+</pre>
+      </div>
+      <p>
+       Initialize a git repository in that folder, so we can generate patch files from what you have changed in the source later:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> git init .
 <span class="go">Initialized empty Git repository in /home/user/code/hello-world/.git/</span>
 <span class="gp">$</span> git add -A
 <span class="gp">$</span> git commit -m <span class="s2">"initial"</span>
-</pre></div>
-<p>As alternative to extracting the tarball, you can also directly clone the upstream's git URL.
-</p>
-<h2>
-<span id="Apply_the_aport's_existing_patches"></span><span class="mw-headline" id="Apply_the_aport.27s_existing_patches">Apply the aport's existing patches</span>
-</h2>
-<p>If the aport already has patches, which may be necessary to compile the package with musl, you can add them to your checked out source as follows:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> patch -p1 &lt; ~/code/pmbootstrap/aports/main/yourpackage/first.patch
+</pre>
+      </div>
+      <p>
+       As alternative to extracting the tarball, you can also directly clone the upstream's git URL.
+      </p>
+      <h2>
+       <span id="Apply_the_aport's_existing_patches">
+       </span>
+       <span class="mw-headline" id="Apply_the_aport.27s_existing_patches">
+        Apply the aport's existing patches
+       </span>
+      </h2>
+      <p>
+       If the aport already has patches, which may be necessary to compile the package with musl, you can add them to your checked out source as follows:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> patch -p1 &lt; ~/code/pmbootstrap/aports/main/yourpackage/first.patch
 <span class="gp">$</span> patch -p1 &lt; ~/code/pmbootstrap/aports/main/yourpackage/second.patch
 <span class="gp">$</span> git add -A
 <span class="gp">$</span> git commit -m <span class="s2">"applied the aports patches"</span>
-</pre></div>
-<h3><span class="mw-headline" id="Building">Building</span></h3>
-<p>Now build the package once without modifying anything else, just to make sure
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="Building">
+        Building
+       </span>
+      </h3>
+      <p>
+       Now build the package once without modifying anything else, just to make sure
 that it works:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap build hello-world --src<span class="o">=</span>~/code/hello-world
-</pre></div>
-<p>As usually, the compiled packages can be found in <code>~/.local/var/pmbootstrap/packages</code>. You can copy the resulting apk file to your device via SCP and install it on the target device with <code>apk add -u</code> if you like to.
-</p>
-<h3><span class="mw-headline" id="Making_changes">Making changes</span></h3>
-<p>Change the source code now, and commit your change:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git add -A
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap build hello-world --src<span class="o">=</span>~/code/hello-world
+</pre>
+      </div>
+      <p>
+       As usually, the compiled packages can be found in
+       <code>
+        ~/.local/var/pmbootstrap/packages
+       </code>
+       . You can copy the resulting apk file to your device via SCP and install it on the target device with
+       <code>
+        apk add -u
+       </code>
+       if you like to.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Making_changes">
+        Making changes
+       </span>
+      </h3>
+      <p>
+       Change the source code now, and commit your change:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> git add -A
 <span class="gp">$</span> git status
 <span class="gp">$</span> git commit -m <span class="s2">"trying to fix the bug"</span>
-</pre></div>
-<p>Then you can compile and test again.
-</p>
-<h3><span class="mw-headline" id="Create_a_patch_file">Create a patch file</span></h3>
-<p>With git you can create the patch now. Some examples:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git diff HEAD~1 &gt; mypatch.patch
+</pre>
+      </div>
+      <p>
+       Then you can compile and test again.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Create_a_patch_file">
+        Create a patch file
+       </span>
+      </h3>
+      <p>
+       With git you can create the patch now. Some examples:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> git diff HEAD~1 &gt; mypatch.patch
 <span class="go">Puts the last two commit into a patch file.</span>
 <span class="gp">$</span> git diff HEAD~2 &gt; mypatch.patch
 <span class="go">Puts the last two commits into a patch file.</span>
@@ -154,88 +369,291 @@ that it works:
 <span class="go">Put everything that changed after commit ffffff into the patch file. You can</span>
 <span class="go">get the commit hashes easily by looking at "git log". Using the long commit</span>
 <span class="go">hashes also works.</span>
-</pre></div>
-<h2><span class="mw-headline" id="Legacy_Guide">Legacy Guide</span></h2>
-<p>This guide was written with the following use case in mind: you want to package an Android kernel. But it does not compile with our GCC6, so you need to patch the kernel. Unlike in the Android world, we do not fork the kernel repository and apply our patches there. Instead we ship our custom patches with the package build recipe in the aport folder.
-</p>
-<p>This guide assumes, that you already know what to patch - if you don't know what to patch and only have the error, try to search the web for that error message. More often than not, there is a patch already available, that will fix it. If you don't have any luck, ask in the <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">chat</a>.
-</p>
-<p>As everywhere else in the wiki, <b>please expand this guide wherever information is missing that would have helped you!</b>
-</p>
-<h3><span class="mw-headline" id="Workflow">Workflow</span></h3>
-<ol>
-<li>Try to compile your program with <code>pmbootstrap build my-package</code>. Note in which chroot it will actually build, it is the start of the building message. When it starts with <code>(native)</code> for example, the chroot is the "native" chroot (which is the default).</li>
-<li>Wait until it fails or runs through (it works in both cases)</li>
-<li>The sources of the kernel are now extracted in <code>/home/pmos/build/src</code> in the chroot where it was building.</li>
-<li>Use <code>pmbootstrap chroot</code> to enter the chroot and to create the patch. It will enter the native chroot by default, if you need another chroot, then look at <code>pmbootstrap chroot --help</code>. Then do the following inside the chroot shell:
-<ol>
-<li>Install <code>git</code> and an editor such as <code>nano</code> with: <code>apk add git nano</code>
-</li>
-<li>Switch from root to the user that we use for building: <code>su - pmos</code>
-</li>
-<li>Go into the source folder: <code>cd ~/build/src/</code>
-</li>
-<li>Patches get applied in the builddir, so usually there is another folder inside <code>src</code>, that you need to enter. You can check with <code>ls</code> which folders/files are inside the <code>src</code> folder. Enter that subfolder if necessary.</li>
-<li>We'll be using git to create a patch file, so we will initialize a new repository and add everything:
-<ol>
-<li>
-<code>git init .</code> (it will say: <i>"Initialized empty Git repository in /home/pmos/build/src/.git/"</i>)</li>
-<li><code>git add -A</code></li>
-<li><code>git commit -m "initial"</code></li>
-</ol>
-</li>
-<li>Now it's time to edit the file you want to edit.
-<ol>
-<li><code>export TERM=xterm</code></li>
-<li>
-<code>nano Makefile</code> (or whichever file you want to edit)</li>
-<li>NOTE: nano is glitchy when used like that. If it is unusable for you, run <code>chmod 777 Makefile</code> and then edit the file from outside the chroot with your favorite editor (a graphical one works, too!). The path is similar to: <code>~/.local/var/pmbootstrap/chroot_native/home/pmos/build/src/(optional builddir)/Makefile</code>.</li>
-</ol>
-</li>
-<li>(You need to still be in the chroot!) run <code>git diff</code> to get a patch file generated to the screen. You can save it to a file by redirecting it: <code>git diff &gt; /tmp/mypatch.patch</code>.</li>
-<li>Quit the chroot by pressing <code>^D</code> (CTRL+D) twice (typing <code>exit</code> also works).</li>
-</ol>
-</li>
-<li>Copy the patch file you have created to your aport folder (adjust the work path, that you have given <code>pmbootstrap init</code> and the chroot suffix <code>native</code> if necessary):
-<ol><li><code>cp ~/.local/var/pmbootstrap/chroot_native/tmp/mypatch.patch ~/code/pmbootstrap/aports/device/linux-my-cool-kernel/mypatch.patch</code></li></ol>
-</li>
-<li>Rename the <code>mypatch.patch</code> file to give it a meaningful name!</li>
-<li>You can add arbitrary text at the top of the patch file. Use this to paste the error message that you got during compilation there, with a note that this will be fixed by this patch.</li>
-</ol>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Patching&amp;oldid=19507">https://wiki.postmarketos.org/index.php?title=Patching&amp;oldid=19507</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 28 May 2021, at 22:40.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Patching&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Legacy_Guide">
+        Legacy Guide
+       </span>
+      </h2>
+      <p>
+       This guide was written with the following use case in mind: you want to package an Android kernel. But it does not compile with our GCC6, so you need to patch the kernel. Unlike in the Android world, we do not fork the kernel repository and apply our patches there. Instead we ship our custom patches with the package build recipe in the aport folder.
+      </p>
+      <p>
+       This guide assumes, that you already know what to patch - if you don't know what to patch and only have the error, try to search the web for that error message. More often than not, there is a patch already available, that will fix it. If you don't have any luck, ask in the
+       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+        chat
+       </a>
+       .
+      </p>
+      <p>
+       As everywhere else in the wiki,
+       <b>
+        please expand this guide wherever information is missing that would have helped you!
+       </b>
+      </p>
+      <h3>
+       <span class="mw-headline" id="Workflow">
+        Workflow
+       </span>
+      </h3>
+      <ol>
+       <li>
+        Try to compile your program with
+        <code>
+         pmbootstrap build my-package
+        </code>
+        . Note in which chroot it will actually build, it is the start of the building message. When it starts with
+        <code>
+         (native)
+        </code>
+        for example, the chroot is the "native" chroot (which is the default).
+       </li>
+       <li>
+        Wait until it fails or runs through (it works in both cases)
+       </li>
+       <li>
+        The sources of the kernel are now extracted in
+        <code>
+         /home/pmos/build/src
+        </code>
+        in the chroot where it was building.
+       </li>
+       <li>
+        Use
+        <code>
+         pmbootstrap chroot
+        </code>
+        to enter the chroot and to create the patch. It will enter the native chroot by default, if you need another chroot, then look at
+        <code>
+         pmbootstrap chroot --help
+        </code>
+        . Then do the following inside the chroot shell:
+        <ol>
+         <li>
+          Install
+          <code>
+           git
+          </code>
+          and an editor such as
+          <code>
+           nano
+          </code>
+          with:
+          <code>
+           apk add git nano
+          </code>
+         </li>
+         <li>
+          Switch from root to the user that we use for building:
+          <code>
+           su - pmos
+          </code>
+         </li>
+         <li>
+          Go into the source folder:
+          <code>
+           cd ~/build/src/
+          </code>
+         </li>
+         <li>
+          Patches get applied in the builddir, so usually there is another folder inside
+          <code>
+           src
+          </code>
+          , that you need to enter. You can check with
+          <code>
+           ls
+          </code>
+          which folders/files are inside the
+          <code>
+           src
+          </code>
+          folder. Enter that subfolder if necessary.
+         </li>
+         <li>
+          We'll be using git to create a patch file, so we will initialize a new repository and add everything:
+          <ol>
+           <li>
+            <code>
+             git init .
+            </code>
+            (it will say:
+            <i>
+             "Initialized empty Git repository in /home/pmos/build/src/.git/"
+            </i>
+            )
+           </li>
+           <li>
+            <code>
+             git add -A
+            </code>
+           </li>
+           <li>
+            <code>
+             git commit -m "initial"
+            </code>
+           </li>
+          </ol>
+         </li>
+         <li>
+          Now it's time to edit the file you want to edit.
+          <ol>
+           <li>
+            <code>
+             export TERM=xterm
+            </code>
+           </li>
+           <li>
+            <code>
+             nano Makefile
+            </code>
+            (or whichever file you want to edit)
+           </li>
+           <li>
+            NOTE: nano is glitchy when used like that. If it is unusable for you, run
+            <code>
+             chmod 777 Makefile
+            </code>
+            and then edit the file from outside the chroot with your favorite editor (a graphical one works, too!). The path is similar to:
+            <code>
+             ~/.local/var/pmbootstrap/chroot_native/home/pmos/build/src/(optional builddir)/Makefile
+            </code>
+            .
+           </li>
+          </ol>
+         </li>
+         <li>
+          (You need to still be in the chroot!) run
+          <code>
+           git diff
+          </code>
+          to get a patch file generated to the screen. You can save it to a file by redirecting it:
+          <code>
+           git diff &gt; /tmp/mypatch.patch
+          </code>
+          .
+         </li>
+         <li>
+          Quit the chroot by pressing
+          <code>
+           ^D
+          </code>
+          (CTRL+D) twice (typing
+          <code>
+           exit
+          </code>
+          also works).
+         </li>
+        </ol>
+       </li>
+       <li>
+        Copy the patch file you have created to your aport folder (adjust the work path, that you have given
+        <code>
+         pmbootstrap init
+        </code>
+        and the chroot suffix
+        <code>
+         native
+        </code>
+        if necessary):
+        <ol>
+         <li>
+          <code>
+           cp ~/.local/var/pmbootstrap/chroot_native/tmp/mypatch.patch ~/code/pmbootstrap/aports/device/linux-my-cool-kernel/mypatch.patch
+          </code>
+         </li>
+        </ol>
+       </li>
+       <li>
+        Rename the
+        <code>
+         mypatch.patch
+        </code>
+        file to give it a meaningful name!
+       </li>
+       <li>
+        You can add arbitrary text at the top of the patch file. Use this to paste the error message that you got during compilation there, with a note that this will be fixed by this patch.
+       </li>
+      </ol>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Patching&amp;oldid=19507">
+      https://wiki.postmarketos.org/index.php?title=Patching&amp;oldid=19507
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 28 May 2021, at 22:40.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Patching&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>

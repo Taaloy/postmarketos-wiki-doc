@@ -1,188 +1,514 @@
 <!DOCTYPE html>
-<html class="client-nojs" lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<title>BPO development - postmarketOS</title>
-<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
-<meta name="ResourceLoaderDynamicStyles" content="">
-<meta name="generator" content="MediaWiki 1.34.2">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
-<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
-<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
-<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
-</head>
-<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-BPO_development rootpage-BPO_development skin-vector action-view">
-<div id="content" class="mw-body" role="main" style="margin: 0">
-	<a id="top"></a>
-	
-	<div class="mw-indicators mw-body-content">
-</div>
-
-	<h1 id="firstHeading" class="firstHeading" lang="en">BPO development</h1>
-	
-	<div id="bodyContent" class="mw-body-content">
-		<div id="siteSub" class="noprint">From postmarketOS</div>
-		<div id="contentSub"></div>
-		
-		
-		
-		<div id="jump-to-nav"></div>
-		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
-		<a class="mw-jump-link" href="#p-search">Jump to search</a>
-		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p>Various resources on <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/build.postmarketos.org">builds.postmarketos.org</a> (bpo) development, which will be our <a rel="nofollow" class="external text" href="https://postmarketos.org/blog/2019/01/16/600-days-of-postmarketOS/#new-srht-based-binary-repository">future binary repository infrastructure</a>. This article is only relevant for people who wish to contribute to that effort, it has nothing to do with running postmarketOS or creating packages for it.
-</p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1">
-<a href="#Local_development_environment"><span class="tocnumber">1</span> <span class="toctext">Local development environment</span></a>
-<ul>
-<li class="toclevel-2 tocsection-2"><a href="#Requirements"><span class="tocnumber">1.1</span> <span class="toctext">Requirements</span></a></li>
-<li class="toclevel-2 tocsection-3"><a href="#Store_package_signing_key_in_builds.sr.ht"><span class="tocnumber">1.2</span> <span class="toctext">Store package signing key in builds.sr.ht</span></a></li>
-<li class="toclevel-2 tocsection-4"><a href="#Clone_and_configure"><span class="tocnumber">1.3</span> <span class="toctext">Clone and configure</span></a></li>
-<li class="toclevel-2 tocsection-5"><a href="#Run_the_development_environment"><span class="tocnumber">1.4</span> <span class="toctext">Run the development environment</span></a></li>
-<li class="toclevel-2 tocsection-6"><a href="#Submitting_a_job"><span class="tocnumber">1.5</span> <span class="toctext">Submitting a job</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="#Submitting_the_same_job_again"><span class="tocnumber">1.6</span> <span class="toctext">Submitting the same job again</span></a></li>
-<li class="toclevel-2 tocsection-8"><a href="#Clearing_the_database"><span class="tocnumber">1.7</span> <span class="toctext">Clearing the database</span></a></li>
-<li class="toclevel-2 tocsection-9"><a href="#Changing_the_pmbootstrap_branch"><span class="tocnumber">1.8</span> <span class="toctext">Changing the pmbootstrap branch</span></a></li>
-<li class="toclevel-2 tocsection-10"><a href="#Creating_a_new_test"><span class="tocnumber">1.9</span> <span class="toctext">Creating a new test</span></a></li>
-</ul>
-</li>
-<li class="toclevel-1 tocsection-11">
-<a href="#Database"><span class="tocnumber">2</span> <span class="toctext">Database</span></a>
-<ul>
-<li class="toclevel-2 tocsection-12"><a href="#Status_values_for_the_.22commits.22_table"><span class="tocnumber">2.1</span> <span class="toctext">Status values for the "commits" table</span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-
-<h2><span class="mw-headline" id="Local_development_environment">Local development environment</span></h2>
-<p>These steps set up a local copy of bpo in docker, that runs against your username's namespace on the official builds.sr.ht instance.
-</p>
-<h3><span class="mw-headline" id="Requirements">Requirements</span></h3>
-<ul>
-<li>Register at <a rel="nofollow" class="external text" href="https://builds.sr.ht/">builds.sr.ht</a>
-</li>
-<li>Install docker and docker-compose</li>
-</ul>
-<h3><span class="mw-headline" id="Store_package_signing_key_in_builds.sr.ht">Store package signing key in builds.sr.ht</span></h3>
-<p>Run <code>pmbootstrap build_init</code> to generate a public and private key pair for signing packages. We will use the same private key on the bpo server.
-Open <a rel="nofollow" class="external text" href="https://builds.sr.ht/secrets">secrets</a> and fill out the "add new secret" form on the left:
-</p>
-<ul>
-<li>Name: "bpo test build key"</li>
-<li>Secret: (put here the output of <code>sudo cat ~/.local/var/pmbootstrap/config_abuild/pmos-*.rsa</code>)</li>
-<li>Secret Type: File</li>
-<li>Path:  ~/.secrets/build@postmarketos.org.priv</li>
-<li>Mode: 644</li>
-</ul>
-<p>Then click "Add secret". Note down the key it generated on the right (the string that looks like 46f739e5-4538-45dd-a79f-bf173b7a2ed9), you will need it in the next step.
-</p>
-<h3><span class="mw-headline" id="Clone_and_configure">Clone and configure</span></h3>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://gitlab.com/postmarketOS/build.postmarketos.org.git
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   BPO development - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-BPO_development rootpage-BPO_development skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    BPO development
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       Various resources on
+       <a class="external text" href="https://gitlab.com/postmarketOS/build.postmarketos.org" rel="nofollow">
+        builds.postmarketos.org
+       </a>
+       (bpo) development, which will be our
+       <a class="external text" href="https://postmarketos.org/blog/2019/01/16/600-days-of-postmarketOS/#new-srht-based-binary-repository" rel="nofollow">
+        future binary repository infrastructure
+       </a>
+       . This article is only relevant for people who wish to contribute to that effort, it has nothing to do with running postmarketOS or creating packages for it.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Local_development_environment">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Local development environment
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-2">
+           <a href="#Requirements">
+            <span class="tocnumber">
+             1.1
+            </span>
+            <span class="toctext">
+             Requirements
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#Store_package_signing_key_in_builds.sr.ht">
+            <span class="tocnumber">
+             1.2
+            </span>
+            <span class="toctext">
+             Store package signing key in builds.sr.ht
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Clone_and_configure">
+            <span class="tocnumber">
+             1.3
+            </span>
+            <span class="toctext">
+             Clone and configure
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-5">
+           <a href="#Run_the_development_environment">
+            <span class="tocnumber">
+             1.4
+            </span>
+            <span class="toctext">
+             Run the development environment
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Submitting_a_job">
+            <span class="tocnumber">
+             1.5
+            </span>
+            <span class="toctext">
+             Submitting a job
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#Submitting_the_same_job_again">
+            <span class="tocnumber">
+             1.6
+            </span>
+            <span class="toctext">
+             Submitting the same job again
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#Clearing_the_database">
+            <span class="tocnumber">
+             1.7
+            </span>
+            <span class="toctext">
+             Clearing the database
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-9">
+           <a href="#Changing_the_pmbootstrap_branch">
+            <span class="tocnumber">
+             1.8
+            </span>
+            <span class="toctext">
+             Changing the pmbootstrap branch
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-10">
+           <a href="#Creating_a_new_test">
+            <span class="tocnumber">
+             1.9
+            </span>
+            <span class="toctext">
+             Creating a new test
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-11">
+         <a href="#Database">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Database
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-12">
+           <a href="#Status_values_for_the_.22commits.22_table">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             Status values for the "commits" table
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Local_development_environment">
+        Local development environment
+       </span>
+      </h2>
+      <p>
+       These steps set up a local copy of bpo in docker, that runs against your username's namespace on the official builds.sr.ht instance.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Requirements">
+        Requirements
+       </span>
+      </h3>
+      <ul>
+       <li>
+        Register at
+        <a class="external text" href="https://builds.sr.ht/" rel="nofollow">
+         builds.sr.ht
+        </a>
+       </li>
+       <li>
+        Install docker and docker-compose
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Store_package_signing_key_in_builds.sr.ht">
+        Store package signing key in builds.sr.ht
+       </span>
+      </h3>
+      <p>
+       Run
+       <code>
+        pmbootstrap build_init
+       </code>
+       to generate a public and private key pair for signing packages. We will use the same private key on the bpo server.
+Open
+       <a class="external text" href="https://builds.sr.ht/secrets" rel="nofollow">
+        secrets
+       </a>
+       and fill out the "add new secret" form on the left:
+      </p>
+      <ul>
+       <li>
+        Name: "bpo test build key"
+       </li>
+       <li>
+        Secret: (put here the output of
+        <code>
+         sudo cat ~/.local/var/pmbootstrap/config_abuild/pmos-*.rsa
+        </code>
+        )
+       </li>
+       <li>
+        Secret Type: File
+       </li>
+       <li>
+        Path:  ~/.secrets/build@postmarketos.org.priv
+       </li>
+       <li>
+        Mode: 644
+       </li>
+      </ul>
+      <p>
+       Then click "Add secret". Note down the key it generated on the right (the string that looks like 46f739e5-4538-45dd-a79f-bf173b7a2ed9), you will need it in the next step.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Clone_and_configure">
+        Clone and configure
+       </span>
+      </h3>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> git clone https://gitlab.com/postmarketOS/build.postmarketos.org.git
 <span class="gp">$</span> <span class="nb">cd</span> build.postmarketos.org/
 <span class="gp">$</span> cp .env.dist .env
-</pre></div>
-<p>Open <code>.env</code> in a text editor and change the following:
-</p>
-<ul>
-<li>SRHT_SECRET_ID: the secret ID for your build key, as generated above</li>
-<li>SRHT_TOKEN: <a rel="nofollow" class="external text" href="https://meta.sr.ht/oauth/register">generate a personal access token</a>
-</li>
-</ul>
-<h3><span class="mw-headline" id="Run_the_development_environment">Run the development environment</span></h3>
-<p>Build the custom bpo docker container and run it, together with MariaDB and phpMyAdmin docker containers:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> devel-env
+</pre>
+      </div>
+      <p>
+       Open
+       <code>
+        .env
+       </code>
+       in a text editor and change the following:
+      </p>
+      <ul>
+       <li>
+        SRHT_SECRET_ID: the secret ID for your build key, as generated above
+       </li>
+       <li>
+        SRHT_TOKEN:
+        <a class="external text" href="https://meta.sr.ht/oauth/register" rel="nofollow">
+         generate a personal access token
+        </a>
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Run_the_development_environment">
+        Run the development environment
+       </span>
+      </h3>
+      <p>
+       Build the custom bpo docker container and run it, together with MariaDB and phpMyAdmin docker containers:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> devel-env
 <span class="gp">$</span> ./run.sh
-</pre></div>
-<p>You can access bpo at <a rel="nofollow" class="external free" href="http://localhost">http://localhost</a> and phpMyAdmin at <a rel="nofollow" class="external free" href="http://localhost:8080">http://localhost:8080</a> (login with: <code>root</code>, <code>devsetup</code>).
-</p>
-<h3><span class="mw-headline" id="Submitting_a_job">Submitting a job</span></h3>
-<p>Open phpMyAdmin and open bpo / commit. Create a new entry:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="o">`</span><span class="k">commit</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="k">ref</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">branch</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">message</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">status</span><span class="o">`</span><span class="p">)</span>
+</pre>
+      </div>
+      <p>
+       You can access bpo at
+       <a class="external free" href="http://localhost" rel="nofollow">
+        http://localhost
+       </a>
+       and phpMyAdmin at
+       <a class="external free" href="http://localhost:8080" rel="nofollow">
+        http://localhost:8080
+       </a>
+       (login with:
+       <code>
+        root
+       </code>
+       ,
+       <code>
+        devsetup
+       </code>
+       ).
+      </p>
+      <h3>
+       <span class="mw-headline" id="Submitting_a_job">
+        Submitting a job
+       </span>
+      </h3>
+      <p>
+       Open phpMyAdmin and open bpo / commit. Create a new entry:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="o">`</span><span class="k">commit</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="k">ref</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">branch</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">message</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">status</span><span class="o">`</span><span class="p">)</span>
 <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'e8a7926eb6004ba57ae8b9a7250ce563188dd808'</span><span class="p">,</span> <span class="s1">'master'</span><span class="p">,</span> <span class="s1">'hello world'</span><span class="p">,</span> <span class="s1">'INDEXING'</span><span class="p">);</span>
-</pre></div>
-<p>Make sure that bpo is still running, and execute:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> devel-env
+</pre>
+      </div>
+      <p>
+       Make sure that bpo is still running, and execute:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> devel-env
 <span class="gp">$</span> ./api-task-submit.sh &gt; /tmp/out.html <span class="o">&amp;&amp;</span> head /tmp/out.html
-</pre></div>
-<p>When something goes wrong, this will output a full html page. In that case, the error is in the &lt;title&gt; tag, and you can see the whole thing with a stack trace and links to browse the code by opening the HTML page.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> firefox /tmp/out.html
-</pre></div>
-<p>When it went right, a new job should appear on top of your personal <a rel="nofollow" class="external text" href="https://builds.sr.ht/">builds.sr.ht</a> start page.
-</p>
-<h3><span class="mw-headline" id="Submitting_the_same_job_again">Submitting the same job again</span></h3>
-<ul>
-<li>Remove the entry that appeared in the queue table</li>
-<li>Now you can run api-task-submit.sh again</li>
-</ul>
-<h3><span class="mw-headline" id="Clearing_the_database">Clearing the database</span></h3>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> devel-env
+</pre>
+      </div>
+      <p>
+       When something goes wrong, this will output a full html page. In that case, the error is in the &lt;title&gt; tag, and you can see the whole thing with a stack trace and links to browse the code by opening the HTML page.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> firefox /tmp/out.html
+</pre>
+      </div>
+      <p>
+       When it went right, a new job should appear on top of your personal
+       <a class="external text" href="https://builds.sr.ht/" rel="nofollow">
+        builds.sr.ht
+       </a>
+       start page.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Submitting_the_same_job_again">
+        Submitting the same job again
+       </span>
+      </h3>
+      <ul>
+       <li>
+        Remove the entry that appeared in the queue table
+       </li>
+       <li>
+        Now you can run api-task-submit.sh again
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Clearing_the_database">
+        Clearing the database
+       </span>
+      </h3>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> devel-env
 <span class="gp">$</span> ./clean.sh
-</pre></div>
-<h3><span class="mw-headline" id="Changing_the_pmbootstrap_branch">Changing the pmbootstrap branch</span></h3>
-<p>Pass the branch as argument to <code>./install_pmbootstrap.sh</code> <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/build.postmarketos.org/blob/cc5c0ff701e49063cfb9c2e420ddff49c1b30c8f/src/Helper/SrHtApi.php#L82">here</a>, e.g. <code>./install_pmbootstrap.sh mycoolbranch</code>.
-</p>
-<h3><span class="mw-headline" id="Creating_a_new_test">Creating a new test</span></h3>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> devel-env
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="Changing_the_pmbootstrap_branch">
+        Changing the pmbootstrap branch
+       </span>
+      </h3>
+      <p>
+       Pass the branch as argument to
+       <code>
+        ./install_pmbootstrap.sh
+       </code>
+       <a class="external text" href="https://gitlab.com/postmarketOS/build.postmarketos.org/blob/cc5c0ff701e49063cfb9c2e420ddff49c1b30c8f/src/Helper/SrHtApi.php#L82" rel="nofollow">
+        here
+       </a>
+       , e.g.
+       <code>
+        ./install_pmbootstrap.sh mycoolbranch
+       </code>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Creating_a_new_test">
+        Creating a new test
+       </span>
+      </h3>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> devel-env
 <span class="gp">$</span> ./shell.sh
 <span class="go">~/bpo $ bin/console make:unit-test</span>
-</pre></div>
-<h2><span class="mw-headline" id="Database">Database</span></h2>
-<h3>
-<span id='Status_values_for_the_"commits"_table'></span><span class="mw-headline" id="Status_values_for_the_.22commits.22_table">Status values for the "commits" table</span>
-</h3>
-<ul>
-<li>INDEXING not running yet</li>
-<li>BUILDING currently building on sr.ht</li>
-<li>FAILED build failed on sr.ht</li>
-<li>SUPERSEDED a job for a newer version of the package has been submitted</li>
-<li>DONE everything build successfully</li>
-</ul>
-</div></div>
-		
-		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
-</div></div>
-		<div class="visualClear"></div>
-		
-	</div>
-</div>
-
-
-		<div id="footer" role="contentinfo" style="margin: 0">
-						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=BPO_development&amp;oldid=6778">https://wiki.postmarketos.org/index.php?title=BPO_development&amp;oldid=6778</a>"</li>
-		
-		<li id="footer-info-lastmod"> This page was last edited on 22 April 2019, at 21:07.</li>
-								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
-							<br>
-</ul>
-						<ul id="footer-places">
-								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
-								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
-								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
-								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=BPO_development&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
-							</ul>
-										<ul id="footer-icons" class="noprint">
-										<li id="footer-copyrightico">
-						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
-										<li id="footer-poweredbyico">
-						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
-									</ul>
-						<div style="clear: both;"></div>
-		</div>
-		
-
-</body>
+</pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Database">
+        Database
+       </span>
+      </h2>
+      <h3>
+       <span id='Status_values_for_the_"commits"_table'>
+       </span>
+       <span class="mw-headline" id="Status_values_for_the_.22commits.22_table">
+        Status values for the "commits" table
+       </span>
+      </h3>
+      <ul>
+       <li>
+        INDEXING not running yet
+       </li>
+       <li>
+        BUILDING currently building on sr.ht
+       </li>
+       <li>
+        FAILED build failed on sr.ht
+       </li>
+       <li>
+        SUPERSEDED a job for a newer version of the package has been submitted
+       </li>
+       <li>
+        DONE everything build successfully
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=BPO_development&amp;oldid=6778">
+      https://wiki.postmarketos.org/index.php?title=BPO_development&amp;oldid=6778
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 22 April 2019, at 21:07.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=BPO_development&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
 </html>
