@@ -46,12 +46,12 @@
        <tbody>
         <tr class="">
          <td class="" colspan="2" style="text-align:center;">
-          <a class="image" href="../Lg-mmh4x-stock.jpg">
-           <img alt="LG K40 running stock Android 8" decoding="async" height="150" src="../Lg-mmh4x-stock.jpg" srcset="../300px-Lg-mmh4x-stock.jpg 1.5x ../400px-Lg-mmh4x-stock.jpg 2x" width="200"/>
+          <a class="image" href="../Lg-mmh4x.jpg">
+           <img alt="LG K40 running PostMarketOS with Xfce4" decoding="async" height="267" src="../Lg-mmh4x.jpg" srcset="../300px-Lg-mmh4x.jpg 1.5x ../400px-Lg-mmh4x.jpg 2x" width="200"/>
           </a>
           <br/>
           <span style="">
-           LG K40 running stock Android 8
+           LG K40 running PostMarketOS with Xfce4
           </span>
          </td>
         </tr>
@@ -172,6 +172,14 @@
           armv7
          </td>
         </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Unixbench Whet/Dhry score
+         </th>
+         <td class="" style="">
+          3140.0
+         </td>
+        </tr>
         <tr>
          <td colspan="2" style="text-align:right">
          </td>
@@ -212,7 +220,8 @@
           Touchscreen
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -223,8 +232,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div class="feature feature-partial">
-           Partial
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -255,7 +264,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -286,7 +296,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -554,9 +565,6 @@
         Unlocking the bootloader
        </span>
       </h2>
-      <p>
-       NOTE: The following steps will erase all data on your phone.
-      </p>
       <ol>
        <li>
         Enable developer options, and OEM Unlocking from there.
@@ -607,11 +615,35 @@
         Installation
        </span>
       </h2>
+      <p>
+       Since we can't use recovery or fastboot, we need to manually flash the kernel, initramfs, and rootfs with mtkclient. First, you need to find out which slot is active, A or B. Normally this would be done with fastboot, but we don't have access to that, so we'll have to use adb.
+      </p>
+      <pre>adb shell /bin/getprop ro.boot.slot_suffix # will return either _a or _b, current active slot
+
+pmbootstrap init # DRM is not supported yet, so Xfce4 is the best graphical option for now
+pmbootstrap install
+pmbootstrap export # symlink kernel, initramfs, and rootfs to /tmp for easy manual flashing
+
+# get into a mode where you can use mtkclient
+mtk w boot_a /tmp/postmarketOS-export/boot.img # flash kernel and initramfs to boot_a or boot_b depending on active slot
+mtk w userdata /tmp/postmarketOS-export/lg-mmh4x.img # flash rootfs to userdata partition
+
+mtk reset
+# unplug the device, turn it back on, and enjoy PostMarketOS :)
+</pre>
       <h2>
        <span class="mw-headline" id="See_also">
         See also
        </span>
       </h2>
+      <ul>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3231" rel="nofollow">
+         pmaports!3231
+        </a>
+        Initial merge request
+       </li>
+      </ul>
      </div>
     </div>
     <div class="catlinks" data-mw="interface" id="catlinks">
@@ -637,13 +669,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=LG_K40_(lg-mmh4x)&amp;oldid=28487">
-      https://wiki.postmarketos.org/index.php?title=LG_K40_(lg-mmh4x)&amp;oldid=28487
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=LG_K40_(lg-mmh4x)&amp;oldid=28507">
+      https://wiki.postmarketos.org/index.php?title=LG_K40_(lg-mmh4x)&amp;oldid=28507
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 12 June 2022, at 02:45.
+     This page was last edited on 13 June 2022, at 07:45.
     </li>
     <li id="footer-info-copyright">
      Content is available under
