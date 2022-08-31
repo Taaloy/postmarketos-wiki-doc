@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm MSM8996Pro Snapdragon 821
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_820_821_(MSM8996).html" title="Qualcomm MSM8996Pro Snapdragon 821">
+           Qualcomm MSM8996Pro Snapdragon 821
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -234,8 +236,8 @@
           WiFi
          </th>
          <td class="" style="">
-          <div class="feature feature-partial">
-           Partial
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -432,13 +434,32 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
          </th>
          <td class="" style="">
           <div class="feature feature-no">
            Broken
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div class="feature feature-no">
+           Broken
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
+         </th>
+         <td class="" style="">
+          <div>
           </div>
          </td>
         </tr>
@@ -453,6 +474,50 @@
         Misc
        </caption>
        <tbody>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
           Ir TX
@@ -473,6 +538,15 @@
           </div>
          </td>
         </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
         <tr>
          <td colspan="2" style="text-align:right">
          </td>
@@ -487,7 +561,7 @@
         <tr>
          <td>
           <b>
-           This device is based on
+           This device is based on the
            <a href="../en/Qualcomm_Snapdragon_820_821_(MSM8996).html" title="Qualcomm Snapdragon 820/821 (MSM8996)">
             Snapdragon 821
            </a>
@@ -558,7 +632,7 @@
       </h2>
       <p>
        You will need to
-       <a class="external text" href="https://en.miui.com/unlock/" rel="nofollow">
+       <a class="external text" href="https://en.miui.com/unlock/download_en.html" rel="nofollow">
         unlock the bootloader
        </a>
        in order to be able to flash anything onto the phone.
@@ -600,13 +674,12 @@
          <td style="padding: 2px 0 2px 0.9em; text-align: center;">
           <span style="white-space: nowrap;">
            <img alt="Icon" decoding="async" height="20" src="../Red_warning_icon.svg" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x" title="Icon" width="20"/>
-           <br/>
-           <b>
-            Warning!
-           </b>
           </span>
          </td>
          <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           WARNING:
+          </b>
           Flashing to the data partition will erase all user data! Make sure all important files are backed up before flashing.
          </td>
         </tr>
@@ -681,12 +754,12 @@ $ xz -d &lt;image&gt;-xiaomi-scorpio-boot.img.xz
       <ul>
        <li>
         <code>
-         /data
+         /userdata
         </code>
         : Extends close to the remaining size of your storage. Will wipe your Android installation along with your data.
        </li>
       </ul>
-      <pre>$ fastboot flash data &lt;image&gt;-xiaomi-scorpio.img
+      <pre>$ fastboot flash userdata &lt;image&gt;-xiaomi-scorpio.img
 </pre>
       <p>
        Then you may either flash the boot image:
@@ -885,11 +958,8 @@ $ xz -d &lt;image&gt;-xiaomi-scorpio-boot.img.xz
         <tr>
          <td>
           Modem
-          <p>
-           GNSS
-          </p>
          </td>
-         <td>
+         <td rowspan="2">
           MSS
           <sup>
            1
@@ -907,12 +977,20 @@ $ xz -d &lt;image&gt;-xiaomi-scorpio-boot.img.xz
            Calls have not been tested, and while it might be technically possible to make and receive calls,
 it will not be of much use since the earpiece and microphones are not working.
           </p>
-          <p>
-           GNSS requires
-           <a class="external text" href="https://gitlab.com/gpsd/gpsd/-/merge_requests/139" rel="nofollow">
-            PDS support in gpsd
-           </a>
-          </p>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          GNSS
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td>
+          requires
+          <a class="external text" href="https://gitlab.com/gpsd/gpsd/-/merge_requests/139" rel="nofollow">
+           PDS support in gpsd
+          </a>
          </td>
         </tr>
         <tr>
@@ -1004,27 +1082,38 @@ it will not be of much use since the earpiece and microphones are not working.
           P
          </td>
          <td>
-          Fuel gauge works. Charger currently defaults to ~1.5A from charging ports so it charges relatively slowly. Fast charging will require extra handling in the PMI8996 SMBCharger driver, and for even faster charging a new driver for SMB1351.
+          Fuel gauge works. Charger can reach its maximum current at 5V. Faster charging (9V) will require extra handling in the PMI8996 SMBCharger driver, and for better efficiency (and possibly even faster charging) a new driver for SMB1351.
          </td>
         </tr>
         <tr>
          <td>
-          Cameras
+          Rear Camera
          </td>
          <td>
-          Rear: IMX318
+          Sensor: Sony IMX318
           <p>
-           Front: IMX268
+           Lens Actuator: Asahi Kasei Microelectronics AK7375
           </p>
          </td>
          <td class="feature feature-partial">
           P
          </td>
          <td>
-          Rear sensor has a basic driver with support for 3 modes and analogue gain control. The lens actuator needs a driver.
-          <p>
-           Front sensor and lens actuator need drivers.
-          </p>
+          Sensor has a basic driver with support for 3 modes and analogue gain control.
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Front Camera
+         </td>
+         <td>
+          Sensor: Sony IMX268
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td>
+          Needs a driver.
          </td>
         </tr>
         <tr>
@@ -1231,7 +1320,14 @@ it will not be of much use since the earpiece and microphones are not working.
         .
        </li>
        <li>
-        WiFi range is bad. This is due to lack of board firmware. Supplying board firmware made from the vendor firmware for the downstream QCA_CLD driver makes it lose all APs in a scan as soon as an attempt is made to connect to one of them, which means it is impossible to connect.
+        <del>
+         WiFi range is bad. This is due to lack of board firmware. Supplying board firmware made from the vendor firmware for the downstream QCA_CLD driver makes it lose all APs in a scan as soon as an attempt is made to connect to one of them, which means it is impossible to connect.
+        </del>
+        Fixed in
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3271" rel="nofollow">
+         pmaports!3271
+        </a>
+        .
        </li>
       </ul>
       <h2>
@@ -1290,13 +1386,13 @@ it will not be of much use since the earpiece and microphones are not working.
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Note_2_(xiaomi-scorpio)&amp;oldid=28153">
-      https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Note_2_(xiaomi-scorpio)&amp;oldid=28153
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Note_2_(xiaomi-scorpio)&amp;oldid=30352">
+      https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Note_2_(xiaomi-scorpio)&amp;oldid=30352
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 2 June 2022, at 06:47.
+     This page was last edited on 20 August 2022, at 14:52.
     </li>
     <li id="footer-info-copyright">
      Content is available under

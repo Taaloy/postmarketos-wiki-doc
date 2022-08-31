@@ -121,7 +121,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm MSM8916 Snapdragon 410
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm MSM8916 Snapdragon 410">
+           Qualcomm MSM8916 Snapdragon 410
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -437,13 +439,31 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
          </th>
          <td class="" style="">
           <div class="feature feature-yes">
            Works
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
+         </th>
+         <td class="" style="">
+          <div>
           </div>
          </td>
         </tr>
@@ -460,6 +480,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -470,6 +530,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -490,7 +559,7 @@
         <tr>
          <td>
           <b>
-           This device is based on
+           This device is based on the
            <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm Snapdragon 410/412 (MSM8916)">
             Snapdragon 410
            </a>
@@ -539,6 +608,16 @@
           Notes:
          </span>
          Developing Mainline)
+        </li>
+        <li>
+         <a href="../User:Miki.html" title="User:Miki">
+          Miki
+         </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         model: SM-J500, currently unusable due to swollen battery)
         </li>
         <li>
          <a href="../User:Mint.html" title="User:Mint">
@@ -662,35 +741,12 @@
        </tbody>
       </table>
       <h2>
-       <span class="mw-headline" id="Panel">
-        Panel
+       <span class="mw-headline" id="Screen">
+        Screen
        </span>
       </h2>
       <p>
-       <code>
-        panel-simple
-       </code>
-       is used, and there is no backlight/brightness control support yet. If panel goes sleeping and turns green, press the power button to wake it up.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Touch_keys">
-        Touch keys
-       </span>
-      </h2>
-      <p>
-       Needs a patched driver. See
-       <a href="../en/Tm2-touchkey.html" title="Tm2-touchkey">
-        Tm2-touchkey
-       </a>
-       .
-      </p>
-      <h2>
-       <span class="mw-headline" id="FDE">
-        FDE
-       </span>
-      </h2>
-      <p>
-       It's not possible to unlock with touchscreen at the meantime, but unlocking with a keyboard connected via USB OTG is possible.
+       Screen works partially. While displaying the UI works fine, adjusting the brightness doesn't work.
       </p>
       <h2>
        <span class="mw-headline" id="Battery">
@@ -713,7 +769,7 @@
        <code>
         sm5703
        </code>
-       charger driver issue. J5 is currently unable to power up a usb device in mainline. Try a hub with external power supply.
+       charger driver issue. It's currently unable to power up a usb device in mainline. Try a hub with external power supply.
       </p>
       <h2>
        <span class="mw-headline" id="Accelerometer">
@@ -722,9 +778,37 @@
       </h2>
       <p>
        <code>
-        k2hh
+        lis2hh12
        </code>
        accelerometer is not so stable for auto screen rotation, which suggests you to use fixed portrait or landscape mode.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Touch_keys">
+        Touch keys
+       </span>
+      </h2>
+      <p>
+       Needs a patched driver. See
+       <a href="../en/Tm2-touchkey.html" title="Tm2-touchkey">
+        Tm2-touchkey
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="NFC">
+        NFC
+       </span>
+      </h2>
+      <p>
+       The PN547 NFC chip uses a pad supply voltage (pvdd), which needs a patched driver.
+      </p>
+      <h2>
+       <span class="mw-headline" id="FDE">
+        FDE
+       </span>
+      </h2>
+      <p>
+       It's not possible to unlock with touchscreen at the meantime, but unlocking with a keyboard connected via USB OTG is possible.
       </p>
       <h2>
        <span class="mw-headline" id="Proximity_Sensor">
@@ -737,14 +821,6 @@
         gp2ap002s00f
        </code>
        sensor.
-      </p>
-      <h2>
-       <span class="mw-headline" id="NFC">
-        NFC
-       </span>
-      </h2>
-      <p>
-       Only LTE variants e.g. SM-J500FN has NFC. The PN547 NFC chip uses a pad supply voltage (pvdd), which needs a patched driver.
       </p>
       <h2>
        <span class="mw-headline" id="Photos">
@@ -812,13 +888,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_J5_2015_(samsung-j5)&amp;oldid=27965">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_J5_2015_(samsung-j5)&amp;oldid=27965
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_J5_2015_(samsung-j5)&amp;oldid=30533">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_J5_2015_(samsung-j5)&amp;oldid=30533
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 24 May 2022, at 12:39.
+     This page was last edited on 27 August 2022, at 13:13.
     </li>
     <li id="footer-info-copyright">
      Content is available under

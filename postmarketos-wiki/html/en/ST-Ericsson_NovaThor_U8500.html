@@ -210,6 +210,17 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          <abbr title="Serial Peripheral Interface">
+           SPI
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Audio
          </th>
          <td class="" style="">
@@ -345,6 +356,45 @@
         </tr>
         <tr style="background-color: #eeeeee;">
          <td class="field_Device">
+          <a href="../en/Samsung_Galaxy_Amp_(samsung-kyle).html" title="Samsung Galaxy Amp (samsung-kyle)">
+           Samsung Galaxy Amp (SGH-I407)
+          </a>
+         </td>
+         <td class="field_Codename">
+          samsung-kyle
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr>
+         <td class="field_Device">
+          <a href="../en/Samsung_Galaxy_Beam_(samsung-gavini).html" title="Samsung Galaxy Beam (samsung-gavini)">
+           Samsung Galaxy Beam (GT-I8530)
+          </a>
+         </td>
+         <td class="field_Codename">
+          samsung-gavini
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+         <td class="field_Device">
+          <a href="../en/Samsung_Galaxy_Exhibit_(samsung-codina-tmo).html" title="Samsung Galaxy Exhibit (samsung-codina-tmo)">
+           Samsung Galaxy Exhibit (SGH-T599)
+          </a>
+         </td>
+         <td class="field_Codename">
+          samsung-codina-tmo
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+        </tr>
+        <tr>
+         <td class="field_Device">
           <a href="../en/Samsung_Galaxy_S_Advance_(samsung-janice).html" title="Samsung Galaxy S Advance (samsung-janice)">
            Samsung Galaxy S Advance GT-I9070
           </a>
@@ -356,7 +406,7 @@
           Y
          </td>
         </tr>
-        <tr>
+        <tr style="background-color: #eeeeee;">
          <td class="field_Device">
           <a href="../en/Samsung_Galaxy_S_III_mini_(samsung-golden).html" title="Samsung Galaxy S III mini (samsung-golden)">
            Samsung Galaxy S III mini GT-I8190
@@ -369,7 +419,7 @@
           Y
          </td>
         </tr>
-        <tr style="background-color: #eeeeee;">
+        <tr>
          <td class="field_Device">
           <a href="../en/Samsung_Galaxy_Xcover_2_(samsung-skomer).html" title="Samsung Galaxy Xcover 2 (samsung-skomer)">
            Samsung Galaxy Xcover 2 GT-S7710
@@ -382,7 +432,7 @@
           Y
          </td>
         </tr>
-        <tr>
+        <tr style="background-color: #eeeeee;">
          <td class="field_Device">
           <a href="../en/Sony_Xperia_P_(sony-nypon).html" title="Sony Xperia P (sony-nypon)">
            Sony Xperia P
@@ -394,7 +444,7 @@
          <td class="field_Mainline">
          </td>
         </tr>
-        <tr style="background-color: #eeeeee;">
+        <tr>
          <td class="field_Device">
           <a href="../en/Sony_Xperia_U_(sony-kumquat).html" title="Sony Xperia U (sony-kumquat)">
            Sony Xperia U
@@ -419,32 +469,7 @@
           Samsung GT-I9060 codename Godin is mentioned in the Codina kernel drop but appears to never have been produced, instead another device has the model numer GT-I9060.
          </li>
          <li>
-          Samsung Galaxy Beam GT-I8530 codename Gavini (
-          <a class="external text" href="https://en.wikipedia.org/wiki/Samsung_Galaxy_Beam_i8530" rel="nofollow">
-           wikipedia
-          </a>
-          ,
-          <a class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm/boot/dts/ste-ux500-samsung-gavini.dts" rel="nofollow">
-           upstream devicetree
-          </a>
-          )
-         </li>
-         <li>
-          Samsung Galaxy Exhibit T599 (a variant of GT-I8160/Codina according to the code dumps, "Codina T-mobile" is mentioned,
-          <a class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm/boot/dts/ste-ux500-samsung-codina-tmo.dts" rel="nofollow">
-           upstream devicetree
-          </a>
-          )
-         </li>
-         <li>
-          Samsung Galaxy Amp SGH-I407 codename Kyle (
-          <a class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm/boot/dts/ste-ux500-samsung-kyle.dts" rel="nofollow">
-           upstream devicetree
-          </a>
-          )
-         </li>
-         <li>
-          Samsung Galaxy 070 YP-GI2 codename Hendrix seems to have been intended as a NovaThor U8500 device but ended up using a Marvell chip. This is not confirmed.
+          Samsung Galaxy 070 YP-GI2 codename Hendrix seems to have been intended as a NovaThor U8500 device but ended up using a Marvell chip.
          </li>
          <li>
           Sources also mentions, at one point, a product called "Venus" and at another point "Ricco" but no other information exists.
@@ -484,6 +509,15 @@
        </li>
        <li>
         HTC Sensation Z710t
+       </li>
+       <li>
+        Yulong Coolpad CP7728
+       </li>
+       <li>
+        Ontim WP8500
+       </li>
+       <li>
+        Shanda Bambook
        </li>
       </ul>
       <h2>
@@ -532,6 +566,28 @@
 </pre>
       <p>
        The system will become uninteractive until woken up by some event such as touchscreen, buttons etc. (If any of these do not wake up the system each driver and config needs to be augmented such that it will.) If nothing else works the power button will generate a wake-up event.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Speed_and_overclocking">
+        Speed and overclocking
+       </span>
+      </h2>
+      <p>
+       The U8500 platform is speed-controlled by the embedded PRCMU (Power Reset Clock Management Unit) firmware. The speed of the stock U8500 is 998.4 MHz (~1GHz) while the
+       <a href="../en/Samsung_Galaxy_Ace_2_(samsung-codina).html" title="Samsung Galaxy Ace 2 (samsung-codina)">
+        Samsung Galaxy Ace 2 (samsung-codina)
+       </a>
+       has a speed cap that limits that specific phone to the next highest operating point at ~800MHz.
+      </p>
+      <p>
+       It is possible to bypass and overclock the SoC. In 2014 an XDA developer named Huang Ji ("cocafe") made
+       <a class="external text" href="https://dflund.se/~triad/krad/ux500/0001-DB8500-Add-LiveOPP-v1.0.1.patch" rel="nofollow">
+        a patch adding
+        <i>
+         LiveOPP
+        </i>
+       </a>
+       , i.e. taking direct control over the operating points by bypassing the firmware. He added several new frequency steps and enabled overclocking the SoC all the way up to 1.25GHz.
       </p>
       <h2>
        <span class="mw-headline" id="Audio">
@@ -1317,13 +1373,13 @@ make
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=ST-Ericsson_NovaThor_U8500&amp;oldid=28412">
-      https://wiki.postmarketos.org/index.php?title=ST-Ericsson_NovaThor_U8500&amp;oldid=28412
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=ST-Ericsson_NovaThor_U8500&amp;oldid=29771">
+      https://wiki.postmarketos.org/index.php?title=ST-Ericsson_NovaThor_U8500&amp;oldid=29771
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 8 June 2022, at 19:53.
+     This page was last edited on 29 July 2022, at 13:56.
     </li>
     <li id="footer-info-copyright">
      Content is available under

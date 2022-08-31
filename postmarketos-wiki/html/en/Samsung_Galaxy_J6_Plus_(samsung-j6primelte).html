@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm MSM8917 Snapdragon 425
+          <a class="new" href="/index.php?title=Qualcomm_MSM8917_Snapdragon_425&amp;action=edit&amp;redlink=1" title="Qualcomm MSM8917 Snapdragon 425 (page does not exist)">
+           Qualcomm MSM8917 Snapdragon 425
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -411,9 +413,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -433,6 +453,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -443,6 +503,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -490,6 +559,11 @@
          </span>
          model: SM-J610FN/DS)
         </li>
+        <li>
+         <a href="../User:Usrxprd.html" title="User:Usrxprd">
+          Usrxprd
+         </a>
+        </li>
        </ul>
       </div>
       <p>
@@ -523,16 +597,16 @@
       </h3>
       <ol>
        <li>
-        Go to Android settings
+        Go to Android settings.
        </li>
        <li>
-        Select "Developer options". If you haven't enabled developer options, then refer to the following steps
+        Select "Developer options". If you haven't enabled developer options, then refer to the following steps:
         <ol>
          <li>
-          In Android settings, select "About phone"
+          In Android settings, select "About phone".
          </li>
          <li>
-          Select "Software information"
+          Select "Software information".
          </li>
          <li>
           Locate "Build number" and tap on it 7 times.
@@ -540,9 +614,33 @@
         </ol>
        </li>
        <li>
-        Locate "OEM unlocking" and toggle it on.
+        Locate "OEM unlocking" and toggle it on (this will perform a reset, so backup any valuable data). Sometimes this option is unavailable or greyed out, but there exist methods that attempt to bring it back (various instructions to do so can be found on the web).
        </li>
       </ol>
+      <h3>
+       <span class="mw-headline" id="Other_Ways">
+        Other Ways
+       </span>
+      </h3>
+      <p>
+       If your Android system is unusable, you can try flashing the stock ROM in order to try putting a usable system back on the phone and proceeding with the instructions for unlocking via Android settings. Stock ROMs can be downloaded from various sources online. Picking the right ROM/firmware can be tricky, as they are model-specific. Even ROMs that match your model can have different bootloader versions, which must be appropriate to the "fused" version in order to work correctly
+       <sup class="reference" id="cite_ref-1">
+        <a href="#cite_note-1">
+         [1]
+        </a>
+       </sup>
+       . Here is an example firmware version (bootloader version in bold):
+       <code>
+        J610FXXU
+        <b>
+         7
+        </b>
+        CUF1
+       </code>
+      </p>
+      <p>
+       Some phones can be "OEM unlocked" using fastboot.
+      </p>
       <h2>
        <span class="mw-headline" id="Installation">
         Installation
@@ -704,9 +802,9 @@ Fatal server error:
        </li>
        <li>
         DRM MSM drivers refuse to build on the downstream kernel
-        <sup class="reference" id="cite_ref-1">
-         <a href="#cite_note-1">
-          [1]
+        <sup class="reference" id="cite_ref-2">
+         <a href="#cite_note-2">
+          [2]
          </a>
         </sup>
         , for now requires mainlining or patching
@@ -759,6 +857,18 @@ Fatal server error:
           </a>
          </span>
          <span class="reference-text">
+          <a class="external free" href="https://www.arencambre.com/2018/01/01/fused-firmware-version-locks-samsung-s7/" rel="nofollow">
+           https://www.arencambre.com/2018/01/01/fused-firmware-version-locks-samsung-s7/
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-2">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-2">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
           <a class="external free" href="https://twitter.com/omametech/status/1427977023767580672" rel="nofollow">
            https://twitter.com/omametech/status/1427977023767580672
           </a>
@@ -791,13 +901,13 @@ Fatal server error:
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_J6_Plus_(samsung-j6primelte)&amp;oldid=26072">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_J6_Plus_(samsung-j6primelte)&amp;oldid=26072
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_J6_Plus_(samsung-j6primelte)&amp;oldid=29753">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_J6_Plus_(samsung-j6primelte)&amp;oldid=29753
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 5 March 2022, at 00:50.
+     This page was last edited on 28 July 2022, at 20:19.
     </li>
     <li id="footer-info-copyright">
      Content is available under

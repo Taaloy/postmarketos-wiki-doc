@@ -46,7 +46,13 @@
        <tbody>
         <tr class="">
          <td class="" colspan="2" style="text-align:center;">
-          [[File:|200px|alt=]]
+          <a class="image" href="../Pantech-ef44_lk2nd-1.jpg">
+           <img alt="Pantech SKY VEGA S5" decoding="async" height="150" src="../Pantech-ef44_lk2nd-1.jpg" srcset="../300px-Pantech-ef44_lk2nd-1.jpg 1.5x ../400px-Pantech-ef44_lk2nd-1.jpg 2x" width="200"/>
+          </a>
+          <br/>
+          <span style="">
+           Pantech SKY VEGA S5
+          </span>
          </td>
         </tr>
         <tr class="">
@@ -70,7 +76,7 @@
           Codename
          </th>
          <td class="" style="">
-          ef44s
+          pantech-ef44
          </td>
         </tr>
         <tr class="">
@@ -107,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm MSM8960 Snapdragon S4 Plus
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_S4_Plus_(MSM8960).html" title="Qualcomm MSM8960 Snapdragon S4 Plus">
+           Qualcomm MSM8960 Snapdragon S4 Plus
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -115,10 +123,7 @@
           CPU
          </th>
          <td class="" style="">
-          <ul>
-           <li class="mw-empty-elt">
-           </li>
-          </ul>
+          Qualcomm Krait MP2 1.5GHz
          </td>
         </tr>
         <tr class="">
@@ -126,10 +131,7 @@
           GPU
          </th>
          <td class="" style="">
-          <ul>
-           <li class="mw-empty-elt">
-           </li>
-          </ul>
+          Qualcomm Adreno 225
          </td>
         </tr>
         <tr class="">
@@ -394,9 +396,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -416,6 +436,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -426,6 +486,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -480,12 +549,12 @@
       </h2>
       <ul>
        <li>
-        For fastboot mode, press both volume keys and power key simultaneousely. After that, choose fastboot in the Pantech Menu.
+        For fastboot mode, hold both volume keys and power key until Pantech menu shows. Then, choose fastboot in the Pantech Menu.
        </li>
       </ul>
       <ul>
        <li>
-        For Recovery mode, press volume up key and power key together.
+        For Recovery mode, hold volume up and power until bootloader's splash image is gone.
        </li>
       </ul>
       <h2>
@@ -494,7 +563,7 @@
        </span>
       </h2>
       <p>
-       Recovery Zip installation is the most easiest. SD Card installation also works.
+       The device/linux packages are not upstreamed as of yet, since it is not booting. The pmOS installation can either be on the microSD card or the internal eMMC.
       </p>
       <p>
        <br/>
@@ -504,21 +573,40 @@
         Problems
        </span>
       </h2>
-      <p>
-       The device's custom android firmwares all use the stock kernel.
-However, the stock kernel only builds/boots well with *Only* with *arm-eabi-4.6*. With other versions, an error occurs while the build, or it simply does not work.
-Using the kernel built with arm-eabi-4.6 and the msm-fb-refresher package, it is possible to see the postmarketOS logo for a short time, and while lsusb and pinging from pc works, ssh does not connect for unknown reason. After that short time the device turns off and shows the VEGA (Manufacturer) logo, and more seconds pass, it shows the pmOS logo again, and the loop goes on.
-      </p>
+      <ul>
+       <li>
+        Vendor kernel (Linux 3.4.0) only compiles and boots with certain old toolchains, arm-eabi-4.4.3, arm-eabi-4.6, arm-eabi-4.7.
+       </li>
+       <li>
+        Not many users are available for the target, and less developers are availlable.
+       </li>
+       <li>
+        Hardware failures are common, including the touchscreen, speaker, battery, camera.
+       </li>
+      </ul>
       <h2>
-       <span id="Mainline?">
-       </span>
-       <span class="mw-headline" id="Mainline.3F">
-        Mainline?
+       <span class="mw-headline" id="Mainline">
+        Mainline
        </span>
       </h2>
-      <p>
-       The Soc seems to be on mainline kernel (msm8960), however because of unknown UART and no person to work with, this seems to be hard.
-      </p>
+      <ul>
+       <li>
+        The lk2nd from the chipset page does boot when compiled. See the picture above.
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="external text" href="https://github.com/mifl/android_kernel_pantech_ef44s" rel="nofollow">
+         Downstream kernel source
+        </a>
+        (3.4.0 kernel identical to vendor kernel zip)
+       </li>
+      </ul>
      </div>
     </div>
     <div class="catlinks" data-mw="interface" id="catlinks">
@@ -549,13 +637,13 @@ Using the kernel built with arm-eabi-4.6 and the msm-fb-refresher package, it is
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Pantech_SKY_VEGA_S5&amp;oldid=19064">
-      https://wiki.postmarketos.org/index.php?title=Pantech_SKY_VEGA_S5&amp;oldid=19064
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Pantech_SKY_VEGA_S5&amp;oldid=30206">
+      https://wiki.postmarketos.org/index.php?title=Pantech_SKY_VEGA_S5&amp;oldid=30206
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 10 May 2021, at 10:10.
+     This page was last edited on 14 August 2022, at 15:46.
     </li>
     <li id="footer-info-copyright">
      Content is available under

@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Freescale i.MX6 SLL
+          <a class="mw-redirect" href="../en/Freescale_i.MX6.html" title="Freescale i.MX6 SLL">
+           Freescale i.MX6 SLL
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -415,9 +417,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -437,6 +457,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -447,6 +507,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -537,6 +606,37 @@ only a wrong U-Boot might be a problem.
       </p>
       <pre> ums 0 mmc 0
 </pre>
+      <p>
+       With the pmOS-installed bootloader, you can also enter mass storage by Page*Up* while powering on
+      </p>
+      <h2>
+       <span class="mw-headline" id="Backing_up_and_restore">
+        Backing up and restore
+       </span>
+      </h2>
+      <p>
+       What works here flashing bootenv to bootcmd=ricoh_watchdog disable; ums 0 mmc 0 the needed binary is at:
+       <a class="external free" href="https://misc.andi.de1.cc/ums-env.bin" rel="nofollow">
+        https://misc.andi.de1.cc/ums-env.bin
+       </a>
+      </p>
+      <p>
+       so do a
+      </p>
+      <pre> fastboot flash bootenv ums-env.bin
+</pre>
+      <p>
+       and enter fastboot by pressing pagedown while powering on after the flash succeeds, do
+      </p>
+      <pre> fastboot reboot
+</pre>
+      <p>
+       The emmc will appear as /dev/sdX on your host. Now backup the full /dev/sdX. You can write back the original bootenv (if otherwise the original contents are restorted) by
+      </p>
+      <pre> mount /dev/sdX1 /mnt
+ dd if=/mnt/etc/u-boot/mx6sll-ntx/u-boot.mmc bs=128K seek=6 of=/dev/sdX
+ umount /mnt
+</pre>
       <h2>
        <span class="mw-headline" id="Installation">
         Installation
@@ -563,9 +663,9 @@ only a wrong U-Boot might be a problem.
        </li>
        <li>
         <a class="external text" href="https://github.com/akemnade/linux" rel="nofollow">
-         branches kobo/merged-5.X Patched mainline kernels
+         branches kobo/drm-merged-5.X Patched mainline kernels
         </a>
-        (includes EPD), currently kobo/drm-merged-5.15
+        (includes EPD), currently kobo/drm-merged-5.17
        </li>
        <li>
         <a class="external text" href="https://github.com/akemnade/u-boot-fslc" rel="nofollow">
@@ -611,13 +711,13 @@ only a wrong U-Boot might be a problem.
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Kobo_Libra_H2O_(kobo-librah2o)&amp;oldid=26929">
-      https://wiki.postmarketos.org/index.php?title=Kobo_Libra_H2O_(kobo-librah2o)&amp;oldid=26929
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Kobo_Libra_H2O_(kobo-librah2o)&amp;oldid=30549">
+      https://wiki.postmarketos.org/index.php?title=Kobo_Libra_H2O_(kobo-librah2o)&amp;oldid=30549
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 13 April 2022, at 14:48.
+     This page was last edited on 28 August 2022, at 07:58.
     </li>
     <li id="footer-info-copyright">
      Content is available under

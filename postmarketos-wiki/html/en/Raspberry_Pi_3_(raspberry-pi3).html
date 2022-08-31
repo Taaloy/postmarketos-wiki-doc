@@ -99,6 +99,14 @@
           Raspbian
          </td>
         </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          postmarketOS kernel
+         </th>
+         <td class="" style="">
+          5.15.57-r0
+         </td>
+        </tr>
         <tr>
          <th class="" colspan="2" style="text-align:center;">
           Hardware
@@ -109,7 +117,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Broadcom BCM2837
+          <a class="new" href="/index.php?title=Broadcom_BCM2837&amp;action=edit&amp;redlink=1" title="Broadcom BCM2837 (page does not exist)">
+           Broadcom BCM2837
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -409,7 +419,8 @@
           Magnetometer
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-unavailable">
+           Unavailable
           </div>
          </td>
         </tr>
@@ -418,7 +429,8 @@
           Ambient Light
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-unavailable">
+           Unavailable
           </div>
          </td>
         </tr>
@@ -427,15 +439,36 @@
           Proximity
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-unavailable">
+           Unavailable
           </div>
          </td>
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -455,6 +488,49 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div class="feature feature-yes">
+           Works
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -469,6 +545,16 @@
          </th>
          <td class="" style="">
           <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
+         </th>
+         <td class="" style="">
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -549,6 +635,16 @@
          Works (3B+))
         </li>
         <li>
+         <a href="../User:Harryausten.html" title="User:Harryausten">
+          Harryausten
+         </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         3B v1.2)
+        </li>
+        <li>
          <a href="../User:J.r.html" title="User:J.r">
           J.r
          </a>
@@ -592,6 +688,16 @@
           Notes:
          </span>
          has 3B+)
+        </li>
+        <li>
+         <a href="../User:Qwertz.html" title="User:Qwertz">
+          Qwertz
+         </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         Model: 3B)
         </li>
         <li>
          <a href="../User:Schrmh.html" title="User:Schrmh">
@@ -747,7 +853,7 @@
        The audio is configured to be sent to the HDMI port by default.
       </p>
       <p>
-       If you want to use the onboard jack you have to run this command:
+       If you want to use the onboard jack and your UI does not offer the graphical settings to do yo, you can run this commands:
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
        <pre><span></span><span class="gp">$</span> amixer cset <span class="nv">numid</span><span class="o">=</span><span class="m">3</span> <span class="m">1</span>
@@ -755,18 +861,6 @@
 <span class="gp">$</span> speaker-test -c <span class="m">2</span>
 <span class="go">(change output back to HDMI)</span>
 <span class="gp">$</span> amixer cset <span class="nv">numid</span><span class="o">=</span><span class="m">3</span> <span class="m">2</span>
-</pre>
-      </div>
-      <h3>
-       <span class="mw-headline" id="WiFi">
-        WiFi
-       </span>
-      </h3>
-      <p>
-       the default build doesn't include the needed wifi firmware, it can be added postinstall with:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> sudo apk add linux-firmware-cypress
 </pre>
       </div>
       <h3>
@@ -1039,6 +1133,7 @@
           </a>
          </td>
          <td>
+          power button cannot be used for safe shutdown, shutting down postmarketOS does not shut down the display itself.
          </td>
          <td class="feature feature-yes">
           Y
@@ -1129,13 +1224,13 @@ The following check fail currently:
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Raspberry_Pi_3_(raspberry-pi3)&amp;oldid=26256">
-      https://wiki.postmarketos.org/index.php?title=Raspberry_Pi_3_(raspberry-pi3)&amp;oldid=26256
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Raspberry_Pi_3_(raspberry-pi3)&amp;oldid=29823">
+      https://wiki.postmarketos.org/index.php?title=Raspberry_Pi_3_(raspberry-pi3)&amp;oldid=29823
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 14 March 2022, at 20:41.
+     This page was last edited on 31 July 2022, at 12:02.
     </li>
     <li id="footer-info-copyright">
      Content is available under

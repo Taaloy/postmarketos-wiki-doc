@@ -121,7 +121,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm MSM8998 Snapdragon 835
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_835_(MSM8998).html" title="Qualcomm MSM8998 Snapdragon 835">
+           Qualcomm MSM8998 Snapdragon 835
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -440,13 +442,31 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
          </th>
          <td class="" style="">
           <div class="feature feature-yes">
            Works
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
+         </th>
+         <td class="" style="">
+          <div>
           </div>
          </td>
         </tr>
@@ -461,6 +481,46 @@
         Misc
        </caption>
        <tbody>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
           Ir TX
@@ -481,6 +541,15 @@
           </div>
          </td>
         </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
         <tr>
          <td colspan="2" style="text-align:right">
          </td>
@@ -498,7 +567,7 @@
         <tr>
          <td>
           <b>
-           This device is based on
+           This device is based on the
            <a href="../en/Qualcomm_Snapdragon_835_(MSM8998).html" title="Qualcomm Snapdragon 835 (MSM8998)">
             Snapdragon 835
            </a>
@@ -517,6 +586,37 @@
        </a>
        , so refer to that wiki for most things.
       </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           NOTE:
+          </b>
+          ONLY choose the
+          <code>
+           alpine
+          </code>
+          kernel if you accept that it will have MUCH fewer overall working features, otherwise always pick the
+          <code>
+           mainline
+          </code>
+          kernel!
+          <br/>
+          A downstream kernel port is also still available as the
+          <code>
+           dumpling-downstream
+          </code>
+          codename, but usage of it is strongly discouraged since it is completely unmaintained!
+         </td>
+        </tr>
+       </tbody>
+      </table>
       <h2>
        <span class="mw-headline" id="Differences">
         Differences
@@ -537,6 +637,26 @@
        </li>
        <li>
         Goodix fingerprint sensor on back instead of FPC one on front
+       </li>
+      </ul>
+      <h2>
+       <span class="mw-headline" id="Bootloader_quirks">
+        Bootloader quirks
+       </span>
+      </h2>
+      <p>
+       There's a few quirks on the 5T bootloader compared to the regular 5:
+      </p>
+      <ul>
+       <li>
+        OOS 9 bootloader at least cannot
+        <code>
+         fastboot boot
+        </code>
+        , it just gets stuck
+       </li>
+       <li>
+        Cannot boot mainline kernel with multiple appended DTBs, same image works on regular 5 no matter which order DTBs are appended in
        </li>
       </ul>
       <h2>
@@ -641,13 +761,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=OnePlus_5T_(oneplus-dumpling)&amp;oldid=27893">
-      https://wiki.postmarketos.org/index.php?title=OnePlus_5T_(oneplus-dumpling)&amp;oldid=27893
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=OnePlus_5T_(oneplus-dumpling)&amp;oldid=30212">
+      https://wiki.postmarketos.org/index.php?title=OnePlus_5T_(oneplus-dumpling)&amp;oldid=30212
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 20 May 2022, at 23:34.
+     This page was last edited on 14 August 2022, at 22:47.
     </li>
     <li id="footer-info-copyright">
      Content is available under

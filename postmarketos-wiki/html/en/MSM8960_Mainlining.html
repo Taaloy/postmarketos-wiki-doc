@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   MSM8960 Mainlining - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-MSM8960_Mainlining rootpage-MSM8960_Mainlining skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    MSM8960 Mainlining
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       The Qualcomm MSM8960/APQ8064 (Snapdragon S4 series) is a high-end smartphone SoC in 2012.
+      </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Status">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Status
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Overview">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Overview
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#msm8960-mainline.2Flinux">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             msm8960-mainline/linux
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#msm8916-mainline.2Flk2nd">
+            <span class="tocnumber">
+             2.2
+            </span>
+            <span class="toctext">
+             msm8916-mainline/lk2nd
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-5">
+         <a href="#Getting_Started">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Getting Started
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Requirements">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             Requirements
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-7">
+           <a href="#Before_you_start">
+            <span class="tocnumber">
+             3.2
+            </span>
+            <span class="toctext">
+             Before you start
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-8">
+           <a href="#Preparations">
+            <span class="tocnumber">
+             3.3
+            </span>
+            <span class="toctext">
+             Preparations
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-9">
+           <a href="#lk2nd">
+            <span class="tocnumber">
+             3.4
+            </span>
+            <span class="toctext">
+             lk2nd
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-10">
+           <a href="#Device_Package">
+            <span class="tocnumber">
+             3.5
+            </span>
+            <span class="toctext">
+             Device Package
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-11">
+           <a href="#Build_Kernel">
+            <span class="tocnumber">
+             3.6
+            </span>
+            <span class="toctext">
+             Build Kernel
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Status">
+        Status
+       </span>
+      </h2>
+      <p>
+       The following features provided by the MSM8960 SoC are supported in mainline and should work on most MSM8960-based devices after the device tree has been set up:
+      </p>
+      <ul>
+       <li>
+        <a class="extiw" href="https://en.wikipedia.org/wiki/Universal_asynchronous_receiver-transmitter" title="wikipedia:Universal asynchronous receiver-transmitter">
+         UART
+        </a>
+       </li>
+       <li>
+        USB
+       </li>
+       <li>
+        Internal/External Storage (
+        <a class="extiw" href="https://en.wikipedia.org/wiki/MultiMediaCard#eMMC" title="wikipedia:MultiMediaCard">
+         eMMC
+        </a>
+        /
+        <a class="extiw" href="https://en.wikipedia.org/wiki/SD_card" title="wikipedia:SD card">
+         SD card
+        </a>
+        )
+       </li>
+      </ul>
+      <p>
+       Certain components (e.g. touchscreen, sensors, ...) are device-specific. With a bit of luck, some will be already supported by mainline, others won't.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Overview">
+        Overview
+       </span>
+      </h2>
+      <h3>
+       <span id="msm8960-mainline/linux">
+       </span>
+       <span class="mw-headline" id="msm8960-mainline.2Flinux">
+        <a class="external text" href="https://github.com/apq8064-mainline/linux" rel="nofollow">
+         msm8960-mainline/linux
+        </a>
+       </span>
+      </h3>
+      <p>
+       The close-to-mainline
+       <a class="external text" href="https://www.kernel.org/" rel="nofollow">
+        Linux
+       </a>
+       kernel fork with patches that have not been accepted/submitted upstream yet. Patches in the
+       <code>
+        master
+       </code>
+       branch are generally in good shape unless marked otherwise. Submit a PR to add new patches there.
+      </p>
+      <h3>
+       <span id="msm8916-mainline/lk2nd">
+       </span>
+       <span class="mw-headline" id="msm8916-mainline.2Flk2nd">
+        <a class="external text" href="https://github.com/msm8916-mainline/lk2nd/tree/experimental-tmp" rel="nofollow">
+         msm8916-mainline/lk2nd
+        </a>
+       </span>
+      </h3>
+      <p>
+       The reference bootloader provided by Qualcomm for MSM8960 is open-source and based on
+       <a class="external text" href="https://github.com/littlekernel/lk" rel="nofollow">
+        Little Kernel (LK)
+       </a>
+       . Most devices will use this bootloader in a more or less modified form. On Samsung devices for example, the standard Fastboot interface was replaced by their proprietary download mode.
+      </p>
+      <p>
+       <a class="external text" href="https://github.com/msm8916-mainline/lk2nd" rel="nofollow">
+        lk2nd
+       </a>
+       is a fork of the reference bootloader with the goal to provide a unified boot interface on all devices. It provides a standard Fastboot interface (even on Samsung devices!). It also used for a number of mainline quirks (e.g. to set a WiFi/BT MAC address in the device tree; without lk2nd, WiFi/BT does not work out of the box). Eventually, more quirks may be added in the future. It is therefore recommended for all mainline MSM8960 devices. Porting it is generally much easier than porting mainline.
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           Note:
+          </b>
+          lk2nd does not replace your stock bootloader. It is packed into a standard Android boot image and loaded by the stock bootloader from the boot partition. The real boot partition used by lk2nd is then placed with a small offset into the boot partition.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h2>
+       <span class="mw-headline" id="Getting_Started">
+        Getting Started
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="Requirements">
+        Requirements
+       </span>
+      </h3>
+      <ul>
+       <li>
+        MSM8960-based device
+       </li>
+       <li>
+        UART if possible (with a bit of luck you may get USB working without UART)
+       </li>
+       <li>
+        (Downstream) Linux kernel source for your device (explaining ways to mainline without kernel source is out of scope for this article)
+       </li>
+       <li>
+        Basic knowledge about Linux, Git, C, Device Trees, ...
+       </li>
+       <li>
+        Willingness to learn about "mainlining" and to figure out things on your own
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Before_you_start">
+        Before you start
+       </span>
+      </h3>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           Warning:
+          </b>
+          Mainlining (or any unintended "modding") may brick your device permanently if you make a mistake. There is a good chance that nothing happens if you are a bit careful, but do not continue with a device that you need every day. You have been warned!
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       Mainlining is not easy. MSM8960 is a platform where a lot components can be easily enabled by only setting up a device tree, which can be largely copied from other devices with minor changes. However, at some point you will reach the point where you would like to enable a particular component that is device-specific (e.g. the touchscreen, sensors, ...). In this case you will be largely on your own, and need to figure out how to enable it yourself. (Do you just need to add something to the device tree or even write a new kernel driver?) That requires some familiarity with the way the Linux kernel is working for MSM8960.
+      </p>
+      <p>
+       The best way to make yourself familiar with the process is to attempt to figure out some simple things on your own. Therefore, this guide will only describe everything until (eventually) USB network is working. For everything else, this article provides only some information that might be helpful to figure it out yourself.
+      </p>
+      <p>
+       If you have any questions, ask in
+       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
+        the mainline channel on Matrix or IRC
+       </a>
+       . Make sure to mention "msm8960" if your question is specific to this article.
+      </p>
+      <p>
+       Please also join the MSM8960 specific channel on
+       <a class="external text" href="https://matrix.to/#/#linux-apq8064:matrix.org" rel="nofollow">
+        Matrix
+       </a>
+       .
+      </p>
+      <h3>
+       <span class="mw-headline" id="Preparations">
+        Preparations
+       </span>
+      </h3>
+      <p>
+       Unfortunately, as the MSM8960 platform is outdated, many of the downstream kernels use board files instead of device trees. That means you will likely have to manually traverse these board files to make a proper device tree.
+      </p>
+      <p>
+       Now, let's check how it looks on mainline. Clone
+       <a class="external text" href="https://github.com/apq8064-mainline/linux" rel="nofollow">
+        linux
+       </a>
+       and take a look at
+       <code>
+        arch/arm/boot/dts/
+       </code>
+       . This is the directory where you will add your device tree later.
+      </p>
+      <h3>
+       <span class="mw-headline" id="lk2nd">
+        lk2nd
+       </span>
+      </h3>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           Note:
+          </b>
+          lk2nd is not strictly required to boot mainline. However, certain features (e.g. WiFi, BT, secondary CPU cores, ...) only work with some additional mainline quirks included in lk2nd. In the future, there may be more features that depend on extra code that needs to be run in the bootloader. Therefore, lk2nd is recommended for all devices, even if your stock bootloader already provides a standard Fastboot interface.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       <a class="external text" href="https://github.com/msm8916-mainline/lk2nd/tree/experimental-tmp" rel="nofollow">
+        msm8916-mainline/lk2nd
+       </a>
+       does not require any device-specific code. Normally, it should just run out of the box on your device.
+      </p>
+      <p>
+       Try
+       <a class="external text" href="https://github.com/msm8916-mainline/lk2nd#building" rel="nofollow">
+        building it
+       </a>
+       . Make sure you are on the experimental-tmp branch.
+      </p>
+      <p>
+       In order to boot mainline, lk2nd now requires a reserved memory to be specified in a dts in order to know what ram Linux can use. Leaving it out can be fine, however it will likely lead to oddities later on.
+      </p>
+      <p>
+       To figure out what your reserved memories are, first install lk2nd onto your device and then run
+       <code>
+        fastboot oem parsed-tags &amp;&amp; fastboot get_staged atags.bin
+       </code>
+       . You should now have a file called atags.bin
+      </p>
+      <p>
+       Next, make a file called
+       <code>
+        atags.c
+       </code>
+       in
+       <code>
+        path/to/linux/arch/arm/include/uapi/asm/
+       </code>
+       and put the following code inside
+      </p>
+      <pre>#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include "setup.h"
+
+void parse_tag(const struct tag *t) {
+        switch (t-&gt;hdr.tag) {
+        case ATAG_MEM:
+                printf("Mem: 0x%x - 0x%x (size %d)\n", t-&gt;u.mem.start, t-&gt;u.mem.start + t-&gt;u.mem.size, t-&gt;u.mem.size);
+                break;
+        case ATAG_INITRD2:
+                printf("Initrd: 0x%x - 0x%x (size: %d)\n", t-&gt;u.initrd.start, t-&gt;u.initrd.start + t-&gt;u.initrd.size, t-&gt;u.initrd.size);
+                break;
+        case ATAG_SERIAL:
+                printf("Serial: %08x%08x\n", t-&gt;u.serialnr.high, t-&gt;u.serialnr.low);
+                break;
+        case ATAG_REVISION:
+                printf("Revision: 0x%x\n", t-&gt;u.revision.rev);
+                break;
+        case ATAG_CMDLINE:
+                printf("Cmdline: %s\n", t-&gt;u.cmdline.cmdline);
+                break;
+        case ATAG_CORE:
+        case ATAG_NONE:
+                break; // Ignore
+        default:
+                printf("Unknown: 0x%x\n", t-&gt;hdr.tag);
+        }
+}
+
+int main(int argc, char* argv[]) {
+    FILE *f = fopen(argv[1], "rb");
+    fseek(f, 0, SEEK_END);
+    long fsize = ftell(f);
+    fseek(f, 0, SEEK_SET);
+
+    struct tag *t = malloc(fsize);
+    fread(t, fsize, 1, f);
+    fclose(f);
+
+    if (t-&gt;hdr.tag != ATAG_CORE) {
+            printf("Fail: 0x%x\n", t-&gt;hdr.tag);
+            return 1;
+    }
+
+    for (; t-&gt;hdr.size; t = tag_next(t)) {
+            parse_tag(t);
+    }
+    return 0;
+}
+</pre>
+      <p>
+       Compile that c file with `cc atags.c -o atags` and run `./atags atags.bin`. It should give you something like the following:
+      </p>
+      <pre>Revision: 0x8
+Serial: 0000b1c10000f58e
+Mem: 0x80200000 - 0x88d00000 (size 145752064)
+Mem: 0x90000000 - 0xc0000000 (size 805306368)
+Cmdline: lk2nd sec_log=0x80000@0x88d00008 sec_dbg=0x40000@0x88d90004 sec_debug.reset_reason=0x1a2b3c00 etb_buf=0x4000@0x8fffb9c0 androidboot.debug_level=0x4f4c sec_debug.enable=0 sec_debug.enable_user=0 androidboot.cp_debug_level=0x55FF sec_debug.enable_cp_debug=0 cordon=9aca3e010986c9435237198590d9cb10 sysscope=0xee000000 loglevel=4 samsung.hardware=SGH-I437 androidboot.emmc_checksum=3 androidboot.bootloader=I437UCDMG4 androidboot.nvdata_backup=0 androidboot.boot_recovery=0 androidboot.batt_check_recovery=0 level=0x574f4c44 sec_pvs=0 androidboot.emmc=true androidboot.serialno=b1c1f58e androidboot.baseband=msm
+</pre>
+      <p>
+       The memories that are listed are the ones that Linux can occupy. We need to tell Linux not to occupy the other spots. For the example above, it would look like the following:
+       <a class="external free" href="https://gitlab.com/LogicalErzor/expressatt-linux/-/commit/884e2afac2618e7f65b1c972877c17065cb6447c" rel="nofollow">
+        https://gitlab.com/LogicalErzor/expressatt-linux/-/commit/884e2afac2618e7f65b1c972877c17065cb6447c
+       </a>
+      </p>
+      <h3>
+       <span class="mw-headline" id="Device_Package">
+        Device Package
+       </span>
+      </h3>
+      <p>
+       TODO
+( Don't really know the pmos official way. Currently make it manually here
+       <a class="external free" href="https://gitlab.com/LogicalErzor/mainlinemaker/-/blob/main/mainlinemaker.py" rel="nofollow">
+        https://gitlab.com/LogicalErzor/mainlinemaker/-/blob/main/mainlinemaker.py
+       </a>
+       )
+      </p>
+      <h3>
+       <span class="mw-headline" id="Build_Kernel">
+        Build Kernel
+       </span>
+      </h3>
+      <p>
+       Go back to your
+       <a class="external text" href="https://github.com/apq8064-mainline/linux" rel="nofollow">
+        msm8960-mainline/linux
+       </a>
+       clone. Try to build it with
+       <a href="../en/Compiling_kernels_with_envkernel.sh.html" title="Compiling kernels with envkernel.sh">
+        envkernel.sh
+       </a>
+       :
+      </p>
+      <pre>$ cd path/to/msm8960-mainline/linux
+$ source path/to/pmbootstrap/helpers/envkernel.sh
+
+# Initialize kernel configuration
+$ make qcom_apq8064_defconfig
+
+# Compile kernel; replace &lt;cores&gt; with the number of cores you'd like to use for compilation
+$ make -j&lt;cores&gt;
+
+# Create postmarketOS package with your built kernel
+$ pmbootstrap build --envkernel linux-postmarketos-qcom-msm890
+</pre>
+      <p>
+       This is how you can build and test local changes for the kernel from now on. Now we will continue setting up an initial device tree for your device.
+      </p>
+      <p>
+       Later on, if you want to change the config, for example to build a new display driver as a module, you can run
+       <code>
+        make menuconfig
+       </code>
+       .
+      </p>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Categories
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=MSM8960_Mainlining&amp;oldid=30333">
+      https://wiki.postmarketos.org/index.php?title=MSM8960_Mainlining&amp;oldid=30333
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 20 August 2022, at 02:36.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=MSM8960_Mainlining&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
+</html>

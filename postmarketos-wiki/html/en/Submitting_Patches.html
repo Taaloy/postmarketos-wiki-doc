@@ -142,6 +142,24 @@ This can be a bit of a daunting task, there are many guides out there explaining
         https://burzalodowa.wordpress.com/2013/10/05/how-to-send-patches-with-git-send-email/
        </a>
       </p>
+      <p>
+       To send patches from GMail, create an app password on
+       <a class="external free" href="https://myaccount.google.com/apppasswords" rel="nofollow">
+        https://myaccount.google.com/apppasswords
+       </a>
+       .
+      </p>
+      <p>
+       Example config for GMail:
+      </p>
+      <pre>$ cat ~/.gitconfig
+[sendemail]
+       smtpEncryption = tls
+       smtpServer = smtp.gmail.com
+       smtpUser = username@gmail.com
+       smtpServerPort = 587                                                   
+       confirm = always
+</pre>
       <h3>
        <span class="mw-headline" id="Sending_patches">
         Sending patches
@@ -166,7 +184,7 @@ aa209f22271d arm64: dts: xiaomi-beryllium-common: Add nodes for q6voice apr serv
       <p>
        Now generate a bunch of .patch files using
        <code>
-        git format-patches
+        git format-patch
        </code>
       </p>
       <pre>$ git format-patch 0fe8a293245b^ # &lt;-- the caret '^' tells git to include the referenced commit, without it only the top 2 commits would be used
@@ -279,6 +297,12 @@ aa209f22271d arm64: dts: xiaomi-beryllium-common: Add nodes for q6voice apr serv
          https://www.kernel.org/doc/Documentation/devicetree/bindings/submitting-patches.txt
         </a>
        </li>
+       <li>
+        A more thorough guide on setting up git send-email:
+        <a class="external free" href="https://git-send-email.io/" rel="nofollow">
+         https://git-send-email.io/
+        </a>
+       </li>
       </ul>
      </div>
     </div>
@@ -292,13 +316,13 @@ aa209f22271d arm64: dts: xiaomi-beryllium-common: Add nodes for q6voice apr serv
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Submitting_Patches&amp;oldid=28162">
-      https://wiki.postmarketos.org/index.php?title=Submitting_Patches&amp;oldid=28162
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Submitting_Patches&amp;oldid=30425">
+      https://wiki.postmarketos.org/index.php?title=Submitting_Patches&amp;oldid=30425
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 2 June 2022, at 16:56.
+     This page was last edited on 22 August 2022, at 16:05.
     </li>
     <li id="footer-info-copyright">
      Content is available under

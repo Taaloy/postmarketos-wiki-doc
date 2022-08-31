@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm SM7125 Snapdragon 720G
+          <a href="../en/Qualcomm_Snapdragon_720G_(SM7125).html" title="Qualcomm Snapdragon 720G (SM7125)">
+           Qualcomm Snapdragon 720G (SM7125)
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -226,8 +228,8 @@
           WiFi
          </th>
          <td class="" style="">
-          <div class="feature feature-no">
-           Broken
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -283,8 +285,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div class="feature feature-no">
-           Broken
+          <div class="feature feature-partial">
+           Partial
           </div>
          </td>
         </tr>
@@ -350,7 +352,8 @@
           USB OTG
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -416,9 +419,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -438,6 +459,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -449,6 +510,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -469,7 +539,7 @@
         <tr>
          <td>
           <b>
-           This device is based on
+           This device is based on the
            <a href="../en/Qualcomm_Snapdragon_720G_(SM7125).html" title="Qualcomm Snapdragon 720G (SM7125)">
             Qualcomm Snapdragon 720G (SM7125)
            </a>
@@ -578,11 +648,6 @@
         install pmbootstrap
        </a>
        .
-Then download the
-       <a class="external text" href="https://github.com/leandrofriedrich/postmarket_samsung_a52q" rel="nofollow">
-        following Repo
-       </a>
-       and copy the folders to the pmaports/devices/testing folder.
       </p>
       <p>
        After that, set up the device to be used:
@@ -598,15 +663,26 @@ Then download the
 </pre>
       </div>
       <p>
-       Then, create the rootfs image
+       Then, create the rootfs image (and install it on sd card if you want)
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> pmbootstrap install
+       <pre><span></span><span class="gp">$</span> pmbootstrap install <span class="o">(</span>--sdcard<span class="o">=</span>/dev/whatever_your_sdcard_is <span class="k">if</span> you want to install to sd card<span class="o">)</span>
 </pre>
       </div>
       <p>
-       <br/>
+       After that, flash the kernel by doing
       </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_kernel
+</pre>
+      </div>
+      <p>
+       and if you didn't install to an SDCard, flash the rootfs by running
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs
+</pre>
+      </div>
       <h2>
        <span class="mw-headline" id="Status_table_explanation">
         Status table explanation
@@ -630,35 +706,24 @@ Then download the
         </tr>
         <tr>
          <td>
-          WiFi
-         </td>
-         <td class="feature">
-          N
-         </td>
-         <td>
-          doesn't work, firmware and stuff seems to be loaded fine so that isn't the issue
-         </td>
-        </tr>
-        <tr>
-         <td>
           Screen
          </td>
          <td class="feature feature-partial">
           P
          </td>
          <td>
-          Screen may go crazy sometimes (tested with Plasma Mobile)
+          Changing brightness causes graphical artifacts(It's recommended to disable automatic brightness control)
          </td>
         </tr>
         <tr>
          <td>
-          Battery
+          Audio
          </td>
-         <td class="feature feature-partial">
-          P
+         <td class="feature">
+          N
          </td>
          <td>
-          Percentage reporting works; no charging status reported, but charges without problems
+          Only audio from built in stereo speakers works. Seems like you have to run "alsaucm reload" after booting
          </td>
         </tr>
        </tbody>
@@ -684,7 +749,7 @@ Then download the
         weston: screen goes black when using panel, dont know if it works with simplefb
        </li>
        <li>
-        fbkeyboard: keyboard doesn't show up
+        fbkeyboard: keyboard doesn't show up, probably touch issues as well
        </li>
        <li>
         framebufferphone: has issues with Touch
@@ -695,43 +760,47 @@ Then download the
         See also
        </span>
       </h2>
-      <p>
-       <a class="external text" href="https://github.com/leandrofriedrich/postmarket_samsung_a52q" rel="nofollow">
-        Repo with the pmbootstrap files
-       </a>
-      </p>
-      <p>
-       <a class="external text" href="https://github.com/leandrofriedrich/sm7125-mainline" rel="nofollow">
-        "mainline" kernel fork with the most recent changes for A52
-       </a>
-      </p>
-      <p>
-       <a class="external text" href="https://www.notebookcheck.net/Qualcomm-Snapdragon-720G-Processor-Benchmarks-and-Specs.466084.0.html" rel="nofollow">
-        NotebookCheck Page about the used SOC
-       </a>
-      </p>
-      <p>
-       <a class="external text" href="https://www.gsmarena.com/samsung_galaxy_a52-10641.php" rel="nofollow">
-        GSMArena page about the phone
-       </a>
-      </p>
+      <ul>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3379" rel="nofollow">
+         pmaports!3379
+        </a>
+        Merge Request for the device
+       </li>
+      </ul>
+      <ul>
+       <li>
+        <a class="external text" href="https://github.com/map220v/sm7125-mainline" rel="nofollow">
+         Close-to Mainline Kernel fork that has been used
+        </a>
+       </li>
+      </ul>
+      <ul>
+       <li>
+        <a class="external text" href="https://www.notebookcheck.net/Qualcomm-Snapdragon-720G-Processor-Benchmarks-and-Specs.466084.0.html" rel="nofollow">
+         NotebookCheck Page about the used SOC
+        </a>
+       </li>
+      </ul>
+      <ul>
+       <li>
+        <a class="external text" href="https://www.gsmarena.com/samsung_galaxy_a52-10641.php" rel="nofollow">
+         GSMArena page about the phone
+        </a>
+       </li>
+      </ul>
      </div>
     </div>
     <div class="catlinks" data-mw="interface" id="catlinks">
      <div class="mw-normal-catlinks" id="mw-normal-catlinks">
       <a href="../Special:Categories.html" title="Special:Categories">
-       Categories
+       Category
       </a>
       :
       <ul>
        <li>
         <a href="../en/Category:Devices.html" title="Category:Devices">
          Devices
-        </a>
-       </li>
-       <li>
-        <a href="../en/Category:Not_booting.html" title="Category:Not booting">
-         Not booting
         </a>
        </li>
       </ul>
@@ -745,13 +814,13 @@ Then download the
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_A52_4G_(samsung-a52q)&amp;oldid=28025">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_A52_4G_(samsung-a52q)&amp;oldid=28025
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_A52_4G_(samsung-a52q)&amp;oldid=30441">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_A52_4G_(samsung-a52q)&amp;oldid=30441
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 28 May 2022, at 12:46.
+     This page was last edited on 24 August 2022, at 18:01.
     </li>
     <li id="footer-info-copyright">
      Content is available under

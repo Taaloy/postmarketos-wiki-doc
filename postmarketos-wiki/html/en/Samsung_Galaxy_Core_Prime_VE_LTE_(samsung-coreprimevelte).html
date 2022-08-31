@@ -134,7 +134,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Marvell PXA1908
+          <a class="new" href="/index.php?title=Marvell_PXA1908&amp;action=edit&amp;redlink=1" title="Marvell PXA1908 (page does not exist)">
+           Marvell PXA1908
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -428,9 +430,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -450,6 +470,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -461,6 +521,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -522,12 +591,26 @@
        </span>
       </h2>
       <p>
-       According to
-       <code>
-        Documentation/arm/marvell.rst
-       </code>
-       the PXA1908 chipset should be supported, but it is unknown whether it's actually supported.
+       Kernel tree with very basic support is available
+       <a class="external text" href="https://gitlab.com/LegoLivesMatter/linux/-/tree/pxa1908" rel="nofollow">
+        here
+       </a>
+       .
       </p>
+      <div class="thumb tnone">
+       <div class="thumbinner" style="width:302px;">
+        <a class="image" href="../Coreprimevelte-mainline.webp">
+         <img alt="" class="thumbimage" decoding="async" height="400" src="../Coreprimevelte-mainline.webp.png" srcset="../450px-Coreprimevelte-mainline.webp.png 1.5x ../600px-Coreprimevelte-mainline.webp.png 2x" width="300"/>
+        </a>
+        <div class="thumbcaption">
+         <div class="magnify">
+          <a class="internal" href="../Coreprimevelte-mainline.webp" title="Enlarge">
+          </a>
+         </div>
+         Trying (and failing) to boot initramfs
+        </div>
+       </div>
+      </div>
       <p>
        Apparently, the PXA1908 chipset is also known as IAP140, as you can see
        <a class="external text" href="https://lore.kernel.org/lkml/8737f7yyc8.fsf@belgarion.home/T/#m92f43e1a24549a1421cbe19dfe74cf0db8c550c6" rel="nofollow">
@@ -616,6 +699,14 @@
        . With this parameter overridden, the device boots successfully into the postmarketOS kernel, and USB networking is available, however it automatically reboots after around 3-4 minutes of uptime. This is yet to be investigated.
       </p>
       <h2>
+       <span class="mw-headline" id="UART">
+        UART
+       </span>
+      </h2>
+      <p>
+       UART over the microUSB connector can be enabled by putting a 150K or 619K resistor between the ID and GND pins. The device TX will be on the D- pin, and RX will be on the D+ pin. A 619K will power on the device as soon as the UART cable is connected, while a 150K won't. Signal level is 1.8V.
+      </p>
+      <h2>
        <span class="mw-headline" id="See_also">
         See also
        </span>
@@ -663,13 +754,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Core_Prime_VE_LTE_(samsung-coreprimevelte)&amp;oldid=28137">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Core_Prime_VE_LTE_(samsung-coreprimevelte)&amp;oldid=28137
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Core_Prime_VE_LTE_(samsung-coreprimevelte)&amp;oldid=30269">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Core_Prime_VE_LTE_(samsung-coreprimevelte)&amp;oldid=30269
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 1 June 2022, at 12:04.
+     This page was last edited on 16 August 2022, at 18:48.
     </li>
     <li id="footer-info-copyright">
      Content is available under

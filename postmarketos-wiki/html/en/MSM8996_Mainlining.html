@@ -316,10 +316,7 @@ It can help to take a look in device trees of other mainlined devices to see how
        </code>
        using this template:
       </p>
-      <pre>// SPDX-License-Identifier: Your-License
-/*
- * Copyright (c) YYYY, Your Name &lt;address@mail.xyz&gt;
- */
+      <pre>// SPDX-License-Identifier: BSD-3-Clause
 
 #include "msm8996.dtsi"
 #include "pm8994.dtsi"
@@ -412,7 +409,7 @@ Once you find them, put them in the root node:
        Perhaps the easiest one to get working, provided you have suitable hardware and a nice bootloader.
       </p>
       <p>
-       It's a fbdev driver that makes use of the framebuffer configured by the bootloader for boot splash. We can use it to draw a console on the screen with little effort. All it takes is to know the memory region where the bootloader configures the framebuffer, and fortunately that should be the same across all MSM8996 devices. Unfortunately however, it usually only works on video-mode panels and doesn't work on command-mode panels. To find out what type of panel you have, check the downstream cmdline (on Android or TWRP for example). This example is taken from a
+       It's a fbdev driver that makes use of the framebuffer configured by the bootloader for boot splash. We can use it to draw a console on the screen with little effort. All it takes is to know the memory region where the bootloader configures the framebuffer, and fortunately that should be the same across all MSM8996 devices. Unfortunately however, it usually only works on video-mode panels and doesn't work on command-mode panels due to many bootloaders not enabling auto-refresh in MDP. To find out what type of panel you have, check the downstream cmdline (on Android or TWRP for example). This example is taken from a
        <a class="external text" href="https://wiki.postmarketos.org/wiki/Xiaomi_Mi_Note_2_(xiaomi-scorpio)" rel="nofollow">
         Xiaomi Mi Note 2
        </a>
@@ -441,6 +438,24 @@ sched_enable_hmp=1 sched_enable_power_aware=1 app_setting.use_32bit_app_setting_
        </code>
        in the panel name.
       </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          It might still be worth it to try enabling a simple framebuffer on a device with a command-mode panel, so one should proceed here even if the suffix found is
+          <code>
+           cmd
+          </code>
+          .
+         </td>
+        </tr>
+       </tbody>
+      </table>
       <p>
        Once you confirm that you have a suitable panel, you can proceed with enabling simplefb. You just have to add these nodes to the root node of your device tree, replacing
        <code>
@@ -544,13 +559,13 @@ sched_enable_hmp=1 sched_enable_power_aware=1 app_setting.use_32bit_app_setting_
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=MSM8996_Mainlining&amp;oldid=25184">
-      https://wiki.postmarketos.org/index.php?title=MSM8996_Mainlining&amp;oldid=25184
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=MSM8996_Mainlining&amp;oldid=30431">
+      https://wiki.postmarketos.org/index.php?title=MSM8996_Mainlining&amp;oldid=30431
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 22 January 2022, at 08:43.
+     This page was last edited on 23 August 2022, at 10:15.
     </li>
     <li id="footer-info-copyright">
      Content is available under

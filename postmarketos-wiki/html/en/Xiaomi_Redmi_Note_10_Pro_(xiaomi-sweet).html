@@ -105,7 +105,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm SM7150-AC Snapdragon 732G
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_730_730G_732G_(SM7150).html" title="Qualcomm SM7150-AC Snapdragon 732G">
+           Qualcomm SM7150-AC Snapdragon 732G
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -174,7 +176,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -185,7 +188,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-partial">
+           Partial
           </div>
          </td>
         </tr>
@@ -236,7 +240,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-partial">
+           Partial
           </div>
          </td>
         </tr>
@@ -394,9 +399,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -416,6 +439,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -432,6 +495,15 @@
           </div>
          </td>
         </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
         <tr>
          <td colspan="2" style="text-align:right">
          </td>
@@ -441,12 +513,15 @@
       <p>
        <br/>
       </p>
+      <p>
+       <br/>
+      </p>
       <table class="infobox" style="float: right; width: 22em; color: inherit; background-color: #f7fff7; border: 3px solid #8a8;">
        <tbody>
         <tr>
          <td>
           <b>
-           This device is based on
+           This device is based on the
            <a href="../en/Qualcomm_Snapdragon_730_730G_732G_(SM7150).html" title="Qualcomm Snapdragon 730/730G/732G (SM7150)">
             Snapdragon 732G
            </a>
@@ -466,6 +541,9 @@
       <ul>
        <li>
         Zephyr1112
+       </li>
+       <li>
+        Etn40ff
        </li>
       </ul>
       <h2>
@@ -493,6 +571,16 @@
          Using Global 6/128GB (AOSP))
         </li>
         <li>
+         <a href="../User:Etn40ff.html" title="User:Etn40ff">
+          Etn40ff
+         </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         8/128GB, AOSP)
+        </li>
+        <li>
          <a href="../User:Zephyr1112.html" title="User:Zephyr1112">
           Zephyr1112
          </a>
@@ -500,7 +588,7 @@
          <span class="cargoFieldName">
           Notes:
          </span>
-         6/128GB, AOSP A12L - main device)
+         6/128GB, AOSP A12L - Main device)
         </li>
        </ul>
       </div>
@@ -512,14 +600,61 @@
         Port status
        </span>
       </h2>
+      <p>
+       Downstream kernel compiles with pmOS's build system but the resulting artifact does not boot.
+The same source code compiles also using android's build system and the resulting artifact boots. (See below for the required steps.)
+      </p>
+      <h2>
+       <span class="mw-headline" id="Flash_modes">
+        Flash modes
+       </span>
+      </h2>
       <ul>
        <li>
         <b>
-         Porting on hold
+         Fastboot mode:
         </b>
+        <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+         Power
+        </span>
+        +
+        <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+         Volume Down
+        </span>
+        (
+        <code>
+         adb reboot bootloader
+        </code>
+        )
        </li>
        <li>
-        Kernel not compiling
+        <b>
+         Fastbootd mode:
+        </b>
+        <code>
+         adb reboot fastboot
+        </code>
+       </li>
+       <li>
+        <b>
+         Recovery mode:
+        </b>
+        <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+         Power
+        </span>
+        +
+        <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+         Volume Up
+        </span>
+        (
+        <code>
+         adb reboot recovery
+        </code>
+        ,
+        <code>
+         fastboot reboot recovery
+        </code>
+        )
        </li>
       </ul>
       <h2>
@@ -602,11 +737,206 @@
         Install pmOS
        </span>
       </h3>
+      <p>
+       For some reason, even though the downstream kernel compiles without errors with pmOS's build system, the phone is unable to boot the resulting boot.img.
+Specifically if one tries to run
+       <code>
+        pmbootstrap flasher boot
+       </code>
+       (or the equivalent
+       <code>
+        fastboot boot boot.img
+       </code>
+       ) the phone's screen turns black, there is no vibration and the phone remains in fastboot mode (albeit a crippled one in which subsequent boot commands fail).
+       <span style="color: red">
+        Suggestions are appreciated on how to fix this issue!
+       </span>
+      </p>
+      <p>
+       Due to this issue, booting pmOS is not straightforward; here is a rough outline of how to do so.
+      </p>
       <ul>
        <li>
-        Nothing here yet
+        assumption:
+        <code>
+         ANDROID
+        </code>
+        ,
+        <code>
+         TMP
+        </code>
+        and
+        <code>
+         PMOS
+        </code>
+        are some directories of your choice.
+       </li>
+       <li>
+        install
+        <code>
+         pmbootstrap
+        </code>
+       </li>
+       <li>
+        add
+        <code>
+         git@gitlab.com:etn40ff/pmaports.git
+        </code>
+        as a remote to
+        <code>
+         $PMOS/cache_git/pmaports
+        </code>
+        and switch to the branch
+        <code>
+         xiaomi-sweet
+        </code>
+       </li>
+       <li>
+        initialize
+        <code>
+         pmbootstrap
+        </code>
+        to build for
+        <code>
+         xiaomi/sweet
+        </code>
+        in
+        <code>
+         $PMOS
+        </code>
+       </li>
+       <li>
+        install pmOS on an SD-card and move it to the phone:
+        <code>
+         pmbootstrap install --sdcard=/dev/mmcblk0
+        </code>
+       </li>
+       <li>
+        build pmOS's boot.img:
+        <code>
+         pmbootstrap build linux-xiaomi-sweet
+        </code>
+       </li>
+       <li>
+        export pmOS's boot.img:
+        <code>
+         pmbootstrap export
+        </code>
+       </li>
+       <li>
+        extract pmOS's ramdisk (
+        <code>
+         split_bootimg.pl
+        </code>
+        from
+        <a class="external free" href="https://github.com/sweesineng/extract_tool" rel="nofollow">
+         https://github.com/sweesineng/extract_tool
+        </a>
+        worked well for me, YMMV):
+        <code>
+         cd $TMP; cp /tmp/postmarketOS-export/boot.img pmos_boot.img; split_bootimg.pl pmos_boot.img
+        </code>
+       </li>
+       <li>
+        install android's
+        <code>
+         repo
+        </code>
+       </li>
+       <li>
+        clone PixelExperience's sources:
+        <code>
+         mkdir $ANDROID; cd $ANDROID; repo init -u
+         <a class="external free" href="https://github.com/PixelExperience/manifest" rel="nofollow">
+          https://github.com/PixelExperience/manifest
+         </a>
+         -b twelve
+        </code>
+       </li>
+       <li>
+        make sure that the git repository at
+        <code>
+         $ANDROID/kernel/xiaomi/sweet
+        </code>
+        is at the same commit as the one specified in
+        <code>
+         linux-xiaomi-sweet/APKBUILD
+        </code>
+       </li>
+       <li>
+        apply patches:
+        <code>
+         cd $ANDROID/kernel/xiaomi/sweet; patch -p1 &lt; $PMOS/cache_git/pmaports/device/testing/linux-xiaomi-sweet/fix_compilation.patch
+        </code>
+       </li>
+       <li>
+        copy over the kernel configuration:
+        <code>
+         cp $PMOS/cache_git/pmaports/device/testing/linux-xiaomi-sweet/config-xiaomi-sweet.aarch64 $ANDROID/kernel/xiaomi/sweet/arch/arm64/configs/sweet_defconfig
+        </code>
+       </li>
+       <li>
+        build kernel:
        </li>
       </ul>
+      <pre>source build/envsetup.sh
+lunch aosp_sweet-userdebug  
+mka kernel
+mka bootimage
+</pre>
+      <ul>
+       <li>
+        extract android's kernel:
+        <code>
+         cd $TMP; cp $ANDROID/out/target/product/sweet/boot.img android_boot.img; split_bootimg.pl android_boot.img;
+        </code>
+       </li>
+       <li>
+        put your phone in fastboot mode and boot:
+       </li>
+      </ul>
+      <pre>fastboot boot \                                                                                                            :(
+--dtb $PMOS/cache_git/pmaports/device/testing/linux-xiaomi-sweet/prebuilt/sweet.dtb \
+--header-version 2 \
+--cmdline "androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=1 androidboot.usbcontroller=a600000.dwc3 androidboot.selinux=permissive buildvariant=eng" \
+$TMP/android_boot.img-kernel \
+$TMP/pmos_boot.img-ramdisk.gz
+</pre>
+      <ul>
+       <li>
+        profit
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Tips_and_tricks">
+        Tips and tricks
+       </span>
+      </h3>
+      <p>
+       If pmOS is installed on a removable SD card android will continuously want mount and to reformat it.
+Unfortunately it does not look like it is possible to prevent this within
+android. A somewhat heavy duty workaround is to unbind the device, this requires
+root:
+      </p>
+      <ul>
+       <li>
+        First find out which is the driver responsible for the sdcard:
+       </li>
+      </ul>
+      <pre> <code> 
+ # readlink /sys/block/mmcblk0
+ ../devices/platform/soc/8804000.sdhci/mmc_host/mmc0/mmc0:0001/block/mmcblk0
+ </code>
+</pre>
+      <ul>
+       <li>
+        then unbind it
+       </li>
+      </ul>
+      <pre> <code>
+ # echo 8804000.sdhci &gt; /sys/bus/platform/drivers/sdhci_msm/unbind
+ </code>
+</pre>
       <h2>
        <span class="mw-headline" id="Sources_and_links">
         Sources and links
@@ -615,14 +945,42 @@
       <ul>
        <li>
         GitLab repo:
-        <a class="external free" href="https://gitlab.com/LunaOSS/pmaports-xiaomi-sweet" rel="nofollow">
-         https://gitlab.com/LunaOSS/pmaports-xiaomi-sweet
+        <a class="external free" href="https://gitlab.com/etn40ff/pmaports" rel="nofollow">
+         https://gitlab.com/etn40ff/pmaports
         </a>
+        (branch xiaomi-sweet)
        </li>
        <li>
         Kernel used:
-        <a class="external free" href="https://github.com/Doraemon-Kernel/android_kernel_xiaomi_sweet" rel="nofollow">
-         https://github.com/Doraemon-Kernel/android_kernel_xiaomi_sweet
+        <a class="external free" href="https://github.com/PixelExperience-Devices/kernel_xiaomi_sweet" rel="nofollow">
+         https://github.com/PixelExperience-Devices/kernel_xiaomi_sweet
+        </a>
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Other">
+        Other
+       </span>
+      </h3>
+      <ul>
+       <li>
+        GitLab repo:
+        <a class="external free" href="https://gitlab.com/LunaOSS/pmaports-xiaomi-sweet" rel="nofollow">
+         https://gitlab.com/LunaOSS/pmaports-xiaomi-sweet
+        </a>
+        (OUTDATED)
+       </li>
+       <li>
+        Kernel used:
+        <a class="external free" href="https://github.com/ValerieOSS/kernel_xiaomi_sweet" rel="nofollow">
+         https://github.com/ValerieOSS/kernel_xiaomi_sweet
+        </a>
+        (OUTDATED)
+       </li>
+       <li>
+        Mainline kernel fork (WIP):
+        <a class="external free" href="https://github.com/sm7150-mainline/linux" rel="nofollow">
+         https://github.com/sm7150-mainline/linux
         </a>
        </li>
       </ul>
@@ -631,18 +989,13 @@
     <div class="catlinks" data-mw="interface" id="catlinks">
      <div class="mw-normal-catlinks" id="mw-normal-catlinks">
       <a href="../Special:Categories.html" title="Special:Categories">
-       Categories
+       Category
       </a>
       :
       <ul>
        <li>
         <a href="../en/Category:Devices.html" title="Category:Devices">
          Devices
-        </a>
-       </li>
-       <li>
-        <a href="../en/Category:Not_booting.html" title="Category:Not booting">
-         Not booting
         </a>
        </li>
       </ul>
@@ -656,13 +1009,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_10_Pro_(xiaomi-sweet)&amp;oldid=28413">
-      https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_10_Pro_(xiaomi-sweet)&amp;oldid=28413
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_10_Pro_(xiaomi-sweet)&amp;oldid=30326">
+      https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_10_Pro_(xiaomi-sweet)&amp;oldid=30326
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 8 June 2022, at 22:04.
+     This page was last edited on 19 August 2022, at 17:12.
     </li>
     <li id="footer-info-copyright">
      Content is available under

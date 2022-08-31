@@ -45,6 +45,17 @@
        </caption>
        <tbody>
         <tr class="">
+         <td class="" colspan="2" style="text-align:center;">
+          <a class="image" href="../Samsung-Z1-xfce4.jpg">
+           <img alt="Samsung Z1 running xfce4" decoding="async" height="355" src="../Samsung-Z1-xfce4.jpg" srcset="../300px-Samsung-Z1-xfce4.jpg 1.5x ../400px-Samsung-Z1-xfce4.jpg 2x" width="200"/>
+          </a>
+          <br/>
+          <span style="">
+           Samsung Z1 running xfce4
+          </span>
+         </td>
+        </tr>
+        <tr class="">
          <th scope="row" style="text-align:left;">
           Manufacturer
          </th>
@@ -110,7 +121,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Spreadtrum SC7727S
+          <a class="new" href="/index.php?title=Spreadtrum_SC7727S&amp;action=edit&amp;redlink=1" title="Spreadtrum SC7727S (page does not exist)">
+           Spreadtrum SC7727S
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -126,7 +139,7 @@
           GPU
          </th>
          <td class="" style="">
-          Mali-400
+          Mali 400 MP1
          </td>
         </tr>
         <tr class="">
@@ -161,6 +174,14 @@
           armv7
          </td>
         </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Non-Android based device
+         </th>
+         <td class="" style="">
+          ✔
+         </td>
+        </tr>
         <tr>
          <td colspan="2" style="text-align:right">
          </td>
@@ -191,7 +212,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -212,7 +234,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -256,7 +279,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -276,7 +300,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -339,7 +364,8 @@
           USB OTG
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -407,13 +433,31 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
          </th>
          <td class="" style="">
           <div class="feature feature-unavailable">
            Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
+         </th>
+         <td class="" style="">
+          <div>
           </div>
          </td>
         </tr>
@@ -430,6 +474,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -441,6 +525,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -512,12 +605,12 @@
          </a>
         </li>
         <li class="toclevel-1 tocsection-5">
-         <a href="#Installation.2FProblems">
+         <a href="#Installation.2FKnown_Problems">
           <span class="tocnumber">
            5
           </span>
           <span class="toctext">
-           Installation/Problems
+           Installation/Known Problems
           </span>
          </a>
         </li>
@@ -605,21 +698,44 @@
         buttons to enter recovery mode.
        </li>
       </ul>
+      <p>
+       /proc/cmdlines for different power on reasons:
+      </p>
+      <ul>
+       <li>
+        Normal mode:
+        <code>
+         mem=768M ram=768M root=/dev/mmcblk0p24 ro rootfstype=ext4 rootwait bootmode=normal pwron.reason=0x0 ...
+        </code>
+       </li>
+       <li>
+        Recovery mode:
+        <code>
+         mem=768M ram=768M root=/dev/mmcblk0p24 ro rootfstype=ext4 rootwait systemd.unit=recovery-mode.target pwron.reason=0x0 ...
+        </code>
+       </li>
+       <li>
+        Plugging in charger:
+        <code>
+         mem=768M ram=768M root=/dev/mmcblk0p24 ro rootfstype=ext4 rootwait systemd.unit=charging-mode.target pwron.reason=0x0 ...
+        </code>
+       </li>
+      </ul>
       <h2>
-       <span id="Installation/Problems">
+       <span id="Installation/Known_Problems">
        </span>
-       <span class="mw-headline" id="Installation.2FProblems">
-        Installation/Problems
+       <span class="mw-headline" id="Installation.2FKnown_Problems">
+        Installation/Known Problems
        </span>
       </h2>
       <p>
-       Technically similar as Samsung's Android counterparts, however, there are some caveats. The stock Tizen boot image uses dzImage, basically vmlinuz + Spreadtrum dtb binary (can generate using dtbtool-sprd) with custom header. Because Tizen kernel does not enable initramfs, and S-BOOT seems to lack support of it, usage of isorec is required. Booting using dzImage generated during pmbootstrap + Tizen rootfs boots but there is no display with this combination.
+       Technically similar as Samsung's Android counterparts, however, there are some caveats. The stock Tizen boot image uses dzImage, basically vmlinuz + Spreadtrum dtb binary (can generate using dtbtool-sprd) with custom header. Because Tizen kernel does not enable initramfs, and S-BOOT on this device seems to lack support of it, we are using isorec. The current postmarketOS kernel will use KERNEL to store dzImage, RAMDISK to store initramfs. Make sure to flash both partitions when going from Tizen to postmarketOS and vice versa.
       </p>
       <p>
-       Booting non-stock kernel image will trip the KNOX bit, and show a red exclamation mark on the top left of boot screen.
+       Booting non-stock kernel image will show a red exclamation mark on the top left of boot screen.
       </p>
       <p>
-       The framebuffer access is not available, debugging only shows "fbsplash: mmap: invalid argument". This further prevents any usage of GUI applications.
+       The sprdfb driver of Tizen kernel is different from Android devices using the same SoC: it has DRM driver for this SoC, predates what is in the mainline. Graphics memory management seems to be done using libtbm in Tizen and X.org proprietary driver. There is no memory region for sprdfb driver mentioned in the .dts file, thus mmap() to the framebuffer returns only an error. The postmarketOS kernel patch manually includes the memory region in the .dts file and modifies the memory allocation to make framebuffer work. Lack of proper Spreadtrum datasheet makes further progress hard.
       </p>
       <h2>
        <span class="mw-headline" id="Components">
@@ -654,15 +770,26 @@
       </h2>
       <ul>
        <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3234" rel="nofollow">
+         pmaports!3234
+        </a>
+        Initial merge request
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/device-samsung-kiran" rel="nofollow">
+         Device package
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/linux-samsung-kiran" rel="nofollow">
+         Kernel package
+        </a>
+       </li>
+       <li>
         <a class="external text" href="https://github.com/peremen/kernel-samsung-kiran/" rel="nofollow">
          Kernel source
         </a>
         (mirrored from Samsung OSS Center)
-       </li>
-       <li>
-        <a class="external text" href="http://download.tizen.org/snapshots/devel/toolchain/latest/repos/emulator64-wayland/source/system-tools-0.0.1-1.2.src.rpm" rel="nofollow">
-         Tool to generate dzImage
-        </a>
        </li>
       </ul>
      </div>
@@ -690,13 +817,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Z1_(samsung-kiran)&amp;oldid=28500">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Z1_(samsung-kiran)&amp;oldid=28500
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Z1_(samsung-kiran)&amp;oldid=28824">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Z1_(samsung-kiran)&amp;oldid=28824
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 12 June 2022, at 18:26.
+     This page was last edited on 30 June 2022, at 17:05.
     </li>
     <li id="footer-info-copyright">
      Content is available under

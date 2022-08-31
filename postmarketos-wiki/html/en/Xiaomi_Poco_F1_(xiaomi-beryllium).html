@@ -109,7 +109,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm SDM845 Snapdragon 845
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_845_(SDM845).html" title="Qualcomm SDM845 Snapdragon 845">
+           Qualcomm SDM845 Snapdragon 845
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -417,9 +419,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -439,6 +459,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -450,6 +510,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -676,7 +745,10 @@ $ pmbootstrap flasher flash_rootfs --partition userdata
 [  302.291070] wlan0: 80 MHz not supported, disabling VHT
 </pre>
       <p>
-       Then you must change the wifi width from 80 MHz to 20 MHz in your router's settings. The regulatory region gets selected as CN (China) which causes this issue.
+       Then you must change the wifi width from 80 MHz to 20 MHz in your router's settings. The regulatory region gets selected as CN (China) which causes this issue.You can change the regulatory region by following the instructions here:
+       <a href="../en/Change_regulatory_region.html" title="Change regulatory region">
+        Change regulatory region
+       </a>
       </p>
       <h2>
        <span class="mw-headline" id="Bluetooth">
@@ -849,6 +921,25 @@ The TAS2559 driver requires a rewrite and needs to be upstreamed. Included in ou
        </span>
       </h2>
       <p>
+       Calls and SMS work fine.
+      </p>
+      <p>
+       Mobile data can be more tricky. If mobile data does not work (an orange exclamation mark over the cellular icon might indicate this), make sure that you obey the following order:
+      </p>
+      <ul>
+       <li>
+        Disable "Mobile Network" and enable Wi-Fi (unclear: Is Internet access needed?).
+       </li>
+       <li>
+        Turn on "Mobile Network" and "Mobile Data", enter your APN when asked and not appearing automatically.
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Older_documentation">
+        Older documentation
+       </span>
+      </h3>
+      <p>
        libqmi has support for QRTR+IPA based modems for quite some time, as seen in the repo:
        <a class="external free" href="https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/merge_requests?scope=all&amp;search=qrtr&amp;state=merged" rel="nofollow">
         https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/merge_requests?scope=all&amp;search=qrtr&amp;state=merged
@@ -878,7 +969,7 @@ The TAS2559 driver requires a rewrite and needs to be upstreamed. Included in ou
        . Still have to properly submit a bug report on this.
       </p>
       <p>
-       Calls and SMS works fine.
+       <br/>
       </p>
       <h2>
        <span class="mw-headline" id="Change_Kernel_parameters">
@@ -1011,6 +1102,16 @@ The TAS2559 driver requires a rewrite and needs to be upstreamed. Included in ou
          Tianma-Panel)
         </li>
         <li>
+         <a href="../User:Linmob.html" title="User:Linmob">
+          Linmob
+         </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         Tianma panel)
+        </li>
+        <li>
          <a href="../User:Retourmy.html" title="User:Retourmy">
           Retourmy
          </a>
@@ -1049,6 +1150,16 @@ The TAS2559 driver requires a rewrite and needs to be upstreamed. Included in ou
           Notes:
          </span>
          (Daily Driver) not running postmarketOS on it but in general it has very good custom ROM and custom Kernel and custom Recovery support so wouldn't be surprised if things run very well.)
+        </li>
+        <li>
+         <a href="../User:The_DarkFire.html" title="User:The DarkFire">
+          The DarkFire
+         </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         secondary driver / personal phone, mainline)
         </li>
         <li>
          <a href="../User:TheBads.html" title="User:TheBads">
@@ -1135,13 +1246,13 @@ The TAS2559 driver requires a rewrite and needs to be upstreamed. Included in ou
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Poco_F1_(xiaomi-beryllium)&amp;oldid=27857">
-      https://wiki.postmarketos.org/index.php?title=Xiaomi_Poco_F1_(xiaomi-beryllium)&amp;oldid=27857
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Poco_F1_(xiaomi-beryllium)&amp;oldid=30197">
+      https://wiki.postmarketos.org/index.php?title=Xiaomi_Poco_F1_(xiaomi-beryllium)&amp;oldid=30197
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 19 May 2022, at 03:52.
+     This page was last edited on 14 August 2022, at 10:43.
     </li>
     <li id="footer-info-copyright">
      Content is available under

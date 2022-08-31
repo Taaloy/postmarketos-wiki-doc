@@ -65,7 +65,7 @@
           Codename
          </th>
          <td class="" style="">
-          samsung-coreprimelte, sm-g360f
+          samsung-cprime
          </td>
         </tr>
         <tr class="">
@@ -102,7 +102,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm MSM8916 Snapdragon 410
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm MSM8916 Snapdragon 410">
+           Qualcomm MSM8916 Snapdragon 410
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -420,13 +422,31 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
          </th>
          <td class="" style="">
           <div class="feature feature-unavailable">
            Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
+         </th>
+         <td class="" style="">
+          <div>
           </div>
          </td>
         </tr>
@@ -443,6 +463,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -453,6 +513,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -473,7 +542,7 @@
         <tr>
          <td>
           <b>
-           This device is based on
+           This device is based on the
            <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm Snapdragon 410/412 (MSM8916)">
             Snapdragon 410
            </a>
@@ -554,20 +623,33 @@
         Installation
        </span>
       </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           Note:
+          </b>
+          Even though MSM8916 is capable of aarch64, the firmware of some variants were never updated with aarch64 support. Therefore, this device can only boot mainline on aarch64 at the moment.
+         </td>
+        </tr>
+       </tbody>
+      </table>
       <p>
        lk2nd is a secondary bootloader that provides a standard fastboot interface.
       </p>
       <ol>
        <li>
-        Download
-        <b>
-         lk2nd-msm8916.img
-        </b>
-        from
-        <a class="external text" href="https://github.com/msm8916-mainline/lk2nd/releases" rel="nofollow">
-         Releases
+        The prebuilt image doesn't have the device included at the meantime.
+        <a class="external text" href="https://github.com/msm8916-mainline/lk2nd#building" rel="nofollow">
+         Build lk2nd
         </a>
-        page on Github.
+        first.
        </li>
        <li>
         Boot your phone to bootloader (download) mode by holding
@@ -585,9 +667,9 @@
         <a class="external text" href="https://github.com/msm8916-mainline/lk2nd#installation" rel="nofollow">
          lk2nd instructions
         </a>
-        to install lk2nd. Basically flash it to boot partition (
+        from step 2 to install lk2nd. Basically flash it to boot partition (
         <code>
-         heimdall flash --BOOT lk2nd-msm8916.img
+         heimdall flash --BOOT build-lk2nd-msm8916/lk2nd.img
         </code>
         )
        </li>
@@ -641,7 +723,7 @@
        </span>
       </h2>
       <p>
-       Imagis IST3038B Touchscreen driver is WIP
+       Imagis IST30XXB Touchscreen driver is WIP
        <sup class="reference" id="cite_ref-1">
         <a href="#cite_note-1">
          [1]
@@ -650,15 +732,22 @@
        .
       </p>
       <h2>
-       <span class="mw-headline" id="Battery">
-        Battery
+       <span class="mw-headline" id="Charging">
+        Charging
        </span>
       </h2>
       <p>
        <code>
-        rt5033
+        rt5033-charger
        </code>
-       charger driver is not available, so the charging is not controlled and there is no charging status reporting.
+       driver is not available, so the charging is not controlled and there is no charging status reporting.
+There is also a forgotten patch
+       <sup class="reference" id="cite_ref-2">
+        <a href="#cite_note-2">
+         [2]
+        </a>
+       </sup>
+       .
       </p>
       <h2>
        <span class="mw-headline" id="USB_OTG">
@@ -668,9 +757,9 @@
       <p>
        Another
        <code>
-        rt5033
+        rt5033-charger
        </code>
-       charger driver issue. Core Prime is currently unable to power up a usb device in mainline. Try a hub with external power supply.
+       driver issue. It's currently unable to power up a usb device in mainline. Try a hub with external power supply.
       </p>
       <h2>
        <span class="mw-headline" id="Accelerometer">
@@ -679,7 +768,7 @@
       </h2>
       <p>
        <code>
-        k2hh
+        lis2hh12
        </code>
        accelerometer is not so stable for auto screen rotation, which suggests you to use fixed portrait or landscape mode.
       </p>
@@ -774,6 +863,18 @@
         </a>
        </span>
       </li>
+      <li id="cite_note-2">
+       <span class="mw-cite-backlink">
+        <a href="#cite_ref-2">
+         ↑
+        </a>
+       </span>
+       <span class="reference-text">
+        <a class="external text" href="https://lore.kernel.org/lkml/1425864191-4121-1-git-send-email-beomho.seo@samsung.com/" rel="nofollow">
+         power: rt5033: Add Richtek RT533 drivers
+        </a>
+       </span>
+      </li>
      </div>
     </div>
     <div class="catlinks" data-mw="interface" id="catlinks">
@@ -799,13 +900,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Core_Prime_LTE_(samsung-coreprimelte)&amp;oldid=27970">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Core_Prime_LTE_(samsung-coreprimelte)&amp;oldid=27970
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Core_Prime_LTE_(samsung-coreprimelte)&amp;oldid=30319">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Core_Prime_LTE_(samsung-coreprimelte)&amp;oldid=30319
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 24 May 2022, at 12:55.
+     This page was last edited on 19 August 2022, at 10:02.
     </li>
     <li id="footer-info-copyright">
      Content is available under

@@ -47,11 +47,11 @@
         <tr class="">
          <td class="" colspan="2" style="text-align:center;">
           <a class="image" href="../Lg-mmh4x.jpg">
-           <img alt="LG K40 running PostMarketOS with Xfce4" decoding="async" height="267" src="../Lg-mmh4x.jpg" srcset="../300px-Lg-mmh4x.jpg 1.5x ../400px-Lg-mmh4x.jpg 2x" width="200"/>
+           <img alt="LG K40 running postmarketOS with Xfce4" decoding="async" height="267" src="../Lg-mmh4x.jpg" srcset="../300px-Lg-mmh4x.jpg 1.5x ../400px-Lg-mmh4x.jpg 2x" width="200"/>
           </a>
           <br/>
           <span style="">
-           LG K40 running PostMarketOS with Xfce4
+           LG K40 running postmarketOS with Xfce4
           </span>
          </td>
         </tr>
@@ -121,7 +121,9 @@
           Chipset
          </th>
          <td class="" style="">
-          MediaTek MT6765
+          <a class="new" href="/index.php?title=MediaTek_MT6765&amp;action=edit&amp;redlink=1" title="MediaTek MT6765 (page does not exist)">
+           MediaTek MT6765
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -253,7 +255,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -276,7 +279,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -285,7 +289,8 @@
           3D Acceleration
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -296,8 +301,7 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div class="feature feature-no">
-           Broken
+          <div>
           </div>
          </td>
         </tr>
@@ -306,7 +310,8 @@
           Bluetooth
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -315,7 +320,8 @@
           Camera
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -360,7 +366,8 @@
           USB OTG
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -424,9 +431,28 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -446,10 +472,55 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-unavailable">
+           Unavailable
           </div>
          </td>
         </tr>
@@ -459,6 +530,16 @@
          </th>
          <td class="" style="">
           <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
+         </th>
+         <td class="" style="">
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -499,7 +580,7 @@
          <span class="cargoFieldName">
           Notes:
          </span>
-         Refining port quality)
+         Improving port)
         </li>
        </ul>
       </div>
@@ -519,11 +600,13 @@
        <a class="external text" href="https://github.com/bkerler/mtkclient" rel="nofollow">
         mtkclient
        </a>
-       that makes use of vulnerabilities in the MediaTek SoC itself, and that can be used to unlock the bootloader and flash images. It's also packaged in the AUR as
-       <a class="external text" href="https://aur.archlinux.org/packages/mtkclient" rel="nofollow">
-        mtkclient
-       </a>
-       if you're using an Arch-based distro and don't want to install it from source.
+       that makes use of vulnerabilities in the MediaTek SoC itself, and that can be used to unlock the bootloader and flash images. It's also packaged as
+       <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;">
+        <a class="external text" href="https://pkgs.alpinelinux.org/packages?name=mtkclient&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=" rel="nofollow">
+         mtkclient
+        </a>
+       </span>
+       on some distributions (Alpine, AUR, soon Debian/Ubuntu).
       </p>
       <p>
        In the below examples, the command
@@ -541,7 +624,7 @@
       </p>
       <ol>
        <li>
-        Power off the phone.
+        Power off the device.
        </li>
        <li>
         Run an mtkclient command, like
@@ -551,13 +634,17 @@
         .
        </li>
        <li>
-        While mtkclient waits for the device, hold the phone's volume up button and plug it into the computer.
+        While mtkclient waits for the device, hold
+        <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
+         Volume Up
+        </span>
+        and plug it into the computer.
        </li>
        <li>
-        mtkclient should output a lot of text at this point. When you see the words preloader or bootrom, you can release the volume up button.
+        mtkclient should output a lot of text at this point. The button can be released.
        </li>
        <li>
-        As long as mtkclient did its job properly, the command will succeed. Now, you can run other commands with mtkclient.
+        As long as mtkclient did its job properly, the command will succeed. Now, other commands can be run with mtkclient.
        </li>
       </ol>
       <h2>
@@ -570,21 +657,14 @@
         Enable developer options, and OEM Unlocking from there.
        </li>
        <li>
-        When the phone reboots and you get back to the setup screen, power it off.
-       </li>
-       <li>
         Follow the steps in
         <a href="#How_to_enter_flash_mode">
          #How to enter flash mode
         </a>
-        to get into a mode where you can use
-        <code>
-         mtk
-        </code>
         .
        </li>
        <li>
-        Erase metadata and userdata (and md_udc if it exists):
+        Erase metadata, userdata, and md_udc:
         <br/>
         <code>
          mtk e metadata,userdata,md_udc
@@ -607,7 +687,7 @@
         </code>
        </li>
        <li>
-        Unplug the phone and power on the device. You will have to go through setup again, and the bootloader should be unlocked.
+        The bootloader should now be unlocked. From here, the device can be unplugged and powered on to go through setup.
        </li>
       </ol>
       <h2>
@@ -616,20 +696,19 @@
        </span>
       </h2>
       <p>
-       Since we can't use recovery or fastboot, we need to manually flash the kernel, initramfs, and rootfs with mtkclient. First, you need to find out which slot is active, A or B. Normally this would be done with fastboot, but we don't have access to that, so we'll have to use adb.
+       Since recovery or fastboot can't be used, the kernel and rootfs must be flashed manually with mtkclient. First, find out which slot is active, A or B. Normally this would be done with fastboot, but that cannot be accessed, so adb must be used.
       </p>
-      <pre>adb shell /bin/getprop ro.boot.slot_suffix # will return either _a or _b, current active slot
+      <pre>adb shell getprop ro.boot.slot_suffix # will return either _a or _b, current active slot
 
 pmbootstrap init # DRM is not supported yet, so Xfce4 is the best graphical option for now
-pmbootstrap install
-pmbootstrap export # symlink kernel, initramfs, and rootfs to /tmp for easy manual flashing
+pmbootstrap install # can also install to an SD card and skip flashing to userdata later
+pmbootstrap export # symlink kernel and rootfs to /tmp for easy manual flashing
 
-# get into a mode where you can use mtkclient
-mtk w boot_a /tmp/postmarketOS-export/boot.img # flash kernel and initramfs to boot_a or boot_b depending on active slot
+mtk w boot_a /tmp/postmarketOS-export/boot.img # flash kernel to boot_a or boot_b depending on active slot
 mtk w userdata /tmp/postmarketOS-export/lg-mmh4x.img # flash rootfs to userdata partition
 
 mtk reset
-# unplug the device, turn it back on, and enjoy PostMarketOS :)
+# unplug the device, turn it back on, and enjoy postmarketOS :)
 </pre>
       <h2>
        <span class="mw-headline" id="See_also">
@@ -643,19 +722,34 @@ mtk reset
         </a>
         Initial merge request
        </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/device-lg-mmh4x" rel="nofollow">
+         Device package
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/linux-lg-mmh4x" rel="nofollow">
+         Kernel package
+        </a>
+       </li>
       </ul>
      </div>
     </div>
     <div class="catlinks" data-mw="interface" id="catlinks">
      <div class="mw-normal-catlinks" id="mw-normal-catlinks">
       <a href="../Special:Categories.html" title="Special:Categories">
-       Category
+       Categories
       </a>
       :
       <ul>
        <li>
         <a href="../en/Category:Devices.html" title="Category:Devices">
          Devices
+        </a>
+       </li>
+       <li>
+        <a href="../en/Category:Mediatek.html" title="Category:Mediatek">
+         Mediatek
         </a>
        </li>
       </ul>
@@ -669,13 +763,13 @@ mtk reset
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=LG_K40_(lg-mmh4x)&amp;oldid=28507">
-      https://wiki.postmarketos.org/index.php?title=LG_K40_(lg-mmh4x)&amp;oldid=28507
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=LG_K40_(lg-mmh4x)&amp;oldid=29619">
+      https://wiki.postmarketos.org/index.php?title=LG_K40_(lg-mmh4x)&amp;oldid=29619
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 13 June 2022, at 07:45.
+     This page was last edited on 24 July 2022, at 21:23.
     </li>
     <li id="footer-info-copyright">
      Content is available under

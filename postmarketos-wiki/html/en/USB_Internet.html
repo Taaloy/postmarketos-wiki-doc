@@ -40,29 +40,16 @@
     <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
      <div class="mw-parser-output">
       <p>
-       You can enable internet through the USB cable when
+       You can enable Internet through the USB cable when
        <a href="../en/WiFi.html" title="WiFi">
         WiFi
        </a>
-       doesn't work yet on your device. For this to work you set your host machine as gateway for your phone and let your host machine do network address translation for the phone.
+       doesn't work yet on your device. For this to work you set your host machine as gateway for your phone and let your host machine do
+       <a class="external text" href="https://en.wikipedia.org/wiki/Network_address_translation" rel="nofollow">
+        network address translation (NAT)
+       </a>
+       for the phone or a guest machine.
       </p>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          <b>
-           Note:
-          </b>
-          It works in both sides: to share internet from your phone to PC (aka usb tethering), just swap host and phone below and use 172.16.42.1.
-         </td>
-        </tr>
-       </tbody>
-      </table>
       <div class="toc" id="toc">
        <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
        <div class="toctitle" dir="ltr" lang="en">
@@ -84,8 +71,30 @@
            On your phone or guest machine:
           </span>
          </a>
+         <ul>
+          <li class="toclevel-2 tocsection-2">
+           <a href="#Linux">
+            <span class="tocnumber">
+             1.1
+            </span>
+            <span class="toctext">
+             Linux
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#Windows">
+            <span class="tocnumber">
+             1.2
+            </span>
+            <span class="toctext">
+             Windows
+            </span>
+           </a>
+          </li>
+         </ul>
         </li>
-        <li class="toclevel-1 tocsection-2">
+        <li class="toclevel-1 tocsection-4">
          <a href="#On_the_host_machine:">
           <span class="tocnumber">
            2
@@ -95,7 +104,7 @@
           </span>
          </a>
          <ul>
-          <li class="toclevel-2 tocsection-3">
+          <li class="toclevel-2 tocsection-5">
            <a href="#iptables_.28Ubuntu.2FArch.2FAlpine.29">
             <span class="tocnumber">
              2.1
@@ -105,7 +114,7 @@
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-4">
+          <li class="toclevel-2 tocsection-6">
            <a href="#firewalld_.28RHEL.2FCentOS.2FFedora.2FRocky.2FSLE.2FopenSUSE.29">
             <span class="tocnumber">
              2.2
@@ -115,7 +124,7 @@
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-5">
+          <li class="toclevel-2 tocsection-7">
            <a href="#nftables_.28postmarketOS.29">
             <span class="tocnumber">
              2.3
@@ -125,7 +134,7 @@
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-6">
+          <li class="toclevel-2 tocsection-8">
            <a href="#ufw">
             <span class="tocnumber">
              2.4
@@ -137,7 +146,7 @@
           </li>
          </ul>
         </li>
-        <li class="toclevel-1 tocsection-7">
+        <li class="toclevel-1 tocsection-9">
          <a href="#Notes">
           <span class="tocnumber">
            3
@@ -154,6 +163,56 @@
         On your phone or guest machine:
        </span>
       </h4>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           Note:
+          </b>
+          <code>
+           1.1.1.1
+          </code>
+          and
+          <code>
+           1.0.0.1
+          </code>
+          are the DNS servers, feel free to change it if you wish.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h5>
+       <span class="mw-headline" id="Linux">
+        Linux
+       </span>
+      </h5>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           Note:
+          </b>
+          It works in both sides: to share Internet from your phone to PC (aka USB tethering), just swap host and phone below and use
+          <code>
+           172.16.42.1
+          </code>
+          .
+         </td>
+        </tr>
+       </tbody>
+      </table>
       <p>
        <code>
         ip
@@ -165,21 +224,40 @@
        .
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> sudo ip route add default via <span class="m">172</span>.16.42.2
-<span class="gp">$</span> <span class="nb">echo</span> nameserver <span class="m">1</span>.1.1.1 <span class="p">|</span> sudo tee /etc/resolv.conf
-<span class="go">1.1.1.1 is the DNS server, feel free to change it if you wish.</span>
+       <pre><span></span><span class="gp">#</span> ip route add default via <span class="m">172</span>.16.42.2
+<span class="gp">#</span> <span class="nb">echo</span> nameserver <span class="m">1</span>.1.1.1 &gt; /etc/resolv.conf
 </pre>
       </div>
       <p>
        To make the configuration persistent after reboot do:
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> <span class="nb">echo</span> <span class="s1">'ip route add default via 172.16.42.2'</span> <span class="p">|</span> sudo tee /etc/local.d/usb_internet.start
-<span class="gp">$</span> sudo chmod +x /etc/local.d/usb_internet.start
-<span class="gp">$</span> sudo rc-update add <span class="nb">local</span>
-<span class="gp">$</span> <span class="c1">#disable it if you plug the USB cable out and want to use WiFi, because it can interfere with routing (packets would try to use the USB networking, even though it's disconnected)</span>
+       <pre><span></span><span class="gp">#</span> <span class="nb">echo</span> <span class="s1">'ip route add default via 172.16.42.2'</span> &gt; /etc/local.d/usb_internet.start
+<span class="gp">#</span> chmod +x /etc/local.d/usb_internet.start
+<span class="gp">#</span> rc-update add <span class="nb">local</span>
 </pre>
       </div>
+      <p>
+       Disable it if you plug the USB cable out and want to use WiFi, because it can interfere with routing (packets would try to use the USB networking, even though it's disconnected)
+      </p>
+      <h5>
+       <span class="mw-headline" id="Windows">
+        Windows
+       </span>
+      </h5>
+      <p>
+       <a class="image" href="../Windows_usb_internet.png">
+        <img alt="Windows usb internet.png" decoding="async" height="462" src="../Windows_usb_internet.png" width="414"/>
+       </a>
+      </p>
+      <p>
+       Configure the IP addresses like the screenshot above.
+       <sup class="reference" id="cite_ref-1">
+        <a href="#cite_note-1">
+         [1]
+        </a>
+       </sup>
+      </p>
       <h4>
        <span class="mw-headline" id="On_the_host_machine:">
         On the host machine:
@@ -189,7 +267,7 @@
        Fisrt, enable IP forwarding:
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> sudo sysctl net.ipv4.ip_forward<span class="o">=</span><span class="m">1</span>
+       <pre><span></span><span class="gp">#</span> sysctl net.ipv4.ip_forward<span class="o">=</span><span class="m">1</span>
 </pre>
       </div>
       <p>
@@ -203,10 +281,10 @@
        </span>
       </h5>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> sudo iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-<span class="gp">$</span> sudo iptables -A FORWARD -s <span class="m">172</span>.16.42.0/24 -j ACCEPT
-<span class="gp">$</span> sudo iptables -A POSTROUTING -t nat -j MASQUERADE -s <span class="m">172</span>.16.42.0/24
-<span class="gp">$</span> sudo iptables-save <span class="c1">#Save changes</span>
+       <pre><span></span><span class="gp">#</span> iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+<span class="gp">#</span> iptables -A FORWARD -s <span class="m">172</span>.16.42.0/24 -j ACCEPT
+<span class="gp">#</span> iptables -A POSTROUTING -t nat -j MASQUERADE -s <span class="m">172</span>.16.42.0/24
+<span class="gp">#</span> iptables-save <span class="c1">#Save changes</span>
 </pre>
       </div>
       <p>
@@ -221,13 +299,13 @@ and your normal network on the host machine.
        </span>
       </h5>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> sudo firewall-cmd --get-active-zone 
-<span class="gp">$</span> sudo nmcli connection modify ethX_other connection.zone external
-<span class="gp">$</span> sudo nmcli connection modify ethX_to_phone connection.zone internal
-<span class="gp">$</span> sudo firewall-cmd --get-active-zone 
-<span class="gp">$</span> sudo firewall-cmd --zone<span class="o">=</span>external --add-masquerade
-<span class="gp">$</span> sudo firewall-cmd --zone<span class="o">=</span>external --list-all
-<span class="gp">$</span> sudo firewall-cmd --zone<span class="o">=</span>internal --list-all
+       <pre><span></span><span class="gp">#</span> firewall-cmd --get-active-zone 
+<span class="gp">#</span> nmcli connection modify ethX_other connection.zone external
+<span class="gp">#</span> nmcli connection modify ethX_to_phone connection.zone internal
+<span class="gp">#</span> firewall-cmd --get-active-zone 
+<span class="gp">#</span> firewall-cmd --zone<span class="o">=</span>external --add-masquerade
+<span class="gp">#</span> firewall-cmd --zone<span class="o">=</span>external --list-all
+<span class="gp">#</span> firewall-cmd --zone<span class="o">=</span>internal --list-all
 </pre>
       </div>
       <p>
@@ -240,9 +318,9 @@ and your normal network on the host machine.
         --reload
        </code>
        options for a persistent configuration.
-       <sup class="reference" id="cite_ref-1">
-        <a href="#cite_note-1">
-         [1]
+       <sup class="reference" id="cite_ref-2">
+        <a href="#cite_note-2">
+         [2]
         </a>
        </sup>
       </p>
@@ -254,21 +332,37 @@ and your normal network on the host machine.
        </span>
       </h5>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> sudo nft add table inet nat
-<span class="gp">$</span> sudo nft <span class="s1">'add chain inet nat postrouting { type nat hook postrouting priority 100 ; }'</span>
-<span class="gp">$</span> sudo nft add rule inet nat postrouting iifname <span class="s2">"usb*"</span> masquerade
+       <pre><span></span><span class="gp">#</span> nft add table inet nat
+<span class="gp">#</span> nft <span class="s1">'add chain inet nat postrouting { type nat hook postrouting priority 100 ; }'</span>
+<span class="gp">#</span> nft add rule inet nat postrouting iifname <span class="s2">"usb*"</span> masquerade
 </pre>
       </div>
       <p>
-       postmarketOS has chain forward configured for USB interfaces by default. If using other distributions or the following lines are missing, add them manually.
+       postmarketOS has chain
+       <code>
+        forward
+       </code>
+       configured for USB interfaces by default.
+       <sup class="reference" id="cite_ref-3">
+        <a href="#cite_note-3">
+         [3]
+        </a>
+       </sup>
+       If using other distributions or the following lines are missing, add them manually.
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> sudo nft add rule inet filter forward ct state <span class="o">{</span> established, related <span class="o">}</span> accept
-<span class="gp">$</span> sudo nft add rule inet filter forward iifname <span class="s2">"usb*"</span> accept
+       <pre><span></span><span class="gp">#</span> nft add rule inet filter forward ct state <span class="o">{</span> established, related <span class="o">}</span> accept
+<span class="gp">#</span> nft add rule inet filter forward iifname <span class="s2">"usb*"</span> accept
 </pre>
       </div>
       <p>
-       You can now verify the internet connection on your phone by pinging something. If this does not work it means you need to compile the kernel with USB_ETH setting enabled in menuconfig.
+       You can now verify the Internet connection on your phone by pinging something. If this does not work it means you need to compile the kernel with
+       <code>
+        <a href="../en/Kernel_configuration.html#CONFIG_USB_ETH" title="Kernel configuration">
+         CONFIG_USB_ETH
+        </a>
+       </code>
+       setting enabled in menuconfig.
       </p>
       <h5>
        <span class="mw-headline" id="ufw">
@@ -342,7 +436,7 @@ and your normal network on the host machine.
        to make changes take effect.
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> sudo ufw disable <span class="o">&amp;&amp;</span> sudo ufw <span class="nb">enable</span>
+       <pre><span></span><span class="gp">#</span> ufw disable <span class="o">&amp;&amp;</span> ufw <span class="nb">enable</span>
 </pre>
       </div>
       <h2>
@@ -359,8 +453,32 @@ and your normal network on the host machine.
           </a>
          </span>
          <span class="reference-text">
+          <a class="external free" href="https://support.microsoft.com/en-us/windows/change-tcp-ip-settings-bd0a07af-15f5-cd6a-363f-ca2b6f391ace" rel="nofollow">
+           https://support.microsoft.com/en-us/windows/change-tcp-ip-settings-bd0a07af-15f5-cd6a-363f-ca2b6f391ace
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-2">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-2">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
           <a class="external free" href="https://www.server-world.info/en/note?os=CentOS_7&amp;p=firewalld&amp;f=2" rel="nofollow">
            https://www.server-world.info/en/note?os=CentOS_7&amp;p=firewalld&amp;f=2
+          </a>
+         </span>
+        </li>
+        <li id="cite_note-3">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-3">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/postmarketos-config-nftables/rules/51_usb_inet.nft" rel="nofollow">
+           https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/postmarketos-config-nftables/rules/51_usb_inet.nft
           </a>
          </span>
         </li>
@@ -391,13 +509,13 @@ and your normal network on the host machine.
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=USB_Internet&amp;oldid=26914">
-      https://wiki.postmarketos.org/index.php?title=USB_Internet&amp;oldid=26914
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=USB_Internet&amp;oldid=29900">
+      https://wiki.postmarketos.org/index.php?title=USB_Internet&amp;oldid=29900
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 12 April 2022, at 07:38.
+     This page was last edited on 1 August 2022, at 16:04.
     </li>
     <li id="footer-info-copyright">
      Content is available under

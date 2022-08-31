@@ -103,6 +103,14 @@
           Android 7.0
          </td>
         </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          postmarketOS kernel
+         </th>
+         <td class="" style="">
+          3.18.140
+         </td>
+        </tr>
         <tr>
          <th class="" colspan="2" style="text-align:center;">
           Hardware
@@ -113,7 +121,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm APQ8017
+          <a class="new" href="/index.php?title=Qualcomm_APQ8017&amp;action=edit&amp;redlink=1" title="Qualcomm APQ8017 (page does not exist)">
+           Qualcomm APQ8017
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -162,6 +172,14 @@
          </th>
          <td class="" style="">
           aarch64
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Unixbench Whet/Dhry score
+         </th>
+         <td class="" style="">
+          1166.2
          </td>
         </tr>
         <tr>
@@ -260,7 +278,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -348,7 +367,8 @@
           USB OTG
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -388,7 +408,8 @@
           Magnetometer
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-unavailable">
+           Unavailable
           </div>
          </td>
         </tr>
@@ -412,9 +433,28 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -434,6 +474,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -444,6 +524,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -559,9 +648,29 @@
            </a>
           </li>
           <li class="toclevel-2 tocsection-8">
-           <a href="#Sensors">
+           <a href="#CPU_Tuning">
             <span class="tocnumber">
              6.2
+            </span>
+            <span class="toctext">
+             CPU Tuning
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-9">
+           <a href="#Battery">
+            <span class="tocnumber">
+             6.3
+            </span>
+            <span class="toctext">
+             Battery
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-10">
+           <a href="#Sensors">
+            <span class="tocnumber">
+             6.4
             </span>
             <span class="toctext">
              Sensors
@@ -570,10 +679,20 @@
           </li>
          </ul>
         </li>
-        <li class="toclevel-1 tocsection-9">
-         <a href="#See_also">
+        <li class="toclevel-1 tocsection-11">
+         <a href="#Photos">
           <span class="tocnumber">
            7
+          </span>
+          <span class="toctext">
+           Photos
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-12">
+         <a href="#See_also">
+          <span class="tocnumber">
+           8
           </span>
           <span class="toctext">
            See also
@@ -879,10 +998,249 @@
        </div>
       </div>
       <h3>
+       <span class="mw-headline" id="CPU_Tuning">
+        CPU Tuning
+       </span>
+      </h3>
+      <p>
+       According to
+       <code>
+        cpufreq-info
+       </code>
+       (cpufrequtils package), the chipset does indeed have a tiny frequency range, 960MHz - 1.4GHz.  Benchmarks (
+       <code>
+        ubench
+       </code>
+       ) show trivial differences in performance between the available frequency governors (default is performance), and all result in thermal throttling (frequency limiting).
+      </p>
+      <h3>
+       <span class="mw-headline" id="Battery">
+        Battery
+       </span>
+      </h3>
+      <p>
+       Charging works, monitor via
+       <code>
+        systool -v -c power_supply
+       </code>
+      </p>
+      <h3>
        <span class="mw-headline" id="Sensors">
         Sensors
        </span>
       </h3>
+      <p>
+       Output of
+       <code>
+        sudo hwtest
+       </code>
+      </p>
+      <div class="toccolours mw-collapsible mw-collapsed" style="width:600px; overflow:auto;">
+       <p>
+        hwtest output
+       </p>
+       <div class="mw-collapsible-content">
+        <table class="wikitable feature-colors" style="border-collapse: collapse;">
+         <tbody>
+          <tr>
+           <th style="text-align:left;">
+            Category
+           </th>
+           <th style="text-align:left;">
+            Model
+           </th>
+           <th style="text-align:left;">
+            Path
+           </th>
+           <th style="text-align:left;">
+            Status
+           </th>
+           <th style="text-align:left;">
+            Value
+           </th>
+          </tr>
+          <tr>
+           <td>
+            framebuffer
+           </td>
+           <td>
+            mdssfb_80000
+           </td>
+           <td>
+            /sys/class/graphics/fb0
+           </td>
+           <td class="feature-yes">
+            Working
+           </td>
+           <td>
+            U:800x1280p-60
+           </td>
+          </tr>
+          <tr>
+           <td>
+            framebuffer
+           </td>
+           <td>
+            mdssfb_a0000
+           </td>
+           <td>
+            /sys/class/graphics/fb1
+           </td>
+           <td class="feature-yes">
+            Working
+           </td>
+           <td>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            input
+           </td>
+           <td>
+            gpio-keys
+           </td>
+           <td>
+            /dev/input/event3
+           </td>
+           <td class="feature-yes">
+            Working
+           </td>
+           <td>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            input
+           </td>
+           <td>
+            hbtp_vm
+           </td>
+           <td>
+            /dev/input/event2
+           </td>
+           <td class="feature-yes">
+            Working
+           </td>
+           <td>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            input
+           </td>
+           <td>
+            fts_ts
+           </td>
+           <td>
+            /dev/input/event1
+           </td>
+           <td class="feature-yes">
+            Working
+           </td>
+           <td>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            input
+           </td>
+           <td>
+            qpnp_pon
+           </td>
+           <td>
+            /dev/input/event0
+           </td>
+           <td class="feature-yes">
+            Working
+           </td>
+           <td>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+      <p>
+       <br/>
+       Output of
+       <code>
+        sensors
+       </code>
+       (lm-sensors package):
+      </p>
+      <div class="toccolours mw-collapsible mw-collapsed" style="width:600px; overflow:auto;">
+       <p>
+        sensors output
+       </p>
+       <div class="mw-collapsible-content">
+        <div class="mw-highlight mw-content-ltr" dir="ltr">
+         <pre>$ sensors
+battery-virtual-0
+Adapter: Virtual device
+temp1:        +26.0C  
+
+xo_therm-virtual-0
+Adapter: Virtual device
+temp1:         +0.0C  
+
+xo_therm_buf-virtual-0
+Adapter: Virtual device
+temp1:         +0.0C  
+
+case_therm-virtual-0
+Adapter: Virtual device
+temp1:         +0.0C  
+
+tsens_tz_sensor0-virtual-0
+Adapter: Virtual device
+temp1:         +0.0C  
+
+tsens_tz_sensor1-virtual-0
+Adapter: Virtual device
+temp1:         +0.0C  
+
+tsens_tz_sensor2-virtual-0
+Adapter: Virtual device
+temp1:         +0.0C  
+
+tsens_tz_sensor3-virtual-0
+Adapter: Virtual device
+temp1:         +0.0C  
+
+tsens_tz_sensor4-virtual-0
+Adapter: Virtual device
+temp1:         +0.0C  
+
+tsens_tz_sensor5-virtual-0
+Adapter: Virtual device
+temp1:         +0.0C  
+
+tsens_tz_sensor6-virtual-0
+Adapter: Virtual device
+temp1:         +0.0C  
+
+tsens_tz_sensor7-virtual-0
+Adapter: Virtual device
+temp1:         +0.0C  
+
+tsens_tz_sensor8-virtual-0
+Adapter: Virtual device
+temp1:         +0.0C  
+
+tsens_tz_sensor9-virtual-0
+Adapter: Virtual device
+temp1:         +0.0C  
+
+pm8937_tz-virtual-0
+Adapter: Virtual device
+temp1:        +28.7C  (crit = +145.0C)
+
+pa_therm0-virtual-0
+Adapter: Virtual device
+temp1:         -0.0C</pre>
+        </div>
+       </div>
+      </div>
       <p>
        For reference, output of sensorssandbox (v1.8, f-droid):
       </p>
@@ -986,6 +1344,17 @@
        </div>
       </div>
       <h2>
+       <span class="mw-headline" id="Photos">
+        Photos
+       </span>
+      </h2>
+      <p>
+       |
+       <a class="image" href="../Screenshot-tb8504f-xfce4-htop-about.png">
+        <img alt="Screenshot-tb8504f-xfce4-htop-about.png" decoding="async" height="576" src="../Screenshot-tb8504f-xfce4-htop-about.png" srcset="../540px-Screenshot-tb8504f-xfce4-htop-about.png 1.5x ../720px-Screenshot-tb8504f-xfce4-htop-about.png 2x" width="360"/>
+       </a>
+      </p>
+      <h2>
        <span class="mw-headline" id="See_also">
         See also
        </span>
@@ -1038,13 +1407,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Lenovo_Tab_4_8_(lenovo-tb8504f)&amp;oldid=28198">
-      https://wiki.postmarketos.org/index.php?title=Lenovo_Tab_4_8_(lenovo-tb8504f)&amp;oldid=28198
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Lenovo_Tab_4_8_(lenovo-tb8504f)&amp;oldid=28716">
+      https://wiki.postmarketos.org/index.php?title=Lenovo_Tab_4_8_(lenovo-tb8504f)&amp;oldid=28716
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 3 June 2022, at 21:56.
+     This page was last edited on 22 June 2022, at 22:12.
     </li>
     <li id="footer-info-copyright">
      Content is available under

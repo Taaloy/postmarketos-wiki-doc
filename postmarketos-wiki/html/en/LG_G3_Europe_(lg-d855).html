@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm MSM8974AC Snapdragon 801
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_800_801_(MSM8974).html" title="Qualcomm MSM8974AC Snapdragon 801">
+           Qualcomm MSM8974AC Snapdragon 801
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -406,9 +408,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -428,6 +448,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -438,6 +498,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -506,9 +575,19 @@
          </a>
         </li>
         <li class="toclevel-1 tocsection-5">
-         <a href="#Photos">
+         <a href="#lk2nd">
           <span class="tocnumber">
            5
+          </span>
+          <span class="toctext">
+           lk2nd
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-6">
+         <a href="#Photos">
+          <span class="tocnumber">
+           6
           </span>
           <span class="toctext">
            Photos
@@ -624,6 +703,30 @@ fastboot flash boot /tmp/pmOS_export/boot_bumped.img-lg-d855</pre>
        </li>
       </ul>
       <h2>
+       <span class="mw-headline" id="lk2nd">
+        lk2nd
+       </span>
+      </h2>
+      <p>
+       To avoid the secure boot error and get lk2nd running, download lk2nd-msm8974.img from
+       <a class="external text" href="https://github.com/msm8916-mainline/lk2nd/releases" rel="nofollow">
+        here
+       </a>
+       and remove the "SEANDROIDENFORCE"
+       <code>
+        53 45 41 4E 44 52 4F 49 44 45 4E 46 4F 52 43 45
+       </code>
+       bytes at the end of the file with a hex editor, then bump lk2nd-msm8974.img with
+       <a class="external text" href="https://raw.githubusercontent.com/LineageOS/android_device_lge_g3-common/lineage-18.1/bump/bump.py" rel="nofollow">
+        this
+       </a>
+       script and flash it to the phone with
+       <code>
+        fastboot flash boot lk2nd-msm8974.img
+       </code>
+       . If the bytes haven't been removed, the script will think that lk2nd has already been bumped.
+      </p>
+      <h2>
        <span class="mw-headline" id="Photos">
         Photos
        </span>
@@ -670,13 +773,13 @@ fastboot flash boot /tmp/pmOS_export/boot_bumped.img-lg-d855</pre>
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=LG_G3_Europe_(lg-d855)&amp;oldid=17604">
-      https://wiki.postmarketos.org/index.php?title=LG_G3_Europe_(lg-d855)&amp;oldid=17604
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=LG_G3_Europe_(lg-d855)&amp;oldid=29458">
+      https://wiki.postmarketos.org/index.php?title=LG_G3_Europe_(lg-d855)&amp;oldid=29458
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 26 February 2021, at 14:19.
+     This page was last edited on 20 July 2022, at 08:18.
     </li>
     <li id="footer-info-copyright">
      Content is available under

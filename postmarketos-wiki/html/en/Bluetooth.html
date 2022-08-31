@@ -250,7 +250,15 @@
        <code>
         mpris-proxy
        </code>
-       is started at boot to enable AVRCP 1.5 support.
+       is started at boot to enable AVRCP 1.5 support. PulseAudio and BlueZ must be installed for this which pulls in
+       <code>
+        mpris-proxy
+       </code>
+       automatically.
+MR at pmaports:
+       <a class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1804" rel="nofollow">
+        https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1804
+       </a>
       </p>
       <h3>
        <span id="Advanced_Audio_Distribution_Profile_(A2DP)">
@@ -260,11 +268,8 @@
        </span>
       </h3>
       <p>
-       PulseAudio and BlueZ handle together Bluetooth A2DP 1.3 support. PulseAudio must be installed for this.
-MR at pmaports:
-       <a class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1804" rel="nofollow">
-        https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1804
-       </a>
+       PulseAudio and BlueZ handle together Bluetooth A2DP 1.3 support.
+This is supported out-of-the-box.
       </p>
       <h3>
        <span id="PhoneBook_Access_Profile_(PBAP)">
@@ -344,6 +349,13 @@ Reporting battery levels from the AG to HF is unsupported and all cellular opera
 A first step in fully supporting Bluetooth HFP 1.6 is taken here:
        <a class="external free" href="https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/631" rel="nofollow">
         https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/631
+       </a>
+      </p>
+      <p>
+       postmarketOS edge has the necessary patches applied to PulseAudio for supporting Bluetooth HFP AT commands (battery level reporting, cellular status, accept/reject calls, etc.), audio routing not yet.
+Feedback is welcome in
+       <a class="external free" href="https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/693" rel="nofollow">
+        https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/693
        </a>
       </p>
       <h3>
@@ -465,7 +477,20 @@ A first step in fully supporting Bluetooth HFP 1.6 is taken here:
       </div>
      </div>
     </div>
-    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
     </div>
     <div class="visualClear">
     </div>
@@ -475,13 +500,13 @@ A first step in fully supporting Bluetooth HFP 1.6 is taken here:
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;oldid=28484">
-      https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;oldid=28484
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;oldid=30086">
+      https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;oldid=30086
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 12 June 2022, at 01:49.
+     This page was last edited on 8 August 2022, at 12:47.
     </li>
     <li id="footer-info-copyright">
      Content is available under

@@ -237,21 +237,23 @@
            Mali
           </span>
          </a>
-        </li>
-        <li class="toclevel-1 tocsection-4">
-         <a href="#PowerVR">
-          <span class="tocnumber">
-           4
-          </span>
-          <span class="toctext">
-           PowerVR
-          </span>
-         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Mali_T628">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             Mali T628
+            </span>
+           </a>
+          </li>
+         </ul>
         </li>
         <li class="toclevel-1 tocsection-5">
          <a href="#Tegra">
           <span class="tocnumber">
-           5
+           4
           </span>
           <span class="toctext">
            Tegra
@@ -261,10 +263,20 @@
         <li class="toclevel-1 tocsection-6">
          <a href="#VideoCore">
           <span class="tocnumber">
-           6
+           5
           </span>
           <span class="toctext">
            VideoCore
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-7">
+         <a href="#PowerVR">
+          <span class="tocnumber">
+           6
+          </span>
+          <span class="toctext">
+           PowerVR
           </span>
          </a>
         </li>
@@ -294,22 +306,142 @@
       <p>
        The panfrost drivers is for the Mali Midgard and Bifrost GPUs, except T604, T628 and G71.
       </p>
-      <h2>
-       <span class="mw-headline" id="PowerVR">
-        PowerVR
-       </span>
-      </h2>
       <p>
-       The
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/non-free/sgx-ddk-um" rel="nofollow">
-        required blobs
-       </a>
-       and a
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/main/mesa-pvr-dri-classic" rel="nofollow">
-        patched Mesa
-       </a>
-       are packaged in pmaports.
+       Mali T720 and older are limited to OpenGL 2.1 and OpenGL ES 2.0.
       </p>
+      <h3>
+       <span class="mw-headline" id="Mali_T628">
+        Mali T628
+       </span>
+      </h3>
+      <p>
+       We have patched
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/linux-postmarketos-exynos5" rel="nofollow">
+        linux-postmarketos-exynos5
+       </a>
+       kernel, but it is still needed for users to build patched mesa themselves.
+      </p>
+      <p>
+       1. Run
+       <code>
+        pmbootstrap aportgen --fork-alpine mesa
+       </code>
+       .
+      </p>
+      <p>
+       2. Go to
+       <code>
+        ~/.local/var/pmbootstrap/cache_git/pmaports/temp/mesa
+       </code>
+       .
+      </p>
+      <p>
+       3. Create a file e.g.
+       <code>
+        enable-mali-t628.patch
+       </code>
+       . Fill it with this:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gh">diff --git a/src/panfrost/lib/pan_props.c b/src/panfrost/lib/pan_props.c</span>
+<span class="gh">index 5884a826..22d610a8 100644</span>
+<span class="gd">--- a/src/panfrost/lib/pan_props.c</span>
+<span class="gi">+++ b/src/panfrost/lib/pan_props.c</span>
+<span class="gu">@@ -53,6 +53,7 @@</span>
+ 
+ /* Table of supported Mali GPUs */
+ const struct panfrost_model panfrost_model_list[] = {
+<span class="gi">+        MODEL(0x620, "T620", "T62x", NO_ANISO, {}),</span>
+         MODEL(0x720, "T720", "T72x", NO_ANISO, { .no_hierarchical_tiling = true }),
+         MODEL(0x750, "T760", "T76x", NO_ANISO, {}),
+         MODEL(0x820, "T820", "T82x", NO_ANISO, { .no_hierarchical_tiling = true }),
+</pre>
+      </div>
+      <p>
+       4. Add this file to
+       <code>
+        source
+       </code>
+       variable in
+       <code>
+        APKBUILD
+       </code>
+       file.
+      </p>
+      <p>
+       6. Increase
+       <code>
+        pkgrel
+       </code>
+       variable in
+       <code>
+        APKBUILD
+       </code>
+       file.
+      </p>
+      <p>
+       7. Run
+       <code>
+        pmbootstrap checksum mesa
+       </code>
+       .
+      </p>
+      <p>
+       8. Run
+       <code>
+        pmbootstrap build --arch armv7 mesa
+       </code>
+       .
+      </p>
+      <p>
+       Next time you run
+       <code>
+        pmbootstrap install --sdcard /dev/sdX
+       </code>
+       , you will get patched mesa installed.
+      </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           Note:
+          </b>
+          After installation, you may need to remove
+          <code>
+           /etc/modprobe.d/mali.conf
+          </code>
+          file.
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           Note:
+          </b>
+          Your mesa may be replaced with new unpatched one after an upgrade in Alpine. In this case, you will have to rebuild it again. Your device package also may be upgraded, then you will have to remove
+          <code>
+           /etc/modprobe.d/mali.conf
+          </code>
+          file again.
+         </td>
+        </tr>
+       </tbody>
+      </table>
       <h2>
        <span class="mw-headline" id="Tegra">
         Tegra
@@ -335,9 +467,33 @@
       <p>
        The v3d driver is for Broadcom VideoCore V and VideoCore VI GPUs.
       </p>
+      <h2>
+       <span class="mw-headline" id="PowerVR">
+        PowerVR
+       </span>
+      </h2>
+      <p>
+       There is no FOSS driver for the PowerVR SGX5 series GPUs found on OMAP3 and OMAP4 TI SoCs. However, these GPUs do work on the mainline kernel when the kernel is built with the open parts of the TI drivers, and you also run a patched Mesa. This work cannot be integrated into pmaports, but is maintained in a separate pmos-compatible repository,
+       <a class="external free" href="https://gitlab.com/pvrports" rel="nofollow">
+        https://gitlab.com/pvrports
+       </a>
+      </p>
      </div>
     </div>
-    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
     </div>
     <div class="visualClear">
     </div>
@@ -347,13 +503,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=3D_Acceleration&amp;oldid=25695">
-      https://wiki.postmarketos.org/index.php?title=3D_Acceleration&amp;oldid=25695
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=3D_Acceleration&amp;oldid=30036">
+      https://wiki.postmarketos.org/index.php?title=3D_Acceleration&amp;oldid=30036
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 12 February 2022, at 19:32.
+     This page was last edited on 8 August 2022, at 12:01.
     </li>
     <li id="footer-info-copyright">
      Content is available under

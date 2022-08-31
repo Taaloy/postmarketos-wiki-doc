@@ -423,6 +423,296 @@ PORT───────┤                  │                         │   
 	};
 }
 </pre>
+      <h2>
+       <span id="Hypervisor_/_TZ_log">
+       </span>
+       <span class="mw-headline" id="Hypervisor_.2F_TZ_log">
+        Hypervisor / TZ log
+       </span>
+      </h2>
+      <p>
+       The TZ control block is at
+       <code>
+        0x146bf720
+       </code>
+       , the expected way to use it from Linux is to allocate some memory and then make an SCM call (to the hypervisor) to have it use your memory and copy the log there.
+The hypervisor log is stored physically at address
+       <code>
+        0x858b5000
+       </code>
+       and can simply be dumped as is. It uses a circular log buffer with a size of
+       <code>
+        0x2000
+       </code>
+      </p>
+      <p>
+       This is a hypervisor log from a OnePlus 6 running mainline:
+      </p>
+      <pre>HYP Timestamp Log Init: 1275970
+
+
+HYP Version Info: QC_IMAGE_VERSION_STRING=TZ.XF.5.0.1.C5-00083.1
+
+
+HYP Version Info: IMAGE_VARIANT_STRING=WAXAANAAA
+
+
+OEM Version Info: OEM_IMAGE_VERSION_STRING=CRM
+
+
+(0)
+
+
+SMMU Info: VMID 4 not support
+
+
+SMMU Info: VMID 4 not support
+
+
+Mapped SMEM as non-cached to EL2
+
+
+Mapped region &lt;0&gt; as non-cached to EL2
+
+
+Mapped region &lt;1&gt; as non-cached to EL2
+
+
+Is TZ APP region mapped to HLOS VM = 1
+
+
+first psci cpuon time: 3616292
+
+
+first suspend time: 3855764
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+video_init_and_start Not halted
+
+
+video_set_state Init-and-start failed
+
+
+PILSubsys_setState [300012]
+
+
+
+pil_set_state_api_ns [300012]
+
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+
+
+SMMU Virt: Invalid S2CRn value=0x00020000 for Dev ID=1
+</pre>
      </div>
     </div>
     <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
@@ -435,13 +725,13 @@ PORT───────┤                  │                         │   
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Hacking&amp;oldid=23115">
-      https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Hacking&amp;oldid=23115
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Hacking&amp;oldid=29898">
+      https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Hacking&amp;oldid=29898
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 19 October 2021, at 16:59.
+     This page was last edited on 1 August 2022, at 13:04.
     </li>
     <li id="footer-info-copyright">
      Content is available under

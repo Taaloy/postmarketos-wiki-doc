@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm MSM8225 Snapdragon S4 Play
+          <a class="new" href="/index.php?title=Qualcomm_MSM8225_Snapdragon_S4_Play&amp;action=edit&amp;redlink=1" title="Qualcomm MSM8225 Snapdragon S4 Play (page does not exist)">
+           Qualcomm MSM8225 Snapdragon S4 Play
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -204,8 +206,8 @@
           Touchscreen
          </th>
          <td class="" style="">
-          <div class="feature feature-no">
-           Broken
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -282,7 +284,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -291,7 +294,8 @@
           Bluetooth
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -300,7 +304,8 @@
           Camera
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -309,7 +314,8 @@
           GPS
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -413,9 +419,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -435,6 +459,50 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -449,6 +517,16 @@
          </th>
          <td class="" style="">
           <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
+         </th>
+         <td class="" style="">
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -526,6 +604,17 @@
         </a>
        </li>
       </ul>
+      <p>
+       For some reason,
+       <code>
+        adb reboot bootloader
+       </code>
+       doesn't work. In fastboot mode, I also couldn't get a kernel to boot with
+       <code>
+        pmbootstrap flasher boot
+       </code>
+       .
+      </p>
       <h2>
        <span class="mw-headline" id="Installation">
         Installation
@@ -571,7 +660,21 @@
           P
          </td>
          <td>
-          Flashing the kernel works, flashing the rootfs doesn't (Use sdcard install)
+          Flashing the kernel works, flashing the rootfs doesn't. (Use sdcard install)
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Touchscreen
+         </td>
+         <td class="feature feature-yes">
+          Y
+         </td>
+         <td>
+          <code>
+           evtest
+          </code>
+          reports the correct values, can't test in a GUI.
          </td>
         </tr>
         <tr>
@@ -585,8 +688,36 @@
           Splash screen works. Wayland compositors sometimes show up, but the screen flickers on and off. Xorg doesn't work at all.
          </td>
         </tr>
+        <tr>
+         <td>
+          WiFi
+         </td>
+         <td class="feature">
+          N
+         </td>
+         <td>
+          Nothing. Doesn't even show up in dmesg. The device seems to use an ath6k chipset, can't find any firmware in the Android filesystem.
+         </td>
+        </tr>
        </tbody>
       </table>
+      <h2>
+       <span class="mw-headline" id="hwtest">
+        hwtest
+       </span>
+      </h2>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre>Category         Model                Path                                                                                            Status     Value
+framebuffer      msmfb303_90000       /sys/class/graphics/fb0                                                                         working    U:480x800p-0
+input            ts_test_input        /dev/input/event5                                                                               working    
+input            7k_handset           /dev/input/event4                                                                               working    
+input            sensors_aps          /dev/input/event3                                                                               working    
+input            default_keypad       /dev/input/event2                                                                               working    
+input            sensors              /dev/input/event1                                                                               working    
+input            synaptics            /dev/input/event0                                                                               working    
+speaker          default:CARD=msmaudio                                                                                                 working    
+mic              default:CARD=msmaudio                                                                                                 working</pre>
+      </div>
       <h2>
        <span class="mw-headline" id="See_also">
         See also
@@ -612,10 +743,15 @@
     <div class="catlinks" data-mw="interface" id="catlinks">
      <div class="mw-normal-catlinks" id="mw-normal-catlinks">
       <a href="../Special:Categories.html" title="Special:Categories">
-       Category
+       Categories
       </a>
       :
       <ul>
+       <li>
+        <a href="../en/Category:Pages_with_syntax_highlighting_errors.html" title="Category:Pages with syntax highlighting errors">
+         Pages with syntax highlighting errors
+        </a>
+       </li>
        <li>
         <a href="../en/Category:Devices.html" title="Category:Devices">
          Devices
@@ -632,13 +768,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Huawei_Ascend_G330_(huawei-u8825)&amp;oldid=27126">
-      https://wiki.postmarketos.org/index.php?title=Huawei_Ascend_G330_(huawei-u8825)&amp;oldid=27126
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Huawei_Ascend_G330_(huawei-u8825)&amp;oldid=30011">
+      https://wiki.postmarketos.org/index.php?title=Huawei_Ascend_G330_(huawei-u8825)&amp;oldid=30011
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 21 April 2022, at 22:43.
+     This page was last edited on 7 August 2022, at 20:23.
     </li>
     <li id="footer-info-copyright">
      Content is available under

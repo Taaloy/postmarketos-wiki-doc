@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   NetworkManager/DNS - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-NetworkManager_DNS rootpage-NetworkManager_DNS skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    NetworkManager/DNS
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       NetworkManager implements several dns clients.
+      </p>
+      <h2>
+       <span class="mw-headline" id="default">
+        default
+       </span>
+      </h2>
+      <p>
+       The default method adds the DNS servers from the network connections. It gives a warning that "the libc resolver may not support more than 3 nameservers".
+      </p>
+      <p>
+       This can have issues with some applications (such as aerc or senpai) as the top 3 DNS servers may be inaccessible over your WiFi network.
+      </p>
+      <p>
+       (for example T-Mobile adds 4 DNS Servers which are only accessible on their network:
+       <a class="external free" href="https://rudism.com/solving-openvpn-dns-issues-on-android-clients/" rel="nofollow">
+        https://rudism.com/solving-openvpn-dns-issues-on-android-clients/
+       </a>
+       )
+      </p>
+      <h2>
+       <span class="mw-headline" id="dnsmasq">
+        dnsmasq
+       </span>
+      </h2>
+      <p>
+       Setting
+      </p>
+      <pre>dns=dnsmasq
+</pre>
+      <p>
+       in NetworkManager.conf by default will have issues, as NetworkManager will overwrite the /etc/resolv.conf which dnsmasq needs by default.
+      </p>
+      <p>
+       edit /etc/dnsmasq.conf
+      </p>
+      <pre>resolv-file=/var/run/NetworkManager/no-stub-resolv.conf
+</pre>
+      <p>
+       and add it to the default runlevel so openrc will autostart it.
+      </p>
+      <p>
+       issue: if dnsmasq crashes, network related things will totally fail to work.
+      </p>
+      <p>
+       With the above configuration, it's always crashing on boot... almost-certainly because /var/run/NetworkManager/no-stub-resolv.conf doesn't exist yet. To work around this, edit /etc/init.d/dnsmasq and add
+      </p>
+      <pre>supervisor=supervise-daemon
+respawn_delay=2
+# respawn_max defaults to 10, so this effectively gives NetworkManager 20 seconds to create the file
+</pre>
+      <p>
+       <br/>
+       There might also be a problem with receiving MMS when connected to wifi (e.g. if your carrier's MMS server name will only resolve on their DNS server). There's a config option that tells it to check all DNS servers (instead of the presumed fastest one) which we should probably also set to handle this case.
+      </p>
+     </div>
+    </div>
+    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=NetworkManager/DNS&amp;oldid=29824">
+      https://wiki.postmarketos.org/index.php?title=NetworkManager/DNS&amp;oldid=29824
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 31 July 2022, at 12:18.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=NetworkManager/DNS&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
+</html>

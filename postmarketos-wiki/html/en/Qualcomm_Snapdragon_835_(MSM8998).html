@@ -229,10 +229,22 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          Audio
+          <abbr title="Serial Peripheral Interface">
+           SPI
+          </abbr>
          </th>
          <td class="" style="">
           <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Audio
+         </th>
+         <td class="" style="">
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -712,13 +724,12 @@ CONFIG_PHY_QCOM_QUSB2=y
          <td style="padding: 2px 0 2px 0.9em; text-align: center;">
           <span style="white-space: nowrap;">
            <img alt="Icon" decoding="async" height="20" src="../Red_warning_icon.svg" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x" title="Icon" width="20"/>
-           <br/>
-           <b>
-            Warning!
-           </b>
           </span>
          </td>
          <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           WARNING:
+          </b>
           IF YOUR DEVICE IS A SONY XPERIA DO NOT NEVER EVER EVER TRY TO ENABLE UFS ON NON-VENDOR/NON-SODP KERNELS! IT WILL ERASE THE CHIP CLEAN (INCLUDING THE BOOTLOADER!) CONSIDER YOURSELF WARNED
          </td>
         </tr>
@@ -956,6 +967,73 @@ crnv21.bin
        and they should work fine, but if not you'll need to grab the files from your device's firmware partitions.
       </p>
       <h2>
+       <span class="mw-headline" id="Audio">
+        Audio
+       </span>
+      </h2>
+      <p>
+       OnePlus 5&amp;5T has tfa9894 codec, so additional modules are needed.
+Add tfa98xx source code
+（Modyfied from
+       <a class="external free" href="https://github.com/J0SH1X/tfa98xx%EF%BC%89" rel="nofollow">
+        https://github.com/J0SH1X/tfa98xx）
+       </a>
+       11
+Download:
+       <a class="external free" href="https://stor.classfun.cn:4443/s/xPCE" rel="nofollow">
+        https://stor.classfun.cn:4443/s/xPCE
+       </a>
+       5
+Extract it and then copy the inc and src folder to linux/sound/soc/codecs
+      </p>
+      <p>
+       <br/>
+       Modify Makefile and Kconfig：
+       <code>
+        cd ~/workspace/linux/sound/soc/codecs
+       </code>
+       Modify Makefile：
+       <code>
+        nano Makefile
+       </code>
+       :
+      </p>
+      <pre>snd-soc-tfa989x-objs := tfa989x.o
++snd-soc-tfa98xx-objs += src/tfa98xx.o
++snd-soc-tfa98xx-objs += src/tfa_container.o
++snd-soc-tfa98xx-objs += src/tfa_dsp.o
++snd-soc-tfa98xx-objs += src/tfa_init.o
+snd-soc-tlv320adc3xxx-objs := tlv320adc3xxx.o
+</pre>
+      <pre>obj-$(CONFIG_SND_SOC_TFA9879)  += snd-soc-tfa9879.o
++obj-$(CONFIG_SND_SOC_TFA98XX) += snd-soc-tfa98xx.o
+obj-$(CONFIG_SND_SOC_TFA989X)  += snd-soc-tfa989x.o
+</pre>
+      <p>
+       Modify Kconfig:
+       <code>
+        nano Kconfig
+       </code>
+      </p>
+      <pre>imply SND_SOC_TFA989X
++imply SND_SOC_TFA98xx
+imply SND_SOC_TLV320ADC3XXX
+</pre>
+      <p>
+       add it in Kconfig:
+      </p>
+      <pre>+config SND_SOC_TFA98XX
++        tristate "NXP/Goodix TFA98XX (TFA1) amplifiers"
++        depends on I2C
++        select REGMAP_I2C
++        help
++          Enable support for NXP (now Goodix) TFA98XX (TFA1 family) speaker
++          amplifiers, e.g. TFA98XX.
++          Note that the driver currently bypasses the built-in "CoolFlux DSP"
++          and does not support (hardware) volume control.
++
+</pre>
+      <h2>
        <span class="mw-headline" id="GPS">
         GPS
        </span>
@@ -1066,6 +1144,11 @@ crnv21.bin
         (@caleb on Matrix) [working on Pixel 2 XL]
        </li>
        <li>
+        <a href="../User:Learnchungchen.html" title="User:Learnchungchen">
+         User:learnchungchen
+        </a>
+       </li>
+       <li>
         <a class="external text" href="https://github.com/SoMainline/" rel="nofollow">
          SoMainline
         </a>
@@ -1105,13 +1188,13 @@ crnv21.bin
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_835_(MSM8998)&amp;oldid=27956">
-      https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_835_(MSM8998)&amp;oldid=27956
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_835_(MSM8998)&amp;oldid=29448">
+      https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_835_(MSM8998)&amp;oldid=29448
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 24 May 2022, at 11:42.
+     This page was last edited on 20 July 2022, at 01:09.
     </li>
     <li id="footer-info-copyright">
      Content is available under

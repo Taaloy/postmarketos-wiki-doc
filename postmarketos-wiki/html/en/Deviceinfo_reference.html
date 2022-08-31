@@ -117,12 +117,12 @@
          </a>
         </li>
         <li class="toclevel-1 tocsection-5">
-         <a href="#cgpt">
+         <a href="#cgpt.2Fdepthcharge">
           <span class="tocnumber">
            5
           </span>
           <span class="toctext">
-           cgpt
+           cgpt/depthcharge
           </span>
          </a>
         </li>
@@ -855,6 +855,41 @@
         <tr>
          <td>
           <code>
+           flash_offset_base
+          </code>
+         </td>
+         <td>
+          Used for flashing
+         </td>
+         <td>
+          default:
+          <code>
+           0x10000000
+          </code>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <code>
+           flash_offset_dtb
+          </code>
+         </td>
+         <td>
+          Used for flashing on
+          <code>
+           header_version
+          </code>
+          2, see
+          <a class="external text" href="https://gitlab.com/postmarketOS/boot-deploy/-/merge_requests/15" rel="nofollow">
+           boot-deploy!15
+          </a>
+         </td>
+         <td>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <code>
            flash_offset_kernel
           </code>
          </td>
@@ -898,22 +933,6 @@
           Used for flashing
          </td>
          <td>
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <code>
-           flash_offset_base
-          </code>
-         </td>
-         <td>
-          Used for flashing
-         </td>
-         <td>
-          default:
-          <code>
-           0x10000000
-          </code>
          </td>
         </tr>
         <tr>
@@ -1264,6 +1283,25 @@ and install it in a place, where mkinifs script will pick it up, for example boa
         <tr>
          <td>
           <code>
+           bootimg_custom_args
+          </code>
+         </td>
+         <td>
+          Additional custom arguments to pass to
+          <code>
+           mkbootimg
+          </code>
+         </td>
+         <td>
+          e.g.
+          <code>
+           --vendor_cmdline ...
+          </code>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <code>
            header_version
           </code>
          </td>
@@ -1383,7 +1421,11 @@ and install it in a place, where mkinifs script will pick it up, for example boa
           </code>
          </td>
          <td>
-          Set a custom uboot image name, required by some device bootloaders that expect a specific image name.
+          Set a custom uboot image name, required by some device bootloaders that expect a specific image name. (
+          <a class="external text" href="https://gitlab.com/postmarketOS/boot-deploy/-/merge_requests/11" rel="nofollow">
+           boot-deploy!11
+          </a>
+          )
          </td>
          <td>
           default:
@@ -1998,8 +2040,10 @@ OR plug in device running stock Android/TWRP and watch dmesg for things like
 [    3.939521] usb 1-2.4: Product: MI 9
 [    3.939522] usb 1-2.4: Manufacturer: Xiaomi</pre>
       <h2>
-       <span class="mw-headline" id="cgpt">
-        cgpt
+       <span id="cgpt/depthcharge">
+       </span>
+       <span class="mw-headline" id="cgpt.2Fdepthcharge">
+        cgpt/depthcharge
        </span>
       </h2>
       <p>
@@ -2071,6 +2115,33 @@ OR plug in device running stock Android/TWRP and watch dmesg for things like
           e.g.
           <code>
            32768
+          </code>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <code>
+           generate_depthcharge_image
+          </code>
+         </td>
+         <td>
+          Set this to true, so the
+          <code>
+           mkinitfs
+          </code>
+          command will generate a vmlinuz.kpart file after creating the initramfs. Add
+          <code>
+           depthcharge-tools
+          </code>
+          as dependency to your device's APKBUILD!
+         </td>
+         <td>
+          <code>
+           true
+          </code>
+          ,
+          <code>
+           false
           </code>
          </td>
         </tr>
@@ -2206,13 +2277,13 @@ OR plug in device running stock Android/TWRP and watch dmesg for things like
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Deviceinfo_reference&amp;oldid=28150">
-      https://wiki.postmarketos.org/index.php?title=Deviceinfo_reference&amp;oldid=28150
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Deviceinfo_reference&amp;oldid=30159">
+      https://wiki.postmarketos.org/index.php?title=Deviceinfo_reference&amp;oldid=30159
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 2 June 2022, at 03:45.
+     This page was last edited on 9 August 2022, at 19:24.
     </li>
     <li id="footer-info-copyright">
      Content is available under

@@ -100,7 +100,7 @@
           Original software
          </th>
          <td class="" style="">
-          Android 4.4.2
+          Android 4.4.2 on Linux 3.4.39-4511584
          </td>
         </tr>
         <tr>
@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Samsung Exynos 5260
+          <a class="new" href="/index.php?title=Samsung_Exynos_5260&amp;action=edit&amp;redlink=1" title="Samsung Exynos 5260 (page does not exist)">
+           Samsung Exynos 5260
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -402,9 +404,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -424,6 +444,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -434,6 +494,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -476,15 +545,76 @@
        <br/>
       </p>
       <h2>
-       <span class="mw-headline" id="How_to_enter_flash_mode">
-        How to enter flash mode
+       <span id="How_to_enter_flash_mode_(download_mode)">
+       </span>
+       <span class="mw-headline" id="How_to_enter_flash_mode_.28download_mode.29">
+        How to enter flash mode (download mode)
        </span>
       </h2>
+      <pre>Hold <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">Power</span> + <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">Volume Down</span> + <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">Home</span>. Press <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">Volume Up</span> when prompted.
+</pre>
+      <p>
+       Alternatively, try
+       <code>
+        adb reboot download
+       </code>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="Enable_USB_Debugging">
+        Enable USB Debugging
+       </span>
+      </h2>
+      <ol>
+       <li>
+        Open Settings &gt; About device
+       </li>
+       <li>
+        Tap Build number 7 times
+       </li>
+       <li>
+        Return to Settings &gt; Developer options (newly appeared!)
+       </li>
+       <li>
+        Enable USB debugging
+       </li>
+      </ol>
       <h2>
        <span class="mw-headline" id="Installation">
         Installation
        </span>
       </h2>
+      <h2>
+       <span class="mw-headline" id="Notes">
+        Notes
+       </span>
+      </h2>
+      <p>
+       Appears to be very similar hardware to the Galaxy Note 3 Neo SM-N750 (hl3g).
+      </p>
+      <h3>
+       <span class="mw-headline" id="MUIC">
+        MUIC
+       </span>
+      </h3>
+      <p>
+       According to the modified downstream kernel (
+       <a class="external text" href="https://github.com/timduru/kzoom-katkernel/blob/dev/arch/arm/configs/katkernel" rel="nofollow">
+        kzoom-katkernel config
+       </a>
+       ), this device has a Maxim Integrated MAX77803 MUIC. According to the
+       <a href="../en/Micro-USB_Interface_Controller.html" title="Micro-USB Interface Controller">
+        Micro-USB_Interface_Controller
+       </a>
+       page, this is the same MUIC as in the
+       <a href="../en/Samsung_Galaxy_Note_3_(samsung-hlte).html" title="Samsung Galaxy Note 3 (samsung-hlte)">
+        Samsung_Galaxy_Note_3_(samsung-hlte)
+       </a>
+       . I also found driver code for this MUIC in
+       <a class="external text" href="https://github.com/LineageOS/android_kernel_samsung_exynos5410/search?q=MAX77803" rel="nofollow">
+        LineageOS/android_kernel_samsung_exynos5410
+       </a>
+      </p>
       <h2>
        <span class="mw-headline" id="See_also">
         See also
@@ -504,6 +634,25 @@
        <li>
         <a class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm/boot/dts/exynos5260.dtsi?h=v5.19-rc2&amp;id=8d6f5af71e2ada6214df028441d479e1925e105b" rel="nofollow">
          Mainline device tree
+        </a>
+       </li>
+       <li>
+        <a class="external text" href="https://forum.xda-developers.com/t/kernel-root-cwm-recovery-samsung-galaxy-k-zoom-katkernel-3-4-104-005.2798321/" rel="nofollow">
+         modified downstream kernel in XDA  forum post
+        </a>
+        [KERNEL] [ROOT] [CWM Recovery] [Samsung Galaxy K Zoom] KatKernel-3.4.104 (Potentially useful because I can't find official downstream kernel sources, and TWRP and LineageOS don't have sources for this device.) (
+        <a class="external text" href="https://github.com/timduru/kzoom-katkernel" rel="nofollow">
+         kernel source on GitHub
+        </a>
+        ) (
+        <a class="external text" href="https://github.com/daviewales/kzoom-katkernel" rel="nofollow">
+         backup fork
+        </a>
+        )
+       </li>
+       <li>
+        <a class="external text" href="https://github.com/LineageOS/android_kernel_samsung_exynos5410/search?q=MAX77803" rel="nofollow">
+         drivers for MAX77803 MUIC in LineageOS/android_kernel_samsung_exynos5410
         </a>
        </li>
       </ul>
@@ -545,13 +694,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_K_Zoom_(samsung-m2alte)&amp;oldid=28528">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_K_Zoom_(samsung-m2alte)&amp;oldid=28528
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_K_Zoom_(samsung-m2alte)&amp;oldid=28646">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_K_Zoom_(samsung-m2alte)&amp;oldid=28646
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 13 June 2022, at 20:03.
+     This page was last edited on 19 June 2022, at 20:46.
     </li>
     <li id="footer-info-copyright">
      Content is available under

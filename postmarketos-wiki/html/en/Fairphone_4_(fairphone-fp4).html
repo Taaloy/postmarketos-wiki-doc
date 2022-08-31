@@ -92,7 +92,7 @@
           Category
          </th>
          <td class="" style="">
-          testing
+          community
          </td>
         </tr>
         <tr class="">
@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm SM7225 Snapdragon 750G
+          <a class="new" href="/index.php?title=Qualcomm_SM7225_Snapdragon_750G&amp;action=edit&amp;redlink=1" title="Qualcomm SM7225 Snapdragon 750G (page does not exist)">
+           Qualcomm SM7225 Snapdragon 750G
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -261,7 +263,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -270,8 +273,8 @@
           3D Acceleration
          </th>
          <td class="" style="">
-          <div class="feature feature-partial">
-           Partial
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -282,7 +285,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -291,7 +295,8 @@
           Bluetooth
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -318,7 +323,8 @@
           Mobile data
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -409,9 +415,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -431,6 +455,47 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div class="feature feature-unavailable">
+           Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -441,6 +506,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -478,6 +552,16 @@
       </h2>
       <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;">
        <ul style="margin-top: 0;">
+        <li>
+         <a href="../User:BEEDELLROKEJULIANLOCKHART.html" title="User:BEEDELLROKEJULIANLOCKHART">
+          BEEDELLROKEJULIANLOCKHART
+         </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         Daily device)
+        </li>
         <li>
          <a href="../User:Brittle.html" title="User:Brittle">
           Brittle
@@ -517,23 +601,91 @@
        </span>
       </h2>
       <p>
-       Unlock the bootloader as described on the Fairphone Support page.
+       Unlock the bootloader according to the
+       <a class="external text" href="https://support.fairphone.com/hc/en-us/articles/4405858258961-FP4-Manage-the-bootloader" rel="nofollow">
+        official instructions
+       </a>
+       .
       </p>
       <p>
-       You also need to erase the dtbo partition for the current slot with
+       You need to erase the
+       <code>
+        dtbo
+       </code>
+       partition for the current slot with
        <code>
         fastboot erase dtbo
        </code>
-       when using the mainline kernel.
+       .
       </p>
       <p>
-       The rest of the installation is pretty standard, but as the device has A/B slots you have to watch out for the correct slot being active.
+       The rest of the installation is standard, but because the device contains A/B slots, you must watch out for the correct slot being active.
       </p>
-      <h2>
-       <span class="mw-headline" id="See_also">
-        See also
-       </span>
-      </h2>
+      <p>
+       Please note that the device does not contain a
+       <code>
+        system
+       </code>
+       as you might be used to, it contains one
+       <code>
+        super
+       </code>
+       partition which contains
+       <code>
+        system
+       </code>
+       /
+       <code>
+        system_ext
+       </code>
+       /
+       <code>
+        product
+       </code>
+       /
+       <code>
+        vendor
+       </code>
+       /
+       <code>
+        odm
+       </code>
+       partitions, in _a and _b variant each. This concept is called
+       <a class="external text" href="https://source.android.com/devices/tech/ota/dynamic_partitions/implement" rel="nofollow">
+        Dynamic Partitions
+       </a>
+       .
+      </p>
+      <p>
+       So it is suggested you flash the rootfs to either
+       <code>
+        userdata
+       </code>
+       or
+       <code>
+        super
+       </code>
+       partition on the internal storage (
+       <code>
+        pmbootstrap flasher flash_rootfs --partition $partition
+       </code>
+       ) or onto an SD card (
+       <code>
+        pmbootstrap flasher flash_rootfs --sdcard /dev/$blk_dev
+       </code>
+       ).
+      </p>
+      <p>
+       It's also possible to flash to a subpartition of
+       <code>
+        super
+       </code>
+       using
+       <a class="external text" href="https://source.android.com/devices/bootloader/fastbootd" rel="nofollow">
+        fastbootd
+       </a>
+       .
+      </p>
      </div>
     </div>
     <div class="catlinks" data-mw="interface" id="catlinks">
@@ -559,13 +711,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Fairphone_4_(fairphone-fp4)&amp;oldid=27637">
-      https://wiki.postmarketos.org/index.php?title=Fairphone_4_(fairphone-fp4)&amp;oldid=27637
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Fairphone_4_(fairphone-fp4)&amp;oldid=30447">
+      https://wiki.postmarketos.org/index.php?title=Fairphone_4_(fairphone-fp4)&amp;oldid=30447
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 12 May 2022, at 14:35.
+     This page was last edited on 25 August 2022, at 10:03.
     </li>
     <li id="footer-info-copyright">
      Content is available under

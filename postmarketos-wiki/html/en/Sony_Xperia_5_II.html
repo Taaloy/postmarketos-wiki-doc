@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          sm8250 Snapdragon 865 5G
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_865_(SM8250).html" title="Qualcomm SM8250 Snapdragon 865 5G">
+           Qualcomm SM8250 Snapdragon 865 5G
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -182,7 +184,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -193,7 +196,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -213,7 +217,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-partial">
+           Partial
           </div>
          </td>
         </tr>
@@ -244,7 +249,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -402,9 +408,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -424,6 +448,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -440,6 +504,15 @@
           </div>
          </td>
         </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
         <tr>
          <td colspan="2" style="text-align:right">
          </td>
@@ -449,11 +522,28 @@
       <p>
        <br/>
       </p>
+      <p>
+       <br/>
+      </p>
       <h2>
        <span class="mw-headline" id="Contributors">
         Contributors
        </span>
       </h2>
+      <ul>
+       <li>
+        <a href="../User:Konradybcio.html" title="User:Konradybcio">
+         Konrad Dybcio
+        </a>
+        (@konradybcio)
+       </li>
+       <li>
+        <a href="../User:Dodoradio.html" title="User:Dodoradio">
+         Dodoradio
+        </a>
+        (@dodoradio)
+       </li>
+      </ul>
       <h2>
        <span class="mw-headline" id="Users_owning_this_device">
         Users owning this device
@@ -469,7 +559,7 @@
          <span class="cargoFieldName">
           Notes:
          </span>
-         Android)
+         Testing PostmarketOS)
         </li>
        </ul>
       </div>
@@ -481,13 +571,35 @@
         How to enter flash mode
        </span>
       </h2>
+      <p>
+       Before you can flash PostmarketOS, you'll need to unlock your bootloader as described on
+       <a class="external text" href="https://developer.sony.com/develop/open-devices/get-started/unlock-bootloader/" rel="nofollow">
+        Sony's open devices portal
+       </a>
+       . This may potentially void your warranty, be warned, and read the warnings that Sony provide also.
+      </p>
+      <p>
+       Once you've finished these steps, your device will have been wiped. Set up android if you want, you won't have any reason to get rid of it because UFS doesn't work at the moment (see below). Then, either:
+      </p>
+      <ul>
+       <li>
+        Power off the device. Holding up on the volume rocker, plug the device into a computer.
+       </li>
+       <li>
+        (or, on android) get an adb shell and run
+        <code>
+         adb reboot bootloader
+        </code>
+        .
+       </li>
+      </ul>
       <h2>
        <span class="mw-headline" id="Installation">
         Installation
        </span>
       </h2>
       <p>
-       no install instructions yet. work needed.
+       no actual aport at the moment.
       </p>
       <table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;">
        <tbody>
@@ -495,25 +607,51 @@
          <td style="padding: 2px 0 2px 0.9em; text-align: center;">
           <span style="white-space: nowrap;">
            <img alt="Icon" decoding="async" height="20" src="../Red_warning_icon.svg" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x" title="Icon" width="20"/>
-           <br/>
-           <b>
-            Warning!
-           </b>
           </span>
          </td>
          <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           WARNING:
+          </b>
           DO NOT NEVER EVER EVER TRY TO ENABLE UFS ON NON-VENDOR/NON-SODP KERNELS! IT WILL ERASE THE CHIP CLEAN (INCLUDING THE BOOTLOADER!) CONSIDER YOURSELF WARNED
          </td>
         </tr>
        </tbody>
       </table>
+      <p>
+       For more info on UFS see below
+      </p>
+      <p>
+       Because UFS doesn't work, you'll want to flash the rootfs to an sdcard. Use
+       <code>
+        pmbootstrap install --sdcard=/dev/path-to-sdcard-device
+       </code>
+       . Take a look at
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Partition_Layout" rel="nofollow">
+        partitioning
+       </a>
+       to understand what's going on here.
+      </p>
+      <p>
+       You'll need to flash some empty bytes to the dtbo due to a bootloader bug. Get a file with two empty bytes and then flash it with
+       <code>
+        fastboot flash dtbo emptystuff.img
+       </code>
+      </p>
+      <p>
+       Then flash the kernel as usual, by putting the device into flash mode (fastboot) and then running
+       <code>
+        pmbootstrap flasher flash-kernel
+       </code>
+       .
+      </p>
       <h2>
        <span class="mw-headline" id="Status">
         Status
        </span>
       </h2>
       <p>
-       This device belongs to the Sony Edo platform, which is the Xperia 1 II (pdx203), Xperia 5 II (this one, pdx206) and the original Xperia PRO (pdx204). This might warrant a common platform page if anyone gets their hands on another Edo.
+       This device belongs to the Sony Edo platform, which is the Xperia 1 II (pdx203), Xperia 5 II (this one, pdx206) and the 2020 Xperia PRO (pdx204). This might warrant a common platform page if anyone gets their hands on another Edo.
       </p>
       <p>
        The defining features of the Xperia 5 II compared to other Edo is as follows:
@@ -533,18 +671,29 @@
        </li>
       </ul>
       <p>
-       Quoting mainline
-       <a class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/arch/arm64/boot/dts/qcom/sm8250-sony-xperia-edo.dtsi?id=69cdb97ef6529b6b23c81da37bab7b183af7b8ee" rel="nofollow">
-        commit 69cdb97ef6529b6b23c81da37bab7b183af7b8ee
-       </a>
-       : 'The devices are affected by a scary UFS behaviour where sending a certain UFS command (which is worked around on downstream) renders the device unbootable, by effectively erasing the bootloader. Therefore UFS AND UFSPHY are strictly disabled for now.' Hence the warning above. The workaround disables an instruction in UFS communication, but the fix for this might not get accepted into mainline.
-      </p>
-      <p>
        Work has been done on the device trees in the mainline kernel by the folks over at
        <a class="external text" href="https://somainline.org" rel="nofollow">
         somainline
        </a>
-       . The status of how far this actually boots hasn't been tested by anyone on postmarketOS
+       . The device does boot, USB networking and ssh work, and the framebuffer works, so x11 UIs should work.
+      </p>
+      <h2>
+       <span class="mw-headline" id="UFS">
+        UFS
+       </span>
+      </h2>
+      <p>
+       The phone's internal storage is UFS. Sony's past devices have had a bug that will erase the phone's entire internal storage if you try to start up UFS on mainline, because one of the UFS commands is misimplemented. This includes wiping the bootloader, bricking the device FOR EVER.
+      </p>
+      <p>
+       Sony does all their development on one kernel for all of their devices, which means that the old driver (which includes the UFS workaround) has been carried over. However, it's not known if it was carried over 'just because' or if that behaviour still exists on Edo platform. These devices are still expensive and so far, no-one has been brave enough to test if this workaround is still needed. If you have a beyond-repair Edo device (Xperia 1 ii, 5 ii) that you are willing to sacrifice to the cause, please ask for help on the
+       <a class="external text" href="https://matrix.to/#/#mainline:postmarketos.org" rel="nofollow">
+        mainlining channel
+       </a>
+       .
+      </p>
+      <p>
+       While it's not known if the workaround is definitely needed, we currently have UFS disabled in the device tree, which renders the device's internal storage unusable but means there is no chance of anything getting bricked. It should be possible to patch out this command and reenable UFS in dts on a device-specific kernel eventually.
       </p>
       <h2>
        <span class="mw-headline" id="See_also">
@@ -582,11 +731,6 @@
          Devices
         </a>
        </li>
-       <li>
-        <a href="../en/Category:Not_booting.html" title="Category:Not booting">
-         Not booting
-        </a>
-       </li>
       </ul>
      </div>
     </div>
@@ -598,13 +742,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Sony_Xperia_5_II&amp;oldid=28394">
-      https://wiki.postmarketos.org/index.php?title=Sony_Xperia_5_II&amp;oldid=28394
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Sony_Xperia_5_II&amp;oldid=29274">
+      https://wiki.postmarketos.org/index.php?title=Sony_Xperia_5_II&amp;oldid=29274
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 7 June 2022, at 21:36.
+     This page was last edited on 13 July 2022, at 11:50.
     </li>
     <li id="footer-info-copyright">
      Content is available under

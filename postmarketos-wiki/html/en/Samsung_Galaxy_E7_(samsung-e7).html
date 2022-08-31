@@ -121,7 +121,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm MSM8916 Snapdragon 410
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm MSM8916 Snapdragon 410">
+           Qualcomm MSM8916 Snapdragon 410
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -439,13 +441,31 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
          </th>
          <td class="" style="">
           <div class="feature feature-yes">
            Works
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
+         </th>
+         <td class="" style="">
+          <div>
           </div>
          </td>
         </tr>
@@ -462,6 +482,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -472,6 +532,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -492,7 +561,7 @@
         <tr>
          <td>
           <b>
-           This device is based on
+           This device is based on the
            <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm Snapdragon 410/412 (MSM8916)">
             Snapdragon 410
            </a>
@@ -648,13 +717,12 @@
          <td style="padding: 2px 0 2px 0.9em; text-align: center;">
           <span style="white-space: nowrap;">
            <img alt="Icon" decoding="async" height="20" src="../Red_warning_icon.svg" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x" title="Icon" width="20"/>
-           <br/>
-           <b>
-            Warning!
-           </b>
           </span>
          </td>
          <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           WARNING:
+          </b>
           The speakers are rather loud on 100% volume and may produce distorted sound that may damage your speakers after long use. Please make sure to use reasonable volumes - your ears and your speaker will thank you!
          </td>
         </tr>
@@ -681,15 +749,22 @@
        .
       </p>
       <h2>
-       <span class="mw-headline" id="Battery">
-        Battery
+       <span class="mw-headline" id="Charging">
+        Charging
        </span>
       </h2>
       <p>
        <code>
-        rt5033
+        rt5033-charger
        </code>
-       charger driver is not available, so the charging is not controlled and there is no charging status reporting.
+       driver is not available, so the charging is not controlled and there is no charging status reporting.
+There is also a forgotten patch
+       <sup class="reference" id="cite_ref-1">
+        <a href="#cite_note-1">
+         [1]
+        </a>
+       </sup>
+       .
       </p>
       <h2>
        <span class="mw-headline" id="USB_OTG">
@@ -699,9 +774,9 @@
       <p>
        Another
        <code>
-        rt5033
+        rt5033-charger
        </code>
-       charger driver issue. E7 is currently unable to power up a usb device in mainline. Try a hub with external power supply.
+       driver issue. It's currently unable to power up a usb device in mainline. Try a hub with external power supply.
       </p>
       <h2>
        <span class="mw-headline" id="Accelerometer">
@@ -710,7 +785,7 @@
       </h2>
       <p>
        <code>
-        k2hh
+        lis2hh12
        </code>
        accelerometer is not so stable for auto screen rotation, which suggests you to use fixed portrait or landscape mode.
       </p>
@@ -765,7 +840,28 @@
          Firmware package
         </a>
        </li>
+       <li>
+        <a href="../en/Samsung_Galaxy_E5_(samsung-e5).html" title="Samsung Galaxy E5 (samsung-e5)">
+         Samsung Galaxy E5 (samsung-e5)
+        </a>
+        <div class="mw-references-wrap">
+         <ol class="references">
+         </ol>
+        </div>
+       </li>
       </ul>
+      <li id="cite_note-1">
+       <span class="mw-cite-backlink">
+        <a href="#cite_ref-1">
+         ↑
+        </a>
+       </span>
+       <span class="reference-text">
+        <a class="external text" href="https://lore.kernel.org/lkml/1425864191-4121-1-git-send-email-beomho.seo@samsung.com/" rel="nofollow">
+         power: rt5033: Add Richtek RT533 drivers
+        </a>
+       </span>
+      </li>
      </div>
     </div>
     <div class="catlinks" data-mw="interface" id="catlinks">
@@ -791,13 +887,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_E7_(samsung-e7)&amp;oldid=28488">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_E7_(samsung-e7)&amp;oldid=28488
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_E7_(samsung-e7)&amp;oldid=30519">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_E7_(samsung-e7)&amp;oldid=30519
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 12 June 2022, at 03:09.
+     This page was last edited on 27 August 2022, at 12:33.
     </li>
     <li id="footer-info-copyright">
      Content is available under

@@ -109,7 +109,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm MSM8916 Snapdragon 410
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm MSM8916 Snapdragon 410">
+           Qualcomm MSM8916 Snapdragon 410
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -427,13 +429,31 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
          </th>
          <td class="" style="">
           <div class="feature feature-unavailable">
            Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
+         </th>
+         <td class="" style="">
+          <div>
           </div>
          </td>
         </tr>
@@ -450,6 +470,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -460,6 +520,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -483,7 +552,7 @@
         <tr>
          <td>
           <b>
-           This device is based on
+           This device is based on the
            <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm Snapdragon 410/412 (MSM8916)">
             Snapdragon 410
            </a>
@@ -546,6 +615,16 @@
          <a href="../User:Magic_RB.html" title="User:Magic RB">
           Magic RB
          </a>
+        </li>
+        <li>
+         <a href="../User:W4trmelon.html" title="User:W4trmelon">
+          W4trmelon
+         </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         Works)
         </li>
         <li>
          <a href="../User:WonderfulShrineMaidenOfParadise.html" title="User:WonderfulShrineMaidenOfParadise">
@@ -771,39 +850,13 @@
         </tr>
        </tbody>
       </table>
-      <p>
-       <br/>
-      </p>
       <h2>
-       <span class="mw-headline" id="Panel">
-        Panel
+       <span class="mw-headline" id="Screen">
+        Screen
        </span>
       </h2>
       <p>
-       <code>
-        panel-simple
-       </code>
-       is used, and there is no backlight/brightness control support yet. If panel goes sleeping and turns green, press the power button to wake it up.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Touchscreen">
-        Touchscreen
-       </span>
-      </h2>
-      <p>
-       Touchscreen is not usable due to lacking of driver. Use mouse/keyboard instead.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Touch_keys">
-        Touch keys
-       </span>
-      </h2>
-      <p>
-       Needs a patched driver. See
-       <a href="../en/Tm2-touchkey.html" title="Tm2-touchkey">
-        Tm2-touchkey
-       </a>
-       .
+       Screen works partially. While displaying the UI works fine, adjusting the brightness doesn't work.
       </p>
       <h2>
        <span class="mw-headline" id="Battery">
@@ -826,7 +879,7 @@
        <code>
         sm5703
        </code>
-       charger driver issue. J3 2016 is currently unable to power up a usb device in mainline. Try a hub with external power supply.
+       charger driver issue. It's currently unable to power up a usb device in mainline. Try a hub with external power supply.
       </p>
       <h2>
        <span class="mw-headline" id="Accelerometer">
@@ -835,9 +888,29 @@
       </h2>
       <p>
        <code>
-        k2hh
+        lis2hh12
        </code>
        accelerometer is not so stable for auto screen rotation, which suggests you to use fixed portrait or landscape mode.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Touch_keys">
+        Touch keys
+       </span>
+      </h2>
+      <p>
+       Needs a patched driver. See
+       <a href="../en/Tm2-touchkey.html" title="Tm2-touchkey">
+        Tm2-touchkey
+       </a>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="NFC">
+        NFC
+       </span>
+      </h2>
+      <p>
+       The PN547 NFC chip uses a pad supply voltage (pvdd), which needs a patched driver.
       </p>
       <h2>
        <span class="mw-headline" id="Proximity_Sensor">
@@ -850,14 +923,6 @@
         cm36672p
        </code>
        proximity sensor is not available.
-      </p>
-      <h2>
-       <span class="mw-headline" id="NFC">
-        NFC
-       </span>
-      </h2>
-      <p>
-       The PN547 NFC chip uses a pad supply voltage (pvdd), which needs a patched driver.
       </p>
       <h2>
        <span class="mw-headline" id="Photos">
@@ -940,13 +1005,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_J3_2016_(samsung-j3)&amp;oldid=28355">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_J3_2016_(samsung-j3)&amp;oldid=28355
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_J3_2016_(samsung-j3)&amp;oldid=30532">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_J3_2016_(samsung-j3)&amp;oldid=30532
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 6 June 2022, at 08:01.
+     This page was last edited on 27 August 2022, at 13:12.
     </li>
     <li id="footer-info-copyright">
      Content is available under

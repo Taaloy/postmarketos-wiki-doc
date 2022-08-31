@@ -424,13 +424,31 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
          </th>
          <td class="" style="">
           <div class="feature feature-unavailable">
            Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
+         </th>
+         <td class="" style="">
+          <div>
           </div>
          </td>
         </tr>
@@ -447,6 +465,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -457,6 +515,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -480,7 +547,7 @@
         <tr>
          <td>
           <b>
-           This device is based on
+           This device is based on the
            <a href="../en/ST-Ericsson_NovaThor_U8500.html" title="ST-Ericsson NovaThor U8500">
             ST-Ericsson U8500
            </a>
@@ -567,42 +634,54 @@
          </a>
          <ul>
           <li class="toclevel-2 tocsection-7">
-           <a href="#How_drebrez_made_wifi_work">
-            <span class="tocnumber">
-             5.1
-            </span>
-            <span class="toctext">
-             How drebrez made wifi work
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-8">
            <a href="#Links">
             <span class="tocnumber">
-             5.2
+             5.1
             </span>
             <span class="toctext">
              Links
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-9">
+          <li class="toclevel-2 tocsection-8">
            <a href="#Photos">
             <span class="tocnumber">
-             5.3
+             5.2
             </span>
             <span class="toctext">
              Photos
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-10">
+          <li class="toclevel-2 tocsection-9">
            <a href="#Videos">
             <span class="tocnumber">
-             5.4
+             5.3
             </span>
             <span class="toctext">
              Videos
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-10">
+         <a href="#Vendor_kernel_information">
+          <span class="tocnumber">
+           6
+          </span>
+          <span class="toctext">
+           Vendor kernel information
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-11">
+           <a href="#How_drebrez_made_wifi_work">
+            <span class="tocnumber">
+             6.1
+            </span>
+            <span class="toctext">
+             How drebrez made wifi work
             </span>
            </a>
           </li>
@@ -790,10 +869,12 @@ Accelerometer orientation changed: right-up
 Accelerometer orientation changed: bottom-up
 </pre>
       <p>
-       Apparently iio-sensor-proxy fails to apply the mounting matrix to polled sensors.
-      </p>
-      <p>
-       It seems for example Phosh cannot handle these events from iio-sensor-proxy properly as of writing.
+       <br/>
+       Phosh has a bug so it doesn't handle these events from iio-sensor-proxy properly as of writing. It is fixed upstream in
+       <a class="external text" href="https://gitlab.gnome.org/World/Phosh/phosh/-/commit/56309c65553df15ed6d614b370bd0502f473c8c0" rel="nofollow">
+        this commit
+       </a>
+       .
       </p>
       <p>
        To test the sensors using iio_generic_buffer you first have to create a hrtimer trigger like this:
@@ -845,60 +926,8 @@ Accelerometer orientation changed: bottom-up
       <p>
        And place an NFC card on the back of the phone.
       </p>
-      <h3>
-       <span class="mw-headline" id="How_drebrez_made_wifi_work">
-        How drebrez made wifi work
-       </span>
-      </h3>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          This information concerns the old downstream (vendor) kernel
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <ul>
-       <li>
-        build the kernel module (dhd.ko for samsung-janice)
-       </li>
-       <li>
-        get the vendor files for the
-        <a class="external text" href="https://github.com/Epirex/android_vendor_samsung_u8500" rel="nofollow">
-         Samsung U8500 devices
-        </a>
-       </li>
-       <li>
-        load the module using insmod with the firmware_path and nvram_path parameters
-       </li>
-      </ul>
       <p>
-       <code>
-        insmod dhd.ko firmware_path=/etc/wifi/bcmdhd_sta.bin nvram_path=/etc/wifi/nvram_net.txt
-       </code>
-      </p>
-      <ul>
-       <li>
-        set a mac address
-       </li>
-      </ul>
-      <p>
-       <code>
-        ifconfig wlan0 hw ether 01:02:03:04:05:06
-       </code>
-      </p>
-      <p>
-       Proceed with the generic instruction on how to scan for networks and
-       <a href="../en/WiFi.html#Connecting_to_APs" title="WiFi">
-        WiFi#Connecting_to_APs
-       </a>
-       .
+       <br/>
       </p>
       <h3>
        <span class="mw-headline" id="Links">
@@ -952,6 +981,66 @@ Accelerometer orientation changed: bottom-up
         </a>
        </li>
       </ul>
+      <h2>
+       <span class="mw-headline" id="Vendor_kernel_information">
+        Vendor kernel information
+       </span>
+      </h2>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          This information concerns the old vendor (downstream) kernel. Unless you know what you're doing, go with mainline instead!
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h3>
+       <span class="mw-headline" id="How_drebrez_made_wifi_work">
+        How drebrez made wifi work
+       </span>
+      </h3>
+      <ul>
+       <li>
+        build the kernel module (dhd.ko for samsung-janice)
+       </li>
+       <li>
+        get the vendor files for the
+        <a class="external text" href="https://github.com/Epirex/android_vendor_samsung_u8500" rel="nofollow">
+         Samsung U8500 devices
+        </a>
+       </li>
+       <li>
+        load the module using insmod with the firmware_path and nvram_path parameters
+       </li>
+      </ul>
+      <p>
+       <code>
+        insmod dhd.ko firmware_path=/etc/wifi/bcmdhd_sta.bin nvram_path=/etc/wifi/nvram_net.txt
+       </code>
+      </p>
+      <ul>
+       <li>
+        set a mac address
+       </li>
+      </ul>
+      <p>
+       <code>
+        ifconfig wlan0 hw ether 01:02:03:04:05:06
+       </code>
+      </p>
+      <p>
+       Proceed with the generic instruction on how to scan for networks and
+       <a href="../en/WiFi.html#Connecting_to_APs" title="WiFi">
+        WiFi#Connecting_to_APs
+       </a>
+       .
+      </p>
      </div>
     </div>
     <div class="catlinks" data-mw="interface" id="catlinks">
@@ -977,13 +1066,13 @@ Accelerometer orientation changed: bottom-up
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_S_Advance_(samsung-janice)&amp;oldid=28404">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_S_Advance_(samsung-janice)&amp;oldid=28404
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_S_Advance_(samsung-janice)&amp;oldid=29401">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_S_Advance_(samsung-janice)&amp;oldid=29401
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 8 June 2022, at 08:58.
+     This page was last edited on 17 July 2022, at 16:58.
     </li>
     <li id="footer-info-copyright">
      Content is available under

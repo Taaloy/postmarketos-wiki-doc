@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm MSM8916 Snapdragon 410
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm MSM8916 Snapdragon 410">
+           Qualcomm MSM8916 Snapdragon 410
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -426,9 +428,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -448,6 +468,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -459,6 +519,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -479,7 +548,7 @@
         <tr>
          <td>
           <b>
-           This device is based on
+           This device is based on the
            <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm Snapdragon 410/412 (MSM8916)">
             Snapdragon 410
            </a>
@@ -491,6 +560,9 @@
         </tr>
        </tbody>
       </table>
+      <p>
+       The Moto G4 Play is a 2016 budget smartphone by Motorola. It is the lower cost and smaller sibling to the Moto G4.
+      </p>
       <h2>
        <span class="mw-headline" id="Users_owning_this_device">
         Users owning this device
@@ -549,6 +621,11 @@
          XT1600)
         </li>
         <li>
+         <a href="../User:Linmob.html" title="User:Linmob">
+          Linmob
+         </a>
+        </li>
+        <li>
          <a href="../User:Minecrell.html" title="User:Minecrell">
           Minecrell
          </a>
@@ -601,7 +678,7 @@
          <span class="cargoFieldName">
           Notes:
          </span>
-         XT1607, need firmware-from-device updater in order for my modem to work, shelli ui works well, needs mms then daily driver!)
+         shelli-ui needs testing, modem firmware issues)
         </li>
         <li>
          <a href="../User:VR25.html" title="User:VR25">
@@ -660,17 +737,53 @@
        </span>
       </h2>
       <h3>
-       <span class="mw-headline" id="Preparation">
-        Preparation
+       <span class="mw-headline" id="Things_you_need_to_do_in_android">
+        Things you need to do in android
        </span>
       </h3>
+      <ul>
+       <li>
+        in the developer settings of your android installation, you need to enable "OEM unlocking". This step is necessary to enable the bootloader to be unlocked. Here is a guide that describes how you would do that:
+        <a class="external free" href="https://www.getdroidtips.com/unlock-bootloader-moto-g4-play-harpia/" rel="nofollow">
+         https://www.getdroidtips.com/unlock-bootloader-moto-g4-play-harpia/
+        </a>
+       </li>
+       <li>
+        To unlock your bootloader, you need to have a motorola account (there is no way to avoid that). The reason is, the motorola website needs to generate your OEM unlock key based on the fastboot device ID you need to enter.
+       </li>
+      </ul>
       <p>
-       If necessary, unlock your bootloader by following the instructions on the
+       Do to that, follow the instructions on the
        <a class="external text" href="http://motorola-global-portal.custhelp.com/app/standalone/bootloader/unlock-your-device-a" rel="nofollow">
         Motorola Support page
        </a>
        .
       </p>
+      <p>
+       Basically, these are the steps:
+      </p>
+      <ul>
+       <li>
+        execute fastboot oem get_unlock_data
+       </li>
+       <li>
+        merge this result into one large string (remove "(bootloader)" and whitespace
+       </li>
+       <li>
+        paste this into the form field on the above website.
+       </li>
+       <li>
+        retrieve your oem unlock key from the email the motorola website has sent you. That is the input in the next step
+       </li>
+       <li>
+        execute fastboot oem unlock YOUR_OEM_UNLOCK_KEY
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Other_Preparations">
+        Other Preparations
+       </span>
+      </h3>
       <p>
        Install the
        <a class="external text" href="https://github.com/msm8916-mainline/lk2nd/releases/latest" rel="nofollow">
@@ -1152,13 +1265,13 @@ curr1:       1000.00 uA (avg =  +0.00 A)</pre>
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Motorola_Moto_G4_Play_(motorola-harpia)&amp;oldid=27887">
-      https://wiki.postmarketos.org/index.php?title=Motorola_Moto_G4_Play_(motorola-harpia)&amp;oldid=27887
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Motorola_Moto_G4_Play_(motorola-harpia)&amp;oldid=29785">
+      https://wiki.postmarketos.org/index.php?title=Motorola_Moto_G4_Play_(motorola-harpia)&amp;oldid=29785
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 20 May 2022, at 20:48.
+     This page was last edited on 30 July 2022, at 08:23.
     </li>
     <li id="footer-info-copyright">
      Content is available under

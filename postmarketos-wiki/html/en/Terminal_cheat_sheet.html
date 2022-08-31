@@ -118,6 +118,16 @@
           </span>
          </a>
         </li>
+        <li class="toclevel-1 tocsection-6">
+         <a href="#See_also">
+          <span class="tocnumber">
+           6
+          </span>
+          <span class="toctext">
+           See also
+          </span>
+         </a>
+        </li>
        </ul>
       </div>
       <h2>
@@ -159,7 +169,7 @@
        <code>
         -a
        </code>
-       option allows downgrading packages to what's available in the repository. This is sometimes needed when packages are moved from a git version to a stable release.
+       option allows downgrading packages to what's available in the repository. It is generally recommended to always use this option, especially on stable releases, to ensure that any package reverts make it to your device.
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
        <pre><span></span><span class="gp">$</span> sudo apk upgrade -a
@@ -286,6 +296,13 @@
        .
       </p>
       <p>
+       ModemManager logs to syslog by default as well, but prints almost nothing until manually increasing the log level with
+       <code>
+        sudo mmcli -G DEBUG
+       </code>
+       . Be aware that especially ModemManager logs a lot of sensitive information, such as phone numbers, text messages, IMEI, cell towers, etc!
+      </p>
+      <p>
        Most user interfaces use
        <a class="external text" href="https://gitlab.com/postmarketOS/tinydm" rel="nofollow">
         tinydm
@@ -294,6 +311,13 @@
        <code>
         ~/.local/state/tinydm.log
        </code>
+       .
+      </p>
+      <p>
+       A discussion to possibly change logging defaults is in
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1574" rel="nofollow">
+        pmaports#1574
+       </a>
        .
       </p>
       <h2>
@@ -352,9 +376,35 @@ but installing the specific documentation subpackage. For example for vim docume
 <span class="gp">$</span> sudo apk add grml-zsh-config oh-my-zsh
 </pre>
       </div>
+      <h2>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h2>
+      <ul>
+       <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1574" rel="nofollow">
+         pmaports#1574
+        </a>
+        Make logging consistent
+       </li>
+      </ul>
      </div>
     </div>
-    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Guide.html" title="Category:Guide">
+         Guide
+        </a>
+       </li>
+      </ul>
+     </div>
     </div>
     <div class="visualClear">
     </div>
@@ -364,13 +414,13 @@ but installing the specific documentation subpackage. For example for vim docume
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Terminal_cheat_sheet&amp;oldid=24150">
-      https://wiki.postmarketos.org/index.php?title=Terminal_cheat_sheet&amp;oldid=24150
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Terminal_cheat_sheet&amp;oldid=30117">
+      https://wiki.postmarketos.org/index.php?title=Terminal_cheat_sheet&amp;oldid=30117
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 12 December 2021, at 11:03.
+     This page was last edited on 8 August 2022, at 13:12.
     </li>
     <li id="footer-info-copyright">
      Content is available under

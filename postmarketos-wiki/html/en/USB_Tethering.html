@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   USB Tethering - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-USB_Tethering rootpage-USB_Tethering skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    USB Tethering
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       This is a guide for using the mobile data or wifi of a postmarketOS device through USB on your host device. For the inverse see the
+       <a href="../en/USB_Internet.html" title="USB Internet">
+        USB Internet
+       </a>
+       page if you need to use the USB connection to get internet from your host into the postmarketOS device.
+      </p>
+      <h2>
+       <span class="mw-headline" id="On_the_postmarketOS_device">
+        On the postmarketOS device
+       </span>
+      </h2>
+      <p>
+       On the postmarketOS device side the firewall needs to be configured to perform NAT between the USB interface and it's default gateway. The default gateway can be either the WiFi or the modem in the device.
+      </p>
+      <p>
+       First enable ip forwarding between the interfaces:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> sysctl net.ipv4.ip_forward<span class="o">=</span><span class="m">1</span>
+</pre>
+      </div>
+      <p>
+       Then adjust the firewall configuration to NAT between the USB interface and the other interfaces
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> nft add table inet nat
+<span class="gp">#</span> nft <span class="s1">'add chain inet nat postrouting { type nat hook postrouting priority 100 ; }'</span>
+<span class="gp">#</span> nft add rule inet nat postrouting iifname <span class="s2">"usb*"</span> masquerade
+</pre>
+      </div>
+      <p>
+       The default nftables configuration in postmarketOS already has the other rules setup to make USB tethering work.
+      </p>
+      <h2>
+       <span class="mw-headline" id="On_the_host_side">
+        On the host side
+       </span>
+      </h2>
+      <p>
+       Plug the postmarketOS device into your PC or laptop and run a DHCP client against the USB interface that shows up. It's also possible to use a static IP configuration.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span>address 172.16.42.2
+netmask 255.255.255.0
+gateway 172.16.42.1
+</pre>
+      </div>
+      <p>
+       If your host has automatically done DHCP on the USB interfaces, as is common on most Linux distributions. The only thing required is setting the default gateway to the USB interface since the
+DHCP server on the postmarketOS device does not set the default gateway.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="go">remove the existing default route if you have one</span>
+<span class="gp">#</span> ip route del default
+
+<span class="go">Add a default route through the postmarketOS device</span>
+<span class="gp">#</span> ip route add default via <span class="m">172</span>.16.42.1
+</pre>
+      </div>
+     </div>
+    </div>
+    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=USB_Tethering&amp;oldid=30275">
+      https://wiki.postmarketos.org/index.php?title=USB_Tethering&amp;oldid=30275
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 16 August 2022, at 19:28.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=USB_Tethering&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
+</html>

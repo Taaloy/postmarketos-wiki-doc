@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm MSM8916 Snapdragon 410
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm MSM8916 Snapdragon 410">
+           Qualcomm MSM8916 Snapdragon 410
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -431,13 +433,31 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
          </th>
          <td class="" style="">
           <div class="feature feature-unavailable">
            Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
+         </th>
+         <td class="" style="">
+          <div>
           </div>
          </td>
         </tr>
@@ -454,6 +474,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -464,6 +524,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -484,7 +553,7 @@
         <tr>
          <td>
           <b>
-           This device is based on
+           This device is based on the
            <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm Snapdragon 410/412 (MSM8916)">
             Snapdragon 410
            </a>
@@ -578,6 +647,16 @@
          <a href="../User:WTechNinja.html" title="User:WTechNinja">
           WTechNinja
          </a>
+        </li>
+        <li>
+         <a href="../User:Zephyr1112.html" title="User:Zephyr1112">
+          Zephyr1112
+         </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         grandprimelte, SM-G530FZ, dead (dead mobo))
         </li>
        </ul>
       </div>
@@ -709,15 +788,22 @@
 </pre>
       </div>
       <h2>
-       <span class="mw-headline" id="Battery">
-        Battery
+       <span class="mw-headline" id="Charging">
+        Charging
        </span>
       </h2>
       <p>
        <code>
-        rt5033
+        rt5033-charger
        </code>
-       charger driver is not available, so the charging is not controlled and there is no charging status reporting.
+       driver is not available, so the charging is not controlled and there is no charging status reporting.
+There is also a forgotten patch
+       <sup class="reference" id="cite_ref-1">
+        <a href="#cite_note-1">
+         [1]
+        </a>
+       </sup>
+       .
       </p>
       <h2>
        <span class="mw-headline" id="USB_OTG">
@@ -727,9 +813,9 @@
       <p>
        Another
        <code>
-        rt5033
+        rt5033-charger
        </code>
-       charger driver issue. Grand Prime is currently unable to power up a usb device in mainline. Try a hub with external power supply.
+       driver issue. It's currently unable to power up a usb device in mainline. Try a hub with external power supply.
       </p>
       <h2>
        <span class="mw-headline" id="Accelerometer">
@@ -847,8 +933,24 @@
          Firmware package
         </a>
         (fortunaltezt)
+        <div class="mw-references-wrap">
+         <ol class="references">
+         </ol>
+        </div>
        </li>
       </ul>
+      <li id="cite_note-1">
+       <span class="mw-cite-backlink">
+        <a href="#cite_ref-1">
+         ↑
+        </a>
+       </span>
+       <span class="reference-text">
+        <a class="external text" href="https://lore.kernel.org/lkml/1425864191-4121-1-git-send-email-beomho.seo@samsung.com/" rel="nofollow">
+         power: rt5033: Add Richtek RT533 drivers
+        </a>
+       </span>
+      </li>
      </div>
     </div>
     <div class="catlinks" data-mw="interface" id="catlinks">
@@ -874,13 +976,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Grand_Prime_(samsung-gprime)&amp;oldid=27939">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Grand_Prime_(samsung-gprime)&amp;oldid=27939
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Grand_Prime_(samsung-gprime)&amp;oldid=30240">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Grand_Prime_(samsung-gprime)&amp;oldid=30240
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 22 May 2022, at 18:22.
+     This page was last edited on 16 August 2022, at 17:18.
     </li>
     <li id="footer-info-copyright">
      Content is available under

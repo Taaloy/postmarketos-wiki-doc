@@ -128,7 +128,7 @@
 | display = CHANGE_ME &lt;<span class="k">!</span>-- e.g. 480x800 AMOLED --&gt;
 | memory = CHANGE_ME &lt;<span class="k">!</span>-- e.g. 576 MB --&gt;
 | architecture = &lt;<span class="k">!</span>-- One of these: armhf, armv7, aarch64, x86, x86_64 --&gt;
-&lt;<span class="k">!</span>-- the following status_* questions should be answered with Y - yes, P - partial, N - no, or left blank (for untested or unknown) --&gt;
+&lt;<span class="k">!</span>-- the following status_* questions should be answered with Y for yes, P for partial, N for no, - for N/A or unavailable, or left blank for untested or unknown --&gt;
 | status_usbnet = &lt;<span class="k">!</span>-- USB networking does work? then put Y here and delete this comment --&gt;
 | status_flashing = &lt;<span class="k">!</span>-- Flashing with "pmbootstrap flasher" works? Put Y here. It works the same for everything coming below. --&gt;
 | status_touch = &lt;<span class="k">!</span>-- Touch screen is working? You can also answer these questions with P for partially. --&gt;
@@ -149,12 +149,20 @@
 | status = &lt;<span class="k">!</span>-- Text displayed in the "not booting" table on the Devices page , e.g "kernel compiles, doesn't boot" --&gt;
 | status_otg = &lt;<span class="k">!</span>-- USB-OTG adapters work, e.g. to connect an USB flash drive to the device --&gt;
 | status_nfc = &lt;<span class="k">!</span>-- Near-Field Communication (NFC) works --&gt;
+| status_usba = &lt;<span class="k">!</span>-- Full-sized USB-A port works (Usually applicable to SBCs and laptops) --&gt;
+| status_hdmidp = &lt;<span class="k">!</span>-- Video and audio output with HDMI or DisplayPort works --&gt;
+| status_keyboard = &lt;<span class="k">!</span>-- Keyboard works (Mark "-" if device doesn't have a keyboard) --&gt;
+| status_touchpad = &lt;<span class="k">!</span>-- Touchpad works (Usually applicable to laptops) --&gt;
 | status_irtx = &lt;<span class="k">!</span>-- Infrared (IR) port works --&gt;
+| status_trustzone = &lt;<span class="k">!</span>-- TrustZone works --&gt;
 | status_accel = &lt;<span class="k">!</span>-- The sensor that measures proper acceleration works --&gt;
 | status_magnet = &lt;<span class="k">!</span>-- Magnetometer works --&gt;
 | status_light = &lt;<span class="k">!</span>-- Ambient light sensor works --&gt;
 | status_proximity = &lt;<span class="k">!</span>-- Proximity sensor works --&gt;
 | status_hall = &lt;<span class="k">!</span>-- Hall effect sensor works --&gt;
+| status_barometer = &lt;<span class="k">!</span>-- Barometer works --&gt;
+| status_powersensor = &lt;<span class="k">!</span>-- Power sensor works --&gt;
+| status_fossbootloader = &lt;<span class="k">!</span>-- Device has a free and open source bootloader --&gt;
 | booting = no &lt;<span class="k">!</span>-- The device is booting at all, can be yes/no *IMPORTANT* --&gt;
 
 &lt;<span class="k">!</span>-- you can also use these lines if you need to:
@@ -217,13 +225,13 @@ If you manage to get your device packages merged, uncomment links below and chan
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Help:Device_Page&amp;oldid=27534">
-      https://wiki.postmarketos.org/index.php?title=Help:Device_Page&amp;oldid=27534
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Help:Device_Page&amp;oldid=29612">
+      https://wiki.postmarketos.org/index.php?title=Help:Device_Page&amp;oldid=29612
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 6 May 2022, at 20:14.
+     This page was last edited on 24 July 2022, at 21:07.
     </li>
     <li id="footer-info-copyright">
      Content is available under

@@ -117,7 +117,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm SDM632 Snapdragon 632
+          <a class="new" href="/index.php?title=Qualcomm_SDM632_Snapdragon_632&amp;action=edit&amp;redlink=1" title="Qualcomm SDM632 Snapdragon 632 (page does not exist)">
+           Qualcomm SDM632 Snapdragon 632
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -413,9 +415,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -435,6 +455,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -445,6 +505,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -488,6 +557,11 @@
          </a>
         </li>
         <li>
+         <a href="../User:Mtvec.html" title="User:Mtvec">
+          Mtvec
+         </a>
+        </li>
+        <li>
          <a href="../User:Z3ntu.html" title="User:Z3ntu">
           Z3ntu
          </a>
@@ -515,6 +589,460 @@ Then In fastboot mode type:
         Installation
        </span>
       </h2>
+      <h3>
+       <span class="mw-headline" id="Mainline">
+        Mainline
+       </span>
+      </h3>
+      <p>
+       Follow the usual
+       <a href="../en/Installation_guide.html" title="Installation guide">
+        Installation guide
+       </a>
+       but stop before flashing.
+      </p>
+      <p>
+       Download
+       <code>
+        dtbo.img
+       </code>
+       <a class="external text" href="https://github.com/z3ntu/dtbo-fp3/releases/tag/v1.0" rel="nofollow">
+        here
+       </a>
+       . Enter fastboot mode and and flash the downloaded image to the dtbo partition:
+      </p>
+      <pre>fastboot flash dtbo dtbo.img
+</pre>
+      <p>
+       Install
+       <a class="external text" href="https://github.com/msm8953-mainline/lk2nd" rel="nofollow">
+        lk2nd
+       </a>
+       and flash it to your device:
+      </p>
+      <pre>pmbootstrap chroot -r -- apk add lk2nd-msm8953
+pmbootstrap flasher flash_lk2nd
+</pre>
+      <p>
+       Boot your device. Once you see the warning screen about the unlocked boot loader, press the power button twice and then immediately hold the volume down button. You should now see a flickering version of the fastboot screen. This is lk2nd's fastboot mode and you can now continue the normal flashing procedure.
+      </p>
+      <p>
+       Note that the boot process seems to hang without a USB cable connected.
+      </p>
+      <p>
+       <br/>
+      </p>
+      <h3>
+       <span class="mw-headline" id="Downstream">
+        Downstream
+       </span>
+      </h3>
+      <p>
+       The normal
+       <a href="../en/Installation_guide.html" title="Installation guide">
+        Installation guide
+       </a>
+       should work out of the box. However, if you flashed mainline before, the original
+       <code>
+        dtbo.img
+       </code>
+       needs to be restored. A working one can be found from the
+       <a class="external text" href="https://images.ecloud.global/stable/FP3/" rel="nofollow">
+        /e/ images
+       </a>
+       . Unzip it and flash
+       <code>
+        dtbo.img
+       </code>
+       as above.
+      </p>
+      <h2>
+       <span class="mw-headline" id="Mainlining">
+        Mainlining
+       </span>
+      </h2>
+      <p>
+       <code>
+        /proc/device-tree/model
+       </code>
+       on the downstream kernel contains "MTB S3". The corresponding DTS file is
+       <code>
+        arch/arm64/boot/dts/qcom/sdm450-mtp-s3-overlay.dts
+       </code>
+       .
+      </p>
+      <p>
+       The mainline kernel used is
+       <a class="external text" href="https://github.com/msm8953-mainline/linux" rel="nofollow">
+        msm8953-mainline
+       </a>
+       , branch "msm8953-5.16". Note that branches of later kernel versions (e.g., 5.18) do not seem to work.
+      </p>
+      <h3>
+       <span class="mw-headline" id="Component_support_table">
+        Component support table
+       </span>
+      </h3>
+      <table class="wikitable">
+       <tbody>
+        <tr>
+         <th>
+          Description
+         </th>
+         <th>
+          Component
+         </th>
+         <th>
+          Mainline kernel
+         </th>
+         <th>
+          Since when
+         </th>
+        </tr>
+        <tr>
+         <td>
+          Power button
+         </td>
+         <td>
+          pm8953 pwrkey
+         </td>
+         <td>
+          Working
+         </td>
+         <td>
+          5.16
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Volume down button
+         </td>
+         <td>
+          pm8953 resin
+         </td>
+         <td>
+          Working
+         </td>
+         <td>
+          5.16
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Volume up button
+         </td>
+         <td>
+          gpio-keys
+         </td>
+         <td>
+          Working
+         </td>
+         <td>
+          5.16
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Internal storage
+         </td>
+         <td>
+          sdhc_1
+         </td>
+         <td>
+          Working
+         </td>
+         <td>
+          5.16
+         </td>
+        </tr>
+        <tr>
+         <td>
+          SD card
+         </td>
+         <td>
+          sdhc_2
+         </td>
+         <td>
+          Working
+         </td>
+         <td>
+          5.16
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Display
+         </td>
+         <td>
+          hx83112b
+         </td>
+         <td>
+          Working
+         </td>
+         <td>
+          5.16
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Touchscreen
+         </td>
+         <td>
+          hx83112b
+         </td>
+         <td>
+          Working
+         </td>
+         <td>
+          <a href="#Touchscreen">
+           unofficial
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          NFC
+         </td>
+         <td>
+          NXP NCI
+         </td>
+         <td>
+         </td>
+         <td>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Vibration motor
+         </td>
+         <td>
+          pmi632 qcom,vibrator@5700
+         </td>
+         <td>
+         </td>
+         <td>
+          <a href="#Vibration_motor">
+           unofficial
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Notification LED
+         </td>
+         <td>
+          pmi632 qcom,leds@d000
+         </td>
+         <td>
+         </td>
+         <td>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Charger
+         </td>
+         <td>
+          pmi632 qcom,qpnp-smb5
+         </td>
+         <td>
+         </td>
+         <td>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Fuel gauge
+         </td>
+         <td>
+          pmi632 qpnp,qg
+         </td>
+         <td>
+         </td>
+         <td>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          WiFi
+         </td>
+         <td>
+          pronto
+         </td>
+         <td>
+          Working
+         </td>
+         <td>
+          5.16
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Bluetooth
+         </td>
+         <td>
+          pronto
+         </td>
+         <td>
+          Working
+         </td>
+         <td>
+          5.16
+         </td>
+        </tr>
+        <tr>
+         <td>
+          FP3 front camera
+         </td>
+         <td>
+          S5K4H7YX
+         </td>
+         <td>
+         </td>
+         <td>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          FP3 rear camera
+         </td>
+         <td>
+          IMX363
+         </td>
+         <td>
+         </td>
+         <td>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          FP3+ front camera
+         </td>
+         <td>
+          S5K3P9SP
+         </td>
+         <td>
+         </td>
+         <td>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          FP3+ rear camera
+         </td>
+         <td>
+          S5KGM1SP03-FGX9
+         </td>
+         <td>
+         </td>
+         <td>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Camera flash
+         </td>
+         <td>
+          pmi632 qcom,leds@d300
+         </td>
+         <td>
+         </td>
+         <td>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          Audio codec
+         </td>
+         <td>
+          WCD9326
+         </td>
+         <td>
+         </td>
+         <td>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          FP3 speaker amp
+         </td>
+         <td>
+          AW8898
+         </td>
+         <td>
+         </td>
+         <td>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          FP3+ speaker amp
+         </td>
+         <td>
+          TAS2557
+         </td>
+         <td>
+         </td>
+         <td>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <h4>
+       <span class="mw-headline" id="Touchscreen">
+        Touchscreen
+       </span>
+      </h4>
+      <p>
+       A PR for a driver can be found
+       <a class="external text" href="https://github.com/msm8953-mainline/linux/pull/43" rel="nofollow">
+        here
+       </a>
+       .
+      </p>
+      <h4>
+       <span class="mw-headline" id="Vibration_motor">
+        Vibration motor
+       </span>
+      </h4>
+      <p>
+       The Android driver is copied into mainline
+       <a class="external text" href="https://github.com/mtvec/msm8953-mainline-linux/tree/fp3-vibrator" rel="nofollow">
+        here
+       </a>
+       . It has been updated to register itself as a FF input device so feedbackd should work. You can test it like this:
+      </p>
+      <pre>fftest /dev/input/by-path/platform-200f000.spmi-platform-200f000.spmi:pmi632_3@3:qcom_vibrator@5700-event
+</pre>
+      <p>
+       <span id="audio-path">
+       </span>
+      </p>
+      <h4>
+       <span class="mw-headline" id="Audio_path">
+        Audio path
+       </span>
+      </h4>
+      <ul>
+       <li>
+        CPU via I2S (quinary) to AW8898/TAS2557: speaker (and echo reference back)
+       </li>
+       <li>
+        CPU via SLIMbus to WCD9326: microphones, headphones, etc.
+       </li>
+      </ul>
+      <h4>
+       <span class="mw-headline" id="GPU">
+        GPU
+       </span>
+      </h4>
+      <p>
+       Works but causes some glitches in GTK4 apps (e.g., in Phosh). A workaround seems to be to add
+       <code>
+        FD_MESA_DEBUG=nobin
+       </code>
+       to your environment.
+      </p>
       <h2>
        <span class="mw-headline" id="Links">
         Links
@@ -563,13 +1091,13 @@ Then In fastboot mode type:
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Fairphone_3_(fairphone-fp3)&amp;oldid=26893">
-      https://wiki.postmarketos.org/index.php?title=Fairphone_3_(fairphone-fp3)&amp;oldid=26893
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Fairphone_3_(fairphone-fp3)&amp;oldid=29590">
+      https://wiki.postmarketos.org/index.php?title=Fairphone_3_(fairphone-fp3)&amp;oldid=29590
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 11 April 2022, at 12:19.
+     This page was last edited on 24 July 2022, at 10:12.
     </li>
     <li id="footer-info-copyright">
      Content is available under

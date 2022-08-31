@@ -377,15 +377,15 @@ successfully sent the SMS
         If your SIM is locked, make sure to enter PIN (see above).
        </li>
        <li>
-        Check for the name of your modem, it should be
+        Look up your modem device name
         <code>
          wwan0qmi0
         </code>
-        ,
+        /
         <code>
          cdc-wdm0
         </code>
-        , or
+        /
         <code>
          rpmsg0
         </code>
@@ -413,36 +413,43 @@ lo             loopback  unmanaged     --
        </li>
       </ul>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span>$ sudo nmcli con add con-name <span class="s2">"modem"</span> <span class="nb">type</span> <span class="s2">"gsm"</span> ifname <span class="s2">"modem-name"</span> auto-config <span class="s2">"TRUE"</span>
-<span class="c1"># OR</span>
-$ sudo nmcli con add con-name <span class="s2">"modem"</span> <span class="nb">type</span> <span class="s2">"gsm"</span> ifname <span class="s2">"modem-name"</span> apn <span class="s2">"internet.mts.ru"</span>
+       <pre><span></span><span class="c1"># Change "gsm" and "wwan0qmi0" to your DEVICE and TYPE</span>
+$ sudo nmcli con add con-name <span class="s2">"modem"</span> <span class="nb">type</span> <span class="s2">"gsm"</span> ifname <span class="s2">"wwan0qmi0"</span> auto-config <span class="s2">"TRUE"</span>
+<span class="c1"># If auto-config doesn't work, adjust this command to use your ISP's apn etc.</span>
+$ sudo nmcli con add con-name <span class="s2">"modem"</span> <span class="nb">type</span> <span class="s2">"gsm"</span> ifname <span class="s2">"wwan0qmi0"</span> apn <span class="s2">"internet.mts.ru"</span> user <span class="s2">"mts"</span> password <span class="s2">"mts"</span>
 Connection <span class="s1">'modem'</span> <span class="o">(</span>xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx<span class="o">)</span> successfully added.
 </pre>
       </div>
       <p>
-       If autoconfig doesn't work, adjust this command to use your ISP's apn etc.
+       NetworkManager will then connect mobile network automatically when it's available.
+       <br/>
+       To connect manually use
+       <code>
+        sudo nmcli c up "modem"
+       </code>
+       .
       </p>
       <ul>
        <li>
-        Enable the network connection:
+        Check if an IP address is assigned to wwan0/rmnet0/etc with
         <code>
-         sudo nmcli c up modem
+         ip addr
         </code>
         .
        </li>
        <li>
-        Check if you get an IP address assigned in
+        Check if modem is the gateway with
         <code>
-         ip addr
+         ip route
         </code>
-        (interface
+        (expect
         <code>
-         rmnet0
+         default via 10... dev wwan0/rmnet0/etc ...
         </code>
-        ).
+        )
        </li>
        <li>
-        Try to ping something (e.g.
+        Ping something (e.g.
         <code>
          ping 8.8.8.8
         </code>
@@ -450,10 +457,7 @@ Connection <span class="s1">'modem'</span> <span class="o">(</span>xxxxxx-xxxx-x
        </li>
       </ul>
       <p>
-       NetworkManager will then connect mobile network automatically when it's available.
-      </p>
-      <p>
-       See also
+       See
        <a class="external free" href="https://gist.github.com/Minecrell/4cc2bfb9fcae18e294386b0a213907d1" rel="nofollow">
         https://gist.github.com/Minecrell/4cc2bfb9fcae18e294386b0a213907d1
        </a>
@@ -830,13 +834,13 @@ See this page to use it:
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Modem&amp;oldid=23272">
-      https://wiki.postmarketos.org/index.php?title=Modem&amp;oldid=23272
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Modem&amp;oldid=29439">
+      https://wiki.postmarketos.org/index.php?title=Modem&amp;oldid=29439
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 28 October 2021, at 01:29.
+     This page was last edited on 19 July 2022, at 20:45.
     </li>
     <li id="footer-info-copyright">
      Content is available under

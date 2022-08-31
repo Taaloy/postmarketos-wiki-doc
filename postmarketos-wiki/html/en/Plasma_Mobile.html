@@ -495,10 +495,19 @@
       <p>
        In command line:
       </p>
-      <pre>qdbus org.kde.KWin /Screenshot org.kde.kwin.Screenshot.screenshotArea 0 0 1080 1920
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span>qdbus org.kde.KWin /Screenshot org.kde.kwin.Screenshot.screenshotArea <span class="m">0</span> <span class="m">0</span> <span class="m">1080</span> <span class="m">1920</span>
 </pre>
+      </div>
       <p>
-       qdbus-qt5 is from package qt5-qttools.
+       <code>
+        qdbus-qt5
+       </code>
+       is from package
+       <code>
+        qt5-qttools
+       </code>
+       .
       </p>
       <h2>
        <span class="mw-headline" id="Power_Off_and_Reboot">
@@ -507,8 +516,8 @@
       </h2>
       <p>
        Hold the power button for about three seconds, then let go. Do not hold it too long, or else you will force-reboot your device. You will be presented with the options to reboot, power off or cancel.
-       <a class="external text" href="https://invent.kde.org/plasma/plasma-phone-components/-/issues/71" rel="nofollow">
-        plasma-phone-components#71
+       <a class="external text" href="https://invent.kde.org/plasma/plasma-mobile/-/issues/71" rel="nofollow">
+        plasma-phone#71
        </a>
        is about making this a bit more intuitive.
       </p>
@@ -544,19 +553,17 @@
       <p>
        The following sets a 2x scale factor:
       </p>
-      <p>
-       <code>
-        kscreen-doctor output.1.scale.2
-       </code>
-      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span>kscreen-doctor output.1.scale.2
+</pre>
+      </div>
       <p>
        If you're trying to run this from SSH session, you need to set extra env vars:
       </p>
-      <p>
-       <code>
-        XDG_RUNTIME_DIR=/run/user/10000 QT_QPA_PLATFORM=wayland kscreen-doctor output.1.scale.2
-       </code>
-      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="nv">XDG_RUNTIME_DIR</span><span class="o">=</span>/run/user/10000 <span class="nv">QT_QPA_PLATFORM</span><span class="o">=</span>wayland kscreen-doctor output.1.scale.2
+</pre>
+      </div>
       <h2>
        <span class="mw-headline" id="Log_output">
         Log output
@@ -593,8 +600,8 @@
       </p>
       <p>
        If the file did not get installed for you, please double check if it is there and report in
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/issues/1038" rel="nofollow">
-        1038
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1038" rel="nofollow">
+        #1038
        </a>
        .
       </p>
@@ -661,7 +668,7 @@
           </span>
          </td>
          <td style="padding: 0.35em 0.9em; width: 100%;">
-          Famebuffer backend for kwin
+          Famebuffer backend for KWin
           <a class="external text" href="https://invent.kde.org/plasma/kwin/-/merge_requests/1906" rel="nofollow">
            is now
           </a>
@@ -684,10 +691,12 @@
        is installed (it contains swrast dri module).
       </p>
       <p>
-       Edit kwin wrapper startup script
+       Edit KWin wrapper startup script:
       </p>
-      <pre>$ sudo nano /usr/bin/kwinwrapper
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> nano /usr/bin/kwinwrapper
 </pre>
+      </div>
       <p>
        Comment out existing startplasma invocation command at the end of file and replace it with
       </p>
@@ -707,11 +716,16 @@ startplasma-wayland <span class="se">\</span>
       <p>
        Then restart tinydm
       </p>
-      <pre>$ sudo rc-service tinydm restart
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> rc-service tinydm restart
 </pre>
+      </div>
       <p>
-       <br/>
-       You can alternatively try this script to run e.g. plasma-desktop on X11
+       You can alternatively try this script to run e.g.
+       <code>
+        plasma-desktop
+       </code>
+       on X11
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
        <pre><span></span><span class="ch">#!/bin/sh</span>
@@ -740,33 +754,35 @@ startx /usr/bin/startplasma-x11
       <p>
        It can also be launched manually by running the following script:
       </p>
-      <pre>#!/bin/sh
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="ch">#!/bin/sh</span>
 
-export QML2_IMPORT_PATH=/usr/lib/qt/qml:/usr/lib/qt5/qml
-export QT_QPA_PLATFORMTHEME=KDE
-export QT_QUICK_CONTROLS_STYLE=Plasma
-export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-export XDG_CURRENT_DESKTOP=KDE
-export KDE_SESSION_VERSION=5
-export PLASMA_PLATFORM=phone:handset
-export QT_VIRTUALKEYBOARD_STYLE=Plasma
-export QT_QUICK_CONTROLS_MOBILE=true
-export QT_ENABLE_GLYPH_CACHE_WORKAROUND=1
-sleep 2
+<span class="nb">export</span> <span class="nv">QML2_IMPORT_PATH</span><span class="o">=</span>/usr/lib/qt/qml:/usr/lib/qt5/qml
+<span class="nb">export</span> <span class="nv">QT_QPA_PLATFORMTHEME</span><span class="o">=</span>KDE
+<span class="nb">export</span> <span class="nv">QT_QUICK_CONTROLS_STYLE</span><span class="o">=</span>Plasma
+<span class="nb">export</span> <span class="nv">QT_WAYLAND_DISABLE_WINDOWDECORATION</span><span class="o">=</span><span class="m">1</span>
+<span class="nb">export</span> <span class="nv">XDG_CURRENT_DESKTOP</span><span class="o">=</span>KDE
+<span class="nb">export</span> <span class="nv">KDE_SESSION_VERSION</span><span class="o">=</span><span class="m">5</span>
+<span class="nb">export</span> <span class="nv">PLASMA_PLATFORM</span><span class="o">=</span>phone:handset
+<span class="nb">export</span> <span class="nv">QT_VIRTUALKEYBOARD_STYLE</span><span class="o">=</span>Plasma
+<span class="nb">export</span> <span class="nv">QT_QUICK_CONTROLS_MOBILE</span><span class="o">=</span><span class="nb">true</span>
+<span class="nb">export</span> <span class="nv">QT_ENABLE_GLYPH_CACHE_WORKAROUND</span><span class="o">=</span><span class="m">1</span>
+sleep <span class="m">2</span>
 
-if [ -d "/dev/dri" ]; then
-	kwin_wayland --drm --xwayland plasma-phone 2&gt;&amp;1 | logger -t "$(whoami):plasma-mobile"
-else
-	# NOTE: using GALLIUM_DRIVER=llvmpipe might give you better performance (or not work at all.)
-	# see: https://gitlab.com/postmarketOS/pmaports/-/issues/852
-	export GALLIUM_DRIVER=softpipe
-	export KWIN_COMPOSE=Q
-	export LIBGL_ALWAYS_SOFTWARE=1
+<span class="k">if</span> <span class="o">[</span> -d <span class="s2">"/dev/dri"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+	kwin_wayland --drm --xwayland plasma-phone <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> logger -t <span class="s2">"</span><span class="k">$(</span>whoami<span class="k">)</span><span class="s2">:plasma-mobile"</span>
+<span class="k">else</span>
+	<span class="c1"># NOTE: using GALLIUM_DRIVER=llvmpipe might give you better performance (or not work at all.)</span>
+	<span class="c1"># see: https://gitlab.com/postmarketOS/pmaports/-/issues/852</span>
+	<span class="nb">export</span> <span class="nv">GALLIUM_DRIVER</span><span class="o">=</span>softpipe
+	<span class="nb">export</span> <span class="nv">KWIN_COMPOSE</span><span class="o">=</span>Q
+	<span class="nb">export</span> <span class="nv">LIBGL_ALWAYS_SOFTWARE</span><span class="o">=</span><span class="m">1</span>
 
-	echo "startplasmamobile: using software rendering with: ${GALLIUM_DRIVER}" | logger -t "$(whoami):plasma-mobile"
-	kwin_wayland --framebuffer --xwayland plasma-phone 2&gt;&amp;1 | logger -t "$(whoami):plasma-mobile"
-fi
+	<span class="nb">echo</span> <span class="s2">"startplasmamobile: using software rendering with: </span><span class="si">${</span><span class="nv">GALLIUM_DRIVER</span><span class="si">}</span><span class="s2">"</span> <span class="p">|</span> logger -t <span class="s2">"</span><span class="k">$(</span>whoami<span class="k">)</span><span class="s2">:plasma-mobile"</span>
+	kwin_wayland --framebuffer --xwayland plasma-phone <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> logger -t <span class="s2">"</span><span class="k">$(</span>whoami<span class="k">)</span><span class="s2">:plasma-mobile"</span>
+<span class="k">fi</span>
 </pre>
+      </div>
       <h2>
        <span class="mw-headline" id="Flickering_in_Mozilla_Firefox">
         Flickering in Mozilla Firefox
@@ -816,13 +832,13 @@ fi
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Plasma_Mobile&amp;oldid=26590">
-      https://wiki.postmarketos.org/index.php?title=Plasma_Mobile&amp;oldid=26590
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Plasma_Mobile&amp;oldid=29694">
+      https://wiki.postmarketos.org/index.php?title=Plasma_Mobile&amp;oldid=29694
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 29 March 2022, at 11:35.
+     This page was last edited on 27 July 2022, at 02:21.
     </li>
     <li id="footer-info-copyright">
      Content is available under

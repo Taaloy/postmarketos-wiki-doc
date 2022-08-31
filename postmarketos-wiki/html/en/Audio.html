@@ -161,9 +161,19 @@
             </span>
            </a>
           </li>
+          <li class="toclevel-2 tocsection-10">
+           <a href="#Audio_cutting_out_when_multiple_streams_start_playing">
+            <span class="tocnumber">
+             2.4
+            </span>
+            <span class="toctext">
+             Audio cutting out when multiple streams start playing
+            </span>
+           </a>
+          </li>
          </ul>
         </li>
-        <li class="toclevel-1 tocsection-10">
+        <li class="toclevel-1 tocsection-11">
          <a href="#alsactl_method">
           <span class="tocnumber">
            3
@@ -173,40 +183,50 @@
           </span>
          </a>
         </li>
-        <li class="toclevel-1 tocsection-11">
-         <a href="#Spreadtrum">
+        <li class="toclevel-1 tocsection-12">
+         <a href="#strace_method">
           <span class="tocnumber">
            4
+          </span>
+          <span class="toctext">
+           strace method
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-13">
+         <a href="#Spreadtrum">
+          <span class="tocnumber">
+           5
           </span>
           <span class="toctext">
            Spreadtrum
           </span>
          </a>
         </li>
-        <li class="toclevel-1 tocsection-12">
+        <li class="toclevel-1 tocsection-14">
          <a href="#WM1811">
           <span class="tocnumber">
-           5
+           6
           </span>
           <span class="toctext">
            WM1811
           </span>
          </a>
         </li>
-        <li class="toclevel-1 tocsection-13">
+        <li class="toclevel-1 tocsection-15">
          <a href="#Mainline">
           <span class="tocnumber">
-           6
+           7
           </span>
           <span class="toctext">
            Mainline
           </span>
          </a>
          <ul>
-          <li class="toclevel-2 tocsection-14">
+          <li class="toclevel-2 tocsection-16">
            <a href="#Troubleshooting_audio_input">
             <span class="tocnumber">
-             6.1
+             7.1
             </span>
             <span class="toctext">
              Troubleshooting audio input
@@ -215,10 +235,10 @@
           </li>
          </ul>
         </li>
-        <li class="toclevel-1 tocsection-15">
+        <li class="toclevel-1 tocsection-17">
          <a href="#See_also">
           <span class="tocnumber">
-           7
+           8
           </span>
           <span class="toctext">
            See also
@@ -654,6 +674,17 @@ Example:
        </code>
        for ALSA backend on PulseAudio.
       </p>
+      <h3>
+       <span class="mw-headline" id="Audio_cutting_out_when_multiple_streams_start_playing">
+        Audio cutting out when multiple streams start playing
+       </span>
+      </h3>
+      <p>
+       See
+       <a class="external text" href="https://wiki.archlinux.org/title/PipeWire#Audio_cutting_out_when_multiple_streams_start_playing" rel="nofollow">
+        here
+       </a>
+      </p>
       <h2>
        <span class="mw-headline" id="alsactl_method">
         alsactl method
@@ -676,6 +707,21 @@ Example:
         alsamixer
        </code>
        . Just boot the normal OS, save the volume settings somehow, then restore them.
+      </p>
+      <h2>
+       <span class="mw-headline" id="strace_method">
+        strace method
+       </span>
+      </h2>
+      <p>
+       It is possible to get audio working by stracing Android's audioserver and replicating the mixer configuration it performs. See
+       <a class="external text" href="https://gitlab.com/sleirsgoevy/pmos_tools/-/tree/master/mixertrace/" rel="nofollow">
+        here
+       </a>
+       .
+      </p>
+      <p>
+       The positive side of such porting is that the amount of manual work is reduced to the minimum, another positive thing is that it may also work for non-Android proprietary userspace.
       </p>
       <h2>
        <span class="mw-headline" id="Spreadtrum">
@@ -839,13 +885,13 @@ Its setup is:
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Audio&amp;oldid=27149">
-      https://wiki.postmarketos.org/index.php?title=Audio&amp;oldid=27149
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Audio&amp;oldid=30612">
+      https://wiki.postmarketos.org/index.php?title=Audio&amp;oldid=30612
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 23 April 2022, at 01:19.
+     This page was last edited on 30 August 2022, at 15:13.
     </li>
     <li id="footer-info-copyright">
      Content is available under

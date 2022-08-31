@@ -121,7 +121,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm MSM8998 Snapdragon 835
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_835_(MSM8998).html" title="Qualcomm MSM8998 Snapdragon 835">
+           Qualcomm MSM8998 Snapdragon 835
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -440,13 +442,31 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
          </th>
          <td class="" style="">
           <div class="feature feature-yes">
            Works
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
+         </th>
+         <td class="" style="">
+          <div>
           </div>
          </td>
         </tr>
@@ -461,6 +481,46 @@
         Misc
        </caption>
        <tbody>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
           Ir TX
@@ -481,6 +541,15 @@
           </div>
          </td>
         </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
         <tr>
          <td colspan="2" style="text-align:right">
          </td>
@@ -498,7 +567,7 @@
         <tr>
          <td>
           <b>
-           This device is based on
+           This device is based on the
            <a href="../en/Qualcomm_Snapdragon_835_(MSM8998).html" title="Qualcomm Snapdragon 835 (MSM8998)">
             Snapdragon 835
            </a>
@@ -650,11 +719,63 @@
           <b>
            NOTE:
           </b>
-          ONLY choose downstream kernel if you accept it will have MUCH less overall working features, otherwise always pick mainline!
+          ONLY choose
+          <code>
+           alpine
+          </code>
+          kernel if you accept it will have MUCH less overall working features, otherwise always pick
+          <code>
+           mainline
+          </code>
+          !
+          <br/>
+          Downstream kernel port is also still available as
+          <code>
+           cheeseburger-downstream
+          </code>
+          codename, but usage of it is strongly discouraged and it's completely unmaintained!
          </td>
         </tr>
        </tbody>
       </table>
+      <h2>
+       <span class="mw-headline" id="Incorrect_touchscreen_orientation">
+        Incorrect touchscreen orientation
+       </span>
+      </h2>
+      <p>
+       On some user interfaces such as Plasma Mobile you may have the touchscreen incorrectly oriented by 180 degrees (upside down); to fix that run the following in a
+       <code>
+        root
+       </code>
+       shell:
+      </p>
+      <div style="width: calc(100%-320px); overflow: auto;">
+       <pre>echo 'ACTION=="add|change", KERNEL=="event[0-9]*", ATTRS{name}=="Synaptics s3508", ENV{LIBINPUT_CALIBRATION_MATRIX}="-1 0 1 0 -1 1"' &gt; /etc/udev/rules.d/21-oneplus5-ts.rules
+</pre>
+      </div>
+      <p>
+       After that simply
+       <code>
+        reboot
+       </code>
+       or also run
+       <code>
+        udevadm control --reload-rules &amp;&amp; udevadm trigger
+       </code>
+       to (hopefully) apply the new calibration matrix immediately.
+      </p>
+      <p>
+       I've still not added this as a part of the
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/device-oneplus-cheeseburger" rel="nofollow">
+        Device package
+       </a>
+       because it causes the rotation to be broken in other environments, especially so in Xorg-based ones, but if that really remains the only problematic one perhaps it can be added as a subpackage with some
+       <code>
+        install_if
+       </code>
+       directive.
+      </p>
       <h2>
        <span class="mw-headline" id="Modem_stability">
         Modem stability
@@ -927,6 +1048,16 @@ Device      Start    End Sectors   Size Name
          Android backup)
         </li>
         <li>
+         <a href="../User:Dartvader316.html" title="User:Dartvader316">
+          Dartvader316
+         </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         8/128 GB)
+        </li>
+        <li>
          <a href="../User:Deathmist.html" title="User:Deathmist">
           Deathmist
          </a>
@@ -999,6 +1130,12 @@ Device      Start    End Sectors   Size Name
         Mainline enablement merge request
        </li>
        <li>
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3336" rel="nofollow">
+         pmaports!3336
+        </a>
+        Alpine linux-edge enablement merge request
+       </li>
+       <li>
         <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/device-oneplus-cheeseburger" rel="nofollow">
          Device package
         </a>
@@ -1009,7 +1146,7 @@ Device      Start    End Sectors   Size Name
         </a>
        </li>
        <li>
-        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/main/linux-postmarketos-qcom-msm8998" rel="nofollow">
+        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/linux-postmarketos-qcom-msm8998" rel="nofollow">
          Shared mainline MSM8998 kernel package
         </a>
        </li>
@@ -1069,13 +1206,13 @@ Device      Start    End Sectors   Size Name
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=OnePlus_5_(oneplus-cheeseburger)&amp;oldid=27894">
-      https://wiki.postmarketos.org/index.php?title=OnePlus_5_(oneplus-cheeseburger)&amp;oldid=27894
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=OnePlus_5_(oneplus-cheeseburger)&amp;oldid=30003">
+      https://wiki.postmarketos.org/index.php?title=OnePlus_5_(oneplus-cheeseburger)&amp;oldid=30003
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 20 May 2022, at 23:35.
+     This page was last edited on 6 August 2022, at 23:26.
     </li>
     <li id="footer-info-copyright">
      Content is available under

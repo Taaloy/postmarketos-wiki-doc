@@ -121,7 +121,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Marvell PXA1908
+          <a class="new" href="/index.php?title=Marvell_PXA1908&amp;action=edit&amp;redlink=1" title="Marvell PXA1908 (page does not exist)">
+           Marvell PXA1908
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -265,8 +267,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div class="feature feature-no">
-           Broken
+          <div class="feature feature-partial">
+           Partial
           </div>
          </td>
         </tr>
@@ -431,13 +433,31 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
          </th>
          <td class="" style="">
           <div class="feature feature-unavailable">
            Unavailable
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
+         </th>
+         <td class="" style="">
+          <div>
           </div>
          </td>
         </tr>
@@ -454,6 +474,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -465,6 +525,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -572,6 +641,9 @@
        <li>
         Flashing the boot image.
        </li>
+       <li>
+        MUIC/UART
+       </li>
       </ul>
       <h2>
        <span id="What_doesn't_work">
@@ -585,16 +657,13 @@
         Blanking and Unblanking leads to framebuffer flickering, which stays after reboot and even battery-removal for some time.
        </li>
        <li>
-        Only kernels built with GCC4 will boot.
+        Only kernels built with GCC4 will boot downstream.
        </li>
        <li>
         AlsaUCM profile must be reapplied before each audio play.
        </li>
        <li>
         LEDs
-       </li>
-       <li>
-        Serial/extern console (MUIC SM5504)
        </li>
        <li>
         Flashing to SYSTEM or USER partition currently fails after 10% for unknown reason. The phone is in rescue mode afterwards, which can be fixed by flashing a boot image.
@@ -609,14 +678,14 @@
        Flash the boot-image
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span>pmbootstrap flash flash_kernel
+       <pre><span></span><span class="gp">$</span> pmbootstrap flash flash_kernel
 </pre>
       </div>
       <p>
        Installation of rootfs can be be done either to SD-card
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span>pmbootstrap install --sdcard<span class="o">=</span>/dev/XXXXX
+       <pre><span></span><span class="gp">$</span> pmbootstrap install --sdcard<span class="o">=</span>/dev/XXXXX
 </pre>
       </div>
       <p>
@@ -632,8 +701,8 @@ The latest TWRP recovery isn't flash-able after update to latest vendor version 
 A "Hackish TWRP" alternative recovery image can be found in XDA forum.
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span>$ pmbootstrap install --android-recovery-zip --recovery-install-partition USER
-$ cp /tmp/postmarketOS-export/pmos-samsung-xcover3lte.zip ...
+       <pre><span></span><span class="gp">$</span> pmbootstrap install --android-recovery-zip --recovery-install-partition USER
+<span class="gp">$</span> cp /tmp/postmarketOS-export/pmos-samsung-xcover3lte.zip ...
 </pre>
       </div>
       <h2>
@@ -661,16 +730,30 @@ Despite having keyword
        </a>
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span>ramoops.mem_size<span class="o">=</span>0x40000 ramoops.mem_address<span class="o">=</span>0x8100000 ramoops.record_size<span class="o">=</span>0x8000 ramoops.console_size<span class="o">=</span>0x30000 ramoops.dump_oops<span class="o">=</span><span class="m">1</span>
+       <pre><span></span>ramoops.mem_size=0x40000 ramoops.mem_address=0x8100000 ramoops.record_size=0x8000 ramoops.console_size=0x30000 ramoops.dump_oops=1
 </pre>
       </div>
       <p>
        After kernel panic the console can be extracted in e.g. recovery.
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span>hexdump -C -s 0x8108000 /dev/mem <span class="p">|</span> less
+       <pre><span></span><span class="gp">$</span> hexdump -C -s 0x8108000 /dev/mem <span class="p">|</span> less
 </pre>
       </div>
+      <h2>
+       <span class="mw-headline" id="UART">
+        UART
+       </span>
+      </h2>
+      <p>
+       You can get serial console with a
+       <a class="external text" href="https://wiki.postmarketos.org/wiki/Serial_debugging:Cable_schematics#microUSB.2FCarkit_debug_cable" rel="nofollow">
+        microUSB/Carkit_debug_cable
+       </a>
+       and 619KΩ resistor.
+The phone will boot when plugging the cable in, after the phone has been powered off or battery inserted. Might take several attempts.
+150KΩ will start the phone in flash mode.
+      </p>
       <h2>
        <span class="mw-headline" id="Audio">
         Audio
@@ -680,7 +763,7 @@ Despite having keyword
        The Alsa UCM usecase must be set before each play, e.g.
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span>alsaucm -c map_asoc <span class="nb">set</span> _verb HiFi <span class="nb">set</span> _enadev Speaker
+       <pre><span></span>alsaucm -c map_asoc set _verb HiFi set _enadev Speaker
 </pre>
       </div>
       <h2>
@@ -689,13 +772,170 @@ Despite having keyword
        </span>
       </h2>
       <p>
-       Attempt to add mainline support for pxa1908 aka iap140 was done in 2017 for
-       <a class="external free" href="https://en.opensuse.org/HCL:AndromedaBoxEdge" rel="nofollow">
-        https://en.opensuse.org/HCL:AndromedaBoxEdge
-       </a>
-       here
+       Mainline boots with patch below.
       </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> envkernel
+<span class="gp">$</span> make defconfig
+<span class="gp">$</span> cp minimal-kernel-5-18-config-xcover3lte .output/.config
+<span class="gp">$</span> make menuconfig
+<span class="gp">$</span> make -j5
+<span class="gp">$</span> make marvell/pxa1908-xcover3lte-rev07.dtb
+</pre>
+      </div>
       <p>
+       Create post-make.sh which executes the DTB combiner.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="nv">_carch</span><span class="o">=</span>arm64
+<span class="nv">_outdir</span><span class="o">=</span>.output
+pxa1908-dtbTool -p <span class="s2">"</span><span class="nv">$_outdir</span><span class="s2">"</span>/scripts/dtc/ -o <span class="s2">"</span><span class="nv">$_outdir</span><span class="s2">/arch/</span><span class="nv">$_carch</span><span class="s2">/boot"</span>/dt.img <span class="s2">"</span><span class="nv">$_outdir</span><span class="s2">/arch/</span><span class="nv">$_carch</span><span class="s2">/boot/dts/marvell/"</span>
+</pre>
+      </div>
+      <p>
+       After flashing the phone must be powered off, best by battery removal.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> run-script post-make.sh <span class="o">&amp;&amp;</span> pmbootstrap build --envkernel linux-samsung-xcover3lte <span class="o">&amp;&amp;</span> pmbootstrap flasher flash_kernel
+<span class="gp">$</span> screen -L /dev/ttyUSB0 <span class="m">115200</span>
+</pre>
+      </div>
+      <p>
+       Plugging UART cable in should lead to this output:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span>...
+[    3.5957] setting param.cmdline = panic_debug uart_dma user_debug=31 earlyprintk=uart8250-32bit,0xd4017000 ddr_mode=1 rw rootfstype=ramfs ...
+[    3.6523] Loading Device Tree to 0x8200000, end 0x8200832 ...
+Starting kernel ...
+
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x410fd032]
+[    0.000000] Linux version 5.18.0 (pmos@mypad) (aarch64-alpine-linux-musl-gcc (Alpine 11.2.1_git20220219) 11.2.1 20220219, GNU ld (GNU Binutils) 2.38) #6 SMP PREEMPT Tue Jul 12 15:36:21 UTC 2022
+[    0.000000] Machine model: Samsung Galaxy Xcover 3 Rev 07
+[    0.000000] earlycon: early_pxa0 at MMIO32 0x00000000d4017000 (options '')
+[    0.000000] printk: bootconsole [early_pxa0] enabled
+[    0.000000] printk: debug: skip boot console de-registration.
+...
+</pre>
+      </div>
+      <p>
+       Required kernel config options for booting. The kernel size limit is unknown.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span>CONFIG_CMDLINE="earlycon=early_pxa,mmio32,0xd4017000 keep_bootcon loglevel=7"
+CONFIG_CMDLINE_FORCE=y
+CONFIG_SERIAL_8250_CONSOLE=y
+CONFIG_SERIAL_8250_PXA=y
+CONFIG_ARCH_MMP=y
+</pre>
+      </div>
+      <p>
+       Mainline changes and reduced DT.
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gh">diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms</span>
+<span class="gh">index 30b123cde02c..f114504b81cf 100644</span>
+<span class="gd">--- a/arch/arm64/Kconfig.platforms</span>
+<span class="gi">+++ b/arch/arm64/Kconfig.platforms</span>
+<span class="gu">@@ -166,6 +166,13 @@ config ARCH_MESON</span>
+ 	  This enables support for the arm64 based Amlogic SoCs
+ 	  such as the s905, S905X/D, S912, A113X/D or S905X/D2
+ 
+<span class="gi">+config ARCH_MMP</span>
+<span class="gi">+	bool "Marvell MMP SoC Family"</span>
+<span class="gi">+	select PINCTRL</span>
+<span class="gi">+	select PINCTRL_SINGLE</span>
+<span class="gi">+	help</span>
+<span class="gi">+	  This enables support for the Marvell MMP family.</span>
+<span class="gi">+</span>
+ config ARCH_MVEBU
+ 	bool "Marvell EBU SoC Family"
+ 	select ARMADA_AP806_SYSCON
+<span class="gh">diff --git a/arch/arm64/boot/dts/marvell/Makefile b/arch/arm64/boot/dts/marvell/Makefile</span>
+<span class="gh">index 1c794cdcb8e6..56b349e058d2 100644</span>
+<span class="gd">--- a/arch/arm64/boot/dts/marvell/Makefile</span>
+<span class="gi">+++ b/arch/arm64/boot/dts/marvell/Makefile</span>
+<span class="gu">@@ -24,3 +24,6 @@ dtb-$(CONFIG_ARCH_MVEBU) += cn9132-db.dtb</span>
+ dtb-$(CONFIG_ARCH_MVEBU) += cn9132-db-B.dtb
+ dtb-$(CONFIG_ARCH_MVEBU) += cn9130-crb-A.dtb
+ dtb-$(CONFIG_ARCH_MVEBU) += cn9130-crb-B.dtb
+<span class="gi">+</span>
+<span class="gi">+# MMP SoC Family</span>
+<span class="gi">+dtb-$(CONFIG_ARCH_MMP) += pxa1908-xcover3lte-rev07.dts</span>
+<span class="gh">diff --git a/arch/arm64/boot/dts/marvell/pxa1908-xcover3lte-rev07.dts b/arch/arm64/boot/dts/marvell/pxa1908-xcover3lte-rev07.dts</span>
+new file mode 100644
+<span class="gh">index 000000000000..7a45bf0f2ee2</span>
+<span class="gd">--- /dev/null</span>
+<span class="gi">+++ b/arch/arm64/boot/dts/marvell/pxa1908-xcover3lte-rev07.dts</span>
+<span class="gu">@@ -0,0 +1,12 @@</span>
+<span class="gi">+/dts-v1/;</span>
+<span class="gi">+/memreserve/ 0x05000000 0x3000000; // CP memory</span>
+<span class="gi">+/memreserve/ 0x0a000000 0x80000; // CM3 shared buffer memory</span>
+<span class="gi">+/memreserve/ 0x0a080000 0x177000; // FB</span>
+<span class="gi">+/memreserve/ 0x09000000 0x1000000; // GPU</span>
+<span class="gi">+/memreserve/ 0x6f800000 0x800000; // CMA</span>
+<span class="gi">+#include "pxa1908.dtsi"</span>
+<span class="gi">+/ {</span>
+<span class="gi">+	compatible = "samsung,xcover3lte", "marvell,pxa1908";</span>
+<span class="gi">+	model = "Samsung Galaxy Xcover 3 Rev 07";</span>
+<span class="gi">+	pxa,rev-id = &lt;3923 7&gt;; // required by pxa1908-dtbTool</span>
+<span class="gi">+};</span>
+<span class="gh">diff --git a/arch/arm64/boot/dts/marvell/pxa1908.dtsi b/arch/arm64/boot/dts/marvell/pxa1908.dtsi</span>
+new file mode 100644
+<span class="gh">index 000000000000..e2d05df2183c</span>
+<span class="gd">--- /dev/null</span>
+<span class="gi">+++ b/arch/arm64/boot/dts/marvell/pxa1908.dtsi</span>
+<span class="gu">@@ -0,0 +1,45 @@</span>
+<span class="gi">+#include &lt;dt-bindings/interrupt-controller/arm-gic.h&gt;</span>
+<span class="gi">+/ {</span>
+<span class="gi">+	compatible = "marvell,pxa1908";</span>
+<span class="gi">+	interrupt-parent = &lt;&amp;gic&gt;;</span>
+<span class="gi">+	#address-cells = &lt;2&gt;;</span>
+<span class="gi">+	#size-cells = &lt;2&gt;;</span>
+<span class="gi">+	// memory and chosen are expected by bootloader</span>
+<span class="gi">+	memory {</span>
+<span class="gi">+		device_type = "memory";</span>
+<span class="gi">+		reg = &lt;0x0 0x0 0x0 0x0&gt;; // bootloader populates the memory node</span>
+<span class="gi">+	};</span>
+<span class="gi">+	chosen {</span>
+<span class="gi">+	};</span>
+<span class="gi">+	cpus {</span>
+<span class="gi">+		#address-cells = &lt;2&gt;;</span>
+<span class="gi">+		#size-cells = &lt;0&gt;;</span>
+<span class="gi">+		cpu0: cpu@0 {</span>
+<span class="gi">+			device_type = "cpu";</span>
+<span class="gi">+			compatible = "arm,cortex-a53", "arm,armv8";</span>
+<span class="gi">+			reg = &lt;0x0 0x0&gt;;</span>
+<span class="gi">+			enable-method = "psci";</span>
+<span class="gi">+		};</span>
+<span class="gi">+	};</span>
+<span class="gi">+	psci {</span>
+<span class="gi">+		compatible = "arm,psci-0.2";</span>
+<span class="gi">+		method = "smc";</span>
+<span class="gi">+		cpu_off = &lt;0x85000001&gt;;</span>
+<span class="gi">+		cpu_on = &lt;0x85000002&gt;;</span>
+<span class="gi">+	};</span>
+<span class="gi">+	gic: interrupt-controller@d1df9000 {</span>
+<span class="gi">+		compatible = "arm,gic-400";</span>
+<span class="gi">+		reg = &lt;0x0 0xd1df9000 0x0 0x1000&gt;,</span>
+<span class="gi">+		      &lt;0x0 0xd1dfa000 0x0 0x2000&gt;;</span>
+<span class="gi">+		interrupts = &lt;GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)&gt;;</span>
+<span class="gi">+		interrupt-controller;</span>
+<span class="gi">+		#interrupt-cells = &lt;3&gt;;</span>
+<span class="gi">+	};</span>
+<span class="gi">+	timer {</span>
+<span class="gi">+		compatible = "arm,armv8-timer";</span>
+<span class="gi">+		interrupts = &lt;GIC_PPI 13</span>
+<span class="gi">+			(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)&gt;,</span>
+<span class="gi">+			     &lt;GIC_PPI 14</span>
+<span class="gi">+			(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)&gt;;</span>
+<span class="gi">+	};</span>
+<span class="gi">+};</span>
+</pre>
+      </div>
+      <p>
+       Attempt to add mainline support for pxa1908 aka iap140 was done in 2017
        <a class="external free" href="https://lore.kernel.org/linux-arm-kernel/20170222022929.10540-1-afaerber@suse.de/" rel="nofollow">
         https://lore.kernel.org/linux-arm-kernel/20170222022929.10540-1-afaerber@suse.de/
        </a>
@@ -980,30 +1220,30 @@ Despite having keyword
        </span>
       </h2>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span>Disk /dev/block/mmcblk0: <span class="m">15269888</span> sectors, 3360M
-Logical sector size: <span class="m">512</span>
-Disk identifier <span class="o">(</span>GUID<span class="o">)</span>:
-Partition table holds up to <span class="m">128</span> entries
-First usable sector is <span class="m">34</span>, last usable sector is <span class="m">15269854</span>
+       <pre><span></span>Disk /dev/block/mmcblk0: 15269888 sectors, 3360M
+Logical sector size: 512
+Disk identifier (GUID):
+Partition table holds up to 128 entries
+First usable sector is 34, last usable sector is 15269854
 
-Number  Start <span class="o">(</span>sector<span class="o">)</span>    End <span class="o">(</span>sector<span class="o">)</span>  Size       Code  Name
-   <span class="m">1</span>            <span class="m">8192</span>            <span class="m">9215</span>        512K   <span class="m">0700</span>  MRD
-   <span class="m">2</span>            <span class="m">9216</span>           <span class="m">10239</span>        512K   <span class="m">0700</span>  MRD1
-   <span class="m">3</span>           <span class="m">10240</span>           <span class="m">24575</span>       7168K   <span class="m">0700</span>  MEP2
-   <span class="m">4</span>           <span class="m">24576</span>           <span class="m">28671</span>       2048K   <span class="m">0700</span>  LOKE2ND
-   <span class="m">5</span>           <span class="m">28672</span>           <span class="m">32767</span>       2048K   <span class="m">0700</span>  LOKE1ST
-   <span class="m">6</span>           <span class="m">32768</span>           <span class="m">65535</span>       <span class="m">16</span>.0M   <span class="m">0700</span>  EFS
-   <span class="m">7</span>           <span class="m">65536</span>           <span class="m">73727</span>       4096K   <span class="m">0700</span>  PARAM
-   <span class="m">8</span>           <span class="m">73728</span>          <span class="m">106495</span>       <span class="m">16</span>.0M   <span class="m">0700</span>  RECOVERY
-   <span class="m">9</span>          <span class="m">106496</span>          <span class="m">139263</span>       <span class="m">16</span>.0M   <span class="m">0700</span>  KERNEL
-  <span class="m">10</span>          <span class="m">139264</span>          <span class="m">196607</span>       <span class="m">28</span>.0M   <span class="m">0700</span>  MODEM
-  <span class="m">11</span>          <span class="m">196608</span>          <span class="m">262143</span>       <span class="m">32</span>.0M   <span class="m">0700</span>  SSTD
-  <span class="m">12</span>          <span class="m">262144</span>          <span class="m">264191</span>       1024K   <span class="m">0700</span>  OTA
-  <span class="m">13</span>          <span class="m">264192</span>          <span class="m">313343</span>       <span class="m">24</span>.0M   <span class="m">0700</span>  NVM
-  <span class="m">14</span>          <span class="m">313344</span>         <span class="m">3459071</span>       1536M   <span class="m">0700</span>  SYSTEM
-  <span class="m">15</span>         <span class="m">3459072</span>         <span class="m">3868671</span>        200M   <span class="m">0700</span>  CACHE
-  <span class="m">16</span>         <span class="m">3868672</span>         <span class="m">4073471</span>        100M   <span class="m">0700</span>  HIDDEN
-  <span class="m">17</span>         <span class="m">4073472</span>        <span class="m">15267839</span>       5466M   <span class="m">0700</span>  USER
+Number  Start (sector)    End (sector)  Size       Code  Name
+   1            8192            9215        512K   0700  MRD
+   2            9216           10239        512K   0700  MRD1
+   3           10240           24575       7168K   0700  MEP2
+   4           24576           28671       2048K   0700  LOKE2ND
+   5           28672           32767       2048K   0700  LOKE1ST
+   6           32768           65535       16.0M   0700  EFS
+   7           65536           73727       4096K   0700  PARAM
+   8           73728          106495       16.0M   0700  RECOVERY
+   9          106496          139263       16.0M   0700  KERNEL
+  10          139264          196607       28.0M   0700  MODEM
+  11          196608          262143       32.0M   0700  SSTD
+  12          262144          264191       1024K   0700  OTA
+  13          264192          313343       24.0M   0700  NVM
+  14          313344         3459071       1536M   0700  SYSTEM
+  15         3459072         3868671        200M   0700  CACHE
+  16         3868672         4073471        100M   0700  HIDDEN
+  17         4073472        15267839       5466M   0700  USER
 </pre>
       </div>
       <h2>
@@ -1092,13 +1332,13 @@ Number  Start <span class="o">(</span>sector<span class="o">)</span>    End <spa
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Xcover_3_(samsung-xcover3lte)&amp;oldid=27907">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Xcover_3_(samsung-xcover3lte)&amp;oldid=27907
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Xcover_3_(samsung-xcover3lte)&amp;oldid=30274">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Xcover_3_(samsung-xcover3lte)&amp;oldid=30274
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 22 May 2022, at 08:44.
+     This page was last edited on 16 August 2022, at 19:25.
     </li>
     <li id="footer-info-copyright">
      Content is available under

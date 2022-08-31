@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="client-nojs" dir="ltr" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Troubleshooting:alsa - postmarketOS
+  </title>
+  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
+  <meta content="" name="ResourceLoaderDynamicStyles"/>
+  <meta content="MediaWiki 1.34.2" name="generator"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
+  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
+  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
+  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
+ </head>
+ <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Troubleshooting_alsa rootpage-Troubleshooting_alsa skin-vector action-view">
+  <div class="mw-body" id="content" role="main" style="margin: 0">
+   <a id="top">
+   </a>
+   <div class="mw-indicators mw-body-content">
+   </div>
+   <h1 class="firstHeading" id="firstHeading" lang="en">
+    Troubleshooting:alsa
+   </h1>
+   <div class="mw-body-content" id="bodyContent">
+    <div class="noprint" id="siteSub">
+     From postmarketOS
+    </div>
+    <div id="contentSub">
+    </div>
+    <div id="jump-to-nav">
+    </div>
+    <a class="mw-jump-link" href="#mw-head">
+     Jump to navigation
+    </a>
+    <a class="mw-jump-link" href="#p-search">
+     Jump to search
+    </a>
+    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
+     <div class="mw-parser-output">
+      <p>
+       During alsa upgrades, sometimes the ucm profiles break. Here are some tips and tricks to fix them.
+      </p>
+      <h3>
+       <span class="mw-headline" id="alsaucm_reload">
+        alsaucm reload
+       </span>
+      </h3>
+      <p>
+       Run
+       <code>
+        alsaucm reload
+       </code>
+       and see if it it prints an error message. If it does, run it again with strace and look at what it is doing before the error. Maybe the paths or loading of the ucm files changed again:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">$</span> strace alsaucm reload
+</pre>
+      </div>
+      <p>
+       As of writing, a recent example was alsa expecting all files in
+       <code>
+        /usr/share/alsa/ucm2/conf.d/simple-card
+       </code>
+       to be a symlink. It would fail with
+       <code>
+        readlinkat
+       </code>
+       otherwise:
+      </p>
+      <pre>faccessat(AT_FDCWD, "/usr/share/alsa/ucm2/conf.d/simple-card/PinePhone.conf", R_OK) = 0
+newfstatat(AT_FDCWD, "/usr/share/alsa/ucm2/conf.d/simple-card/PinePhone.conf", {st_mode=S_IFREG|0644, st_size=196, ...}, AT_SYMLINK_NOFOLLOW) = 0
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xffffbd38b000
+readlinkat(AT_FDCWD, "/usr/share/alsa/ucm2/conf.d/simple-card/PinePhone.conf", 0xffffbd38b1b0, 4095) = -1 EINVAL (Invalid argument)
+munmap(0xffffbd38b000, 16384)           = 0
+</pre>
+      <h3>
+       <span class="mw-headline" id="See_also">
+        See also
+       </span>
+      </h3>
+      <ul>
+       <li>
+        <a class="external free" href="https://postmarketos.org/edge/2022/07/02/alsa-broken/" rel="nofollow">
+         https://postmarketos.org/edge/2022/07/02/alsa-broken/
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Troubleshooting.html" title="Category:Troubleshooting">
+         Troubleshooting
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="visualClear">
+    </div>
+   </div>
+  </div>
+  <div id="footer" role="contentinfo" style="margin: 0">
+   <ul id="footer-info">
+    <li>
+     Retrieved from "
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:alsa&amp;oldid=30077">
+      https://wiki.postmarketos.org/index.php?title=Troubleshooting:alsa&amp;oldid=30077
+     </a>
+     "
+    </li>
+    <li id="footer-info-lastmod">
+     This page was last edited on 8 August 2022, at 12:40.
+    </li>
+    <li id="footer-info-copyright">
+     Content is available under
+     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
+      Creative Commons Attribution-ShareAlike
+     </a>
+     unless otherwise noted.
+    </li>
+    <br/>
+   </ul>
+   <ul id="footer-places">
+    <li id="footer-places-privacy">
+     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
+      Privacy policy
+     </a>
+    </li>
+    <li id="footer-places-about">
+     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
+      About postmarketOS
+     </a>
+    </li>
+    <li id="footer-places-disclaimer">
+     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
+      Disclaimers
+     </a>
+    </li>
+    <li id="footer-places-mobileview">
+     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:alsa&amp;mobileaction=toggle_view_mobile">
+      Mobile view
+     </a>
+    </li>
+   </ul>
+   <ul class="noprint" id="footer-icons">
+    <li id="footer-copyrightico">
+     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
+      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
+     </a>
+    </li>
+    <li id="footer-poweredbyico">
+     <a href="https://www.mediawiki.org/">
+      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
+     </a>
+    </li>
+   </ul>
+   <div style="clear: both;">
+   </div>
+  </div>
+ </body>
+</html>

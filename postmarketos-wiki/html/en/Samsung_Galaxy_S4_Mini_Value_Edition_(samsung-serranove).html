@@ -121,7 +121,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm MSM8916 Snapdragon 410
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm MSM8916 Snapdragon 410">
+           Qualcomm MSM8916 Snapdragon 410
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -369,7 +371,8 @@
           USB OTG
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-partial">
+           Partial
           </div>
          </td>
         </tr>
@@ -435,9 +438,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -457,6 +478,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -467,6 +528,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -487,7 +557,7 @@
         <tr>
          <td>
           <b>
-           This device is based on
+           This device is based on the
            <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm Snapdragon 410/412 (MSM8916)">
             Snapdragon 410
            </a>
@@ -676,7 +746,29 @@
        </span>
       </h2>
       <p>
-       There is no charger driver yet. The device charges – but slowly and there is no indication in the User Interface that it charges.
+       <code>
+        rt5033-charger
+       </code>
+       driver is not available, so the charging is not controlled and there is no charging status reporting.
+There is also a forgotten patch
+       <sup class="reference" id="cite_ref-1">
+        <a href="#cite_note-1">
+         [1]
+        </a>
+       </sup>
+       .
+      </p>
+      <h2>
+       <span class="mw-headline" id="USB_OTG">
+        USB OTG
+       </span>
+      </h2>
+      <p>
+       Another
+       <code>
+        rt5033-charger
+       </code>
+       driver issue. It's currently unable to power up a usb device in mainline. Try a hub with external power supply.
       </p>
       <h2>
        <span class="mw-headline" id="Suspend">
@@ -706,6 +798,22 @@
        </a>
        .
       </p>
+      <div class="mw-references-wrap">
+       <ol class="references">
+        <li id="cite_note-1">
+         <span class="mw-cite-backlink">
+          <a href="#cite_ref-1">
+           ↑
+          </a>
+         </span>
+         <span class="reference-text">
+          <a class="external text" href="https://lore.kernel.org/lkml/1425864191-4121-1-git-send-email-beomho.seo@samsung.com/" rel="nofollow">
+           power: rt5033: Add Richtek RT533 drivers
+          </a>
+         </span>
+        </li>
+       </ol>
+      </div>
      </div>
     </div>
     <div class="catlinks" data-mw="interface" id="catlinks">
@@ -731,13 +839,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_S4_Mini_Value_Edition_(samsung-serranove)&amp;oldid=26458">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_S4_Mini_Value_Edition_(samsung-serranove)&amp;oldid=26458
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_S4_Mini_Value_Edition_(samsung-serranove)&amp;oldid=30252">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_S4_Mini_Value_Edition_(samsung-serranove)&amp;oldid=30252
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 23 March 2022, at 15:52.
+     This page was last edited on 16 August 2022, at 17:35.
     </li>
     <li id="footer-info-copyright">
      Content is available under

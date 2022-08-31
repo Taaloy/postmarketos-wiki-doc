@@ -63,6 +63,84 @@
         https://wiki.postmarketos.org/wiki/Osk-sdl#Porting_to_New_Devices
        </a>
       </p>
+      <div class="toc" id="toc">
+       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
+       <div class="toctitle" dir="ltr" lang="en">
+        <h2>
+         Contents
+        </h2>
+        <span class="toctogglespan">
+         <label class="toctogglelabel" for="toctogglecheckbox">
+         </label>
+        </span>
+       </div>
+       <ul>
+        <li class="toclevel-1 tocsection-1">
+         <a href="#Changing_Luks_Password">
+          <span class="tocnumber">
+           1
+          </span>
+          <span class="toctext">
+           Changing Luks Password
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-2">
+         <a href="#Mounting_Additional_Encrypted_Drives_At_Boot">
+          <span class="tocnumber">
+           2
+          </span>
+          <span class="toctext">
+           Mounting Additional Encrypted Drives At Boot
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-3">
+           <a href="#Generating_and.2For_saving_the_Key_File_to_be_accessible_for_dmcrypt">
+            <span class="tocnumber">
+             2.1
+            </span>
+            <span class="toctext">
+             Generating and/or saving the Key File to be accessible for dmcrypt
+            </span>
+           </a>
+          </li>
+          <li class="toclevel-2 tocsection-4">
+           <a href="#Mounting_the_encrypted_drive">
+            <span class="tocnumber">
+             2.2
+            </span>
+            <span class="toctext">
+             Mounting the encrypted drive
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li class="toclevel-1 tocsection-5">
+         <a href="#Troubleshooting">
+          <span class="tocnumber">
+           3
+          </span>
+          <span class="toctext">
+           Troubleshooting
+          </span>
+         </a>
+         <ul>
+          <li class="toclevel-2 tocsection-6">
+           <a href="#Blank_screen">
+            <span class="tocnumber">
+             3.1
+            </span>
+            <span class="toctext">
+             Blank screen
+            </span>
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </div>
       <h2>
        <span class="mw-headline" id="Changing_Luks_Password">
         Changing Luks Password
@@ -116,6 +194,121 @@
        </code>
       </p>
       <h2>
+       <span class="mw-headline" id="Mounting_Additional_Encrypted_Drives_At_Boot">
+        Mounting Additional Encrypted Drives At Boot
+       </span>
+      </h2>
+      <p>
+       As per the following from Alpine and pmOS:
+       <a class="external free" href="https://wiki.alpinelinux.org/wiki/LVM_on_LUKS#Mounting_additional_encrypted_filesystems_at_boot" rel="nofollow">
+        https://wiki.alpinelinux.org/wiki/LVM_on_LUKS#Mounting_additional_encrypted_filesystems_at_boot
+       </a>
+       and
+       <a class="external free" href="https://wiki.postmarketos.org/wiki/Fstab" rel="nofollow">
+        https://wiki.postmarketos.org/wiki/Fstab
+       </a>
+      </p>
+      <p>
+       This process will need a Key File that has the password to the encrypted drive.
+      </p>
+      <h3>
+       <span id="Generating_and/or_saving_the_Key_File_to_be_accessible_for_dmcrypt">
+       </span>
+       <span class="mw-headline" id="Generating_and.2For_saving_the_Key_File_to_be_accessible_for_dmcrypt">
+        Generating and/or saving the Key File to be accessible for dmcrypt
+       </span>
+      </h3>
+      <p>
+       Known password to the LUKS drive, below it is listed in
+       <code>
+        /etc/
+       </code>
+       but the saving directory can be anywhere but needs to be only accessible to root, same with the storing folder for the key:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> mkdir /etc/luks-keys
+<span class="gp">#</span> chmod +s /etc/luks-keys
+<span class="gp">#</span> <span class="nb">echo</span> <span class="s2">"&lt;luks-password&gt;"</span> &gt; /etc/luks-keys/&lt;keyfile-name&gt;
+<span class="gp">#</span> chmod <span class="m">600</span> /etc/luks-keys/&lt;keyfile-name&gt;
+</pre>
+      </div>
+      <p>
+       Randomly generated password (from Alpine):
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> dd <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="m">4</span> <span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">of</span><span class="o">=</span>/root/crypt-home-keyfile.bin
+<span class="gp">#</span> cryptsetup luksAddKey /dev/sdb1 /root/crypt-home-keyfile.bin
+</pre>
+      </div>
+      <h3>
+       <span class="mw-headline" id="Mounting_the_encrypted_drive">
+        Mounting the encrypted drive
+       </span>
+      </h3>
+      <p>
+       Alpine and pmOS, like Gentoo, uses the
+       <code>
+        dmcrypt
+       </code>
+       service rather than
+       <code>
+        /etc/crypttab
+       </code>
+       .
+      </p>
+      <p>
+       Install and enable the following:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> apk add cryptsetup cryptsetup-openrc
+<span class="gp">#</span> rc-update add dmcrypt boot
+</pre>
+      </div>
+      <p>
+       Add the following lines to
+       <code>
+        /etc/conf.d/dmcrypt
+       </code>
+       :
+      </p>
+      <p>
+       <code>
+        target=&lt;mounting-name&gt;
+       </code>
+      </p>
+      <p>
+       <code>
+        source='/dev/&lt;target-device&gt;'
+       </code>
+      </p>
+      <p>
+       <code>
+        key='&lt;location and name of saved key file from section above, eg /etc/luks-keys/&lt;keyfile-name&gt;&gt;'
+       </code>
+      </p>
+      <p>
+       Now fstab needs to be enabled and the drive added to the list:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp">#</span> rc-update add localmount default
+</pre>
+      </div>
+      <p>
+       Edit
+       <code>
+        /etc/fstab
+       </code>
+       with the information from dmcrypt:
+      </p>
+      <p>
+       <code>
+        /dev/mapper/&lt;mounting-name&gt;    /&lt;mounting-location, eg /home/&gt;    auto    nosuid,nodev,nofail,x-gvfs-show    0 2
+       </code>
+      </p>
+      <p>
+       Reboot!
+      </p>
+      <h2>
        <span class="mw-headline" id="Troubleshooting">
         Troubleshooting
        </span>
@@ -158,7 +351,20 @@
       </div>
      </div>
     </div>
-    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
+         Technical Reference
+        </a>
+       </li>
+      </ul>
+     </div>
     </div>
     <div class="visualClear">
     </div>
@@ -168,13 +374,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Full_disk_encryption&amp;oldid=24655">
-      https://wiki.postmarketos.org/index.php?title=Full_disk_encryption&amp;oldid=24655
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Full_disk_encryption&amp;oldid=30056">
+      https://wiki.postmarketos.org/index.php?title=Full_disk_encryption&amp;oldid=30056
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 31 December 2021, at 16:41.
+     This page was last edited on 8 August 2022, at 12:16.
     </li>
     <li id="footer-info-copyright">
      Content is available under

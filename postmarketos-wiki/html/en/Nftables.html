@@ -89,9 +89,19 @@
          </a>
         </li>
         <li class="toclevel-1 tocsection-4">
-         <a href="#More_information">
+         <a href="#Logs">
           <span class="tocnumber">
            4
+          </span>
+          <span class="toctext">
+           Logs
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-5">
+         <a href="#More_information">
+          <span class="tocnumber">
+           5
           </span>
           <span class="toctext">
            More information
@@ -128,9 +138,9 @@
        command to do runtime changes.
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> sudo apk add nftables
-<span class="gp">$</span> sudo rc-update add nftables
-<span class="gp">$</span> sudo service nftables list
+       <pre><span></span><span class="gp">#</span> apk add nftables
+<span class="gp">#</span> rc-update add nftables
+<span class="gp">#</span> service nftables list
 <span class="go">table inet filter {</span>
 <span class="go">    chain input {</span>
 <span class="go">...</span>
@@ -179,7 +189,7 @@
        After creating or changing the rules files you can make them active with the reload command on the nftables service:
       </p>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> sudo service nftables reload
+       <pre><span></span><span class="gp">#</span> service nftables reload
 </pre>
       </div>
       <h2>
@@ -188,11 +198,41 @@
        </span>
       </h2>
       <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> sudo nft flush ruleset
-<span class="gp">$</span> sudo rc-service nftables stop
-<span class="gp">$</span> sudo rc-update del nftables default
+       <pre><span></span><span class="gp">#</span> nft flush ruleset
+<span class="gp">#</span> rc-service nftables stop
+<span class="gp">#</span> rc-update del nftables default
 </pre>
       </div>
+      <h2>
+       <span class="mw-headline" id="Logs">
+        Logs
+       </span>
+      </h2>
+      <ul>
+       <li>
+        Install the
+        <code>
+         postmarketos-config-nftables-log
+        </code>
+        package
+       </li>
+       <li>
+        Restart the
+        <code>
+         nftables
+        </code>
+        service with
+        <code>
+         sudo rc-service nftables restart
+        </code>
+       </li>
+       <li>
+        Logs should be available in the kernel through
+        <code>
+         dmesg
+        </code>
+       </li>
+      </ul>
       <h2>
        <span class="mw-headline" id="More_information">
         More information
@@ -228,13 +268,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Nftables&amp;oldid=27366">
-      https://wiki.postmarketos.org/index.php?title=Nftables&amp;oldid=27366
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Nftables&amp;oldid=30276">
+      https://wiki.postmarketos.org/index.php?title=Nftables&amp;oldid=30276
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 1 May 2022, at 23:28.
+     This page was last edited on 16 August 2022, at 19:33.
     </li>
     <li id="footer-info-copyright">
      Content is available under

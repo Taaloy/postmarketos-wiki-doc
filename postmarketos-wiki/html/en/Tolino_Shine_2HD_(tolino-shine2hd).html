@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Freescale i.MX6 SoloLite
+          <a class="mw-redirect" href="../en/Freescale_i.MX6.html" title="Freescale i.MX6 SoloLite">
+           Freescale i.MX6 SoloLite
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -225,7 +227,8 @@
           WiFi
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-partial">
+           Partial
           </div>
          </td>
         </tr>
@@ -417,9 +420,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -439,6 +460,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -452,6 +513,16 @@
          </th>
          <td class="" style="">
           <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
+         </th>
+         <td class="" style="">
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -554,19 +625,29 @@
          </ul>
         </li>
         <li class="toclevel-1 tocsection-8">
-         <a href="#See_also">
+         <a href="#Gallery">
           <span class="tocnumber">
            4
+          </span>
+          <span class="toctext">
+           Gallery
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-9">
+         <a href="#See_also">
+          <span class="tocnumber">
+           5
           </span>
           <span class="toctext">
            See also
           </span>
          </a>
          <ul>
-          <li class="toclevel-2 tocsection-9">
+          <li class="toclevel-2 tocsection-10">
            <a href="#Sources">
             <span class="tocnumber">
-             4.1
+             5.1
             </span>
             <span class="toctext">
              Sources
@@ -619,7 +700,7 @@ What works here:
 a6e519c8c497d36e488b301bd07665b911b2f3adb807001513344e3b244d4c9c432b63ef01ac8dc9dad100b8a8fea95ee0b74b8254eb4c5701e71d48228e49a5  /lib/firmware/brcm/brcmfmac43362-sdio.kobo,tolino-shine2hd.txt
       </p>
       <p>
-       The latter one is equal to the file /lib/firmware/wc121/nvram.txt on the original sd in /dev/sdXp5
+       The latter one is equal to the file /lib/firmware/wc121/nvram.txt on the original sd in /dev/sdXp5. It is not installed during the pmbootstrap process.
       </p>
       <h3>
        <span class="mw-headline" id="UART">
@@ -658,15 +739,7 @@ before doing pmbootstrap install
       <pre>dd if=tolino2-backup.img of=/dev/sdX
 </pre>
       <p>
-       due to a bug in pmbootstrap (
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/2153" rel="nofollow">
-        pmbootstrap!2153
-       </a>
-       ), do
-      </p>
-      <pre>dd if=/dev/zero bs=512 count=1 of=/dev/sdX   
-</pre>
-      <p>
+       <br/>
        and then use that sdcard with pmbootstrap install --sdcard
       </p>
       <h3>
@@ -676,8 +749,31 @@ before doing pmbootstrap install
       </h3>
       <p>
        Holding the frontlight button while powering on will give you a short time of fastboot availability on the vendor u-boot.
-Note: if kernels are booted this may, dtb must be appended.
+Note: if kernels are booted this way, dtb must be appended.
       </p>
+      <h2>
+       <span class="mw-headline" id="Gallery">
+        Gallery
+       </span>
+      </h2>
+      <ul class="gallery mw-gallery-traditional">
+       <li class="gallerybox" style="width: 155px">
+        <div style="width: 155px">
+         <div class="thumb" style="width: 150px;">
+          <div style="margin:33px auto;">
+           <a class="image" href="../TolinoShine2HD_1.jpg">
+            <img alt="" decoding="async" height="84" src="../TolinoShine2HD_1.jpg" srcset="../TolinoShine2HD_1.jpg 1.5x ../TolinoShine2HD_1.jpg 2x" width="120"/>
+           </a>
+          </div>
+         </div>
+         <div class="gallerytext">
+          <p>
+           Tolino Shine 2HD displaying its own wiki page
+          </p>
+         </div>
+        </div>
+       </li>
+      </ul>
       <h2>
        <span class="mw-headline" id="See_also">
         See also
@@ -701,9 +797,9 @@ Note: if kernels are booted this may, dtb must be appended.
        </li>
        <li>
         <a class="external text" href="https://github.com/akemnade/linux" rel="nofollow">
-         branches kobo/merged-5.X Patched mainline kernels
+         branches kobo/drm-merged-5.X Patched mainline kernels
         </a>
-        (includes EPD), currently kobo/merged-5.15
+        (includes EPD), currently kobo/drm-merged-5.17
        </li>
        <li>
         <a class="external text" href="https://github.com/akemnade/u-boot-fslc" rel="nofollow">
@@ -752,13 +848,13 @@ Note: if kernels are booted this may, dtb must be appended.
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Tolino_Shine_2HD_(tolino-shine2hd)&amp;oldid=24548">
-      https://wiki.postmarketos.org/index.php?title=Tolino_Shine_2HD_(tolino-shine2hd)&amp;oldid=24548
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Tolino_Shine_2HD_(tolino-shine2hd)&amp;oldid=30427">
+      https://wiki.postmarketos.org/index.php?title=Tolino_Shine_2HD_(tolino-shine2hd)&amp;oldid=30427
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 29 December 2021, at 15:42.
+     This page was last edited on 22 August 2022, at 20:42.
     </li>
     <li id="footer-info-copyright">
      Content is available under

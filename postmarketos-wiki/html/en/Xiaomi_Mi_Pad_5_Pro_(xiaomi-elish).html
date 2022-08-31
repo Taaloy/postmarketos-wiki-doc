@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm SM8250-AC Snapdragon 870 5G
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_865_(SM8250).html" title="Qualcomm SM8250-AC Snapdragon 870">
+           Qualcomm SM8250-AC Snapdragon 870
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -137,7 +139,7 @@
           Display
          </th>
          <td class="" style="">
-          2560x1600 120HZ LCD
+          2560x1600 120HZ IPS LCD
          </td>
         </tr>
         <tr class="">
@@ -204,8 +206,8 @@
           Touchscreen
          </th>
          <td class="" style="">
-          <div class="feature feature-no">
-           Broken
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -226,7 +228,8 @@
           WiFi
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -291,7 +294,8 @@
           Bluetooth
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-no">
+           Broken
           </div>
          </td>
         </tr>
@@ -380,7 +384,8 @@
           </abbr>
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -413,9 +418,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -435,6 +458,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -446,6 +509,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -524,36 +596,60 @@
        </a>
        ):
       </p>
-      <pre>adb shell
-su
-dd if=/dev/block/by-name/super of=/sdcard/super.img
-exit
-exit
-adb pull /sdcard/super.img
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp"> $</span> adb shell
+<span class="gp"> $</span> su
+<span class="gp"> $</span> dd <span class="k">if</span><span class="o">=</span>/dev/block/by-name/super <span class="nv">of</span><span class="o">=</span>/sdcard/super.img
+<span class="gp"> $</span> <span class="nb">exit</span>
+<span class="gp"> $</span> <span class="nb">exit</span>
+<span class="gp"> $</span> adb pull /sdcard/super.img
 </pre>
-      <p>
-       Switch to slot b to boot and disable dtbo:
-      </p>
-      <pre>fastboot set_active b
-fastboot erase dtbo
-</pre>
+      </div>
       <p>
        <a class="external text" href="https://wiki.postmarketos.org/wiki/Installing_pmbootstrap" rel="nofollow">
         Install pmbootstrap
        </a>
        and execute:
       </p>
-      <pre>pmbootstrap init
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp"> $</span> pmbootstrap init
+<span class="gp"> $</span> pmbootstrap install
 </pre>
-      <p>
-       Compile the kernel and flash rootfs to the super partition:
-      </p>
-      <pre>pmbootstrap build linux-postmarketos-qcom-sm8250
-pmbootstrap build device-xiaomi-elish
-pmbootstrap install
-pmbootstrap flasher flash_rootfs --partition super
-pmbootstrap flasher flash_kernel
+      </div>
+      <h2>
+       <span class="mw-headline" id="There_are_two_ways_to_flash_rootfs:">
+        There are two ways to flash rootfs:
+       </span>
+      </h2>
+      <h3>
+       <span class="mw-headline" id="1.Flash_rootfs_to_the_super_partition:">
+        1.Flash rootfs to the super partition:
+       </span>
+      </h3>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp"> $</span> pmbootstrap flasher flash_rootfs --partition super
+<span class="gp"> $</span> pmbootstrap flasher flash_kernel --partition boot_b
+<span class="gp"> $</span> fastboot erase dtbo_b
+<span class="gp"> $</span> fastboot set_active b
 </pre>
+      </div>
+      <h3>
+       <span id="2.Use_fastbootd_to_flash_rootfs_to_system_b_partition(dual_boot):">
+       </span>
+       <span class="mw-headline" id="2.Use_fastbootd_to_flash_rootfs_to_system_b_partition.28dual_boot.29:">
+        2.Use fastbootd to flash rootfs to system_b partition(dual boot):
+       </span>
+      </h3>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp"> $</span> fastboot set_active a
+<span class="gp"> $</span> fastboot reboot fastboot
+<span class="gp"> $</span> pmbootstrap flasher flash_rootfs --partition system_b
+<span class="gp"> $</span> pmbootstrap flasher flash_kernel --partition boot_b
+<span class="gp"> $</span> fastboot reboot bootloader
+<span class="gp"> $</span> fastboot erase dtbo_b
+<span class="gp"> $</span> fastboot set_active b
+</pre>
+      </div>
       <p>
        SSH into the device
        <a class="external text" href="https://wiki.postmarketos.org/wiki/SSH" rel="nofollow">
@@ -561,8 +657,18 @@ pmbootstrap flasher flash_kernel
        </a>
        :
       </p>
-      <pre>ssh user@172.16.42.1
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span><span class="gp"> $</span> ssh user@172.16.42.1
 </pre>
+      </div>
+      <h2>
+       <span class="mw-headline" id="Issues">
+        Issues
+       </span>
+      </h2>
+      <p>
+       1. DRM_FBDEV_EMULATION doesn't work, framebuffer will be broken after drm-msm driver loads. Need to enter power key twice to update ui(drm only).
+      </p>
       <h2>
        <span class="mw-headline" id="See_also">
         See also
@@ -608,13 +714,13 @@ pmbootstrap flasher flash_kernel
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Pad_5_Pro_(xiaomi-elish)&amp;oldid=27813">
-      https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Pad_5_Pro_(xiaomi-elish)&amp;oldid=27813
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Pad_5_Pro_(xiaomi-elish)&amp;oldid=30445">
+      https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Pad_5_Pro_(xiaomi-elish)&amp;oldid=30445
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 17 May 2022, at 13:53.
+     This page was last edited on 25 August 2022, at 08:57.
     </li>
     <li id="footer-info-copyright">
      Content is available under

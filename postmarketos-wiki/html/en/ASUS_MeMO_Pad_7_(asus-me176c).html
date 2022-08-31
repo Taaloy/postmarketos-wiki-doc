@@ -121,7 +121,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Intel Bay Trail T Z3745
+          <a class="new" href="/index.php?title=Intel_Bay_Trail_T_Z3745&amp;action=edit&amp;redlink=1" title="Intel Bay Trail T Z3745 (page does not exist)">
+           Intel Bay Trail T Z3745
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -413,7 +415,8 @@
           Magnetometer
          </th>
          <td class="" style="">
-          <div>
+          <div class="feature feature-yes">
+           Works
           </div>
          </td>
         </tr>
@@ -437,9 +440,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -459,6 +480,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -470,6 +531,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -706,19 +776,19 @@ initrd   /initramfs
 options  console=null
 </pre>
       <p>
-       Note: for pre-built &gt;~20210929-edge,
-       <code>
-        asus-me176c-bootpart.img
-       </code>
-       contents have changed.  Filenames must be adjusted in
+       Note: the filenames in
        <code>
         pmos.conf
        </code>
+       must match those in
+       <code>
+        asus-me176c-bootpart.img
+       </code>
        , else expect boot hang with
        <code>
-        failed to open file: initramfs-asus-me176c
+        failed to open file:
        </code>
-       or similar console messages.  Inspect
+       or similar console messages.  In that case, inspect
        <code>
         bootpart.img
        </code>
@@ -779,7 +849,30 @@ options  console=null
       <pre>$ gzip -c ...-asus-me176c.img | adb shell "zcat | dd of=/dev/block/by-name/data bs=4m"
 </pre>
       <p>
-       It looks like Fastboot can only handle small partitions on this tablet, so the error occurs whenever the image becomes too large for Fastboot to handle.
+       It looks like Fastboot can only handle small partitions on this tablet, so the error occurs whenever the image becomes too large for Fastboot to handle.  Check via
+       <code>
+        fastboot getvar max-download-size
+       </code>
+       (see also
+       <a href="../en/Deviceinfo_reference.html#flash" title="Deviceinfo reference">
+        flash_fastboot_max_size
+       </a>
+       ).  On a 16GB device the value is ~512MiB.
+      </p>
+      <p>
+       Note that on first boot the resizing of the partition containing the rootfs may fail quietly (or not occur at all?). Check the resulting filesystem(s) and partition(s) with
+       <code>
+        df
+       </code>
+       and
+       <code>
+        sudo fdisk -l
+       </code>
+       . If necessary, boot to recovery, unmount the filesystem, and use
+       <code>
+        resize2fs
+       </code>
+       on the partition.
       </p>
       <h3>
        <span class="mw-headline" id="SD_card">
@@ -818,7 +911,7 @@ options  console=null
        <li>
         Check resulting rootfs filesize
         <code>
-         resize2fs -M /dev/mmcblkXpY
+         resize2fs -P /dev/mmcblkXpY
         </code>
         and use
         <code>
@@ -1169,13 +1262,13 @@ $ monitor-sensor  <span class="c1"># test: tilt or rotate the screen</span>
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=ASUS_MeMO_Pad_7_(asus-me176c)&amp;oldid=28039">
-      https://wiki.postmarketos.org/index.php?title=ASUS_MeMO_Pad_7_(asus-me176c)&amp;oldid=28039
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=ASUS_MeMO_Pad_7_(asus-me176c)&amp;oldid=30548">
+      https://wiki.postmarketos.org/index.php?title=ASUS_MeMO_Pad_7_(asus-me176c)&amp;oldid=30548
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 28 May 2022, at 19:40.
+     This page was last edited on 27 August 2022, at 21:59.
     </li>
     <li id="footer-info-copyright">
      Content is available under

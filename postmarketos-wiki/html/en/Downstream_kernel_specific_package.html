@@ -135,19 +135,29 @@
          </ul>
         </li>
         <li class="toclevel-1 tocsection-8">
-         <a href="#heimdall-isorec">
+         <a href="#Using_a_specific_kernel_image">
           <span class="tocnumber">
            5
+          </span>
+          <span class="toctext">
+           Using a specific kernel image
+          </span>
+         </a>
+        </li>
+        <li class="toclevel-1 tocsection-9">
+         <a href="#heimdall-isorec">
+          <span class="tocnumber">
+           6
           </span>
           <span class="toctext">
            heimdall-isorec
           </span>
          </a>
         </li>
-        <li class="toclevel-1 tocsection-9">
+        <li class="toclevel-1 tocsection-10">
          <a href="#See_also">
           <span class="tocnumber">
-           6
+           7
           </span>
           <span class="toctext">
            See also
@@ -465,6 +475,37 @@
        and make a merge request.
       </p>
       <h2>
+       <span class="mw-headline" id="Using_a_specific_kernel_image">
+        Using a specific kernel image
+       </span>
+      </h2>
+      <p>
+       By default
+       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/devicepkg-dev/downstreamkernel_package.sh" rel="nofollow">
+        downstreamkernel_package.sh
+       </a>
+       looks for a few kernel image files such as
+       <code>
+        Image.gz-dtb
+       </code>
+       and
+       <code>
+        *zImage
+       </code>
+       , but for various reasons you may want/need to look for something else; in these situations set
+       <code>
+        KERNEL_IMAGE_NAME
+       </code>
+       similar to the following:
+      </p>
+      <div class="mw-highlight mw-content-ltr" dir="ltr">
+       <pre><span></span>package<span class="o">()</span> <span class="o">{</span>
+	<span class="nv">KERNEL_IMAGE_NAME</span><span class="o">=</span><span class="s2">"Image.gz"</span> downstreamkernel_package <span class="se">\</span>
+		<span class="s2">"</span><span class="nv">$builddir</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$pkgdir</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$_carch</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$_flavor</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$_outdir</span><span class="s2">"</span>
+<span class="o">}</span>
+</pre>
+      </div>
+      <h2>
        <span class="mw-headline" id="heimdall-isorec">
         heimdall-isorec
        </span>
@@ -580,13 +621,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Downstream_kernel_specific_package&amp;oldid=14175">
-      https://wiki.postmarketos.org/index.php?title=Downstream_kernel_specific_package&amp;oldid=14175
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Downstream_kernel_specific_package&amp;oldid=29945">
+      https://wiki.postmarketos.org/index.php?title=Downstream_kernel_specific_package&amp;oldid=29945
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 11 September 2020, at 09:34.
+     This page was last edited on 3 August 2022, at 14:03.
     </li>
     <li id="footer-info-copyright">
      Content is available under

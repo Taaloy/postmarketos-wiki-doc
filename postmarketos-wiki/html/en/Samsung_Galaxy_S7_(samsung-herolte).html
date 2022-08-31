@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Exynos 8890 Octa
+          <a class="new" href="/index.php?title=Exynos_8890_Octa&amp;action=edit&amp;redlink=1" title="Exynos 8890 Octa (page does not exist)">
+           Exynos 8890 Octa
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -408,9 +410,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -430,6 +450,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -440,6 +500,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -458,6 +527,20 @@
       <p>
        <br/>
       </p>
+      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          This is the exynos device.  For the qualcomm version, see samsung-heroqlte.
+         </td>
+        </tr>
+       </tbody>
+      </table>
       <h2>
        <span class="mw-headline" id="Contributors">
         Contributors
@@ -589,6 +672,21 @@
          <a href="../User:Ungeskriptet.html" title="User:Ungeskriptet">
           Ungeskriptet
          </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         Gold front, silver back; uniLoader working!)
+        </li>
+        <li>
+         <a href="../User:W4trmelon.html" title="User:W4trmelon">
+          W4trmelon
+         </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         has android 8 instaled)
         </li>
         <li>
          <a href="../User:Zephyr1112.html" title="User:Zephyr1112">
@@ -646,10 +744,54 @@
       <ul>
        <li>
         The device and kernel packages are basically just a copy of the
-        <a class="external text" href="https://wiki.postmarketos.org/wiki/Samsung_Galaxy_S7_Edge_(samsung-hero2lte)" rel="nofollow">
+        <a href="../en/Samsung_Galaxy_S7_Edge_(samsung-hero2lte).html" title="Samsung Galaxy S7 Edge (samsung-hero2lte)">
          Galaxy S7 Edge's
         </a>
         packages. The only difference is that the two devices use different panels.
+       </li>
+      </ul>
+      <h3>
+       <span class="mw-headline" id="Mainline_notes">
+        Mainline notes
+       </span>
+      </h3>
+      <p>
+       For uniLoader:
+      </p>
+      <ul>
+       <li>
+        To enable the framebuffer we need to write
+        <code>
+         0x1290
+        </code>
+        to address
+        <code>
+         0x13960070
+        </code>
+        . To get this value search for the
+        <code>
+         decon_f
+        </code>
+        base address and add 0x70 (
+        <code>
+         HW_SW_TRIG_CONTROL
+        </code>
+        ) to it, then use
+        <a class="external text" href="https://github.com/radii/devmem2" rel="nofollow">
+         devmem2
+        </a>
+        together with the value you calculated on a downstream kernel with
+        <code>
+         CONFIG_DEVMEM
+        </code>
+        enabled.
+       </li>
+       <li>
+        The MUIC UART is located under address 0x14c50000. To get minimal output follow
+        <a href="../en/U-Boot_porting.html#C" title="U-Boot porting">
+         this guide
+        </a>
+        (add 0x20 to the UART address for the TX offset).
        </li>
       </ul>
       <h2>
@@ -758,13 +900,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_S7_(samsung-herolte)&amp;oldid=26450">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_S7_(samsung-herolte)&amp;oldid=26450
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_S7_(samsung-herolte)&amp;oldid=29583">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_S7_(samsung-herolte)&amp;oldid=29583
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 23 March 2022, at 13:24.
+     This page was last edited on 23 July 2022, at 21:49.
     </li>
     <li id="footer-info-copyright">
      Content is available under

@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm SDM660 Snapdragon 660
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_660_(SDM660).html" title="Qualcomm SDM660 Snapdragon 660">
+           Qualcomm SDM660 Snapdragon 660
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -402,9 +404,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -424,6 +444,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -434,6 +494,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -457,7 +526,7 @@
         <tr>
          <td>
           <b>
-           This device is based on
+           This device is based on the
            <a href="../en/Qualcomm_Snapdragon_660_(SDM660).html" title="Qualcomm Snapdragon 660 (SDM660)">
             Snapdragon 660
            </a>
@@ -501,7 +570,7 @@
          <span class="cargoFieldName">
           Notes:
          </span>
-         still owned by family member)
+         In my hands again! 6/64 variant)
         </li>
        </ul>
       </div>
@@ -543,6 +612,90 @@
         <img alt="Xiaomi Mi Note 3 (jason) UART test pins location on board" decoding="async" height="109" src="../Xiaomi-jason-uart-pins-schematic-02.png" srcset="../300px-Xiaomi-jason-uart-pins-schematic-02.png 1.5x ../400px-Xiaomi-jason-uart-pins-schematic-02.png 2x" width="200"/>
        </a>
       </p>
+      <h3>
+       <span class="mw-headline" id="partition_layout">
+        partition layout
+       </span>
+      </h3>
+      <div class="toccolours mw-collapsible mw-collapsed" style="width: 620px; overflow: auto;">
+       <p>
+        Partition layout:
+       </p>
+       <div class="mw-collapsible-content">
+        <pre class="shell">jason:/ $ ls -l /dev/block/by-name
+total 0
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 abl -&gt; /dev/block/mmcblk0p38
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 ablbak -&gt; /dev/block/mmcblk0p39
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 apdp -&gt; /dev/block/mmcblk0p13
+lrwxrwxrwx 1 root root 20 1974-12-01 20:16 bk1 -&gt; /dev/block/mmcblk0p4
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 bk10 -&gt; /dev/block/mmcblk0p54
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 bk11 -&gt; /dev/block/mmcblk0p65
+lrwxrwxrwx 1 root root 20 1974-12-01 20:16 bk2 -&gt; /dev/block/mmcblk0p8
+lrwxrwxrwx 1 root root 20 1974-12-01 20:16 bk3 -&gt; /dev/block/mmcblk0p9
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 bk4 -&gt; /dev/block/mmcblk0p10
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 bk5 -&gt; /dev/block/mmcblk0p11
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 bk6 -&gt; /dev/block/mmcblk0p12
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 bk7 -&gt; /dev/block/mmcblk0p17
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 bk8 -&gt; /dev/block/mmcblk0p35
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 bk9 -&gt; /dev/block/mmcblk0p43
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 bluetooth -&gt; /dev/block/mmcblk0p34
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 boot -&gt; /dev/block/mmcblk0p62
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 cache -&gt; /dev/block/mmcblk0p67
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 cmnlib -&gt; /dev/block/mmcblk0p25
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 cmnlib64 -&gt; /dev/block/mmcblk0p27
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 cmnlib64bak -&gt; /dev/block/mmcblk0p28
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 cmnlibbak -&gt; /dev/block/mmcblk0p26
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 cust -&gt; /dev/block/mmcblk0p68
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 ddr -&gt; /dev/block/mmcblk0p18
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 devcfg -&gt; /dev/block/mmcblk0p36
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 devcfgbak -&gt; /dev/block/mmcblk0p37
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 devinfo -&gt; /dev/block/mmcblk0p55
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 dip -&gt; /dev/block/mmcblk0p33
+lrwxrwxrwx 1 root root 20 1974-12-01 20:16 dpo -&gt; /dev/block/mmcblk0p3
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 dsp -&gt; /dev/block/mmcblk0p58
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 frp -&gt; /dev/block/mmcblk0p20
+lrwxrwxrwx 1 root root 20 1974-12-01 20:16 fsc -&gt; /dev/block/mmcblk0p2
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 fsg -&gt; /dev/block/mmcblk0p44
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 hyp -&gt; /dev/block/mmcblk0p23
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 hypbak -&gt; /dev/block/mmcblk0p24
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 keymaster -&gt; /dev/block/mmcblk0p29
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 keymasterbak -&gt; /dev/block/mmcblk0p30
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 keystore -&gt; /dev/block/mmcblk0p19
+lrwxrwxrwx 1 root root 20 1974-12-01 20:16 limits -&gt; /dev/block/mmcblk0p7
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 logdump -&gt; /dev/block/mmcblk0p64
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 logfs -&gt; /dev/block/mmcblk0p53
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 logo -&gt; /dev/block/mmcblk0p59
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 mdtp -&gt; /dev/block/mmcblk0p57
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 mdtpsecapp -&gt; /dev/block/mmcblk0p47
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 mdtpsecappbak -&gt; /dev/block/mmcblk0p48
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 misc -&gt; /dev/block/mmcblk0p42
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 modem -&gt; /dev/block/mmcblk0p66
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 modemst1 -&gt; /dev/block/mmcblk0p45
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 modemst2 -&gt; /dev/block/mmcblk0p46
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 msadp -&gt; /dev/block/mmcblk0p14
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 oops -&gt; /dev/block/mmcblk0p56
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 persist -&gt; /dev/block/mmcblk0p61
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 pmic -&gt; /dev/block/mmcblk0p31
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 pmicbak -&gt; /dev/block/mmcblk0p32
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 recovery -&gt; /dev/block/mmcblk0p63
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 rpm -&gt; /dev/block/mmcblk0p21
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 rpmbak -&gt; /dev/block/mmcblk0p22
+lrwxrwxrwx 1 root root 20 1974-12-01 20:16 sec -&gt; /dev/block/mmcblk0p5
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 splash -&gt; /dev/block/mmcblk0p60
+lrwxrwxrwx 1 root root 20 1974-12-01 20:16 ssd -&gt; /dev/block/mmcblk0p6
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 sti -&gt; /dev/block/mmcblk0p41
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 storsec -&gt; /dev/block/mmcblk0p15
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 storsecbak -&gt; /dev/block/mmcblk0p16
+lrwxrwxrwx 1 root root 20 1974-12-01 20:16 switch -&gt; /dev/block/mmcblk0p1
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 system -&gt; /dev/block/mmcblk0p69
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 toolsfv -&gt; /dev/block/mmcblk0p40
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 tz -&gt; /dev/block/mmcblk0p51
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 tzbak -&gt; /dev/block/mmcblk0p52
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 userdata -&gt; /dev/block/mmcblk0p70
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 xbl -&gt; /dev/block/mmcblk0p49
+lrwxrwxrwx 1 root root 21 1974-12-01 20:16 xblbak -&gt; /dev/block/mmcblk0p50</pre>
+       </div>
+      </div>
       <h2>
        <span class="mw-headline" id="See_also">
         See also
@@ -583,13 +736,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Note_3_(xiaomi-jason)&amp;oldid=27581">
-      https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Note_3_(xiaomi-jason)&amp;oldid=27581
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Note_3_(xiaomi-jason)&amp;oldid=29776">
+      https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Note_3_(xiaomi-jason)&amp;oldid=29776
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 7 May 2022, at 20:07.
+     This page was last edited on 29 July 2022, at 20:39.
     </li>
     <li id="footer-info-copyright">
      Content is available under

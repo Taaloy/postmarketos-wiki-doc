@@ -113,7 +113,9 @@
           Chipset
          </th>
          <td class="" style="">
-          TI OMAP 4430
+          <a class="mw-redirect" href="../en/Texas_Instruments_OMAP_4_(OMAP44xx).html" title="TI OMAP 4430">
+           TI OMAP 4430
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -413,9 +415,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -435,6 +455,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -445,6 +505,15 @@
         <tr class="">
          <th scope="row" style="text-align:left;">
           TrustZone
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
          </th>
          <td class="" style="">
           <div>
@@ -514,6 +583,16 @@
           Notes:
          </span>
          Works great except very poor performance; Probably because of no hardware acceleration)
+        </li>
+        <li>
+         <a href="../User:Dartvader316.html" title="User:Dartvader316">
+          Dartvader316
+         </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         Mainline)
         </li>
         <li>
          <a href="../User:Deathmist.html" title="User:Deathmist">
@@ -706,7 +785,10 @@
        Doing both with one method results in errors in both situations.
       </p>
       <p>
-       Note: If you wish to install to the /data partition instead of the system partition, extract the Android recovery image, replace FACTORYFS with DATAFS in chroot/install_options, and re-archive it with no compression. (zip -0r disiredFileName.zip *)
+       Note: If you wish to install to the /data partition instead of the system partition, extract the Android recovery image, replace FACTORYFS with DATAFS in chroot/install_options, and re-archive it with no compression. (zip -0r disiredFileName.zip *) or
+       <a class="external free" href="https://wiki.postmarketos.org/wiki/Installation_from_recovery_mode#Create_the_recovery_zip_image" rel="nofollow">
+        https://wiki.postmarketos.org/wiki/Installation_from_recovery_mode#Create_the_recovery_zip_image
+       </a>
       </p>
       <h2>
        <span class="mw-headline" id="Photos">
@@ -731,6 +813,34 @@
         </div>
        </li>
       </ul>
+      <h2>
+       <span class="mw-headline" id="Partition_layout">
+        Partition layout
+       </span>
+      </h2>
+      <div style="width: 720px; overflow: auto;">
+       <pre>samsung-espresso10:~# fdisk -l -o Device,Start,End,Sectors,Size,Name /dev/mmcblk1
+Disk /dev/mmcblk1: 14.68 GiB, 15758000128 bytes, 30777344 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 52444E41-494F-2044-4D4D-43204449534B
+
+Device             Start      End  Sectors  Size Name
+/dev/mmcblk1p1      8192    49151    40960   20M EFS
+/dev/mmcblk1p2     49152    53247     4096    2M SBL1
+/dev/mmcblk1p3     53248    57343     4096    2M SBL2
+/dev/mmcblk1p4     57344    73727    16384    8M PARAM
+/dev/mmcblk1p5     73728    90111    16384    8M KERNEL
+/dev/mmcblk1p6     90112   106495    16384    8M RECOVERY
+/dev/mmcblk1p7    106496  1540095  1433600  700M CACHE
+/dev/mmcblk1p8   1540096  1581055    40960   20M MODEM
+/dev/mmcblk1p9   1581056  4448255  2867200  1.4G FACTORYFS
+/dev/mmcblk1p10  4448256 29728733 25280478 12.1G DATAFS
+/dev/mmcblk1p11 29728734 30777309  1048576  512M HIDDEN
+</pre>
+      </div>
       <h2>
        <span class="mw-headline" id="Links">
         Links
@@ -802,13 +912,13 @@
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_10.1_(3G_and_Wifi)_(samsung-espresso10)&amp;oldid=26551">
-      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_10.1_(3G_and_Wifi)_(samsung-espresso10)&amp;oldid=26551
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_10.1_(3G_and_Wifi)_(samsung-espresso10)&amp;oldid=30448">
+      https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_10.1_(3G_and_Wifi)_(samsung-espresso10)&amp;oldid=30448
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 27 March 2022, at 20:59.
+     This page was last edited on 25 August 2022, at 10:26.
     </li>
     <li id="footer-info-copyright">
      Content is available under

@@ -121,7 +121,9 @@
           Chipset
          </th>
          <td class="" style="">
-          Qualcomm SDM845 Snapdragon 845
+          <a class="mw-redirect" href="../en/Qualcomm_Snapdragon_845_(SDM845).html" title="Qualcomm SDM845 Snapdragon 845">
+           Qualcomm SDM845 Snapdragon 845
+          </a>
          </td>
         </tr>
         <tr class="">
@@ -436,9 +438,27 @@
         </tr>
         <tr class="">
          <th scope="row" style="text-align:left;">
-          <abbr title="Used as flip cover sensor, keyboard slide out sensor, etc.">
+          <abbr title="Also known as flip cover sensor">
            Hall Effect
           </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Barometer
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Power Sensor
          </th>
          <td class="" style="">
           <div>
@@ -458,6 +478,46 @@
        <tbody>
         <tr class="">
          <th scope="row" style="text-align:left;">
+          Keyboard
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          Touchpad
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">
+           USB-A
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          <abbr title="Video and audio output with HDMI or Display Port works.">
+           HDMI/DP
+          </abbr>
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
           Ir TX
          </th>
          <td class="" style="">
@@ -475,6 +535,15 @@
           </div>
          </td>
         </tr>
+        <tr class="">
+         <th scope="row" style="text-align:left;">
+          FOSS bootloader
+         </th>
+         <td class="" style="">
+          <div>
+          </div>
+         </td>
+        </tr>
         <tr>
          <td colspan="2" style="text-align:right">
          </td>
@@ -486,13 +555,35 @@
       </p>
       <p>
        <br/>
-       This page documents the status of mainline Linux on the OnePlus 6!
+      </p>
+      <table class="infobox" style="float: right; width: 22em; color: inherit; background-color: #f7fff7; border: 3px solid #8a8;">
+       <tbody>
+        <tr>
+         <td>
+          <b>
+           This device is based on the
+           <a href="../en/Qualcomm_Snapdragon_845_(SDM845).html" title="Qualcomm Snapdragon 845 (SDM845)">
+            Snapdragon 845
+           </a>
+           .
+          </b>
+          <br/>
+          See the SoC page for common tips, guides and troubleshooting steps
+         </td>
+        </tr>
+       </tbody>
+      </table>
+      <p>
+       The OnePlus 6 is an incredibly powerful and efficient mobile device, well regarded and (bar the notch) an excellent portable work horse, getting mainline Linux working means not only freedom from proprietary software, but also continual security patches and the ability to boot any mobile or desktop Linux distro.
       </p>
       <p>
-       The OnePlus 6 is an incredibly powerful and efficient mobile device, well regarded and (bar the notch) an excellent portable work horse, getting mainline Linux working means not only freedom from proprietary software, and security updates at OnePlus' discretion, but also the ability to boot any mobile or desktop distro as long as the required software is packaged.
+       Now that the OnePlus 6 is determined End-of-Life by OnePlus in December 2021, running newer Linux kernel versions is the only way to ensure that the device can continue to be safe and usable for years to come. The Snapdragon 845 is still (and will continue to be) and incredibly capable SoC, likewise the OnePlus 6 is a well-built and perfectly adequite device. That the millions of sold units have been dropped, destined for Landfill (or at best recycling) by OnePlus is abhorrant, join us in doing our best to continue to make devices like the OnePlus 6 safe and usable.
       </p>
       <p>
        The phone is currently capable of booting modern Linux with only a few patches, check the table on the right (or above on mobile) for the hardware support checklist.
+      </p>
+      <p>
+       Despite being able to run an up to date kernel, we are still dependant on the now aging firmware for features like the bootloader, modem, wifi and bluetooth to function, whilst it is relatively unlikely that a vulnerability is discovered in this firmware, it is absolutely a possibility. Until OnePlus release the signing keys used to sign new versions of the firmware - allowing us to potentially make use of future security patches - we're stuck with what we've got.
       </p>
       <div class="toc" id="toc">
        <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
@@ -547,19 +638,9 @@
              </a>
             </li>
             <li class="toclevel-3 tocsection-5">
-             <a href="#Fastboot">
-              <span class="tocnumber">
-               2.1.2
-              </span>
-              <span class="toctext">
-               Fastboot
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-6">
              <a href="#Unlock_the_bootloader">
               <span class="tocnumber">
-               2.1.3
+               2.1.2
               </span>
               <span class="toctext">
                Unlock the bootloader
@@ -568,7 +649,7 @@
             </li>
            </ul>
           </li>
-          <li class="toclevel-2 tocsection-7">
+          <li class="toclevel-2 tocsection-6">
            <a href="#Prebuilt_images">
             <span class="tocnumber">
              2.2
@@ -578,7 +659,7 @@
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-8">
+          <li class="toclevel-2 tocsection-7">
            <a href="#Manual_build">
             <span class="tocnumber">
              2.3
@@ -590,7 +671,7 @@
           </li>
          </ul>
         </li>
-        <li class="toclevel-1 tocsection-9">
+        <li class="toclevel-1 tocsection-8">
          <a href="#Dual_booting">
           <span class="tocnumber">
            3
@@ -600,7 +681,7 @@
           </span>
          </a>
          <ul>
-          <li class="toclevel-2 tocsection-10">
+          <li class="toclevel-2 tocsection-9">
            <a href="#Flashing_to_system">
             <span class="tocnumber">
              3.1
@@ -610,7 +691,7 @@
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-11">
+          <li class="toclevel-2 tocsection-10">
            <a href="#Sharing_userdata_with_Android">
             <span class="tocnumber">
              3.2
@@ -620,7 +701,7 @@
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-12">
+          <li class="toclevel-2 tocsection-11">
            <a href="#Advanced_Partitioning">
             <span class="tocnumber">
              3.3
@@ -632,7 +713,7 @@
           </li>
          </ul>
         </li>
-        <li class="toclevel-1 tocsection-13">
+        <li class="toclevel-1 tocsection-12">
          <a href="#Fastboot_bugs">
           <span class="tocnumber">
            4
@@ -642,7 +723,7 @@
           </span>
          </a>
         </li>
-        <li class="toclevel-1 tocsection-14">
+        <li class="toclevel-1 tocsection-13">
          <a href="#Upgrading">
           <span class="tocnumber">
            5
@@ -652,7 +733,7 @@
           </span>
          </a>
          <ul>
-          <li class="toclevel-2 tocsection-15">
+          <li class="toclevel-2 tocsection-14">
            <a href="#Device_won.27t_boot_properly_after_upgrade">
             <span class="tocnumber">
              5.1
@@ -664,7 +745,7 @@
           </li>
          </ul>
         </li>
-        <li class="toclevel-1 tocsection-16">
+        <li class="toclevel-1 tocsection-15">
          <a href="#Building">
           <span class="tocnumber">
            6
@@ -674,7 +755,7 @@
           </span>
          </a>
         </li>
-        <li class="toclevel-1 tocsection-17">
+        <li class="toclevel-1 tocsection-16">
          <a href="#Info">
           <span class="tocnumber">
            7
@@ -684,7 +765,7 @@
           </span>
          </a>
          <ul>
-          <li class="toclevel-2 tocsection-18">
+          <li class="toclevel-2 tocsection-17">
            <a href="#Hacking">
             <span class="tocnumber">
              7.1
@@ -694,7 +775,7 @@
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-19">
+          <li class="toclevel-2 tocsection-18">
            <a href="#Partition_map">
             <span class="tocnumber">
              7.2
@@ -706,7 +787,7 @@
           </li>
          </ul>
         </li>
-        <li class="toclevel-1 tocsection-20">
+        <li class="toclevel-1 tocsection-19">
          <a href="#The_big_list_of_issues">
           <span class="tocnumber">
            8
@@ -716,7 +797,7 @@
           </span>
          </a>
          <ul>
-          <li class="toclevel-2 tocsection-21">
+          <li class="toclevel-2 tocsection-20">
            <a href="#Stuck_in_fastboot_after_rebooting">
             <span class="tocnumber">
              8.1
@@ -726,7 +807,7 @@
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-22">
+          <li class="toclevel-2 tocsection-21">
            <a href="#Charging">
             <span class="tocnumber">
              8.2
@@ -736,7 +817,7 @@
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-23">
+          <li class="toclevel-2 tocsection-22">
            <a href="#Tri-state_key_support">
             <span class="tocnumber">
              8.3
@@ -746,7 +827,7 @@
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-24">
+          <li class="toclevel-2 tocsection-23">
            <a href="#Phosh_clock_hidden_by_notch">
             <span class="tocnumber">
              8.4
@@ -756,7 +837,7 @@
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-25">
+          <li class="toclevel-2 tocsection-24">
            <a href="#HW_Video_decoding_is_broken">
             <span class="tocnumber">
              8.5
@@ -768,17 +849,17 @@
           </li>
          </ul>
         </li>
-        <li class="toclevel-1 tocsection-26">
-         <a href="#3rd_party_displays_.2F_touch_panels_don.27t_work">
+        <li class="toclevel-1 tocsection-25">
+         <a href="#Third_party_displays_and_touch_panel_issues">
           <span class="tocnumber">
            9
           </span>
           <span class="toctext">
-           3rd party displays / touch panels don't work
+           Third party displays and touch panel issues
           </span>
          </a>
         </li>
-        <li class="toclevel-1 tocsection-27">
+        <li class="toclevel-1 tocsection-26">
          <a href="#GPS">
           <span class="tocnumber">
            10
@@ -788,7 +869,7 @@
           </span>
          </a>
         </li>
-        <li class="toclevel-1 tocsection-28">
+        <li class="toclevel-1 tocsection-27">
          <a href="#Camera">
           <span class="tocnumber">
            11
@@ -798,7 +879,7 @@
           </span>
          </a>
         </li>
-        <li class="toclevel-1 tocsection-29">
+        <li class="toclevel-1 tocsection-28">
          <a href="#Sensors">
           <span class="tocnumber">
            12
@@ -808,7 +889,7 @@
           </span>
          </a>
         </li>
-        <li class="toclevel-1 tocsection-30">
+        <li class="toclevel-1 tocsection-29">
          <a href="#TrustZone">
           <span class="tocnumber">
            13
@@ -818,7 +899,7 @@
           </span>
          </a>
         </li>
-        <li class="toclevel-1 tocsection-31">
+        <li class="toclevel-1 tocsection-30">
          <a href="#Fastboot_flashing_issues">
           <span class="tocnumber">
            14
@@ -828,7 +909,7 @@
           </span>
          </a>
         </li>
-        <li class="toclevel-1 tocsection-32">
+        <li class="toclevel-1 tocsection-31">
          <a href="#Modem_bugs">
           <span class="tocnumber">
            15
@@ -838,7 +919,7 @@
           </span>
          </a>
          <ul>
-          <li class="toclevel-2 tocsection-33">
+          <li class="toclevel-2 tocsection-32">
            <a href="#Call_audio">
             <span class="tocnumber">
              15.1
@@ -848,7 +929,7 @@
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-34">
+          <li class="toclevel-2 tocsection-33">
            <a href="#Dual_Sim">
             <span class="tocnumber">
              15.2
@@ -860,7 +941,7 @@
           </li>
          </ul>
         </li>
-        <li class="toclevel-1 tocsection-35">
+        <li class="toclevel-1 tocsection-34">
          <a href="#Community_Info">
           <span class="tocnumber">
            16
@@ -870,7 +951,7 @@
           </span>
          </a>
          <ul>
-          <li class="toclevel-2 tocsection-36">
+          <li class="toclevel-2 tocsection-35">
            <a href="#postmarketOS_users_that_own_the_device">
             <span class="tocnumber">
              16.1
@@ -880,7 +961,7 @@
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-37">
+          <li class="toclevel-2 tocsection-36">
            <a href="#Maintainers">
             <span class="tocnumber">
              16.2
@@ -892,7 +973,7 @@
           </li>
          </ul>
         </li>
-        <li class="toclevel-1 tocsection-38">
+        <li class="toclevel-1 tocsection-37">
          <a href="#See_also">
           <span class="tocnumber">
            17
@@ -902,7 +983,7 @@
           </span>
          </a>
          <ul>
-          <li class="toclevel-2 tocsection-39">
+          <li class="toclevel-2 tocsection-38">
            <a href="#Internal_pages">
             <span class="tocnumber">
              17.1
@@ -912,7 +993,7 @@
             </span>
            </a>
           </li>
-          <li class="toclevel-2 tocsection-40">
+          <li class="toclevel-2 tocsection-39">
            <a href="#External_links">
             <span class="tocnumber">
              17.2
@@ -932,7 +1013,7 @@
        </span>
       </h2>
       <p>
-       Unplug from USB, hold
+       Unplug from USB and power off the phone, hold
        <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
         Power
        </span>
@@ -940,7 +1021,7 @@
        <span class="nowrap" style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;" title="This is not a clickable button; it illustrates the button one should find.">
         Volume Up
        </span>
-       until you see "Fastboot Mode" text.
+       until you see "Fastboot Mode" text followed by a simple text menu.
       </p>
       <p>
        For the
@@ -966,16 +1047,20 @@
         Installing
        </span>
       </h2>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
+      <table role="text container" style="color: inherit; background-color: #D3E4FA; border: 1px solid #0B6B9F; margin: 4px 0; border-collapse: collapse;">
        <tbody>
         <tr>
          <td style="padding: 2px 0 2px 0.9em; text-align: center;">
           <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
+           <img alt="Notice" decoding="async" height="20" src="../Notice.png" srcset="../Notice.png 1.5x ../Notice.png 2x" title="Notice" width="20"/>
           </span>
          </td>
          <td style="padding: 0.35em 0.9em; width: 100%;">
-          For dual booting with Android, see "Dual booting" below.
+          The bootloader is the only firmware that postmarketOS doesn't install itself, all other firmware (devicetree, gpu, modem etc) is supplied by postmarketOS. In contrast to custom Android ROMs, it is
+          <strong>
+           incredibly unlikely
+          </strong>
+          that any bugs or issues you encounter other than the ones mentioned below are caused by whatever OS you previously had installed.
          </td>
         </tr>
        </tbody>
@@ -985,38 +1070,30 @@
         Prerequisites
        </span>
       </h3>
+      <p>
+       To install prebuilt images, you will need:
+      </p>
+      <p>
+       1. A computer with fastboot
+      </p>
+      <p>
+       This can be obtained by installed the
+       <code>
+        android-tools
+       </code>
+       package on Linux or by installing the
+       <a class="external text" href="https://developer.android.com/studio/releases/platform-tools" rel="nofollow">
+        Android SDK Platform-Tools
+       </a>
+       on Windows, Mac (or Linux).
+      </p>
       <h4>
        <span class="mw-headline" id="Upgrade">
         Upgrade
        </span>
       </h4>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          The bootloader is the only firmware that postmarketOS doesn't install itself, all other firmware (devicetree, gpu, modem etc) is supplied by postmarketOS
-         </td>
-        </tr>
-       </tbody>
-      </table>
       <p>
-       Before installing postmarketOS, it's recommended that you upgrade your device to the latest release of OOS, whilst this is not a hard requirement, there have been issues with fastboot misbehaving on older firmware versions.
-      </p>
-      <p>
-       There is no hard requirement that your device is running a specific Android version, as unlike other (Halium based) distributions, postmarketOS doesn't depend on re-using hardware support provided by proprietary userspace blobs.
-      </p>
-      <h4>
-       <span class="mw-headline" id="Fastboot">
-        Fastboot
-       </span>
-      </h4>
-      <p>
-       Install fastboot on your host, refer to Google for instructions.
+       Before installing postmarketOS, it's recommended that you upgrade your device to the latest release of OOS, this is not a requirement but is heavily recommended. Try this first if you encounter issues with fastboot.
       </p>
       <h4>
        <span class="mw-headline" id="Unlock_the_bootloader">
@@ -1058,22 +1135,54 @@
        <a class="external text" href="https://postmarketos.org/download/" rel="nofollow">
         download
        </a>
-       page.
+       page,
+       <code>
+        oneplus-enchilada
+       </code>
+       for the OnePlus 6 and
+       <code>
+        oneplus-fajita
+       </code>
+       for the 6T.
       </p>
       <p>
-       Download the files ending in
+       Download both files, one is the rootfs and is larger, the file ending in
        <code>
-        .img
+        -boot.img.xz
        </code>
-       , you may also want to download the hashes for verification. On Windows you can use a tool like 7zip to decompress the files, on Linux use
+       is the Android boot image containing the kernel and ramdisk, you may also want to download the hashes for verification.
+      </p>
+      <p>
+       Once downloaded, decompress the files. On Windows you can use a tool like 7zip, on Linux use
        <code>
         unxz
        </code>
-       . Then use fastboot to flash with the following:
+       .
       </p>
+      <p>
+       Finally, use fastboot to flash.
+      </p>
+      <table role="text container" style="color: inherit; background-color: #D3E4FA; border: 1px solid #0B6B9F; margin: 4px 0; border-collapse: collapse;">
+       <tbody>
+        <tr>
+         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
+          <span style="white-space: nowrap;">
+           <img alt="Notice" decoding="async" height="20" src="../Notice.png" srcset="../Notice.png 1.5x ../Notice.png 2x" title="Notice" width="20"/>
+          </span>
+         </td>
+         <td style="padding: 0.35em 0.9em; width: 100%;">
+          erasing the dtbo partition will make Android unbootable on that
+          <a href="../en/Android_AB_Slots.html" title="Android AB Slots">
+           slot
+          </a>
+          , take a backup if you intend to restore your Android installation.
+         </td>
+        </tr>
+       </tbody>
+      </table>
       <pre>fastboot erase dtbo
-fastboot flash boot &lt;date&gt;-&lt;time&gt;-postmarketOS-edge-phosh-6-oneplus-[enchilada|fajita]-boot.img
-fastboot flash userdata &lt;date&gt;-&lt;time&gt;-postmarketOS-edge-phosh-6-oneplus-[enchilada|fajita].img
+fastboot flash boot [the file that ends in -boot.img]
+fastboot flash userdata [the other file]
 </pre>
       <p>
        For prebuilt images, the default username is
@@ -1233,13 +1342,12 @@ fastboot flash vendor /tmp/postmarketOS-export/oneplus-[enchilada|fajita]-boot.i
          <td style="padding: 2px 0 2px 0.9em; text-align: center;">
           <span style="white-space: nowrap;">
            <img alt="Icon" decoding="async" height="20" src="../Red_warning_icon.svg" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x" title="Icon" width="20"/>
-           <br/>
-           <b>
-            Warning!
-           </b>
           </span>
          </td>
          <td style="padding: 0.35em 0.9em; width: 100%;">
+          <b>
+           WARNING:
+          </b>
           This is a dangerous process that may hard-brick your phone, requiring the use of poorly documented EDL-mode recovery tools to fix
          </td>
         </tr>
@@ -1581,19 +1689,20 @@ fastboot set_active a set_active b
        </span>
       </h3>
       <p>
-       Being worked on! Might also end up with a kernel driver at some point to simplify the daemon. Hopefully it gets merged soon.
-      </p>
-      <p>
+       First support was in userspace:
        <a class="external free" href="https://github.com/michele-perrone/postmarketos-oneplus6-tristatekey" rel="nofollow">
         https://github.com/michele-perrone/postmarketos-oneplus6-tristatekey
        </a>
       </p>
       <p>
-       A kernel device driver for the tri-state key could use the EV_MSC event codes :
-       <a class="external free" href="https://www.kernel.org/doc/Documentation/input/event-codes.txt" rel="nofollow">
-        https://www.kernel.org/doc/Documentation/input/event-codes.txt
+       A kernel device driver for the tri-state key has now been developed, and it emits EV_SW with codes 17/18/19 for the top/middle/bottom states.
+      </p>
+      <p>
+       The next step is to write
+       <a class="external text" href="https://gitlab.com/postmarketOS/hkdm" rel="nofollow">
+        hkdm
        </a>
-       , these are used for misc devices to report some arbitrary input event, this can then be handled by the user daemon!
+       configs for it but this may need to wait for the driver to get upstreamed. hkdm itself needs support for EV_SW devices added.
       </p>
       <h3>
        <span class="mw-headline" id="Phosh_clock_hidden_by_notch">
@@ -1626,10 +1735,8 @@ fastboot set_active a set_active b
        Venus works, gstreamer has support for it but the colours are all wrong. Firefox doesn't seem to support it properly.
       </p>
       <h2>
-       <span id="3rd_party_displays_/_touch_panels_don't_work">
-       </span>
-       <span class="mw-headline" id="3rd_party_displays_.2F_touch_panels_don.27t_work">
-        3rd party displays / touch panels don't work
+       <span class="mw-headline" id="Third_party_displays_and_touch_panel_issues">
+        Third party displays and touch panel issues
        </span>
       </h2>
       <p>
@@ -1924,6 +2031,11 @@ sudo ModemManager --debug | tee mm.log
          Using as Minecraft Server)
         </li>
         <li>
+         <a href="../User:Linmob.html" title="User:Linmob">
+          Linmob
+         </a>
+        </li>
+        <li>
          <a href="../User:No112.html" title="User:No112">
           No112
          </a>
@@ -1941,7 +2053,7 @@ sudo ModemManager --debug | tee mm.log
          <span class="cargoFieldName">
           Notes:
          </span>
-         8G/128G (fajita))
+         8G/128G)
         </li>
         <li>
          <a href="../User:PanzerSajt.html" title="User:PanzerSajt">
@@ -1967,6 +2079,26 @@ sudo ModemManager --debug | tee mm.log
           Notes:
          </span>
          (128G/8G) Daily driver on Slot B, tinker phone on Slot A)
+        </li>
+        <li>
+         <a href="../User:ThatGeekZen.html" title="User:ThatGeekZen">
+          ThatGeekZen
+         </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         PMOS Daily Driver)
+        </li>
+        <li>
+         <a href="../User:WilliamTries.html" title="User:WilliamTries">
+          WilliamTries
+         </a>
+         (
+         <span class="cargoFieldName">
+          Notes:
+         </span>
+         Available for testing.)
         </li>
        </ul>
       </div>
@@ -2115,13 +2247,13 @@ sudo ModemManager --debug | tee mm.log
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)&amp;oldid=28462">
-      https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)&amp;oldid=28462
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)&amp;oldid=30585">
+      https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)&amp;oldid=30585
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 10 June 2022, at 17:57.
+     This page was last edited on 29 August 2022, at 15:00.
     </li>
     <li id="footer-info-copyright">
      Content is available under

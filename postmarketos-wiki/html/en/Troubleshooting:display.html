@@ -759,22 +759,22 @@ the other side. You can try changing the panning with the `panning` file in the 
 <span class="gd">--- a/drivers/video/fbmem.c</span>
 <span class="gi">+++ b/drivers/video/fbmem.c</span>
 <span class="gu">@@ -1096,9 +1096,15 @@ static long do_fb_ioctl(struct fb_info *info, unsigned int cmd,</span>
-                ret = copy_to_user(argp, &amp;fix, sizeof(fix)) ? -EFAULT : 0;
-                break;
-        case FBIOPUTCMAP:
-<span class="gd">-               if (copy_from_user(&amp;cmap, argp, sizeof(cmap)))</span>
-<span class="gi">+               printk(KERN_ERR "PMOS DEBUG: calling copy_from_user...\n");</span>
-<span class="gi">+               if (copy_from_user(&amp;cmap, argp, sizeof(cmap))) {</span>
-<span class="gi">+                       printk(KERN_ERR "PMOS DEBUG: copy_from_user failed!\n");</span>
-                        return -EFAULT;
-<span class="gi">+               }</span>
-<span class="gi">+               printk(KERN_ERR "PMOS DEBUG: copy_from_user ok!\n");</span>
-<span class="gi">+               printk(KERN_ERR "PMOS DEBUG: calling fb_set_user_cmap...\n");</span>
-                ret = fb_set_user_cmap(&amp;cmap, info);
-<span class="gi">+               printk(KERN_ERR "PMOS DEBUG: fb_set_user_cmap returned %d\n", ret);</span>
-                break;
-        case FBIOGETCMAP:
-                if (copy_from_user(&amp;cmap, argp, sizeof(cmap)))
+ 		ret = copy_to_user(argp, &amp;fix, sizeof(fix)) ? -EFAULT : 0;
+ 		break;
+ 	case FBIOPUTCMAP:
+<span class="gd">-		if (copy_from_user(&amp;cmap, argp, sizeof(cmap)))</span>
+<span class="gi">+			printk(KERN_ERR "PMOS DEBUG: calling copy_from_user...\n");</span>
+<span class="gi">+		if (copy_from_user(&amp;cmap, argp, sizeof(cmap))) {</span>
+<span class="gi">+			printk(KERN_ERR "PMOS DEBUG: copy_from_user failed!\n");</span>
+ 			return -EFAULT;
+<span class="gi">+		}</span>
+<span class="gi">+		printk(KERN_ERR "PMOS DEBUG: copy_from_user ok!\n");</span>
+<span class="gi">+		printk(KERN_ERR "PMOS DEBUG: calling fb_set_user_cmap...\n");</span>
+ 		ret = fb_set_user_cmap(&amp;cmap, info);
+<span class="gi">+		printk(KERN_ERR "PMOS DEBUG: fb_set_user_cmap returned %d\n", ret);</span>
+ 		break;
+ 	case FBIOGETCMAP:
+ 		if (copy_from_user(&amp;cmap, argp, sizeof(cmap)))
 </pre>
       </div>
       <h2>
@@ -1026,7 +1026,20 @@ the other side. You can try changing the panning with the `panning` file in the 
       </ul>
      </div>
     </div>
-    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
+    <div class="catlinks" data-mw="interface" id="catlinks">
+     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
+      <a href="../Special:Categories.html" title="Special:Categories">
+       Category
+      </a>
+      :
+      <ul>
+       <li>
+        <a href="../en/Category:Troubleshooting.html" title="Category:Troubleshooting">
+         Troubleshooting
+        </a>
+       </li>
+      </ul>
+     </div>
     </div>
     <div class="visualClear">
     </div>
@@ -1036,13 +1049,13 @@ the other side. You can try changing the panning with the `panning` file in the 
    <ul id="footer-info">
     <li>
      Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:display&amp;oldid=20779">
-      https://wiki.postmarketos.org/index.php?title=Troubleshooting:display&amp;oldid=20779
+     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:display&amp;oldid=30221">
+      https://wiki.postmarketos.org/index.php?title=Troubleshooting:display&amp;oldid=30221
      </a>
      "
     </li>
     <li id="footer-info-lastmod">
-     This page was last edited on 20 July 2021, at 08:05.
+     This page was last edited on 15 August 2022, at 09:29.
     </li>
     <li id="footer-info-copyright">
      Content is available under
