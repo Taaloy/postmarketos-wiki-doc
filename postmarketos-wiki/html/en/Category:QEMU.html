@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Category:QEMU - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-14 ns-subject page-Category_QEMU rootpage-Category_QEMU skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+<div id="mw-indicator-mw-helplink" class="mw-indicator"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Categories" target="_blank" class="mw-helplink">Help</a></div>
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Category:QEMU</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr">
+<div class="mw-parser-output">
+<p>It is possible to run postmarketOS installations inside a virtual machine with <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/QEMU">QEMU</a>.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Usage"><span class="tocnumber">1</span> <span class="toctext">Usage</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Network"><span class="tocnumber">2</span> <span class="toctext">Network</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Audio"><span class="tocnumber">3</span> <span class="toctext">Audio</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Rootfs_location"><span class="tocnumber">4</span> <span class="toctext">Rootfs location</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p><a href="../en/Pmbootstrap.html" title="Pmbootstrap">Install pmbootstrap</a> and initialize it with one of the <code>qemu</code> devices. For each CPU architecture that is supported in postmarketOS, there is a separate qemu "device". As CPU emulation is slow, pick your native architecture (most likely <a href="../en/QEMU_amd64_(qemu-amd64).html" title="QEMU amd64 (qemu-amd64)">qemu-amd64</a> or <a href="../en/QEMU_aarch64_(qemu-aarch64).html" title="QEMU aarch64 (qemu-aarch64)">qemu-aarch64</a>). The differences and what works for each architecture is listed on the device specific wiki pages (see the end of this category page for a full list). The wiki page you are reading here has information about everything that is in common for the QEMU device ports.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init  <span class="c1"># Choose device, e.g. "qemu-amd64"</span>
+</pre></div>
+<p>Build an image and run QEMU:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install
+<span class="gp">$</span> pmbootstrap qemu --image-size<span class="o">=</span>2G
+</pre></div>
+<p>The <code>--image-size=2G</code> parameter will increase the image size to 2GB, so you don't instantly run out of space (by default the image size is as small as possible). Check out <code>pmbootstrap qemu --help</code> for more options. For example the default memory allocation is only 1024, which may not be enough for modern desktop environments.
+</p>
+<h2><span class="mw-headline" id="Network">Network</span></h2>
+<p>Qemu's <a rel="nofollow" class="external text" href="https://www.qemu.org/docs/master/system/devices/net.html#using-the-user-mode-network-stack">user mode network stack</a> is used. With all UIs except for <code>none</code>, postmarketOS should run a DHCP client on boot that automatically connects to QEMU's DNS server and as a result you should have network available. Note that ICMP (ping) may not work depending on your host (see QEMU's documentation for details).
+</p>
+<p>If you selected <code>none</code> as user interface and don't have network, do one of the following:
+</p>
+<p>a) Select the UI <code>console</code> instead. It is slightly bigger and will automatically start a DHCP client.
+</p>
+<p>b) Use <code>pmbootstrap install --add=networkmanager</code>.
+</p>
+<p>c) Run Alpine's setup tools in the TTY prompt to generate a <code>/etc/network/interfaces</code> file for <code>ifupdown-ng</code> and bring up <code>eth0</code> manually:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo setup-interfaces
+<span class="gp">$</span> sudo ifup eth0
+</pre></div>
+<h2><span class="mw-headline" id="Audio">Audio</span></h2>
+<p>Audio is disabled by default. To enable audio, select an audio backend (usually <code>pa</code> for PulseAudio or <code>alsa</code> for ALSA), and pass:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap qemu --audio pa
+</pre></div>
+<h2><span class="mw-headline" id="Rootfs_location">Rootfs location</span></h2>
+<p>You could find the postmarketOS rootfs image at <code>~/.local/var/pmbootstrap/chroot_native/home/pmos/rootfs</code>.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="../en/Troubleshooting:QEMU.html" title="Troubleshooting:QEMU">Troubleshooting:QEMU</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1612">!1612</a> Use Alpine's QEMU rather than host system QEMU</li>
+</ul>
+</div>
+<div class="mw-category-generated" lang="en" dir="ltr"><div id="mw-pages">
+<h2>Pages in category "QEMU"</h2>
+<p>The following 5 pages are in this category, out of 5 total.
+</p>
+<div lang="en" dir="ltr" class="mw-content-ltr">
+<h3>Q</h3>
+<ul>
+<li><a href="../en/QEMU_aarch64_(qemu-aarch64).html" title="QEMU aarch64 (qemu-aarch64)">QEMU aarch64 (qemu-aarch64)</a></li>
+<li><a href="../en/QEMU_amd64_(qemu-amd64).html" title="QEMU amd64 (qemu-amd64)">QEMU amd64 (qemu-amd64)</a></li>
+<li><a href="../en/QEMU_ARM_(qemu-vexpress).html" title="QEMU ARM (qemu-vexpress)">QEMU ARM (qemu-vexpress)</a></li>
+<li><a href="../en/QEMU_Nokia_N900_(qemu-rx51).html" title="QEMU Nokia N900 (qemu-rx51)">QEMU Nokia N900 (qemu-rx51)</a></li>
+<li><a href="../en/QEMU_riscv64_(qemu-riscv64).html" title="QEMU riscv64 (qemu-riscv64)">QEMU riscv64 (qemu-riscv64)</a></li>
+</ul>
+</div>
+</div></div>
+</div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Category:QEMU&amp;oldid=36653">https://wiki.postmarketos.org/index.php?title=Category:QEMU&amp;oldid=36653</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 24 February 2023, at 14:26.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Category:QEMU&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>SM7150 Mainlining - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-SM7150_Mainlining rootpage-SM7150_Mainlining skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">SM7150 Mainlining</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #E8E0CC; border: 2px dotted #C1B598; margin: 4px 10%; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;">🚧</span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>This page is a work-in-progress.</b> Some information contained within may be inaccurate or incomplete.</td>
+</tr></tbody></table>
+<p>The Qualcomm SM7150 series of chips are premium mid-range SoCs released in 2019 and 2020, with mainline support originally added to the <a href="../en/Xiaomi_POCO_X3_NFC_(xiaomi-surya).html" title="Xiaomi POCO X3 NFC (xiaomi-surya)">Xiaomi POCO X3 NFC</a>
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Status"><span class="tocnumber">1</span> <span class="toctext">Status</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Getting_started"><span class="tocnumber">2</span> <span class="toctext">Getting started</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Requirements"><span class="tocnumber">2.1</span> <span class="toctext">Requirements</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Extracting_downstream_device_tree_blob"><span class="tocnumber">2.2</span> <span class="toctext">Extracting downstream device tree blob</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Device_Package"><span class="tocnumber">2.3</span> <span class="toctext">Device Package</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Build_Kernel"><span class="tocnumber">2.4</span> <span class="toctext">Build Kernel</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Initial_device_tree"><span class="tocnumber">3</span> <span class="toctext">Initial device tree</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Reserved_memory_regions"><span class="tocnumber">3.1</span> <span class="toctext">Reserved memory regions</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Protected_GPIO_pins"><span class="tocnumber">3.2</span> <span class="toctext">Protected GPIO pins</span></a></li>
+<li class="toclevel-2 tocsection-10">
+<a href="#Getting_output"><span class="tocnumber">3.3</span> <span class="toctext">Getting output</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#SimpleFB"><span class="tocnumber">3.3.1</span> <span class="toctext">SimpleFB</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Ramoops"><span class="tocnumber">3.3.2</span> <span class="toctext">Ramoops</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#UART"><span class="tocnumber">3.3.3</span> <span class="toctext">UART</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-14"><a href="#Remote_Filesystem_memory"><span class="tocnumber">3.4</span> <span class="toctext">Remote Filesystem memory</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Building"><span class="tocnumber">3.5</span> <span class="toctext">Building</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Booting"><span class="tocnumber">4</span> <span class="toctext">Booting</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#Contributing"><span class="tocnumber">5</span> <span class="toctext">Contributing</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="#Have_questions.3F"><span class="tocnumber">6</span> <span class="toctext">Have questions?</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Status">Status</span></h2>
+<p>An overview of this SoCs features can be seen on its page <a href="../en/Qualcomm_Snapdragon_730_730G_732G_(SM7150).html" title="Qualcomm Snapdragon 730/730G/732G (SM7150)">here</a>.
+</p>
+<h2><span class="mw-headline" id="Getting_started">Getting started</span></h2>
+<h3><span class="mw-headline" id="Requirements">Requirements</span></h3>
+<ul>
+<li>SM7150-based device</li>
+<li>Extracted device tree from (preferably) stock Android or TWRP</li>
+<li><a href="../en/Pmbootstrap.html#Installing_manually" class="mw-redirect" title="Installing pmbootstrap">pmbootstrap (from git)</a></li>
+<li>Basic knowledge about Linux, Git, C, Device Trees, ...</li>
+<li>Willingness to learn about "mainlining" and to figure out things on your own</li>
+</ul>
+<h3><span class="mw-headline" id="Extracting_downstream_device_tree_blob">Extracting downstream device tree blob</span></h3>
+<p>The device tree blob (dtb) will help you find out which hardware your device has, how the regulators have been setup, where the memory regions are and much more. It is not possible to copy the downstream dtb and use it in mainline, therefore you have to write your own device tree source (dts) for the mainline kernel.
+</p>
+<p>In order to extract the dtb, you will have to boot up the downstream kernel. Preferably you would extract it from the stock Android ROM that came with your phone so it would include the device tree blob overlays (dtbo). Using something like TWRP will also work in case you can't boot your stock ROM anymore.
+</p>
+<p>To extract it, run <code>dd if=/sys/firmware/fdt of=/sdcard/device.dtb</code> with root from an ADB shell and pull the file to your computer with <code>adb pull /sdcard/device.dtb</code>.
+</p>
+<p>Since this file is a compiled blob of the device tree, you will have to decompile it into a human-readable format next. You can do that with the device tree compiler (dtc). Simply install it from your package manager and run <code>dtc -I dtb -O dts -o device.dts device.dtb</code>
+</p>
+<p>Now you can read the full source code of the device tree from your device. Keep this file saved somewhere, as you will need it in your mainlining adventure.
+</p>
+<h3><span class="mw-headline" id="Device_Package">Device Package</span></h3>
+<p>Before you can build the mainline kernel for your device, you need to setup the postmarketOS device package. Avoid creating the device/kernel package directly through pmbootstrap, because that will result in a package for a downstream kernel. You can start with the following examples from <code>device-xiaomi-surya</code>:
+</p>
+<ul>
+<li>
+<code>device/testing/device-&lt;vendor&gt;-&lt;codename&gt;/APKBUILD</code>: <a rel="nofollow" class="external autonumber" href="https://github.com/sm7150-mainline/postmarketos/blob/b0f1b9f/device-xiaomi-surya/APKBUILD">[1]</a>
+</li>
+<li>
+<code>device/testing/device-&lt;vendor&gt;-&lt;codename&gt;/deviceinfo</code>: <a rel="nofollow" class="external autonumber" href="https://github.com/sm7150-mainline/postmarketos/blob/b0f1b9f/device-xiaomi-surya/deviceinfo">[2]</a>
+</li>
+</ul>
+<p>To find the correct values for deviceinfo use <code>pmbootstrap bootimg_analyze boot.img</code> on a boot.img file from the firmware of your device. You can most likely copy the values from the example as they are pretty much the same for most devices.
+</p>
+<p>After modifying the deviceinfo file, run <code>pmbootstrap checksum device-&lt;vendor&gt;-&lt;codename&gt;</code> to generate the checksums.
+</p>
+<h3><span class="mw-headline" id="Build_Kernel">Build Kernel</span></h3>
+<p>To build the kernel, use <code>envkernel.sh</code>, a script for pmbootstrap that will make compiling and packaging the kernel easier. You can only find this script in the git version of pmbootstrap, so follow the instructions from <a href="../en/Pmbootstrap.html#Installing_manually" class="mw-redirect" title="Installing pmbootstrap">here</a> if you use a pre-packaged version.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> path/to/sm7150-mainline/linux
+<span class="gp">$</span> <span class="nb">source</span> path/to/pmbootstrap/helpers/envkernel.sh
+
+<span class="gp">#</span> Initialize kernel configuration
+<span class="gp">$</span> make defconfig sm7150.config
+
+<span class="gp">#</span> Build speed will vary from computer to computer
+<span class="gp">$</span> make -j<span class="k">$(</span>nproc<span class="k">)</span>
+
+<span class="gp">#</span> Create postmarketOS package with your built kernel
+<span class="gp">$</span> pmbootstrap build --envkernel linux-postmarketos-qcom-sm7150
+</pre></div>
+<p>This is how you can build and test local changes for the kernel from now on. Now we will continue setting up an initial device tree for your device.
+</p>
+<p>Later on, if you want to change the config, for example to build a new display driver as a module, you can run <code>make menuconfig</code>.
+</p>
+<h2><span class="mw-headline" id="Initial_device_tree">Initial device tree</span></h2>
+<p>Your initial device tree does not need much for your device to boot. A minimal device tree needs:
+</p>
+<ul>
+<li>
+<code>qcom,board-id</code> property for your bootloader to find the dtb</li>
+<li>Memory regions</li>
+<li>Some way of output (SimpleFB, ramoops or UART)</li>
+<li>Protected GPIO pins (Fingerprint and NFC pins, should be the same for most devices)</li>
+</ul>
+<p>Make sure the properties with <code>//FIXME</code> are correct for your device. You can find the corresponding values in the device tree you extracted, but beware that decimal numbers have been converted into hexadecimal numbers.
+</p>
+<p>The root node of your device tree should look like this:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-2.0-only</span>
+
+<span class="o">/</span><span class="n">dts</span><span class="o">-</span><span class="n">v1</span><span class="o">/</span><span class="p">;</span>
+
+<span class="cp">#include</span> <span class="cpf">"sm7150.dtsi"</span><span class="cp"></span>
+
+<span class="o">/</span> <span class="p">{</span>
+ 	<span class="n">model</span> <span class="o">=</span> <span class="s">"Device Name"</span><span class="p">;</span> <span class="c1">//FIXME</span>
+ 	<span class="n">compatible</span> <span class="o">=</span> <span class="s">"&lt;vendor&gt;,&lt;codename&gt;"</span><span class="p">,</span> <span class="s">"qcom,sm7150"</span><span class="p">;</span> <span class="c1">//FIXME</span>
+	<span class="n">chassis</span><span class="o">-</span><span class="n">type</span> <span class="o">=</span> <span class="s">"handset"</span><span class="p">;</span> <span class="c1">//FIXME</span>
+
+	<span class="n">qcom</span><span class="p">,</span><span class="n">msm</span><span class="o">-</span><span class="n">id</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x16d</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+	<span class="n">qcom</span><span class="p">,</span><span class="n">board</span><span class="o">-</span><span class="n">id</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">34</span> <span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">//FIXME</span>
+<span class="p">}</span>
+</pre></div>
+<p>Save this file as <code>sm7150-&lt;vendor&gt;-&lt;codename&gt;.dts</code> inside <code>arch/arm64/boot/dts/qcom</code> and add your device tree to the makefile at <code>arch/arm64/boot/dts/qcom/Makefile</code>.
+</p>
+<h3><span class="mw-headline" id="Reserved_memory_regions">Reserved memory regions</span></h3>
+<p>Reserved memory regions are important to make the hypervisor happy (not crash the phone) and to have SimpleFB working. This part is tricky, since you have to compare every memory region in the extracted device tree with <code>arch/arm64/boot/dts/qcom/sm7150.dtsi</code> in the mainline kernel.
+</p>
+<p>Look for the <code>reserved-memory</code> node in the extracted device tree and <code>sm7150.dtsi</code> in the mainline kernel and compare every address and size inside the <code>reg</code> property with each other. In case you find differences, delete the offending node and add this piece of code below the header includes in your device tree:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * Delete following upstream (sm7150.dtsi) reserved</span>
+<span class="cm"> * memory mappings which are different for this device.</span>
+<span class="cm"> */</span>
+<span class="o">/</span><span class="n">delete</span><span class="o">-</span><span class="n">node</span><span class="o">/</span> <span class="o">&amp;</span><span class="n">ipa_fw_mem</span><span class="p">;</span> <span class="c1">//FIXME</span>
+<span class="o">/</span><span class="n">delete</span><span class="o">-</span><span class="n">node</span><span class="o">/</span> <span class="o">&amp;</span><span class="n">ipa_gsi_mem</span><span class="p">;</span> <span class="c1">//FIXME</span>
+<span class="o">/</span><span class="n">delete</span><span class="o">-</span><span class="n">node</span><span class="o">/</span> <span class="o">&amp;</span><span class="n">gpu_mem</span><span class="p">;</span> <span class="c1">//FIXME</span>
+</pre></div>
+<p>And set the new reserved memory region inside the root node:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="o">/</span> <span class="p">{</span>
+	<span class="cm">/* ... */</span>
+
+	<span class="n">reserved</span><span class="o">-</span><span class="n">memory</span> <span class="p">{</span>
+		<span class="cp">#address-cells = &lt;2&gt;;</span>
+		<span class="cp">#size-cells = &lt;2&gt;;</span>
+		<span class="n">ranges</span><span class="p">;</span>
+
+		<span class="nl">ipa_fw_mem</span><span class="p">:</span> <span class="n">memory</span><span class="err">@</span><span class="mf">98f</span><span class="mi">80000</span> <span class="p">{</span> <span class="c1">//FIXME</span>
+			<span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0</span> <span class="mh">0x98f80000</span> <span class="mh">0x0</span> <span class="mh">0x10000</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">//FIXME</span>
+			<span class="n">no</span><span class="o">-</span><span class="n">map</span><span class="p">;</span>
+		<span class="p">};</span>
+
+		<span class="nl">ipa_gsi_mem</span><span class="p">:</span> <span class="n">memory</span><span class="err">@</span><span class="mf">98f</span><span class="mi">90000</span> <span class="p">{</span> <span class="c1">//FIXME</span>
+			<span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0</span> <span class="mh">0x98f90000</span> <span class="mh">0x0</span> <span class="mh">0x5000</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">//FIXME</span>
+			<span class="n">no</span><span class="o">-</span><span class="n">map</span><span class="p">;</span>
+		<span class="p">};</span>
+
+		<span class="nl">gpu_mem</span><span class="p">:</span> <span class="n">memory</span><span class="err">@</span><span class="mf">98f</span><span class="mi">95000</span> <span class="p">{</span> <span class="c1">//FIXME</span>
+			<span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x00</span> <span class="mh">0x98f95000</span> <span class="mh">0x00</span> <span class="mh">0x2000</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">//FIXME</span>
+			<span class="n">no</span><span class="o">-</span><span class="n">map</span><span class="p">;</span>
+		<span class="p">};</span>
+	<span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<p>Keep the reserved memory tidy by sorting them after the length of the address
+</p>
+<p>A full example can be seen <a rel="nofollow" class="external text" href="https://github.com/sm7150-mainline/linux/blob/v6.0/arch/arm64/boot/dts/qcom/sm7150-google-sunfish.dts">here</a>. Don't copy-paste this, as your reserved memory regions are probably different.
+</p>
+<h3><span class="mw-headline" id="Protected_GPIO_pins">Protected GPIO pins</span></h3>
+<p>The fingerprint sensor and NFC are hooked up to secured GPIO pins, which are being observed and controlled by the TrustZone. This is to allow secure authentication and wireless payments.
+</p>
+<p>Usually, the protected pins are not defined in the device tree (except for <a rel="nofollow" class="external text" href="https://android.googlesource.com/kernel/msm/+/refs/heads/android-msm-sunfish-4.14-android13/arch/arm64/boot/dts/google/sm7150-sunfish-common.dtsi#36">Pixel 4a</a>), but this does not matter because most devices share the same protected GPIO pins. If you have schematics for your or a similar device you can verify the protected pins and if you don't, you can just try these out:
+</p>
+<ul>
+<li>
+<code>&lt;59 4&gt;</code> (from Google Pixel 4a)</li>
+<li>
+<code>&lt;0 4&gt;, &lt;59 4&gt;</code> (from Xiaomi Redmi Note 10 Pro)</li>
+</ul>
+<p>Add this to the bottom your mainline device tree:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="o">&amp;</span><span class="n">tlmm</span> <span class="p">{</span>
+	<span class="n">gpio</span><span class="o">-</span><span class="n">reserved</span><span class="o">-</span><span class="n">ranges</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">59</span> <span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">//FIXME</span>
+<span class="p">};</span>
+</pre></div>
+<p>59 is the starting GPIO of the range and 4 is the range. This means that pins 59, 60, 61, 62 are not being touched by Linux. 
+</p>
+<h3><span class="mw-headline" id="Getting_output">Getting output</span></h3>
+<p>You can chose either of these methods to get output from the kernel. Using SimpleFB is recommended, as it is the easiest to set up.
+</p>
+<h4><span class="mw-headline" id="SimpleFB">SimpleFB</span></h4>
+<p>You can use simple framebuffer to reuse the frambuffer which the bootloader politely left set up. The bootloader does this to display the splash continuously throughout the boot process.
+</p>
+<p>Look for a memory region called <code>cont_splash_region</code> in your downstream device tree. It should look like this:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">cont_splash_region</span><span class="err">@</span><span class="mi">9</span><span class="n">c000000</span> <span class="p">{</span>    
+    <span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x00</span> <span class="mh">0x9c000000</span> <span class="mh">0x00</span> <span class="mh">0x1700000</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s">"cont_splash_region"</span><span class="p">;</span> 
+    <span class="n">phandle</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x4d0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<p>Here we can see that <code>0x9c000000</code> is the address for the framebuffer.
+</p>
+<p>Now add the node for SimpleFB with the right address and resolution for your device in the mainline device tree:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="o">/</span> <span class="p">{</span>
+	<span class="cm">/* ... */</span>
+	<span class="n">chosen</span> <span class="p">{</span>
+		<span class="cp">#address-cells = &lt;2&gt;;</span>
+		<span class="cp">#size-cells = &lt;2&gt;;</span>
+		<span class="n">ranges</span><span class="p">;</span>
+		<span class="n">framebuffer</span><span class="err">@</span><span class="mi">9</span><span class="n">c000000</span> <span class="p">{</span> <span class="c1">//FIXME</span>
+			<span class="n">compatible</span> <span class="o">=</span> <span class="s">"simple-framebuffer"</span><span class="p">;</span>
+			<span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0</span> <span class="mh">0x9c000000</span> <span class="mh">0x0</span> <span class="p">(</span><span class="mi">1080</span> <span class="o">*</span> <span class="mi">2400</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">//FIXME</span>
+			<span class="n">width</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">1080</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">//FIXME</span>
+			<span class="n">height</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">2400</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">//FIXME</span>
+			<span class="n">stride</span> <span class="o">=</span> <span class="o">&lt;</span><span class="p">(</span><span class="mi">1080</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">//FIXME</span>
+			<span class="n">format</span> <span class="o">=</span> <span class="s">"a8r8g8b8"</span><span class="p">;</span>
+			<span class="n">clocks</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">gcc</span> <span class="n">GCC_DISP_HF_AXI_CLK</span><span class="o">&gt;</span><span class="p">,</span>
+				 <span class="o">&lt;&amp;</span><span class="n">gcc</span> <span class="n">GCC_DISP_SF_AXI_CLK</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="p">};</span>
+	<span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<p>And add a reserved memory region for your address. You <b>don't</b> have to delete any node beforehand because the framebuffer is not specified in <code>sm7150.dtsi</code>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="o">/</span> <span class="p">{</span>
+	<span class="cm">/* ... */</span>
+
+	<span class="n">reserved</span><span class="o">-</span><span class="n">memory</span> <span class="p">{</span>
+		<span class="cp">#address-cells = &lt;2&gt;;</span>
+		<span class="cp">#size-cells = &lt;2&gt;;</span>
+		<span class="n">ranges</span><span class="p">;</span>
+
+		<span class="n">framebuffer_region</span><span class="err">@</span><span class="mi">9</span><span class="n">c000000</span> <span class="p">{</span> <span class="c1">//FIXME</span>
+			<span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x0</span> <span class="mh">0x9c000000</span> <span class="mh">0x0</span> <span class="p">(</span><span class="mi">1080</span> <span class="o">*</span> <span class="mi">2400</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">//FIXME</span>
+			<span class="n">no</span><span class="o">-</span><span class="n">map</span><span class="p">;</span>
+		<span class="p">};</span>
+	<span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<h4><span class="mw-headline" id="Ramoops">Ramoops</span></h4>
+<p>Ramoops saves the logs into RAM using the persistant storage (pstore) backend. Make sure your recovery (e.g. TWRP) has the necessary kernel configs enabled, because otherwise you won't be able to see the kernel log. You can check your current kernel config with <code>zcat /proc/config.gz | grep CONFIG_PSTORE.*=y</code> from ADB shell, it should have these configs enabled:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="nv">CONFIG_PSTORE</span><span class="o">=</span>y
+<span class="nv">CONFIG_PSTORE_CONSOLE</span><span class="o">=</span>y
+<span class="nv">CONFIG_PSTORE_PMSG</span><span class="o">=</span>y
+<span class="nv">CONFIG_PSTORE_RAM</span><span class="o">=</span>y
+</pre></div>
+<p>If your recovery does not have these configs enabled, you will need to build your own recovery with them enabled.
+</p>
+<p>Search for the <code>ramoops</code> node in the downstream device tree. It will tell you the address and the different sizes that are needed. You can copy-paste this node under the <code>reserved-memory</code> node in mainline after deleting the <code>phandle</code> property.
+</p>
+<p>The mainline kernel has the necessary configs already enabled, so after booting mainline and rebooting into recovery by forcefully holding down the key combination you should have the kernel log saved in <code>/sys/fs/pstore</code>. You can output the log with <code>cat /sys/fs/pstore/dmesg-ramoops-0</code> from ADB shell.
+</p>
+<p>The ramoops method can be unreliable, since the logs can disappear if your RAM looses power during the rebooting process.
+</p>
+<h4><span class="mw-headline" id="UART">UART</span></h4>
+<table role="text container" style="color: inherit; background-color: #fdd1d1; border: 1px solid #b60000; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>TODO:</b> Explain how to get logs from UART</td>
+</tr></tbody></table>
+<h3><span class="mw-headline" id="Remote_Filesystem_memory">Remote Filesystem memory</span></h3>
+<p>Remote Filesystem, also know as RMTFS is used for allocating and exposing regions of shared memory with remote processors. This memory region is needed by the IPA remote processor to get the modem working.
+</p>
+<p>Even though the device tree defines this region as dynamically allocated, it always has the same address. You can find out the address and size by checking the output of the commands below in Android or TWRP. This example has been taken from <a href="/index.php?title=Xiaomi_Mi_9T_(xiaomi-davinci)&amp;action=edit&amp;redlink=1" class="new" title="Xiaomi Mi 9T (xiaomi-davinci) (page does not exist)">Xiaomi Mi 9T</a>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">davinci:/ #</span> cat /sys/class/uio/uio0/maps/map0/addr
+<span class="go">0x00000000f2e01000</span>
+
+<span class="gp">davinci:/ #</span> cat /sys/class/uio/uio0/maps/map0/size
+<span class="go">0x0000000000200000</span>
+</pre></div>
+<p>This tells us that the region begins at <code>0xf2e01000</code> with the size of <code>0x200000</code>. The node in the mainline device tree should look like this based on the output above:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="o">/</span> <span class="p">{</span>
+	<span class="cm">/* ... */</span>
+
+	<span class="n">reserved</span><span class="o">-</span><span class="n">memory</span> <span class="p">{</span>
+		<span class="cp">#address-cells = &lt;2&gt;;</span>
+		<span class="cp">#size-cells = &lt;2&gt;;</span>
+		<span class="n">ranges</span><span class="p">;</span>
+
+		<span class="cm">/*</span>
+<span class="cm">		 * The rmtfs memory region in downstream is 'dynamically allocated'</span>
+<span class="cm">		 * but given the same address every time. Hard code it as this address is</span>
+<span class="cm">		 * where the modem firmware expects it to be.</span>
+<span class="cm">		 */</span>
+		<span class="nl">rmtfs_mem</span><span class="p">:</span> <span class="n">memory</span><span class="err">@</span><span class="n">f2e01000</span> <span class="p">{</span>
+			<span class="n">compatible</span> <span class="o">=</span> <span class="s">"qcom,rmtfs-mem"</span><span class="p">;</span>
+			<span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">0</span> <span class="mh">0xf2e01000</span> <span class="mi">0</span> <span class="mh">0x200000</span><span class="o">&gt;</span><span class="p">;</span>
+			<span class="n">no</span><span class="o">-</span><span class="n">map</span><span class="p">;</span>
+
+			<span class="n">qcom</span><span class="p">,</span><span class="n">client</span><span class="o">-</span><span class="n">id</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+			<span class="n">qcom</span><span class="p">,</span><span class="n">vmid</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">15</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="p">};</span>
+	<span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<h3><span class="mw-headline" id="Building">Building</span></h3>
+<p>Now that you have your initial device tree, <a href="../en/SM7150_Mainlining.html#Build_Kernel" title="SM7150 Mainlining">build the kernel</a> again. It shouldn't take as long as before. If you get errors regarding your device tree, go to the corresponding line and correct it.
+</p>
+<h2><span class="mw-headline" id="Booting">Booting</span></h2>
+<p>Because new Android versions use dtbos, which the stock bootloader will merge with the mainline dtb and therefore corrupt it, you will have to erase it first. It is recommended to take a backup of the dtbo partition in case you want to boot Android again.
+</p>
+<p>Boot into recovery mode and take a backup of the dtbo partition with <code>dd if=/dev/block/by-name/dtbo of=/sdcard/dtbo.img</code>. Afterwards pull the file to your computer to a safe place with <code>adb pull /sdcard/dtbo.img</code>. If your device uses A/B partitioning scheme you can switch to an inactive slot (<code>fastboot set_active a/b</code>) and erase dtbo there without taking a backup.
+</p>
+<p>Unless your device is from Samsung, you should be able to just boot the kernel without flashing it: <code>pmbootstrap flasher boot</code>.
+</p>
+<p>If this does not work or you have a device that does not use fastboot, flash the kernel with <code>pmbootstrap flasher flash_kernel</code> (If you want to boot Android again, take a back up of the boot partition).
+</p>
+<p>Assuming everything went well, you should see logs on the screen or in ramoops! The next steps are to get regulators, USB and UFS working so you can get a shell on your device through telnet/ssh.
+</p>
+<table role="text container" style="color: inherit; background-color: #fdd1d1; border: 1px solid #b60000; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>TODO:</b> Explain how to boot with UEFI</td>
+</tr></tbody></table>
+<h2><span class="mw-headline" id="Contributing">Contributing</span></h2>
+<p>Once you feel like your device tree is ready, you can submit a pull request to <a rel="nofollow" class="external text" href="https://github.com/sm7150-mainline/linux">sm7150-mainline/linux</a> on GitHub. Make sure your commit titles are named correctly to clearly understand what has been added/changed. You can look at previous commits as a reference.
+</p>
+<h2>
+<span id="Have_questions?"></span><span class="mw-headline" id="Have_questions.3F">Have questions?</span>
+</h2>
+<p>Join us over at <a rel="nofollow" class="external text" href="https://matrix.to/#/#sm7150-mainline:matrix.org">#sm7150-mainline:matrix.org</a> on Matrix. We're happy to help :)
+</p>
+<p><br>
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../en/Category:Work-in-progress_pages.html" title="Category:Work-in-progress pages">Work-in-progress pages</a></li>
+<li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li>
+</ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=SM7150_Mainlining&amp;oldid=43414">https://wiki.postmarketos.org/index.php?title=SM7150_Mainlining&amp;oldid=43414</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:37.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=SM7150_Mainlining&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

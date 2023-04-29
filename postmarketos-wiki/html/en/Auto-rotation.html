@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Auto-rotation - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Auto-rotation rootpage-Auto-rotation skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Auto-rotation</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Some user interfaces like Phosh or Plasma Mobile have auto-rotation implemented. Other user interfaces like Xfce4 or MATE don't have native auto-rotation.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Scripts_for_X11"><span class="tocnumber">1</span> <span class="toctext">Scripts for X11</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Manual_horizontal.2Fvertical_screen_toggle"><span class="tocnumber">1.1</span> <span class="toctext">Manual horizontal/vertical screen toggle</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Auto-rotation_shell_script"><span class="tocnumber">1.2</span> <span class="toctext">Auto-rotation shell script</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#surface_autorotate2"><span class="tocnumber">1.3</span> <span class="toctext">surface autorotate2</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#ScreenRotator"><span class="tocnumber">1.4</span> <span class="toctext">ScreenRotator</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Scripts_for_X11">Scripts for X11</span></h2>
+<p>For X11, there are many scripts around that provide auto-rotation functionality. The following list is a selection, there are many more.
+</p>
+<p>In MATE there is an issue with updating the screen when rotating by xrandr, the wallpaper area doesn't update entirely. It doesn't affect apps, though. In Xfce4 the workspace swticher plugin doesn't scale its size correctly.
+</p>
+<h3>
+<span id="Manual_horizontal/vertical_screen_toggle"></span><span class="mw-headline" id="Manual_horizontal.2Fvertical_screen_toggle">Manual horizontal/vertical screen toggle</span>
+</h3>
+<p>This is a simple shell script for manual toggle of the screen orientation. Due to its simplicity, it can be easily implemented. Additionally, as it is triggered manually, it doesn't need to have a functional accelerometer sensor.
+</p>
+<ul>
+<li>Copy-paste the content of the script into a new text file. Safe the file somewhere, e.g. as ~/rotate_screen.sh. If you don't have a text editor available, install "mousepad" or open a terminal and use "<a rel="nofollow" class="external text" href="https://www.redhat.com/sysadmin/introduction-vi-editor">vi</a>".</li>
+<li>Make the file executable by <code>chmod +x ~/rotate_screen.sh</code> (you may need to adapt path and filename).</li>
+<li>Install packages "xrandr" and "xinput" by <code>sudo apk add xrandr xinput</code>.</li>
+<li>Check the name of your touchscreen device by <code>xinput --list</code> and change it in the script ~/rotate_screen.sh after the "set-prop" (twice).</li>
+<li>Test your script in a terminal by <code>~/rotate_screen.sh</code> (may adapt path and name). When trying this via ssh, you have to add DISPLAY=:0 in front: <code>DISPLAY=:0 ~/rotate_screen.sh</code>.</li>
+<li>Add a new command launcher to the panel, click the icon next to the "command" field, navigate to the script and choose it.</li>
+<li>Done. If you now hit the launcher in the panel, the screen should rotate. Also the touchscreen should work correctly in the new orientation. If it doesn't, something went wrong. In that case, you can test the "xrandr" and "xinput" lines of the script one by one in a terminal.</li>
+<li>Alternatively to a launcher, a hardware button or Android touch button could be used. This can be set up in the keyboard shortcuts settings.</li>
+</ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="k">$(</span>xrandr --verbose <span class="p">|</span> grep primary <span class="p">|</span> cut -d <span class="s1">' '</span> -f6<span class="k">)</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"normal"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  xrandr -o left
+  xinput set-prop <span class="s2">"Goodix Capacitive TouchScreen"</span> <span class="s2">"Coordinate Transformation Matrix"</span> <span class="m">0</span> -1 <span class="m">1</span> <span class="m">1</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span>
+<span class="k">else</span>
+  xrandr -o normal
+  xinput set-prop <span class="s2">"Goodix Capacitive TouchScreen"</span> <span class="s2">"Coordinate Transformation Matrix"</span> <span class="m">1</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span>
+<span class="k">fi</span>
+</pre></div>
+<h3><span class="mw-headline" id="Auto-rotation_shell_script">Auto-rotation shell script</span></h3>
+<p>The next shell script uses "iio-sensor-proxy" to access the accelerometer for auto-rotation. It is based on the following <a rel="nofollow" class="external text" href="https://dellwindowsreinstallationguide.com/wacom-touchscreen-autorotation-linux">website</a>.
+</p>
+<ul>
+<li>Copy-paste the content of the script into a new text file, e.g. ~/auto-rotate_screen.sh.</li>
+<li>Make the file executable by <code>chmod +x ~/auto-rotate_screen.sh</code> (may adapt path and filename).</li>
+<li>Install packages "xrandr", "xinput", "inotify-tools" and "iio-sensor-proxy" (<code>sudo apk add xrandr xinput inotify-tools iio-sensor-proxy</code>).</li>
+<li>Enable the service "iio-sensor-proxy" by <code>sudo rc-update add iio-sensor-proxy</code>.</li>
+<li>Reboot</li>
+<li>Open a terminal and check if the command "monitor-sensor" works. Rotate the device and check if the accelerometer output works. Stop the command by Ctrl+C.</li>
+<li>Check the name of your touchscreen device by <code>xinput --list</code> and change it in the script ~/auto-rotate_screen.sh after the "set-prop" (four times).</li>
+<li>Test your script in a terminal by <code>~/auto-rotate_screen.sh</code>. Stop it by Ctrl+C. Btw. testing via ssh doesn't work (because of command "monitor-sensor").</li>
+<li>Add the script to the startup applications and reboot. At Xfce4, that's in Settings -&gt; Session and Startup -&gt; Tab "Application Autostart" -&gt; button "Add" -&gt; click the icon next to the "command" field, navigate to your script and select it.</li>
+<li>Reboot again. The auto-rotation should now be enabled.</li>
+<li>To disable/enable auto-rotation, create a launcher with the command for Xfce4 <code>/bin/sh -c 'if [ $(ps -A | grep auto-rotate | wc -l) -ge 1 ]; then killall auto-rotate_screen.sh; else /home/user/auto-rotate_screen.sh; fi'</code>. Name and path may need to be adapted. At MATE in pmOS, which uses the busybox "ps" command, replace the "-ge 1" by "-ge 4" because it counts also the 3x "auto-rotate" that the command itself contains. As an icon, you can choose e.g. "/usr/share/icons/Faenza/emblems/32/emblem-ubuntuone-updating.png" or "/usr/share/icons/Adwaita/symbolic/emblems/emblem-synchronizing-symbolic.svg".</li>
+</ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+killall monitor-sensor
+monitor-sensor &gt; /dev/shm/sensor.log <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">&amp;</span>
+
+<span class="k">while</span> inotifywait -e modify /dev/shm/sensor.log<span class="p">;</span> <span class="k">do</span>
+
+  <span class="nv">ORIENTATION</span><span class="o">=</span><span class="k">$(</span>tail /dev/shm/sensor.log <span class="p">|</span> grep <span class="s1">'orientation'</span> <span class="p">|</span> tail -1 <span class="p">|</span> grep -oE <span class="s1">'[^ ]+$'</span><span class="k">)</span>
+
+  <span class="k">case</span> <span class="s2">"</span><span class="nv">$ORIENTATION</span><span class="s2">"</span> in
+
+    normal<span class="o">)</span>
+      xrandr -o normal
+      xinput set-prop <span class="s2">"Goodix Capacitive TouchScreen"</span> <span class="s2">"Coordinate Transformation Matrix"</span> <span class="m">1</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span>
+      <span class="p">;;</span>
+    left-up<span class="o">)</span>
+      xrandr -o left
+      xinput set-prop <span class="s2">"Goodix Capacitive TouchScreen"</span> <span class="s2">"Coordinate Transformation Matrix"</span> <span class="m">0</span> -1 <span class="m">1</span> <span class="m">1</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span>
+      <span class="p">;;</span>
+    bottom-up<span class="o">)</span>
+      xrandr -o inverted
+      xinput set-prop <span class="s2">"Goodix Capacitive TouchScreen"</span> <span class="s2">"Coordinate Transformation Matrix"</span> -1 <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> -1 <span class="m">1</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span>
+      <span class="p">;;</span>
+    right-up<span class="o">)</span>
+      xrandr -o right
+      xinput set-prop <span class="s2">"Goodix Capacitive TouchScreen"</span> <span class="s2">"Coordinate Transformation Matrix"</span> <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> -1 <span class="m">0</span> <span class="m">1</span> <span class="m">0</span> <span class="m">0</span> <span class="m">1</span>
+      <span class="p">;;</span>
+
+  <span class="k">esac</span>
+<span class="k">done</span>
+</pre></div>
+<h3><span class="mw-headline" id="surface_autorotate2">surface autorotate2</span></h3>
+<p>Here is an implementation in python3: <a rel="nofollow" class="external free" href="https://github.com/andrewrembrandt/surface-autorotate2">https://github.com/andrewrembrandt/surface-autorotate2</a>. Packages "xrandr" and "xinput" need to be installed. Additionally, in the top area of the script, the parameters need to be adapted. "sensorname" can be found at <code>cat /sys/bus/iio/devices/iio:deviceX/name</code> where you have to replace deviceX by the right number for your accelerometer. "displayname" can be found in <code>xrandr</code>, the name before "connected primary". "inputnames" is the name of the touchscreen in "xinput --list". The "pennames" array can be emptied.
+</p>
+<h3><span class="mw-headline" id="ScreenRotator">ScreenRotator</span></h3>
+<p>Another possibility is ScreenRotator: <a rel="nofollow" class="external free" href="https://github.com/GuLinux/ScreenRotator">https://github.com/GuLinux/ScreenRotator</a>. It needs to be built, as described in the README. It is based on Qt. For GTK-based Xfce4 and MATE that means that Qt libraries need to be installed.
+</p>
+<p><i><b>Note: </b></i> Compiling ScreenRotator on 32-bit systems might require the patch mentioned in <a rel="nofollow" class="external text" href="https://github.com/GuLinux/ScreenRotator/issues/29">ScreenRotator#29</a>
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Auto-rotation&amp;oldid=43872">https://wiki.postmarketos.org/index.php?title=Auto-rotation&amp;oldid=43872</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 29 April 2023, at 00:26.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Auto-rotation&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Debugging the GNOME stack - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Debugging_the_GNOME_stack rootpage-Debugging_the_GNOME_stack skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Debugging the GNOME stack</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This article is about debugging the GNOME stack on postmarketOS. That could be either a crashing Phosh or GNOME mobile session, or a GTK or other glib application that doesn't work. Parts of this are probably also useful for other stacks.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Getting_verbose_log_output"><span class="tocnumber">1</span> <span class="toctext">Getting verbose log output</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#One_application"><span class="tocnumber">1.1</span> <span class="toctext">One application</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Full_session_.28Phosh_and_other_interfaces_that_use_tinydm.29"><span class="tocnumber">1.2</span> <span class="toctext">Full session (Phosh and other interfaces that use tinydm)</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Full_session_.28GNOME.2FGNOME_Shell_on_Mobile.29"><span class="tocnumber">1.3</span> <span class="toctext">Full session (GNOME/GNOME Shell on Mobile)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Understanding_GNOME_session_startup"><span class="tocnumber">2</span> <span class="toctext">Understanding GNOME session startup</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#See_also"><span class="tocnumber">3</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Getting_verbose_log_output">Getting verbose log output</span></h2>
+<p>Use the <code>G_MESSAGES_DEBUG</code> variable to enable more logging. You can either set it to a specific component to get its debug log messages, or to <code>all</code> to enable the most detailed logging from all components. Export the variable before starting the application you want to debug, e.g.:
+</p>
+<pre>export G_MESSAGES_DEBUG=all
+</pre>
+<h3><span class="mw-headline" id="One_application">One application</span></h3>
+<p>Run the app over SSH with the environment variables set to the same as if the app was running inside your GNOME session (so it can talk to the Wayland compositor etc.). One way to do this, is opening a terminal on the Phone, starting tmux, and then attaching over SSH to the tmux session with <code>tmux a</code>.
+</p>
+<h3>
+<span id="Full_session_(Phosh_and_other_interfaces_that_use_tinydm)"></span><span class="mw-headline" id="Full_session_.28Phosh_and_other_interfaces_that_use_tinydm.29">Full session (Phosh and other interfaces that use tinydm)</span>
+</h3>
+<p>If you want to debug a whole session (e.g. if Phosh is not starting up), then write above export line to <code>~/.profile</code>, which is the file that tinydm sources before running a session.
+</p>
+<p>In case of Phosh, it may also be useful to enable debugging output of libwayland-server, which is used through wlroots in Phoc (Phoc is the Wayland compositor that Phosh is using). Do this with:
+</p>
+<pre>export WAYLAND_DEBUG=server
+</pre>
+<p>Find the tinydm log file in <code>~/.local/state/tinydm.log</code>. The previous log is in <code>~/.local/state/tinydm.log.old</code>, which is useful if your Phosh session is over and over since it contains a full crash log.
+</p>
+<h3>
+<span id="Full_session_(GNOME/GNOME_Shell_on_Mobile)"></span><span class="mw-headline" id="Full_session_.28GNOME.2FGNOME_Shell_on_Mobile.29">Full session (GNOME/GNOME Shell on Mobile)</span>
+</h3>
+<p>GNOME uses gdm as the login manager, so the tinydm log file isn't present.
+</p>
+<p>If the error appears before you can log in, there's a chance that you will be able to find the root cause in the greeter logs. gdm's logs are at <code>/var/log/gdm/greeter.log</code>. If gdm restarts, the previous log is moved to <code>/var/log/gdm/greeter.log.1</code>. <code>/var/log/Xorg.0.log</code> may also be of some use.
+</p>
+<p>Some general errors can be spotted by running <code>logread</code>, but they usually don't include full tracebacks.
+</p>
+<p><i>See also: the GNOME wiki article on <a rel="nofollow" class="external text" href="https://wiki.gnome.org/Projects/GnomeShell/Debugging">debugging the GNOME shell</a></i>
+</p>
+<h2><span class="mw-headline" id="Understanding_GNOME_session_startup">Understanding GNOME session startup</span></h2>
+<p>The commands that run when starting a wayland session are defined in <code>/usr/share/wayland-sessions/</code>, e.g. for Phosh there is a <code>phosh.desktop</code>. In case of Phosh, this starts /usr/bin/phosh, a shell script, which then starts <code>/usr/bin/phoc</code> and instructs it to run gnome-session with a <code>--session=phosh</code> argument. To understand what this runs, we need to look at <code>/usr/share/gnome-session/sessions/phosh.session</code> where we will find a long RequiredComponents line. As of writing:
+</p>
+<blockquote>
+<p>RequiredComponents=org.gnome.SettingsDaemon.A11ySettings;org.gnome.SettingsDaemon.Color;org.gnome.SettingsDaemon.Datetime;org.gnome.SettingsDaemon.Housekeeping;org.gnome.SettingsDaemon.Keyboard;org.gnome.SettingsDaemon.MediaKeys;org.gnome.SettingsDaemon.Power;org.gnome.SettingsDaemon.PrintNotifications;org.gnome.SettingsDaemon.Rfkill;org.gnome.SettingsDaemon.ScreensaverProxy;org.gnome.SettingsDaemon.Sharing;org.gnome.SettingsDaemon.Smartcard;org.gnome.SettingsDaemon.Sound;org.gnome.SettingsDaemon.UsbProtection;org.gnome.SettingsDaemon.Wacom;org.gnome.SettingsDaemon.Wwan;org.gnome.SettingsDaemon.XSettings;sm.puri.Phosh;sm.puri.OSK0;
+</p>
+</blockquote>
+<p>For each of these, there is a .desktop file in <code>/usr/share/applications</code>. Most importantly for Phosh: <code>/usr/share/applications/sm.puri.Phosh.desktop</code>. And in that file you will actually find the line that runs Phosh:
+</p>
+<blockquote>
+<p>Exec=/usr/libexec/phosh
+</p>
+</blockquote>
+<p>Now you can modify it as needed, e.g. add <code>/usr/bin/strace</code> before it or change the command to run a local build that you didn't install into the system.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li><a href="../en/Analyzing_Coredumps.html" title="Analyzing Coredumps">Analyzing Coredumps</a></li></ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Debugging_the_GNOME_stack&amp;oldid=31580">https://wiki.postmarketos.org/index.php?title=Debugging_the_GNOME_stack&amp;oldid=31580</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 12 October 2022, at 04:42.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Debugging_the_GNOME_stack&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

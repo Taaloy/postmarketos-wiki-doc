@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Analyzing Coredumps - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Analyzing_Coredumps rootpage-Analyzing_Coredumps skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Analyzing Coredumps</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This article is about analyzing coredumps in postmarketOS. It's a stub, the part with analyzing doesn't seem to return an useful stack in most cases, expanding this and removing this sentence is most welcome.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Enabling_Coredumps"><span class="tocnumber">1</span> <span class="toctext">Enabling Coredumps</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Verifying_that_it_works"><span class="tocnumber">1.1</span> <span class="toctext">Verifying that it works</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Analyzing_Coredumps"><span class="tocnumber">2</span> <span class="toctext">Analyzing Coredumps</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#See_also"><span class="tocnumber">3</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Enabling_Coredumps">Enabling Coredumps</span></h3>
+<p>Unlike your typical systemd based distribution, we don't use coredumpctl and coredumps are not enabled by default, so you need to do the following steps first.
+</p>
+<p>1. Write to <code>/etc/security/limits.conf</code>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># &lt;domain&gt; &lt;type&gt; &lt;item&gt; &lt;value&gt;</span>
+* soft core unlimited
+* hard core unlimited
+</pre></div>
+<p>2. Set a pattern for writing the core dumps, e.g.:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>$ <span class="nb">echo</span> <span class="s1">'/tmp/core.%e.%p'</span> <span class="p">|</span> sudo tee /proc/sys/kernel/core_pattern
+</pre></div>
+<p>If you use a different directory, make sure all users can write to it by using <code>chmod a+w</code>.
+</p>
+<p>3. Set ulimit before running the application that you want to debug. It is valid for the current shell session. If you want everything that runs in tinydm to create coredumps, put this in <code>~/.profile</code>:
+</p>
+<pre>ulimit -c unlimited
+</pre>
+<h4><span class="mw-headline" id="Verifying_that_it_works">Verifying that it works</span></h4>
+<p>If you are unsure whether this works, e.g. because the app you expect to crash doesn't create a coredump for some reason, build a simple C program that crashes:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">echo</span> <span class="s1">'#include &lt;stdlib.h&gt;\nint main() { abort(); return 0; }'</span> &gt; /tmp/crash.c
+<span class="gp">$</span> gcc -o /tmp/crash /tmp/crash.c
+<span class="gp">$</span> /tmp/crash 
+<span class="go">[1]    28898 abort      /tmp/crash</span>
+</pre></div>
+<h3><span class="mw-headline" id="Analyzing_Coredumps">Analyzing Coredumps</span></h3>
+<p>Open the coredump in gdb and run "bt" to get a backtrace. This part here of the article is a stub, let's put the full output here etc.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> gdb /tmp/crash /path/to/coredump
+</pre></div>
+<p>Install debug symbols to get function names and line numbers for all libraries in the trace, e.g. <code>musl-dbg</code> and <code>glib-dbg</code>. Alpine doesn't have these for all libraries due to the size they consume, but they can be enabled on demand in edge to debug issues.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="../en/Debugging_the_GNOME_stack.html" title="Debugging the GNOME stack">Debugging the GNOME stack</a></li>
+<li><a rel="nofollow" class="external text" href="https://www.cogitri.dev/posts/05-introducing-corecollector/">Cogitri's blog: Introducing corecollector</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Analyzing_Coredumps&amp;oldid=43706">https://wiki.postmarketos.org/index.php?title=Analyzing_Coredumps&amp;oldid=43706</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:43.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Analyzing_Coredumps&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

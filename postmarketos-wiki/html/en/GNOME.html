@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>GNOME - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-GNOME rootpage-GNOME skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">GNOME</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>GNOME is a fairly adaptive DE, but GNOME Shell and Mutter are not very comfortable to use on a phone because of their lack of touchscreen gestures. However, this is being <a rel="nofollow" class="external text" href="https://blogs.gnome.org/shell-dev/2022/09/09/gnome-shell-on-mobile-an-update/">developed</a> (among other things). Especially Jonas Dreßler has been working on this and whose changes to GNOME Shell/Mutter you can find from his repos (<a rel="nofollow" class="external text" href="https://gitlab.gnome.org/verdre/gnome-shell/-/tree/mobile-shell">GNOME Shell</a>, <a rel="nofollow" class="external text" href="https://gitlab.gnome.org/verdre/mutter/-/tree/mobile-shell">Mutter</a>). It's very WIP stuff, so these changes haven't been added to the official GNOME repos yet. During pmbootstrap init you can choose either "gnome" (the official GNOME release) or "gnome-mobile" (same as the previous one, but including whose WIP changes from Dreßler's repos)
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#GNOME_with_GNOME_Shell.2FMutter_WIP_mobile_patches"><span class="tocnumber">1</span> <span class="toctext">GNOME with GNOME Shell/Mutter WIP mobile patches</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#How_to_test"><span class="tocnumber">1.1</span> <span class="toctext">How to test</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#How_to_file_bugs"><span class="tocnumber">1.2</span> <span class="toctext">How to file bugs</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#See_also"><span class="tocnumber">1.3</span> <span class="toctext">See also</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5">
+<a href="#GNOME_without_GNOME_Shell.2FMutter_WIP_mobile_patches"><span class="tocnumber">2</span> <span class="toctext">GNOME without GNOME Shell/Mutter WIP mobile patches</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#See_also_2"><span class="tocnumber">2.1</span> <span class="toctext">See also</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Extensions"><span class="tocnumber">3</span> <span class="toctext">Extensions</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Screen_manual.2Fauto_rotate_button"><span class="tocnumber">3.1</span> <span class="toctext">Screen manual/auto rotate button</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Clock_to_the_left"><span class="tocnumber">3.2</span> <span class="toctext">Clock to the left</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#TODO:_Flashlight_button"><span class="tocnumber">3.3</span> <span class="toctext">TODO: Flashlight button</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#How_to_install"><span class="tocnumber">3.4</span> <span class="toctext">How to install</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Relevant_links"><span class="tocnumber">4</span> <span class="toctext">Relevant links</span></a></li>
+</ul>
+</div>
+
+<h2>
+<span id="GNOME_with_GNOME_Shell/Mutter_WIP_mobile_patches"></span><span class="mw-headline" id="GNOME_with_GNOME_Shell.2FMutter_WIP_mobile_patches">GNOME with GNOME Shell/Mutter WIP mobile patches</span>
+</h2>
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">Gnome Shell Mobile (Experimental)</caption>
+<tbody>
+<tr class=""><td colspan="2" class="" style="text-align:center;">
+<a href="../Gnome_mobile.jpg" class="image"><img alt="Gnome Shell w/ mobile patches running on pmbootstrap qemu" src="../Gnome_mobile.jpg" decoding="async" width="200" height="386" srcset="../Gnome_mobile.jpg 1.5x ../Gnome_mobile.jpg 2x"></a><br><span style="">Gnome Shell w/ mobile patches running on pmbootstrap qemu</span>
+</td></tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Name</th>
+    <td class="" style="">
+Gnome Shell Mobile (Experimental)</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Graphics stack</th>
+    <td class="" style="">
+Mutter</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Toolkit</th>
+    <td class="" style="">
+Clutter</td>
+</tr>
+<tr><th colspan="2" class="" style="text-align:center;">In postmarketOS</th></tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Package</th>
+    <td class="" style="">
+postmarketos-ui-gnome-mobile</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Status</th>
+    <td class="" style="">
+Available</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<div class="thumb tright"><div class="thumbinner" style="width:252px;">
+<a href="../Gnome-shell-mobile-running-on-oneplus-6.png" class="image"><img alt="" src="../Gnome-shell-mobile-running-on-oneplus-6.png" decoding="async" width="250" height="427" class="thumbimage" srcset="../375px-Gnome-shell-mobile-running-on-oneplus-6.png 1.5x ../500px-Gnome-shell-mobile-running-on-oneplus-6.png 2x"></a>  <div class="thumbcaption">
+<div class="magnify"><a href="../Gnome-shell-mobile-running-on-oneplus-6.png" class="internal" title="Enlarge"></a></div>postmarketOS with GNOME Shell/Mutter WIP mobile patches on the OnePlus 6</div>
+</div></div>
+<p>Gnome Shell/Mutter with mobile patches from fork on <a rel="nofollow" class="external free" href="https://gitlab.gnome.org/verdre">https://gitlab.gnome.org/verdre</a>. Currently being upstreamed to the main Gnome Shell/Mutter. Very much WIP. More info: <a rel="nofollow" class="external free" href="https://blogs.gnome.org/shell-dev/2022/09/09/gnome-shell-on-mobile-an-update/">https://blogs.gnome.org/shell-dev/2022/09/09/gnome-shell-on-mobile-an-update/</a>
+</p>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="How_to_test">How to test</span></h3>
+<ul>
+<li>Install with pmbootstrap at <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/Installation_guide">https://wiki.postmarketos.org/wiki/Installation_guide</a>, selecting `edge`, and selecting `gnome-mobile: (Wayland) Gnome Shell patched to adapt better to phones (Experimental)` under "available user interfaces".</li>
+<li>Download images from the edge channel at <a rel="nofollow" class="external free" href="https://images.postmarketos.org/bpo/edge/">https://images.postmarketos.org/bpo/edge/</a> for devices like the Pinephone Pro or Oneplus 6.</li>
+</ul>
+<h3><span class="mw-headline" id="How_to_file_bugs">How to file bugs</span></h3>
+<p>This is under active development and has many known and unknown bugs. It is packaged here in order to be a development target. <b>Please report the issues to postmarketOS before filing upstream</b>, as at this early stage it is unknown whether potential bugs may be due to packaging or in the code upstream.
+</p>
+<h3><span class="mw-headline" id="See_also">See also</span></h3>
+<ul><li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3404">pmaports!3404</a>: initial MR</li></ul>
+<h2>
+<span id="GNOME_without_GNOME_Shell/Mutter_WIP_mobile_patches"></span><span class="mw-headline" id="GNOME_without_GNOME_Shell.2FMutter_WIP_mobile_patches">GNOME without GNOME Shell/Mutter WIP mobile patches</span>
+</h2>
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">Gnome Shell</caption>
+<tbody>
+<tr class=""><td colspan="2" class="" style="text-align:center;">
+<a href="../Gnome_not_mobile.png" class="image"><img alt="Gnome Shell without mobile patches running on Redmi 2" src="../Gnome_not_mobile.png" decoding="async" width="200" height="356" srcset="../Gnome_not_mobile.png 1.5x ../Gnome_not_mobile.png 2x"></a><br><span style="">Gnome Shell without mobile patches running on Redmi 2</span>
+</td></tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Name</th>
+    <td class="" style="">
+Gnome Shell</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Graphics stack</th>
+    <td class="" style="">
+Mutter</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Toolkit</th>
+    <td class="" style="">
+Clutter</td>
+</tr>
+<tr><th colspan="2" class="" style="text-align:center;">In postmarketOS</th></tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Package</th>
+    <td class="" style="">
+postmarketos-ui-gnome</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Status</th>
+    <td class="" style="">
+Available</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<div class="thumb tright"><div class="thumbinner" style="width:252px;">
+<a href="../Kc-gnome-postmarketos.jpg" class="image"><img alt="" src="../Kc-gnome-postmarketos.jpg" decoding="async" width="250" height="346" class="thumbimage" srcset="../375px-Kc-gnome-postmarketos.jpg 1.5x ../500px-Kc-gnome-postmarketos.jpg 2x"></a>  <div class="thumbcaption">
+<div class="magnify"><a href="../Kc-gnome-postmarketos.jpg" class="internal" title="Enlarge"></a></div>postmarketOS with GNOME without GNOME Shell/Mutter WIP mobile patches on the Redmi 2</div>
+</div></div>
+<p><br>
+The stock gnome experience for desktop/laptop.
+</p>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="See_also_2">See also</span></h3>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/990">pmaports!990</a>: initial MR</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/94">pmaports#94</a>: initial Issue</li>
+</ul>
+<h2><span class="mw-headline" id="Extensions">Extensions</span></h2>
+<h3>
+<span id="Screen_manual/auto_rotate_button"></span><span class="mw-headline" id="Screen_manual.2Fauto_rotate_button">Screen manual/auto rotate button</span>
+</h3>
+<p>GNOME supports automatic screen rotation, but on a phone it is often useful to switch between manual/automatic rotation on the fly. This adds a button to the system status area.
+</p>
+<p><a rel="nofollow" class="external free" href="https://github.com/shyzus/gnome-shell-extension-screen-autorotate">https://github.com/shyzus/gnome-shell-extension-screen-autorotate</a>
+</p>
+<p>On phones without support for the gyroscope the following extension adds just a button to manually rotate the screen instead.
+</p>
+<p><a rel="nofollow" class="external free" href="https://gitlab.gnome.org/gnumdk/add-rotate-button">https://gitlab.gnome.org/gnumdk/add-rotate-button</a>
+</p>
+<h3><span class="mw-headline" id="Clock_to_the_left">Clock to the left</span></h3>
+<p>Many phones/mobile devices have a notch that makes it necessary to move the clock of top bar to left edge. This extension does just that: 
+</p>
+<p><a rel="nofollow" class="external free" href="https://gitlab.gnome.org/gnumdk/move-shell-clock/">https://gitlab.gnome.org/gnumdk/move-shell-clock/</a>
+</p>
+<h3><span class="mw-headline" id="TODO:_Flashlight_button">TODO: Flashlight button</span></h3>
+<p>Start flaslight button to the system status area.
+</p>
+<h3><span class="mw-headline" id="How_to_install">How to install</span></h3>
+<ul><li>Install with pmbootstrap at <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/Installation_guide">https://wiki.postmarketos.org/wiki/Installation_guide</a>, selecting `edge`, and selecting `gnome` under "available user interfaces".</li></ul>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Relevant_links">Relevant links</span></h2>
+<ul><li><a href="../en/Debugging_the_GNOME_stack.html" title="Debugging the GNOME stack">Debugging the GNOME stack</a></li></ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Interface.html" title="Category:Interface">Interface</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=GNOME&amp;oldid=43571">https://wiki.postmarketos.org/index.php?title=GNOME&amp;oldid=43571</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:41.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=GNOME&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Camera - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Camera rootpage-Camera skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Camera</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This page is written to the best (but limited) knowledge. If you have any improvements to the text, feel free to edit the page and correct or expand it. Contributions welcome!</td>
+</tr></tbody></table>
+<p>A smartphone normally has multiple cameras (also named sensors) which are made by companies such as Sony, OmniVision or Samsung.
+</p>
+<p>These are normally controlled via an I²C bus and deliver image data via MIPI CSI-2 (Camera Serial Interface). Some sensors are connected via a parallel interface rather than serial (CSI-2) which seems to be called digital video port (DVP). This fact is currently mostly ignored in this article and covers CSI-2 only for now. Many of the same concepts should apply to parallel also.
+</p>
+<p>In many cases the sensor package also comes with additional components:
+</p>
+<ul>
+<li>VCM (voice coil motor) actuator which can physically move the lens for focusing, image stabilization or optical zoom.</li>
+<li>EEPROM which presumably contains some calibration information and some other details</li>
+</ul>
+<p>A sensor normally has the following connections to the SoC:
+</p>
+<ul>
+<li>A clock input, commonly named MCLK or XVCLK</li>
+<li>Several power inputs, commonly named e.g. AVDD (analog supply), DVDD (digital supply), DOVDD/IOVCC (I/O supply)</li>
+<li>One or more GPIOs for reset and/or shutdown purposes. These are not used in some setups when e.g. the reset pin is connected to DOVDD, so when the power supplies are on, the sensor is on.</li>
+<li>Two pins for the I2C connection (SDA &amp; SCL). Also named SCCB (serial camera control bus) or CCI (camera control instance or camera control interface) or just 2-wire serial communication</li>
+<li>Between 3 and 9 pins for MIPI CSI-2 connection (1 pin for the clock lane, 2 pins for each of the 1-4 data lanes depending on the sensor and setup)</li>
+</ul>
+<p>On SoC side the following components exist:
+</p>
+<ul>
+<li>I2C bus (one or more, sometimes shared between multiple camera sensors, sometimes one camera sensor per bus)</li>
+<li>Receiver of the physical MIPI CSI-2 signals (multiple in most cases)</li>
+<li>Various other blocks for (efficient) image processing</li>
+</ul>
+<p>Some sensors support lane remapping or lane swap for the MIPI CSI-2 connection, when the hardware design requires that. Also the sensor must be configured for the right number of lanes from the driver side (declared in <code>data-lanes</code> property) so that it sends the data correctly.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Sensor_example"><span class="tocnumber">1</span> <span class="toctext">Sensor example</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Qualcomm"><span class="tocnumber">2</span> <span class="toctext">Qualcomm</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Example"><span class="tocnumber">2.1</span> <span class="toctext">Example</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Downstream_devicetree"><span class="tocnumber">2.2</span> <span class="toctext">Downstream devicetree</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Bringup"><span class="tocnumber">2.3</span> <span class="toctext">Bringup</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Testing"><span class="tocnumber">3</span> <span class="toctext">Testing</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Apps"><span class="tocnumber">4</span> <span class="toctext">Apps</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Sensor_example">Sensor example</span></h2>
+<p>An example for a sensor is below where we provide the beforementioned clocks, supplies, gpios. The pinctrl makes sure the MCLK0 pin on the SoC is set to the correct function.
+</p>
+<p>The sensor node can also provide <code>orientation</code> (front or rear camera) and <code>rotation</code> (0°, 90°, 180°, 270°) which define metadata for user space.
+</p>
+<p>You can also link <code>lens-focus</code> and <code>flash-leds</code> to the VCM and flash LED respectively. This information can (or at least could) be used by user space to e.g. trigger the flash when you take a picture with the rear camera.
+</p>
+<p>For more information about these properties, see <code><a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/media/video-interface-devices.yaml">Documentation/devicetree/bindings/media/video-interface-devices.yaml</a></code>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="o">&amp;</span><span class="n">cci_i2c0</span> <span class="p">{</span>
+	<span class="nl">ov8865</span><span class="p">:</span> <span class="n">camera</span><span class="o">-</span><span class="n">sensor</span><span class="err">@</span><span class="mi">10</span> <span class="p">{</span>
+		<span class="n">compatible</span> <span class="o">=</span> <span class="s">"ovti,ov8865"</span><span class="p">;</span>
+		<span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0x10</span><span class="o">&gt;</span><span class="p">;</span>
+
+		<span class="n">pinctrl</span><span class="o">-</span><span class="mi">0</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">mclk0_pin_a</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">pinctrl</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s">"default"</span><span class="p">;</span>
+
+		<span class="n">clocks</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">mmcc</span> <span class="n">CAMSS_MCLK0_CLK</span><span class="o">&gt;</span><span class="p">;</span>
+
+		<span class="n">avdd</span><span class="o">-</span><span class="n">supply</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">pm8941_l17</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">dovdd</span><span class="o">-</span><span class="n">supply</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">pm8941_lvs3</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">dvdd</span><span class="o">-</span><span class="n">supply</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">pm8941_l3</span><span class="o">&gt;</span><span class="p">;</span>
+
+		<span class="n">powerdown</span><span class="o">-</span><span class="n">gpios</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">tlmm</span> <span class="mi">89</span> <span class="n">GPIO_ACTIVE_LOW</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">reset</span><span class="o">-</span><span class="n">gpios</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">tlmm</span> <span class="mi">90</span> <span class="n">GPIO_ACTIVE_LOW</span><span class="o">&gt;</span><span class="p">;</span>
+
+		<span class="n">orientation</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span> <span class="cm">/* Rear camera */</span>
+		<span class="n">rotation</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">90</span><span class="o">&gt;</span><span class="p">;</span>
+
+		<span class="n">lens</span><span class="o">-</span><span class="n">focus</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">ad5823</span><span class="o">&gt;</span><span class="p">;</span>
+		<span class="n">flash</span><span class="o">-</span><span class="n">leds</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">pm8941_flash</span><span class="o">&gt;</span><span class="p">;</span>
+
+		<span class="n">port</span> <span class="p">{</span>
+			<span class="nl">ov8865_ep</span><span class="p">:</span> <span class="n">endpoint</span> <span class="p">{</span>
+				<span class="n">data</span><span class="o">-</span><span class="n">lanes</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span>
+				<span class="n">link</span><span class="o">-</span><span class="n">frequencies</span> <span class="o">=</span> <span class="o">/</span><span class="n">bits</span><span class="o">/</span> <span class="mi">64</span> <span class="o">&lt;</span><span class="mi">360000000</span><span class="o">&gt;</span><span class="p">;</span>
+				<span class="n">remote</span><span class="o">-</span><span class="n">endpoint</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">csiphy0_ep</span><span class="o">&gt;</span><span class="p">;</span>
+			<span class="p">};</span>
+		<span class="p">};</span>
+	<span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<h2><span class="mw-headline" id="Qualcomm">Qualcomm</span></h2>
+<p>Qualcomm SoCs contain a block called CAMSS (camera subsystem). For more information about some of the components that are part of it see <a rel="nofollow" class="external text" href="https://docs.kernel.org/admin-guide/media/qcom_camss.html">Qualcomm Camera Subsystem driver - The Linux Kernel documentation</a>.
+</p>
+<p>A Qualcomm SoC commonly contains somewhere between two and four 4-lane CSIPHY receivers, so normally each sensor is connected to a dedicated CSIPHY and do not share them. For bringup you can focus on this CSIPHY and probably ignore the other components of CAMSS.
+</p>
+<p>The I²C bus used for the camera sensors is not a regular QUP/BLSP bus but is the CCI (camera control interface) which has a separate driver in Linux.
+</p>
+<h3><span class="mw-headline" id="Example">Example</span></h3>
+<p>The following example shows how the camss side can be configured in dts. Each port here is a CSIPHY receiver, so the part that receives CSI-2 data. In this example CSIPHY0 and CSIPHY2 is used. CSIPHY1 is unused.
+</p>
+<p>On the schematics there's 5 equal lanes per CSIPHY, where normally (e.g. for 4 data lanes) the CSI data lanes are connected to lane 0, 2, 3 and 3, while clock lane is connected to lane 1. This is represented using "clock-lanes" and "data-lanes" properties. Note: Both properties refer to the lane number and is not a count of how many lanes are used for a particular purpose. A sensor with 1 data lane would have <code>data-lanes = &lt;0&gt;;</code> and <code>clock-lanes = &lt;1&gt;;</code> on the SoC side.
+</p>
+<p>For more information about these properties, see <code><a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/media/video-interfaces.yaml">Documentation/devicetree/bindings/media/video-interfaces.yaml</a></code>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="o">&amp;</span><span class="n">camss</span> <span class="p">{</span>
+	<span class="n">vdda</span><span class="o">-</span><span class="n">supply</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">pm8941_l12</span><span class="o">&gt;</span><span class="p">;</span>
+	
+	<span class="n">status</span> <span class="o">=</span> <span class="s">"okay"</span><span class="p">;</span>
+
+	<span class="n">ports</span> <span class="p">{</span>
+		<span class="n">port</span><span class="err">@</span><span class="mi">0</span> <span class="p">{</span>
+			<span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+			<span class="nl">csiphy0_ep</span><span class="p">:</span> <span class="n">endpoint</span> <span class="p">{</span>
+				<span class="n">clock</span><span class="o">-</span><span class="n">lanes</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+				<span class="n">data</span><span class="o">-</span><span class="n">lanes</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">0</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span>
+				<span class="n">link</span><span class="o">-</span><span class="n">frequencies</span> <span class="o">=</span> <span class="o">/</span><span class="n">bits</span><span class="o">/</span> <span class="mi">64</span> <span class="o">&lt;</span><span class="mi">360000000</span><span class="o">&gt;</span><span class="p">;</span>
+				<span class="n">remote</span><span class="o">-</span><span class="n">endpoint</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">ov8865_ep</span><span class="o">&gt;</span><span class="p">;</span>
+			<span class="p">};</span>
+		<span class="p">};</span>
+		<span class="n">port</span><span class="err">@</span><span class="mi">2</span> <span class="p">{</span>
+			<span class="n">reg</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">;</span>
+			<span class="cm">/* [...] */</span>
+		<span class="p">};</span>
+	<span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<h3><span class="mw-headline" id="Downstream_devicetree">Downstream devicetree</span></h3>
+<p>In most cases the downstream devicetree doesn't describe the actual hardware setup well but you can still extract some useful information from it.
+</p>
+<ul>
+<li>csiphy-sd-index: which CSIPHY the sensor is connected to</li>
+<li>cci-master: which CCI (I2C) bus the sensor sits on</li>
+<li>clocks: the clock used for the sensor</li>
+<li>gpios: various gpios (reset, shutdown, etc). Double-check with the names provided in the dts what function the gpio actually has. For example <code>CAM_VDIG</code> would be a fixed-regulator that provides power to one of the supply rails. The gpios named <code>CAMIF_MCLK</code> you can probably ignore here.</li>
+</ul>
+<h3><span class="mw-headline" id="Bringup">Bringup</span></h3>
+<p>Before bringing up the sensor you should make sure the I2C bus (CCI) works correctly. For this you can enable the bus in your dts and run i2cdetect command on it. This should pretty much immediately give you the result back, probably with no devices listed since everything's turned off by default. If it hangs and you get some timeout errors in dmesg you need to make sure that the pullup for the I2C bus is enabled. This is in many cases one of the regulators used for a supply for the cameras. If you're not sure, you can try enabling various regulators you think might provide this by putting <code>regulator-always-on;</code> on the regulator node.
+</p>
+<p>Then for actualling getting the sensor up, you should first establish (manual) I2C communication with it. For this you enable the required regulators with <code>regulator-always-on;</code> and also force the clock for the sensor to on using <code>regulator-fixed-clock</code> + <code>regulator-always-on</code>. Also don't forget to set the pinctrl correctly otherwise the clock signal won't actually reach the sensor.
+</p>
+<p>An example of forcing on mclk2:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="o">/</span> <span class="p">{</span>
+    <span class="n">fake</span><span class="o">-</span><span class="n">reg</span><span class="o">-</span><span class="n">mclk2</span> <span class="p">{</span>
+        <span class="n">compatible</span> <span class="o">=</span> <span class="s">"regulator-fixed-clock"</span><span class="p">;</span>
+        <span class="n">regulator</span><span class="o">-</span><span class="n">name</span> <span class="o">=</span> <span class="s">"fake-reg-mclk2"</span><span class="p">;</span>
+        <span class="n">pinctrl</span><span class="o">-</span><span class="n">names</span> <span class="o">=</span> <span class="s">"default"</span><span class="p">;</span>
+        <span class="n">pinctrl</span><span class="o">-</span><span class="mi">0</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">cam_mclk2_default</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="n">clocks</span> <span class="o">=</span> <span class="o">&lt;&amp;</span><span class="n">camcc</span> <span class="n">CAM_CC_MCLK2_CLK</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="n">regulator</span><span class="o">-</span><span class="n">always</span><span class="o">-</span><span class="n">on</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="o">&amp;</span><span class="n">tlmm</span> <span class="p">{</span>
+    <span class="nl">cam_mclk2_default</span><span class="p">:</span> <span class="n">cam</span><span class="o">-</span><span class="n">mclk2</span><span class="o">-</span><span class="k">default</span> <span class="p">{</span>
+        <span class="n">pins</span> <span class="o">=</span> <span class="s">"gpio31"</span><span class="p">;</span>
+        <span class="n">function</span> <span class="o">=</span> <span class="s">"cam_mclk2"</span><span class="p">;</span>
+        <span class="n">drive</span><span class="o">-</span><span class="n">strength</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">;</span>
+        <span class="n">bias</span><span class="o">-</span><span class="n">disable</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<p>Then when you run <code>i2cdetect</code> on the bus and see if a sensor appears. It's possible also multiple I2C addresses pop up, only one of them is actually the sensor, the others might be eeprom or VCM or others.
+</p>
+<p>If you have access to a datasheet for the sensor, be careful as with any I2C device the address might be given as 8-bit address while Linux always uses 7-bit addresses. For example if the datasheet says the address is 0x20 it might actually be 0x10 instead (shift one bit to the right).
+</p>
+<p>When you know which I2C address the sensor uses and it appears, you can try reading to the chip ID register to make sure communication really works and you're talking to the correct chip.
+</p>
+<p>Since for some sensors 16-bit registers are used then reading is a bit more tricky manually but still easily possible. For example the IMX582 has register <code>0x0016</code> which holds the value <code>0x0582</code>. In this example the sensor is connected to I2C bus 3 (check <code>i2cdetect -l</code>) and has the I2C address <code>0x1a</code>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>$ i2cset -y <span class="m">3</span> 0x1a 0x00 0x16
+$ i2cget -y <span class="m">3</span> 0x1a
+0x05
+$ i2cget -y <span class="m">3</span> 0x1a
+0x82
+</pre></div>
+<p><b>TODO: Expand on CSI-2 stuff and what to do after i2c communication is established.</b> ( + Some drivers in Linux support configuration of the number of CSI-2 lanes (<code>data-lanes</code>) but some do not.)
+</p>
+<h2><span class="mw-headline" id="Testing">Testing</span></h2>
+<p><b>TODO: introduce libcamera, manual exposure and gain with v4l-ctl, "media-ctl -p", qcam, cam, bayer format, test patterns in ISP and sensor, v4l-ctl for flash/torch, example for qcam usage that works on FP2</b>
+</p>
+<h2><span class="mw-headline" id="Apps">Apps</span></h2>
+<p>There are multiple camera apps available, in various states of development and functionality.
+</p>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/megapixels">megapixels</a> - good support for PinePhone, limited support otherwise</li>
+<li>
+<a rel="nofollow" class="external text" href="https://source.puri.sm/Librem5/millipixels">millipixels</a> - fork of megapixels of Librem 5, uses libcamera</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.gnome.org/jwestman/camera">Camera (pinhole)</a> - uses <a rel="nofollow" class="external text" href="https://gitlab.gnome.org/jwestman/libaperture">libaperture</a> &amp; gstreamer</li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/piggz/harbour-pinhole">harbour-pinhole</a> - uses libcamera</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Camera&amp;oldid=36452">https://wiki.postmarketos.org/index.php?title=Camera&amp;oldid=36452</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 15 February 2023, at 22:07.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Camera&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Amlogic/Porting set top boxes - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Amlogic_Porting_set_top_boxes rootpage-Amlogic_Porting_set_top_boxes skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Amlogic/Porting set top boxes</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #E8E0CC; border: 2px dotted #C1B598; margin: 4px 10%; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;">🚧</span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>This page is a work-in-progress.</b> Some information contained within may be inaccurate or incomplete.</td>
+</tr></tbody></table>
+<p>With <a rel="nofollow" class="external text" href="https://baylibre.com/">BayLibre</a>, <a href="../en/Amlogic.html" title="Amlogic">Amlogic</a>, and <a rel="nofollow" class="external text" href="https://www.linaro.org">Linaro</a>, among with other independent developers slowly (but surely) adding full support for more and more Amlogic SoCs to mainline Linux (including the S905!), 
+getting core functionality on your Amlogic-based set top box is now easier than ever (on most of them).
+</p>
+<p>This page documents how you can get it to load postmarketOS, with core features such as working HDMI. Please note that 
+because there are many, many set top boxes using an Amlogic SoC, it's not easy to get everything to work, but 
+for some people it's still a fun experience!
+</p>
+<p>Please note that this covers running postmarketOS on an SD card or any other removable device. Getting it to work on 
+the internal storage is left as an exercise to the reader. It also only covers set top boxes running U-Boot as their 
+primary bootloader (which there were quite a few). If you got postmarketOS to run on a set top box lacking U-Boot then 
+please document how you got it working. Thanks!
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Prerequisites"><span class="tocnumber">1.1</span> <span class="toctext">Prerequisites</span></a></li>
+<li class="toclevel-2 tocsection-3">
+<a href="#Components"><span class="tocnumber">1.2</span> <span class="toctext">Components</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Kernel_package"><span class="tocnumber">1.2.1</span> <span class="toctext">Kernel package</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Common_SoC_package"><span class="tocnumber">1.2.2</span> <span class="toctext">Common SoC package</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#U-Boot"><span class="tocnumber">1.2.3</span> <span class="toctext">U-Boot</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Optional_firmware"><span class="tocnumber">1.2.4</span> <span class="toctext">Optional firmware</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8">
+<a href="#Getting_started"><span class="tocnumber">2</span> <span class="toctext">Getting started</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#The_build_environment"><span class="tocnumber">2.1</span> <span class="toctext">The build environment</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Device_tree"><span class="tocnumber">2.2</span> <span class="toctext">Device tree</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Building_the_kernel"><span class="tocnumber">2.3</span> <span class="toctext">Building the kernel</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12">
+<a href="#Useful_notes"><span class="tocnumber">3</span> <span class="toctext">Useful notes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Wiping_the_stock_U-Boot"><span class="tocnumber">3.1</span> <span class="toctext">Wiping the stock U-Boot</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Booting"><span class="tocnumber">3.2</span> <span class="toctext">Booting</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#Maintainers"><span class="tocnumber">4</span> <span class="toctext">Maintainers</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<h3><span class="mw-headline" id="Prerequisites">Prerequisites</span></h3>
+<ul>
+<li><a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a></li>
+<li>A working device tree</li>
+<li>Your set top box :)</li>
+<li>(UART)</li>
+</ul>
+<p>(Don't worry. We'll set everything up later on)
+</p>
+<h3><span class="mw-headline" id="Components">Components</span></h3>
+<h4><span class="mw-headline" id="Kernel_package"><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/linux-postmarketos-amlogic">Kernel package</a></span></h4>
+<p>As of now (March 2023) the kernel used on most Amlogic devices is just mainline Linux with a few patches on-top that fix up small things on existing device trees or add new ones. Those patches are slowly going to get dropped as they land upstream.
+</p>
+<h4><span class="mw-headline" id="Common_SoC_package"><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/soc-amlogic-s905">Common SoC package</a></span></h4>
+<p>This is a common package used by most Amlogic S905 devices as well as <b>some</b> Amlogic S912 and S905X devices. It has a 
+U-Boot script for loading a mainline U-Boot binary from the stock U-Boot found on your device. It also includes an 
+X11 config for those devices because without it X11 refuses to run.
+</p>
+<h4><span class="mw-headline" id="U-Boot"><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/u-boot-amlogic-s905">U-Boot</a></span></h4>
+<p>The U-Boot binary mentioned before is provided by <code>u-boot-amlogic-s905-tv</code>. It's basically v2020.07 U-Boot, with a patch to 
+modify the Amlogic p201's (a reference board by Amlogic) defconfig to have more functionality working (HDMI, ...).
+It's only confirmed to work on the Amlogic S905 SoC.
+</p>
+<p>There's another U-Boot package used by Amlogic S905X/S905W/S905Z/S905L/S805X/S805Y devices (<code>u-boot-amlogic-s905x-tv</code>).
+</p>
+<h4><span class="mw-headline" id="Optional_firmware">Optional firmware</span></h4>
+<p>Most set top boxes require non-free firmware for non-essential features to work out of the box (Wi-Fi, Bluetooth, 
+...). It'll heavily depend on the set top box you own, as Amlogic SoCs usually don't have built-in Wi-Fi nor Bluetooth.
+</p>
+<p>Most devices use a Broadcom Wi-Fi/Bluetooth. You can use firmware located <a rel="nofollow" class="external text" href="https://github.com/LibreELEC/brcmfmac_sdio-firmware">here</a>
+for these devices.
+</p>
+<h2><span class="mw-headline" id="Getting_started">Getting started</span></h2>
+<h3><span class="mw-headline" id="The_build_environment">The build environment</span></h3>
+<p>This guide heavily depends on <code>pmbootstrap</code>. Install it if you haven't already.
+You should also install <code>git</code>.
+</p>
+<p>Then:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">pull -- very important</span>
+<span class="gp">$</span> pmbootstrap pull
+<span class="go">add a new device -- type in the manufacturer of your set top box as well as the codename, this will generate </span>
+<span class="go">packages for you.</span>
+<span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> <span class="nb">cd</span> .local/var/pmbootstrap/cache_git/pmaports <span class="c1"># ...or the directory where pmaports got cloned</span>
+<span class="go">remove useless packages</span>
+<span class="gp">$</span> rm -Rf device/testing/linux-<span class="nv">$vendor</span>-<span class="nv">$codename</span> <span class="c1"># replace $vendor and $codename with your vendor and codename respectively</span>
+</pre></div>
+<h3><span class="mw-headline" id="Device_tree">Device tree</span></h3>
+<p>Try to find a device tree that's made for your device or for a similar one. For example, if your device happens to be 
+similar to the Amlogic p201 reference board then you should base your device tree on the p201's.
+</p>
+<h3><span class="mw-headline" id="Building_the_kernel">Building the kernel</span></h3>
+<p>After adding your device tree patch (if any), try building the kernel!
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> device/testing/linux-postmarketos-amlogic
+<span class="gp">$</span> cp /tmp/000X-add-initial-support-for-<span class="nv">$vendor</span>-<span class="nv">$codename</span> . <span class="c1"># if any</span>
+<span class="go">update the APKBUILD with the new file and generate checksums</span>
+<span class="gp">$</span> nvim APKBUILD
+<span class="gp">$</span> pmbootstrap checksum linux-postmarketos-amlogic
+<span class="go">build!</span>
+<span class="gp">$</span> pmbootstrap --details-to-stdout build linux-postmarketos-amlogic
+</pre></div>
+<h2><span class="mw-headline" id="Useful_notes">Useful notes</span></h2>
+<h3><span class="mw-headline" id="Wiping_the_stock_U-Boot">Wiping the stock U-Boot</span></h3>
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>WARNING:</b> Some devices DO NOT support this and it's very risky to do it. CONTINUE AT YOUR OWN RISK.</td>
+</tr></tbody></table>
+<p>Figure out where U-Boot's located, and run the command below.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">replace X and Y.</span>
+<span class="gp">#</span> dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/dev/mmcblkXbootY <span class="nv">conv</span><span class="o">=</span>fsync,notrunc <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="m">4</span> <span class="nv">seek</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+<p>The bootrom should now boot from the SD card. You'd need to build a working U-Boot as described 
+in <a rel="nofollow" class="external text" href="https://github.com/hexdump0815/u-boot-misc">this git repository</a>.
+</p>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Disabling the eMMC (by shorting pins) has the same effect and should be less risky.</td>
+</tr></tbody></table>
+<h3><span class="mw-headline" id="Booting">Booting</span></h3>
+<p>See <a href="../en/Amlogic.html#Boot_process" title="Amlogic">Amlogic#Boot_process</a>
+</p>
+<h2><span class="mw-headline" id="Maintainers">Maintainers</span></h2>
+<ul>
+<li><a href="../User:F.html" title="User:F">F</a></li>
+<li><a href="../User:Exkc.html" title="User:Exkc">exkc</a></li>
+</ul>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="../en/Amlogic.html" title="Amlogic">Amlogic wiki page</a></li>
+<li><a href="../en/U-Boot_porting.html" title="U-Boot porting">Generic guide on porting U-Boot</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Work-in-progress_pages.html" title="Category:Work-in-progress pages">Work-in-progress pages</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Amlogic/Porting_set_top_boxes&amp;oldid=43488">https://wiki.postmarketos.org/index.php?title=Amlogic/Porting_set_top_boxes&amp;oldid=43488</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:38.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Amlogic/Porting_set_top_boxes&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

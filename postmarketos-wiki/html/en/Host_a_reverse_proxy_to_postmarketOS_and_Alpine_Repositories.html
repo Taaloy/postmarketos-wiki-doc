@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Host a reverse proxy to postmarketOS and Alpine Repositories - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Host_a_reverse_proxy_to_postmarketOS_and_Alpine_Repositories rootpage-Host_a_reverse_proxy_to_postmarketOS_and_Alpine_Repositories skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Host a reverse proxy to postmarketOS and Alpine Repositories</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>When you don't have the access to Internet, it would be annoying to setup route and packet forwarding/masquerading on a PC.
+What if you just want to install a package from apk repositories, but it depends on a lot of packages?
+This guide shows you how to setup a reverse proxy to APK repositories on PC.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Nginx"><span class="tocnumber">1</span> <span class="toctext">Nginx</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2">
+<a href="#Installation"><span class="tocnumber">1.1</span> <span class="toctext">Installation</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Debian.2FUbuntu"><span class="tocnumber">1.1.1</span> <span class="toctext">Debian/Ubuntu</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="#Fedora.2FRHEL.2FCentOS.2FRocky"><span class="tocnumber">1.1.2</span> <span class="toctext">Fedora/RHEL/CentOS/Rocky</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Alpine.2FpostmarketOS"><span class="tocnumber">1.1.3</span> <span class="toctext">Alpine/postmarketOS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6">
+<a href="#Configuration"><span class="tocnumber">1.2</span> <span class="toctext">Configuration</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Reverse_proxy"><span class="tocnumber">1.2.1</span> <span class="toctext">Reverse proxy</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Local_repository_server"><span class="tocnumber">1.2.2</span> <span class="toctext">Local repository server</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#All-in-one"><span class="tocnumber">1.2.3</span> <span class="toctext">All-in-one</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10">
+<a href="#Restart"><span class="tocnumber">1.3</span> <span class="toctext">Restart</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#systemd_distros"><span class="tocnumber">1.3.1</span> <span class="toctext">systemd distros</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#OpenRC_distros"><span class="tocnumber">1.3.2</span> <span class="toctext">OpenRC distros</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="#Add_the_repository"><span class="tocnumber">1.4</span> <span class="toctext">Add the repository</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Install_packages"><span class="tocnumber">1.5</span> <span class="toctext">Install packages</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#See_also"><span class="tocnumber">2</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Nginx">Nginx</span></h2>
+<p>We use <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;"><a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/packages?name=nginx&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=">nginx</a></span> for example.
+</p>
+<h3><span class="mw-headline" id="Installation">Installation</span></h3>
+<h4>
+<span id="Debian/Ubuntu"></span><span class="mw-headline" id="Debian.2FUbuntu">Debian/Ubuntu</span>
+</h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> apt-get install nginx
+</pre></div>
+<h4>
+<span id="Fedora/RHEL/CentOS/Rocky"></span><span class="mw-headline" id="Fedora.2FRHEL.2FCentOS.2FRocky">Fedora/RHEL/CentOS/Rocky</span>
+</h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> dnf install nginx
+</pre></div>
+<h4>
+<span id="Alpine/postmarketOS"></span><span class="mw-headline" id="Alpine.2FpostmarketOS">Alpine/postmarketOS</span>
+</h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> apk add nginx
+</pre></div>
+<h3><span class="mw-headline" id="Configuration">Configuration</span></h3>
+<h4><span class="mw-headline" id="Reverse_proxy">Reverse proxy</span></h4>
+<p>The configs could be stored in <code>/etc/nginx/conf.d/</code> or <code>/etc/nginx/http.d/</code>.
+In this config we use port <code>8000</code>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> nano /etc/nginx/http.d/apk_reverse_proxy.conf
+</pre></div>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">server</span> <span class="p">{</span>
+	<span class="kn">listen</span> <span class="mi">8000</span><span class="p">;</span>
+	<span class="kn">listen</span> <span class="s">[::]:8000</span><span class="p">;</span>
+
+	<span class="kn">location</span> <span class="s">/alpine</span> <span class="p">{</span>
+		<span class="kn">proxy_pass</span> <span class="s">http://dl-cdn.alpinelinux.org/alpine</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="kn">location</span> <span class="s">/postmarketos</span> <span class="p">{</span>
+		<span class="kn">proxy_pass</span> <span class="s">http://mirror.postmarketos.org/postmarketos</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h4><span class="mw-headline" id="Local_repository_server">Local repository server</span></h4>
+<p>Like the other HTTP servers, Nginx can serve a local path.
+Note that a standard HTTP port <code>80</code> is used in this example.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> nano /etc/nginx/http.d/apk_local_repo.conf
+</pre></div>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">server</span> <span class="p">{</span>
+	<span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+	<span class="kn">listen</span> <span class="s">[::]:80</span><span class="p">;</span>
+
+	<span class="kn">location</span> <span class="s">/local</span> <span class="p">{</span>
+        	<span class="kn">alias</span> <span class="s">/home/user/.local/var/pmbootstrap/packages</span><span class="p">;</span>
+	        <span class="kn">autoindex</span> <span class="no">on</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h4><span class="mw-headline" id="All-in-one">All-in-one</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> nano /etc/nginx/http.d/apk_aio.conf
+</pre></div>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">server</span> <span class="p">{</span>
+	<span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+	<span class="kn">listen</span> <span class="s">[::]:80</span><span class="p">;</span>
+
+	<span class="kn">location</span> <span class="s">/alpine</span> <span class="p">{</span>
+		<span class="kn">proxy_pass</span> <span class="s">http://dl-cdn.alpinelinux.org/alpine</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="kn">location</span> <span class="s">/postmarketos</span> <span class="p">{</span>
+		<span class="kn">proxy_pass</span> <span class="s">http://mirror.postmarketos.org/postmarketos</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="kn">location</span> <span class="s">/local</span> <span class="p">{</span>
+        	<span class="kn">alias</span> <span class="s">/home/user/.local/var/pmbootstrap/packages</span><span class="p">;</span>
+	        <span class="kn">autoindex</span> <span class="no">on</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h3><span class="mw-headline" id="Restart">Restart</span></h3>
+<p>Restart to apply the changes.
+</p>
+<h4><span class="mw-headline" id="systemd_distros">systemd distros</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> systemctl restart nginx
+</pre></div>
+<h4><span class="mw-headline" id="OpenRC_distros">OpenRC distros</span></h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> rc-service nginx restart
+</pre></div>
+<h3><span class="mw-headline" id="Add_the_repository">Add the repository</span></h3>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> nano /etc/apk/repositories
+</pre></div>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>http://172.16.42.2/local/edge
+http://172.16.42.2:8000/postmarketos/master
+http://172.16.42.2:8000/alpine/edge/main
+http://172.16.42.2:8000/alpine/edge/community
+http://172.16.42.2:8000/alpine/edge/testing
+
+http://mirror.postmarketos.org/postmarketos/master
+http://dl-cdn.alpinelinux.org/alpine/edge/main
+http://dl-cdn.alpinelinux.org/alpine/edge/community
+http://dl-cdn.alpinelinux.org/alpine/edge/testing</pre></div>
+<h3><span class="mw-headline" id="Install_packages">Install packages</span></h3>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> apk update
+<span class="go">fetch http://172.16.42.2/local/edge/aarch64/APKINDEX.tar.gz</span>
+<span class="go">fetch http://172.16.42.2:8000/postmarketos/master/aarch64/APKINDEX.tar.gz</span>
+<span class="go">fetch http://172.16.42.2:8000/alpine/edge/main/aarch64/APKINDEX.tar.gz</span>
+<span class="go">fetch http://172.16.42.2:8000/alpine/edge/community/aarch64/APKINDEX.tar.gz</span>
+<span class="go">fetch http://172.16.42.2:8000/alpine/edge/testing/aarch64/APKINDEX.tar.gz</span>
+<span class="go">2022-10-21 23:17:22.167857 [http://172.16.42.2/local/edge]</span>
+<span class="go">2022-10-22 12:50:04.451869 [http://172.16.42.2/postmarketos/master]</span>
+<span class="go">v20220809-6418-g42ed31be94 [http://172.16.42.2/alpine/edge/main]</span>
+<span class="go">v20220809-6433-g8fe86c9aea [http://172.16.42.2/alpine/edge/community]</span>
+<span class="go">v20220809-6434-geafcdb2299 [http://172.16.42.2/alpine/edge/testing]</span>
+<span class="gp">#</span> apk add postmarketos-ui-phosh
+</pre></div>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li><a href="../en/Installing_packages_on_a_running_phone.html" title="Installing packages on a running phone">Installing packages on a running phone</a></li></ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../en/Category:Pages_with_syntax_highlighting_errors.html" title="Category:Pages with syntax highlighting errors">Pages with syntax highlighting errors</a></li>
+<li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li>
+</ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Host_a_reverse_proxy_to_postmarketOS_and_Alpine_Repositories&amp;oldid=43400">https://wiki.postmarketos.org/index.php?title=Host_a_reverse_proxy_to_postmarketOS_and_Alpine_Repositories&amp;oldid=43400</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:37.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Host_a_reverse_proxy_to_postmarketOS_and_Alpine_Repositories&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

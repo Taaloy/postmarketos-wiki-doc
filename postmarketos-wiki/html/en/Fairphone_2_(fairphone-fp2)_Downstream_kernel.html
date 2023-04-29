@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Fairphone 2 (fairphone-fp2)/Downstream kernel - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Fairphone_2_fairphone-fp2_Downstream_kernel rootpage-Fairphone_2_fairphone-fp2_Downstream_kernel skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Fairphone 2 (fairphone-fp2)/Downstream kernel</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This page is only meant as a reference for the v3.4 <b>downstream</b> Linux kernel that is offered during pmbootstrap init. While some features work better than on mainline kernel I don't recommend using it for anything apart from debugging.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#WiFi"><span class="tocnumber">1</span> <span class="toctext">WiFi</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Audio"><span class="tocnumber">2</span> <span class="toctext">Audio</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Input_devices"><span class="tocnumber">3</span> <span class="toctext">Input devices</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Photos"><span class="tocnumber">4</span> <span class="toctext">Photos</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="WiFi">WiFi</span></h2>
+<p>Using NetworkManager (preinstalled) doesn't work for me / my WiFi network because of some dhcp issue.
+</p>
+<p>Enable the <code>device-fairphone-fp2-nonfree-firmware</code> package with the mainline kernel during <code>pmbootstrap init</code>
+</p>
+<p>Create your wpa_supplicant.conf file in /etc/wpa_supplicant/wpa_supplicant.conf, start with adding you WiFi SSID and passphrase :
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> wpa_passphrase <span class="s2">"YOUR SSID"</span> <span class="s2">"YOUR PASSPHRASE"</span> &gt; /etc/wpa_supplicant/wpa_supplicant.conf
+</pre></div>
+<p>Add the following lines to the top of the file :
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>ctrl_interface=/run/wpa_supplicant
+update_config=1</pre></div>
+<p>Then run as root on the device:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> Stop NetworkManager as it interferes with wpa_supplicant
+<span class="go">service networkmanager stop</span>
+<span class="gp">#</span> Start wpa_supplicant
+<span class="go">wpa_supplicant -Dnl80211 -iwlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf</span>
+</pre></div>
+<p>Try without the <code>-Dnl80211</code> option if it doesn't work.
+</p>
+<p>Connect to a network using <a rel="nofollow" class="external text" href="https://wiki.archlinux.org/index.php/WPA_supplicant#Connecting_with_wpa_cli">this guide</a>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> Start a DHCP client on the wlan0 interface to get an IP address
+<span class="go">udhcpc -iwlan0</span>
+</pre></div>
+<p>Then you should have a working WiFi connection!
+</p>
+<h2><span class="mw-headline" id="Audio">Audio</span></h2>
+<p>For audio, read <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/38">pmaports!38</a> for now until it's more integrated.
+</p>
+<h2><span class="mw-headline" id="Input_devices">Input devices</span></h2>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># Input device
+/dev/input/event0:      synaptics_dsx
+
+# Touchscreen events</pre></div>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># Input device
+/dev/input/event1:      qpnp_pon
+
+# Power button
+Event: time 7644.433669, type 1 (EV_KEY), code 116 (KEY_POWER), value 1
+Event: time 7644.433673, -------------- SYN_REPORT ------------
+Event: time 7644.682747, type 1 (EV_KEY), code 116 (KEY_POWER), value 0
+Event: time 7644.682750, -------------- SYN_REPORT ------------</pre></div>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># Input device
+/dev/input/event2:      gpio-keys
+
+# Volume up
+Event: time 7575.930067, type 1 (EV_KEY), code 115 (KEY_VOLUMEUP), value 1
+Event: time 7575.930083, -------------- SYN_REPORT ------------
+Event: time 7576.100068, type 1 (EV_KEY), code 115 (KEY_VOLUMEUP), value 0
+Event: time 7576.100083, -------------- SYN_REPORT ------------
+
+# Volume down
+Event: time 7577.650077, type 1 (EV_KEY), code 114 (KEY_VOLUMEDOWN), value 1
+Event: time 7577.650093, -------------- SYN_REPORT ------------
+Event: time 7577.840067, type 1 (EV_KEY), code 114 (KEY_VOLUMEDOWN), value 0
+Event: time 7577.840082, -------------- SYN_REPORT ------------
+
+# Camera
+Event: time 7579.180072, type 1 (EV_KEY), code 766 (?), value 1
+Event: time 7579.180089, -------------- SYN_REPORT ------------
+Event: time 7579.430052, type 1 (EV_KEY), code 766 (?), value 0
+Event: time 7579.430067, -------------- SYN_REPORT ------------</pre></div>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># Input device
+/dev/input/event3:      msm8974-taiko-mtp-snd-card Button Jack
+
+# Button on headphones
+Event: time 7490.180845, type 1 (EV_KEY), code 226 (KEY_MEDIA), value 1
+Event: time 7490.180865, -------------- SYN_REPORT ------------
+Event: time 7492.228265, type 1 (EV_KEY), code 226 (KEY_MEDIA), value 0
+Event: time 7492.228270, -------------- SYN_REPORT ------------</pre></div>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre># Input device
+/dev/input/event4:      msm8974-taiko-mtp-snd-card Headset Jack
+
+# Plug in headphones Nr.1
+Event: time 7329.700387, type 5 (EV_SW), code 2 (SW_HEADPHONE_INSERT), value 1
+Event: time 7329.700389, type 5 (EV_SW), code 4 (SW_MICROPHONE_INSERT), value 1
+Event: time 7329.700394, type 5 (EV_SW), code 17 (?), value 1
+Event: time 7329.700396, -------------- SYN_REPORT ------------
+
+# Unplug headphones Nr.1
+Event: time 7336.406334, type 5 (EV_SW), code 2 (SW_HEADPHONE_INSERT), value 0
+Event: time 7336.406337, type 5 (EV_SW), code 4 (SW_MICROPHONE_INSERT), value 0
+Event: time 7336.406339, type 5 (EV_SW), code 17 (?), value 0
+Event: time 7336.406341, -------------- SYN_REPORT ------------
+
+# Plug in headphones Nr.2
+Event: time 7406.442631, type 5 (EV_SW), code 2 (SW_HEADPHONE_INSERT), value 1
+Event: time 7406.442636, -------------- SYN_REPORT ------------
+
+# Unplug headphones Nr.2
+Event: time 7433.144596, type 5 (EV_SW), code 2 (SW_HEADPHONE_INSERT), value 0
+Event: time 7433.144600, -------------- SYN_REPORT ------------</pre></div>
+<h2><span class="mw-headline" id="Photos">Photos</span></h2>
+<ul><li><a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/images/7/7e/Fairphone_2.jpg">Weston running</a></li></ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Pages_with_syntax_highlighting_errors.html" title="Category:Pages with syntax highlighting errors">Pages with syntax highlighting errors</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Fairphone_2_(fairphone-fp2)/Downstream_kernel&amp;oldid=43406">https://wiki.postmarketos.org/index.php?title=Fairphone_2_(fairphone-fp2)/Downstream_kernel&amp;oldid=43406</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:37.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Fairphone_2_(fairphone-fp2)/Downstream_kernel&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

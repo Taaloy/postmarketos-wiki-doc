@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Installation - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Installation rootpage-Installation skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Installation</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>This article describes how to get postmarketOS installed onto your device.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#What_to_expect"><span class="tocnumber">1.1</span> <span class="toctext">What to expect</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Your_device"><span class="tocnumber">1.2</span> <span class="toctext">Your device</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Build_your_own_image.3F"><span class="tocnumber">1.3</span> <span class="toctext">Build your own image?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Using_a_pre-built_image"><span class="tocnumber">2</span> <span class="toctext">Using a pre-built image</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6">
+<a href="#Download"><span class="tocnumber">2.1</span> <span class="toctext">Download</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#installer"><span class="tocnumber">2.1.1</span> <span class="toctext">installer</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#rootfs"><span class="tocnumber">2.1.2</span> <span class="toctext">rootfs</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#boot"><span class="tocnumber">2.1.3</span> <span class="toctext">boot</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#bootpart"><span class="tocnumber">2.1.4</span> <span class="toctext">bootpart</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-11">
+<a href="#Flashing"><span class="tocnumber">2.2</span> <span class="toctext">Flashing</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="#SD_card"><span class="tocnumber">2.2.1</span> <span class="toctext">SD card</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Flash_tools_like_Fastboot.2C_Heimdall_etc."><span class="tocnumber">2.2.2</span> <span class="toctext">Flash tools like Fastboot, Heimdall etc.</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#See_also"><span class="tocnumber">3</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<h3><span class="mw-headline" id="What_to_expect">What to expect</span></h3>
+<p>In its current stage, postmarketOS is for Linux enthusiasts. The experience will not be as polished as running Android or iOS. Expect serious bugs like calls not working, SMS not arriving, alarm clock not working etc. Do not use this on your main phone if you rely on its functionallity. You have been warned.
+</p>
+<p>Also in this stage, we expect that you know how to use a Linux terminal. Throughout this wiki you will find a couple of commands prefixed with <code>$</code> (or <code>#</code> for root). You should not enter that character, it is merely to designate that the following commands are intended to be input/executed within a terminal. For example, the following command to list contents of the current working directory, <code>ls</code>, will be mentioned as:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ls
+</pre></div>
+<h3><span class="mw-headline" id="Your_device">Your device</span></h3>
+<p>First of all, open the <a href="../en/Devices.html" title="Devices">devices</a> page in a new tab and find your device. Take notice of the category it is in (main, community or testing). Read the available features on the device page (so you don't have wrong expectations). The installation instructions vary greatly depending on your device, so make sure to read the device specific installation instructions.
+</p>
+<h3>
+<span id="Build_your_own_image?"></span><span class="mw-headline" id="Build_your_own_image.3F">Build your own image?</span>
+</h3>
+<p>To install postmarketOS, you have two options:
+</p>
+<ul>
+<li>Use a pre-built image if your device is in the main or community categories. Read on below.</li>
+<li>Build your own image with pmbootstrap if your device is in the testing category, or if you would like to have more choices available (e.g. picking an exotic user interface). Read the <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a> article.</li>
+</ul>
+<h2><span class="mw-headline" id="Using_a_pre-built_image">Using a pre-built image</span></h2>
+<h3><span class="mw-headline" id="Download">Download</span></h3>
+<p>Open the <a rel="nofollow" class="external text" href="https://postmarketos.org/download/">download</a> page and click on your device. You will be presented with directories named after <a href="../en/Category:Interface.html" title="Category:Interface">user interfaces</a>. Choose one of them. Then click on the directory with the latest image date. Now you can download the image files.
+</p>
+<p>Download the following files, each of them is described further below:
+</p>
+<ul>
+<li>installer or rootfs</li>
+<li>boot (if available)</li>
+<li>bootpart (if available)</li>
+</ul>
+<h4><span class="mw-headline" id="installer">installer</span></h4>
+<p>Some devices have an extra installer image available. It ends in <code>-installer.img.xz</code> and contains the rootfs image, but wrapped in an installer that runs on your phone. Most importantly, this allows encrypting the installation. For devices that boot from SD card (e.g. PinePhone), it also allows installing from the SD card to the internal storage.
+</p>
+<p>You will be able to set a user and encryption password during the installation.
+</p>
+<p>Download either the installer or rootfs image.
+</p>
+<h4><span class="mw-headline" id="rootfs">rootfs</span></h4>
+<p>All devices have a rootfs image. It ends in the device name and <code>.img.xz</code>, for example <code>-pine64-pinephone.img.xz</code>.
+</p>
+<p>The rootfs image is not encrypted. If you would like to encrypt your phone, but there is no installer image available for your device, you can build your own encrypted image with <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a> instead of following this guide.
+</p>
+<p>The rootfs image has the default login of <code>user</code> and password <code>147147</code>.
+</p>
+<p>Download either the installer or rootfs image.
+</p>
+<h4><span class="mw-headline" id="boot">boot</span></h4>
+<p>Androids need a <a href="../en/Glossary.html#boot.img" class="mw-redirect" title="Boot.img">boot.img</a> file. It ends in <code>-boot.img.xz</code>.
+</p>
+<p>Download it, if it is available.
+</p>
+<h4><span class="mw-headline" id="bootpart">bootpart</span></h4>
+<p>For some devices like the ASUS MeMO Pad 7, the root and boot partition are in separate files instead of being combined in the rootfs image (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1871">pmbootstrap!1871</a>). The file containing the boot partition ends in <code>-bootpart.img.xz</code>.
+</p>
+<p>Download it, if it is available.
+</p>
+<h3><span class="mw-headline" id="Flashing">Flashing</span></h3>
+<h4><span class="mw-headline" id="SD_card">SD card</span></h4>
+<p>Devices like the PinePhone, Samsung Galaxy S II, Nokia N900, various laptops etc. boot from an SD card, USB stick or other external storage. Find the name with <code>lsblk</code> first and <b>make sure it is the right one as you will overwrite everything on it.</b> Use a path without partition number at the end, such as <code>/dev/mmcblk0</code>.
+</p>
+<p>Then write the image to it:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> xz --decompress --stdout path-to-rootfs-or-installer.img.xz <span class="p">|</span> sudo dd <span class="nv">of</span><span class="o">=</span>/dev/mmcblk... <span class="nv">bs</span><span class="o">=</span>4M <span class="nv">status</span><span class="o">=</span>progress
+</pre></div>
+<p>If you are on Windows, see <a href="../en/Windows_FAQ.html#Flashing_images_to_SD_cards" title="Windows FAQ">here</a>.
+</p>
+<p>Wait until the command completes and eject the SD card. If your device is able to boot from SD card without flashing anything to internal storage (such as the PinePhone), you should now be able to insert it into your device and boot it up. If you have chosen the installer image, follow its instructions. The rootfs image will boot right into postmarketOS. You are done with installing postmarketOS, congratulations!
+</p>
+<h4>
+<span id="Flash_tools_like_Fastboot,_Heimdall_etc."></span><span class="mw-headline" id="Flash_tools_like_Fastboot.2C_Heimdall_etc.">Flash tools like Fastboot, Heimdall etc.</span>
+</h4>
+<p>Other devices, such as Androids and the Librem 5 need to run a flashing tool to send the image files to the device while it is in a special flashing mode. <b>Beware that this will overwrite the existing installation/data on your phone!</b> The <a href="../en/Devices.html" title="Devices">device page</a> should give the detailed instructions. Usually it involves extracting the images (as these tools can't use the <code>xz</code> compressed files), with the <code>unxz</code> command. Afterwards one runs the flash tool with it, e.g. <code>fastboot flash …</code>.
+</p>
+<p>If the instructions are missing, look at your device's <a href="../en/Deviceinfo_reference.html" class="mw-redirect" title="Deviceinfo">deviceinfo</a> file or ask in the <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">chat</a> for help. Then add the missing instructions for the next person.
+</p>
+<p>When you are done with flashing the files, reboot the device. You are done with installing postmarketOS, congratulations!
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a></li>
+<li><a href="../en/Existing_Alpine_installation.html" title="Existing Alpine installation">Existing Alpine installation</a></li>
+<li><a href="../en/Porting_to_a_new_device.html" title="Porting to a new device">Porting to a new device</a></li>
+<li><a href="../en/Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Installation&amp;oldid=43446">https://wiki.postmarketos.org/index.php?title=Installation&amp;oldid=43446</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:38.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Installation&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

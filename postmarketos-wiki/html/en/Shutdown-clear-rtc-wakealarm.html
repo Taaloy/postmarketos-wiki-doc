@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Shutdown-clear-rtc-wakealarm - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Shutdown-clear-rtc-wakealarm rootpage-Shutdown-clear-rtc-wakealarm skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Shutdown-clear-rtc-wakealarm</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Some devices with an RTC wake alarm automatically turn on from powered-off state when they reach the alarm time. This includes, but may not be limited to, the <a href="../en/PINE64_PinePhone_(pine64-pinephone).html" title="PINE64 PinePhone (pine64-pinephone)">PINE64 PinePhone</a>. Some users may find this undesirable, especially if they use <a href="../en/Full_disk_encryption.html" title="Full disk encryption">full disk encryption</a> since the phone will power on to the <a href="../en/Osk-sdl.html" title="Osk-sdl">osk-sdl</a> screen and just stay there until the battery runs out.
+</p>
+<p>The <code>shutdown-clear-rtc-wakealarm</code> package contains an OpenRC service that clears the RTC wake alarm. It can be enabled to run in the <code>shutdown</code> runlevel with:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> rc-update add clear-rtc-wakealarm shutdown
+
+<span class="go"> * service clear-rtc-wakealarm added to runlevel shutdown</span>
+</pre></div>
+<p>Note that <i>this service</i> does not automatically restore the cleared wakealarm upon a reboot. It is expected that whatever set the wakealarm originally will restore it. The wakealarm is known to be restored by:
+</p>
+<p>- <code>gnome-clocks</code> + <code>waked</code>, the combination used by <a href="../en/Phosh.html" title="Phosh">Phosh</a>.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<p>- <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1970">pmaports#1970</a>
+</p>
+<p>- <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3905">pmaports!3905</a>
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Shutdown-clear-rtc-wakealarm&amp;oldid=43723">https://wiki.postmarketos.org/index.php?title=Shutdown-clear-rtc-wakealarm&amp;oldid=43723</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:43.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Shutdown-clear-rtc-wakealarm&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

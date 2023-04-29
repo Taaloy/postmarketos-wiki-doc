@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Samsung Galaxy SII (samsung-i9100)/Installation - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Samsung_Galaxy_SII_samsung-i9100_Installation rootpage-Samsung_Galaxy_SII_samsung-i9100_Installation skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Samsung Galaxy SII (samsung-i9100)/Installation</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Installation"><span class="tocnumber">1</span> <span class="toctext">Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Enable_ODIN_.28download.29_mode"><span class="tocnumber">1.1</span> <span class="toctext">Enable ODIN (download) mode</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Option_.231:_Install_to_the_internal_memory_.28easiest.29"><span class="tocnumber">1.2</span> <span class="toctext">Option #1: Install to the internal memory (easiest)</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Option_.232:_Install_to_a_SD_card"><span class="tocnumber">1.3</span> <span class="toctext">Option #2: Install to a SD card</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Option_.233:_Install_from_the_recovery_zip_installer"><span class="tocnumber">1.4</span> <span class="toctext">Option #3: Install from the recovery zip installer</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Option_.234:_Export_the_recovery_zip_into_the_eMMC.27s_UMS_partition_over_MTP_and_install_from_recovery"><span class="tocnumber">1.5</span> <span class="toctext">Option #4: Export the recovery zip into the eMMC's UMS partition over MTP and install from recovery</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Mainline_kernel"><span class="tocnumber">1.6</span> <span class="toctext">Mainline kernel</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Firmware_files"><span class="tocnumber">1.7</span> <span class="toctext">Firmware files</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#U-Boot_bootloader_.28legacy.29"><span class="tocnumber">1.8</span> <span class="toctext">U-Boot bootloader (legacy)</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Installation">Installation</span></h3>
+<p>We're using the <code>heimdall-isorec</code> flash method, see <a href="../en/Deviceinfo_flash_methods.html" title="Deviceinfo flash methods">deviceinfo_flash_methods</a> for more information.
+</p>
+<h4>
+<span id="Enable_ODIN_(download)_mode"></span><span class="mw-headline" id="Enable_ODIN_.28download.29_mode">Enable ODIN (download) mode</span>
+</h4>
+<ul>
+<li>Turn off phone</li>
+<li>Connect USB cable</li>
+<li>Hold <code>VOLUME_DOWN</code> + <code>HOME</code> + <code>POWER</code> until you get the "Warning!!" screen</li>
+<li>Push <code>VOLUME_UP</code> to continue to ODIN mode, as per the instructions appearing on the screen</li>
+</ul>
+<h4>
+<span id="Option_#1:_Install_to_the_internal_memory_(easiest)"></span><span class="mw-headline" id="Option_.231:_Install_to_the_internal_memory_.28easiest.29">Option #1: Install to the internal memory (easiest)</span>
+</h4>
+<ul><li>Configure the image:</li></ul>
+<pre> $ pmbootstrap init
+</pre>
+<p>Use the channel "edge", vendor "samsung", device codename "i9100".
+It is recommended to use the mainline kernel, with the Phosh UI, and the WiFi firmwares for the best experience, but you can customize it to your needs.
+</p>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Not all the configurations will work. See <a href="#What_works">What works</a> to confirm your choice.</td>
+</tr></tbody></table>
+<ul><li>Build the image:</li></ul>
+<pre> $ pmbootstrap install
+</pre>
+<ul><li>Flash the OS to the internal memory:</li></ul>
+<pre> $ pmbootstrap flasher flash_kernel
+ $ pmbootstrap flasher flash_rootfs
+</pre>
+<p>The phone will reboot between the two commands, make sure to re-enter the ODIN (download) mode to execute the last command. This one can take a very long time to start. Once the transfer is complete, the phone will reboot again and your phone should boot into PostmarketOS.
+</p>
+<h4>
+<span id="Option_#2:_Install_to_a_SD_card"></span><span class="mw-headline" id="Option_.232:_Install_to_a_SD_card">Option #2: Install to a SD card</span>
+</h4>
+<ul><li>As above, configure the image with:</li></ul>
+<pre> $ pmbootstrap init
+</pre>
+<ul><li>Insert the SD card and find its path</li></ul>
+<p>One way is to run <code>lsblk</code> in a terminal and find the path to the SD card (e.g. <code>/dev/sde</code>). In the following steps, we will use <code>/path/to/sdcard</code> as a placeholder, which you should adapt to your system.
+</p>
+<ul><li>Install PostmarketOS to the SD card</li></ul>
+<pre> $ pmbootstrap install --sdcard=/path/to/sdcard
+</pre>
+<ul><li>Insert the SD card into your Galaxy S2 and reboot. The system should boot (JonesV tested it with xfce4 and weston on 2020-08-20).</li></ul>
+<h4>
+<span id="Option_#3:_Install_from_the_recovery_zip_installer"></span><span class="mw-headline" id="Option_.233:_Install_from_the_recovery_zip_installer">Option #3: Install from the recovery zip installer</span>
+</h4>
+<ul><li>Install a recovery like TWRP on your device</li></ul>
+<ul><li>Configure the image</li></ul>
+<pre> $ pmbootstrap init
+</pre>
+<ul><li>Prepare the installation</li></ul>
+<pre> $ pmbootstrap install --android-recovery-zip
+</pre>
+<ul><li>Flash the image on the phone</li></ul>
+<pre> $ pmbootstrap flasher --method=adb sideload
+</pre>
+<h4>
+<span id="Option_#4:_Export_the_recovery_zip_into_the_eMMC's_UMS_partition_over_MTP_and_install_from_recovery"></span><span class="mw-headline" id="Option_.234:_Export_the_recovery_zip_into_the_eMMC.27s_UMS_partition_over_MTP_and_install_from_recovery">Option #4: Export the recovery zip into the eMMC's UMS partition over MTP and install from recovery</span>
+</h4>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Tacokoneko used this method for Samsung Galaxy S II Epic 4G Touch (d710) when none of the above methods worked for their device. Tacokoneko has not been able to enable WiFi with either downstream or mainline kernels as of 2021-08-25, but most other features in <a href="#What_works">What works</a> and 3D acceleration are functional.</td>
+</tr></tbody></table>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Requirements:
+<ul>
+<li>GNU/Linux or busybox + alternative libc Linux PC with <code>pmbootstrap</code> and <code>heimdall</code> installed correctly</li>
+<li>USB-A to Micro-B 2.0 cable</li>
+<li>Very specific <a rel="nofollow" class="external text" href="https://web.archive.org/web/20211016165544/https://ava5.androidfilehost.com/dl/pxAk_EJZRWM-GXKQQDe8PQ/1634489670/24459283995313934/kernel-Lanchon-20160406-cm-13.0-i9100.zip">special temporary kernel</a> and <a rel="nofollow" class="external text" href="https://web.archive.org/web/20211016165520/https://ava5.androidfilehost.com/dl/uO8S1FY1sLhEPmDN1dUXpA/1634489678/24369303960684130/recovery-Lanchon-IsoRec-TWRP-2.8.7.0-20160113-i9100-%28by-arnab%29.zip">special version of TWRP custom recovery</a> - these are down a rabbit hole starting at the <a rel="nofollow" class="external text" href="https://twrp.me/samsung/samsunggalaxys2i9100.html">official TWRP support page for i9100</a>
+</li>
+<li>An MTP client, preferably with virtual file system mounting support</li>
+</ul>
+</td>
+</tr></tbody></table>
+<ul><li>Update pmbootstrap</li></ul>
+<pre> $ pmbootstrap pull
+</pre>
+<ul><li>Configure the image, select samsung i9100</li></ul>
+<pre> $ pmbootstrap init
+</pre>
+<ul><li>Download, prepare and compress postmarketOS into a recovery package for TWRP</li></ul>
+<pre> $ pmbootstrap install --android-recovery-zip
+</pre>
+<ul><li>Extract the required temporary recovery and kernel created by Lanchon on XDA Forums</li></ul>
+<pre> $ unzip recovery-Lanchon-IsoRec-TWRP-2.8.7.0-20160113-i9100-\(by-arnab\).zip
+ $ unzip kernel-Lanchon-20160406-cm-13.0-i9100.zip
+</pre>
+<ul>
+<li>Start the device in download mode (hold <code>VOLUME_DOWN</code> + <code>POWER</code> -&gt; <code>VOLUME_UP</code> for d710) -&gt; plug device into PC</li>
+<li>Flash the temporary kernel and TWRP using <code>heimdall</code>
+</li>
+</ul>
+<pre> $ heimdall flash --RECOVERY recovery-Lanchon-IsoRec-TWRP-2.8.7.0-20160113-i9100-\(by-arnab\)/isorec-ramdrive.cpio.lzo --KERNEL kernel-Lanchon-20160406-cm-13.0-i9100/boot.img --no-reboot
+</pre>
+<ul>
+<li>Unplug the device -&gt; reboot to recovery (hold <code>VOLUME_UP</code> + <code>POWER</code> for d710)-&gt; plug device back in -&gt; in TWRP, mount -&gt; disable MTP -&gt; enable MTP -&gt; back</li>
+<li>Export the pmbootstrap chroot contents and create a symlink to them in <code>/tmp/</code>
+</li>
+</ul>
+<pre> $ pmbootstrap export
+</pre>
+<ul><li>Change directory to the location of <code>pmos-samsung-i9100.zip</code>
+</li></ul>
+<pre> $ cd $(dirname $(readlink /tmp/postmarketOS-export/pmos-*.zip))
+</pre>
+<ul><li>Use an MTP client, for example <a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/package/edge/community/x86_64/gvfs-mtp">gvfs-mtp</a> with <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/Gnome_Setup">GNOME</a>, to mount the device's eMMC UMS partition (virtual SD card) filesystem. If the one included with your Desktop Environment isn't working with this device, keep trying other MTP clients until you find one that does. The path it is mounted to may vary for you.</li></ul>
+<pre> $ cp pmos-samsung-i9100.zip /run/user/1000/gvfs/mtp:host=samsung_GT-I9100_0123456789ABCDEF/eMMC/
+</pre>
+<ul>
+<li>When the transfer is complete, in TWRP, install -&gt; eMMC -&gt; select pmos-samsung-i9100.zip -&gt; swipe to flash postmarketOS into DATAFS</li>
+<li>When complete, reboot to download mode and flash the postmarketOS kernel and recovery, overwriting the temporary ones</li>
+</ul>
+<pre> $ pmbootstrap flasher flash_kernel
+</pre>
+<ul><li>When complete, the device will reboot into postmarketOS</li></ul>
+<h4><span class="mw-headline" id="Mainline_kernel">Mainline kernel</span></h4>
+<p>The Galaxy SII can be used with the mainline kernel for Exynos devices, packaged by PostmarketOS. Simply choose the mainline kernel when running pmbootstrap init.
+</p>
+<h4><span class="mw-headline" id="Firmware_files">Firmware files</span></h4>
+<p>When running "pmbootstrap init", it will ask you if you want to enable the "device-samsung-i9100-nonfree-firmware" package. Write "y" to be able to use the embedded WiFi chip.
+</p>
+<h4>
+<span id="U-Boot_bootloader_(legacy)"></span><span class="mw-headline" id="U-Boot_bootloader_.28legacy.29">U-Boot bootloader (legacy)</span>
+</h4>
+<p><a rel="nofollow" class="external text" href="https://github.com/Sekilsgs2">Sekilsgs2</a> on Github created a <a rel="nofollow" class="external text" href="https://github.com/Sekilsgs2/i9100-uboot.git">u-boot bootloader port</a>, based on the work done by the user <a rel="nofollow" class="external text" href="https://github.com/astarasikov">astarasikov</a> at <a rel="nofollow" class="external text" href="https://github.com/astarasikov/i9100-uboot">this repository</a>. It is possible to use it with PostmarketOS but it requires some things to be done by hand.
+</p>
+<ul><li>In <code>pmbootstrap init</code>, add <code>u-boot-samsung-i9100</code> to the list of extra packages to enable.</li></ul>
+<ul><li>Run <code>pmbootstrap install</code> to build the image.</li></ul>
+<ul><li>Flash the OS using one of the methods listed above.</li></ul>
+<ul><li>Now, we want both u-boot and the kernel to be installed to the same partition (KERNEL). So you need to concatenate the two files and flash the result:</li></ul>
+<pre> $ cp ~/.local/var/pmbootstrap/chroot_rootfs_samsung-i9100/boot/u-boot.bin /tmp/u-boot-with-kernel.img
+ $ dd if=~/.local/var/pmbootstrap/chroot_rootfs_samsung-i9100/boot/vmlinuz-dtb of=/tmp/u-boot-with-kernel.img bs=512K seek=1 conv=notrunc
+ $ heimdall flash --KERNEL /tmp/u-boot-with-kernel.img
+</pre>
+<p>Once flashed, the phone will reboot and you should see u-boot appear. Configuring the boot options is not trivial as it can only be done by editing the source code (file: <code>include/configs/galaxys2.h</code>). The critical part for me was to change boot parameters in the section "boot_android" to something like this:
+</p>
+<pre> root=/dev/mmcblk1p1 rw rootfstype=ext4 rootwait init=/sbin/init ;
+</pre>
+<p>Where <code>/dev/mmcblk1p1</code> was the ext4 partition with the root filesystem on the sd-card.
+</p>
+<p><a href="../User:Onny.html" title="User:Onny">User:Onny</a> is interested in porting the i9100 u-boot patches to newer versions of u-boot but currently u-boot fails with the newer s5p_sdhci driver introduced in newer versions, see Github issue <a rel="nofollow" class="external text" href="https://github.com/Talustus/i9100-uboot/issues/1">here</a>.
+</p>
+<p><a rel="nofollow" class="external text" href="https://github.com/Sekilsgs2">Sekilsgs2</a> is also working on (March 2020) <a rel="nofollow" class="external text" href="https://github.com/Talustus/i9100-uboot/issues/2">supporting the Galaxy S2</a> in the latest u-boot version.
+</p>
+<p><a rel="nofollow" class="external text" href="https://github.com/TALUAtGitHub/">TALUAtGitHub</a> has a recent commit (March 2020) git commit that might be helpful <a rel="nofollow" class="external autonumber" href="https://github.com/TALUAtGitHub/i9100-uboot">[1]</a>
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_SII_(samsung-i9100)/Installation&amp;oldid=41318">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_SII_(samsung-i9100)/Installation&amp;oldid=41318</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 10:55.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_SII_(samsung-i9100)/Installation&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>
