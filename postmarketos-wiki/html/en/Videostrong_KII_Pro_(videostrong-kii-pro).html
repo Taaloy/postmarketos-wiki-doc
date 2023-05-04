@@ -194,7 +194,7 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Camera Flash</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -326,19 +326,19 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Stylus</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Haptics</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Ethernet</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -416,8 +416,6 @@ aarch64</td>
 <tr><td colspan="2" style="text-align:right"></td></tr>
 </tbody>
 </table>
-<p><br>
-</p>
 <p><br>
 </p>
 <table class="infobox" style="float: right; width: 22em; color: inherit; background-color: #f7fff7; border: 3px solid #8a8;"><tbody><tr><td>
@@ -527,15 +525,22 @@ be possible to flash postmarketOS, but this is untested.
 <h2><span class="mw-headline" id="What_works">What works</span></h2>
 <p>See the device status at the top (mobile) or at the right (desktop).
 </p>
+<h3><span class="mw-headline" id="UART">UART</span></h3>
+<p>The device has 7 pads, 3 pads labeled "RX", "TX", and "GND", but also 4 other pads labeled "RX", "TX", "GND", and "3V3". The actual UART 
+pads to use are the latter, but <b>DO NOT CONNECT THE 3V3 PAD</b>. You also need to replace <code>console=null</code> with <code>console=ttyAML0,115200</code> 
+in your extlinux.conf (located in the boot partition).
+</p>
+<p>Console device: <code>ttyAML0</code>
+</p>
+<p>Baud rate: <code>115200</code>
+</p>
 <h3><span class="mw-headline" id="LEDs">LEDs</span></h3>
 <p>The 2 LEDs the device has are functionnal.
 </p>
 <p>Use <code>/sys/class/leds/red:status</code> to control the LEDs, like this for example:
 </p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">turn the blue LED off and the red LED on</span>
-<span class="gp">#</span> <span class="nb">echo</span> <span class="m">1</span> &gt; /sys/class/leds/red:status/brightness
-<span class="go">turn the blue LED back off and the red LED back on</span>
-<span class="gp">#</span> <span class="nb">echo</span> <span class="m">0</span> &gt; /sys/class/leds/red:status/brightness
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> <span class="nb">echo</span> <span class="m">1</span> &gt; /sys/class/leds/red:status/brightness <span class="c1"># red: on, blue: off</span>
+<span class="gp">#</span> <span class="nb">echo</span> <span class="m">0</span> &gt; /sys/class/leds/red:status/brightness <span class="c1"># red: off, blue: on</span>
 </pre></div>
 <h3><span class="mw-headline" id="DVB_hardware">DVB hardware</span></h3>
 <p>See <a href="../en/Videostrong_KII_Pro_(videostrong-kii-pro)_DVB.html" title="Videostrong KII Pro (videostrong-kii-pro)/DVB">Videostrong KII Pro (videostrong-kii-pro)/DVB</a>.
@@ -805,6 +810,7 @@ Seems like <code>libcec</code> does detect which button in the remote is pressed
 <li><a href="../en/Category:Devices.html" title="Category:Devices">Devices</a></li>
 <li><a href="../en/Category:Android.html" title="Category:Android">Android</a></li>
 <li><a href="../en/Category:Videostrong.html" title="Category:Videostrong">Videostrong</a></li>
+<li><a href="../en/Category:Devices_with_known_UART_pinout.html" title="Category:Devices with known UART pinout">Devices with known UART pinout</a></li>
 <li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li>
 </ul>
 </div></div>
@@ -816,9 +822,9 @@ Seems like <code>libcec</code> does detect which button in the remote is pressed
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)&amp;oldid=43763">https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)&amp;oldid=43763</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)&amp;oldid=43913">https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)&amp;oldid=43913</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 24 April 2023, at 09:40.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 30 April 2023, at 14:07.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

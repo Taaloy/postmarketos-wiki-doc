@@ -384,7 +384,7 @@ See the section below if your device bricks.
 </p>
 <h2><span class="mw-headline" id="Preparation">Preparation</span></h2>
 <p>It is recommended to backup the eMMC before flashing. Refer to <a rel="nofollow" class="external text" href="https://github.com/bkerler/EDL">EDL</a>.<br>
-The original firmware contains too old firmware to boot mainline kernel, use firmwares from Dragon Board 410c as replacement. Also, you may need qhypstub as well as lk1st (lk2nd is not supported).<br>
+The original firmware contains too old firmware to boot mainline kernel, use firmwares from Dragon Board 410c as replacement. Also, you may need qhypstub as well as lk1st (lk2nd is not recommended).<br>
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> wget https://releases.linaro.org/96boards/dragonboard410c/linaro/rescue/17.09/dragonboard410c_bootloader_emmc_android-88.zip
 <span class="gp">$</span> unzip dragonboard410c_bootloader_emmc_android-88.zip
@@ -398,12 +398,17 @@ The original firmware contains too old firmware to boot mainline kernel, use fir
 <span class="gp">$</span> <span class="c1"># get generated qhypstub-test-signed.mbn and store it somewhere</span>
 <span class="gp">$</span>
 <span class="gp">$</span> <span class="nb">cd</span> ..<span class="p">;</span> git clone https://github.com/msm8916-mainline/lk2nd.git
-<span class="gp">$</span> <span class="nb">cd</span> lk2nd<span class="p">;</span> make <span class="nv">LK1ST_COMPATIBLE</span><span class="o">=</span>zhihe,uz801-v3 <span class="nv">TOOLCHAIN_PREFIX</span><span class="o">=</span>arm-none-eabi- msm8916-lk1st <span class="c1"># refer to the repository for detailed instructions.</span>
+<span class="gp">$</span> <span class="nb">cd</span> lk2nd<span class="p">;</span> make <span class="nv">LK1ST_COMPATIBLE</span><span class="o">=</span>zhihe,uz801-v3 <span class="nv">TOOLCHAIN_PREFIX</span><span class="o">=</span>arm-none-eabi- msm8916-lk1st
+<span class="gp">$</span> <span class="c1"># The instructions here assumes Ubuntu as the host OS and UZ801 as the device.</span>
+<span class="gp">$</span> <span class="c1"># You also need to install some packages with apt.</span>
+<span class="gp">$</span> <span class="c1"># Refer to the README.md of the repository for detailed instructions. </span>
 <span class="gp">$</span> ../qhypstub/qtestsign/qtestsign.py aboot build-lk1st-msm8916/emmc_appsboot.mbn
 <span class="gp">$</span> <span class="c1"># get build-lk1st-msm8916/emmc_appsboot-test-signed.mbn and store it somewhere</span>
 <span class="gp">$</span>
 <span class="gp">$</span> <span class="c1"># Now flash them to hyp(bak) and aboot(abootbak) partitions with EDL or fastboot.</span>
 </pre></div>
+<p><br>
+</p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <p>See <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html#Installation" title="Qualcomm Snapdragon 410/412 (MSM8916)">Qualcomm_Snapdragon_410/412_(MSM8916)#Installation</a>.
 </p>
@@ -456,16 +461,19 @@ The original firmware contains too old firmware to boot mainline kernel, use fir
 <dl><dd>There are two major choices, one is to replace the entire partition table and use your custom one, the other is to do minor modification with gptfdisk, leaving most partitions untouched.</dd></dl>
 <ol>
 <li>replace the entire partition table
-<dl><dd>No technical support here. It's dangerous and may brick your device, think twice before proceeding.</dd></dl>
+<dl>
+<dd>You can do it with (s)gdisk in linux, <code>fastboot flash partition</code> in fastboot or edl tool in Qualcomm EDL mode.</dd>
+<dd>No technical support here. It's dangerous and may brick your device, think twice before proceeding and be prepared to recovery your device in Qualcomm EDL mode.</dd>
+</dl>
 </li>
 <li>gptfdisk
-<dl><dd>This method is much safer than the previous one. Generally, the easiest solution would be combining system and userdata together. You can do it with gdisk, sgdisk or any tools you like. Just delete all partitions after system and extend system to maximum.<br>
+<dl><dd>This method is much safer than the previous one and probably will at least let the device boot to fastboot mode if you did something wrong. Generally, the easiest solution would be combining system and userdata together. You can do it with gdisk, sgdisk or any tools you like. Just delete all partitions after system and extend system to maximum.<br>
 </dd></dl>
 </li>
 </ol>
 </li>
 </ol>
-<p>Note: persist partition sits between system and userdata, and unfortunally WCNSS nv items file is stored in it, which need to be loaded during runtime for functionality of WCN36xx(WiFi). You have to backup and relocate it, or if you like, extract the WCNSS_qcom_nv_items.bin and place it at /lib/firmware.
+<p>Note: persist partition sits between system and userdata, and unfortunally WCNSS nv items file is stored in it, which need to be loaded during runtime for functionality of WCN36xx(WiFi). You have to backup and relocate persist partition before deleting it, or if you like, extract WCNSS_qcom_nv_items.bin and place it at /lib/firmware.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -493,9 +501,9 @@ The original firmware contains too old firmware to boot mainline kernel, use fir
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Zhihe_series_LTE_dongles_(generic-zhihe)&amp;oldid=43787">https://wiki.postmarketos.org/index.php?title=Zhihe_series_LTE_dongles_(generic-zhihe)&amp;oldid=43787</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Zhihe_series_LTE_dongles_(generic-zhihe)&amp;oldid=43926">https://wiki.postmarketos.org/index.php?title=Zhihe_series_LTE_dongles_(generic-zhihe)&amp;oldid=43926</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 24 April 2023, at 19:00.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 30 April 2023, at 20:28.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

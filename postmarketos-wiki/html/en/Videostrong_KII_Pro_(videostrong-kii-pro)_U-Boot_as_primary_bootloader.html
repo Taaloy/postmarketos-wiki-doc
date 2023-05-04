@@ -100,23 +100,33 @@ upgrade from U-Boot 2015.01.
 <span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
 </div>
 <ul>
-<li class="toclevel-1 tocsection-1"><a href="#Prerequisites"><span class="tocnumber">1</span> <span class="toctext">Prerequisites</span></a></li>
-<li class="toclevel-1 tocsection-2">
-<a href="#FIPs"><span class="tocnumber">2</span> <span class="toctext">FIPs</span></a>
+<li class="toclevel-1 tocsection-1"><a href="#TODO"><span class="tocnumber">1</span> <span class="toctext">TODO</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Prerequisites"><span class="tocnumber">2</span> <span class="toctext">Prerequisites</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#FIPs"><span class="tocnumber">3</span> <span class="toctext">FIPs</span></a>
 <ul>
-<li class="toclevel-2 tocsection-3"><a href="#Boards_using_the_same_SoC_with_known_FIPs"><span class="tocnumber">2.1</span> <span class="toctext">Boards using the same SoC with known FIPs</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Boards_using_the_same_SoC_with_known_FIPs"><span class="tocnumber">3.1</span> <span class="toctext">Boards using the same SoC with known FIPs</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-4">
-<a href="#How_to_build"><span class="tocnumber">3</span> <span class="toctext">How to build</span></a>
+<li class="toclevel-1 tocsection-5">
+<a href="#How_to_build"><span class="tocnumber">4</span> <span class="toctext">How to build</span></a>
 <ul>
-<li class="toclevel-2 tocsection-5"><a href="#How_to_boot"><span class="tocnumber">3.1</span> <span class="toctext">How to boot</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Building_and_bundling_the_FIP"><span class="tocnumber">4.1</span> <span class="toctext">Building and bundling the FIP</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#How_to_boot"><span class="tocnumber">4.2</span> <span class="toctext">How to boot</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-6"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Boot_log"><span class="tocnumber">5</span> <span class="toctext">Boot log</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Contributors"><span class="tocnumber">6</span> <span class="toctext">Contributors</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#See_also"><span class="tocnumber">7</span> <span class="toctext">See also</span></a></li>
 </ul>
 </div>
 
+<h2><span class="mw-headline" id="TODO">TODO</span></h2>
+<ul>
+<li>Replace the proprietary BL2</li>
+<li>Replace the proprietary BL301</li>
+<li>Test writing to eMMC</li>
+</ul>
 <h2><span class="mw-headline" id="Prerequisites">Prerequisites</span></h2>
 <ul><li>A way to recover</li></ul>
 <h2><span class="mw-headline" id="FIPs"><a rel="nofollow" class="external text" href="https://github.com/libreelec/amlogic-boot-fip">FIPs</a></span></h2>
@@ -135,31 +145,33 @@ upgrade from U-Boot 2015.01.
 <span class="gp">$</span> <span class="nb">cd</span> u-boot-kii-pro
 </pre></div>
 <ul><li>Build U-Boot</li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://git.vitali64.duckdns.org/misc/u-boot-kii-pro.git -b wip/kii-pro u-boot
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://git.vitali64.duckdns.org/git/misc/u-boot-kii-pro.git -b wip/kii-pro u-boot
 <span class="gp">$</span> <span class="nb">cd</span> u-boot
 <span class="gp">$</span> make videostrong-kii-pro_defconfig
 <span class="gp">$</span> make <span class="c1"># CROSS_COMPILE=...</span>
 <span class="gp">$</span> <span class="nb">cd</span> ..
 </pre></div>
-<ul><li>Build and bundle FIPs
-<ul><li>Get the FIP binaries, meson-tools and fiptool</li></ul>
-</li></ul>
+<h4><span class="mw-headline" id="Building_and_bundling_the_FIP">Building and bundling the FIP</span></h4>
+<ul><li>Get the binaries required to build the FIP (BL2, BL31, ...) and meson-tools, and install ARM Trusted Firmware utilities</li></ul>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://github.com/LibreELEC/amlogic-boot-fip.git fip
 <span class="gp">$</span> git clone https://github.com/afaerber/meson-tools.git
-<span class="gp">$</span> git clone https://github.com/afaerber/arm-trusted-firmware -b amlogic atf
+<span class="gp">#</span> apk add arm-trusted-firmware-tools <span class="c1"># if using an Alpine-based system</span>
 </pre></div>
-<ul><li><ul><li>Build <code>amlbootsig</code> from meson-tools</li></ul></li></ul>
+<ul><li>Build <code>amlbootsig</code> from meson-tools</li></ul>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> meson-tools
 <span class="gp">$</span> make amlbootsig
 <span class="gp">$</span> <span class="nb">cd</span> ..
 </pre></div>
-<ul><li><ul><li>Build fiptool (<b>TODO</b>: Upstream Andreas' changes)</li></ul></li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> atf/tools/fiptool
-<span class="gp">$</span> make
-<span class="gp">$</span> <span class="nb">cd</span> ../../../
+<ul><li>Build TF-A's BL31 port (if you want a libre BL31 implementation (as seen in the example UART log below), optional)</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://github.com/ARM-software/arm-trusted-firmware.git atf
+<span class="gp">$</span> <span class="nb">cd</span> atf
+<span class="gp">$</span> make <span class="nv">PLAT</span><span class="o">=</span>gxbb <span class="nv">DEBUG</span><span class="o">=</span><span class="m">1</span> bl31 <span class="c1"># CROSS_COMPILE=...</span>
+<span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>../fip/wetek-play2/bl31.img <span class="nv">of</span><span class="o">=</span>bl31.img <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="m">1</span> <span class="c1"># take the header from the proprietary BL31</span>
+<span class="gp">$</span> cat build/gxbb/debug/bl31.bin &gt;&gt; bl31.img
+<span class="gp">$</span> cp bl31.img ../fip/wetek-play2/bl31.img
 </pre></div>
-<ul><li><ul><li>Build the FIP</li></ul></li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> fip/wetek-play2 <span class="c1"># we use the WeTek Play 2 binaries for building the FIP</span>
+<ul><li>Build the FIP</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> fip/wetek-play2 <span class="c1"># we use the WeTek Play2 binaries for building the FIP</span>
 <span class="gp">$</span> cp ../../u-boot/u-boot.bin ./bl33.bin
 
 <span class="gp">$</span> ./blx_fix.sh <span class="se">\</span>
@@ -171,10 +183,13 @@ upgrade from U-Boot 2015.01.
            ./bl30_new.bin <span class="se">\</span>
            bl30
 
-<span class="gp">$</span> ../../atf/tools/fiptool/fiptool create <span class="se">\</span>
-           --align 0x4000 --align-reserve <span class="m">64</span> <span class="se">\</span>
+<span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>bl31.img <span class="nv">of</span><span class="o">=</span>bl31_noheader.bin <span class="nv">bs</span><span class="o">=</span><span class="m">1</span> <span class="nv">skip</span><span class="o">=</span><span class="m">496</span> <span class="nv">count</span><span class="o">=</span><span class="m">16</span>
+<span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>bl31.img <span class="nv">of</span><span class="o">=</span>bl31_noheader.bin <span class="nv">skip</span><span class="o">=</span><span class="m">1</span>
+
+<span class="gp">$</span> fiptool create <span class="se">\</span>
+           --align 0x4000 <span class="se">\</span>
            --scp-fw ./bl30_new.bin <span class="se">\</span>
-           --soc-fw ./bl31.img <span class="se">\</span>
+           --soc-fw ./bl31_noheader.bin <span class="se">\</span>
            --nt-fw  ./bl33.bin <span class="se">\</span>
                     ./fip.bin
 
@@ -199,13 +214,14 @@ upgrade from U-Boot 2015.01.
 <span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>./u-boot.bin <span class="nv">of</span><span class="o">=</span>./u-boot.bin.gxbb <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">seek</span><span class="o">=</span><span class="m">9</span> <span class="nv">skip</span><span class="o">=</span><span class="m">8</span> <span class="nv">count</span><span class="o">=</span><span class="m">87</span> <span class="nv">conv</span><span class="o">=</span>fsync,notrunc
 <span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>./u-boot.bin.gxbb <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">seek</span><span class="o">=</span><span class="m">8</span> <span class="nv">count</span><span class="o">=</span><span class="m">1</span> <span class="nv">conv</span><span class="o">=</span>fsync,notrunc
 <span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>bl1.bin.hardkernel <span class="nv">of</span><span class="o">=</span>./u-boot.bin.gxbb <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">seek</span><span class="o">=</span><span class="m">2</span> <span class="nv">skip</span><span class="o">=</span><span class="m">2</span> <span class="nv">count</span><span class="o">=</span><span class="m">1</span> <span class="nv">conv</span><span class="o">=</span>fsync,notrunc
+<span class="gp">$</span> ./aml_chksum u-boot.bin.gxbb
 </pre></div>
+<h3><span class="mw-headline" id="How_to_boot">How to boot</span></h3>
 <ul><li>Write to an SD card</li></ul>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> <span class="nv">DEV</span><span class="o">=</span>mmcblk0 <span class="c1"># replace with your SD card device</span>
 <span class="gp">#</span> dd <span class="k">if</span><span class="o">=</span>u-boot.bin.gxbb <span class="nv">of</span><span class="o">=</span>/dev/<span class="nv">$DEV</span> <span class="nv">conv</span><span class="o">=</span>fsync,notrunc <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">skip</span><span class="o">=</span><span class="m">1</span> <span class="nv">seek</span><span class="o">=</span><span class="m">1</span>
 <span class="gp">#</span> dd <span class="k">if</span><span class="o">=</span>u-boot.bin.gxbb <span class="nv">of</span><span class="o">=</span>/dev/<span class="nv">$DEV</span> <span class="nv">conv</span><span class="o">=</span>fsync,notrunc <span class="nv">bs</span><span class="o">=</span><span class="m">1</span> <span class="nv">count</span><span class="o">=</span><span class="m">444</span>
 </pre></div>
-<h3><span class="mw-headline" id="How_to_boot">How to boot</span></h3>
 <ul><li>On the set-top box, boot postmarketOS and erase the eMMC <b>THIS WILL WIPE EVERYTHING. BE SURE THAT YOU HAVE A BACKUP</b>
 </li></ul>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> <span class="nv">DEV</span><span class="o">=</span>mmcblk1 <span class="c1"># replace mmcblk1 with your eMMC device</span>
@@ -217,18 +233,118 @@ upgrade from U-Boot 2015.01.
 <li>Power off</li>
 <li>Insert the SD card where you wrote the U-Boot binary</li>
 <li>Power on</li>
+<li>Congratulations!</li>
 </ul>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">HDMI also works if you don't want to setup UART</td>
+</tr></tbody></table>
+<h2><span class="mw-headline" id="Boot_log">Boot log</span></h2>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>GXBB:BL1:08dafd:0a8993;FEAT:EDFC318C;POC:3;RCY:0;EMMC:0;READ:0;CHK:F3;SD:0;READ:0;CHK:0;
+no sdio debug board detected 
+TE: 481142
+
+BL2 Built : 09:01:42, Oct 11 2016. 
+gxb g88b04d6 - haixiang.bao@droid05
+
+set vcck to 1100 mv
+set vddee to 1000 mv
+Board ID = 7
+CPU clk: 1536MHz
+DDR chl: Rank0+1 diff @ 912MHz
+DDR0: 1024MB(auto)-2T-13
+DDR1: 1024MB(auto)-2T-13
+DataBus test pass!
+AddrBus test pass!
+Load fip header from SD, src: 0x0000c000, des: 0x01400000, size: 0x00004000
+Load bl30 from SD, src: 0x00010000, des: 0x01000000, size: 0x0000d460
+Sending bl30......................................................OK. 
+Run bl30...
+Load bl31 from SD, src: 0x00020000, des: 0x101000[0, size: 0x000090e0
+Image: gxb_v1.1.3135-18177fc 2016-06-24 11:00:09 yun.cai@droid06]
+OPS=0x13
+a4 f3 ce 38 6e 4Load bl33 from SD, src: 0x0002c000, des: 0x01000000, size: 0x000b1f30
+c 4e 8e ed 41 1a 8 [0.582343 Inits done]
+secure task start!
+high task start!
+low task start!
+NOTICE:  BL31: v2.8(debug):v2.8-776-g0223d1576
+NOTICE:  BL31: Built : 13:17:48, Apr 30 2023
+INFO:    ARM GICv2 driver initialized
+INFO:    BL31: Initializing runtime services
+INFO:    BL31: cortex_a53: CPU workaround for 843419 was applied
+INFO:    BL31: cortex_a53: CPU workaround for 855873 was applied
+WARNING: BL31: cortex_a53: CPU workaround for 1530924 was missing!
+INFO:    BL31: Preparing for EL3 exit to normal world
+INFO:    Entry point address = 0x1000000
+INFO:    SPSR = 0x3c9
+
+&lt;debug_uart&gt;
+
+
+U-Boot 2023.04-00873-g4d842495d4 (Apr 28 2023 - 20:31:56 +0200) videostrong-kii-pro
+
+DRAM:  1 GiB (effective 2 GiB)
+Core:  162 devices, 24 uclasses, devicetree: separate
+MMC:   mmc@70000: 0, mmc@72000: 1, mmc@74000: 2
+Loading Environment from nowhere... OK
+In:    serial
+Out:   serial
+Err:   serial
+Model: Videostrong KII Pro
+SoC:   Amlogic Meson GXBB (S905) Revision 1f:c (13:1)
+Net:   
+Warning: ethernet@c9410000 (eth0) using random MAC address - 22:26:f2:35:bb:c3
+eth0: ethernet@c9410000
+starting USB...
+Bus usb@c9000000: USB DWC2
+Bus usb@c9100000: USB DWC2
+scanning bus usb@c9000000 for devices... 2 USB Device(s) found
+scanning bus usb@c9100000 for devices... 1 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot:  0 
+=&gt; echo hi from u-boot running as the primary bootloader on the kii pro
+hi from u-boot running as the primary bootloader on the kii pro
+=&gt; boot
+switch to partitions #0, OK
+mmc1 is current device
+Scanning mmc 1:1...
+Found /extlinux/extlinux.conf
+Retrieving file: /extlinux/extlinux.conf
+boot prev kernel
+1:      postmarketOS
+Enter choice: 1:        postmarketOS
+Retrieving file: /vmlinuz
+Retrieving file: /initramfs
+append: console=ttyAML0,115200 PMOS_NO_OUTPUT_REDIRECT
+Retrieving file: /meson-gxbb-kii-pro.dtb
+Moving Image from 0x8080000 to 0x8200000, end=99f0000
+## Flattened Device Tree blob at 08008000
+   Booting using the fdt blob at 0x8008000
+Working FDT set to 8008000
+   Loading Ramdisk to 3fd20000, end 3ffff821 ... OK
+   Loading Device Tree to 000000003fd16000, end 000000003fd1fc37 ... OK
+Working FDT set to 3fd16000
+
+Starting kernel ...
+
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x410fd034]
+&lt;...&gt;</pre></div>
+<h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
+<ul><li><a href="../User:F.html" title="User:F">F</a></li></ul>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow" class="external text" href="https://github.com/hexdump0815/u-boot-misc">U-Boot experiments</a></li>
+<li><a rel="nofollow" class="external text" href="https://github.com/black3806/Amlogic_S905-u-boot">Amlogic U-Boot tree (+ some changes)</a></li>
 <li>
-<a rel="nofollow" class="external text" href="https://github.com/afaerber/meson-tools">Efforts to reverse-engineer Amlogic's proprietary utils</a> (those utilities are used</li>
+<a rel="nofollow" class="external text" href="https://github.com/afaerber/meson-tools">Efforts to reverse-engineer Amlogic's proprietary utils</a> (those utilities are used above to create a working FIP)</li>
+<li><a rel="nofollow" class="external text" href="https://github.com/hardkernel/u-boot/tree/be63a06fa3d50dd2410e2e722d1f8bafe7370abd/arch/arm/cpu/armv8/common/firmware">Old BL2 sources from before Amlogic made it proprietary (based on TF-A code)</a></li>
 </ul>
-<p>above to create a working FIP)
-</p>
 </div></div>
 		
-		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Pages_with_syntax_highlighting_errors.html" title="Category:Pages with syntax highlighting errors">Pages with syntax highlighting errors</a></li></ul>
+</div></div>
 		<div class="visualClear"></div>
 		
 	</div>
@@ -237,9 +353,9 @@ upgrade from U-Boot 2015.01.
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)/U-Boot_as_primary_bootloader&amp;oldid=43871">https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)/U-Boot_as_primary_bootloader&amp;oldid=43871</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)/U-Boot_as_primary_bootloader&amp;oldid=43974">https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)/U-Boot_as_primary_bootloader&amp;oldid=43974</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 28 April 2023, at 17:53.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 2 May 2023, at 19:09.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>
