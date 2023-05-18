@@ -1,374 +1,415 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Submitting Patches - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Submitting_Patches rootpage-Submitting_Patches skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Submitting Patches
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <div class="toc" id="toc">
-       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
-       <div class="toctitle" dir="ltr" lang="en">
-        <h2>
-         Contents
-        </h2>
-        <span class="toctogglespan">
-         <label class="toctogglelabel" for="toctogglecheckbox">
-         </label>
-        </span>
-       </div>
-       <ul>
-        <li class="toclevel-1 tocsection-1">
-         <a href="#Submitting_Patches_.28to_various_upstream_projects.29">
-          <span class="tocnumber">
-           1
-          </span>
-          <span class="toctext">
-           Submitting Patches (to various upstream projects)
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-2">
-           <a href="#Linux">
-            <span class="tocnumber">
-             1.1
-            </span>
-            <span class="toctext">
-             Linux
-            </span>
-           </a>
-           <ul>
-            <li class="toclevel-3 tocsection-3">
-             <a href="#Configuring_git_send-email">
-              <span class="tocnumber">
-               1.1.1
-              </span>
-              <span class="toctext">
-               Configuring git send-email
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-4">
-             <a href="#Sending_patches">
-              <span class="tocnumber">
-               1.1.2
-              </span>
-              <span class="toctext">
-               Sending patches
-              </span>
-             </a>
-            </li>
-           </ul>
-          </li>
-          <li class="toclevel-2 tocsection-5">
-           <a href="#See_also">
-            <span class="tocnumber">
-             1.2
-            </span>
-            <span class="toctext">
-             See also
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-       </ul>
-      </div>
-      <h1>
-       <span id="Submitting_Patches_(to_various_upstream_projects)">
-       </span>
-       <span class="mw-headline" id="Submitting_Patches_.28to_various_upstream_projects.29">
-        Submitting Patches (to various upstream projects)
-       </span>
-      </h1>
-      <h2>
-       <span class="mw-headline" id="Linux">
-        Linux
-       </span>
-      </h2>
-      <p>
-       The Linux kernel traditionally uses the "git send-email" workflow for patch submission, once you have some commits you want included, you email them as git "patches" to the mailing list and any relevant maintainers.
-This can be a bit of a daunting task, there are many guides out there explaining how to do this, but they usually miss bits out or do a poor job of explaining how
-       <code>
-        git send-email
-       </code>
-       actually works.
-      </p>
-      <h3>
-       <span class="mw-headline" id="Configuring_git_send-email">
-        Configuring git send-email
-       </span>
-      </h3>
-      <p>
-       This is pretty well documented elsewhere, notably
-       <a class="external text" href="https://www.freedesktop.org/wiki/Software/PulseAudio/HowToUseGitSendEmail/" rel="nofollow">
-        in the freedesktop pulseaudio docs
-       </a>
-       and here:
-       <a class="external free" href="https://burzalodowa.wordpress.com/2013/10/05/how-to-send-patches-with-git-send-email/" rel="nofollow">
-        https://burzalodowa.wordpress.com/2013/10/05/how-to-send-patches-with-git-send-email/
-       </a>
-      </p>
-      <p>
-       To send patches from GMail, create an app password on
-       <a class="external free" href="https://myaccount.google.com/apppasswords" rel="nofollow">
-        https://myaccount.google.com/apppasswords
-       </a>
-       .
-      </p>
-      <p>
-       Example config for GMail:
-      </p>
-      <pre>$ cat ~/.gitconfig
-[sendemail]
-       smtpEncryption = tls
-       smtpServer = smtp.gmail.com
-       smtpUser = username@gmail.com
-       smtpServerPort = 587                                                   
-       confirm = always
-</pre>
-      <h3>
-       <span class="mw-headline" id="Sending_patches">
-        Sending patches
-       </span>
-      </h3>
-      <p>
-       This is the process I
-       <a href="../User:Kalube.html" title="User:Kalube">
-        Caleb
-       </a>
-       use, it's by no means perfect, I'd suggest you take it and modify it to suite your needs.
-      </p>
-      <p>
-       Once you have your commit(s) ready, format them as patches so we can run them through checkpatch and get_maintainer:
-      </p>
-      <pre>$ git log --oneline # note down the hash of the first commit in your series, e.g:
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Submitting Patches - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Submitting_Patches rootpage-Submitting_Patches skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
 
-9f0cfbc330a2 arm64: dts: qcom: sdm845-oneplus-common: add nodes for q6voice apr service
-aa209f22271d arm64: dts: xiaomi-beryllium-common: Add nodes for q6voice apr service
-0fe8a293245b arm64: dts: qcom: sdm845: Add q6voice APR service device nodes # &lt;-- this is the first commit
+	<h1 id="firstHeading" class="firstHeading" lang="en">Submitting Patches</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Some projects use "email workflow" to accept contributions, instead of the "fork" based workflow you may be familiar with.
+Despite looking archaic, this is, in fact, workflow native to git as a distributed VCS. Essentially, with this workflow, you
+send the patches directly to the maintainers of the project and get review comments in response as a e-mail thread.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#General_workflow"><span class="tocnumber">1</span> <span class="toctext">General workflow</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#b4"><span class="tocnumber">1.1</span> <span class="toctext">b4</span></a></li>
+<li class="toclevel-2 tocsection-3">
+<a href="#git_send-mail"><span class="tocnumber">1.2</span> <span class="toctext">git send-mail</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Configuring_git_send-email"><span class="tocnumber">1.2.1</span> <span class="toctext">Configuring git send-email</span></a></li>
+<li class="toclevel-3 tocsection-5">
+<a href="#Sending_patches"><span class="tocnumber">1.2.2</span> <span class="toctext">Sending patches</span></a>
+<ul>
+<li class="toclevel-4 tocsection-6"><a href="#Finding_the_commit_range"><span class="tocnumber">1.2.2.1</span> <span class="toctext">Finding the commit range</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-7"><a href="#Addressing_feedback"><span class="tocnumber">1.2.3</span> <span class="toctext">Addressing feedback</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8">
+<a href="#Project_specific_tips"><span class="tocnumber">2</span> <span class="toctext">Project specific tips</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9">
+<a href="#Linux"><span class="tocnumber">2.1</span> <span class="toctext">Linux</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#Preparing_your_commits"><span class="tocnumber">2.1.1</span> <span class="toctext">Preparing your commits</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Checking_formal_patch_rules"><span class="tocnumber">2.1.2</span> <span class="toctext">Checking formal patch rules</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Finding_your_maintainers"><span class="tocnumber">2.1.3</span> <span class="toctext">Finding your maintainers</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Sending_patches_2"><span class="tocnumber">2.1.4</span> <span class="toctext">Sending patches</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#Addressing_the_review_comments"><span class="tocnumber">2.1.5</span> <span class="toctext">Addressing the review comments</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#Patches_are_not_getting_picked_up"><span class="tocnumber">2.1.6</span> <span class="toctext">Patches are not getting picked up</span></a></li>
+<li class="toclevel-3 tocsection-16">
+<a href="#Subsystem_specific"><span class="tocnumber">2.1.7</span> <span class="toctext">Subsystem specific</span></a>
+<ul>
+<li class="toclevel-4 tocsection-17"><a href="#Devicetree_Source_.28DTS.29_patches"><span class="tocnumber">2.1.7.1</span> <span class="toctext">Devicetree Source (DTS) patches</span></a></li>
+<li class="toclevel-4 tocsection-18"><a href="#Qualcomm_Devicetree_Source_.28DTS.29_patches"><span class="tocnumber">2.1.7.2</span> <span class="toctext">Qualcomm Devicetree Source (DTS) patches</span></a></li>
+<li class="toclevel-4 tocsection-19"><a href="#Devicetree_Binding_patches"><span class="tocnumber">2.1.7.3</span> <span class="toctext">Devicetree Binding patches</span></a></li>
+<li class="toclevel-4 tocsection-20"><a href="#Other_maintainers"><span class="tocnumber">2.1.7.4</span> <span class="toctext">Other maintainers</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-21"><a href="#See_also"><span class="tocnumber">3</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="General_workflow">General workflow</span></h1>
+<h2><span class="mw-headline" id="b4">b4</span></h2>
+<p>b4 is a tool created to make it easier for project developers and maintainers to use a distributed development workflow that relies on patches and distribution lists for code contributions and review.
+</p>
+<p>You can use b4 to submit patches configuring your own SMTP server, or via a web-endpoint like the LKML has
+</p>
+<p>A very good walkthrough of the whole process of creating and sending a patch has been detailed here: <a rel="nofollow" class="external free" href="https://people.kernel.org/monsieuricon/sending-a-kernel-patch-with-b4-part-1">https://people.kernel.org/monsieuricon/sending-a-kernel-patch-with-b4-part-1</a>
+</p>
+<h2><span class="mw-headline" id="git_send-mail">git send-mail</span></h2>
+<p>The workflow boils down to running <code>git send-email</code> with correct arguments to send patches via email.
+</p>
+<p>Note that you may have to install <code>git send-email</code> as a dedicated package since many distributions
+split this feature into a sub-package.
+</p>
+<p>You may find a semi-interactive tutorial on sending patches at <a rel="nofollow" class="external free" href="https://git-send-email.io">https://git-send-email.io</a>
+</p>
+<h3><span class="mw-headline" id="Configuring_git_send-email">Configuring git send-email</span></h3>
+<p>This is pretty well documented elsewhere, notably <a rel="nofollow" class="external text" href="https://www.freedesktop.org/wiki/Software/PulseAudio/HowToUseGitSendEmail/">in the freedesktop pulseaudio docs</a> and here: <a rel="nofollow" class="external free" href="https://burzalodowa.wordpress.com/2013/10/05/how-to-send-patches-with-git-send-email/">https://burzalodowa.wordpress.com/2013/10/05/how-to-send-patches-with-git-send-email/</a>
+</p>
+<p>To send patches from GMail, create an app password on <a rel="nofollow" class="external free" href="https://myaccount.google.com/apppasswords">https://myaccount.google.com/apppasswords</a> .
+</p>
+<p>Example config for GMail:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> cat ~/.gitconfig
+<span class="go">[sendemail]</span>
+<span class="go">       smtpEncryption = tls</span>
+<span class="go">       smtpServer = smtp.gmail.com</span>
+<span class="go">       smtpUser = username@gmail.com</span>
+<span class="go">       smtpServerPort = 587                                                   </span>
+<span class="go">       confirm = always</span>
+</pre></div>
+<p>You may store your SMTP password with
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git config --global sendemail.smtpPass <span class="s1">'your password'</span>
+</pre></div>
+<p>but this is not mandatory as git would prompt you for the password every time if you decided to not save it.
+</p>
+<h3><span class="mw-headline" id="Sending_patches">Sending patches</span></h3>
+<p>In the most simple case you will just call 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git send-email --to<span class="o">=</span><span class="s2">"Some Maintainer &lt;someone@project.org&gt;"</span> &lt;commit-hash-range&gt;
+</pre></div>
+<p>which would make git create patches and send them via your email account. If you send a series of multiple patches or
+want to add some annotations before sending, add <code>--annotate --cover-letter</code> to open the editor and add a
+cover letter to the set. (You can think of the cover as of a PR description)
+</p>
+<p><b>Do not send a cover letter with single patches</b>.
+If you want to include a changelog between patch version for single patches, use <code>--</code>
+and put it below that:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>&lt;Patch subject&gt;
+
+&lt;Patch description&gt;
+
+--
+
+&lt;Changelog and other administrative information about patch&gt;</pre></div>
+<p><b>Cover letters should have a subject marking the subsystem and driver</b>.
+So let's say you modify a driver called <code>fastrpc</code> in <code>misc</code> subsystem
+and adjusted the <code>dt-bindings</code> docs for your change, it looks like this:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>misc: fastrpc: &lt;SUBJECT OF COVER LETTER&gt;</pre></div>
+<p>This workflow is assumed for patches, but also cover letters!
+</p>
+<h4><span class="mw-headline" id="Finding_the_commit_range">Finding the commit range</span></h4>
+<p>Git has a lot of ways to define, which commits you want to include.
+</p>
+<p>One of the easiest way to set a range is to use a count flag, i.e. if you want to use 3 last pathces it would be <code>-3</code>.
+</p>
+<p>If all the patches you want to send reside on top of some branch or a tag, you can use the name of that tag to include all commits
+made after it (but not including the tagged commit itself)
+</p>
+<p>You can specify commits starting from a hash, like this:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> note down the <span class="nb">hash</span> of the first commit in your series, e.g:
+<span class="gp">$</span> git log --oneline
+<span class="go">9f0cfbc330a2 arm64: dts: qcom: sdm845-oneplus-common: add nodes for q6voice apr service</span>
+<span class="go">aa209f22271d arm64: dts: xiaomi-beryllium-common: Add nodes for q6voice apr service</span>
+<span class="go">0fe8a293245b arm64: dts: qcom: sdm845: Add q6voice APR service device nodes # &lt;-- this is the first commit</span>
+
+<span class="gp">#</span> The caret <span class="s1">'^'</span> tells git to include the referenced commit, without it only the top <span class="m">2</span> commits would be used
+<span class="gp">#</span>                              ↓
+<span class="gp">$</span> git format-patch 0fe8a293245b^ 
+<span class="go">0001-arm64-dts-qcom-sdm845-Add-q6voice-APR-service-device.patch</span>
+<span class="go">0002-arm64-dts-xiaomi-beryllium-common-Add-nodes-for-q6vo.patch</span>
+<span class="go">0003-arm64-dts-qcom-sdm845-oneplus-common-add-nodes-for-q.patch</span>
+</pre></div>
+<p>You can also use relative commit reference instead of full commit SHA, like <code>git format-patch HEAD~3</code> to generate patches for 3 last commits. This way you don't need to know the exact hashes of commits.
+</p>
+<h3><span class="mw-headline" id="Addressing_feedback">Addressing feedback</span></h3>
+<p>After you've sent a patch, you may get some feedback in response. The maintainer may ask you to make some changes or
+ask something about your code. If you want to answer to the comments, you can just write a response email in your
+preferred email client. Note that usually replies use <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Posting_style#Interleaved_style">inline style</a>.
+Also some projects or maintainers prefer to only receive plaintext emails so make sure you don't send an HTML reply to
+someone who would not like that.
+</p>
+<p>After you have made the asked changes locally and amended the commits, you can repeat the process, adding a version
+note to the patchset with <code>-v2</code> flag where 2 means your second time sending this change. (Don't mistake this with
+a patch count flag discussed earlier!)
+</p>
+<h1><span class="mw-headline" id="Project_specific_tips">Project specific tips</span></h1>
+<p>Some projects have own specific quirks and traditions on submitting the patches. Thus this section gives more specific advice.
+</p>
+<h2><span class="mw-headline" id="Linux">Linux</span></h2>
+<p>The Linux kernel traditionally uses the "git send-email" workflow for patch submission, once you have some commits you want included, you email them as git "patches" to the mailing list and any relevant maintainers.
+This can be a bit of a daunting task, there are many guides out there explaining how to do this, but they usually miss bits out or do a poor job of explaining how <code>git send-email</code> actually works.
+</p>
+<p>The following is the description of the process used by multiple kernel hackers. It may not be perfect and you may find the need to
+make some modifications to suit your workflow the best. Yet this should be a good starting point.
+</p>
+<h3><span class="mw-headline" id="Preparing_your_commits">Preparing your commits</span></h3>
+<p>While in many cases you may be able to send your commits immediately, you may want to make sure maintainers don't
+get merge conflicts trying to apply them. This can easily happen if you, for example, have changed some Makefile
+and your maintainer have recently applied another change touching it. To make sure that your changes apply to
+the maintainer's working tree, you can rebase them either on top of the maintainer's own Linux branch or on top
+of the latest linux-next which is a Linux tree that incorporates pending changes from most maintainers.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> <span class="o">(</span>First <span class="nb">time</span><span class="o">)</span> Add linux-next into your <span class="nb">local</span> Linux tree
+<span class="gp">$</span> git remote add linux-next git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+
+<span class="gp">#</span> <span class="o">(</span>Other <span class="nb">times</span><span class="o">)</span> Fetch the latest version of linux-next <span class="o">(</span>it<span class="err">'</span>s updated daily<span class="o">)</span>
+<span class="gp">$</span> git fetch linux-next
+
+<span class="gp">#</span> Checkout latest version of -next <span class="o">(</span>detached, we will not <span class="k">do</span> any real work here<span class="o">)</span> 
+<span class="gp">$</span> git checkout linux-next/master
+
+<span class="gp">#</span> Cherry-pick your patches
+<span class="gp">$</span> git cherry-pick &lt;commit-range&gt;
+</pre></div>
+<p>After you do  this (and, possibly, resolve some merge conflicts), your patches should be likely to apply for
+most maintainers. Note that you should update the base tree every time you re-submit your series in case
+some new conflicting change was applied in-between.
+</p>
+<h3><span class="mw-headline" id="Checking_formal_patch_rules">Checking formal patch rules</span></h3>
+<p>Linux has a special script that checks for the most common mistakes in patches. Run it to make sure you didn't
+miss anything obvious.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> Create patch files <span class="k">for</span> all of your patches
+<span class="gp">$</span> git format-patch &lt;commit-range&gt;
+
+<span class="gp">#</span> Check created patches
+<span class="gp">$</span> ./scripts/checkpatch.pl *.patch
+</pre></div>
+<p>You should get a report of found mistakes for each of the patches. Make sure to review it.
+</p>
+<p>If you have errors, fix them, create a fixup commit for whichever patch(es) you had to fix (e.g. 
+<code>git commit --fixup aa209f22271d</code>) and then squash the series again with 
+<code>git rebase -i 0fe8a293245b^</code>, and start again. (You may want to make edits on your working branch
+and not on the detached head if you use it.)
+</p>
+<h3><span class="mw-headline" id="Finding_your_maintainers">Finding your maintainers</span></h3>
+<p>Linux kernel is a huge project. Because of this, there is no single person responsible for all patches. Instead there are
+dedicated maintainers for each subsystem of the kernel. They accept and review changes for their subsystem and then send
+collected patches "up the chain" either to some other, more general maintainer, or to Linus Torvalds to include into the next
+release.
+</p>
+<p>This means that for each patchset you should know who to send your patches to. Kernel has a special index file (MAINTAINERS)
+and a script that parses it.
+</p>
+<p>You can use <code>get_maintainer.pl</code> to find a list of emails to send your patch to:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> <span class="o">(</span>Assuming the patches are kept from the previous step<span class="o">)</span>
+
+<span class="gp">#</span> Get a list of maintainers
+<span class="gp">$</span> ./scripts/get_maintainer.pl *.patch
+
+<span class="gp">#</span> Remove now unneeded patches
+<span class="gp">$</span> rm *.patch
+</pre></div>
+<p>The script would give you a list of maintainers, reviewers and lists, to whom you will send your patches. Please review it as
+the script sometimes tries to "be smart" and includes previous contributors that may not have anything to do with your changes.
+If you see a person that has no role and only i.e. "lines changed" note, you may want to omit them.
+</p>
+<h3><span class="mw-headline" id="Sending_patches_2">Sending patches</span></h3>
+<p>Now, as we know recipients of our patches, we can start constructing our send command.
+</p>
+<p>Add all recipients to the command line with either <code>--to</code> or <code>--cc</code> flags (of which you can repeat as many
+as you wish). If you want to order the recipients in a specific way, you may <code>--to</code> the primary subsystem maintainer(s) then 
+<code>--cc</code> everyone else, putting the lists in the end. The order is mostly a matter of the personal preference and is not
+necessary to follow. As long as you include all the people, your patches will arrive.
+</p>
+<p>If you include patches made by other people, include them into the recipients explicitly. Otherwise git may not send the full series
+to them. (you may want to ignore this rule for very big sets but at this point you should know what you are doing)
+</p>
+<p>There is a handy bash function for this which formats the output so it can be directly appended to <code>git send-email</code>,
+you might want to add it to your .bashrc or wherever else...
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>gencclist <span class="o">()</span> <span class="o">{</span>
+	<span class="nb">echo</span> <span class="s2">"</span><span class="k">$(</span>./scripts/get_maintainer.pl --nogit --nogit-fallback --norolestats --r <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span> <span class="p">|</span> xargs -I <span class="o">{}</span> <span class="nb">echo</span> --to<span class="o">=</span><span class="se">\"</span><span class="o">{}</span><span class="se">\"</span> <span class="p">|</span> tr <span class="s1">'\n'</span> <span class="s1">' '</span><span class="k">)</span><span class="s2">"</span>
+<span class="o">}</span>
+</pre></div>
+<p>Now we can simply run:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> gencclist *.patch
+<span class="go">--to="Some Maintainer &lt;someone@kernel.org&gt;" --to="linux-arm-msm@vger.kernel.org" --to="devicetree@vger.kernel.org" --to="linux-kernel@vger.kernel.org"</span>
+</pre></div>
+<p>Finally, we're ready to send our patches, it's worth noting that the .patch files we generated are not used for this, instead git send-email produces the patches directly, it will format them properly for the kernel, including the patch version if necessary.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git send-email 0fe8a293245b^ --to<span class="o">=</span><span class="s2">"Some Maintainer &lt;someone@kernel.org&gt;"</span> --to<span class="o">=</span><span class="s2">"linux-arm-msm@vger.kernel.org"</span> --to<span class="o">=</span><span class="s2">"devicetree@vger.kernel.org"</span> --to<span class="o">=</span><span class="s2">"linux-kernel@vger.kernel.org"</span>
+<span class="go">/tmp/EvaxiVuPLX/0001-arm64-dts-qcom-sdm845-Add-q6voice-APR-service-device.patch</span>
+<span class="go">/tmp/EvaxiVuPLX/0002-arm64-dts-xiaomi-beryllium-common-Add-nodes-for-q6vo.patch</span>
+<span class="go">/tmp/EvaxiVuPLX/0003-arm64-dts-qcom-sdm845-oneplus-common-add-nodes-for-q.patch</span>
+</pre></div>
+<p>Or <code>git send-email &lt;...params...&gt; *.patch</code>
+</p>
+<p>You can also use <code>git send-email --to-cmd=./scripts/get_maintainer.pl ..</code> to automatically use its results in <code>--to</code> arguments.
+</p>
+<p>If you're sending a series and would like to include a cover letter, add the <code>--annotate --cover-letter</code> arguments to git send-email. This will automatically generate a shortlog and a diffstat for the series. I'd recommend writing your cover letter separately and pasting it in to avoid potentially losing data.
+</p>
+<p>If your patches are a result of pmOS related work, dont forget to add <code>--cc="~postmarketos/upstreaming@lists.sr.ht"</code>. You may also want to add <code>--cc="phone-devel@vger.kernel.org"</code> for phone related patches.
+</p>
+<p>If you are including patches made by others, add <code>--signoff</code> flag to add your signoff on those.
+</p>
+<h3><span class="mw-headline" id="Addressing_the_review_comments">Addressing the review comments</span></h3>
+<p>The general suggestions apply. Note that you MUST use plaintext email to respond to the Kernel mailing lists. Use reply-all when answering.
+</p>
+<p>If you're asked to make changes, add a changelog into your cover letter or commit note:
+</p>
+<pre>- Changed in v2:
+ - Did foo
+ - Did bar
+- Changed in v3:
+ - Did baz
 </pre>
-      <p>
-       Now generate a bunch of .patch files using
-       <code>
-        git format-patch
-       </code>
-      </p>
-      <pre>$ git format-patch 0fe8a293245b^ # &lt;-- the caret '^' tells git to include the referenced commit, without it only the top 2 commits would be used
-0001-arm64-dts-qcom-sdm845-Add-q6voice-APR-service-device.patch
-0002-arm64-dts-xiaomi-beryllium-common-Add-nodes-for-q6vo.patch
-0003-arm64-dts-qcom-sdm845-oneplus-common-add-nodes-for-q.patch
+<p>Keep all previous changelog entries when resubmitting.
+</p>
+<p>You can also add the changelog to dedicated commits after a <code>---</code> separator on the new line after the last signoff.
+</p>
+<p>To send a new version of your patches (e.g. a version 2), add <code>-v2</code>. This works for all versions (e.g. <code>-v5</code>).
+</p>
+<p>You may get a response like this:
+</p>
+<pre>&gt; ...
+Reviewed-by: Some Person &lt;someperson@somewhere.com&gt;
 </pre>
-      <p>
-       You can also use relative commit reference instead of full commit SHA, like
-       <code>
-        git format-patch HEAD~3
-       </code>
-       to generate patches for 3 last commits. This way you don't need to know the exact hashes of commits.
-      </p>
-      <p>
-       We can now run checkpatch to make sure our patches pass the checks, if you forget this maintainers will point it out and have you re-do it.
-      </p>
-      <pre>$ ./scripts/checkpatch.pl *.patch
-</pre>
-      <p>
-       If you have errors, fix them, create a fixup commit for whichever patch(es) you had to fix (e.g.
-       <code>
-        git commit --fixup aa209f22271d
-       </code>
-       ) and then squash the series again with
-       <code>
-        git rebase -i 0fe8a293245b^
-       </code>
-       , and start again from the top of this section.
-      </p>
-      <p>
-       Once checkpatch is happy, you can use get_maintainer.pl to find a list of emails to send your patch to, I have a handy bash function for this which formats the output so it can be directly appended to
-       <code>
-        git send-email
-       </code>
-       , you might want to add it to your .bashrc or wherever else...
-      </p>
-      <pre>gencclist () {
-	echo "$(./scripts/get_maintainer.pl --nogit --nogit-fallback --norolestats --r "$@" | xargs -I {} echo --to=\"{}\" | tr '\n' ' ')"
-}
-</pre>
-      <p>
-       Now we can simply run:
-      </p>
-      <pre>$ gencclist *.patch
---to="Some Maintainer &lt;someone@kernel.org&gt;" --to="linux-arm-msm@vger.kernel.org" --to="devicetree@vger.kernel.org" --to="linux-kernel@vger.kernel.org"
-</pre>
-      <p>
-       Finally, we're ready to send our patches, it's worth noting that the .patch files we generated are not used for this, instead git send-email produces the patches directly, it will format them properly for the kernel, including the patch version if necessary.
-      </p>
-      <pre>$ git send-email 0fe8a293245b^ --to="Some Maintainer &lt;someone@kernel.org&gt;" --to="linux-arm-msm@vger.kernel.org" --to="devicetree@vger.kernel.org" --to="linux-kernel@vger.kernel.org"
-/tmp/EvaxiVuPLX/0001-arm64-dts-qcom-sdm845-Add-q6voice-APR-service-device.patch
-/tmp/EvaxiVuPLX/0002-arm64-dts-xiaomi-beryllium-common-Add-nodes-for-q6vo.patch
-/tmp/EvaxiVuPLX/0003-arm64-dts-qcom-sdm845-oneplus-common-add-nodes-for-q.patch
-</pre>
-      <p>
-       Or
-       <code>
-        git send-email &lt;...params...&gt; *.patch
-       </code>
-      </p>
-      <p>
-       You can also use
-       <code>
-        git send-email --to-cmd=./scripts/get_maintainer.pl ..
-       </code>
-       to automatically use its results in
-       <code>
-        --to
-       </code>
-       arguments.
-      </p>
-      <p>
-       If you're sending a series and would like to include a cover letter, add the
-       <code>
-        --annotate --cover-letter
-       </code>
-       arguments to git send-email. This will automatically generate a shortlog and a diffstat for the series. I'd recommend writing your cover letter separately and pasting it in to avoid potentially losing data.
-      </p>
-      <p>
-       Dont forget to add
-       <code>
-        --cc="~postmarketos/upstreaming@lists.sr.ht"
-       </code>
-       and
-       <code>
-        --cc="phone-devel@vger.kernel.org"
-       </code>
-       for phone related patches.
-      </p>
-      <p>
-       To send a new version of your patches (e.g. a version 2), add
-       <code>
-        -v2
-       </code>
-       , this works for all versions, e.g.
-       <code>
-        -v5
-       </code>
-       .
-      </p>
-      <h2>
-       <span class="mw-headline" id="See_also">
-        See also
-       </span>
-      </h2>
-      <ul>
-       <li>
-        <a class="external free" href="https://www.kernel.org/doc/Documentation/devicetree/bindings/submitting-patches.txt" rel="nofollow">
-         https://www.kernel.org/doc/Documentation/devicetree/bindings/submitting-patches.txt
-        </a>
-       </li>
-       <li>
-        A more thorough guide on setting up git send-email:
-        <a class="external free" href="https://git-send-email.io/" rel="nofollow">
-         https://git-send-email.io/
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Submitting_Patches&amp;oldid=30425">
-      https://wiki.postmarketos.org/index.php?title=Submitting_Patches&amp;oldid=30425
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 22 August 2022, at 16:05.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Submitting_Patches&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+<p>This is a tag given to you by that person. If you are in the need to send a new version of your patchset, you should include the given
+tag as-is with no changes made, into the commit that this response was given to (If the tag is given in response to the cover, you can
+add it to all the commits in the series). Note that you should NOT re-send a series if you only change the tags. Maintainers have tools
+to collect those automatically.
+</p>
+<p>Dealing with different tags is explained in the Linux kernel documentation: <a rel="nofollow" class="external text" href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/submitting-patches.rst"><code>Documentation/process/submitting-patches.rst</code></a>.
+</p>
+<h3><span class="mw-headline" id="Patches_are_not_getting_picked_up">Patches are not getting picked up</span></h3>
+<p>Sometimes patches may be missed, or some misunderstanding might happen. Generally in the Linux kernel it's the job of the contributor
+to  track their patches and send reminders if needed. General advice is to resend a patch after two weeks of silence. (you should instruct
+git to prefix your patch as <code>[PATCH Vx RESEND]</code> (i.e. using <code>--subject-prefix</code> flag) if you are sending it again as is with no changes.) Make sure to check if your patch
+was already picked up before sending any reminders.
+Certain maintainers e.g. Mark Brown require always resending, do not ping them on the mailing list.
+</p>
+<p>Rule of thumb: resend or ping after &gt; 2 weeks of no response.
+</p>
+<h3><span class="mw-headline" id="Subsystem_specific">Subsystem specific</span></h3>
+<p>Each subsystem maintainer of the Linux kernel has its own workflow, based on experience we collected the following tips &amp; tricks:
+</p>
+<h4>
+<span id="Devicetree_Source_(DTS)_patches"></span><span class="mw-headline" id="Devicetree_Source_.28DTS.29_patches">Devicetree Source (DTS) patches</span>
+</h4>
+<p>Make sure you check their compliance and does not contain typos with <code>make dtbs_check</code>
+</p>
+<p>If you also changes the Devicetree Bindings, you can run both checks together: <code>make dt_binding_check dtbs_check</code>
+</p>
+<h4>
+<span id="Qualcomm_Devicetree_Source_(DTS)_patches"></span><span class="mw-headline" id="Qualcomm_Devicetree_Source_.28DTS.29_patches">Qualcomm Devicetree Source (DTS) patches</span>
+</h4>
+<p>Status of these patches is reflected in <a rel="nofollow" class="external text" href="https://patchwork.kernel.org/project/linux-arm-msm/list/">MSM Patchwork</a>.
+A new version may be expected through Patchwork.
+</p>
+<p>Rule of thumb: check the <a rel="nofollow" class="external text" href="https://patchwork.kernel.org/project/linux-arm-msm/list/">MSM patchwork</a> page for the status.
+</p>
+<h4><span class="mw-headline" id="Devicetree_Binding_patches">Devicetree Binding patches</span></h4>
+<p>If you implement a feature in a driver which requires changes to the Devicetree bindings, 
+it is conventional to first patch the Devicetree bindings in <code>Documentation</code> and then implement the feature in the driver.
+Patches are expected to follow this order as well.
+</p>
+<p>You can check your patches compliance with <code>make dt_binding_check</code>.
+</p>
+<h4><span class="mw-headline" id="Other_maintainers">Other maintainers</span></h4>
+<p>Ask the maintainer and describe here the general rule of thumb.
+</p>
+<h1><span class="mw-headline" id="See_also">See also</span></h1>
+<ul>
+<li><a rel="nofollow" class="external free" href="https://docs.kernel.org/process/submitting-patches.html">https://docs.kernel.org/process/submitting-patches.html</a></li>
+<li><a rel="nofollow" class="external free" href="https://www.kernel.org/doc/Documentation/devicetree/bindings/submitting-patches.txt">https://www.kernel.org/doc/Documentation/devicetree/bindings/submitting-patches.txt</a></li>
+<li>A more thorough guide on setting up git send-email: <a rel="nofollow" class="external free" href="https://git-send-email.io/">https://git-send-email.io/</a>
+</li>
+<li><a rel="nofollow" class="external free" href="https://b4.docs.kernel.org/">https://b4.docs.kernel.org/</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Pages_with_syntax_highlighting_errors.html" title="Category:Pages with syntax highlighting errors">Pages with syntax highlighting errors</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Submitting_Patches&amp;oldid=44135">https://wiki.postmarketos.org/index.php?title=Submitting_Patches&amp;oldid=44135</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 15 May 2023, at 09:21.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Submitting_Patches&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

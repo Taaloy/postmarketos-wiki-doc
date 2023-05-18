@@ -197,12 +197,6 @@ aarch64</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Camera Flash</th>
-    <td class="" style="">
-<div></div>
-</td>
-</tr>
-<tr class="">
 <th scope="row" style="text-align:left;">GPS</th>
     <td class="" style="">
 <div></div>
@@ -292,6 +286,12 @@ aarch64</td>
 <table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
 <caption class="" style="">Misc</caption>
 <tbody>
+<tr class="">
+<th scope="row" style="text-align:left;">Camera Flash</th>
+    <td class="" style="">
+<div></div>
+</td>
+</tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Keyboard</th>
     <td class="" style="">
@@ -462,29 +462,19 @@ aarch64</td>
 <p>Atmel touch works incorrectly in osk-sdl (focaltech is untested). You can just use more modern unl0kr instead of osk-sdl.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Both internal memory and SD are working. Phosh works perfectly, gnome mobile and plasma (desktop and mobile) are working but there's some issues, fbkeyboard and mate are broken, others are untested.
-</p>
-<p>Our device is not in pmaports yet, so you can't install the OS automaticaly, but you can install in manually:
-</p>
-<ul>
-<li>Install custom <a rel="nofollow" class="external text" href="https://github.com/msm8953-mainline/lk2nd">lk2nd</a> (alternative bootloader that provides a standard fastboot interface). You can download it from releases.</li>
-<li>Install pmbootstrap <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Pmbootstrap#From_git">from git</a> (you need <a href="../en/Compiling_kernels_with_envkernel.sh.html" title="Compiling kernels with envkernel.sh">envkernel.sh</a> that isn't provided by pip version)</li>
-</ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">Do init (choose edge branch and any other device for this step)</span>
-<span class="gp">$</span> pmbootstrap init
-</pre></div>
-<ul><li>Put the packages device-xiaomi-markw and firmware-xiaomi-markw from my <a rel="nofollow" class="external text" href="https://gitlab.com/vipaoL/pmaports">pmaports fork</a> (device/testing) into your local pmaports (usually at ~/.local/var/pmbootstrap/cache_git/pmaports). Then you can choose xiaomi markw in pmbootstrap init. <b>This will break "pmbootstrap pull" until you delete these packages.</b>
+<ul><li>Follow the <a href="../en/Installation.html" class="mw-redirect" title="Installation guide">Installation guide</a>
 </li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">Pmbootstrap init, select our device - xiaomi-markw, select edge branch (We need to select it to be able to compile the kernel, because stable branches don't contain tools for building and packaging kernels):</span>
-<span class="gp">$</span> pmbootstrap init
-<span class="go">Clone my fork of msm8953-mainline kernel:</span>
-<span class="gp">$</span> git clone https://github.com/vipaoL/8953-linux.git <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="m">8953</span>-linux
-<span class="go">Build it with envkernel:</span>
-<span class="gp">$</span> <span class="nb">source</span> &lt;pmbootstrap_install_path&gt;/helpers/envkernel.sh
-<span class="gp">$</span> make defconfig msm8953.config no-unused-drivers.config pmos.config xiaomi-markw.config
-<span class="gp">$</span> make -j&lt;number_of_threads&gt; <span class="o">&amp;&amp;</span> pmbootstrap build --envkernel linux-postmarketos-qcom-msm8953
-</pre></div>
-<p>At this step we're done with compilation and ready to install it on the device. If you want to use FDE, you need to add <code>--fde --add=unl0kr</code> to use unl0kr instead of broken osk-sdl
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>Note:</b> <a href="../en/Lk2nd_Lk1st.html" class="mw-redirect" title="Lk2nd">lk2nd</a> is a hard dependency, without it the mainline kernel will not select the display panel and you'll get a black screen.</td>
+</tr></tbody></table>
+<ul>
+<li>Use the <code>--add lk2nd-msm8953</code> flag during <code>pmbootstrap install</code> to get the lk2nd package.</li>
+<li>Do not use "android recovery zip" method, because it can't install lk2nd.</li>
+<li>If you want to use FDE, you need to add <code>--fde --add=unl0kr</code> to use unl0kr instead of broken osk-sdl.</li>
+</ul>
+<p>Installation:
 </p>
 <dl>
 <dt>On SD-card</dt>
@@ -492,7 +482,7 @@ aarch64</td>
 <dl>
 <dd>Find your SD-card: <code>lsblk</code>
 </dd>
-<dd>Install (change /dev/sdX to your card) <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install --sdcard /dev/sdX
+<dd>Install (change /dev/sdX to your card) <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install --add lk2nd-msm8953 --sdcard /dev/sdX
 </pre></div>
 </dd>
 </dl>
@@ -501,18 +491,19 @@ aarch64</td>
 <dl>
 <dt>On internal memory</dt>
 <dd>
-<dl><dd><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install
+<dl><dd><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install --add lk2nd-msm8953
 <span class="gp">$</span> pmbootstrap flasher flash_rootfs --partition userdata
 </pre></div></dd></dl>
 </dd>
 </dl>
-<p><br>
-Then <b>boot into lk2nd</b> and flash boot:
+<p>Flash lk2nd:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_lk2nd
+</pre></div>
+<p>Then <b>boot into lk2nd</b> and flash the kernel:
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_kernel
 </pre></div>
-<p><a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Pmbootstrap#Installing_postmarketOS">(Generic installation guide)</a>
-</p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow" class="external text" href="https://github.com/msm8953-mainline/lk2nd/">lk2nd sources</a></li>
@@ -537,9 +528,9 @@ Then <b>boot into lk2nd</b> and flash boot:
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_4_Prime_(xiaomi-markw)&amp;oldid=43944">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_4_Prime_(xiaomi-markw)&amp;oldid=43944</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_4_Prime_(xiaomi-markw)&amp;oldid=44006">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_4_Prime_(xiaomi-markw)&amp;oldid=44006</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 1 May 2023, at 14:24.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 5 May 2023, at 15:49.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

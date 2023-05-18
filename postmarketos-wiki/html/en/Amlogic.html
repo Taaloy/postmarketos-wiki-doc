@@ -220,7 +220,7 @@ SoCs used in televisions.
 <td class="field_Mainline">Yes</td>
 </tr>
 <tr>
-<td class="field_SoC"><a href="../en/Amlogic_S812_S812-H_S812-S_S812-B_S802_S802-H.html" title="Amlogic S812/S812-H/S812-S/S812-B/S802/S802-H">Amlogic S812-h.png</a></td>
+<td class="field_SoC"><a href="../en/Amlogic_S812_S812-H_S812-S_S812-B_S802_S802-H.html" title="Amlogic S812/S812-H/S812-S/S812-B/S802/S802-H">Amlogic S812-H</a></td>
 <td class="field_Codenames"></td>
 <td class="field_Arch">armv7f</td>
 <td class="field_Year">2014</td>
@@ -263,8 +263,9 @@ they're the same as the non-H counterparts.
 <li>eMMC</li>
 <li>NAND</li>
 <li>an SD card</li>
+<li>USB (via a custom protocol)</li>
 </ul>
-<p>If none of the above is bootable, it is believed that the bootrom will boot into flash mode.
+<p>You can force them to boot from an SD card by using a <a rel="nofollow" class="external text" href="https://github.com/superna9999/linux/wiki/Amlogic-HDMI-Boot-Dongle">HDMI dongle</a>.
 </p>
 <p>Most set top boxes have U-Boot on the eMMC, which then (for some reason) looks for the following U-Boot scripts 
 on either an SD card or a USB device (FAT32 boot partition!):
@@ -280,15 +281,16 @@ on either an SD card or a USB device (FAT32 boot partition!):
 <p>We use this quirk to load a mainline U-Boot and then boot postmarketOS (see soc-amlogic-s905).
 </p>
 <h3><span class="mw-headline" id="Flashing">Flashing</span></h3>
-<h4><span class="mw-headline" id="Amlogic_USB_burning_tool">Amlogic USB burning tool</span></h4>
-<p>The Amlogic USB burning tool is Amlogic's proprietary flashing software. It's used to flash Amlogic devices by 
+<h4><span class="mw-headline" id="Amlogic_USB_Burning_tool">Amlogic USB Burning tool</span></h4>
+<p>The Amlogic USB Burning tool is Amlogic's proprietary flashing software. It's used to flash Amlogic devices by 
 using Amlogic's in-house protocol. It only works on Microsoft Windows.
 </p>
-<p>There's also another proprietary CLI tool from Amlogic -- update. It allows you to read the Amlogic SoC info, flash the firmware, temporarily boot firmware (u-boot) (just like <code>fastboot boot boot.img</code>), extract the firmware and lock the flash mode with a password in the flash mode.It has a windows version and a linux version.
+<p>There's also another proprietary CLI tool from Amlogic called <code>update</code>. It allows you to read the Amlogic SoC info, flash the firmware, temporarily boot firmware (u-boot) (just like <code>fastboot boot boot.img</code>), extract the firmware and lock the flash mode with a password in the flash mode. 
+It has a Microsoft Windows version and a GNU+Linux version.
 </p>
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">That software's built with an old toolchain and most binaries are x86-only.</td>
+<td style="padding: 0.35em 0.9em; width: 100%;">That software is built with an old toolchain and most binaries are x86-only.</td>
 </tr></tbody></table>
 <p>Some other software is built around this CLI tool such as <a rel="nofollow" class="external text" href="https://github.com/Stane1983/aml-linux-usb-burn">aml-linux-usb-burn</a>, <a rel="nofollow" class="external text" href="https://github.com/superna9999/aml-usb-load-uboot">aml-usb-load-uboot</a> and <a rel="nofollow" class="external text" href="https://github.com/radxa/aml-flash-tool">aml-flash-tool</a>
 </p>
@@ -297,8 +299,8 @@ using Amlogic's in-house protocol. It only works on Microsoft Windows.
 <td style="padding: 0.35em 0.9em; width: 100%;">aml-flash-tool bundles an ARM build of the CLI tool.</td>
 </tr></tbody></table>
 <h4><span class="mw-headline" id="pyamlboot">pyamlboot</span></h4>
-<p>pyamlboot is a free Amlogic flasher which allows you to boot any binary you want (depending on the device), 
-it's also a reverse-engineering effort of the Amlogic USB boot protocol. Instructions on how to use it can be found on the GitHub page linked below.
+<p>pyamlboot is an effort to reverse-engineer Amlogic's custom USB boot protocol. It allows you to boot any binary you want (depending on the device).
+Instructions on how to use it can be found on the GitHub page linked below.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -307,6 +309,8 @@ it's also a reverse-engineering effort of the Amlogic USB boot protocol. Instruc
 <li><a rel="nofollow" class="external text" href="https://github.com/superna9999/pyamlboot">pyamlboot</a></li>
 <li><a href="../en/Amlogic_Porting_set_top_boxes.html" title="Amlogic/Porting set top boxes">Port Amlogic-based set top boxes</a></li>
 <li><a rel="nofollow" class="external text" href="https://u-boot.readthedocs.io/en/latest/board/amlogic/boot-flow.html">Boot flow</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/afaerber/meson-tools">Efforts to reverse-engineer Amlogic's proprietary utils</a> (those utilities are used above to create a working FIP)</li>
 </ul>
 </div></div>
 		
@@ -321,9 +325,9 @@ it's also a reverse-engineering effort of the Amlogic USB boot protocol. Instruc
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Amlogic&amp;oldid=37962">https://wiki.postmarketos.org/index.php?title=Amlogic&amp;oldid=37962</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Amlogic&amp;oldid=44200">https://wiki.postmarketos.org/index.php?title=Amlogic&amp;oldid=44200</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 30 March 2023, at 14:38.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 18 May 2023, at 01:31.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

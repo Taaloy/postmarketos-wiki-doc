@@ -1,527 +1,171 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Screen Calibration - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Screen_Calibration rootpage-Screen_Calibration skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Screen Calibration
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <div class="toc" id="toc">
-       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
-       <div class="toctitle" dir="ltr" lang="en">
-        <h2>
-         Contents
-        </h2>
-        <span class="toctogglespan">
-         <label class="toctogglelabel" for="toctogglecheckbox">
-         </label>
-        </span>
-       </div>
-       <ul>
-        <li class="toclevel-1 tocsection-1">
-         <a href="#Framebuffer">
-          <span class="tocnumber">
-           1
-          </span>
-          <span class="toctext">
-           Framebuffer
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-2">
-         <a href="#Touch_screen">
-          <span class="tocnumber">
-           2
-          </span>
-          <span class="toctext">
-           Touch screen
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-3">
-           <a href="#libinput">
-            <span class="tocnumber">
-             2.1
-            </span>
-            <span class="toctext">
-             libinput
-            </span>
-           </a>
-           <ul>
-            <li class="toclevel-3 tocsection-4">
-             <a href="#Calibration_.28needed_for_resistive_touch_screens_and_or_when_the_touch_screen_is_rotated.29">
-              <span class="tocnumber">
-               2.1.1
-              </span>
-              <span class="toctext">
-               Calibration (needed for resistive touch screens and or when the touch screen is rotated)
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-5">
-             <a href="#Adjust_the_generated_values">
-              <span class="tocnumber">
-               2.1.2
-              </span>
-              <span class="toctext">
-               Adjust the generated values
-              </span>
-             </a>
-            </li>
-           </ul>
-          </li>
-          <li class="toclevel-2 tocsection-6">
-           <a href="#tslib">
-            <span class="tocnumber">
-             2.2
-            </span>
-            <span class="toctext">
-             tslib
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-7">
-         <a href="#Legacy">
-          <span class="tocnumber">
-           3
-          </span>
-          <span class="toctext">
-           Legacy
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-8">
-           <a href="#libinput:_old_method">
-            <span class="tocnumber">
-             3.1
-            </span>
-            <span class="toctext">
-             libinput: old method
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-       </ul>
-      </div>
-      <h2>
-       <span class="mw-headline" id="Framebuffer">
-        Framebuffer
-       </span>
-      </h2>
-      <p>
-       On most Android devices, a somewhat working framebuffer is required to get Weston and other Wayland compositors running. The alternative to framebuffer would be
-       <a href="../en/Glossary.html#dri" title="Glossary">
-        DRI
-       </a>
-       .
-      </p>
-      <p>
-       If your framebuffer does not work out of the box, try the following:
-      </p>
-      <ul>
-       <li>
-        Boot TWRP/Android and read out the correct framebuffer configurations from the /sys... paths and try to set them in pmOS
-       </li>
-       <li>
-        If you made it work, create an initfs hook, that instantly sets the framebuffer right.
-        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/ad17254e86b7dab4f87e139eaeb298222f37a031/aports/device/device-lg-mako/initfs-hook.sh" rel="nofollow">
-         Example
-        </a>
-       </li>
-      </ul>
-      <p>
-       If the screen looks laggy, it might be a known issue with refresh rate. It can be solved by hardcoding the refresh rate in the video driver, see
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/ad17254e86b7dab4f87e139eaeb298222f37a031/aports/device/linux-sony-amami/mdss_fb_refresh_rate.patch" rel="nofollow">
-        mdss_fb_refresh_rate.patch
-       </a>
-       .
-      </p>
-      <h2>
-       <span class="mw-headline" id="Touch_screen">
-        Touch screen
-       </span>
-      </h2>
-      <p>
-       See also
-       <a href="../en/Troubleshooting:touchscreen.html" title="Troubleshooting:touchscreen">
-        touchscreen troubleshooting
-       </a>
-       .
-      </p>
-      <h3>
-       <span class="mw-headline" id="libinput">
-        libinput
-       </span>
-      </h3>
-      <p>
-       This library is used by almost everything accessing your touch screen (e.g. Weston, X11, kwin). Just follow
-       <a href="../en/Osk-sdl.html#Set_touchscreen_device" title="Osk-sdl">
-        these instructions
-       </a>
-       to set your
-       <code>
-        deviceinfo_dev_touchscreen
-       </code>
-       variable in the
-       <a class="mw-redirect" href="../en/Deviceinfo_reference.html" title="Deviceinfo">
-        deviceinfo
-       </a>
-       file.
-      </p>
-      <p>
-       Modern
-       <a href="../en/Device_specific_package.html" title="Device specific package">
-        device specific packages
-       </a>
-       will generate the udev-rule automatically then, and as nice side-effect it will also work in
-       <code>
-        osk-sdl
-       </code>
-       .
-      </p>
-      <p>
-       If your device package does not generate the udev rule, please adjust the
-       <code>
-        build()
-       </code>
-       and
-       <code>
-        install()
-       </code>
-       functions as described
-       <a href="../en/Device_specific_package.html" title="Device specific package">
-        here
-       </a>
-       . For debugging use the
-       <a class="external text" href="https://wayland.freedesktop.org/libinput/doc/latest/tools.html" rel="nofollow">
-        libinput Helper tools
-       </a>
-       , e.g.
-       <code>
-        libinput debug-events
-        <b>
-         --verbose
-        </b>
-       </code>
-       ;
-       <a class="external text" href="https://wayland.freedesktop.org/libinput/doc/latest/udev_config.html" rel="nofollow">
-        Static device configuration via udev
-       </a>
-       lists the configuration possibilities via udev.
-      </p>
-      <h4>
-       <span id="Calibration_(needed_for_resistive_touch_screens_and_or_when_the_touch_screen_is_rotated)">
-       </span>
-       <span class="mw-headline" id="Calibration_.28needed_for_resistive_touch_screens_and_or_when_the_touch_screen_is_rotated.29">
-        Calibration (needed for resistive touch screens and or when the touch screen is rotated)
-       </span>
-      </h4>
-      <p>
-       Please test first if your device works without any special calibration - in most cases you don't need it!
-      </p>
-      <ul>
-       <li>
-        Install postmarketOS with Weston on your phone
-       </li>
-       <li>
-        Connect to your phone via SSH
-       </li>
-       <li>
-        Run
-        <code>
-         weston-calibrator
-        </code>
-       </li>
-       <li>
-        (Optional) check below how to adjust the values. As it is hard to hit the crosses in weston-calibrator exactly you will get slightly wrong values easily but usually it is also easy to find out what the exact values are.
-       </li>
-       <li>
-        Adjust your
-        <code>
-         deviceinfo_dev_touchscreen_calibration
-        </code>
-        to the output from
-        <code>
-         weston-calibrator
-        </code>
-        (
-        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/1034/files#diff-21ee1b263b9df2c4b69bb4b6796dab37" rel="nofollow">
-         example
-        </a>
-        ).
-       </li>
-      </ul>
-      <h4>
-       <span class="mw-headline" id="Adjust_the_generated_values">
-        Adjust the generated values
-       </span>
-      </h4>
-      <p>
-       Let the 6 calibration values be
-       <code>
-        A B C D E F
-       </code>
-       . Then the x and y coordinate of the touch input are translated into
-       <code>
-        x' = Ax + By + C
-       </code>
-       and
-       <code>
-        y' = Dx + Ey + F
-       </code>
-       according to
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/182" rel="nofollow">
-        #182
-       </a>
-       .
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Screen Calibration - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Screen_Calibration rootpage-Screen_Calibration skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Screen Calibration</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Framebuffer"><span class="tocnumber">1</span> <span class="toctext">Framebuffer</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Touch_screen"><span class="tocnumber">2</span> <span class="toctext">Touch screen</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3">
+<a href="#libinput"><span class="tocnumber">2.1</span> <span class="toctext">libinput</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Calibration_.28needed_for_resistive_touch_screens_and_or_when_the_touch_screen_is_rotated.29"><span class="tocnumber">2.1.1</span> <span class="toctext">Calibration (needed for resistive touch screens and or when the touch screen is rotated)</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Adjust_the_generated_values"><span class="tocnumber">2.1.2</span> <span class="toctext">Adjust the generated values</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6"><a href="#tslib"><span class="tocnumber">2.2</span> <span class="toctext">tslib</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Legacy"><span class="tocnumber">3</span> <span class="toctext">Legacy</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#libinput:_old_method"><span class="tocnumber">3.1</span> <span class="toctext">libinput: old method</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Framebuffer">Framebuffer</span></h2>
+<p>On most Android devices, a somewhat working framebuffer is required to get Weston and other Wayland compositors running. The alternative to framebuffer would be <a href="../en/Glossary.html#dri" title="Glossary">DRI</a>.
+</p>
+<p>If your framebuffer does not work out of the box, try the following:
+</p>
+<ul>
+<li>Boot TWRP/Android and read out the correct framebuffer configurations from the /sys... paths and try to set them in pmOS</li>
+<li>If you made it work, create an initfs hook, that instantly sets the framebuffer right. <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/blob/ad17254e86b7dab4f87e139eaeb298222f37a031/aports/device/device-mozilla-flame/initfs-hook.sh">Example</a> (NOTE: old, later <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/commit/10a163c265c844127f43db09ac094ff06b05ed65">replaced by MDSS driver</a>).</li>
+</ul>
+<p>If the screen looks laggy, it might be a known issue with refresh rate. It can be solved by hardcoding the refresh rate in the video driver, see 
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/blob/ad17254e86b7dab4f87e139eaeb298222f37a031/aports/device/linux-sony-amami/mdss_fb_refresh_rate.patch">mdss_fb_refresh_rate.patch</a>.
+</p>
+<h2><span class="mw-headline" id="Touch_screen">Touch screen</span></h2>
+<p>See also <a href="../en/Troubleshooting:touchscreen.html" title="Troubleshooting:touchscreen">touchscreen troubleshooting</a>.
+</p>
+<h3><span class="mw-headline" id="libinput">libinput</span></h3>
+<p>This library is used by almost everything accessing your touch screen (e.g. Weston, X11, kwin). Just follow <a href="../en/Osk-sdl.html#Set_touchscreen_device" title="Osk-sdl">these instructions</a> to set your <code>deviceinfo_dev_touchscreen</code> variable in the <a href="../en/Deviceinfo_reference.html" class="mw-redirect" title="Deviceinfo">deviceinfo</a> file.
+</p>
+<p>Modern <a href="../en/Device_specific_package.html" title="Device specific package">device specific packages</a> will generate the udev-rule automatically then, and as nice side-effect it will also work in <code>osk-sdl</code>.
+</p>
+<p>If your device package does not generate the udev rule, please adjust the <code>build()</code> and <code>install()</code> functions as described <a href="../en/Device_specific_package.html" title="Device specific package">here</a>. For debugging use the <a rel="nofollow" class="external text" href="https://wayland.freedesktop.org/libinput/doc/latest/tools.html">libinput Helper tools</a>, e.g. <code>libinput debug-events <b>--verbose</b></code>; <a rel="nofollow" class="external text" href="https://wayland.freedesktop.org/libinput/doc/latest/udev_config.html">Static device configuration via udev</a> lists the configuration possibilities via udev.
+</p>
+<h4>
+<span id="Calibration_(needed_for_resistive_touch_screens_and_or_when_the_touch_screen_is_rotated)"></span><span class="mw-headline" id="Calibration_.28needed_for_resistive_touch_screens_and_or_when_the_touch_screen_is_rotated.29">Calibration (needed for resistive touch screens and or when the touch screen is rotated)</span>
+</h4>
+<p>Please test first if your device works without any special calibration - in most cases you don't need it!
+</p>
+<ul>
+<li>Install postmarketOS with Weston on your phone</li>
+<li>Connect to your phone via SSH</li>
+<li>Run <code>weston-calibrator</code>
+</li>
+<li>(Optional) check below how to adjust the values. As it is hard to hit the crosses in weston-calibrator exactly you will get slightly wrong values easily but usually it is also easy to find out what the exact values are.</li>
+<li>Adjust your <code>deviceinfo_dev_touchscreen_calibration</code> to the output from <code>weston-calibrator</code> (<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/1034/files#diff-21ee1b263b9df2c4b69bb4b6796dab37">example</a>).</li>
+</ul>
+<h4><span class="mw-headline" id="Adjust_the_generated_values">Adjust the generated values</span></h4>
+<p>Let the 6 calibration values be <code>A B C D E F</code>. Then the x and y coordinate of the touch input are translated into <code>x' = Ax + By + C</code> and <code>y' = Dx + Ey + F</code> according to <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/182">#182</a>.
 Basically this means the following:
-      </p>
-      <ul>
-       <li>
-        Unless your touchscreen is slightly rotated (i.e., not 90° but like 1° or 2°), which is very unlikely, either A and E or B and D should be 0. If you get values close to 0 (i.e., smaller than 0.1 or so, larger values if you were not so precise) just set them to 0.
-       </li>
-       <li>
-        The non-zero values of A, B, D and E should usually be 1 or -1. If you get values close to that, just set them to 1 or -1. At least for the Samsung n5110
-        <code>
-         weston-calibrator
-        </code>
-        returned the aspect ratio of the screen (i.e., width/height or height/width) for these values. While this might be another likely value, it turned out to be wrong and 1/-1 turned out to be correct.
-       </li>
-       <li>
-        The remaining two values, C and F, are pixel offsets. Therefore, you can easily get -20 or +17 here depending on how accurate you were. If your touchscreen has the same size as the display, these values should be either set to 0 or the display width or height (then probably in combination with a -1 for the same dimension, e.g. "0 1 0 -1 0 800" for a display height of 800px). Note that these last values have a different meaning in X.Org/libinput: here, it seems, the values are multiplied by the device width/height, so instead of the height/width, use 1.
-       </li>
-      </ul>
-      <p>
-       If you have doubts if a certain value should be 0 or not, a good test is also to just run
-       <code>
-        weston-calibrator
-       </code>
-       multiple times. If the value is sometimes positive, sometimes negative, it should be 0.
-      </p>
-      <p>
-       Further information about the calibration matrix can be found in the
-       <a class="external text" href="https://wayland.freedesktop.org/libinput/doc/latest/api/group__config.html#ga09a798f58cc601edd2797780096e9804" rel="nofollow">
-        libinput documentation
-       </a>
-       .
-      </p>
-      <h3>
-       <span class="mw-headline" id="tslib">
-        tslib
-       </span>
-      </h3>
-      <p>
-       If
-       <code>
-        weston-calibrator
-       </code>
-       does not work for you, consider using
-       <code>
-        tslib
-       </code>
-       and converting the resulting calibration data afterwards (see
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1493" rel="nofollow">
-        #1493
-       </a>
-       and
-       <a class="external text" href="https://lists.freedesktop.org/archives/wayland-devel/2014-September/017581.html" rel="nofollow">
-        this mail
-       </a>
-       ).
-      </p>
-      <h2>
-       <span class="mw-headline" id="Legacy">
-        Legacy
-       </span>
-      </h2>
-      <h3>
-       <span class="mw-headline" id="libinput:_old_method">
-        libinput: old method
-       </span>
-      </h3>
-      <div class="syslog" role="note" style="padding: 5px 15px; border: 1px solid #18b600; background-color: #e0f9e5; margin-top: 5px; margin-bottom: 15px;">
-       Relevant
-       <a class="external text" href="https://wiki.alpinelinux.org/wiki/Syslog" rel="nofollow">
-        syslog
-       </a>
-       entries:
-       <code>
-        logread -f | grep weston
-       </code>
-      </div>
-      <p>
-       Here is how to do it without
-       <code>
-        devicepkg-dev
-       </code>
-       (not recommended, for reference only).
-      </p>
-      <ul>
-       <li>
-        Make sure, that Weston runs on the device
-       </li>
-       <li>
-        Look in the logs (via SSH) for the touch device name. For
-        <code>
-         lg-mako
-        </code>
-        , the name is
-        <code>
-         touch_dev
-        </code>
-        , but it may be different for your device.
-       </li>
-       <li>
-        Copy
-        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/master/aports/device/device-lg-mako/90-android-touch-dev.rules" rel="nofollow">
-         90-android-touch-dev.rules
-        </a>
-        from
-        <code>
-         device-lg-mako
-        </code>
-        to your device's aport. Replace
-        <code>
-         touch_dev
-        </code>
-        with your touch device name. Adjust the
-        <code>
-         APKBUILD
-        </code>
-        , so it gets installed properly (
-        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/master/aports/device/device-lg-mako/APKBUILD" rel="nofollow">
-         Example
-        </a>
-        )
-       </li>
-      </ul>
-      <pre>SUBSYSTEM=="input", ATTRS{name}=="touch_dev", \
+</p>
+<ul>
+<li>Unless your touchscreen is slightly rotated (i.e., not 90° but like 1° or 2°), which is very unlikely, either A and E or B and D should be 0. If you get values close to 0 (i.e., smaller than 0.1 or so, larger values if you were not so precise) just set them to 0.</li>
+<li>The non-zero values of A, B, D and E should usually be 1 or -1. If you get values close to that, just set them to 1 or -1. At least for the Samsung n5110 <code>weston-calibrator</code> returned the aspect ratio of the screen (i.e., width/height or height/width) for these values. While this might be another likely value, it turned out to be wrong and 1/-1 turned out to be correct.</li>
+<li>The remaining two values, C and F, are pixel offsets. Therefore, you can easily get -20 or +17 here depending on how accurate you were. If your touchscreen has the same size as the display, these values should be either set to 0 or the display width or height (then probably in combination with a -1 for the same dimension, e.g. "0 1 0 -1 0 800" for a display height of 800px). Note that these last values have a different meaning in X.Org/libinput: here, it seems, the values are multiplied by the device width/height, so instead of the height/width, use 1.</li>
+</ul>
+<p>If you have doubts if a certain value should be 0 or not, a good test is also to just run <code>weston-calibrator</code> multiple times. If the value is sometimes positive, sometimes negative, it should be 0.
+</p>
+<p>Further information about the calibration matrix can be found in the <a rel="nofollow" class="external text" href="https://wayland.freedesktop.org/libinput/doc/latest/api/group__config.html#ga09a798f58cc601edd2797780096e9804">libinput documentation</a>.
+</p>
+<h3><span class="mw-headline" id="tslib">tslib</span></h3>
+<p>If <code>weston-calibrator</code> does not work for you, consider using <code>tslib</code> and converting the resulting calibration data afterwards (see <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1493">#1493</a> and <a rel="nofollow" class="external text" href="https://lists.freedesktop.org/archives/wayland-devel/2014-September/017581.html">this mail</a>).
+</p>
+<h2><span class="mw-headline" id="Legacy">Legacy</span></h2>
+<h3><span class="mw-headline" id="libinput:_old_method">libinput: old method</span></h3>
+<div role="note" class="syslog" style="padding: 5px 15px; border: 1px solid #18b600; background-color: #e0f9e5; margin-top: 5px; margin-bottom: 15px;">Relevant <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/Syslog">syslog</a> entries: <code>logread -f | grep weston</code>
+</div>
+<p>Here is how to do it without <code>devicepkg-dev</code> (not recommended, for reference only).
+</p>
+<ul>
+<li>Make sure, that Weston runs on the device</li>
+<li>Look in the logs (via SSH) for the touch device name. For <code>lg-mako</code>, the name is <code>touch_dev</code>, but it may be different for your device.</li>
+<li>Copy <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/master/aports/device/device-lg-mako/90-android-touch-dev.rules">90-android-touch-dev.rules</a> from <code>device-lg-mako</code> to your device's aport. Replace <code>touch_dev</code> with your touch device name. Adjust the <code>APKBUILD</code>, so it gets installed properly (<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/master/aports/device/device-lg-mako/APKBUILD">Example</a>)</li>
+</ul>
+<pre>SUBSYSTEM=="input", ATTRS{name}=="touch_dev", \
 ENV{ID_INPUT}="1", ENV{ID_INPUT_TOUCHSCREEN}="1"
 </pre>
-      <p>
-       Reload udev rules:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="c1"># Reload all rules</span>
+<p>Reload udev rules:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># Reload all rules</span>
 udevadm control --reload
 <span class="c1"># Re-apply those rules on all devices</span>
 udevadm trigger
-</pre>
-      </div>
-     </div>
-    </div>
-    <div class="catlinks" data-mw="interface" id="catlinks">
-     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-      <a href="../Special:Categories.html" title="Special:Categories">
-       Category
-      </a>
-      :
-      <ul>
-       <li>
-        <a href="../en/Category:Guide.html" title="Category:Guide">
-         Guide
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Screen_Calibration&amp;oldid=18246">
-      https://wiki.postmarketos.org/index.php?title=Screen_Calibration&amp;oldid=18246
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 25 March 2021, at 20:48.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Screen_Calibration&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+</pre></div>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Screen_Calibration&amp;oldid=44014">https://wiki.postmarketos.org/index.php?title=Screen_Calibration&amp;oldid=44014</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 6 May 2023, at 08:48.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Screen_Calibration&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

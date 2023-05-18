@@ -57,7 +57,7 @@ upgrade from U-Boot 2015.01.
 </td>
 <td>Works
 </td>
-<td>We use U-Boot master with a few patches applied on-top. Will likely get upstreamed.
+<td>Needs minor patches: <a rel="nofollow" class="external free" href="https://lore.kernel.org/u-boot/20230507124109.31778-1-vitali64pmemail@protonmail.com/">https://lore.kernel.org/u-boot/20230507124109.31778-1-vitali64pmemail@protonmail.com/</a>
 </td>
 </tr>
 <tr>
@@ -100,33 +100,26 @@ upgrade from U-Boot 2015.01.
 <span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
 </div>
 <ul>
-<li class="toclevel-1 tocsection-1"><a href="#TODO"><span class="tocnumber">1</span> <span class="toctext">TODO</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Prerequisites"><span class="tocnumber">2</span> <span class="toctext">Prerequisites</span></a></li>
-<li class="toclevel-1 tocsection-3">
-<a href="#FIPs"><span class="tocnumber">3</span> <span class="toctext">FIPs</span></a>
+<li class="toclevel-1 tocsection-1"><a href="#Prerequisites"><span class="tocnumber">1</span> <span class="toctext">Prerequisites</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#FIPs"><span class="tocnumber">2</span> <span class="toctext">FIPs</span></a>
 <ul>
-<li class="toclevel-2 tocsection-4"><a href="#Boards_using_the_same_SoC_with_known_FIPs"><span class="tocnumber">3.1</span> <span class="toctext">Boards using the same SoC with known FIPs</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Boards_using_the_same_SoC_with_known_FIPs"><span class="tocnumber">2.1</span> <span class="toctext">Boards using the same SoC with known FIPs</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-5">
-<a href="#How_to_build"><span class="tocnumber">4</span> <span class="toctext">How to build</span></a>
+<li class="toclevel-1 tocsection-4">
+<a href="#How_to_build"><span class="tocnumber">3</span> <span class="toctext">How to build</span></a>
 <ul>
-<li class="toclevel-2 tocsection-6"><a href="#Building_and_bundling_the_FIP"><span class="tocnumber">4.1</span> <span class="toctext">Building and bundling the FIP</span></a></li>
-<li class="toclevel-2 tocsection-7"><a href="#How_to_boot"><span class="tocnumber">4.2</span> <span class="toctext">How to boot</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Building_and_bundling_the_FIP"><span class="tocnumber">3.1</span> <span class="toctext">Building and bundling the FIP</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#How_to_boot"><span class="tocnumber">3.2</span> <span class="toctext">How to boot</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-8"><a href="#Boot_log"><span class="tocnumber">5</span> <span class="toctext">Boot log</span></a></li>
-<li class="toclevel-1 tocsection-9"><a href="#Contributors"><span class="tocnumber">6</span> <span class="toctext">Contributors</span></a></li>
-<li class="toclevel-1 tocsection-10"><a href="#See_also"><span class="tocnumber">7</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Boot_log"><span class="tocnumber">4</span> <span class="toctext">Boot log</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Contributors"><span class="tocnumber">5</span> <span class="toctext">Contributors</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
 </ul>
 </div>
 
-<h2><span class="mw-headline" id="TODO">TODO</span></h2>
-<ul>
-<li>Replace the proprietary BL2</li>
-<li>Replace the proprietary BL301</li>
-<li>Test writing to eMMC</li>
-</ul>
 <h2><span class="mw-headline" id="Prerequisites">Prerequisites</span></h2>
 <ul><li>A way to recover</li></ul>
 <h2><span class="mw-headline" id="FIPs"><a rel="nofollow" class="external text" href="https://github.com/libreelec/amlogic-boot-fip">FIPs</a></span></h2>
@@ -140,13 +133,16 @@ upgrade from U-Boot 2015.01.
 <li>Amlogic P201 (?)</li>
 </ul>
 <h2><span class="mw-headline" id="How_to_build">How to build</span></h2>
-<ul><li>Create a working directory</li></ul>
+<ul><li>Create a work directory</li></ul>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> mkdir u-boot-kii-pro
 <span class="gp">$</span> <span class="nb">cd</span> u-boot-kii-pro
 </pre></div>
-<ul><li>Build U-Boot</li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://git.vitali64.duckdns.org/git/misc/u-boot-kii-pro.git -b wip/kii-pro u-boot
+<ul><li>Patch and build U-Boot</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://git.denx.de/u-boot u-boot
 <span class="gp">$</span> <span class="nb">cd</span> u-boot
+<span class="gp">$</span> curl https://patchwork.ozlabs.org/project/uboot/patch/20230507124109.31778-2-vitali64pmemail@protonmail.com/raw/ <span class="p">|</span> patch -p1
+<span class="gp">$</span> curl https://patchwork.ozlabs.org/project/uboot/patch/20230507124109.31778-3-vitali64pmemail@protonmail.com/raw/ <span class="p">|</span> patch -p1
+<span class="gp">$</span> curl https://patchwork.ozlabs.org/project/uboot/patch/20230507124109.31778-4-vitali64pmemail@protonmail.com/raw/ <span class="p">|</span> patch -p1
 <span class="gp">$</span> make videostrong-kii-pro_defconfig
 <span class="gp">$</span> make <span class="c1"># CROSS_COMPILE=...</span>
 <span class="gp">$</span> <span class="nb">cd</span> ..
@@ -233,7 +229,6 @@ upgrade from U-Boot 2015.01.
 <li>Power off</li>
 <li>Insert the SD card where you wrote the U-Boot binary</li>
 <li>Power on</li>
-<li>Congratulations!</li>
 </ul>
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
@@ -333,12 +328,16 @@ Starting kernel ...
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
 <ul><li><a href="../User:F.html" title="User:F">F</a></li></ul>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li><a rel="nofollow" class="external text" href="https://git.vitali64.duckdns.org/misc/trustedfirmware-a.git/">Bare-bones WIP BL2 port (DON'T USE IT IF YOU'RE A REGULAR USER)</a></li></ul>
 <ul>
 <li><a rel="nofollow" class="external text" href="https://github.com/hexdump0815/u-boot-misc">U-Boot experiments</a></li>
 <li><a rel="nofollow" class="external text" href="https://github.com/black3806/Amlogic_S905-u-boot">Amlogic U-Boot tree (+ some changes)</a></li>
 <li>
 <a rel="nofollow" class="external text" href="https://github.com/afaerber/meson-tools">Efforts to reverse-engineer Amlogic's proprietary utils</a> (those utilities are used above to create a working FIP)</li>
-<li><a rel="nofollow" class="external text" href="https://github.com/hardkernel/u-boot/tree/be63a06fa3d50dd2410e2e722d1f8bafe7370abd/arch/arm/cpu/armv8/common/firmware">Old BL2 sources from before Amlogic made it proprietary (based on TF-A code)</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/hardkernel/u-boot/tree/be63a06fa3d50dd2410e2e722d1f8bafe7370abd/arch/arm/cpu/armv8/common/firmware">Old BL2 sources from before Amlogic made it proprietary (based on TF-A code)</a>
+<ul><li><a rel="nofollow" class="external text" href="https://git.vitali64.duckdns.org/archive/amlogic-bl2.git/">Mirror</a></li></ul>
+</li>
 </ul>
 </div></div>
 		
@@ -353,9 +352,9 @@ Starting kernel ...
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)/U-Boot_as_primary_bootloader&amp;oldid=43974">https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)/U-Boot_as_primary_bootloader&amp;oldid=43974</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)/U-Boot_as_primary_bootloader&amp;oldid=44088">https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)/U-Boot_as_primary_bootloader&amp;oldid=44088</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 2 May 2023, at 19:09.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 8 May 2023, at 17:22.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

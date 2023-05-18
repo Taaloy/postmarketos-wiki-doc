@@ -260,86 +260,17 @@ kernel (to their defense Amlogic did successfully enable 4K playback on 3.x kern
 </tr></tbody></table>
 <p><br>
 </p>
-<h2><span class="mw-headline" id="How_to_build_uboot_for_s905">How to build uboot for s905</span></h2>
-<ul><li>Create a working directory</li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> mkdir u-boot-kii-pro
-<span class="gp">$</span> <span class="nb">cd</span> u-boot-kii-pro
-</pre></div>
-<ul><li>Build U-Boot</li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://git.vitali64.duckdns.org/misc/u-boot-kii-pro.git -b wip/kii-pro u-boot
-<span class="gp">$</span> <span class="nb">cd</span> u-boot
-<span class="gp">$</span> make videostrong-kii-pro_defconfig
-<span class="gp">$</span> make <span class="c1"># CROSS_COMPILE=...</span>
-<span class="gp">$</span> <span class="nb">cd</span> ..
-</pre></div>
-<h4><span class="mw-headline" id="Building_and_bundling_the_FIP">Building and bundling the FIP</span></h4>
-<ul><li>Get the binaries required to build the FIP (BL2, BL31, ...) and meson-tools, and install ARM Trusted Firmware utilities</li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://github.com/LibreELEC/amlogic-boot-fip.git fip <span class="c1"># A repo that contain a lot of different fip for alot of different device.  </span>
-<span class="gp">$</span> git clone https://github.com/afaerber/meson-tools.git
-<span class="gp">#</span> apk add arm-trusted-firmware-tools <span class="c1"># if using an Alpine-based system</span>
-</pre></div>
-<ul><li>Build <code>amlbootsig</code> from meson-tools</li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> meson-tools
-<span class="gp">$</span> make amlbootsig
-<span class="gp">$</span> <span class="nb">cd</span> ..
-</pre></div>
-<ul><li>Build the FIP</li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> fip/wetek-play2 <span class="c1"># We use wetek-play2 as a example </span>
-<span class="gp">$</span> cp ../../u-boot/u-boot.bin ./bl33.bin
-
-<span class="gp">$</span> ./blx_fix.sh <span class="se">\</span>
-           ./bl30.bin <span class="se">\</span>
-           ./zero_tmp <span class="se">\</span>
-           ./bl30_zero.bin <span class="se">\</span>
-           ./bl301.bin <span class="se">\</span>
-           ./bl301_zero.bin <span class="se">\</span>
-           ./bl30_new.bin <span class="se">\</span>
-           bl30
-
-<span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>bl31.img <span class="nv">of</span><span class="o">=</span>bl31_noheader.bin <span class="nv">bs</span><span class="o">=</span><span class="m">1</span> <span class="nv">skip</span><span class="o">=</span><span class="m">496</span> <span class="nv">count</span><span class="o">=</span><span class="m">16</span>
-<span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>bl31.img <span class="nv">of</span><span class="o">=</span>bl31_noheader.bin <span class="nv">skip</span><span class="o">=</span><span class="m">1</span>
-
-<span class="gp">$</span> fiptool create <span class="se">\</span>
-           --align 0x4000 <span class="se">\</span>
-           --scp-fw ./bl30_new.bin <span class="se">\</span>
-           --soc-fw ./bl31_noheader.bin <span class="se">\</span>
-           --nt-fw  ./bl33.bin <span class="se">\</span>
-                    ./fip.bin
-
-<span class="gp">$</span> sed -i <span class="s1">'s/\x73\x02\x08\x91/\x1F\x20\x03\xD5/'</span> ./bl2.bin
-<span class="gp">$</span> python3 ./acs_tool.py ./bl2.bin ./bl2_acs.bin ./acs.bin <span class="m">0</span>
-<span class="gp">$</span> ./blx_fix.sh <span class="se">\</span>
-           ./bl2_acs.bin <span class="se">\</span>
-           ./zero_tmp <span class="se">\</span>
-           ./bl2_zero.bin <span class="se">\</span>
-           ./bl21.bin <span class="se">\</span>
-           ./bl21_zero.bin <span class="se">\</span>
-           ./bl2_new.bin <span class="se">\</span>
-           bl2
-
-<span class="gp">$</span> cat ./bl2_new.bin ./fip.bin &gt; ./boot_new.bin
-
-<span class="gp">$</span> ../../meson-tools/amlbootsig <span class="se">\</span>
-           --input  ./boot_new.bin
-<span class="go">           --output ./u-boot.bin</span>
-
-<span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>./u-boot.bin <span class="nv">of</span><span class="o">=</span>./u-boot.bin.gxbb <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">conv</span><span class="o">=</span>fsync
-<span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>./u-boot.bin <span class="nv">of</span><span class="o">=</span>./u-boot.bin.gxbb <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">seek</span><span class="o">=</span><span class="m">9</span> <span class="nv">skip</span><span class="o">=</span><span class="m">8</span> <span class="nv">count</span><span class="o">=</span><span class="m">87</span> <span class="nv">conv</span><span class="o">=</span>fsync,notrunc
-<span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>./u-boot.bin.gxbb <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">seek</span><span class="o">=</span><span class="m">8</span> <span class="nv">count</span><span class="o">=</span><span class="m">1</span> <span class="nv">conv</span><span class="o">=</span>fsync,notrunc
-<span class="gp">$</span> dd <span class="k">if</span><span class="o">=</span>bl1.bin.hardkernel <span class="nv">of</span><span class="o">=</span>./u-boot.bin.gxbb <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">seek</span><span class="o">=</span><span class="m">2</span> <span class="nv">skip</span><span class="o">=</span><span class="m">2</span> <span class="nv">count</span><span class="o">=</span><span class="m">1</span> <span class="nv">conv</span><span class="o">=</span>fsync,notrunc
-<span class="gp">$</span> ./aml_chksum u-boot.bin.gxbb
-</pre></div>
-<ul><li>Write to an SD card</li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> <span class="nv">DEV</span><span class="o">=</span>mmcblk0 <span class="c1"># replace with your SD card device</span>
-<span class="gp">#</span> dd <span class="k">if</span><span class="o">=</span>u-boot.bin.gxbb <span class="nv">of</span><span class="o">=</span>/dev/<span class="nv">$DEV</span> <span class="nv">conv</span><span class="o">=</span>fsync,notrunc <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">skip</span><span class="o">=</span><span class="m">1</span> <span class="nv">seek</span><span class="o">=</span><span class="m">1</span>
-<span class="gp">#</span> dd <span class="k">if</span><span class="o">=</span>u-boot.bin.gxbb <span class="nv">of</span><span class="o">=</span>/dev/<span class="nv">$DEV</span> <span class="nv">conv</span><span class="o">=</span>fsync,notrunc <span class="nv">bs</span><span class="o">=</span><span class="m">1</span> <span class="nv">count</span><span class="o">=</span><span class="m">444</span>
-</pre></div>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a href="../en/Videostrong_KII_Pro_(videostrong-kii-pro).html" title="Videostrong KII Pro (videostrong-kii-pro)">Videostrong KII Pro (videostrong-kii-pro)</a></li>
 <li><a href="../en/Amlogic.html" title="Amlogic">Amlogic</a></li>
 <li><a href="../en/Amlogic_Porting_set_top_boxes.html" title="Amlogic/Porting set top boxes">Port STBs to postmarketOS</a></li>
+<li><a rel="nofollow" class="external text" href="https://git.vitali64.duckdns.org/misc/trustedfirmware-a.git/">Bare-bones WIP BL2 port (for gxbb) (DON'T USE IT IF YOU'RE A REGULAR USER)</a></li>
 </ul>
+<ul><li>
+<a rel="nofollow" class="external text" href="https://github.com/hardkernel/u-boot/tree/be63a06fa3d50dd2410e2e722d1f8bafe7370abd/arch/arm/cpu/armv8/common/firmware">Old GXBB's BL2 sources from before Amlogic made it proprietary (based on TF-A code)</a>
+<ul><li><a rel="nofollow" class="external text" href="https://git.vitali64.duckdns.org/archive/amlogic-bl2.git/">Mirror</a></li></ul>
+</li></ul>
 </div></div>
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
@@ -356,9 +287,9 @@ kernel (to their defense Amlogic did successfully enable 4K playback on 3.x kern
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Amlogic_S905(-H)&amp;oldid=43895">https://wiki.postmarketos.org/index.php?title=Amlogic_S905(-H)&amp;oldid=43895</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Amlogic_S905(-H)&amp;oldid=44198">https://wiki.postmarketos.org/index.php?title=Amlogic_S905(-H)&amp;oldid=44198</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 29 April 2023, at 18:02.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 18 May 2023, at 01:30.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

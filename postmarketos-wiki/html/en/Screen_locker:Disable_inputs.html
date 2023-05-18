@@ -1,216 +1,87 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Screen locker:Disable inputs - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Screen_locker_Disable_inputs rootpage-Screen_locker_Disable_inputs skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Screen locker:Disable inputs
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <p>
-       Some screen lockers do not disable inputs like touchscreen or buttons. This page collects possibilites how to hande this.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Xfce4">
-        Xfce4
-       </span>
-      </h2>
-      <p>
-       Here is an example draft script that disables inputs when the screen is locked in Xfce4.
-      </p>
-      <p>
-       The approach of this script is parasitical usage of dbus signals or method calls of other programs.
-      </p>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          <b>
-           Note:
-          </b>
-          The script might not work reliable. The approach of using other programs signals or method calls implies a certain instability.
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <p>
-       Preparation:
-      </p>
-      <ul>
-       <li>
-        Package
-        <code>
-         xinput
-        </code>
-        needs to be installed.
-       </li>
-       <li>
-        The power button is used for locking. Go to Settings -&gt; Keyboard -&gt; Application Shortcuts, select command xflock4 and hit the power button. Additionally, edit the file
-        <code>
-         /etc/elogind/logind.conf
-        </code>
-        , disable the line "HandlePowerKey=ignore", log out or reboot to apply the change. (You can also use another button but might need to adapt the script.)
-       </li>
-       <li>
-        You need to set up a virtual keyboard for the unlocking screen.
-        <code>
-         onboard
-        </code>
-        works well but availability is limited, alternatively you can use
-        <code>
-         matchbox-keyboard
-        </code>
-        . See
-        <a href="../en/Input_methods.html#Conventional_on-screen_keyboards" title="Input methods">
-         Input_methods#Conventional_on-screen_keyboards
-        </a>
-        for installation and
-        <a href="../en/Screen_locker.html#xfce4-screensaver" title="Screen locker">
-         Screen_locker#xfce4-screensaver
-        </a>
-        for implementation.
-       </li>
-       <li>
-        The script is waiting for a locking signal. To have it work properly, go to Settings -&gt; Power Manager -&gt; System and check "Lock screen when system is going to sleep.
-       </li>
-      </ul>
-      <p>
-       The script needs to be adapted to your specific situation:
-      </p>
-      <ul>
-       <li>
-        Check the id numbers of the inputs you want to disable with
-        <code>
-         xinput list
-        </code>
-        (or e.g.
-        <code>
-         DISPLAY=:0 xinput list
-        </code>
-        via ssh) and adapt the input function blocks of the script.
-       </li>
-       <li>
-        The script refers to
-        <code>
-         xfce4-screensaver
-        </code>
-        . If you use another screen locker, you need to adapt the commands and probably also the dbus signals and method calls.
-       </li>
-       <li>
-        If you also want to handle the LEDs, make sure you have permission to do so (see
-        <a href="../en/LEDs.html#Access_via_sysfs" title="LEDs">
-         LEDs#Access_via_sysfs
-        </a>
-        ), adapt the sysfs path in the script and uncomment the lines related to LEDs (the functions "disable_leds" and "enable_leds" at the top, their calls further down and one "else" line at the end).
-       </li>
-       <li>
-        Before using the script, check if the dbus-monitor commands of the script work for your setup by executing them via ssh and then lock/unlock your device. For the session bus, DISPLAY variable needs to be exported. The command via ssh looks like
-        <code>
-         DISPLAY=:0 dbus-monitor --session ...
-        </code>
-       </li>
-      </ul>
-      <p>
-       If the dbus-commands seem to work, you can test the script via ssh. Create the script by e.g.
-       <code>
-        vi ~/xfce4-screensaver-disable-inputs.sh
-       </code>
-       , paste your code, make it executable by
-       <code>
-        chmod +x ~/xfce4-screensaver-disable-inputs.sh
-       </code>
-       . To test it via ssh, you need to uncomment the export DISPLAY at the beginning of the script and for better debugging also the echo commands spread over the script. Start the script by
-       <code>
-        ~/xfce4-screensaver-disable-inputs.sh
-       </code>
-       .
-      </p>
-      <p>
-       In case the dbus-monitor commands do not work for your setup, you can try to find others that might work for you:
-      </p>
-      <ul>
-       <li>
-        <code>
-         DISPLAY=:0 dbus-monitor --session type=signal
-        </code>
-        shows signals on the session bus.
-       </li>
-       <li>
-        <code>
-         DISPLAY=:0 dbus-monitor --session
-        </code>
-        shows signals and method calls on the session bus.
-       </li>
-       <li>
-        <code>
-         dbus-monitor --system
-        </code>
-        shows only signals on the system bus.
-       </li>
-       <li>
-        <code>
-         sudo dbus-monitor --system
-        </code>
-        shows signals and method calls on the system bus.
-       </li>
-      </ul>
-      <p>
-       Usage of LEDs is recommended if possible. They are a good indication on the state of the inputs.
-      </p>
-      <p>
-       When the script looks good, it can be added to autostart in Settings -&gt; Session and Startup -&gt; Application Autostart -&gt;
-       <code>
-        +
-       </code>
-       .
-      </p>
-      <p>
-       Known issues if the script are:
-      </p>
-      <ul>
-       <li>
-        When hitting the cancel button at the unlock screen fast and repeatedly, a situation can be produced where the screen is on but the inputs off. In this case, you have to wait until the screen blanks again, thereafter you can unlock the device.
-       </li>
-      </ul>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="ch">#!/bin/sh</span>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Screen locker:Disable inputs - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Screen_locker_Disable_inputs rootpage-Screen_locker_Disable_inputs skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Screen locker:Disable inputs</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Some screen lockers do not disable inputs like touchscreen or buttons. This page collects possibilites how to hande this.
+</p>
+<h2><span class="mw-headline" id="Xfce4">Xfce4</span></h2>
+<p>Here is an example draft script that disables inputs when the screen is locked in Xfce4.
+</p>
+<p>The approach of this script is parasitical usage of dbus signals or method calls of other programs.
+</p>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>Note:</b> The script might not work reliable. The approach of using other programs signals or method calls implies a certain instability.</td>
+</tr></tbody></table>
+<p>Preparation:
+</p>
+<ul>
+<li>Package <code>xinput</code> needs to be installed.</li>
+<li>The power button is used for locking. Go to Settings -&gt; Keyboard -&gt; Application Shortcuts, select command xflock4, double-click the current shortcut and hit the power button. Additionally, edit the file <code>/etc/elogind/logind.conf</code>, disable the line "HandlePowerKey=ignore", log out or reboot to apply the change. (You can also use another button but might need to adapt the script.)</li>
+<li>You need to set up a virtual keyboard for the unlocking screen. <code>onboard</code> works well but availability is limited, alternatively you can use <code>matchbox-keyboard</code>. See <a href="../en/Input_methods.html#Conventional_on-screen_keyboards" title="Input methods">Input_methods#Conventional_on-screen_keyboards</a> for installation and <a href="../en/Screen_locker.html#xfce4-screensaver" title="Screen locker">Screen_locker#xfce4-screensaver</a> for implementation.</li>
+<li>The script is waiting for a locking signal. To have it work properly, go to Settings -&gt; Power Manager -&gt; System and check "Lock screen when system is going to sleep.</li>
+</ul>
+<p>The script needs to be adapted to your specific situation:
+</p>
+<ul>
+<li>Check the id numbers of the inputs you want to disable with <code>xinput list</code> (or e.g. <code>DISPLAY=:0 xinput list</code> via ssh) and adapt the input function blocks of the script.</li>
+<li>The script refers to <code>xfce4-screensaver</code>. If you use another screen locker, you need to adapt the commands and probably also the dbus signals and method calls.</li>
+<li>If you also want to handle the LEDs, make sure you have permission to do so (see <a href="../en/LEDs.html#Access_via_sysfs" title="LEDs">LEDs#Access_via_sysfs</a>), adapt the sysfs path in the script and uncomment the lines related to LEDs (the functions "disable_leds" and "enable_leds" at the top, their calls further down and one "else" line at the end).</li>
+<li>Before using the script, check if the dbus-monitor commands of the script work for your setup by executing them via ssh and then lock/unlock your device. For the session bus, DISPLAY variable needs to be exported. The command via ssh looks like <code>DISPLAY=:0 dbus-monitor --session ...</code>
+</li>
+</ul>
+<p>If the dbus-commands seem to work, you can test the script via ssh. Create the script by e.g. <code>vi ~/xfce4-screensaver-disable-inputs.sh</code>, paste your code, make it executable by <code>chmod +x ~/xfce4-screensaver-disable-inputs.sh</code>. To test it via ssh, you need to uncomment the export DISPLAY at the beginning of the script and for better debugging also the echo commands spread over the script. Start the script by <code>~/xfce4-screensaver-disable-inputs.sh</code>.
+</p>
+<p>In case the dbus-monitor commands do not work for your setup, you can try to find others that might work for you:
+</p>
+<ul>
+<li>
+<code>DISPLAY=:0 dbus-monitor --session type=signal</code> shows signals on the session bus.</li>
+<li>
+<code>DISPLAY=:0 dbus-monitor --session</code> shows signals and method calls on the session bus.</li>
+<li>
+<code>dbus-monitor --system</code> shows only signals on the system bus.</li>
+<li>
+<code>sudo dbus-monitor --system</code> shows signals and method calls on the system bus.</li>
+</ul>
+<p>Usage of LEDs is recommended if possible. They are a good indication on the state of the inputs.
+</p>
+<p>When the script looks good, it can be added to autostart in Settings -&gt; Session and Startup -&gt; Application Autostart -&gt; <code>+</code>.
+</p>
+<p>Known issues if the script are:
+</p>
+<ul><li>When hitting the cancel button at the unlock screen fast and repeatedly, a situation can be produced where the screen is on but the inputs off. In this case, you have to wait until the screen blanks again, thereafter you can unlock the device.</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="ch">#!/bin/sh</span>
 
 <span class="c1"># For debugging via ssh, DISPLAY variable needs to be exported. The value might differ.</span>
 <span class="c1"># export DISPLAY=:0</span>
@@ -315,73 +186,87 @@ dbus-monitor --session <span class="s2">"interface='org.xfce.ScreenSaver',member
     <span class="k">done</span>
   <span class="k">fi</span>
 <span class="k">done</span>
-</pre>
-      </div>
-     </div>
-    </div>
-    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Screen_locker:Disable_inputs&amp;oldid=24987">
-      https://wiki.postmarketos.org/index.php?title=Screen_locker:Disable_inputs&amp;oldid=24987
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 14 January 2022, at 19:27.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Screen_locker:Disable_inputs&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+</pre></div>
+<h2><span class="mw-headline" id="MATE">MATE</span></h2>
+<p>The almost same script can be used for MATE. It needs some minor changes.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gd">--- xfce</span>
+<span class="gi">+++ mate</span>
+<span class="gu">@@ -41,3 +41,3 @@</span>
+ # wait until the sesseion gets locked
+<span class="gd">-dbus-monitor --session "interface='org.xfce.ScreenSaver',member='ActiveChanged'" | \</span>
+<span class="gi">+dbus-monitor --session "interface='org.mate.ScreenSaver',member='ActiveChanged'" | \</span>
+ while read signal_lock; do
+<span class="gu">@@ -61,3 +61,3 @@</span>
+       # watch for the screen waking up
+<span class="gd">-      dbus-monitor --session "interface='org.xfce.Xfconf',member='GetAllProperties'" | grep -m 0 xfce4-screensaver</span>
+<span class="gi">+      dbus-monitor --session member=StartServiceByName | grep -m 0 "org.gtk.vfs.Daemon"</span>
+ 
+<span class="gu">@@ -72,3 +72,3 @@</span>
+       # when leaving the unlock dialogue, go on
+<span class="gd">-      dbus-monitor --session member='NameLost' | grep -m 0 NameLost</span>
+<span class="gi">+      dbus-monitor --session member='NameLost' | grep -m 1 NameLost</span>
+ 
+<span class="gu">@@ -82,3 +82,3 @@</span>
+       sleep 0.5
+<span class="gd">-      if [ "$(xfce4-screensaver-command --query | grep -o inactive)" = "inactive" ]; then</span>
+<span class="gi">+      if [ "$(mate-screensaver-command --query | grep -o inactive)" = "inactive" ]; then</span>
+</pre></div>
+<p>Following steps to set up the script:
+</p>
+<ul>
+<li>Install package <code>xinput</code>.</li>
+<li>Assign the power key to screen lock by System -&gt; Preferences -&gt; Hardware -&gt; Keyboard Shortcuts -&gt; af the end of the "Desktop" section look for "Lock screen" and double-click the shortcut at the lefthand side -&gt; hit the power key -&gt; close.</li>
+<li>Edit the file <code>/etc/elogind/logind.conf</code>, disable the line "HandlePowerKey=ignore", log out or reboot to apply the change.</li>
+<li>Create a new file <code>~/mate-screensaver-disable-inputs.sh</code>
+<ul>
+<li>Copy-paste the script for Xfce4 in there.</li>
+<li>Apply changes for MATE (see diff above).</li>
+<li>Check <code>xinput list</code> and adapt the input numbers you want to lock in script (all buttons and touchscreen except the power key).</li>
+<li>If you have user permissions to change LEDs, uncomment the according parts of the script.</li>
+</ul>
+</li>
+<li>Make the script executable by <code>chmod +x ~/mate-screensaver-disable-inputs.sh</code>.</li>
+<li>Test by entering <code>~/mate-screensaver-disable-inputs.sh</code> in the terminal directly on the device, lock the screen, check if the touchscreen is disabled, wake up by hitting the power button, unlock the screen. Abort the terminal command by Ctrl+C.</li>
+<li>If it works ok, create an autostart entry by System -&gt; Preferences -&gt; Personal -&gt; Startup Applications -&gt; Add. Log out or reboot to autostart the script.</li>
+</ul>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>Note:</b> The script might not work reliable and possibly needs improvement.</td>
+</tr></tbody></table>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Screen_locker:Disable_inputs&amp;oldid=44017">https://wiki.postmarketos.org/index.php?title=Screen_locker:Disable_inputs&amp;oldid=44017</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 6 May 2023, at 10:34.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Screen_locker:Disable_inputs&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

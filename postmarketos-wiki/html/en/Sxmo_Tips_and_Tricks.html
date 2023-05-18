@@ -1,1148 +1,464 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Sxmo/Tips and Tricks - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Sxmo_Tips_and_Tricks rootpage-Sxmo_Tips_and_Tricks skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Sxmo/Tips and Tricks
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <p>
-       Here is a growing list of tips, tricks and configuration snippets for using
-       <a href="../en/Sxmo.html" title="Sxmo">
-        Sxmo
-       </a>
-       .
-      </p>
-      <p>
-       This pages is intended to focus mostly on "non-core" issues, such as running apps and everyday usability. The core configuration issues should end up in
-       <a class="external text" href="https://sxmo.org/docs/USERGUIDE.html" rel="nofollow">
-        sxmo doc
-       </a>
-       , as discussed on
-       <a class="external free" href="https://todo.sr.ht/~mil/sxmo-tickets/275" rel="nofollow">
-        https://todo.sr.ht/~mil/sxmo-tickets/275
-       </a>
-      </p>
-      <p>
-       <br/>
-      </p>
-      <div class="toc" id="toc">
-       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
-       <div class="toctitle" dir="ltr" lang="en">
-        <h2>
-         Contents
-        </h2>
-        <span class="toctogglespan">
-         <label class="toctogglelabel" for="toctogglecheckbox">
-         </label>
-        </span>
-       </div>
-       <ul>
-        <li class="toclevel-1 tocsection-1">
-         <a href="#Calls.2C_SMS.2C_Modem">
-          <span class="tocnumber">
-           1
-          </span>
-          <span class="toctext">
-           Calls, SMS, Modem
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-2">
-           <a href="#Sometimes_Modem_gets_stuck">
-            <span class="tocnumber">
-             1.1
-            </span>
-            <span class="toctext">
-             Sometimes Modem gets stuck
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-3">
-           <a href="#Sometimes_SMS_dont_get_sent.2Freceived">
-            <span class="tocnumber">
-             1.2
-            </span>
-            <span class="toctext">
-             Sometimes SMS dont get sent/received
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-4">
-           <a href="#How_to_send_an_SMS_via_command_line_.28or_ssh.29">
-            <span class="tocnumber">
-             1.3
-            </span>
-            <span class="toctext">
-             How to send an SMS via command line (or ssh)
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-5">
-           <a href="#How_to_call_from_the_command_line">
-            <span class="tocnumber">
-             1.4
-            </span>
-            <span class="toctext">
-             How to call from the command line
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-6">
-           <a href="#How_to_change_SIM_pin">
-            <span class="tocnumber">
-             1.5
-            </span>
-            <span class="toctext">
-             How to change SIM pin
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-7">
-           <a href="#How_to_send_USSD">
-            <span class="tocnumber">
-             1.6
-            </span>
-            <span class="toctext">
-             How to send USSD
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-8">
-           <a href="#How_to_send_AT_command">
-            <span class="tocnumber">
-             1.7
-            </span>
-            <span class="toctext">
-             How to send AT command
-            </span>
-           </a>
-           <ul>
-            <li class="toclevel-3 tocsection-9">
-             <a href="#Directly">
-              <span class="tocnumber">
-               1.7.1
-              </span>
-              <span class="toctext">
-               Directly
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-10">
-             <a href="#Through_modem_manager">
-              <span class="tocnumber">
-               1.7.2
-              </span>
-              <span class="toctext">
-               Through modem manager
-              </span>
-             </a>
-            </li>
-           </ul>
-          </li>
-          <li class="toclevel-2 tocsection-11">
-           <a href="#Retrieving_signal_strength_information">
-            <span class="tocnumber">
-             1.8
-            </span>
-            <span class="toctext">
-             Retrieving signal strength information
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-12">
-           <a href="#Create_contacts.tsv_for_Sxmo_from_Android_data">
-            <span class="tocnumber">
-             1.9
-            </span>
-            <span class="toctext">
-             Create contacts.tsv for Sxmo from Android data
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-13">
-           <a href="#Create_contacts.tsv_for_Sxmo_from_a_vcard_export_.28_vcf_export_from_nextcloud_for_example_.29">
-            <span class="tocnumber">
-             1.10
-            </span>
-            <span class="toctext">
-             Create contacts.tsv for Sxmo from a vcard export ( vcf export from nextcloud for example )
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-14">
-         <a href="#General_configuration">
-          <span class="tocnumber">
-           2
-          </span>
-          <span class="toctext">
-           General configuration
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-15">
-           <a href="#How_to_easily_change_the_size_of_the_text.2C_system-wide.3F">
-            <span class="tocnumber">
-             2.1
-            </span>
-            <span class="toctext">
-             How to easily change the size of the text, system-wide?
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-16">
-           <a href="#How_to_change_the_keyboard_layouts.3F_.28wvkbd.2Fwayland.29.3F">
-            <span class="tocnumber">
-             2.2
-            </span>
-            <span class="toctext">
-             How to change the keyboard layouts? (wvkbd/wayland)?
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-17">
-           <a href="#How_to_activate_data">
-            <span class="tocnumber">
-             2.3
-            </span>
-            <span class="toctext">
-             How to activate data
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-18">
-           <a href="#How_to_launch_programms_on_startup.3F">
-            <span class="tocnumber">
-             2.4
-            </span>
-            <span class="toctext">
-             How to launch programms on startup?
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-19">
-           <a href="#mount_.2Ftmp.2F_in_RAM.2C_to_save_write_cycles_on_storage_device">
-            <span class="tocnumber">
-             2.5
-            </span>
-            <span class="toctext">
-             mount /tmp/ in RAM, to save write cycles on storage device
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-20">
-           <a href="#Help_with_adding_cronjobs">
-            <span class="tocnumber">
-             2.6
-            </span>
-            <span class="toctext">
-             Help with adding cronjobs
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-21">
-           <a href="#How_to_customize_the_colours.2Ffonts_of_the_interface.3F">
-            <span class="tocnumber">
-             2.7
-            </span>
-            <span class="toctext">
-             How to customize the colours/fonts of the interface?
-            </span>
-           </a>
-           <ul>
-            <li class="toclevel-3 tocsection-22">
-             <a href="#xorg.2Fdwm">
-              <span class="tocnumber">
-               2.7.1
-              </span>
-              <span class="toctext">
-               xorg/dwm
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-23">
-             <a href="#wayland.2Fsway">
-              <span class="tocnumber">
-               2.7.2
-              </span>
-              <span class="toctext">
-               wayland/sway
-              </span>
-             </a>
-            </li>
-           </ul>
-          </li>
-          <li class="toclevel-2 tocsection-24">
-           <a href="#Some_notifications_stay_stuck_on_the_screen.21">
-            <span class="tocnumber">
-             2.8
-            </span>
-            <span class="toctext">
-             Some notifications stay stuck on the screen!
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-25">
-           <a href="#A_simple_way_to_share_sxmo.27s_connection_through_USB_.28aka_.22USB_tethering.22.29">
-            <span class="tocnumber">
-             2.9
-            </span>
-            <span class="toctext">
-             A simple way to share sxmo's connection through USB (aka "USB tethering")
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-26">
-           <a href="#Where_can_i_read_logs_for_sxmo.3F">
-            <span class="tocnumber">
-             2.10
-            </span>
-            <span class="toctext">
-             Where can i read logs for sxmo?
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-27">
-         <a href="#Applications_specific">
-          <span class="tocnumber">
-           3
-          </span>
-          <span class="toctext">
-           Applications specific
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-28">
-           <a href="#What_to_use_for_cartography.2Fnavigation.3F">
-            <span class="tocnumber">
-             3.1
-            </span>
-            <span class="toctext">
-             What to use for cartography/navigation?
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-29">
-           <a href="#QT_app_.28vlc-qt.2C_etc..29_doesnt_fit_the_screen.21">
-            <span class="tocnumber">
-             3.2
-            </span>
-            <span class="toctext">
-             QT app (vlc-qt, etc.) doesnt fit the screen!
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-30">
-           <a href="#Cmus:_the_application_related_bemenu_is_not_loaded_as_soon_as_a_song_is_played.">
-            <span class="tocnumber">
-             3.3
-            </span>
-            <span class="toctext">
-             Cmus: the application related bemenu is not loaded as soon as a song is played.
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-31">
-           <a href="#Flatpak">
-            <span class="tocnumber">
-             3.4
-            </span>
-            <span class="toctext">
-             Flatpak
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-32">
-         <a href="#Extra_features.2C_advanced_tweaking">
-          <span class="tocnumber">
-           4
-          </span>
-          <span class="toctext">
-           Extra features, advanced tweaking
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-33">
-           <a href="#A_Wayland_version_of_Sxmo.2C_really.3F.3F">
-            <span class="tocnumber">
-             4.1
-            </span>
-            <span class="toctext">
-             A Wayland version of Sxmo, really??
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-34">
-           <a href="#How_to_Add_Apps_to_the_List.3F">
-            <span class="tocnumber">
-             4.2
-            </span>
-            <span class="toctext">
-             How to Add Apps to the List?
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-       </ul>
-      </div>
-      <h2>
-       <span id="Calls,_SMS,_Modem">
-       </span>
-       <span class="mw-headline" id="Calls.2C_SMS.2C_Modem">
-        Calls, SMS, Modem
-       </span>
-      </h2>
-      <h3>
-       <span class="mw-headline" id="Sometimes_Modem_gets_stuck">
-        Sometimes Modem gets stuck
-       </span>
-      </h3>
-      <p>
-       Sometimes the modem does not respond, stops receiving/sending calls, etc.
-      </p>
-      <p>
-       Preferred solution: toggle 'Modem Daemons' in the menu under 'Config'.
-      </p>
-      <p>
-       Reliable solution: reboot.
-      </p>
-      <h3>
-       <span id="Sometimes_SMS_dont_get_sent/received">
-       </span>
-       <span class="mw-headline" id="Sometimes_SMS_dont_get_sent.2Freceived">
-        Sometimes SMS dont get sent/received
-       </span>
-      </h3>
-      <p>
-       The latest biktorgj firmware (0.5.3) should address this situation.  Alternatively, check for stuck sms and delete them:
-      </p>
-      <ol>
-       <li>
-        <dl>
-         <dd>
-          <code>
-           mmcli --modem any --messaging-list-sms
-          </code>
-         </dd>
-         <dd>
-          <code>
-           mmcli --modem 0 --sms 0
-          </code>
-         </dd>
-         <dd>
-          <code>
-           mmcli --modem 0 --messaging-delete-sms=##
-          </code>
-         </dd>
-         <dd>
-          <code>
-           mmcli --modem 0 -r
-          </code>
-         </dd>
-         <dd>
-          The identifying number of the modem may vary, being incremented upon toggles and sometimes reboots. you probably also can use:
-          <code>
-           --modem any
-          </code>
-         </dd>
-        </dl>
-       </li>
-      </ol>
-      <h3>
-       <span id="How_to_send_an_SMS_via_command_line_(or_ssh)">
-       </span>
-       <span class="mw-headline" id="How_to_send_an_SMS_via_command_line_.28or_ssh.29">
-        How to send an SMS via command line (or ssh)
-       </span>
-      </h3>
-      <p>
-       <code>
-        cat mysupersmsfile | sxmo_modemsendsms.sh +33123123123 -
-       </code>
-      </p>
-      <h3>
-       <span class="mw-headline" id="How_to_call_from_the_command_line">
-        How to call from the command line
-       </span>
-      </h3>
-      <p>
-       Example:
-      </p>
-      <p>
-       <code>
-        sxmo_modeldial.sh 08003301000
-       </code>
-      </p>
-      <p>
-       <br/>
-      </p>
-      <h3>
-       <span class="mw-headline" id="How_to_change_SIM_pin">
-        How to change SIM pin
-       </span>
-      </h3>
-      <p>
-       From 1234 to 1010:
-      </p>
-      <p>
-       <code>
-        mmcli -i any --pin=1234 --change-pin=1010
-       </code>
-      </p>
-      <p>
-       Disabling:
-      </p>
-      <p>
-       <code>
-        mmcli -i any --pin=1010 --disable-pin
-       </code>
-      </p>
-      <h3>
-       <span class="mw-headline" id="How_to_send_USSD">
-        How to send USSD
-       </span>
-      </h3>
-      <p>
-       Try something like:
-      </p>
-      <p>
-       <code>
-        mmcli -m any --3gpp-ussd-initiate="*100#"
-       </code>
-      </p>
-      <p>
-       <br/>
-      </p>
-      <h3>
-       <span class="mw-headline" id="How_to_send_AT_command">
-        How to send AT command
-       </span>
-      </h3>
-      <h4>
-       <span class="mw-headline" id="Directly">
-        Directly
-       </span>
-      </h4>
-      <ol>
-       <li>
-        If desired monitor output as root:
-        <dl>
-         <dd>
-          <code>
-           cat /dev/ttyUSB2
-          </code>
-         </dd>
-        </dl>
-       </li>
-       <li>
-        In another terminal, send the command, in this example to check the ADSP firmware version:
-        <dl>
-         <dd>
-          <code>
-           echo -ne "AT+QGMR\r" &gt;/dev/ttyUSB2
-          </code>
-         </dd>
-        </dl>
-       </li>
-      </ol>
-      <h4>
-       <span class="mw-headline" id="Through_modem_manager">
-        Through modem manager
-       </span>
-      </h4>
-      <ol>
-       <li>
-        Restart modem manager in debug mode:
-        <dl>
-         <dd>
-          <code>
-           sudo /sbin/rc-service modemmanager stop
-          </code>
-         </dd>
-         <dd>
-          <code>
-           sudo /usr/sbin/ModemManager --debug
-          </code>
-         </dd>
-        </dl>
-       </li>
-       <li>
-        In another terminal, send the command, in this example to check the ADSP firmware version:
-        <dl>
-         <dd>
-          <code>
-           mmcli -m any --command="AT+QGMR"
-          </code>
-         </dd>
-        </dl>
-       </li>
-       <li>
-        Stop modem manager in debug mode, then run:
-        <dl>
-         <dd>
-          <code>
-           sudo /sbin/rc-service modemmanager start
-          </code>
-         </dd>
-        </dl>
-       </li>
-      </ol>
-      <h3>
-       <span class="mw-headline" id="Retrieving_signal_strength_information">
-        Retrieving signal strength information
-       </span>
-      </h3>
-      <p>
-       See
-       <a class="external free" href="https://wiki.postmarketos.org/wiki/Modem#ModemManager" rel="nofollow">
-        https://wiki.postmarketos.org/wiki/Modem#ModemManager
-       </a>
-      </p>
-      <h3>
-       <span class="mw-headline" id="Create_contacts.tsv_for_Sxmo_from_Android_data">
-        Create contacts.tsv for Sxmo from Android data
-       </span>
-      </h3>
-      <p>
-       This assumes you have developer mode enabled on your phone and usb debugging using adb.
-      </p>
-      <p>
-       I messed around with different API calls, I store the contacts locally on the device, what worked for me to get the full set of phone numbers was:
-      </p>
-      <p>
-       <code>
-        adb shell content query --uri content://com.android.contacts/data --projection display_name:data1:data3:data4 | grep '[0-9]\{10\}' | grep -v gprofile &gt; raw_contacts
-       </code>
-      </p>
-      <p>
-       `create_contact_tsv.py` depends on python package `phonenumbers`, please install it.
-      </p>
-      <p>
-       then run on the terminal
-      </p>
-      <p>
-       <code>
-        python3 create_contacts_tsv.py raw_contacts | sort | uniq &gt; contacts.tsv
-       </code>
-      </p>
-      <p>
-       For completeness, entire content of the python file `create_contact_tsv.py`
-      </p>
-      <p>
-       <code>
-        import csv, sys, phonenumbers as p;
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Sxmo/Tips and Tricks - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Sxmo_Tips_and_Tricks rootpage-Sxmo_Tips_and_Tricks skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Sxmo/Tips and Tricks</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Here is a growing list of tips, tricks and configuration snippets for using <a href="../en/Sxmo.html" title="Sxmo">Sxmo</a>. 
+</p>
+<p>This pages is intended to focus mostly on "non-core" issues, such as running apps and everyday usability. The core configuration issues should end up in <a rel="nofollow" class="external text" href="https://sxmo.org/docs/">sxmo doc</a>, as discussed on <a rel="nofollow" class="external free" href="https://todo.sr.ht/~mil/sxmo-tickets/275">https://todo.sr.ht/~mil/sxmo-tickets/275</a>
+</p>
+<p><br>
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Calls.2C_SMS.2C_Modem"><span class="tocnumber">1</span> <span class="toctext">Calls, SMS, Modem</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Sometimes_Modem_gets_stuck"><span class="tocnumber">1.1</span> <span class="toctext">Sometimes Modem gets stuck</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Sometimes_SMS_messages_aren.27t_sent.2Freceived"><span class="tocnumber">1.2</span> <span class="toctext">Sometimes SMS messages aren't sent/received</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#How_to_send_an_SMS_via_command_line_.28or_ssh.29"><span class="tocnumber">1.3</span> <span class="toctext">How to send an SMS via command line (or ssh)</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#How_to_call_from_the_command_line"><span class="tocnumber">1.4</span> <span class="toctext">How to call from the command line</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#How_to_change_SIM_pin"><span class="tocnumber">1.5</span> <span class="toctext">How to change SIM pin</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#How_to_send_USSD"><span class="tocnumber">1.6</span> <span class="toctext">How to send USSD</span></a></li>
+<li class="toclevel-2 tocsection-8">
+<a href="#How_to_send_AT_command"><span class="tocnumber">1.7</span> <span class="toctext">How to send AT command</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#Directly"><span class="tocnumber">1.7.1</span> <span class="toctext">Directly</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Through_modem_manager"><span class="tocnumber">1.7.2</span> <span class="toctext">Through modem manager</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-11"><a href="#Retrieving_signal_strength_information"><span class="tocnumber">1.8</span> <span class="toctext">Retrieving signal strength information</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Create_contacts.tsv_for_Sxmo_from_Android_data"><span class="tocnumber">1.9</span> <span class="toctext">Create contacts.tsv for Sxmo from Android data</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Create_contacts.tsv_for_Sxmo_from_a_vcard_export_.28_vcf_export_from_nextcloud_for_example_.29"><span class="tocnumber">1.10</span> <span class="toctext">Create contacts.tsv for Sxmo from a vcard export ( vcf export from nextcloud for example )</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14">
+<a href="#General_configuration"><span class="tocnumber">2</span> <span class="toctext">General configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#How_to_display_the_percentage_of_battery_left.2C_along_with_the_icon.2C_in_the_status_bar.3F_.28sxmo_1.14.29"><span class="tocnumber">2.1</span> <span class="toctext">How to display the percentage of battery left, along with the icon, in the status bar? (sxmo 1.14)</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#How_to_easily_change_the_size_of_the_text.2C_system-wide.3F"><span class="tocnumber">2.2</span> <span class="toctext">How to easily change the size of the text, system-wide?</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#How_to_change_the_keyboard_layouts.3F_.28wvkbd.2Fwayland.29.3F"><span class="tocnumber">2.3</span> <span class="toctext">How to change the keyboard layouts? (wvkbd/wayland)?</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#How_to_change_the_size_of_the_virtual_keyboard.3F"><span class="tocnumber">2.4</span> <span class="toctext">How to change the size of the virtual keyboard?</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#How_to_activate_data"><span class="tocnumber">2.5</span> <span class="toctext">How to activate data</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#How_to_launch_programms_on_startup.3F"><span class="tocnumber">2.6</span> <span class="toctext">How to launch programms on startup?</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#mount_.2Ftmp.2F_in_RAM.2C_to_save_write_cycles_on_storage_device"><span class="tocnumber">2.7</span> <span class="toctext">mount /tmp/ in RAM, to save write cycles on storage device</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#Help_with_adding_cronjobs"><span class="tocnumber">2.8</span> <span class="toctext">Help with adding cronjobs</span></a></li>
+<li class="toclevel-2 tocsection-23">
+<a href="#How_to_customize_the_colours.2Ffonts_of_the_interface.3F"><span class="tocnumber">2.9</span> <span class="toctext">How to customize the colours/fonts of the interface?</span></a>
+<ul>
+<li class="toclevel-3 tocsection-24"><a href="#xorg.2Fdwm"><span class="tocnumber">2.9.1</span> <span class="toctext">xorg/dwm</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#wayland.2Fsway"><span class="tocnumber">2.9.2</span> <span class="toctext">wayland/sway</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-26"><a href="#Some_notifications_stay_stuck_on_the_screen.21"><span class="tocnumber">2.10</span> <span class="toctext">Some notifications stay stuck on the screen!</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="#A_simple_way_to_share_sxmo.27s_connection_through_USB_.28aka_.22USB_tethering.22.29"><span class="tocnumber">2.11</span> <span class="toctext">A simple way to share sxmo's connection through USB (aka "USB tethering")</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="#Where_can_i_read_logs_for_sxmo.3F"><span class="tocnumber">2.12</span> <span class="toctext">Where can i read logs for sxmo?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-29">
+<a href="#Applications_specific"><span class="tocnumber">3</span> <span class="toctext">Applications specific</span></a>
+<ul>
+<li class="toclevel-2 tocsection-30"><a href="#What_to_use_for_cartography.2Fnavigation.3F"><span class="tocnumber">3.1</span> <span class="toctext">What to use for cartography/navigation?</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="#QT_app_.28vlc-qt.2C_etc..29_doesnt_fit_the_screen.21"><span class="tocnumber">3.2</span> <span class="toctext">QT app (vlc-qt, etc.) doesnt fit the screen!</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="#Cmus:_the_application_related_bemenu_is_not_loaded_as_soon_as_a_song_is_played."><span class="tocnumber">3.3</span> <span class="toctext">Cmus: the application related bemenu is not loaded as soon as a song is played.</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="#Flatpak"><span class="tocnumber">3.4</span> <span class="toctext">Flatpak</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="#Telegram_Desktop"><span class="tocnumber">3.5</span> <span class="toctext">Telegram Desktop</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-35">
+<a href="#Extra_features.2C_advanced_tweaking"><span class="tocnumber">4</span> <span class="toctext">Extra features, advanced tweaking</span></a>
+<ul>
+<li class="toclevel-2 tocsection-36"><a href="#A_Wayland_version_of_Sxmo.2C_really.3F.3F"><span class="tocnumber">4.1</span> <span class="toctext">A Wayland version of Sxmo, really??</span></a></li>
+<li class="toclevel-2 tocsection-37"><a href="#How_to_Add_Apps_to_the_List.3F"><span class="tocnumber">4.2</span> <span class="toctext">How to Add Apps to the List?</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2>
+<span id="Calls,_SMS,_Modem"></span><span class="mw-headline" id="Calls.2C_SMS.2C_Modem">Calls, SMS, Modem</span>
+</h2>
+<h3><span class="mw-headline" id="Sometimes_Modem_gets_stuck">Sometimes Modem gets stuck</span></h3>
+<p>Sometimes the modem does not respond, stops receiving/sending calls, etc.
+</p>
+<p>Preferred solution: toggle 'Modem Daemons' in the menu under 'Config'.
+</p>
+<p>Reliable solution: reboot.
+</p>
+<h3>
+<span id="Sometimes_SMS_messages_aren't_sent/received"></span><span class="mw-headline" id="Sometimes_SMS_messages_aren.27t_sent.2Freceived">Sometimes SMS messages aren't sent/received</span>
+</h3>
+<p>The latest biktorgj firmware (0.5.3) should address this situation.  Alternatively, check for stuck sms and delete them:
+</p>
+<ol><li><dl>
+<dd><code>mmcli --modem any --messaging-list-sms</code></dd>
+<dd><code>mmcli --modem 0 --sms 0</code></dd>
+<dd><code>mmcli --modem 0 --messaging-delete-sms=##</code></dd>
+<dd><code>mmcli --modem 0 -r</code></dd>
+<dd>The identifying number of the modem may vary, being incremented upon toggles and sometimes reboots. you probably also can use: <code>--modem any</code>
+</dd>
+</dl></li></ol>
+<h3>
+<span id="How_to_send_an_SMS_via_command_line_(or_ssh)"></span><span class="mw-headline" id="How_to_send_an_SMS_via_command_line_.28or_ssh.29">How to send an SMS via command line (or ssh)</span>
+</h3>
+<p><code>
+cat mysupersmsfile | sxmo_modemsendsms.sh +33123123123 -
+</code>
+</p>
+<h3><span class="mw-headline" id="How_to_call_from_the_command_line">How to call from the command line</span></h3>
+<p>Example:
+</p>
+<p><code>sxmo_modemdial.sh 08003301000</code>
+</p>
+<h3><span class="mw-headline" id="How_to_change_SIM_pin">How to change SIM pin</span></h3>
+<p>From 1234 to 1010:
+</p>
+<p><code>mmcli -i any --pin=1234 --change-pin=1010</code>
+</p>
+<p>Disabling:
+</p>
+<p><code>mmcli -i any --pin=1010 --disable-pin</code>
+</p>
+<h3><span class="mw-headline" id="How_to_send_USSD">How to send USSD</span></h3>
+<p>Try something like:
+</p>
+<p><code>mmcli -m any --3gpp-ussd-initiate="*100#"</code>
+</p>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="How_to_send_AT_command">How to send AT command</span></h3>
+<h4><span class="mw-headline" id="Directly">Directly</span></h4>
+<ol>
+<li>If desired monitor output as root:
+<dl><dd><code>cat /dev/ttyUSB2</code></dd></dl>
+</li>
+<li>In another terminal, send the command, in this example to check the ADSP firmware version:
+<dl><dd><code>echo -ne "AT+QGMR\r" &gt;/dev/ttyUSB2</code></dd></dl>
+</li>
+</ol>
+<h4><span class="mw-headline" id="Through_modem_manager">Through modem manager</span></h4>
+<ol>
+<li>Restart modem manager in debug mode:
+<dl>
+<dd><code>sudo /sbin/rc-service modemmanager stop</code></dd>
+<dd><code>sudo /usr/sbin/ModemManager --debug</code></dd>
+</dl>
+</li>
+<li>In another terminal, send the command, in this example to check the ADSP firmware version:
+<dl><dd><code>mmcli -m any --command="AT+QGMR"</code></dd></dl>
+</li>
+<li>Stop modem manager in debug mode, then run:
+<dl><dd><code>sudo /sbin/rc-service modemmanager start</code></dd></dl>
+</li>
+</ol>
+<h3><span class="mw-headline" id="Retrieving_signal_strength_information">Retrieving signal strength information</span></h3>
+<p>See <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/Modem#ModemManager">https://wiki.postmarketos.org/wiki/Modem#ModemManager</a>
+</p>
+<h3><span class="mw-headline" id="Create_contacts.tsv_for_Sxmo_from_Android_data">Create contacts.tsv for Sxmo from Android data</span></h3>
+<p>This assumes you have developer mode enabled on your phone and usb debugging using adb.
+</p>
+<p>I messed around with different API calls, I store the contacts locally on the device, what worked for me to get the full set of phone numbers was:
+</p>
+<p><code>
+adb shell content query --uri content://com.android.contacts/data --projection display_name:data1:data3:data4 | grep '[0-9]\{10\}' | grep -v gprofile &gt; raw_contacts
+</code>
+</p>
+<p>`create_contact_tsv.py` depends on python package `phonenumbers`, please install it.
+</p>
+<p>then run on the terminal
+</p>
+<p><code>
+python3 create_contacts_tsv.py raw_contacts | sort | uniq &gt; contacts.tsv
+</code>
+</p>
+<p>For completeness, entire content of the python file `create_contact_tsv.py`
+</p>
+<p><code>
+import csv, sys, phonenumbers as p;
 with open(sys.argv[1], 'r') as file:
-       </code>
-      </p>
-      <code>
-       <pre> reader = csv.reader(file)
+</code></p>
+<code><pre> reader = csv.reader(file)
  for row in reader:
    name = row[0][str(row[0]).find("=") + 1:]
    for match in p.PhoneNumberMatcher(str(row), None):
      number = p.format_number(match.number, p.PhoneNumberFormat.E164)
      print(number + "\t" + name)
-</pre>
-      </code>
-      <code>
-      </code>
-      <p>
-       <code>
-       </code>
-      </p>
-      <h3>
-       <span id="Create_contacts.tsv_for_Sxmo_from_a_vcard_export_(_vcf_export_from_nextcloud_for_example_)">
-       </span>
-       <span class="mw-headline" id="Create_contacts.tsv_for_Sxmo_from_a_vcard_export_.28_vcf_export_from_nextcloud_for_example_.29">
-        Create contacts.tsv for Sxmo from a vcard export ( vcf export from nextcloud for example )
-       </span>
-      </h3>
-      <p>
-       We can convert an export in vcard format of a contact list to a file sxmo can work with with the following commands:
-      </p>
-      <p>
-       <code>
-        git clone
-        <a class="external free" href="https://github.com/gled-rs/cvf2csv.git" rel="nofollow">
-         https://github.com/gled-rs/cvf2csv.git
-        </a>
-        &amp;&amp; cd cvf2csv &amp;&amp; pip install phonenumbers
-       </code>
-      </p>
-      <p>
-       Put the vcard export you downloaded in the same directory as the convert.py script, name it contacts.vcf
+</pre></code><code></code><p><code></code>
+</p>
+<h3>
+<span id="Create_contacts.tsv_for_Sxmo_from_a_vcard_export_(_vcf_export_from_nextcloud_for_example_)"></span><span class="mw-headline" id="Create_contacts.tsv_for_Sxmo_from_a_vcard_export_.28_vcf_export_from_nextcloud_for_example_.29">Create contacts.tsv for Sxmo from a vcard export ( vcf export from nextcloud for example )</span>
+</h3>
+<p>We can convert an export in vcard format of a contact list to a file sxmo can work with with the following commands:
+</p>
+<p><code>
+git clone <a rel="nofollow" class="external free" href="https://github.com/gled-rs/cvf2csv.git">https://github.com/gled-rs/cvf2csv.git</a> &amp;&amp; cd cvf2csv &amp;&amp; pip install phonenumbers
+</code>
+</p>
+<p>Put the vcard export you downloaded in the same directory as the convert.py script, name it contacts.vcf
 Look at README.md if you want to change the default behaviour of the convert script.
-      </p>
-      <p>
-       <code>
-        python convert.py &amp;&amp; cp contacts.csv ~/.config/sxmo/contacts.tsv
-       </code>
-      </p>
-      <h2>
-       <span class="mw-headline" id="General_configuration">
-        General configuration
-       </span>
-      </h2>
-      <h3>
-       <span id="How_to_easily_change_the_size_of_the_text,_system-wide?">
-       </span>
-       <span class="mw-headline" id="How_to_easily_change_the_size_of_the_text.2C_system-wide.3F">
-        How to easily change the size of the text, system-wide?
-       </span>
-      </h3>
-      <p>
-       Change the value in:
+</p>
+<p><code>
+python convert.py &amp;&amp; cp contacts.csv ~/.config/sxmo/contacts.tsv
+</code>
+</p>
+<h2><span class="mw-headline" id="General_configuration">General configuration</span></h2>
+<h3>
+<span id="How_to_display_the_percentage_of_battery_left,_along_with_the_icon,_in_the_status_bar?_(sxmo_1.14)"></span><span class="mw-headline" id="How_to_display_the_percentage_of_battery_left.2C_along_with_the_icon.2C_in_the_status_bar.3F_.28sxmo_1.14.29">How to display the percentage of battery left, along with the icon, in the status bar? (sxmo 1.14)</span>
+</h3>
+<p>add:
+<code>
+SXMO_BAR_SHOW_BAT_PER=1 
+</code>
+in
+~/.config/sxmo/profile
+</p>
+<h3>
+<span id="How_to_easily_change_the_size_of_the_text,_system-wide?"></span><span class="mw-headline" id="How_to_easily_change_the_size_of_the_text.2C_system-wide.3F">How to easily change the size of the text, system-wide?</span>
+</h3>
+<p>Change the value in:
 /usr/share/sxmo/appcfg/xresources_xft.xr (try 160!)
-      </p>
-      <p>
-       <code>
-        Xft.dpi: 192
-       </code>
-      </p>
-      <p>
-       (chaning it in
-       <code>
-        ~/.Xresources
-       </code>
-       works as well)
-      </p>
-      <p>
-       <br/>
-       if you remove the dpi line there you can set dpi on the fly via
-      </p>
-      <p>
-       <code>
-        xrandr --dpi x
-       </code>
-      </p>
-      <h3>
-       <span id="How_to_change_the_keyboard_layouts?_(wvkbd/wayland)?">
-       </span>
-       <span class="mw-headline" id="How_to_change_the_keyboard_layouts.3F_.28wvkbd.2Fwayland.29.3F">
-        How to change the keyboard layouts? (wvkbd/wayland)?
-       </span>
-      </h3>
-      <p>
-       edit your .config/sxmo/profile and add default command lines options for wvkbd like this:
-      </p>
-      <p>
-       <code>
-        export KEYBOARD_ARGS="-l full,special -H 200 -fn 'Hack 11'"
-       </code>
-      </p>
-      <p>
-       <br/>
-      </p>
-      <h3>
-       <span class="mw-headline" id="How_to_activate_data">
-        How to activate data
-       </span>
-      </h3>
-      <p>
-       In menu under Networks select 'Add a GSM'.
-      </p>
-      <h3>
-       <span id="How_to_launch_programms_on_startup?">
-       </span>
-       <span class="mw-headline" id="How_to_launch_programms_on_startup.3F">
-        How to launch programms on startup?
-       </span>
-      </h3>
-      <p>
-       If you run dwm, then edit ~/.config/sxmo/xinit.  If you run sway, then edit ~/.config/sxmo/sway.  In either case, you can also copy over /usr/share/sxmo/default_hooks/start to ~/.config/sxmo/hooks/start and edit that file.  NOTE: Make sure you chmod +x ~/.config/smxo/hooks/start.
-      </p>
-      <h3>
-       <span id="mount_/tmp/_in_RAM,_to_save_write_cycles_on_storage_device">
-       </span>
-       <span class="mw-headline" id="mount_.2Ftmp.2F_in_RAM.2C_to_save_write_cycles_on_storage_device">
-        mount /tmp/ in RAM, to save write cycles on storage device
-       </span>
-      </h3>
-      <p>
-       add the following in /etc/fstab
-      </p>
-      <p>
-       <code>
-        tmpfs /tmp tmpfs rw,nodev 0 0
-       </code>
-      </p>
-      <h3>
-       <span class="mw-headline" id="Help_with_adding_cronjobs">
-        Help with adding cronjobs
-       </span>
-      </h3>
-      <p>
-       You can edit your crontab via
-      </p>
-      <p>
-       <code>
-        crontab -e
-       </code>
-      </p>
-      <p>
-       This website
-       <a class="external free" href="https://crontab.guru/" rel="nofollow">
-        https://crontab.guru/
-       </a>
-       has proven useful in making cronjobs.
-      </p>
-      <p>
-       If using mnc, make sure that commands run via sxmo_rtcwake.sh.
-      </p>
-      <p>
-       Example:
-      </p>
-      <p>
-       <code>
-        55-59/2 7 * * 1-5 sxmo_rtcwake.sh /home/user/script
-       </code>
-      </p>
-      <h3>
-       <span id="How_to_customize_the_colours/fonts_of_the_interface?">
-       </span>
-       <span class="mw-headline" id="How_to_customize_the_colours.2Ffonts_of_the_interface.3F">
-        How to customize the colours/fonts of the interface?
-       </span>
-      </h3>
-      <h4>
-       <span id="xorg/dwm">
-       </span>
-       <span class="mw-headline" id="xorg.2Fdwm">
-        xorg/dwm
-       </span>
-      </h4>
-      <p>
-       Get example in the
-       <a class="external text" href="https://git.sr.ht/~tetrakist/sxmo-themes/blob/master/themes/Alpine-Blooms/alpine-blooms.xr" rel="nofollow">
-        alpine blooms theme
-       </a>
-       by Tetrakist, as entries to add in /home/user/.Xresources
-      </p>
-      <h4>
-       <span id="wayland/sway">
-       </span>
-       <span class="mw-headline" id="wayland.2Fsway">
-        wayland/sway
-       </span>
-      </h4>
-      <ul>
-       <li>
-        .config/sxmo/sway
-       </li>
-      </ul>
-      <ul>
-       <li>
-        bemenu parameters through BEMENU_OPTS env variable. for instance in .profile:
-       </li>
-      </ul>
-      <p>
-       <code>
-        export BEMENU_OPTS="--fn 'FiraMono Nerd Font 13' --tf '$MYCOLOR' --tb '#00000090' --nb '#00000090' --nf '$MYCOLOR' --hb '$MYCOLOR' --hf '#000000' --sb '$MYCOLOR' --sf '$MYCOLOR' --scb '#000000' --scf '$MYCOLOR' "
-       </code>
-      </p>
-      <ul>
-       <li>
-        mako config in .config/mako/config
-       </li>
-      </ul>
-      <ul>
-       <li>
-        <a class="external text" href="https://porkyofthepine.org/blog/rice_sxmo_sway.html" rel="nofollow">
-         In depth guide on editing colors in Sway, bemenu, Foot, and wvkbd with all color options detailed.
-        </a>
-        At the bottom of the guide is the link to a script which will do it all for you once you set the colors.
-       </li>
-      </ul>
-      <h3>
-       <span id="Some_notifications_stay_stuck_on_the_screen!">
-       </span>
-       <span class="mw-headline" id="Some_notifications_stay_stuck_on_the_screen.21">
-        Some notifications stay stuck on the screen!
-       </span>
-      </h3>
-      <p>
-       If in dwm:
-      </p>
-      <p>
-       <code>
-        pkill dunst
-       </code>
-      </p>
-      <p>
-       If in sway:
-      </p>
-      <p>
-       <code>
-        pkill mako
-       </code>
-      </p>
-      <p>
-       <br/>
-      </p>
-      <h3>
-       <span id="A_simple_way_to_share_sxmo's_connection_through_USB_(aka_&quot;USB_tethering&quot;)">
-       </span>
-       <span class="mw-headline" id="A_simple_way_to_share_sxmo.27s_connection_through_USB_.28aka_.22USB_tethering.22.29">
-        A simple way to share sxmo's connection through USB (aka "USB tethering")
-       </span>
-      </h3>
-      <p>
-       Select 'Networks' in the menu and add a USB hotspot.
-      </p>
-      <h3>
-       <span id="Where_can_i_read_logs_for_sxmo?">
-       </span>
-       <span class="mw-headline" id="Where_can_i_read_logs_for_sxmo.3F">
-        Where can i read logs for sxmo?
-       </span>
-      </h3>
-      <p>
-       try
-       <code>
-        less /home/user/.local/state/tinydm.log
-       </code>
-       or
-       <code>
-        tail -f /home/user/.local/state/tinydm.log
-       </code>
-      </p>
-      <p>
-       or
-       <code>
-        logread -f
-       </code>
-       for the generic pmOS log, that also displays some of sxmo deamons (modemmanager, etc.) information
-      </p>
-      <h2>
-       <span class="mw-headline" id="Applications_specific">
-        Applications specific
-       </span>
-      </h2>
-      <h3>
-       <span id="What_to_use_for_cartography/navigation?">
-       </span>
-       <span class="mw-headline" id="What_to_use_for_cartography.2Fnavigation.3F">
-        What to use for cartography/navigation?
-       </span>
-      </h3>
-      <p>
-       osmin works well. gps can be used with the package geoclue and running
-       <code>
-        /usr/libexec/geoclue-2.0/demos/agent
-       </code>
-       .
-      </p>
-      <p>
-       Pure-maps sort of works (using OpenTopo or Sputnik tiles), as well as Marble (QT/KDE, heavy...). Unsure yet how to make the GPS work for both of these, but it has reported being feasible...
-      </p>
-      <p>
-       Apparently a good start to enable GPS should be:
-      </p>
-      <p>
-       <code>
-        sudo /etc/gpsd/device-hook "" ACTIVATE
-       </code>
-      </p>
-      <p>
-       Also,
-       <a class="external text" href="https://git.sr.ht/~mil/mepo" rel="nofollow">
-        Mepo, under heavy development
-       </a>
-       , seems promising, and seems already packaged for alpine/postmarketOs in its alpha versions.
-      </p>
-      <p>
-       See
-       <a class="external free" href="https://wiki.postmarketos.org/wiki/Applications_by_category#Geography" rel="nofollow">
-        https://wiki.postmarketos.org/wiki/Applications_by_category#Geography
-       </a>
-       for geography applications.
-      </p>
-      <h3>
-       <span id="QT_app_(vlc-qt,_etc.)_doesnt_fit_the_screen!">
-       </span>
-       <span class="mw-headline" id="QT_app_.28vlc-qt.2C_etc..29_doesnt_fit_the_screen.21">
-        QT app (vlc-qt, etc.) doesnt fit the screen!
-       </span>
-      </h3>
-      <p>
-       try adding the following in your .config/sxmo/xinit
-      </p>
-      <p>
-       <code>
-        export QT_AUTO_SCREEN_SCALE_FACTOR=1
+</p>
+<p><code>
+Xft.dpi: 192
+</code>
+</p>
+<p>(chaning it in <code>~/.Xresources</code> works as well)
+</p>
+<p><br>
+if you remove the dpi line there you can set dpi on the fly via 
+</p>
+<p><code>
+xrandr --dpi x
+</code>
+</p>
+<h3>
+<span id="How_to_change_the_keyboard_layouts?_(wvkbd/wayland)?"></span><span class="mw-headline" id="How_to_change_the_keyboard_layouts.3F_.28wvkbd.2Fwayland.29.3F">How to change the keyboard layouts? (wvkbd/wayland)?</span>
+</h3>
+<p>edit your .config/sxmo/profile and add default command lines options for wvkbd like this:
+</p>
+<p><code>
+export KEYBOARD_ARGS="-l full,special -H 200 -fn 'Hack 11'"
+</code>
+</p>
+<p><br>
+To see a list of possible options for KEYBOARD_ARGS, enter: 
+</p>
+<p><code>
+wvkbd-mobintl --help
+</code>
+</p>
+<p><br>
+Possible keyboard layouts for option <code>-l</code> are: Full, Special, Emoji, Simple, SimpleGrid, Nav, Dialer, Cyrillic, Arabic, Persian, Greek, and Georgian.
+</p>
+<h3>
+<span id="How_to_change_the_size_of_the_virtual_keyboard?"></span><span class="mw-headline" id="How_to_change_the_size_of_the_virtual_keyboard.3F">How to change the size of the virtual keyboard?</span>
+</h3>
+<p>edit KEYBOARD_ARGS in your ~/.config/sxmo/profile and add "-H &lt;height&gt;" to change the portrait height, "-L &lt;height&gt;" to change the landscape height.
+</p>
+<h3><span class="mw-headline" id="How_to_activate_data">How to activate data</span></h3>
+<p>In menu under Networks select 'Add a GSM'.
+</p>
+<h3>
+<span id="How_to_launch_programms_on_startup?"></span><span class="mw-headline" id="How_to_launch_programms_on_startup.3F">How to launch programms on startup?</span>
+</h3>
+<p>If you run dwm, then edit ~/.config/sxmo/xinit.  If you run sway, then edit ~/.config/sxmo/sway.  In either case, you can also copy over /usr/share/sxmo/default_hooks/start to ~/.config/sxmo/hooks/start and edit that file.  NOTE: Make sure you chmod +x ~/.config/smxo/hooks/start.
+</p>
+<h3>
+<span id="mount_/tmp/_in_RAM,_to_save_write_cycles_on_storage_device"></span><span class="mw-headline" id="mount_.2Ftmp.2F_in_RAM.2C_to_save_write_cycles_on_storage_device">mount /tmp/ in RAM, to save write cycles on storage device</span>
+</h3>
+<p>add the following in /etc/fstab 
+</p>
+<p><code>tmpfs /tmp tmpfs rw,nodev 0 0</code>
+</p>
+<h3><span class="mw-headline" id="Help_with_adding_cronjobs">Help with adding cronjobs</span></h3>
+<p>You can edit your crontab via
+</p>
+<p><code>crontab -e</code>
+</p>
+<p>This website <a rel="nofollow" class="external free" href="https://crontab.guru/">https://crontab.guru/</a> has proven useful in making cronjobs.
+</p>
+<p>If using mnc, make sure that commands run via sxmo_rtcwake.sh.
+</p>
+<p>Example:
+</p>
+<p><code>55-59/2 7 * * 1-5 sxmo_rtcwake.sh /home/user/script</code>
+</p>
+<h3>
+<span id="How_to_customize_the_colours/fonts_of_the_interface?"></span><span class="mw-headline" id="How_to_customize_the_colours.2Ffonts_of_the_interface.3F">How to customize the colours/fonts of the interface?</span>
+</h3>
+<h4>
+<span id="xorg/dwm"></span><span class="mw-headline" id="xorg.2Fdwm">xorg/dwm</span>
+</h4>
+<p>Get example in the <a rel="nofollow" class="external text" href="https://git.sr.ht/~tetrakist/sxmo-themes/blob/master/themes/Alpine-Blooms/alpine-blooms.xr">alpine blooms theme</a> by Tetrakist, as entries to add in /home/user/.Xresources
+</p>
+<h4>
+<span id="wayland/sway"></span><span class="mw-headline" id="wayland.2Fsway">wayland/sway</span>
+</h4>
+<ul><li>.config/sxmo/sway</li></ul>
+<ul><li>bemenu parameters through BEMENU_OPTS env variable. for instance in .profile:</li></ul>
+<p><code>export BEMENU_OPTS="--fn 'FiraMono Nerd Font 13' --tf '$MYCOLOR' --tb '#00000090' --nb '#00000090' --nf '$MYCOLOR' --hb '$MYCOLOR' --hf '#000000' --sb '$MYCOLOR' --sf '$MYCOLOR' --scb '#000000' --scf '$MYCOLOR' "</code>
+</p>
+<ul><li>mako config in .config/mako/config</li></ul>
+<ul><li>
+<a rel="nofollow" class="external text" href="https://porkyofthepine.org/blog/rice_sxmo_sway.html">In depth guide on editing colors in Sway, bemenu, Foot, and wvkbd with all color options detailed.</a> At the bottom of the guide is the link to a script which will do it all for you once you set the colors.</li></ul>
+<h3>
+<span id="Some_notifications_stay_stuck_on_the_screen!"></span><span class="mw-headline" id="Some_notifications_stay_stuck_on_the_screen.21">Some notifications stay stuck on the screen!</span>
+</h3>
+<p>If in dwm:
+</p>
+<p><code>pkill dunst</code>
+</p>
+<p>If in sway:
+</p>
+<p><code>pkill mako</code>
+</p>
+<p><br>
+</p>
+<h3>
+<span id="A_simple_way_to_share_sxmo's_connection_through_USB_(aka_&quot;USB_tethering&quot;)"></span><span class="mw-headline" id="A_simple_way_to_share_sxmo.27s_connection_through_USB_.28aka_.22USB_tethering.22.29">A simple way to share sxmo's connection through USB (aka "USB tethering")</span>
+</h3>
+<p>Select 'Networks' in the menu and add a USB hotspot.
+</p>
+<p><br>
+On your connecting device, you may need to configure IPv4 configuration Manually, as your pmOS device is not going to act as a DHCP server by default.
+Set "Addresses" to 10.42.0.2/24, and set Gateway to 10.42.0.1 (which is your pmOS device's address). If you're running DNSmasq, you may also use that for DNS server, otherwise set DNS server to your favorite server.
+</p>
+<h3>
+<span id="Where_can_i_read_logs_for_sxmo?"></span><span class="mw-headline" id="Where_can_i_read_logs_for_sxmo.3F">Where can i read logs for sxmo?</span>
+</h3>
+<p>try
+<code>less /home/user/.local/state/tinydm.log</code> 
+or
+<code>tail -f /home/user/.local/state/tinydm.log</code>
+</p>
+<p>or
+<code>logread -f</code> for the generic pmOS log, that also displays some of sxmo deamons (modemmanager, etc.) information
+</p>
+<h2><span class="mw-headline" id="Applications_specific">Applications specific</span></h2>
+<h3>
+<span id="What_to_use_for_cartography/navigation?"></span><span class="mw-headline" id="What_to_use_for_cartography.2Fnavigation.3F">What to use for cartography/navigation?</span>
+</h3>
+<p>osmin works well. gps can be used with the package geoclue and running
+<code> /usr/libexec/geoclue-2.0/demos/agent </code>.
+</p>
+<p>Pure-maps sort of works (using OpenTopo or Sputnik tiles), as well as Marble (QT/KDE, heavy...). Unsure yet how to make the GPS work for both of these, but it has reported being feasible...
+</p>
+<p>Apparently a good start to enable GPS should be:
+</p>
+<p><code>sudo /etc/gpsd/device-hook "" ACTIVATE</code>
+</p>
+<p>Also, <a rel="nofollow" class="external text" href="https://git.sr.ht/~mil/mepo">Mepo, under heavy development</a>, seems promising, and seems already packaged for alpine/postmarketOs in its alpha versions.
+</p>
+<p>See <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/Applications_by_category#Geography">https://wiki.postmarketos.org/wiki/Applications_by_category#Geography</a> for geography applications.
+</p>
+<h3>
+<span id="QT_app_(vlc-qt,_etc.)_doesnt_fit_the_screen!"></span><span class="mw-headline" id="QT_app_.28vlc-qt.2C_etc..29_doesnt_fit_the_screen.21">QT app (vlc-qt, etc.) doesnt fit the screen!</span>
+</h3>
+<p>try adding the following in your .config/sxmo/xinit 
+</p>
+<p><code>
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
 export QT_SCALE_FACTOR=0.7
-       </code>
-      </p>
-      <p>
-       (change the factor until it suits your need)
-      </p>
-      <h3>
-       <span class="mw-headline" id="Cmus:_the_application_related_bemenu_is_not_loaded_as_soon_as_a_song_is_played.">
-        Cmus: the application related bemenu is not loaded as soon as a song is played.
-       </span>
-      </h3>
-      <p>
-       change the title of the terminal in the cmus config file
-       <code>
-        $XDG_CONFIG_HOME/cmus/rc
-       </code>
-       to contain the string "cmus":
-      </p>
-      <p>
-       <code>
-        echo "set format_title= %a %t %c cmus" &gt;&gt; .config/cmus/rc
-       </code>
-      </p>
-      <h3>
-       <span class="mw-headline" id="Flatpak">
-        Flatpak
-       </span>
-      </h3>
-      <p>
-       If you use
-       <a href="../en/Flatpak.html" title="Flatpak">
-        Flatpak
-       </a>
-       apps, you probably will have problems with sound. That is because Flatpak requires a PulseAudio-compatible sound server, but SXMO uses by default only ALSA. To install and setup PipeWire as well as its PulseAudio implementation, please refer to
-       <a class="external text" href="https://man.sr.ht/~anjan/sxmo-docs/USERGUIDE.md#strongbluetooth-pipewire-and-pulseaudio-supportstrong" rel="nofollow">
-        SXMO's documentation
-       </a>
-       .
-      </p>
-      <p>
-       NB: it seems that as of latest (1.8.2 at time of writing), pipewire now comes as default in sxmo
-      </p>
-      <h2>
-       <span id="Extra_features,_advanced_tweaking">
-       </span>
-       <span class="mw-headline" id="Extra_features.2C_advanced_tweaking">
-        Extra features, advanced tweaking
-       </span>
-      </h2>
-      <h3>
-       <span id="A_Wayland_version_of_Sxmo,_really??">
-       </span>
-       <span class="mw-headline" id="A_Wayland_version_of_Sxmo.2C_really.3F.3F">
-        A Wayland version of Sxmo, really??
-       </span>
-      </h3>
-      <p>
-       Yes. Really!  It's the default now.  Use WM Toggle in the menu under 'Power' to toggle between dwm and sway.
-      </p>
-      <h3>
-       <span id="How_to_Add_Apps_to_the_List?">
-       </span>
-       <span class="mw-headline" id="How_to_Add_Apps_to_the_List.3F">
-        How to Add Apps to the List?
-       </span>
-      </h3>
-      <p>
-       Copy /usr/share/sxmo/default_hooks/apps ~/.config/sxmo/hooks/apps and edit that file. NOTE: make sure you chmod +x ~/.config/sxmo/hooks/apps
-      </p>
-     </div>
-    </div>
-    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Sxmo/Tips_and_Tricks&amp;oldid=30260">
-      https://wiki.postmarketos.org/index.php?title=Sxmo/Tips_and_Tricks&amp;oldid=30260
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 16 August 2022, at 18:37.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Sxmo/Tips_and_Tricks&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+</code>
+</p>
+<p>(change the factor until it suits your need)
+</p>
+<p>You can also copy <a rel="nofollow" class="external free" href="https://git.sr.ht/~anjan/sxmo-userscripts/tree/master/item/scripts/scale_display.sh">https://git.sr.ht/~anjan/sxmo-userscripts/tree/master/item/scripts/scale_display.sh</a> to ~/.config/sxmo/userscripts/scale_display.sh
+</p>
+<h3><span class="mw-headline" id="Cmus:_the_application_related_bemenu_is_not_loaded_as_soon_as_a_song_is_played.">Cmus: the application related bemenu is not loaded as soon as a song is played.</span></h3>
+<p>change the title of the terminal in the cmus config file <code>$XDG_CONFIG_HOME/cmus/rc</code> to contain the string "cmus": 
+</p>
+<p><code>
+echo "set format_title= %a %t %c cmus" &gt;&gt; .config/cmus/rc
+</code>
+</p>
+<h3><span class="mw-headline" id="Flatpak">Flatpak</span></h3>
+<p>If you use <a href="../en/Flatpak.html" title="Flatpak">Flatpak</a> apps, you probably will have problems with sound. That is because Flatpak requires a PulseAudio-compatible sound server, but SXMO uses by default only ALSA. To install and setup PipeWire as well as its PulseAudio implementation, please refer to <a rel="nofollow" class="external text" href="https://man.sr.ht/~anjan/sxmo-docs/USERGUIDE.md#strongbluetooth-pipewire-and-pulseaudio-supportstrong">SXMO's documentation</a>.
+</p>
+<p>NB: it seems that as of latest (1.8.2 at time of writing), pipewire now comes as default in sxmo
+</p>
+<h3><span class="mw-headline" id="Telegram_Desktop">Telegram Desktop</span></h3>
+<p>The onscreen keyboard may overlap the text input field on Wayland. See <a rel="nofollow" class="external free" href="https://github.com/telegramdesktop/tdesktop/issues/3274">https://github.com/telegramdesktop/tdesktop/issues/3274</a> . As a workaround set the scaling to 1.75 or less via <code>SXMO_SWAY_SCALE</code> in <code>$HOME/.config/sxmo/profile</code>.
+</p>
+<p>Additionally the window decorations can be removed via Telegram Settings &gt; Advanced &gt; System Integration &gt; Use System Window Frame &gt; Enable (restart required).
+</p>
+<h2>
+<span id="Extra_features,_advanced_tweaking"></span><span class="mw-headline" id="Extra_features.2C_advanced_tweaking">Extra features, advanced tweaking</span>
+</h2>
+<h3>
+<span id="A_Wayland_version_of_Sxmo,_really??"></span><span class="mw-headline" id="A_Wayland_version_of_Sxmo.2C_really.3F.3F">A Wayland version of Sxmo, really??</span>
+</h3>
+<p>Yes. Really!  It's the default now.  Use WM Toggle in the menu under 'Power' to toggle between dwm and sway.
+</p>
+<h3>
+<span id="How_to_Add_Apps_to_the_List?"></span><span class="mw-headline" id="How_to_Add_Apps_to_the_List.3F">How to Add Apps to the List?</span>
+</h3>
+<p>Copy /usr/share/sxmo/default_hooks/sxmo_hook_apps.sh ~/.config/sxmo/hooks/sxmo_hook_apps.sh and edit that file. NOTE: make sure you chmod +x ~/.config/sxmo/hooks/sxmo_hook_apps.sh
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Sxmo/Tips_and_Tricks&amp;oldid=44169">https://wiki.postmarketos.org/index.php?title=Sxmo/Tips_and_Tricks&amp;oldid=44169</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 16 May 2023, at 21:39.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Sxmo/Tips_and_Tricks&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>
