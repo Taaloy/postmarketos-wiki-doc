@@ -196,9 +196,10 @@ yes</td>
 </tbody>
 </table>
 <p><br>
-The Amlogic S905, also known as Meson GXBB in the Linux kernel, is a high-end media player SoC mainly used in Android set top boxes.
+The Amlogic S905, also known as Meson GXBB, is a fairly capable high-end media player SoC mainly used in Android set-top boxes.
 It's capable of hardware decoding up to 4K@60fps, for multiple formats including H.264, AVS+, and 10-bit, and part of the 
-S9 family of Amlogic chipsets.
+S9 family of Amlogic chipsets. It has great U-Boot and mainline Linux support, making it a great candidate for building a 
+set-top box or single-board computer powered by postmarketOS.
 </p>
 <p>There's also the Amlogic S905-H SoC, which merely just includes Dolby licenses. 
 </p>
@@ -221,20 +222,62 @@ S9 family of Amlogic chipsets.
 </tr>
 </tbody>
 </table>
+<h2><span class="mw-headline" id="Boot_process">Boot process</span></h2>
+<p><i>See: <a href="../en/Amlogic.html#Boot_process" title="Amlogic">Amlogic#Boot process</a></i>
+</p>
+<p>BL1 looks for a valid and signed BL2 at different offsets depending on the storage media:
+</p>
+<ul>
+<li>On eMMC: offset 0, header and checksum from offset 528 to 623, BL2 and FIP at offset 4608 onwards</li>
+<li>On an SD card: offset 512, header and checksum from offset 16 to 111, BL2 and FIP at offset 4096 onwards</li>
+</ul>
+<p>There's a bug where, because of the zero-offset requirement on eMMC, MBR structures cannot coexist, requiring tweaks to 
+allow an MBR parition table to coexist. Further reading: <a rel="nofollow" class="external free" href="https://github.com/LibreELEC/amlogic-boot-fip/pull/8">https://github.com/LibreELEC/amlogic-boot-fip/pull/8</a>
+</p>
+<p>BL2 is signed by using a proprietary utility from Amlogic called <code>aml_encrypt_gxb</code>, for example:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> aml_encrypt_gxb --bootsig --input boot_new.bin --output u-boot.img
+</pre></div>
+<p>There's a replacement for <code>aml_encrypt_gxb</code> called <code>amlbootsig</code>. See <a rel="nofollow" class="external free" href="https://github.com/afaerber/meson-tools">https://github.com/afaerber/meson-tools</a>. For example, one could use:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> amlbootsig boot_new.bin u-boot.img
+</pre></div>
+<p>It has been confirmed to work on ODROID-C2 and <a href="../en/Videostrong_KII_Pro_(videostrong-kii-pro).html" title="Videostrong KII Pro (videostrong-kii-pro)">Videostrong KII Pro (videostrong-kii-pro)</a>.
+</p>
 <h2><span class="mw-headline" id="Status">Status</span></h2>
 <h3><span class="mw-headline" id="GPU_and_hardware_acceleration">GPU and hardware acceleration</span></h3>
 <p>Works. Lima is used for hardware acceleration.
 </p>
 <h3><span class="mw-headline" id="IR_RX">IR RX</span></h3>
-<p>Works. Be sure to include the right IR decoders into your kernel (e.g. NEC on <a href="../en/Videostrong_KII_Pro_(videostrong-kii-pro).html" title="Videostrong KII Pro (videostrong-kii-pro)">Videostrong KII Pro (videostrong-kii-pro)</a>), but otherwise doesn't require much configuration.
+<p>Works. Aftermarket and original IR remotes are expected to work out of the box (as seen on <a href="../en/Videostrong_KII_Pro_(videostrong-kii-pro).html" title="Videostrong KII Pro (videostrong-kii-pro)">Videostrong KII Pro (videostrong-kii-pro)</a>). Doesn't require much configuration.
 </p>
 <h3><span class="mw-headline" id="Audio">Audio</span></h3>
 <p>Works. Requires a device tree patch on the <a href="../en/Videostrong_KII_Pro_(videostrong-kii-pro).html" title="Videostrong KII Pro (videostrong-kii-pro)">Videostrong KII Pro (videostrong-kii-pro)</a>,  that adds the appropriate nodes (else the card is never pobed) which is slowly making its way upstream. HDMI audio works, but S/PDIF is untested.
 </p>
 <h3><span class="mw-headline" id="Hardware_decoding_and_encoding">Hardware decoding and encoding</span></h3>
+<p><i>See: <a rel="nofollow" class="external free" href="https://libera.irclog.whitequark.org/linux-amlogic/2023-02-10">https://libera.irclog.whitequark.org/linux-amlogic/2023-02-10</a></i>
+</p>
 <p>The Amlogic S905(-H) supports hardware decoding up to 4K@60fps, but in the mainline kernel it's limited to 1080p.
 Downstream kernels relied on lengthy hacks to get it working up to 4K, and thus they were not included in the mainline 
 kernel (to their defense Amlogic did successfully enable 4K playback on 3.x kernels).
+</p>
+<p>To get hardware encoding to work, refer to <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/4071?commit_id=1904830a206a2e886b547cfd9f7fdde61221c52f#note_1386135438">this issue comment</a>. It boils down to:
+</p>
+<ul>
+<li>Making sure CONFIG_VIDEO_MESON_VDEC is set: <code>zcat /proc/config.gz | grep CONFIG_VIDEO_MESON_VDEC</code> (See <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/4071">pmaports!4071</a>)</li>
+<li>Build FFmpeg from <a rel="nofollow" class="external free" href="https://github.com/jc-kynesim/rpi-ffmpeg/commits/dev/4.4/rpi_import_1">https://github.com/jc-kynesim/rpi-ffmpeg/commits/dev/4.4/rpi_import_1</a>
+</li>
+</ul>
+<p>There are some issues, however:
+</p>
+<ul>
+<li>Needs non-free firmware</li>
+<li>10-bit media (e.g. 4K) won't work</li>
+<li>MPEG1/2/4 support is broken</li>
+</ul>
+<p>So sometimes you may want to resort to using software decoding.
+</p>
+<p>Hardware encoding doesn't work yet.
 </p>
 <h3><span class="mw-headline" id="Suspend">Suspend</span></h3>
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
@@ -244,40 +287,31 @@ kernel (to their defense Amlogic did successfully enable 4K playback on 3.x kern
 <h3><span class="mw-headline" id="DVB">DVB</span></h3>
 <p>Needs a demux driver.
 </p>
-<h3><span class="mw-headline" id="HDMI">HDMI</span></h3>
-<p>Works.
-</p>
-<h3><span class="mw-headline" id="USB-A">USB-A</span></h3>
-<p>Works.
-</p>
 <h3><span class="mw-headline" id="OTG">OTG</span></h3>
 <p>Untested. Broken according to linux-meson.com
 </p>
-<table role="text container" style="color: inherit; background-color: #fdd1d1; border: 1px solid #b60000; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">
-<b>TODO:</b> Add more sections...</td>
-</tr></tbody></table>
-<p><br>
+<h3><span class="mw-headline" id="U-Boot">U-Boot</span></h3>
+<p>Most (all?) set-top boxes based on this SoC use U-Boot as their primary bootloader, but mainline U-Boot has great support for this 
+SoC. Running mainline U-Boot as the primary bootloader and as the secondary bootloader works fine. If you want to use U-Boot as the 
+primary bootloader, refer to <a href="../en/Videostrong_KII_Pro_(videostrong-kii-pro)_U-Boot_as_primary_bootloader.html" title="Videostrong KII Pro (videostrong-kii-pro)/U-Boot as primary bootloader">Videostrong KII Pro (videostrong-kii-pro)/U-Boot as primary bootloader</a>, replacing mentions of <code>wetek-play2</code>
+with your device or one close enough (which have RAM timings that work on your device). Please note that BL2 and BL30 are proprietary; there's an on-going 
+effort on porting mainline Arm Trusted Firmware-A to <a href="../en/Videostrong_KII_Pro_(videostrong-kii-pro).html" title="Videostrong KII Pro (videostrong-kii-pro)">Videostrong KII Pro (videostrong-kii-pro)</a>.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a href="../en/Videostrong_KII_Pro_(videostrong-kii-pro).html" title="Videostrong KII Pro (videostrong-kii-pro)">Videostrong KII Pro (videostrong-kii-pro)</a></li>
 <li><a href="../en/Amlogic.html" title="Amlogic">Amlogic</a></li>
 <li><a href="../en/Amlogic_Porting_set_top_boxes.html" title="Amlogic/Porting set top boxes">Port STBs to postmarketOS</a></li>
-<li><a rel="nofollow" class="external text" href="https://git.vitali64.duckdns.org/misc/trustedfirmware-a.git/">Bare-bones WIP BL2 port (for gxbb) (DON'T USE IT IF YOU'RE A REGULAR USER)</a></li>
-</ul>
-<ul><li>
-<a rel="nofollow" class="external text" href="https://github.com/hardkernel/u-boot/tree/be63a06fa3d50dd2410e2e722d1f8bafe7370abd/arch/arm/cpu/armv8/common/firmware">Old GXBB's BL2 sources from before Amlogic made it proprietary (based on TF-A code)</a>
+<li><a rel="nofollow" class="external text" href="https://git.vitali64.duckdns.org/misc/trustedfirmware-a.git/">Bare-bones WIP BL2 port (DON'T USE IT IF YOU'RE A REGULAR USER)</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/hardkernel/u-boot/tree/be63a06fa3d50dd2410e2e722d1f8bafe7370abd/arch/arm/cpu/armv8/common/firmware">Old BL2 sources from before Amlogic made it proprietary (based on TF-A code)</a>
 <ul><li><a rel="nofollow" class="external text" href="https://git.vitali64.duckdns.org/archive/amlogic-bl2.git/">Mirror</a></li></ul>
-</li></ul>
+</li>
+</ul>
 </div></div>
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../en/Category:Socs.html" title="Category:Socs">Socs</a></li>
-<li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li>
-</ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Socs.html" title="Category:Socs">Socs</a></li></ul>
 </div></div>
 		<div class="visualClear"></div>
 		
@@ -287,9 +321,9 @@ kernel (to their defense Amlogic did successfully enable 4K playback on 3.x kern
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Amlogic_S905(-H)&amp;oldid=44198">https://wiki.postmarketos.org/index.php?title=Amlogic_S905(-H)&amp;oldid=44198</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Amlogic_S905(-H)&amp;oldid=44479">https://wiki.postmarketos.org/index.php?title=Amlogic_S905(-H)&amp;oldid=44479</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 18 May 2023, at 01:30.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 27 May 2023, at 08:40.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

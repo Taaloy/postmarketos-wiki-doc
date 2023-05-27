@@ -631,16 +631,16 @@ $ fastboot reboot
 <p>Disabling the remote processors frees up a bit of RAM that they would otherwise use (~80 MB of ram for modem) so you may want to disable the modem if you install the system on an APQ8016 device where the modem core is currently unused.
 </p>
 <h2><span class="mw-headline" id="Display">Display</span></h2>
-<p>There are a common issue of the display cant wake up on xorg.
+<p>There's a common issue that the display cant wake up on Xorg.
 </p>
-<p>Here is the kernel log of the issue :
+<p>Here is the kernel log of the issue:
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>[  400.315351] panel-yushun-nt35520 1a98000.dsi.0: Failed to initialize panel: -22
 [  400.315413] dsi_mgr_bridge_pre_enable: prepare panel 0 failed, -22
 </pre></div>
-<p>This issue has be confim to be occur on <a href="../en/Samsung_Galaxy_S4_Mini_Value_Edition_(samsung-serranove).html" title="Samsung Galaxy S4 Mini Value Edition (samsung-serranove)">Samsung Galaxy S4 Mini Value Edition (samsung-serranove)</a> , <a href="../en/Xiaomi_Redmi_2_(xiaomi-wt88047).html" title="Xiaomi Redmi 2 (xiaomi-wt88047)">Xiaomi Redmi 2 (xiaomi-wt88047)</a> , <a href="../en/BQ_Aquaris_X5_(bq-paella).html" title="BQ Aquaris X5 (bq-paella)">BQ Aquaris X5 (bq-paella)</a>, <a href="../en/Samsung_Galaxy_A5_2015_(samsung-a5).html" title="Samsung Galaxy A5 2015 (samsung-a5)">Samsung Galaxy A5 2015 (samsung-a5)</a>
+<p>This issue has been confimed to occur on <a href="../en/Samsung_Galaxy_S4_Mini_Value_Edition_(samsung-serranove).html" title="Samsung Galaxy S4 Mini Value Edition (samsung-serranove)">Samsung Galaxy S4 Mini Value Edition (samsung-serranove)</a>, <a href="../en/Xiaomi_Redmi_2_(xiaomi-wt88047).html" title="Xiaomi Redmi 2 (xiaomi-wt88047)">Xiaomi Redmi 2 (xiaomi-wt88047)</a>, <a href="../en/BQ_Aquaris_X5_(bq-paella).html" title="BQ Aquaris X5 (bq-paella)">BQ Aquaris X5 (bq-paella)</a>, <a href="../en/Samsung_Galaxy_A5_2015_(samsung-a5).html" title="Samsung Galaxy A5 2015 (samsung-a5)">Samsung Galaxy A5 2015 (samsung-a5)</a>, <a href="../en/ASUS_ZenFone_2_Laser_(720p)_(asus-z00l).html" title="ASUS ZenFone 2 Laser (720p) (asus-z00l)">ASUS ZenFone 2 Laser (720p) (asus-z00l)</a>
 </p>
-<p>There are a untested patch that could probably address this issue:
+<p>There's an untested patch that could probably address this issue:
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gh">diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c</span>
 <span class="gh">index 0b516a0..a24504d 100644</span>
@@ -855,9 +855,9 @@ error: couldn't enable the modem: 'GDBus.Error:org.freedesktop.ModemManager1.Err
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_410/412_(MSM8916)&amp;oldid=44039">https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_410/412_(MSM8916)&amp;oldid=44039</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_410/412_(MSM8916)&amp;oldid=44447">https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_410/412_(MSM8916)&amp;oldid=44447</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 7 May 2023, at 16:26.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 25 May 2023, at 14:49.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

@@ -226,7 +226,7 @@ handset</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">USB OTG / USB-C Role switching</th>
+<th scope="row" style="text-align:left;">USB OTG</th>
     <td class="" style="">
 <div class="feature feature-no">Broken</div>
 </td>
@@ -252,19 +252,19 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Magnetometer</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Ambient Light</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Proximity</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
@@ -276,7 +276,7 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Barometer</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
@@ -294,7 +294,7 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Camera Flash</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
@@ -442,6 +442,8 @@ fastboot: error: Command failed
 <h3><span class="mw-headline" id="Display">Display</span></h3>
 <p>The panel works. Note that the XL variant has 2 different panels.
 </p>
+<p>The full panel driver is loaded late in the boot process so that unl0kr and osk-sdl work. This makes pbsplash small and makes it disappear.
+</p>
 <h3><span class="mw-headline" id="Fingerprint_sensor">Fingerprint sensor</span></h3>
 <p>This device has the FPC1020 fingerprint sensor. A driver is being worked on <a rel="nofollow" class="external text" href="https://gitlab.com/msm8996-mainline/linux/-/commits/msm8996-staging-fingerprint">here</a> but doesn't seem to be ready yet.
 </p>
@@ -455,7 +457,9 @@ fastboot: error: Command failed
 <p>NFC card detection works. Nothing else was tested. The embedded secure element seems to have no driver support.
 </p>
 <h3><span class="mw-headline" id="WiFi">WiFi</span></h3>
-<p>You don't get the same MAC address as on Android, even though it is possible to detect the MAC address that Android uses (somewhere in /sys/firmware/devicetree/base/chosen/cdt/cdb2/wlan_mac1).
+<p>You don't get the same MAC address as on Android, even though it is possible to detect the MAC address that Android uses (somewhere in /sys/firmware/devicetree/base/chosen/cdt/cdb2/wlan_mac1). Instead, it is generated with the serial number.
+</p>
+<p>WiFi hotspots are on the same interface as the one used to connect to WiFi, so a hotspot cannot be set up over a WiFi connection.
 </p>
 <h3><span class="mw-headline" id="Calls">Calls</span></h3>
 <p>It seems to be possible to initiate calls. However, this is useless because there is no call audio.
@@ -493,9 +497,9 @@ fastboot: error: Command failed
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)&amp;oldid=43174">https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)&amp;oldid=43174</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)&amp;oldid=44361">https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)&amp;oldid=44361</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:33.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 23 May 2023, at 01:44.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

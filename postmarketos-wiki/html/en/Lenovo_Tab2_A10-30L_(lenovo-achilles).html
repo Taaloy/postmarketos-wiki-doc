@@ -50,7 +50,7 @@ Tab2 A10-30L (TB2-X30L)</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Codename</th>
     <td class="" style="">
-achilles</td>
+lenovo-achilles</td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Released</th>
@@ -134,7 +134,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Touchscreen</th>
     <td class="" style="">
-<div class="feature feature-partial">Partial</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -194,7 +194,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">GPS</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -212,11 +212,11 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Calls</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">USB OTG / USB-C Role switching</th>
+<th scope="row" style="text-align:left;">USB OTG</th>
     <td class="" style="">
 <div></div>
 </td>
@@ -224,7 +224,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">NFC</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr><td colspan="2" style="text-align:right"></td></tr>
@@ -302,19 +302,19 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">USB-A</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Video and audio output with HDMI or Display Port works.">HDMI/DP</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Ir TX</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -356,24 +356,14 @@ armv7</td>
 </p>
 <p><br>
 </p>
-<div id="toc" class="toc">
-<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
-<h2>Contents</h2>
-<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
-</div>
-<ul>
-<li class="toclevel-1 tocsection-1"><a href="#Contributors"><span class="tocnumber">1</span> <span class="toctext">Contributors</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#Users_owning_this_device"><span class="tocnumber">2</span> <span class="toctext">Users owning this device</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#How_to_enter_flash_mode"><span class="tocnumber">3</span> <span class="toctext">How to enter flash mode</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#Installation"><span class="tocnumber">4</span> <span class="toctext">Installation</span></a></li>
-<li class="toclevel-1 tocsection-5"><a href="#Display_issues"><span class="tocnumber">5</span> <span class="toctext">Display issues</span></a></li>
-<li class="toclevel-1 tocsection-6"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
-</ul>
-</div>
-
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
 <ul><li>Ale000</li></ul>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
+<div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
+<li><a href="../User:Morphine.html" title="User:Morphine">Morphine</a></li>
+</ul></div>
+<p><br>
+</p>
 <h2><span class="mw-headline" id="How_to_enter_flash_mode">How to enter flash mode</span></h2>
 <p>Power off the tablet, then hold Volume Down when powering on. After a vibration the screen will get stuck on the Lenovo logo, this means fastboot mode is active.
 </p>
@@ -392,9 +382,12 @@ pmbootstrap install --android-recovery-zip
 <pre>pmbootstrap flasher --method=adb sideload
 </pre>
 <h2><span class="mw-headline" id="Display_issues">Display issues</span></h2>
-<p>The current state is: booting with graphical issues. Pixels are not correctly aligned like <a rel="nofollow" class="external text" href="https://user-images.githubusercontent.com/315080/30261765-c28df28e-96d6-11e7-971a-fd031704a810.jpg">here</a>. The system boots and works (ssh and touchscreen are both usable).
+<p>The current state is: booting with graphical issues. Pixels are not correctly aligned like <a rel="nofollow" class="external text" href="https://user-images.githubusercontent.com/315080/30261765-c28df28e-96d6-11e7-971a-fd031704a810.jpg">here</a>. The system boots and works fine (ssh and touchscreen are both usable).
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/4103">pmaports!4103</a> Initial merge request</li></ul>
+
 </div></div>
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
@@ -412,9 +405,9 @@ pmbootstrap install --android-recovery-zip
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Lenovo_Tab2_A10-30L_(lenovo-achilles)&amp;oldid=44051">https://wiki.postmarketos.org/index.php?title=Lenovo_Tab2_A10-30L_(lenovo-achilles)&amp;oldid=44051</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Lenovo_Tab2_A10-30L_(lenovo-achilles)&amp;oldid=44410">https://wiki.postmarketos.org/index.php?title=Lenovo_Tab2_A10-30L_(lenovo-achilles)&amp;oldid=44410</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 7 May 2023, at 17:51.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 24 May 2023, at 07:56.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

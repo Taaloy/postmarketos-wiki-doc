@@ -89,6 +89,18 @@ SoCs used in televisions.
 <td class="field_Mainline"></td>
 </tr>
 <tr>
+<td class="field_Device"><a href="../en/Amediatech_X96_air_(amediatech-x96-air).html" title="Amediatech X96 air (amediatech-x96-air)">Amediatech x96 Air</a></td>
+<td class="field_Chipset">Amlogic S905X3</td>
+<td class="field_Booting">Yes</td>
+<td class="field_Mainline">Y</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Amediatech_X96_max_plus_(amediatech-x96-max-plus).html" title="Amediatech X96 max plus (amediatech-x96-max-plus)">Amediatech x96 Max Plus</a></td>
+<td class="field_Chipset">Amlogic S905X3</td>
+<td class="field_Booting">Yes</td>
+<td class="field_Mainline">Y</td>
+</tr>
+<tr>
 <td class="field_Device"><a href="../en/Amediatech_X96_mini_(amediatech-x96-mini).html" title="Amediatech X96 mini (amediatech-x96-mini)">Amediatech x96 mini</a></td>
 <td class="field_Chipset">Amlogic S905W</td>
 <td class="field_Booting">Yes</td>
@@ -172,9 +184,15 @@ SoCs used in televisions.
 <td class="field_Booting">Yes</td>
 <td class="field_Mainline"></td>
 </tr>
+<tr>
+<td class="field_Device"><a href="../en/Xiaomi_Mi_TV_Stick_(xiaomi-aquaman).html" title="Xiaomi Mi TV Stick (xiaomi-aquaman)">Xiaomi Mi TV Stick</a></td>
+<td class="field_Chipset">Amlogic S805Y</td>
+<td class="field_Booting">No</td>
+<td class="field_Mainline"></td>
+</tr>
 </tbody>
 </table>
-<h2><span class="mw-headline" id="SoCs_Page">SoCs Page</span></h2>
+<h2><span class="mw-headline" id="Supported_SoCs">Supported SoCs</span></h2>
 <table class="cargoTable noMerge sortable">
 <thead><tr>
 <th class="field_SoC">SoC</th>
@@ -256,7 +274,7 @@ they're the same as the non-H counterparts.
 <p><br>
 </p>
 <h2><span class="mw-headline" id="Boot_process">Boot process</span></h2>
-<p>Generally, the bootrom of Amlogic-based devices either boot to:
+<p>Generally, the boot ROM (=BL1) of Amlogic-based devices either boot to:
 </p>
 <ul>
 <li>SPI NOR</li>
@@ -265,9 +283,9 @@ they're the same as the non-H counterparts.
 <li>an SD card</li>
 <li>USB (via a custom protocol)</li>
 </ul>
-<p>You can force them to boot from an SD card by using a <a rel="nofollow" class="external text" href="https://github.com/superna9999/linux/wiki/Amlogic-HDMI-Boot-Dongle">HDMI dongle</a>.
+<p>You can force them to boot from an SD card or USB (via Amlogic's in-house protocol) by using a <a rel="nofollow" class="external text" href="https://github.com/superna9999/linux/wiki/Amlogic-HDMI-Boot-Dongle">HDMI dongle</a>. This is a suitable alternative for those who want to boot to an SD card without wiping everything else, and for devices that have a locked flash mode that would be bricked if the eMMC is wiped.
 </p>
-<p>Most set top boxes have U-Boot on the eMMC, which then (for some reason) looks for the following U-Boot scripts 
+<p>Most set-top boxes have U-Boot on the eMMC, which then (for some reason) looks for the following U-Boot scripts if a "multiboot" mode is triggered
 on either an SD card or a USB device (FAT32 boot partition!):
 </p>
 <ul>
@@ -278,10 +296,16 @@ on either an SD card or a USB device (FAT32 boot partition!):
 </ul>
 <p>If it doesn't find either ones, it'll boot to Android.
 </p>
+<p>Triggering "multiboot" mode depends on the set-top box, but they generally have a button at the bottom or hidden inside the AV port. Press it while booting up.
+</p>
 <p>We use this quirk to load a mainline U-Boot and then boot postmarketOS (see soc-amlogic-s905).
 </p>
-<h3><span class="mw-headline" id="Flashing">Flashing</span></h3>
-<h4><span class="mw-headline" id="Amlogic_USB_Burning_tool">Amlogic USB Burning tool</span></h4>
+<p>Sometimes, however, the "multiboot" mode isn't available on some devices or after some Android TV upgrades; that is the case for the <a href="../en/Xiaomi_Mi_Box_3_(xiaomi-once).html" title="Xiaomi Mi Box 3 (xiaomi-once)">Xiaomi Mi Box 3 (xiaomi-once)</a>, which doesn't have this feature unless you downgrade to Android 8 or lower.
+</p>
+<p>Depending on the SoC family, what happens before U-Boot runs may differ; refer to their respective SoC page.
+</p>
+<h2><span class="mw-headline" id="Flashing">Flashing</span></h2>
+<h3><span class="mw-headline" id="Amlogic_USB_Burning_tool">Amlogic USB Burning tool</span></h3>
 <p>The Amlogic USB Burning tool is Amlogic's proprietary flashing software. It's used to flash Amlogic devices by 
 using Amlogic's in-house protocol. It only works on Microsoft Windows.
 </p>
@@ -298,7 +322,7 @@ It has a Microsoft Windows version and a GNU+Linux version.
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
 <td style="padding: 0.35em 0.9em; width: 100%;">aml-flash-tool bundles an ARM build of the CLI tool.</td>
 </tr></tbody></table>
-<h4><span class="mw-headline" id="pyamlboot">pyamlboot</span></h4>
+<h3><span class="mw-headline" id="pyamlboot">pyamlboot</span></h3>
 <p>pyamlboot is an effort to reverse-engineer Amlogic's custom USB boot protocol. It allows you to boot any binary you want (depending on the device).
 Instructions on how to use it can be found on the GitHub page linked below.
 </p>
@@ -325,9 +349,9 @@ Instructions on how to use it can be found on the GitHub page linked below.
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Amlogic&amp;oldid=44200">https://wiki.postmarketos.org/index.php?title=Amlogic&amp;oldid=44200</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Amlogic&amp;oldid=44477">https://wiki.postmarketos.org/index.php?title=Amlogic&amp;oldid=44477</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 18 May 2023, at 01:31.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 27 May 2023, at 08:25.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

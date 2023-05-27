@@ -75,7 +75,7 @@ Android</td>
 <tr class="">
 <th scope="row" style="text-align:left;">postmarketOS kernel</th>
     <td class="" style="">
-6.1.10</td>
+6.2.9</td>
 </tr>
 <tr><th colspan="2" class="" style="text-align:center;">Hardware</th></tr>
 <tr class="">
@@ -216,7 +216,7 @@ aarch64</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">USB OTG / USB-C Role switching</th>
+<th scope="row" style="text-align:left;">USB OTG</th>
     <td class="" style="">
 <div class="feature feature-unavailable">Unavailable</div>
 </td>
@@ -423,7 +423,6 @@ aarch64</td>
 <p>The KII Pro is a set-top box made by Videostrong, using an Amlogic S905 SoC, and running a custom
 (proprietary) fork of AOSP. It also comes with DVB inputs and an infrared TV remote.
 </p>
-<h2><span class="mw-headline" id="Other_pages">Other pages</span></h2>
 <ul>
 <li><a href="../en/Videostrong_KII_Pro_(videostrong-kii-pro)_DVB.html" title="Videostrong KII Pro (videostrong-kii-pro)/DVB">DVB</a></li>
 <li><a href="../en/Videostrong_KII_Pro_(videostrong-kii-pro)_U-Boot_as_primary_bootloader.html" title="Videostrong KII Pro (videostrong-kii-pro)/U-Boot as primary bootloader">Running mainline U-Boot as the primary bootloader</a></li>
@@ -441,6 +440,10 @@ Android 5.1.1. If you own the Mecool KII Pro then this port won't work there wit
 It may work by using the right DTB file though but that's untested since <a href="../User:F.html" title="User:F">F</a> doesn't own a Mecool KII Pro.
 </p>
 <h2><span class="mw-headline" id="How_to_enter_flash_mode">How to enter flash mode</span></h2>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This isn't needed to boot up postmarketOS. It's only really used if you bricked your set-top box.</td>
+</tr></tbody></table>
 <p>You need a USB Type-A to USB Type-A cable.
 </p>
 <ul>
@@ -475,9 +478,7 @@ __________________________\
 <span class="go">Bus 003 Device 004: ID 1b8e:c003 Amlogic, Inc. </span>
 <span class="go">[...]</span>
 </pre></div>
-<p>But that's not really needed unless you bricked your set-top box (which is very unlikely as postmarketOS doesn't touch 
-the internal eMMC yet, unless, of course, you wiped the eMMC from postmarketOS). You'd also need a computer running 
-Microsoft Windows with the Amlogic USB Burner or Amlogic Update if you wish to use <b>GNU</b>+Linux. Both software are 
+<p>You'd also need a computer running Microsoft Windows with the Amlogic USB Burner or Amlogic Update if you wish to use <b>GNU</b>+Linux. Both software are 
 proprietary.
 </p>
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
@@ -525,14 +526,24 @@ be possible to flash postmarketOS, but this is untested.
 <h2><span class="mw-headline" id="What_works">What works</span></h2>
 <p>See the device status at the top (mobile) or at the right (desktop).
 </p>
+<div class="floatleft"><a href="../KIIPro-UART-PinOut.png" class="image" title="Click to enlarge"><img alt="Click to enlarge" src="../KIIPro-UART-PinOut.png" decoding="async" width="229" height="406" srcset="../344px-KIIPro-UART-PinOut.png 1.5x ../458px-KIIPro-UART-PinOut.png 2x"></a></div>
 <h3><span class="mw-headline" id="UART">UART</span></h3>
-<p>The device has 7 pads, 3 pads labeled "RX", "TX", and "GND", but also 4 other pads labeled "RX", "TX", "GND", and "3V3". The actual UART 
-pads to use are the latter, but <b>DO NOT CONNECT THE 3V3 PAD</b>. You also need to replace <code>console=null</code> with <code>console=ttyAML0,115200</code> 
-in your extlinux.conf (located in the boot partition).
+<p>UART works, but is disabled by default when booting postmarketOS. You can enable UART in postmarketOS by editing the 
+<code>extlinux/extlinux.conf</code> file located in the boot partition.
 </p>
-<p>Console device: <code>ttyAML0</code>
+<p>Find this line:
 </p>
-<p>Baud rate: <code>115200</code>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>  append console=null PMOS_NO_OUTPUT_REDIRECT</pre></div>
+<p>And change it to:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>  append console=ttyAML0,115200 PMOS_NO_OUTPUT_REDIRECT</pre></div>
+<p>Then connect RX, TX, and Ground to your USB-to-TTL, according to the pinout shown. <b>DO NOT CONNECT THE 3V3 PAD</b> 
+</p>
+<p>Afterwards, you can now run:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> microcom -s <span class="m">115200</span> /dev/ttyUSB0 <span class="c1"># replace /dev/ttyUSB0 with the path of your USB-to-TTL device</span>
+</pre></div>
+<p><br>
 </p>
 <h3><span class="mw-headline" id="LEDs">LEDs</span></h3>
 <p>The 2 LEDs the device has are functionnal.
@@ -551,7 +562,7 @@ in your extlinux.conf (located in the boot partition).
 <h3><span class="mw-headline" id="Wi-Fi_and_Ethernet">Wi-Fi and Ethernet</span></h3>
 <p>Wi-Fi works, but requires a nonfree firmware. It also doesn't seem to work properly sometimes. This issue also happens on the <a href="../en/Xiaomi_POCO_F1_(xiaomi-beryllium).html" title="Xiaomi POCO F1 (xiaomi-beryllium)">Xiaomi POCO F1 (xiaomi-beryllium)</a>. Doesn't happen on LibreELEC, which doesn't use NetworkManager, so it may be a problem with NetworkManager after all.
 </p>
-<p>The TV box has an 8P8C port used for connecting to the internet (so-called 'Ethernet port') which works fine on postmarketOS as long as you boot it using a mainline U-Boot chainloaded from the vendor U-Boot.
+<p>The TV box has an 8P8C port used for connecting to the internet (so-called 'Ethernet port') which works fine on postmarketOS as long as you boot it using a mainline U-Boot chainloaded from the vendor U-Boot. This weird quirk has to do with the device tree.
 </p>
 <h3><span class="mw-headline" id="Bluetooth">Bluetooth</span></h3>
 <p>Bluetooth works, but requires nonfree firmware. It also requires a DTS patch which has been sent <a rel="nofollow" class="external text" href="https://patchwork.kernel.org/project/linux-amlogic/patch/20230210170721.1285914-3-christianshewitt@gmail.com/">upstream</a>.
@@ -744,7 +755,9 @@ Seems like <code>libcec</code> does detect which button in the remote is pressed
 			</div>
 		</div></li>
 </ul>
-<h2><span class="mw-headline" id="Boot_process">Boot process</span></h2>
+<h2>
+<span id="Boot_process_(very_simplified)"></span><span class="mw-headline" id="Boot_process_.28very_simplified.29">Boot process (very simplified)</span>
+</h2>
 <p>(Useful for porting other OSes to it)
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>                    if emmc   +------+
@@ -755,7 +768,7 @@ Seems like <code>libcec</code> does detect which button in the remote is pressed
  +---------+      |                   +---------+    |
                   +-----[...]                        | 
                                                      |
-        +--------------------------------------------+
+        +------------------[...]---------------------+
         |      
         |                                          +---------+     +-------------------+     +-----------------+
         v                                    +----&gt;| sd card |----&gt;| 's905_autoscript' |----&gt;| v2020.07 u-boot |
@@ -791,22 +804,21 @@ Seems like <code>libcec</code> does detect which button in the remote is pressed
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3833">pmaports!3833</a> -- Initial merge request</li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3833">pmaports!3833</a> Initial merge request</li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/device-videostrong-kii-pro">Device package</a></li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/linux-postmarketos-amlogic">Kernel package</a></li>
 <li>
-<a rel="nofollow" class="external text" href="https://linux-meson.com">linux-meson.com</a> -- Porting mainline Linux and U-Boot to Amlogic SoCs</li>
+<a rel="nofollow" class="external text" href="https://linux-meson.com">linux-meson.com</a> Porting mainline Linux and U-Boot to Amlogic SoCs</li>
 <li>(Outdated) <a rel="nofollow" class="external text" href="https://blog.vitali64.duckdns.org/articles/KIIProAdventures">notes</a>
 </li>
 <li>
-<a rel="nofollow" class="external text" href="https://libreelec.tv">LibreELEC</a> -- has a working port for Amlogic set-top boxes</li>
-<li>
-<a rel="nofollow" class="external text" href="https://github.com/hexdump0815/u-boot-misc">hexdump0815's U-Boot notes</a> -- May be useful for replacing the vendor U-Boot</li>
+<a rel="nofollow" class="external text" href="https://libreelec.tv">LibreELEC</a> has a working port for Amlogic set-top boxes</li>
 </ul>
 </div></div>
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../en/Category:Pages_with_syntax_highlighting_errors.html" title="Category:Pages with syntax highlighting errors">Pages with syntax highlighting errors</a></li>
 <li><a href="../en/Category:Devices.html" title="Category:Devices">Devices</a></li>
 <li><a href="../en/Category:Android.html" title="Category:Android">Android</a></li>
 <li><a href="../en/Category:Videostrong.html" title="Category:Videostrong">Videostrong</a></li>
@@ -822,9 +834,9 @@ Seems like <code>libcec</code> does detect which button in the remote is pressed
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)&amp;oldid=44185">https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)&amp;oldid=44185</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)&amp;oldid=44482">https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)&amp;oldid=44482</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 17 May 2023, at 08:24.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 27 May 2023, at 09:12.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

@@ -44,8 +44,8 @@ because there are many, many set top boxes using an Amlogic SoC, it's not easy t
 for some people it's still a fun experience!
 </p>
 <p>Please note that this covers running postmarketOS on an SD card or any other removable device. Getting it to work on 
-the internal storage is left as an exercise to the reader. It also only covers set top boxes running U-Boot as their 
-primary bootloader (which there were quite a few). If you got postmarketOS to run on a set top box lacking U-Boot then 
+the internal storage is left as an exercise to the reader. It also only covers set-top boxes running U-Boot as their 
+primary bootloader that have a "mode" to boot a specific script on a removable device. If you got postmarketOS to run on a set top box lacking this feature then 
 please document how you got it working. Thanks!
 </p>
 <div id="toc" class="toc">
@@ -129,13 +129,9 @@ You should also install <code>git</code>.
 </p>
 <p>Then:
 </p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">pull -- very important</span>
-<span class="gp">$</span> pmbootstrap pull
-<span class="go">add a new device -- type in the manufacturer of your set top box as well as the codename, this will generate </span>
-<span class="go">packages for you.</span>
-<span class="gp">$</span> pmbootstrap init
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap pull
+<span class="gp">$</span> pmbootstrap init <span class="c1"># type in the manufacturer of your set-top box as well as the codename, this will generate packages for you.</span>
 <span class="gp">$</span> <span class="nb">cd</span> .local/var/pmbootstrap/cache_git/pmaports <span class="c1"># ...or the directory where pmaports got cloned</span>
-<span class="go">remove useless packages</span>
 <span class="gp">$</span> rm -Rf device/testing/linux-<span class="nv">$vendor</span>-<span class="nv">$codename</span> <span class="c1"># replace $vendor and $codename with your vendor and codename respectively</span>
 </pre></div>
 <h3><span class="mw-headline" id="Device_tree">Device tree</span></h3>
@@ -146,11 +142,9 @@ similar to the Amlogic p201 reference board then you should base your device tre
 <p>After adding your device tree patch (if any), try building the kernel!
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> device/testing/linux-postmarketos-amlogic
-<span class="gp">$</span> cp /tmp/000X-add-initial-support-for-<span class="nv">$vendor</span>-<span class="nv">$codename</span> . <span class="c1"># if any</span>
-<span class="go">update the APKBUILD with the new file and generate checksums</span>
+<span class="gp">$</span> cp /tmp/000X-add-initial-support-for-<span class="nv">$vendor</span>-<span class="nv">$codename</span>.patch . <span class="c1"># if any</span>
 <span class="gp">$</span> nvim APKBUILD
 <span class="gp">$</span> pmbootstrap checksum linux-postmarketos-amlogic
-<span class="go">build!</span>
 <span class="gp">$</span> pmbootstrap --details-to-stdout build linux-postmarketos-amlogic
 </pre></div>
 <h2><span class="mw-headline" id="Useful_notes">Useful notes</span></h2>
@@ -158,20 +152,17 @@ similar to the Amlogic p201 reference board then you should base your device tre
 <table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
 <td style="padding: 0.35em 0.9em; width: 100%;">
-<b>WARNING:</b> Some devices DO NOT support this and it's very risky to do it. CONTINUE AT YOUR OWN RISK.</td>
+<b>WARNING:</b> Some devices DO NOT support this and it's very risky to do it if you haven't made a backup or don't have a working image you can restore. CONTINUE AT YOUR OWN RISK.</td>
 </tr></tbody></table>
-<p>Figure out where U-Boot's located, and run the command below.
+<p>You need to wipe the entire eMMC:
 </p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">replace X and Y.</span>
-<span class="gp">#</span> dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/dev/mmcblkXbootY <span class="nv">conv</span><span class="o">=</span>fsync,notrunc <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="m">4</span> <span class="nv">seek</span><span class="o">=</span><span class="m">1</span>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/dev/mmcblkX <span class="nv">conv</span><span class="o">=</span>fsync,notrunc <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="m">4</span> <span class="nv">seek</span><span class="o">=</span><span class="m">1</span>
+<span class="gp">#</span> dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/dev/mmcblkXboot0 <span class="nv">conv</span><span class="o">=</span>fsync,notrunc <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="m">4</span> <span class="nv">seek</span><span class="o">=</span><span class="m">1</span>
+<span class="gp">#</span> dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/dev/mmcblkXboot1 <span class="nv">conv</span><span class="o">=</span>fsync,notrunc <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="m">4</span> <span class="nv">seek</span><span class="o">=</span><span class="m">1</span>
 </pre></div>
 <p>The bootrom should now boot from the SD card. You'd need to build a working U-Boot as described 
-in <a rel="nofollow" class="external text" href="https://github.com/hexdump0815/u-boot-misc">this git repository</a>.
+in <a rel="nofollow" class="external text" href="https://github.com/hexdump0815/u-boot-misc">this git repository</a>. You also need a working <code>acs.bin</code> binary, which contains DDR timings.
 </p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Disabling the eMMC (by shorting pins) has the same effect and should be less risky.</td>
-</tr></tbody></table>
 <h3><span class="mw-headline" id="Booting">Booting</span></h3>
 <p>See <a href="../en/Amlogic.html#Boot_process" title="Amlogic">Amlogic#Boot_process</a>
 </p>
@@ -198,9 +189,9 @@ in <a rel="nofollow" class="external text" href="https://github.com/hexdump0815/
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Amlogic/Porting_set_top_boxes&amp;oldid=43488">https://wiki.postmarketos.org/index.php?title=Amlogic/Porting_set_top_boxes&amp;oldid=43488</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Amlogic/Porting_set_top_boxes&amp;oldid=44478">https://wiki.postmarketos.org/index.php?title=Amlogic/Porting_set_top_boxes&amp;oldid=44478</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:38.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 27 May 2023, at 08:32.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

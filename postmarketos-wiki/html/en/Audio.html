@@ -1,578 +1,175 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Audio - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Audio rootpage-Audio skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Audio
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          If you're trying out anything and learn something that would have helped, please extend this wiki page.
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <div class="toc" id="toc">
-       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
-       <div class="toctitle" dir="ltr" lang="en">
-        <h2>
-         Contents
-        </h2>
-        <span class="toctogglespan">
-         <label class="toctogglelabel" for="toctogglecheckbox">
-         </label>
-        </span>
-       </div>
-       <ul>
-        <li class="toclevel-1 tocsection-1">
-         <a href="#Audio_on_Android">
-          <span class="tocnumber">
-           1
-          </span>
-          <span class="toctext">
-           Audio on Android
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-2">
-           <a href="#Mixer_configuration">
-            <span class="tocnumber">
-             1.1
-            </span>
-            <span class="toctext">
-             Mixer configuration
-            </span>
-           </a>
-           <ul>
-            <li class="toclevel-3 tocsection-3">
-             <a href="#Format_of_mixer_paths.xml">
-              <span class="tocnumber">
-               1.1.1
-              </span>
-              <span class="toctext">
-               Format of mixer_paths.xml
-              </span>
-             </a>
-            </li>
-           </ul>
-          </li>
-          <li class="toclevel-2 tocsection-4">
-           <a href="#Headphone_jack">
-            <span class="tocnumber">
-             1.2
-            </span>
-            <span class="toctext">
-             Headphone jack
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-5">
-         <a href="#Getting_Audio_to_work_on_non-Android_userspace">
-          <span class="tocnumber">
-           2
-          </span>
-          <span class="toctext">
-           Getting Audio to work on non-Android userspace
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-6">
-           <a href="#Bring_up_Android_DSP_subsystem">
-            <span class="tocnumber">
-             2.1
-            </span>
-            <span class="toctext">
-             Bring up Android DSP subsystem
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-7">
-           <a href="#Convert_XML_audio_to_UCM">
-            <span class="tocnumber">
-             2.2
-            </span>
-            <span class="toctext">
-             Convert XML audio to UCM
-            </span>
-           </a>
-           <ul>
-            <li class="toclevel-3 tocsection-8">
-             <a href="#Format_of_device_config_XML">
-              <span class="tocnumber">
-               2.2.1
-              </span>
-              <span class="toctext">
-               Format of device config XML
-              </span>
-             </a>
-            </li>
-           </ul>
-          </li>
-          <li class="toclevel-2 tocsection-9">
-           <a href="#libhybris">
-            <span class="tocnumber">
-             2.3
-            </span>
-            <span class="toctext">
-             libhybris
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-10">
-           <a href="#Audio_cutting_out_when_multiple_streams_start_playing">
-            <span class="tocnumber">
-             2.4
-            </span>
-            <span class="toctext">
-             Audio cutting out when multiple streams start playing
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-11">
-         <a href="#alsactl_method">
-          <span class="tocnumber">
-           3
-          </span>
-          <span class="toctext">
-           alsactl method
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-12">
-         <a href="#strace_method">
-          <span class="tocnumber">
-           4
-          </span>
-          <span class="toctext">
-           strace method
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-13">
-         <a href="#Spreadtrum">
-          <span class="tocnumber">
-           5
-          </span>
-          <span class="toctext">
-           Spreadtrum
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-14">
-         <a href="#WM1811">
-          <span class="tocnumber">
-           6
-          </span>
-          <span class="toctext">
-           WM1811
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-15">
-         <a href="#Mainline">
-          <span class="tocnumber">
-           7
-          </span>
-          <span class="toctext">
-           Mainline
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-16">
-           <a href="#Troubleshooting_audio_input">
-            <span class="tocnumber">
-             7.1
-            </span>
-            <span class="toctext">
-             Troubleshooting audio input
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-17">
-         <a href="#See_also">
-          <span class="tocnumber">
-           8
-          </span>
-          <span class="toctext">
-           See also
-          </span>
-         </a>
-        </li>
-       </ul>
-      </div>
-      <h2>
-       <span class="mw-headline" id="Audio_on_Android">
-        Audio on Android
-       </span>
-      </h2>
-      <h3>
-       <span class="mw-headline" id="Mixer_configuration">
-        Mixer configuration
-       </span>
-      </h3>
-      <p>
-       This provides a brief overview of how Android audio HALs configure the ALSA mixer.
-      </p>
-      <p>
-       Android devices can have an assortment mixer configurations such as headphones, speakers, or microphones. For a particular device the audio route configurations are defined in
-       <code>
-        mixer_paths.xml
-       </code>
-       .
-       <a class="external text" href="https://android.googlesource.com/device/lge/hammerhead/+/kitkat-release/mixer_paths.xml" rel="nofollow">
-        For an example see the mixer path XML for Nexus 5 (hammerhead).
-       </a>
-      </p>
-      <p>
-       Android audio HALs make use of
-       <a class="external text" href="https://android.googlesource.com/platform/external/tinyalsa/" rel="nofollow">
-        tinyalsa
-       </a>
-       and
-       <a class="external text" href="https://android.googlesource.com/platform/system/media/+/kitkat-release/audio_route/" rel="nofollow">
-        audio_route
-       </a>
-       . Tinyalsa is a small standalone library to interface with ALSA in the Linux kernel. Audio HALs call the
-       <code>
-        audio_route
-       </code>
-       library which loads audio routes from an XML and controls the mixer through
-       <code>
-        tinyalsa
-       </code>
-       .
-      </p>
-      <h4>
-       <span class="mw-headline" id="Format_of_mixer_paths.xml">
-        Format of mixer_paths.xml
-       </span>
-      </h4>
-      <ul>
-       <li>
-        ALSA controls are defined by
-        <code>
-         ctl
-        </code>
-        elements.
-       </li>
-       <li>
-        Audio routes are defined by
-        <code>
-         path
-        </code>
-        elements. A
-        <code>
-         path
-        </code>
-        element contains a collection of
-        <code>
-         ctl
-        </code>
-        elements as well as other
-        <code>
-         path
-        </code>
-        elements.
-       </li>
-       <li>
-        The path
-        <code>
-         name
-        </code>
-        attribute is used to select an audio route.
-       </li>
-      </ul>
-      <p>
-       During initialisation, all the mixer controls specified at the top of the file will be applied. To apply a particular path (e.g. "speaker") the controls in that path will be applied, switching to say, "headphones", involved resetting the controls back to their values before the speaker path was applied, in reverse order, and then applying the new path.
-      </p>
-      <h3>
-       <span class="mw-headline" id="Headphone_jack">
-        Headphone jack
-       </span>
-      </h3>
-      <p>
-       Android kernels use
-       <code>
-        switch_class
-       </code>
-       kernel driver to notify the Android frameworks of headphone jack events. The driver source code can be located at:
-       <code>
-        drivers/switch/switch_class.c
-       </code>
-       or
-       <code>
-        drivers/staging/android/switch/switch_class.c
-       </code>
-       . Note that the switch class driver is an Android specific driver. It has not been upstreamed to the mainline kernel.
-      </p>
-      <p>
-       In userspace the
-       <a class="external text" href="https://android.googlesource.com/platform/frameworks/base/+/kitkat-release/services/java/com/android/server/WiredAccessoryManager.java" rel="nofollow">
-        WiredAccessoryManager
-       </a>
-       monitors the
-       <code>
-        /sys/class/switch/h2w
-       </code>
-       for uevents when the headphone is (un)plugged.
-      </p>
-      <p>
-       Udev rules can be used to detect if headphones are plugged in, example for this is from
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/blob/195114e48e0997d060036feef4965cd0e3c07ccc/device/device-xiaomi-santoni/90-device-xiaomi-santoni-audio.rules" rel="nofollow">
-        xiaomi-santoni
-       </a>
-      </p>
-      <h2>
-       <span class="mw-headline" id="Getting_Audio_to_work_on_non-Android_userspace">
-        Getting Audio to work on non-Android userspace
-       </span>
-      </h2>
-      <h3>
-       <span class="mw-headline" id="Bring_up_Android_DSP_subsystem">
-        Bring up Android DSP subsystem
-       </span>
-      </h3>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          This is most likely for downstream kernels, if you're using a mainline kernel, this is pointless.
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          This was only tested on Qualcomm MSM8937, this might also work on other chipset too, but this is untested.
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <p>
-       ADSP needs to be powered on before audio could work on downstream kernels. To do that, you'll have to supply firmware files that is available on your internal MMC.
-      </p>
-      <p>
-       On a shell prompt inside postmarketOS, type
-       <code>
-        fdisk -l /dev/mmcblk0
-       </code>
-       (replace mmcblk0 with the correct device name for internal MMC). If that doesn't display the partition labels, you can also try
-       <code>
-        ls -l /dev/disk/by-partlabel
-       </code>
-       or
-       <code>
-        ls -l /dev/block/platform/*/by-name/
-       </code>
-       . At this point you should get a familiar partition layout of a Android device.
-      </p>
-      <p>
-       Now, the only thing that is important is the partition with
-       <code>
-        MODEM
-       </code>
-       label on it, which on my device it's mmcblk0p1. Mount the partition as read-only to /mnt using:
-      </p>
-      <pre># mount -o ro /dev/mmcblk0p1 /mnt
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Audio - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Audio rootpage-Audio skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Audio</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">If you're trying out anything and learn something that would have helped, please extend this wiki page.</td>
+</tr></tbody></table>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Audio_on_Android"><span class="tocnumber">1</span> <span class="toctext">Audio on Android</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2">
+<a href="#Mixer_configuration"><span class="tocnumber">1.1</span> <span class="toctext">Mixer configuration</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Format_of_mixer_paths.xml"><span class="tocnumber">1.1.1</span> <span class="toctext">Format of mixer_paths.xml</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-4"><a href="#Headphone_jack"><span class="tocnumber">1.2</span> <span class="toctext">Headphone jack</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Getting_Audio_to_work_on_non-Android_userspace"><span class="tocnumber">2</span> <span class="toctext">Getting Audio to work on non-Android userspace</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Bring_up_Android_DSP_subsystem"><span class="tocnumber">2.1</span> <span class="toctext">Bring up Android DSP subsystem</span></a></li>
+<li class="toclevel-2 tocsection-7">
+<a href="#Convert_XML_audio_to_UCM"><span class="tocnumber">2.2</span> <span class="toctext">Convert XML audio to UCM</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#Format_of_device_config_XML"><span class="tocnumber">2.2.1</span> <span class="toctext">Format of device config XML</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#libhybris"><span class="tocnumber">2.3</span> <span class="toctext">libhybris</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Audio_cutting_out_when_multiple_streams_start_playing"><span class="tocnumber">2.4</span> <span class="toctext">Audio cutting out when multiple streams start playing</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11">
+<a href="#alsactl_method"><span class="tocnumber">3</span> <span class="toctext">alsactl method</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#amixer_method"><span class="tocnumber">3.1</span> <span class="toctext">amixer method</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#strace_method"><span class="tocnumber">4</span> <span class="toctext">strace method</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Spreadtrum"><span class="tocnumber">5</span> <span class="toctext">Spreadtrum</span></a></li>
+<li class="toclevel-1 tocsection-15">
+<a href="#WM1811"><span class="tocnumber">6</span> <span class="toctext">WM1811</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="#In_mainline"><span class="tocnumber">6.1</span> <span class="toctext">In mainline</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17">
+<a href="#Mainline"><span class="tocnumber">7</span> <span class="toctext">Mainline</span></a>
+<ul>
+<li class="toclevel-2 tocsection-18"><a href="#Troubleshooting_audio_input"><span class="tocnumber">7.1</span> <span class="toctext">Troubleshooting audio input</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="#See_also"><span class="tocnumber">8</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Audio_on_Android">Audio on Android</span></h2>
+<h3><span class="mw-headline" id="Mixer_configuration">Mixer configuration</span></h3>
+<p>This provides a brief overview of how Android audio HALs configure the ALSA mixer.
+</p>
+<p>Android devices can have an assortment mixer configurations such as headphones, speakers, or microphones. For a particular device the audio route configurations are defined in <code>mixer_paths.xml</code>. <a rel="nofollow" class="external text" href="https://android.googlesource.com/device/lge/hammerhead/+/kitkat-release/mixer_paths.xml">For an example see the mixer path XML for Nexus 5 (hammerhead).</a>
+</p>
+<p>Android audio HALs make use of <a rel="nofollow" class="external text" href="https://android.googlesource.com/platform/external/tinyalsa/">tinyalsa</a> and <a rel="nofollow" class="external text" href="https://android.googlesource.com/platform/system/media/+/kitkat-release/audio_route/">audio_route</a>. Tinyalsa is a small standalone library to interface with ALSA in the Linux kernel. Audio HALs call the <code>audio_route</code> library which loads audio routes from an XML and controls the mixer through <code>tinyalsa</code>.
+</p>
+<h4><span class="mw-headline" id="Format_of_mixer_paths.xml">Format of mixer_paths.xml</span></h4>
+<ul>
+<li>ALSA controls are defined by <code>ctl</code> elements.</li>
+<li>Audio routes are defined by <code>path</code> elements. A <code>path</code> element contains a collection of <code>ctl</code> elements as well as other <code>path</code> elements.</li>
+<li>The path <code>name</code> attribute is used to select an audio route.</li>
+</ul>
+<p>During initialisation, all the mixer controls specified at the top of the file will be applied. To apply a particular path (e.g. "speaker") the controls in that path will be applied, switching to say, "headphones", involved resetting the controls back to their values before the speaker path was applied, in reverse order, and then applying the new path.
+</p>
+<h3><span class="mw-headline" id="Headphone_jack">Headphone jack</span></h3>
+<p>Android kernels use <code>switch_class</code> kernel driver to notify the Android frameworks of headphone jack events. The driver source code can be located at:
+<code>drivers/switch/switch_class.c</code>
+or
+<code>drivers/staging/android/switch/switch_class.c</code>. Note that the switch class driver is an Android specific driver. It has not been upstreamed to the mainline kernel.
+</p>
+<p>In userspace the <a rel="nofollow" class="external text" href="https://android.googlesource.com/platform/frameworks/base/+/kitkat-release/services/java/com/android/server/WiredAccessoryManager.java">WiredAccessoryManager</a> monitors the <code>/sys/class/switch/h2w</code> for uevents when the headphone is (un)plugged.
+</p>
+<p>Udev rules can be used to detect if headphones are plugged in, example for this is from <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/blob/195114e48e0997d060036feef4965cd0e3c07ccc/device/device-xiaomi-santoni/90-device-xiaomi-santoni-audio.rules">xiaomi-santoni</a>
+</p>
+<h2><span class="mw-headline" id="Getting_Audio_to_work_on_non-Android_userspace">Getting Audio to work on non-Android userspace</span></h2>
+<h3><span class="mw-headline" id="Bring_up_Android_DSP_subsystem">Bring up Android DSP subsystem</span></h3>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This is most likely for downstream kernels, if you're using a mainline kernel, this is pointless.</td>
+</tr></tbody></table>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This was only tested on Qualcomm MSM8937, this might also work on other chipset too, but this is untested.</td>
+</tr></tbody></table>
+<p>ADSP needs to be powered on before audio could work on downstream kernels. To do that, you'll have to supply firmware files that is available on your internal MMC.
+</p>
+<p>On a shell prompt inside postmarketOS, type <code>fdisk -l /dev/mmcblk0</code> (replace mmcblk0 with the correct device name for internal MMC). If that doesn't display the partition labels, you can also try <code>ls -l /dev/disk/by-partlabel</code> or <code>ls -l /dev/block/platform/*/by-name/</code>. At this point you should get a familiar partition layout of a Android device.
+</p>
+<p>Now, the only thing that is important is the partition with <code>MODEM</code> label on it, which on my device it's mmcblk0p1. Mount the partition as read-only to /mnt using:
+</p>
+<pre># mount -o ro /dev/mmcblk0p1 /mnt
 </pre>
-      <p>
-       Inside /mnt, there is a folder named
-       <code>
-        image
-       </code>
-       which has a bunch of firmware files for different parts of the device, like wcnss (for wlan), DRM contents and so on, the only thing that needs to be extracted is all the files that named
-       <code>
-        adsp.*
-       </code>
-       :
-      </p>
-      <pre>// Create /lib/firmware/postmarketos if it doesn't exist
+<p>Inside /mnt, there is a folder named <code>image</code> which has a bunch of firmware files for different parts of the device, like wcnss (for wlan), DRM contents and so on, the only thing that needs to be extracted is all the files that named <code>adsp.*</code>:
+</p>
+<pre>// Create /lib/firmware/postmarketos if it doesn't exist
 # mkdir -p /lib/firmware/postmarketos
 
 // Copy all adsp.* to the postmarketOS firmware directory
 # cp -v /mnt/image/adsp.* /lib/firmware/postmarketos
 </pre>
-      <p>
-       After that, you should be able to bring up the ADSP subsystem by running:
-      </p>
-      <pre># echo 1 &gt; /dev/subsys_adsp
+<p>After that, you should be able to bring up the ADSP subsystem by running:
+</p>
+<pre># echo 1 &gt; /dev/subsys_adsp
 </pre>
-      <p>
-       You should check dmesg and /var/log/firmwareload.log to make sure there aren't firmwares failing to load.
-      </p>
-      <p>
-       If it goes fine, you should see a bunch of playback devices by typing
-       <code>
-        aplay -l
-       </code>
-      </p>
-      <p>
-       You also want to install
-       <code>
-        adsp-audio
-       </code>
-       from pmOS repo to load the subsystem on automatically on bootup.
-      </p>
-      <h3>
-       <span class="mw-headline" id="Convert_XML_audio_to_UCM">
-        Convert XML audio to UCM
-       </span>
-      </h3>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          This section is incomplete. It requires a reference to more complete documentation of the device config XML format.
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <p>
-       The audio routes in Linux userspace can be defined in ALSA UCM configuration files. There is a tool called
-       <a class="external text" href="https://github.com/ford-prefect/xml2ucm" rel="nofollow">
-        xml2ucm
-       </a>
-       which will convert the Android
-       <code>
-        mixer_paths.xml
-       </code>
-       and a device config XML to UCM files. The
-       <code>
-        xml2ucm
-       </code>
-       tool introduces the device config XML which provides necessary routing information that was hardcoded in the audio HAL on Android.
-      </p>
-      <p>
-       The
-       <code>
-        mixer_path.xml
-       </code>
-       is commonly found in the Android device repository. (e.g.
-       <code>
-        android_device_lge_hammerhead
-       </code>
-       ). You must write the device config XML for your device.
-      </p>
-      <h4>
-       <span class="mw-headline" id="Format_of_device_config_XML">
-        Format of device config XML
-       </span>
-      </h4>
-      <p>
-       A device config XML describes a sound card with use cases and sets of audio routes. In the examples available at the moment there is only one use case named HiFi. Under each
-       <code>
-        &lt;use-case&gt;
-       </code>
-       there are multiple
-       <code>
-        &lt;device&gt;
-       </code>
-       elements. In this context a
-       <code>
-        &lt;device&gt;
-       </code>
-       means audio route(s) which comprise a logical audio device (e.g. Headphone, Headset, Speaker).
-      </p>
-      <p>
-       Android audio HALs can and do select multiple audio routes at once. For example a headset can have a headphone output route and a microphone input route. To handle this a
-       <code>
-        &lt;device&gt;
-       </code>
-       element (the headset) can contain multiple
-       <code>
-        &lt;path&gt;
-       </code>
-       elements (audio routes). Example device config XML files are provided in the
-       <code>
-        xml2ucm
-       </code>
-       repository.
-      </p>
-      <p>
-       The
-       <code>
-        ctl-device
-       </code>
-       must be the name of the sound card which can be obtained using
-       <code>
-        aplay
-       </code>
-       . In the following example from the Samsung p4wifi the
-       <code>
-        ctl-device
-       </code>
-       is the sound card named
-       <code>
-        wm8994aif1
-       </code>
-       .
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span>$ aplay -L
+<p>You should check dmesg and /var/log/firmwareload.log to make sure there aren't firmwares failing to load.
+</p>
+<p>If it goes fine, you should see a bunch of playback devices by typing <code>aplay -l</code>
+</p>
+<p>You also want to install <code>adsp-audio</code> from pmOS repo to load the subsystem on automatically on bootup.
+</p>
+<h3><span class="mw-headline" id="Convert_XML_audio_to_UCM">Convert XML audio to UCM</span></h3>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This section is incomplete. It requires a reference to more complete documentation of the device config XML format.</td>
+</tr></tbody></table>
+<p>The audio routes in Linux userspace can be defined in ALSA UCM configuration files. There is a tool called <a rel="nofollow" class="external text" href="https://github.com/ford-prefect/xml2ucm">xml2ucm</a> which will convert the Android <code>mixer_paths.xml</code> and a device config XML to UCM files. The <code>xml2ucm</code> tool introduces the device config XML which provides necessary routing information that was hardcoded in the audio HAL on Android.
+</p>
+<p>The <code>mixer_path.xml</code> is commonly found in the Android device repository. (e.g. <code>android_device_lge_hammerhead</code>). You must write the device config XML for your device.
+</p>
+<h4><span class="mw-headline" id="Format_of_device_config_XML">Format of device config XML</span></h4>
+<p>A device config XML describes a sound card with use cases and sets of audio routes. In the examples available at the moment there is only one use case named HiFi. Under each <code>&lt;use-case&gt;</code> there are multiple <code>&lt;device&gt;</code> elements. In this context a <code>&lt;device&gt;</code> means audio route(s) which comprise a logical audio device (e.g. Headphone, Headset, Speaker).
+</p>
+<p>Android audio HALs can and do select multiple audio routes at once. For example a headset can have a headphone output route and a microphone input route. To handle this a <code>&lt;device&gt;</code> element (the headset) can contain multiple <code>&lt;path&gt;</code> elements (audio routes). Example device config XML files are provided in the <code>xml2ucm</code> repository.
+</p>
+<p>The <code>ctl-device</code> must be the name of the sound card which can be obtained using <code>aplay</code>. In the following example from the Samsung p4wifi the <code>ctl-device</code> is the sound card named <code>wm8994aif1</code>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>$ aplay -L
 null
     Discard all samples <span class="o">(</span>playback<span class="o">)</span> or generate zero samples <span class="o">(</span>capture<span class="o">)</span>
 default:CARD<span class="o">=</span>wm8994aif1
@@ -581,71 +178,26 @@ default:CARD<span class="o">=</span>wm8994aif1
 sysdefault:CARD<span class="o">=</span>wm8994aif1
     wm8994-aif1, 
     Default Audio Device
-</pre>
-      </div>
-      <p>
-       Once the
-       <code>
-        mixer_path.xml
-       </code>
-       and device config XML are converted to UCM format then an audio route can be set by using
-       <code>
-        alsaucm
-       </code>
-       .
+</pre></div>
+<p>Once the <code>mixer_path.xml</code> and device config XML are converted to UCM format then an audio route can be set by using <code>alsaucm</code>.
 Example:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span>$ alsaucm -c wm8994aif1 <span class="nb">set</span> _verb HiFi <span class="nb">set</span> _enadev Headphones
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>$ alsaucm -c wm8994aif1 <span class="nb">set</span> _verb HiFi <span class="nb">set</span> _enadev Headphones
+</pre></div>
+<h3><span class="mw-headline" id="libhybris">libhybris</span></h3>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Might not work on some devices, which in this case providing logs to the maintainer is required, and debugging is also needed too.</td>
+</tr></tbody></table>
+<p>In general in <a href="../en/Hybris.html" title="Hybris">Hybris</a> environment just install pulseaudio-modules-droid package and sound will work.
+</p>
+<p>Make sure you have the following line in your <code>/etc/pulse/default.pa</code>:
+</p>
+<pre>load-module module-droid-card
 </pre>
-      </div>
-      <h3>
-       <span class="mw-headline" id="libhybris">
-        libhybris
-       </span>
-      </h3>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          Might not work on some devices, which in this case providing logs to the maintainer is required, and debugging is also needed too.
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <p>
-       In general in
-       <a href="../en/Hybris.html" title="Hybris">
-        Hybris
-       </a>
-       environment just install pulseaudio-modules-droid package and sound will work.
-      </p>
-      <p>
-       Make sure you have the following line in your
-       <code>
-        /etc/pulse/default.pa
-       </code>
-       :
-      </p>
-      <pre>load-module module-droid-card
-</pre>
-      <p>
-       Loading droid-card module is enough, other modules will be loaded automatically. Also it would not hurt to comment out
-       <code>
-        module-udev-detect
-       </code>
-       ,
-       <code>
-        module-detect
-       </code>
-       lines to lower the amount of error messages in pulseauduio log (these modules don't work anyway), like that:
-      </p>
-      <pre>### Automatically load driver modules depending on the hardware available
+<p>Loading droid-card module is enough, other modules will be loaded automatically. Also it would not hurt to comment out <code>module-udev-detect</code>, <code>module-detect</code> lines to lower the amount of error messages in pulseauduio log (these modules don't work anyway), like that:
+</p>
+<pre>### Automatically load driver modules depending on the hardware available
 #.ifexists module-udev-detect.so
 # load-module module-udev-detect
 #.else
@@ -653,162 +205,82 @@ Example:
 # load-module module-detect
 #.endif
 </pre>
-      <p>
-       Start pulseaudio in verbose mode (
-       <code>
-        /usr/bin/pulseaudio --log-target=stderr --log-level=debug -v
-       </code>
-       ) to make sure you can get to see if module-droid-card loads successfully. If it does then you should be able to play sound files using
-       <code>
-        paplay
-       </code>
-       from pulseaudio-utils package.
-      </p>
-      <p>
-       If you hear sounds coming from it, it works perfectly fine. If not, check dmesg, pulseaudio log and logcat.
-      </p>
-      <p>
-       You might also want to install
-       <code>
-        alsa-plugins-pulse
-       </code>
-       for ALSA backend on PulseAudio.
-      </p>
-      <h3>
-       <span class="mw-headline" id="Audio_cutting_out_when_multiple_streams_start_playing">
-        Audio cutting out when multiple streams start playing
-       </span>
-      </h3>
-      <p>
-       See
-       <a class="external text" href="https://wiki.archlinux.org/title/PipeWire#Audio_cutting_out_when_multiple_streams_start_playing" rel="nofollow">
-        here
-       </a>
-      </p>
-      <h2>
-       <span class="mw-headline" id="alsactl_method">
-        alsactl method
-       </span>
-      </h2>
-      <p>
-       Cascardo reported having success with the following method on Debian, this should work for postmarketOS as well:
-      </p>
-      <blockquote>
-       <p>
-        I ran a debian chroot on a cyanogenmod, set the volume up, then ran alsactl save on the chroot. booted into debian, then after alsactl restore was run, I had audio working
-       </p>
-       <p>
-        so, in summary, it's hard to know which mixer settings will make it work, so my strategy was running some android stack that correctly set the mixer, then saving the state with a chroot or any other tool that would allow you to save, copy and restore that state later on a gnu stack
-       </p>
-      </blockquote>
-      <p>
-       This method may work for non-Android devices as well, as long as you see an audio device in
-       <code>
-        alsamixer
-       </code>
-       . Just boot the normal OS, save the volume settings somehow, then restore them.
-      </p>
-      <h2>
-       <span class="mw-headline" id="strace_method">
-        strace method
-       </span>
-      </h2>
-      <p>
-       It is possible to get audio working by stracing Android's audioserver and replicating the mixer configuration it performs. See
-       <a class="external text" href="https://gitlab.com/sleirsgoevy/pmos_tools/-/tree/master/mixertrace/" rel="nofollow">
-        here
-       </a>
-       .
-      </p>
-      <p>
-       The positive side of such porting is that the amount of manual work is reduced to the minimum, another positive thing is that it may also work for non-Android proprietary userspace.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Spreadtrum">
-        Spreadtrum
-       </span>
-      </h2>
-      <p>
-       Audio support for Spreadtrum SoCs is provided in
-       <code>
-        soc-sprd-audio
-       </code>
-       and its subpackages. To get audio support for the device, add the package related to the audio device to dependencies of device package or install it manually, like
-      </p>
-      <pre>apk add soc-sprd-audio-sc8830
+<p>Start pulseaudio in verbose mode (<code>/usr/bin/pulseaudio --log-target=stderr --log-level=debug -v</code>) to make sure you can get to see if module-droid-card loads successfully. If it does then you should be able to play sound files using <code>paplay</code> from pulseaudio-utils package.
+</p>
+<p>If you hear sounds coming from it, it works perfectly fine. If not, check dmesg, pulseaudio log and logcat.
+</p>
+<p>You might also want to install <code>alsa-plugins-pulse</code> for ALSA backend on PulseAudio.
+</p>
+<h3><span class="mw-headline" id="Audio_cutting_out_when_multiple_streams_start_playing">Audio cutting out when multiple streams start playing</span></h3>
+<p>See <a rel="nofollow" class="external text" href="https://wiki.archlinux.org/title/PipeWire#Audio_cutting_out_when_multiple_streams_start_playing">here</a>
+</p>
+<h2><span class="mw-headline" id="alsactl_method">alsactl method</span></h2>
+<p>Cascardo reported having success with the following method on Debian, this should work for postmarketOS as well:
+</p>
+<blockquote>
+<p>I ran a debian chroot on a cyanogenmod, set the volume up, then ran alsactl save on the chroot. booted into debian, then after alsactl restore was run, I had audio working
+</p>
+<p>so, in summary, it's hard to know which mixer settings will make it work, so my strategy was running some android stack that correctly set the mixer, then saving the state with a chroot or any other tool that would allow you to save, copy and restore that state later on a gnu stack
+</p>
+</blockquote>
+<p>This method may work for non-Android devices as well, as long as you see an audio device in <code>alsamixer</code>. Just boot the normal OS, save the volume settings somehow, then restore them.
+</p>
+<h3><span class="mw-headline" id="amixer_method">amixer method</span></h3>
+<p>You can also skip the chroot step and run amixer on Android directly; then, you'll have to copy over the other settings manually. This is a bit more time-intensive, but should work well for most devices.
+</p>
+<ul>
+<li>Root your device</li>
+<li>Get a copy of amixer that runs under Android (I got mine by installing <a rel="nofollow" class="external text" href="https://github.com/zyiology/alsamixer-magisk-module">this Magisk module</a>; sadly it installed without execute permissions, I had to move <code>/system/xbin/alsa_amixer</code> to <code>/data</code> (<code>/sdcard</code> wouldn't let me make it executable) and run it from there)</li>
+<li>Get into a terminal and run <code>amixer &gt; /sdcard/amixer-output</code>
+<ul><li>You will have do this twice - once with a headset plugged in, and once without; save them as separate files</li></ul>
+</li>
+<li>Copy the files onto your computer</li>
+<li>On your mainline device, run <code>amixer</code>, then diff the output with the downstream output
+<ul><li>You might want to get the diff using <code>diff -u</code>, then remove the "Capability" lines using <code>grep -v "Capability" \&lt;path-to-diff\&gt;</code> since it's fine if they're different</li></ul>
+</li>
+<li>Open <code>alsamixer</code> on the Linux device and tweak the values until they match
+<ul><li>Repeat diffing process as many times as necessary</li></ul>
+</li>
+<li>Then save the output of <code>amixer</code> again, or run <code>alsactl store</code>
+</li>
+</ul>
+<h2><span class="mw-headline" id="strace_method">strace method</span></h2>
+<p>It is possible to get audio working by stracing Android's audioserver and replicating the mixer configuration it performs. See <a rel="nofollow" class="external text" href="https://gitlab.com/sleirsgoevy/pmos_tools/-/tree/master/mixertrace/">here</a>.
+</p>
+<p>The positive side of such porting is that the amount of manual work is reduced to the minimum, another positive thing is that it may also work for non-Android proprietary userspace.
+</p>
+<h2><span class="mw-headline" id="Spreadtrum">Spreadtrum</span></h2>
+<p>Audio support for Spreadtrum SoCs is provided in <code>soc-sprd-audio</code> and its subpackages. To get audio support for the device, add the package related to the audio device to dependencies of device package or install it manually, like
+</p>
+<pre>apk add soc-sprd-audio-sc8830
 </pre>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          SC8830 audio device is available for a huge range of SoCs. Check contents of Android's
-          <code>
-           tiny_hw.xml
-          </code>
-          to find which device is used.
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <h2>
-       <span class="mw-headline" id="WM1811">
-        WM1811
-       </span>
-      </h2>
-      <p>
-       This audio chip is present in several Samsung devices that are based on the Exynos 4412 platform. There is a configuration for the Samsung Galaxy Note 10.1 available at
-       <a class="external text" href="https://code.google.com/archive/p/opensgn/source/default/source" rel="nofollow">
-        the opensgn project
-       </a>
-       . Have a look at the files in
-       <code>
-        opensgn/data/n8000/usr/share/alsa/ucm/Midas_WM1811/
-       </code>
-       .
-In
-       <code>
-        opensgn/data/n8000/etc/rc.local
-       </code>
-       there are the commands to use the configuration:
-      </p>
-      <pre># restore alsa sinitial tate
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">SC8830 audio device is available for a huge range of SoCs. Check contents of Android's <code>tiny_hw.xml</code> to find which device is used.</td>
+</tr></tbody></table>
+<h2><span class="mw-headline" id="WM1811">WM1811</span></h2>
+<p>This audio chip is present in several Samsung devices that are based on the Exynos 4412 platform. There is a configuration for the Samsung Galaxy Note 10.1 available at <a rel="nofollow" class="external text" href="https://code.google.com/archive/p/opensgn/source/default/source">the opensgn project</a>. Have a look at the files in <code>opensgn/data/n8000/usr/share/alsa/ucm/Midas_WM1811/</code>.
+In <code>opensgn/data/n8000/etc/rc.local</code> there are the commands to use the configuration:
+</p>
+<pre># restore alsa sinitial tate
 /usr/sbin/alsactl restore -f /usr/share/alsa/ucm/Midas_WM1811/init.state
 
 # enable speaker for output and builtin mic for input
 /usr/bin/alsaucm -c Midas_WM1811 set _verb HiFi set _enadev Speaker
 /usr/bin/alsaucm -c Midas_WM1811 set _verb HiFi set _enadev Mic
 </pre>
-      <p>
-       For other devices the configuration might need to be adapted. On the Samsung Galaxy Note 8.0 for example, the audio device is named "Kona_WM1811". Replacing all occurrences in file names and file contents of
-       <code>
-        Midas
-       </code>
-       by
-       <code>
-        Kona
-       </code>
-       worked.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Mainline">
-        Mainline
-       </span>
-      </h2>
-      <h3>
-       <span class="mw-headline" id="Troubleshooting_audio_input">
-        Troubleshooting audio input
-       </span>
-      </h3>
-      <p>
-       A nice way to troubleshoot audio input is to run arecord in a terminal to get realtime audio levels of the default alsa input:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span>$ arecord -vv --format<span class="o">=</span>dat /dev/null
+<p>For other devices the configuration might need to be adapted. On the Samsung Galaxy Note 8.0 for example, the audio device is named "Kona_WM1811". Replacing all occurrences in file names and file contents of <code>Midas</code> by <code>Kona</code> worked.
+</p>
+<p>In case the existing UCM configs don't work, it's possible to get the ALSA mixer settings by running amixer on Android. This also works with the mainline kernel, as the settings there are nearly identical.
+</p>
+<h3><span class="mw-headline" id="In_mainline">In mainline</span></h3>
+<p>The WM1811 is supported in mainline, as part of the Galaxy S3 (midas) support. Portions of the midas code can be reused between other Exynos devices using the same SoC and sound chip.
+</p>
+<h2><span class="mw-headline" id="Mainline">Mainline</span></h2>
+<h3><span class="mw-headline" id="Troubleshooting_audio_input">Troubleshooting audio input</span></h3>
+<p>A nice way to troubleshoot audio input is to run arecord in a terminal to get realtime audio levels of the default alsa input:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>$ arecord -vv --format<span class="o">=</span>dat /dev/null
 Recording WAVE <span class="s1">'/dev/null'</span> : Signed <span class="m">16</span> bit Little Endian, Rate <span class="m">48000</span> Hz, Stereo
 ALSA &lt;-&gt; PulseAudio PCM I/O Plugin
 Its setup is:
@@ -834,110 +306,49 @@ Its setup is:
   silence_size : <span class="m">0</span>
   boundary     : <span class="m">6755399441055744000</span>
 <span class="c1">#+                                                 | 00%</span>
-</pre>
-      </div>
-      <h2>
-       <span class="mw-headline" id="See_also">
-        See also
-       </span>
-      </h2>
-      <ul>
-       <li>
-        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1328" rel="nofollow">
-         #1328
-        </a>
-        Audio added to samsung-p4wifi with udev rules for redirecting audio to headphones when plugging them in
-       </li>
-       <li>
-        <a class="external text" href="https://arunraghavan.net/2016/01/audio-devices-and-configuration/" rel="nofollow">
-         How to convert Android Audio configurations to alsa/pulseaudio
-        </a>
-       </li>
-       <li>
-        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/238" rel="nofollow">
-         pmaports!238
-        </a>
-        Audio added to samsung-i927, running close to mainline
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="catlinks" data-mw="interface" id="catlinks">
-     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-      <a href="../Special:Categories.html" title="Special:Categories">
-       Category
-      </a>
-      :
-      <ul>
-       <li>
-        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
-         Technical Reference
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Audio&amp;oldid=30612">
-      https://wiki.postmarketos.org/index.php?title=Audio&amp;oldid=30612
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 30 August 2022, at 15:13.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Audio&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+</pre></div>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1328">#1328</a> Audio added to samsung-p4wifi with udev rules for redirecting audio to headphones when plugging them in</li>
+<li><a rel="nofollow" class="external text" href="https://arunraghavan.net/2016/01/audio-devices-and-configuration/">How to convert Android Audio configurations to alsa/pulseaudio</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/238">pmaports!238</a> Audio added to samsung-i927, running close to mainline</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Audio&amp;oldid=44390">https://wiki.postmarketos.org/index.php?title=Audio&amp;oldid=44390</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 May 2023, at 20:08.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Audio&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

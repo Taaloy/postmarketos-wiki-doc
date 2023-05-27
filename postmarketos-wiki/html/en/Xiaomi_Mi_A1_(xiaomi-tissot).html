@@ -80,7 +80,7 @@ Android</td>
 <tr class="">
 <th scope="row" style="text-align:left;">postmarketOS kernel</th>
     <td class="" style="">
-Mainline: 5.16</td>
+Mainline: 6.3</td>
 </tr>
 <tr><th colspan="2" class="" style="text-align:center;">Hardware</th></tr>
 <tr class="">
@@ -231,7 +231,7 @@ aarch64</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">USB OTG / USB-C Role switching</th>
+<th scope="row" style="text-align:left;">USB OTG</th>
     <td class="" style="">
 <div class="feature feature-no">Broken</div>
 </td>
@@ -257,7 +257,7 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Magnetometer</th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -508,6 +508,9 @@ To find out the active slot, run in fastboot:
 <li>Hall Effect Sensor - BU52061NVX (<a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/blob/master/drivers/input/keyboard/gpio_keys.c">gpio-keys</a>)</li>
 <li>Charger - <a rel="nofollow" class="external text" href="https://github.com/msm8953-mainline/linux/pull/25">qcom,smbcharger</a> <a rel="nofollow" class="external text" href="https://github.com/JIaxyga/linux/tree/msm8953-test"><b>Works from here</b></a>
 </li>
+<li>Accelerometer - bosch,bmi120 (<a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/blob/master/drivers/iio/imu/bmi160">bosch,bmi160</a>) <a rel="nofollow" class="external text" href="https://github.com/JIaxyga/linux/tree/msm8953-test"><b>Works from here</b></a>
+</li>
+<li>Magnetometer - AKM, AK09918 (<a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/blob/master/drivers/iio/magnetometer/ak8975.c">asahi-kasei,ak8975</a>)</li>
 </ul>
 <p>Other:
 </p>
@@ -525,9 +528,6 @@ To find out the active slot, run in fastboot:
 <p>Main:
 </p>
 <ul>
-<li>Accelerometer - bosch,bmi120 (<a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/blob/master/drivers/iio/imu/bmi160">bosch,bmi160</a>) <a rel="nofollow" class="external text" href="https://github.com/JIaxyga/linux/tree/msm8953-test"><b>Works from here</b></a>
-</li>
-<li>Magnetometer - AKM, AK09918 (<a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/blob/master/drivers/iio/magnetometer/ak8975.c">asahi-kasei,ak8975</a>)</li>
 <li>Proximity Sensor - LiteOn, LTR579 (<a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/blob/master/drivers/iio/light/ltr501.c">liteon,ltr501?</a>)</li>
 <li>Ambient Light Sensor - LiteOn, LTR579 (<a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/blob/master/drivers/iio/light/ltr501.c">liteon,ltr501?</a>)</li>
 <li>Camera - Front Cam: samsung_s5k5e8 Back Cam: ov_12a10 Back Sub Cam: ov_13880</li>
@@ -598,9 +598,9 @@ To find out the active slot, run in fastboot:
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_A1_(xiaomi-tissot)&amp;oldid=44056">https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_A1_(xiaomi-tissot)&amp;oldid=44056</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_A1_(xiaomi-tissot)&amp;oldid=44234">https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_A1_(xiaomi-tissot)&amp;oldid=44234</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 7 May 2023, at 20:02.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 19 May 2023, at 14:23.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

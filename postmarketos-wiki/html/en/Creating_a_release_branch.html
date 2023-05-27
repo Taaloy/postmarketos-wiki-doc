@@ -218,9 +218,8 @@
   - [ ] main/postmarketos-ui-asteroid (no smartwatches are useful on stable branches at the moment)
   - [ ] main/postmarketos-ui-framebufferphone until [aports#13857](https://gitlab.alpinelinux.org/alpine/aports/-/issues/13857) is resolved
   - [ ] temp/xf86-video-opentegra (see #2707)
-  - [ ] temp/gtk4.0 (unless enough mainlining effort went into it. See #1953 and !3894)
+  - [ ] gcc4* and gcc6* from main and cross
 - [ ] run `pmbootstrap aportgen` for packages in cross
-  - [ ] may not be necessary if the branch was just created, since the packages on edge and the new stable branch will be the same
 - [ ] `git push`
 
 #### bpo: adjust config
@@ -229,8 +228,8 @@
   - [ ] for x86_64 only
   - [ ] ignore_errors: True
   - [ ] add it below `branches["master"]`, so it builds with lower priority than master until it's released
-- [ ] make a merge request, wait until CI passes
-- [ ] merge it and roll it out/ask somebody who can do that
+- [ ] make a merge request, wait until CI passes, merge it (or if you can directly push to master that's also fine since it's a trivial change)
+- [ ] roll it out/ask somebody who can do that
 - [ ] restart bpo, it will start building x86_64 packages
 
 #### bootstrap of binary packages
@@ -352,7 +351,7 @@
 </div></div>
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
-<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Admin.html" title="Category:Admin">Admin</a></li></ul>
 </div></div>
 		<div class="visualClear"></div>
 		
@@ -362,9 +361,9 @@
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Creating_a_release_branch&amp;oldid=44180">https://wiki.postmarketos.org/index.php?title=Creating_a_release_branch&amp;oldid=44180</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Creating_a_release_branch&amp;oldid=44422">https://wiki.postmarketos.org/index.php?title=Creating_a_release_branch&amp;oldid=44422</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 16 May 2023, at 23:15.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 24 May 2023, at 19:59.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

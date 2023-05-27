@@ -221,7 +221,7 @@ tablet</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">USB OTG / USB-C Role switching</th>
+<th scope="row" style="text-align:left;">USB OTG</th>
     <td class="" style="">
 <div class="feature feature-yes">Works</div>
 </td>
@@ -229,7 +229,7 @@ tablet</td>
 <tr class="">
 <th scope="row" style="text-align:left;">NFC</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr><td colspan="2" style="text-align:right"></td></tr>
@@ -271,13 +271,13 @@ tablet</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Barometer</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Power Sensor</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr><td colspan="2" style="text-align:right"></td></tr>
@@ -289,25 +289,25 @@ tablet</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Camera Flash</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Keyboard</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Touchpad</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">USB-A</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -319,37 +319,37 @@ tablet</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Ir TX</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Ir RX</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Stylus</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Haptics</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Ethernet</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">FOSS bootloader</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr><td colspan="2" style="text-align:right"></td></tr>
@@ -372,7 +372,7 @@ tablet</td>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
 <li>
-<a href="../User:Knuxfanwin8.html" title="User:Knuxfanwin8">Knuxfanwin8</a> (<span class="cargoFieldName">Notes:</span> 2x)</li>
+<a href="../User:Knuxfanwin8.html" title="User:Knuxfanwin8">Knuxfanwin8</a> (<span class="cargoFieldName">Notes:</span> 2x, mainlined!)</li>
 </ul></div>
 <p><br>
 </p>
@@ -400,9 +400,18 @@ tablet</td>
 <h2><span class="mw-headline" id="Parts_and_mainline_status">Parts and mainline status</span></h2>
 <p>There's a WIP mainline tree on Github: <a rel="nofollow" class="external text" href="https://github.com/knuxify/tab3-8.0-mainline">knuxify/tab3-8.0-mainline</a>. See the <code>v6.2-exynos</code> branch for current work. The patches are currently in the process of being upstreamed (<a rel="nofollow" class="external text" href="https://lore.kernel.org/all/20230501195525.6268-1-aweber.kernel@gmail.com/">ref</a>).
 </p>
-<p>In general, quite a few things work. RAM is limited to 1gb due to some weird quirks in how the later RAM is treated by the downstream kernel.
-</p>
 <p>There used to be an issue where on reboot the display flickers for a few minutes. While this usually goes away after a few minutes, and doesn't seem to happen anymore anyways, <b>if you choose to test the mainline tree in this state, I do not take responsibility for any damage this may cause to your device</b>.
+</p>
+<p>Current issues:
+</p>
+<ul>
+<li>RAM is limited to 1GB due to some weird quirks in how the later RAM is treated by the downstream kernel</li>
+<li>Backlight forgets settings after suspend, resulting in choppy brightness changes</li>
+<li>Headset mic input doesn't work; jack detection doesn't work</li>
+<li>USB OTG doesn't work (might be true for all similar devices? todo)</li>
+<li>Connecting a Bluetooth keyboard causes the DRM driver to crash soon after ("timed out waiting for vblank"). This does not seem to happen with other Bluetooth operations.</li>
+</ul>
+<p>For the status of all components, see the tables below:
 </p>
 <table class="wikitable feature-colors">
 <tbody>
@@ -451,9 +460,9 @@ tablet</td>
 </td>
 <td>WM1811
 </td>
-<td>
+<td>P
 </td>
-<td>Managed to get the chip to boot correctly, but no sound; likely a matter of figuring out the UCM configs
+<td>Speaker and headphone jack works (needs UCM config), internal mic works (but peaks - TODO), headset mic does not work. No automatic jack detection.
 </td>
 </tr>
 <tr>
@@ -481,9 +490,9 @@ tablet</td>
 </td>
 <td>MELFAS MMS252
 </td>
-<td>P
+<td>Y
 </td>
-<td>Pretty much identical to the other Melfas touchscreens in mainline. Using mms114 compatible for now. Main touchscreen works, but touch keys (menu and back) aren't implemented.
+<td>Pretty much identical to the other Melfas touchscreens in mainline. Using mms114 compatible for now. Both touchscreen and touch keys work (patches for the latter are currently under review).
 </td>
 </tr>
 <tr>
@@ -503,7 +512,7 @@ tablet</td>
 </td>
 <td>Y
 </td>
-<td>Driver in mainline. Works, but there's an issue where WiFi doesn't show up unless the brcmfmac module is manually reloaded.
+<td>Driver in mainline.
 </td>
 </tr>
 <tr>
@@ -713,9 +722,9 @@ tablet</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_3_8.0_(SM-T310)_(samsung-lt01wifi)&amp;oldid=44188">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_3_8.0_(SM-T310)_(samsung-lt01wifi)&amp;oldid=44188</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_3_8.0_(SM-T310)_(samsung-lt01wifi)&amp;oldid=44483">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_3_8.0_(SM-T310)_(samsung-lt01wifi)&amp;oldid=44483</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 17 May 2023, at 18:15.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 27 May 2023, at 10:03.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

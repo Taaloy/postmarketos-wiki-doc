@@ -85,23 +85,24 @@
 <li class="toclevel-2 tocsection-26"><a href="#Some_notifications_stay_stuck_on_the_screen.21"><span class="tocnumber">2.10</span> <span class="toctext">Some notifications stay stuck on the screen!</span></a></li>
 <li class="toclevel-2 tocsection-27"><a href="#A_simple_way_to_share_sxmo.27s_connection_through_USB_.28aka_.22USB_tethering.22.29"><span class="tocnumber">2.11</span> <span class="toctext">A simple way to share sxmo's connection through USB (aka "USB tethering")</span></a></li>
 <li class="toclevel-2 tocsection-28"><a href="#Where_can_i_read_logs_for_sxmo.3F"><span class="tocnumber">2.12</span> <span class="toctext">Where can i read logs for sxmo?</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="#Move_sxmo.27s_bar_below_your_phone.27s_notch"><span class="tocnumber">2.13</span> <span class="toctext">Move sxmo's bar below your phone's notch</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-29">
+<li class="toclevel-1 tocsection-30">
 <a href="#Applications_specific"><span class="tocnumber">3</span> <span class="toctext">Applications specific</span></a>
 <ul>
-<li class="toclevel-2 tocsection-30"><a href="#What_to_use_for_cartography.2Fnavigation.3F"><span class="tocnumber">3.1</span> <span class="toctext">What to use for cartography/navigation?</span></a></li>
-<li class="toclevel-2 tocsection-31"><a href="#QT_app_.28vlc-qt.2C_etc..29_doesnt_fit_the_screen.21"><span class="tocnumber">3.2</span> <span class="toctext">QT app (vlc-qt, etc.) doesnt fit the screen!</span></a></li>
-<li class="toclevel-2 tocsection-32"><a href="#Cmus:_the_application_related_bemenu_is_not_loaded_as_soon_as_a_song_is_played."><span class="tocnumber">3.3</span> <span class="toctext">Cmus: the application related bemenu is not loaded as soon as a song is played.</span></a></li>
-<li class="toclevel-2 tocsection-33"><a href="#Flatpak"><span class="tocnumber">3.4</span> <span class="toctext">Flatpak</span></a></li>
-<li class="toclevel-2 tocsection-34"><a href="#Telegram_Desktop"><span class="tocnumber">3.5</span> <span class="toctext">Telegram Desktop</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="#What_to_use_for_cartography.2Fnavigation.3F"><span class="tocnumber">3.1</span> <span class="toctext">What to use for cartography/navigation?</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="#QT_app_.28vlc-qt.2C_etc..29_doesnt_fit_the_screen.21"><span class="tocnumber">3.2</span> <span class="toctext">QT app (vlc-qt, etc.) doesnt fit the screen!</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="#Cmus:_the_application_related_bemenu_is_not_loaded_as_soon_as_a_song_is_played."><span class="tocnumber">3.3</span> <span class="toctext">Cmus: the application related bemenu is not loaded as soon as a song is played.</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="#Flatpak"><span class="tocnumber">3.4</span> <span class="toctext">Flatpak</span></a></li>
+<li class="toclevel-2 tocsection-35"><a href="#Telegram_Desktop"><span class="tocnumber">3.5</span> <span class="toctext">Telegram Desktop</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-35">
+<li class="toclevel-1 tocsection-36">
 <a href="#Extra_features.2C_advanced_tweaking"><span class="tocnumber">4</span> <span class="toctext">Extra features, advanced tweaking</span></a>
 <ul>
-<li class="toclevel-2 tocsection-36"><a href="#A_Wayland_version_of_Sxmo.2C_really.3F.3F"><span class="tocnumber">4.1</span> <span class="toctext">A Wayland version of Sxmo, really??</span></a></li>
-<li class="toclevel-2 tocsection-37"><a href="#How_to_Add_Apps_to_the_List.3F"><span class="tocnumber">4.2</span> <span class="toctext">How to Add Apps to the List?</span></a></li>
+<li class="toclevel-2 tocsection-37"><a href="#A_Wayland_version_of_Sxmo.2C_really.3F.3F"><span class="tocnumber">4.1</span> <span class="toctext">A Wayland version of Sxmo, really??</span></a></li>
+<li class="toclevel-2 tocsection-38"><a href="#How_to_Add_Apps_to_the_List.3F"><span class="tocnumber">4.2</span> <span class="toctext">How to Add Apps to the List?</span></a></li>
 </ul>
 </li>
 </ul>
@@ -366,6 +367,17 @@ or
 <p>or
 <code>logread -f</code> for the generic pmOS log, that also displays some of sxmo deamons (modemmanager, etc.) information
 </p>
+<p><br>
+</p>
+<h3>
+<span id="Move_sxmo's_bar_below_your_phone's_notch"></span><span class="mw-headline" id="Move_sxmo.27s_bar_below_your_phone.27s_notch">Move sxmo's bar below your phone's notch</span>
+</h3>
+<p>Find the bar entry in <code>~/.config/sxmo/sway</code> and add a gaps configuration to it.
+</p>
+<p><code> bar { gaps 42 0 } </code>
+</p>
+<p>See <a rel="nofollow" class="external free" href="https://todo.sr.ht/~mil/sxmo-tickets/494">https://todo.sr.ht/~mil/sxmo-tickets/494</a> and <a rel="nofollow" class="external free" href="https://man.archlinux.org/man/sway-bar.5.en">https://man.archlinux.org/man/sway-bar.5.en</a>
+</p>
 <h2><span class="mw-headline" id="Applications_specific">Applications specific</span></h2>
 <h3>
 <span id="What_to_use_for_cartography/navigation?"></span><span class="mw-headline" id="What_to_use_for_cartography.2Fnavigation.3F">What to use for cartography/navigation?</span>
@@ -438,9 +450,9 @@ echo "set format_title= %a %t %c cmus" &gt;&gt; .config/cmus/rc
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Sxmo/Tips_and_Tricks&amp;oldid=44169">https://wiki.postmarketos.org/index.php?title=Sxmo/Tips_and_Tricks&amp;oldid=44169</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Sxmo/Tips_and_Tricks&amp;oldid=44427">https://wiki.postmarketos.org/index.php?title=Sxmo/Tips_and_Tricks&amp;oldid=44427</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 16 May 2023, at 21:39.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 25 May 2023, at 00:51.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>
