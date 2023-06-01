@@ -35,7 +35,7 @@
 <caption class="" style="">Xiaomi Redmi Note 5A</caption>
 <tbody>
 <tr class=""><td colspan="2" class="" style="text-align:center;">
-<a href="/index.php?title=Special:Upload&amp;wpDestFile=CHANGE_ME_TO_DEVICE_CODENAME.jpg" class="new" title="File:CHANGE ME TO DEVICE CODENAME.jpg">200px</a><br><span style="">CHANGE_ME</span>
+<a href="../Xiaomi-ugg.jpg" class="image"><img alt="Xiaomi Redmi Note 5A running XFCE4" src="../Xiaomi-ugg.jpg" decoding="async" width="200" height="355" srcset="../300px-Xiaomi-ugg.jpg 1.5x ../400px-Xiaomi-ugg.jpg 2x"></a><br><span style="">Xiaomi Redmi Note 5A running XFCE4</span>
 </td></tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Manufacturer</th>
@@ -107,10 +107,6 @@ aarch64</td>
 <tr><td colspan="2" style="text-align:right"></td></tr>
 </tbody>
 </table>
-<p><br>
-</p>
-<p><br>
-</p>
 <table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
 <caption class="" style="">Features</caption>
 <tbody>
@@ -159,7 +155,7 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Charging and battery level reporting works">Battery</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -171,7 +167,7 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Audio playback, microphone, headset and buttons.">Audio</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
@@ -363,15 +359,76 @@ aarch64</td>
 <p><br>
 </p>
 <h2><span class="mw-headline" id="How_to_enter_flash_mode">How to enter flash mode</span></h2>
-<p>While the phone is off, hold the Power and Volume Down buttons together for a few seconds.
+<p>While the phone is off, hold the <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> buttons together for a few seconds.
+</p>
+<h2><span class="mw-headline" id="How_to_enter_EDL_mode">How to enter EDL mode</span></h2>
+<p><a rel="nofollow" class="external text" href="https://www.thecustomdroid.com/qualcomm-edl-mode-guide/">EDL mode</a> (Emergency Download Mode) is a special mode in Qualcomm devices that allows, among other things, flashing firmware even when the phone is completely bricked. This might come useful in case something goes extremely wrong and the device won't even boot to fastboot.
+</p>
+<p>To boot into EDL, you must first disassemble the device in order to expose the motherboard points required. This phone is very easy to disassemble, you can search for videos on YouTube if necessary. Once you have removed the back case and disconnected the battery, find the points shown below on the motherboard:
+</p>
+<p><a href="../Xiaomi-ugg_EDL_Testpoints.jpeg" class="image" title="EDL testpoints on Redmi Note 5A motherboard (highlighted in red)"><img alt="EDL testpoints on Redmi Note 5A motherboard (highlighted in red)" src="../Xiaomi-ugg_EDL_Testpoints.jpeg" decoding="async" width="300" height="410" srcset="../450px-Xiaomi-ugg_EDL_Testpoints.jpeg 1.5x ../600px-Xiaomi-ugg_EDL_Testpoints.jpeg 2x"></a>
+</p>
+<p>These are the test points that enable EDL mode. With the battery disconnected, use a metal tweezer or a small wire to short these two points. While keeping them sorted, plug the phone to a computer. The device should show up as "Qualcomm HS-USB QDLoader 9008". You can now use <a rel="nofollow" class="external text" href="https://github.com/bkerler/edl">this tool</a> to download firmware to your device.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<h2><span class="mw-headline" id="Display">Display</span></h2>
+<p>Both the display and the touchscreen work normally, although the interface won't show up if you are using LightDM. This happens because for whatever reason logind does not recognize the user's session as graphical. To fix this, edit <code>/etc/lightdm/lightdm.conf</code> and add the line <code>logind-check-graphical=false</code> to force LightDM to start the graphical session. See this article for more info: <a href="../en/Display_manager.html#CanGraphical_issue" title="Display manager">Display_manager#CanGraphical_issue</a>.
+</p>
+<p>The display also has trouble waking up after being put to sleep. The backlight is enabled as expected, but the screen stays blank. 
+</p>
+<p>The following error appears in the kernel log when the screen falls to sleep:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>[  203.062450] gf3208: [info] goodix_fb_state_chg_callback go to the goodix_fb_state_chg_callback value = 16
+[  203.062549] gf3208: [info] goodix_fb_state_chg_callback go to the goodix_fb_state_chg_callback value = 16
+[  203.062552] gf3208: goodix_fb_state_chg_callback defalut
+[  203.062819] [FTS]do_ts_resume_work start.
+[  203.062822] [FTS]fts_ts_resume: Enter
+[  203.062824] [FTS]Already in awake state
+[  203.062827] [FTS]fts_ts_resume: Exit(1353)
+[  203.062828] [FTS]fts_ts_resume fail.
+[  203.062830] [FTS]do_ts_resume_work end.
+[  203.062836] bq2560x: bq2560x_system_temp_level_set: bq2560x_system_temp_level_set lvl_sel=0, bq-&gt;therm_lvl_sel = 0
+[  203.304470] ysg mdss_dsi_panel_power_off:290
+[  203.304474] ysg mdss_dsi_panel_reset:366
+</pre></div>
+<p>This error appears a minute later:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>[  259.267754] gf3208: [info] goodix_fb_state_chg_callback go to the goodix_fb_state_chg_callback value = 16
+[  259.267775] [FTS]fts_ts_suspend: Enter
+[  259.267778] [FTS]fts_esdcheck_suspend: Enter
+[  259.267780] [FTS]fts_esdcheck_switch: Enter
+[  259.267782] [FTS][Info][ESD]: ESD check stop!!
+[  259.267787] [FTS]fts_esdcheck_switch: Exit(254)
+[  259.267790] [FTS]fts_esdcheck_suspend: Exit(263)
+[  259.267792] [FTS]fts_gesture_suspend: Enter
+[  259.267794] [FTS]gesture is disabled
+[  259.267796] [FTS]fts_gesture_suspend: Exit(322)
+[  259.268046] [FTS]TP set sleep mode , ret=1!
+[  259.268049] [FTS]fts_ts_suspend: Exit(1341)
+[  259.268143] bq2560x: bq2560x_system_temp_level_set: bq2560x_system_temp_level_set lvl_sel=0, bq-&gt;therm_lvl_sel = 0
+</pre></div>
+<p>This error appears when the screen is waking up:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>[  270.136859] PMIC input: code=116, sts=0x5
+[  270.137247] gf3208: [info] goodix_fb_state_chg_callback go to the goodix_fb_state_chg_callback value = 16
+[  270.137493] [FTS]do_ts_resume_work start.
+[  270.137496] [FTS]fts_ts_resume: Enter
+[  270.137498] [FTS]Already in awake state
+[  270.137501] [FTS]fts_ts_resume: Exit(1353)
+[  270.137503] [FTS]fts_ts_resume fail.
+[  270.137505] [FTS]do_ts_resume_work end.
+[  270.137510] bq2560x: bq2560x_system_temp_level_set: bq2560x_system_temp_level_set lvl_sel=0, bq-&gt;therm_lvl_sel = 0
+[  270.139191] ysg:mdss_dsi_panel_power_on:323
+[  270.139219] ysg mdss_dsi_panel_reset:366
+[  270.209106] swb.mdss_dsi_panel_power_on:get lcd_detect id0=0,id1=0
+[  270.257077] tsx_feature_type=0,ce_state=0
+[  270.299617] PMIC input: code=116, sts=0x4
+</pre></div>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 </div></div>
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../en/Category:Pages_with_broken_file_links.html" title="Category:Pages with broken file links">Pages with broken file links</a></li>
 <li><a href="../en/Category:Devices.html" title="Category:Devices">Devices</a></li>
 <li><a href="/index.php?title=Category:Android_7.1.2,_MIUI_11&amp;action=edit&amp;redlink=1" class="new" title="Category:Android 7.1.2, MIUI 11 (page does not exist)">Android 7.1.2, MIUI 11</a></li>
 <li><a href="../en/Category:Xiaomi.html" title="Category:Xiaomi">Xiaomi</a></li>
@@ -385,9 +442,9 @@ aarch64</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_5A&amp;oldid=43718">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_5A&amp;oldid=43718</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_5A&amp;oldid=44610">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_5A&amp;oldid=44610</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:43.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 30 May 2023, at 16:22.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

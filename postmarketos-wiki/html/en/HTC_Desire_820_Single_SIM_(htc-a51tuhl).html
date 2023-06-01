@@ -108,10 +108,6 @@ aarch64</td>
 </tbody>
 </table>
 <div class="infobox" style="width: 22em; box-sizing: border-box; background-color: #fee7e6; border-color: #d33; border-width: 2px; color: #000; padding: 4px; text-align: center;">This device is marked as <b>not booting</b>.</div>
-<p><br>
-</p>
-<p><br>
-</p>
 <table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
 <caption class="" style="">Features</caption>
 <tbody>
@@ -376,6 +372,116 @@ INFOx10000
 </p>
 <p>For S-ON device, maybe recovery partition install lk2nd and boot to lk2nd can ignore the hboot limitation and can modify the system partition. (in recovery it'll always read-only.)
 </p>
+<h2><span class="mw-headline" id="UART">UART</span></h2>
+<h3><span class="mw-headline" id="Ground">Ground</span></h3>
+<p><a href="../Htc-a51tuhl_ground.jpg" class="image"><img alt="Htc-a51tuhl ground.jpg" src="../Htc-a51tuhl_ground.jpg" decoding="async" width="500" height="310" srcset="../750px-Htc-a51tuhl_ground.jpg 1.5x ../1000px-Htc-a51tuhl_ground.jpg 2x"></a>
+</p>
+<p>You can connect to the ground by soldering to the pin shown in picture above or just using some part of the motherboard's ground plane, e.g. a screw hole or the large copper shielding.
+</p>
+<h3><span class="mw-headline" id="TX">TX</span></h3>
+<p><a href="../Htc-a51tuhl_uart_tx.jpg" class="image"><img alt="Htc-a51tuhl uart tx.jpg" src="../Htc-a51tuhl_uart_tx.jpg" decoding="async" width="500" height="375" srcset="../750px-Htc-a51tuhl_uart_tx.jpg 1.5x ../1000px-Htc-a51tuhl_uart_tx.jpg 2x"></a>
+</p>
+<p>The picture above shows the motherboard's UART TX pin. Be aware that high level (logical 1) is 1.8 V.
+</p>
+<h3><span class="mw-headline" id="Log">Log</span></h3>
+<p>After holding power button down for 2 seconds, the motherboard transmits the following data:
+</p>
+<pre>Format: Log Type - Time(microsec) - Message - Optional Info
+Log Type: B - Since Boot(Power On Reset),  D - Delta,  S - Statistic
+S - QC_IMAGE_VERSION_STRING=BOOT.BF.3.0-00276
+S - IMAGE_VARIANT_STRING=SAAAANAZA
+S - OEM_IMAGE_VERSION_STRING=jenkins.git.htc.com
+S - Boot Config, 0x000000e5
+S - Core 0 Frequency, 0 MHz
+B -      1589 - PBL, Start
+B -      3621 - bootable_media_detect_entry, Start
+B -    781651 - bootable_media_detect_success, Start
+B -    781657 - elf_loader_entry, Start
+B -    782956 - auth_hash_seg_entry, Start
+B -    822238 - auth_hash_seg_exit, Start
+B -    844562 - elf_segs_hash_verify_entry, Start
+B -    930776 - PBL, End
+B -    938485 - SBL1, Start
+SBL1 abnormal reset magic = 0xffffffff
+[00][00][00][00][00][00][00][00][00][DEBUG][SBL1] sbl1_hw_init: PM device init
+[00][00][00][00][00][00][00][00][00]B -   1008757 - pm_device_init, Start
+D -     14640 - pm_device_init, Delta
+[DEBUG][SBL1] sbl1_hw_init: Check device temperature
+[00][00][00][00][00][00][00][00][00][INFO][SBL1] sbl1_hw_init: SBL1 hw init done
+[00][00][00][00][00][00][00][00][00]B -   1034194 - boot_flash_init, Start
+D -         0 - boot_flash_init, Delta
+[INFO][SBL1] sbl1_load_htc_extra: sbl1_load_htc_extra PID: 342, PCBID: 128
+[00][00][00][00][00][00][00][00][00][INFO][SBL1] sbl1_load_htc_extra: sbl1_load_htc_extra Is ramdump: 0
+[00][00][00][00][00][00][00][00][00][INFO][SBL1] sbl1_load_htc_extra: sbl1_load_htc_extra Security info: 3 
+[00][00][00][00][00][00][00][00][00][INFO][SBL1] sbl1_load_htc_extra: sbl1_load_htc_extra User Trial flag: 0 
+[00][00][00][00][00][00][00][00][00][INFO][SBL1] sbl1_load_htc_extra: sbl1_load_htc_extra JTAG disable flag: 1 
+[00][00][00][00][00][00][00][00][00][INFO][SBL1] sbl1_load_htc_extra: sbl1_load_htc_extra JTAG reenable flag: 0 
+[00][00][00][00][00][00][00][00][00][DEBUG][SBL1] sbl1_htc_init: radio_flag: 0x59EC9324, reset_reason: 0xD3D631DF
+[00][00][00][00][00][00][00][00][00]B -   1120326 - boot_config_data_table_init, Start
+D -        30 - boot_config_data_table_init, Delta - (0 Bytes)
+B -   1130360 - CDT version:3,Platform ID:1,Major ID:1,Minor ID:0,Subtype:0
+B -   1137040 - sbl1_ddr_set_params, Start
+B -   1143353 - cpr_init, Start
+D -      4361 - cpr_init, Delta
+B -   1147867 - Pre_DDR_clock_init, Start
+D -       274 - Pre_DDR_clock_init, Delta
+D -         0 - sbl1_ddr_set_params, Delta
+[SBL1] Detected DDR Info: interface 0
+[00][00][00][00][00][00][00][00][00][SBL1] Manufacture_name: -16340474
+[00][00][00][00][00][00][00][00][00][SBL1] CS0 Row/Col/Bank: 15/10/8
+[00][00][00][00][00][00][00][00][00][SBL1] CS1 Row/Col/Bank: 15/10/8
+[00][00][00][00][00][00][00][00][00][SBL1] Detected DDR Info: interface 1
+[00][00][00][00][00][00][00][00][00][SBL1] Manufacture_name: 0
+[00][00][00][00][00][00][00][00][00][SBL1] CS0 Row/Col/Bank: 0/0/0
+[00][00][00][00][00][00][00][00][00][SBL1] CS1 Row/Col/Bank: 0/0/0
+[00][00][00][00][00][00][00][00][00]B -   1187853 - pm_driver_init, Start
+[INFO][SBL1][BATT] pm_chg_is_battery_weak: batt_vol: 3741mV, sbl_bootup_threshold: 3400mV, err: 0
+[00][00][00][00][00][00][00][00][00]D -     10797 - pm_driver_init, Delta
+B -   1212344 - clock_init, Start
+D -       122 - clock_init, Delta
+[INFO][SBL1] preserve_rpm_ram_data: Not in ramdump mode, skip to preserve RPM RAM
+[00][00][00][00][00][00][00][00][00][INFO][SBL1] preserve_smem_data: Not in ramdump mode, skip to preserve SHARE RAM
+[00][00][00][00][00][00][00][00][00][INFO][SBL1] preserve_qsee_code: Not in ramdump mode, skip to preserve QSEE CODE
+[00][00][00][00][00][00][00][00][00][INFO][SBL1] boot_config_process_entry: Loading QSEE...
+[00][00][00][00][00][00][00][00][00]B -   1246077 - Image Load, Start
+[INFO][SBL1] boot_auth_image: Image 7 signature verify pass
+[00][00][00][00][00][00][00][00][00]D -     54565 - QSEE Image Loaded, Delta - (506312 Bytes)
+[INFO][SBL1] security_set_emmc_write_protection: [security] s-on check
+[00][00][00][00][00][00][00][00][00][INFO][SBL1] set_power_on_write_protection: [security] write protect on
+[00][00][00][00][00][00][00][00][00]B -   1321382 - Image Load, Start
+D -        61 - SEC Image Loaded, Delta - (0 Bytes)
+B -   1328671 - sbl1_efs_handle_cookies, Start
+D -       213 - sbl1_efs_handle_cookies, Delta
+[INFO][SBL1] boot_config_process_entry: Loading QHEE...
+[00][00][00][00][00][00][00][00][00]B -   1342274 - Image Load, Start
+[INFO][SBL1] boot_auth_image: Image 21 signature verify pass
+[00][00][00][00][00][00][00][00][00]D -     41602 - QHEE Image Loaded, Delta - (68336 Bytes)
+[INFO][SBL1] boot_config_process_entry: Loading RPM...
+[00][00][00][00][00][00][00][00][00]B -   1390769 - Image Load, Start
+[INFO][SBL1] boot_auth_image: Image 10 signature verify pass
+[00][00][00][00][00][00][00][00][00]D -     42609 - RPM Image Loaded, Delta - (156028 Bytes)
+[INFO][SBL1] boot_config_process_entry: Loading APPSBL...
+[00][00][00][00][00][00][00][00][00]B -   1438014 - Image Load, Start
+[DEBUG][SBL1] boot_auth_image: PID: 342
+[00][00][00][00][00][00][00][00][00][INFO][SBL1] boot_auth_image: SHIP RSA verify Success for type: 9
+[00][00][00][00][00][00][00][00][00][INFO][SBL1] boot_auth_image: Image 9 signature verify pass
+[00][00][00][00][00][00][00][00][00]D -    593377 - APPSBL Image Loaded, Delta - (2096384 Bytes)
+B -   2036790 - QSEE Execution, Start
+D -        91 - QSEE Execution, Delta
+B -   2043469 - SBL1, End
+D -   1107241 - SBL1, Delta
+S - Flash Throughput, 58000 KB/s  (2854140 Bytes,  48403 us)
+S - DDR Frequency, 796 MHz
+security_level 3
+jtag_disable_flag 1
+jtag_reenable_flag 0
+pid 342
+pcbid 128
+enter_boot_dload_flag 0
+engineerid 0
+fuse is blown
+TZ 3.02.A64.02 342-3-1-0-0 #P:ok
+</pre>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li>this device is named as Desire 820f (d820f), not d820s</li>
@@ -401,9 +507,9 @@ INFOx10000
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=HTC_Desire_820_Single_SIM_(htc-a51tuhl)&amp;oldid=43070">https://wiki.postmarketos.org/index.php?title=HTC_Desire_820_Single_SIM_(htc-a51tuhl)&amp;oldid=43070</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=HTC_Desire_820_Single_SIM_(htc-a51tuhl)&amp;oldid=44554">https://wiki.postmarketos.org/index.php?title=HTC_Desire_820_Single_SIM_(htc-a51tuhl)&amp;oldid=44554</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:31.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 29 May 2023, at 17:36.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

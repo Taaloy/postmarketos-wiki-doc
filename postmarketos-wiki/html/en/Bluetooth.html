@@ -60,7 +60,12 @@
 </ul>
 </li>
 <li class="toclevel-1 tocsection-13"><a href="#Bluetooth_profiles_supported_by_other_mobile_OSes"><span class="tocnumber">4</span> <span class="toctext">Bluetooth profiles supported by other mobile OSes</span></a></li>
-<li class="toclevel-1 tocsection-14"><a href="#Troubleshooting"><span class="tocnumber">5</span> <span class="toctext">Troubleshooting</span></a></li>
+<li class="toclevel-1 tocsection-14">
+<a href="#Troubleshooting"><span class="tocnumber">5</span> <span class="toctext">Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#Bluetooth_keyboards.2C_mice_and_other_HID_devices"><span class="tocnumber">5.1</span> <span class="toctext">Bluetooth keyboards, mice and other HID devices</span></a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -183,10 +188,15 @@ It is currently unknown if they are supported or not.
 <span class="go">Connection successful</span>
 <span class="go">[CHG] Device 00:11:22:33:44:55 ServicesResolved: yes</span>
 </pre></div>
-<p><code>Keyboard pairs, connects but doesn't work</code>
+<h3>
+<span id="Bluetooth_keyboards,_mice_and_other_HID_devices"></span><span class="mw-headline" id="Bluetooth_keyboards.2C_mice_and_other_HID_devices">Bluetooth keyboards, mice and other HID devices</span>
+</h3>
+<p>Make sure <code>CONFIG_UHID</code> is enabled in your kernel. If it's enabled as a module, run:
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> modprobe uhid
 </pre></div>
+<p>Getting the device to work might require a few tries; in general, what often works is first pairing the device, then turning off Bluetooth, turning it on again and letting the device connect again (many mice/keyboards will try to reconnect when you press any key/move the mouse).
+</p>
 </div></div>
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
@@ -200,9 +210,9 @@ It is currently unknown if they are supported or not.
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;oldid=44459">https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;oldid=44459</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;oldid=44486">https://wiki.postmarketos.org/index.php?title=Bluetooth&amp;oldid=44486</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 26 May 2023, at 18:04.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 27 May 2023, at 13:10.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

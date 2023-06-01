@@ -1,291 +1,126 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Translating postmarketOS - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Translating_postmarketOS rootpage-Translating_postmarketOS skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Translating postmarketOS
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <p>
-       As postmarketOS becomes more and more stable, it makes sense to think about making it more accessible for non-developers. An important part of that are translations and localization.
-      </p>
-      <div class="toc" id="toc">
-       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
-       <div class="toctitle" dir="ltr" lang="en">
-        <h2>
-         Contents
-        </h2>
-        <span class="toctogglespan">
-         <label class="toctogglelabel" for="toctogglecheckbox">
-         </label>
-        </span>
-       </div>
-       <ul>
-        <li class="toclevel-1 tocsection-1">
-         <a href="#Integrating_localization_into_postmarketOS">
-          <span class="tocnumber">
-           1
-          </span>
-          <span class="toctext">
-           Integrating localization into postmarketOS
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-2">
-         <a href="#Development_tools_and_homepage">
-          <span class="tocnumber">
-           2
-          </span>
-          <span class="toctext">
-           Development tools and homepage
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-3">
-         <a href="#Upstream_projects">
-          <span class="tocnumber">
-           3
-          </span>
-          <span class="toctext">
-           Upstream projects
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-4">
-         <a href="#Related">
-          <span class="tocnumber">
-           4
-          </span>
-          <span class="toctext">
-           Related
-          </span>
-         </a>
-        </li>
-       </ul>
-      </div>
-      <h2>
-       <span class="mw-headline" id="Integrating_localization_into_postmarketOS">
-        Integrating localization into postmarketOS
-       </span>
-      </h2>
-      <p>
-       As of writing, we did not put much effort in making language selection / localization work in postmarketOS. You might be able to change the language in the settings app of your UI of choice, possibly after installing some extra language packages, but it is likely to be broken.
-      </p>
-      <p>
-       Ideas to push this forward:
-      </p>
-      <ul>
-       <li>
-        integrate language selection into the on-device installer and pmbootstrap
-       </li>
-       <li>
-        install language packages as necessary (just the
-        <code>
-         lang
-        </code>
-        package actually, all language subpackages will then get pulled in via
-        <a class="external text" href="https://gitlab.alpinelinux.org/alpine/abuild/-/blob/10aa67a0cab480c9df2a050e0d102aca0cf18a02/abuild.in#L884" rel="nofollow">
-         install_if
-        </a>
-        )
-       </li>
-       <li>
-        make sure, that language selection is actually working (this may need some extra work with musl libc)
-       </li>
-       <li>
-        make language selection in the settings apps work
-       </li>
-       <li>
-        possibly provide a way to install an additional language (e.g. in GNOME Software or (KDE) Discover?)
-       </li>
-      </ul>
-      <p>
-       If you would like to help out with these tasks, let us know in the
-       <a class="external text" href="https://gitlab.com/groups/postmarketOS/-/issues" rel="nofollow">
-        issues
-       </a>
-       .
-      </p>
-      <h2>
-       <span class="mw-headline" id="Development_tools_and_homepage">
-        Development tools and homepage
-       </span>
-      </h2>
-      <p>
-       It is not very useful to translate development tools such as pmbootstrap. In order to use them, you need to read a lot of English documentation anyways. In fact, translating these will make development harder, as you suddenly can't search the Internet for specific output that pmbootstrap throws at you - you need to turn off translations first, or you won't get useful results. Let's rather focus on the parts that end-users will be facing.
-      </p>
-      <p>
-       Translating the homepage doesn't make sense at this point either. It is a lot of effort, which could be spent translating the actual user interfaces instead, and becomes outdated quickly. Besides that, there is technical effort required to make the homepage translatable in the first place. If you are interested in providing information about postmarketOS in a specific language, consider contributing to the postmarketOS Wikipedia page of that language.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Upstream_projects">
-        Upstream projects
-       </span>
-      </h2>
-      <p>
-       Pretty much everything that an end-user sees needs to be translated in an upstream project. Here are some pointers, note that GNOME and KDE are big projects consisting of many components, and that only a few of these components are actually relevant for postmarketOS. So if you plan to improve or add support for a certain language, think about the tasks that a casual postmarketOS user would typically perform with the OS. Then look into the translations of the components that make these tasks possible. If you do so, please add more bullet points with the specific components to be translated.
-      </p>
-      <ul>
-       <li>
-        <a class="external text" href="https://l10n.kde.org/" rel="nofollow">
-         KDE Localization
-        </a>
-        (Plasma Mobile UI and apps)
-       </li>
-       <li>
-        <a class="external text" href="https://wiki.gnome.org/TranslationProject" rel="nofollow">
-         GNOME Translation Project
-        </a>
-        (Phosh UI and apps)
-        <ul>
-         <li>
-          <a class="external text" href="https://developer.puri.sm/Librem5/Contact/Contributing/Translations.html" rel="nofollow">
-           Librem 5 Translation Docs
-          </a>
-         </li>
-        </ul>
-       </li>
-       <li>
-        <a class="external text" href="https://github.com/calamares/calamares/wiki/Translate-Guide" rel="nofollow">
-         Calamares Translate Guide
-        </a>
-        (For the
-        <a href="../en/On-device_installer.html" title="On-device installer">
-         On-device installer
-        </a>
-        ; note that we are currently not using the translations, but this is planned along with upstreaming our custom modules into Calamares)
-       </li>
-      </ul>
-      <h2>
-       <span class="mw-headline" id="Related">
-        Related
-       </span>
-      </h2>
-      <ul>
-       <li>
-        <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1993" rel="nofollow">
-         #1993
-        </a>
-        language selection for pmbootstrap
-       </li>
-       <li>
-        <a class="external text" href="https://gitlab.com/postmarketOS/postmarketos-ondev/-/issues/35" rel="nofollow">
-         postmarketos-ondev#35
-        </a>
-        language selection for the on-device installer
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="catlinks" data-mw="interface" id="catlinks">
-     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-      <a href="../Special:Categories.html" title="Special:Categories">
-       Category
-      </a>
-      :
-      <ul>
-       <li>
-        <a href="../en/Category:Guide.html" title="Category:Guide">
-         Guide
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Translating_postmarketOS&amp;oldid=15761">
-      https://wiki.postmarketos.org/index.php?title=Translating_postmarketOS&amp;oldid=15761
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 7 December 2020, at 16:07.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Translating_postmarketOS&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Translating postmarketOS - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Translating_postmarketOS rootpage-Translating_postmarketOS skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Translating postmarketOS</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>As postmarketOS becomes more and more stable, it makes sense to think about making it more accessible for non-developers. An important part of that are translations and localization.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Integrating_localization_into_postmarketOS"><span class="tocnumber">1</span> <span class="toctext">Integrating localization into postmarketOS</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Development_tools_and_homepage"><span class="tocnumber">2</span> <span class="toctext">Development tools and homepage</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Upstream_projects"><span class="tocnumber">3</span> <span class="toctext">Upstream projects</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Related"><span class="tocnumber">4</span> <span class="toctext">Related</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Integrating_localization_into_postmarketOS">Integrating localization into postmarketOS</span></h2>
+<p>As of writing, we did not put much effort in making language selection / localization work in postmarketOS. You might be able to change the language in the settings app of your UI of choice, possibly after installing some extra language packages, but it is likely to be broken.
+</p>
+<p>Ideas to push this forward:
+</p>
+<ul>
+<li>integrate language selection into the on-device installer and pmbootstrap</li>
+<li>install language packages as necessary (just the <code>lang</code> package actually, all language subpackages will then get pulled in via <a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/alpine/abuild/-/blob/10aa67a0cab480c9df2a050e0d102aca0cf18a02/abuild.in#L884">install_if</a>)</li>
+<li>make sure, that language selection is actually working (this may need some extra work with musl libc)</li>
+<li>make language selection in the settings apps work</li>
+<li>possibly provide a way to install an additional language (e.g. in GNOME Software or (KDE) Discover?)</li>
+</ul>
+<p>If you would like to help out with these tasks, let us know in the <a rel="nofollow" class="external text" href="https://gitlab.com/groups/postmarketOS/-/issues">issues</a>.
+</p>
+<h2><span class="mw-headline" id="Development_tools_and_homepage">Development tools and homepage</span></h2>
+<p>It is not very useful to translate development tools such as pmbootstrap. In order to use them, you need to read a lot of English documentation anyways. In fact, translating these will make development harder, as you suddenly can't search the Internet for specific output that pmbootstrap throws at you - you need to turn off translations first, or you won't get useful results. Let's rather focus on the parts that end-users will be facing.
+</p>
+<p>Translating the homepage doesn't make sense at this point either. It is a lot of effort, which could be spent translating the actual user interfaces instead, and becomes outdated quickly. Besides that, there is technical effort required to make the homepage translatable in the first place. If you are interested in providing information about postmarketOS in a specific language, consider contributing to the postmarketOS Wikipedia page of that language.
+</p>
+<h2><span class="mw-headline" id="Upstream_projects">Upstream projects</span></h2>
+<p>Pretty much everything that an end-user sees needs to be translated in an upstream project. Here are some pointers, note that GNOME and KDE are big projects consisting of many components, and that only a few of these components are actually relevant for postmarketOS. So if you plan to improve or add support for a certain language, think about the tasks that a casual postmarketOS user would typically perform with the OS. Then look into the translations of the components that make these tasks possible. If you do so, please add more bullet points with the specific components to be translated.
+</p>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://l10n.kde.org/">KDE Localization</a> (Plasma Mobile UI and apps)</li>
+<li>
+<a rel="nofollow" class="external text" href="https://wiki.gnome.org/TranslationProject">GNOME Translation Project</a> (Phosh UI and apps)
+<ul><li><a rel="nofollow" class="external text" href="https://developer.puri.sm/Librem5/Contact/Contributing/Translations.html">Librem 5 Translation Docs</a></li></ul>
+</li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/calamares/calamares/wiki/Translate-Guide">Calamares Translate Guide</a> (For the <a href="../en/On-device_installer.html" title="On-device installer">On-device installer</a>; note that we are currently not using the translations, but this is planned along with upstreaming our custom modules into Calamares)</li>
+</ul>
+<h2><span class="mw-headline" id="Related">Related</span></h2>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1446">pmaports#1446</a> Default file sorting</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1993">#1993</a> language selection for pmbootstrap</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-ondev/-/issues/35">postmarketos-ondev#35</a> language selection for the on-device installer</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Translating_postmarketOS&amp;oldid=44532">https://wiki.postmarketos.org/index.php?title=Translating_postmarketOS&amp;oldid=44532</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 29 May 2023, at 01:04.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Translating_postmarketOS&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>
