@@ -404,7 +404,7 @@ handset</td>
 </tr></tbody></table>
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">This device has a <a href="../en/Bootloader.html#Huawei" title="Bootloader">locked bootloader</a>.</td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This device has a <a href="../en/Category:Bootloaders.html#Huawei" class="mw-redirect" title="Bootloader">locked bootloader</a>.</td>
 </tr></tbody></table>
 <p>Technically, this should work with both AUM and LND models that have MSM89*7 SoC.
 </p>
@@ -437,7 +437,7 @@ handset</td>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ./mkbootimg --kernel /path/to/file/vmlinuz --ramdisk /dev/null --cmdline <span class="s1">'androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci slub_min_objects=12 unmovable_isolate1=2:192M,3:224M,4:256M unmovable_isolate2=2:64M,3:80M,4:80M androidboot.selinux=permissive buildvariant=user'</span> --base 0x80000000 --kernel_offset 0x00008000 --ramdisk_offset 0x02000000 --second_offset 0x00f00000 --tags_offset 0x00000100 --os_version <span class="m">8</span>.0.0 --os_patch_level <span class="m">2019</span>-01 --pagesize <span class="m">2048</span> --header_version <span class="m">0</span> --hashtype sha1 -o /path/to/file/pmOS_KERNEL.img
 </pre></div>
 <h2><span class="mw-headline" id="LK2nd">LK2nd</span></h2>
-<p>You can install <a href="../en/Lk2nd_Lk1st.html" title="Lk2nd/Lk1st">LK2nd</a> by splitting it in two (<b>ramdisk</b> &amp; <b>kernel</b>), create boot partition, and <i>that's as far as it goes</i>... You'll get stuck on Tux if you try to boot anything from it. (Logs show nothing out of ordinary. Probably partition related.)
+<p>You can install <a href="../en/Lk2nd_lk1st.html" class="mw-redirect" title="Lk2nd/Lk1st">LK2nd</a> by splitting it in two (<b>ramdisk</b> &amp; <b>kernel</b>), create boot partition, and <i>that's as far as it goes</i>... You'll get stuck on Tux if you try to boot anything from it. (Logs show nothing out of ordinary. Probably partition related.)
 </p>
 <h2><span class="mw-headline" id="Downstream">Downstream</span></h2>
 <h3><span class="mw-headline" id="hwtest">hwtest</span></h3>

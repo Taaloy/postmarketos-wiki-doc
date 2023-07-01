@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>lk2nd/lk1st - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Lk2nd_lk1st rootpage-Lk2nd_lk1st skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">lk2nd/lk1st</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">lk2nd</caption>
+<tbody>
+<tr class=""><td colspan="2" class="" style="text-align:center;">
+<a href="../Lk2nd-0.10.0-seed.png" class="image"><img alt="lk2nd fastboot screen example" src="../Lk2nd-0.10.0-seed.png" decoding="async" width="200" height="200" srcset="../300px-Lk2nd-0.10.0-seed.png 1.5x ../400px-Lk2nd-0.10.0-seed.png 2x"></a><br><span style="">lk2nd fastboot screen example</span>
+</td></tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Name</th>
+    <td class="" style="">
+lk2nd</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">1st stage</th>
+    <td class="" style="">
+P</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">2nd stage</th>
+    <td class="" style="">
+yes</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Resources</th>
+    <td class="" style="">
+<a rel="nofollow" class="external text" href="https://github.com/msm8916-mainline/lk2nd">source code</a>
+</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<p><br>
+<b>lk2nd/Lk1st</b> is a bootloader for devices based on Qualcomm system-on-chips (SoCs) and simplifies booting standard operating systems by providing unified boot and flashing interface.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Features"><span class="tocnumber">1</span> <span class="toctext">Features</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#lk2nd_vs_lk1st"><span class="tocnumber">2</span> <span class="toctext">lk2nd vs lk1st</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Supported_SoCs"><span class="tocnumber">3</span> <span class="toctext">Supported SoCs</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Usage"><span class="tocnumber">4</span> <span class="toctext">Usage</span></a></li>
+<li class="toclevel-1 tocsection-5">
+<a href="#Troubleshooting"><span class="tocnumber">5</span> <span class="toctext">Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6">
+<a href="#Quirky_devices"><span class="tocnumber">5.1</span> <span class="toctext">Quirky devices</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Common_traits_on_quirky_devices"><span class="tocnumber">5.1.1</span> <span class="toctext">Common traits on quirky devices</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Known_quirky_devices"><span class="tocnumber">5.1.2</span> <span class="toctext">Known quirky devices</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#References"><span class="tocnumber">7</span> <span class="toctext">References</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Features">Features</span></h2>
+<p>lk2nd/Lk1st provides automatic device and hardware detection, additional bootloader features like file system boot and <a href="../en/Dual_Booting.html" title="Dual Booting">Dual Booting</a> (booting from SD card) and additional firmware features include booting secondary CPU cores and various of debugging commands that allow better understanding of the hardware for research and development purposes.
+</p>
+<h2><span class="mw-headline" id="lk2nd_vs_lk1st">lk2nd vs lk1st</span></h2>
+<ul><li>lk2nd: "secondary" bootloader intended for devices where existing firmware cannot be replaced easily (most smartphones and tablets). In this configuration, lk2nd does not replace the stock bootloader. Instead, it is packed into an Android boot image, which is then loaded by the stock bootloader just like the original Android image. The real operating system can be placed in the boot partition with 512 KiB offset or stored in a ext2 file system. It does not have to be Android or even Linux, any kind of kernel can be packed into an Android boot image.</li></ul>
+<ul><li>lk1st: primary bootloader intended for single-board computers (SBCs) and expert users. In this case, it is the "first" bootloader responsible for loading the main operating system.</li></ul>
+<h2><span class="mw-headline" id="Supported_SoCs">Supported SoCs</span></h2>
+<ul>
+<li>
+<code>lk1st-msm8916</code>: <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm Snapdragon 410/412 (MSM8916)"> APQ8016, MSM8216, MSM8916</a>, MSM8929, <a href="../en/Qualcomm_Snapdragon_415_615_616_(MSM8929_MSM8939).html" class="mw-redirect" title="Qualcomm Snapdragon 615/616 (MSM8939)"> MSM8939</a>
+</li>
+<li>
+<code>lk2nd-msm8916</code>: <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm Snapdragon 410/412 (MSM8916)"> APQ8016, MSM8216, MSM8916</a>, MSM8929, <a href="../en/Qualcomm_Snapdragon_415_615_616_(MSM8929_MSM8939).html" class="mw-redirect" title="Qualcomm Snapdragon 615/616 (MSM8939)"> MSM8939</a>
+</li>
+<li>
+<code>lk2nd-msm8974</code>: <a href="../en/Qualcomm_Snapdragon_800_801_(MSM8974).html" title="Qualcomm Snapdragon 800/801 (MSM8974)"> MSM8974</a>
+</li>
+<li>
+<code>lk2nd-msm8226</code>: <a href="../en/Qualcomm_Snapdragon_400_(MSM8226).html" title="Qualcomm Snapdragon 400 (MSM8226)"> APQ8026, MSM8226, MSM8926</a>
+</li>
+<li>
+<code>lk2nd-msm8953</code>: <a href="../en/Qualcomm_Snapdragon_450_625_626_632_(MSM8953).html" title="Qualcomm Snapdragon 450/625/626/632 (MSM8953)"> MSM8953</a>
+</li>
+</ul>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<p>lk2nd provides the standard Android fastboot protocol for flashing/booting Android boot images.
+</p>
+<p>Press <code>Volume Down</code> while booting to enter Fastboot mode. Press <code>Volume Up</code> while booting to boot into Recovery mode.
+</p>
+<p><b>Note:</b> If your stock bootloader uses the same key combinations, you need to wait a bit before pressing the volume keys. Usually, waiting until the screen turns on and/or the device vibrates should be enough to make the stock bootloader ignore the keys.
+</p>
+<p><code>fastboot flash lk2nd lk2nd.img</code> can be used to update lk2nd directly from its fastboot interface.
+</p>
+<p><b>Note:</b> <code>fastboot flash boot boot.img</code> will flash the actual boot image with 512 KiB offset into the boot partition. This is done to avoid replacing lk2nd (since it is also booted from the boot partition).
+</p>
+<p>Other fastboot commands work normally.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<p>If the device shows up via fastboot you can get a log file from lk2nd using <code>fastboot oem lk_log &amp;&amp; fastboot get_staged &lt;output-file&gt;</code>, where <code>&lt;output-file&gt;</code> is either some text file to write to (e.g. <code>output.txt</code>) or <code>/dev/stdout</code> to write the log to standard output.
+</p>
+<h3><span class="mw-headline" id="Quirky_devices">Quirky devices</span></h3>
+<p>Some devices have a quirky bootloader, which doesn't boot lk2nd correctly and fallback to stock Fastboot/Odin Download Mode instead.
+</p>
+<h4><span class="mw-headline" id="Common_traits_on_quirky_devices">Common traits on quirky devices</span></h4>
+<ul>
+<li>1 GiB of RAM</li>
+<li>Kitkat 4.4 bootloader with ARM32 only support</li>
+<li>Crash after running <code>fastboot oem readl 0x004a8000</code><sup id="cite_ref-1" class="reference"><a href="#cite_note-1">[1]</a></sup> in lk2nd</li>
+<li>Kernel panics without tsens workaround<sup id="cite_ref-2" class="reference"><a href="#cite_note-2">[2]</a></sup>
+</li>
+</ul>
+<h4><span class="mw-headline" id="Known_quirky_devices">Known quirky devices</span></h4>
+<ul>
+<li>
+<a href="../en/Acer_Iconia_Talk_S_(acer-a1-724).html" title="Acer Iconia Talk S (acer-a1-724)">Acer Iconia Talk S (acer-a1-724)</a> (Fixable with secure boot disabled)</li>
+<li><a href="../en/Samsung_Galaxy_Ace_4_(samsung-heatqlte).html" title="Samsung Galaxy Ace 4 (samsung-heatqlte)">Samsung Galaxy Ace 4 (samsung-heatqlte)</a></li>
+<li><a href="../en/Samsung_Galaxy_Core_Prime_LTE_(samsung-coreprimelte).html" title="Samsung Galaxy Core Prime LTE (samsung-coreprimelte)">Samsung Galaxy Core Prime LTE (samsung-coreprimelte)</a></li>
+<li><a href="../en/Samsung_Galaxy_Grand_Prime_(samsung-gprime).html" title="Samsung Galaxy Grand Prime (samsung-gprime)">Samsung Galaxy Grand Prime (samsung-gprime)</a></li>
+<li>
+<a href="../en/Xiaomi_Redmi_2_(xiaomi-wt88047).html" title="Xiaomi Redmi 2 (xiaomi-wt88047)">Xiaomi Redmi 2 (xiaomi-wt88047)</a> (Fixable with secure boot disabled)</li>
+</ul>
+<p>Current known solution is to flash Lolipop 5.1 or above firmware to get a better bootloader, or flash TZ/HYP  <a rel="nofollow" class="external text" href="https://releases.linaro.org/96boards/dragonboard410c/qualcomm/firmware/">firmware</a> from <a href="../en/Arrow_DragonBoard_410c_(arrow-db410c).html" title="Arrow DragonBoard 410c (arrow-db410c)"> DragonBoard 410c</a>, which is <b>DANGEROUS</b>. Otherwise you will have to comment out unused device trees to avoid that the bootloader gets confused.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="../en/Template:Lk2nd.html" title="Template:Lk2nd">Template:lk2nd</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/msm8916-mainline/lk2nd">lk2nd/Lk1st</a> project page.</li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/efidroid/projectmanagement/wiki/%5BReference%5D-Chipsets">Chipsets</a> page on the EFIDroid wiki for an exact mapping of LK targets to SoCs.</li>
+</ul>
+<h2><span class="mw-headline" id="References">References</span></h2>
+<div class="mw-references-wrap"><ol class="references">
+<li id="cite_note-1">
+<span class="mw-cite-backlink"><a href="#cite_ref-1">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external text" href="https://github.com/torvalds/linux/commit/4f6e4892ea9a1af23e352628e491e9cbb124bc5f#diff-d5be6e8b9eb729f7f7cbd493a22b184acdbb3814cce67d1e938cf651f7abc9f2R682">arm64: dts: msm8916: Add thermal zones, tsens and qfprom nodes</a></span>
+</li>
+<li id="cite_note-2">
+<span class="mw-cite-backlink"><a href="#cite_ref-2">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external text" href="https://github.com/msm8916-mainline/linux/commit/ee445be2bb7f1385d86211f171bd4ce65ac16264">thermal: qcom: tsens: Add workaround for locked SROT region</a></span>
+</li>
+</ol></div>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Bootloaders.html" title="Category:Bootloaders">Bootloaders</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Lk2nd/lk1st&amp;oldid=45795">https://wiki.postmarketos.org/index.php?title=Lk2nd/lk1st&amp;oldid=45795</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 26 June 2023, at 15:09.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Lk2nd/lk1st&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

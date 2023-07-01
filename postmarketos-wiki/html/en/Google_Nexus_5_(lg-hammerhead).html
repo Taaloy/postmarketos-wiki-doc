@@ -477,36 +477,13 @@ Then with device powered off, hold down <span class="nowrap" title="This is not 
 <p>When prompted on device, use Volume-Up/Down buttons to highlight choice, then Power button to select it.  The Fastboot Mode screen will appear again, and a message regarding flashing will appear briefly.
 </p>
 <h3><span class="mw-headline" id="Flashing">Flashing</span></h3>
-<p>First, <a href="../en/Pmbootstrap.html#Installation" class="mw-redirect" title="Installing pmbootstrap">install pmbootstrap</a>.
+<p>For installation you need to flash <a href="../en/Lk2nd.html" class="mw-redirect" title="Lk2nd">lk2nd</a> and flash the rootfs. Do not flash the <code>boot</code> partition since lk2nd uses <a rel="nofollow" class="external text" href="https://github.com/msm8916-mainline/lk2nd/issues/113">fs-boot</a> functionality to boot the kernel from the <code>/boot</code> partition of the rootfs.
 </p>
-<p>Build the image:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
-<span class="gp">$</span> pmbootstrap install
-</pre></div>
-<p>Then in order to flash it put your device in fastboot mode, and plug it in USB. Then do:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> fastboot format system
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_lk2nd
 <span class="gp">$</span> pmbootstrap flasher flash_rootfs --partition userdata
-<span class="gp">$</span> pmbootstrap flasher flash_kernel
-<span class="gp">$</span> fastboot reboot
 </pre></div>
 <p>If flashing fails with an error like "Unknown chunk type", you may need to update your bootloader. bootloader-hammerhead-hhZ20h.img comes with the latest firmware from <a rel="nofollow" class="external text" href="https://developers.google.com/android/images%7Cthe">android image page</a> and can be flashed with <code>fastboot flash bootloader path/to/bootloader-hammerhead-hhZ20h.img</code>.
 </p>
-<h3><span class="mw-headline" id="lk2nd">lk2nd</span></h3>
-<p><a href="../en/Lk2nd_Lk1st.html" class="mw-redirect" title="Lk2nd">lk2nd</a> is a secondary bootloader that provides a standard fastboot interface, which can be used to boot postmarketOS without android <code>boot</code> flashed or <code>pmbootstrap flasher flash_kernel</code>.
-</p>
-<ol>
-<li>Download <b>lk2nd-msm8974.img</b> from <a rel="nofollow" class="external text" href="https://github.com/msm8916-mainline/lk2nd/releases">Releases</a> page on Github.</li>
-<li>Boot your phone to bootloader (fastboot) mode.</li>
-<li>Follow <a rel="nofollow" class="external text" href="https://github.com/msm8916-mainline/lk2nd#installation">lk2nd instructions</a>  to install lk2nd. Basically flash it to boot partition (<code>fastboot flash boot lk2nd-msm8974.img</code>)</li>
-<li>Follow <a href="../en/Qualcomm_Snapdragon_410_412_415_(MSM8916_MSM8916V2_MSM8929).html#Installation" class="mw-redirect" title="Qualcomm Snapdragon 410/412 (MSM8916)">Qualcomm_Snapdragon_410/412_(MSM8916)#Installation</a> to install postmarketOS.</li>
-</ol>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">
-<b>Note:</b> Enter lk2nd fastboot mode by pressing <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> <b>after</b> booting (this time <b>wait until it vibrates</b> then press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span>!</td>
-</tr></tbody></table>
 <h2><span class="mw-headline" id="Hardware_notes">Hardware notes</span></h2>
 <h3><span class="mw-headline" id="DDR">DDR</span></h3>
 <p>There are 2 variants of hammerhead with different DDR vendors.
@@ -522,7 +499,7 @@ Then with device powered off, hold down <span class="nowrap" title="This is not 
 <span class="go">variant: hammerhead D821(E) 16GB</span>
 <span class="go">...</span>
 </pre></div>
-<h4><span class="mw-headline" id="lk2nd_2">lk2nd</span></h4>
+<h4><span class="mw-headline" id="lk2nd">lk2nd</span></h4>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> fastboot oem lk_log <span class="o">&amp;&amp;</span> fastboot get_staged /dev/stdout <span class="p">|</span> grep ddr
 <span class="go">...                           </span>
 <span class="go">[40] Command line from primary bootloader: lk2nd uart_console=enable gpt=enable lge.kcal=0|0|0|x lge.rev=rev_11 androidboot.laf androidboot.emmc=true androidboot.serialno=0000000000000000 androidboot.bootloader=HHZ20h androidboot.baseband=msm androidboot.hardware.sku=D821 androidboot.hardware.ddr=elpida androidboot.hardware.display=orise androidboot.revision=11</span>
@@ -552,7 +529,7 @@ reduce the charge voltage and current to minimum (set it at your own risk):
 <div class="thumb tright"><div class="thumbinner" style="width:302px;">
 <a href="../Nexus_5_-_sound_and_input_through_network_on_a_secondary_device_-_thumbnail.png" class="image"><img alt="" src="../Nexus_5_-_sound_and_input_through_network_on_a_secondary_device_-_thumbnail.png" decoding="async" width="300" height="175" class="thumbimage" srcset="../450px-Nexus_5_-_sound_and_input_through_network_on_a_secondary_device_-_thumbnail.png 1.5x ../600px-Nexus_5_-_sound_and_input_through_network_on_a_secondary_device_-_thumbnail.png 2x"></a>  <div class="thumbcaption">
 <div class="magnify"><a href="../Nexus_5_-_sound_and_input_through_network_on_a_secondary_device_-_thumbnail.png" class="internal" title="Enlarge"></a></div>
-<a rel="nofollow" class="external text" href="https://youtu.be/diYgNXi3zY8">Video</a>: a working example of postmarketOS sharing sound and input running with a secondary device on top of <a href="../en/The_Mainline_Kernel.html" title="The Mainline Kernel">mainline Linux</a>.</div>
+<a rel="nofollow" class="external text" href="https://youtu.be/diYgNXi3zY8">Video</a>: a working example of postmarketOS sharing sound and input running with a secondary device on top of <a href="../en/Mainlining_Guide.html" class="mw-redirect" title="The Mainline Kernel">mainline Linux</a>.</div>
 </div></div>
 <h3><span class="mw-headline" id="Audio">Audio</span></h3>
 <p>No one has still worked on playback and recording support on-device.
@@ -650,7 +627,7 @@ so you will need to add export variables directly. Add the following lines to <c
 <div class="thumb tright"><div class="thumbinner" style="width:302px;">
 <a href="../Running_phosh_on_the_Nexus_5_with_PostmarketOS_-_Youtube_thumbnail.png" class="image"><img alt="" src="../Running_phosh_on_the_Nexus_5_with_PostmarketOS_-_Youtube_thumbnail.png" decoding="async" width="300" height="163" class="thumbimage" srcset="../450px-Running_phosh_on_the_Nexus_5_with_PostmarketOS_-_Youtube_thumbnail.png 1.5x ../600px-Running_phosh_on_the_Nexus_5_with_PostmarketOS_-_Youtube_thumbnail.png 2x"></a>  <div class="thumbcaption">
 <div class="magnify"><a href="../Running_phosh_on_the_Nexus_5_with_PostmarketOS_-_Youtube_thumbnail.png" class="internal" title="Enlarge"></a></div>
-<a rel="nofollow" class="external text" href="https://youtu.be/y8W-G0G8ajg">Video</a>: a working example of postmarketOS running Phosh on top of <a href="../en/The_Mainline_Kernel.html" title="The Mainline Kernel">mainline Linux</a>.</div>
+<a rel="nofollow" class="external text" href="https://youtu.be/y8W-G0G8ajg">Video</a>: a working example of postmarketOS running Phosh on top of <a href="../en/Mainlining_Guide.html" class="mw-redirect" title="The Mainline Kernel">mainline Linux</a>.</div>
 </div></div>
 <h4><span class="mw-headline" id="Graphics">Graphics</span></h4>
 <p>The interface randomly freeze (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/424">pmaports#424</a>) in particular when heavy loading (browsing and stuff), requiring an hard reboot.
@@ -887,9 +864,9 @@ This might be solved by updating by reflashing the latest version of the stock A
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Nexus_5_(lg-hammerhead)&amp;oldid=35481">https://wiki.postmarketos.org/index.php?title=Google_Nexus_5_(lg-hammerhead)&amp;oldid=35481</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Nexus_5_(lg-hammerhead)&amp;oldid=44946">https://wiki.postmarketos.org/index.php?title=Google_Nexus_5_(lg-hammerhead)&amp;oldid=44946</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 9 January 2023, at 11:43.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 9 June 2023, at 16:32.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

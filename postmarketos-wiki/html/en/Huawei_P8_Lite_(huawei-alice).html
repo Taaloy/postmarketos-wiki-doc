@@ -65,7 +65,17 @@ testing</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Original software</th>
     <td class="" style="">
-Android 5.0.2 (upgradeable to to 6.0)</td>
+Android</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="The version the device was shipped with.">Original version</abbr></th>
+    <td class="" style="">
+5.0.2</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="The most recent supported version from the manufacturer.">Extended version</abbr></th>
+    <td class="" style="">
+6.0</td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">postmarketOS kernel</th>
@@ -76,7 +86,7 @@ Android 5.0.2 (upgradeable to to 6.0)</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Chipset</th>
     <td class="" style="">
-<a href="/index.php?title=HiSilicon_Kirin_620&amp;action=edit&amp;redlink=1" class="new" title="HiSilicon Kirin 620 (page does not exist)">HiSilicon Kirin 620</a>
+<a href="../en/HiSilicon_Kirin_620_(Hi6220).html" class="mw-redirect" title="HiSilicon Kirin 620">HiSilicon Kirin 620</a>
 </td>
 </tr>
 <tr class="">
@@ -364,7 +374,8 @@ aarch64</td>
 <li><a href="../User:Blender_Addict.html" title="User:Blender Addict">Blender Addict</a></li>
 <li>
 <a href="../User:Hacker420.html" title="User:Hacker420">Hacker420</a> (<span class="cargoFieldName">Notes:</span> Dying battery.)</li>
-<li><a href="../User:Knuxfanwin8.html" title="User:Knuxfanwin8">Knuxfanwin8</a></li>
+<li>
+<a href="../User:Knuxfanwin8.html" title="User:Knuxfanwin8">Knuxfanwin8</a> (<span class="cargoFieldName">Notes:</span> unlocked with PotatoNV, dead wifi/bluetooth)</li>
 <li><a href="../User:Notnoelchannel.html" title="User:Notnoelchannel">Notnoelchannel</a></li>
 <li>
 <a href="../User:TPJS.html" title="User:TPJS">TPJS</a> (<span class="cargoFieldName">Notes:</span> untested)</li>
@@ -379,15 +390,210 @@ aarch64</td>
 <p>Recovery - hold <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span>
 </p>
 <h2><span class="mw-headline" id="Bootloader">Bootloader</span></h2>
-<p>See <a href="../en/Bootloader.html#Huawei" title="Bootloader">Bootloader page</a>
+<p><i>See also: <a href="../en/Category:Bootloaders.html#Huawei" class="mw-redirect" title="Bootloader">Bootloader#Huawei</a></i>
 </p>
-<p>The Bootloader can be unlocked using <a rel="nofollow" class="external text" href="https://github.com/mashed-potatoes/PotatoNV">PotatoNV</a>.
+<p>The bootloader can be unlocked using <a rel="nofollow" class="external text" href="https://github.com/mashed-potatoes/PotatoNV">PotatoNV</a>. To unlock the bootloader, you will need to disassemble the device.
 </p>
-<p><i>TODO: There's <a rel="nofollow" class="external text" href="https://forum.xda-developers.com/t/guide-unlock-bootloader-root-the-device-and-install-any-custom-rom-ale-l23-21.3977067/">a bootloader unlock guide on XDA developers</a>, which doesn't involve buying any unlocking software or disassembling the device. See if this still works, and maybe figure out an alternative way to root the device instead of KingoRoot?</i>
+<p>The back cover is attached with clips, and can be taken off with some fiddling. There's a bit of glue around the battery, but you can remove it by wedging in a plastic card. See the <a rel="nofollow" class="external text" href="https://www.ifixit.com/Teardown/Huawei+P8+Lite+Teardown/45850">iFixit teardown guide for this device</a> for more detailed instructions.
+</p>
+<p>The test point for the device is located under the bottom metal shield and speaker. You will need to remove them to get to it - the shield (and the top speaker screws) are standard Philips-heads, the bottom ones are torque. See the photo at the bottom of the page. Short down the two marked points with a pair of tweezers to activate it.
+</p>
+<p>Follow the guide in the PotatoNV README to unlock the bootloader. Select the Kirin 620 bootloader. Note that you need a Windows PC to run the PotatoNV software. Make sure you install the testpoint drivers.
+</p>
+<p><i>It's also possible to unlock the bootloader without opening the device by following <a rel="nofollow" class="external text" href="https://forum.xda-developers.com/t/guide-unlock-bootloader-root-the-device-and-install-any-custom-rom-ale-l23-21.3977067/">this bootloader unlock guide on XDA developers</a>. Effectively, the process is just downgrading to Android 5 then rooting the device then getting the OEM unlock key that way. PotatoNV should work better, though.</i>
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <p>Flashing rootfs may not work, use sideload.
 </p>
+<h2><span class="mw-headline" id="Mainline_status_and_components">Mainline status and components</span></h2>
+<p>It may be possible to mainline this device, as its SoC is supported in the mainline kernel.
+</p>
+<table class="wikitable feature-colors">
+<tbody>
+<tr>
+<th>Element type
+</th>
+<th>Element
+</th>
+<th>Works?
+</th>
+<th>Notes
+</th>
+</tr>
+<tr>
+<td>Chipset
+</td>
+<td>HiSilicon Kirin 620 (Hi6220)
+</td>
+<td>
+</td>
+<td>DTS in mainline
+</td>
+</tr>
+<tr>
+<td>Graphics
+</td>
+<td>Mali-450MP4
+</td>
+<td>
+</td>
+<td>Seems to have a node in the DTS?
+</td>
+</tr>
+<tr>
+<td>Charger
+</td>
+<td>HI6521/BQ2419X
+</td>
+<td>
+</td>
+<td>BQ24190 is supported in mainline
+</td>
+</tr>
+<tr>
+<td>PMIC
+</td>
+<td>HI6552
+</td>
+<td>
+</td>
+<td>Appears to be supported in mainline
+</td>
+</tr>
+<tr>
+<td>Touchscreen
+</td>
+<td>CYTTSP5
+</td>
+<td>
+</td>
+<td>Supported in mainline.
+</td>
+</tr>
+<tr>
+<td>USB switch
+</td>
+<td>FSA9685
+</td>
+<td>
+</td>
+<td>Not supported in mainline
+</td>
+</tr>
+<tr>
+<td>NFC
+</td>
+<td>NXP PN547
+</td>
+<td>
+</td>
+<td>Supported in mainline
+</td>
+</tr>
+<tr>
+<td>Audio codec
+</td>
+<td>MAX98925, TFA9895
+</td>
+<td>
+</td>
+<td>Supported in mainline
+</td>
+</tr>
+<tr>
+<td>WiFi, Bluetooth
+</td>
+<td>BCM4343/HI1101
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>Accelerometer
+</td>
+<td>ST_LIS3XH/ROHM_KX023
+</td>
+<td>
+</td>
+<td>Both supported in mainline (first one not exactly, but should be the same as other ST accelerometers in mainline). Second one is confirmed to be used.
+</td>
+</tr>
+<tr>
+<td>Proximity/light sensor
+</td>
+<td>TAOS_TMD27723
+</td>
+<td>
+</td>
+<td>Variant of the TMD2772 which is supported in mainline
+</td>
+</tr>
+<tr>
+<td>Compass/magnetic
+</td>
+<td>AKM09911
+</td>
+<td>
+</td>
+<td>Not supported in mainline
+</td>
+</tr>
+<tr>
+<td>Hall effect sensor
+</td>
+<td>AK8789
+</td>
+<td>
+</td>
+<td>Not supported in mainline
+</td>
+</tr>
+<tr>
+<td>Primary camera
+</td>
+<td>OV13850
+</td>
+<td>
+</td>
+<td>Mainline has support for an OV13858
+</td>
+</tr>
+<tr>
+<td>Secondary camera
+</td>
+<td>OV5648 (foxconn)
+</td>
+<td>
+</td>
+<td>Supported in mainline
+</td>
+</tr>
+<tr>
+<td>Display
+</td>
+<td>BOE NT35521
+</td>
+<td>
+</td>
+<td>Mainline has a driver for a similar panel in a Sony device
+</td>
+</tr>
+</tbody>
+</table>
+<p>There are many cameras (OV5648, IMX134, S5K4E1GA, OV13850, IMX328, OV8856, IMX219, HI843S) and displays (OTM1902B, OTM1282B, NT35521, LPM070W425C) listed in the defconfig; these were present on <a href="../User:Knuxfanwin8.html" title="User:Knuxfanwin8">my</a> device.
+</p>
+<h2><span class="mw-headline" id="Gallery">Gallery</span></h2>
+<ul class="gallery mw-gallery-traditional">
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:15px auto;"><a href="../P8-lite-testpoint.png" class="image"><img alt="" src="../P8-lite-testpoint.png" decoding="async" width="93" height="120" srcset="../139px-P8-lite-testpoint.png 1.5x ../186px-P8-lite-testpoint.png 2x"></a></div></div>
+			<div class="gallerytext">
+<p>Test point location
+</p>
+			</div>
+		</div></li>
+</ul>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow" class="external text" href="https://www.gsmarena.com/huawei_p8lite-7201.php">Phone specifications</a></li>
@@ -404,7 +610,7 @@ aarch64</td>
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
 <li><a href="../en/Category:Devices.html" title="Category:Devices">Devices</a></li>
-<li><a href="/index.php?title=Category:Android_5.0.2_(upgradeable_to_to_6.0)&amp;action=edit&amp;redlink=1" class="new" title="Category:Android 5.0.2 (upgradeable to to 6.0) (page does not exist)">Android 5.0.2 (upgradeable to to 6.0)</a></li>
+<li><a href="../en/Category:Android.html" title="Category:Android">Android</a></li>
 <li><a href="/index.php?title=Category:Huawei&amp;action=edit&amp;redlink=1" class="new" title="Category:Huawei (page does not exist)">Huawei</a></li>
 </ul>
 </div></div>
@@ -416,9 +622,9 @@ aarch64</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Huawei_P8_Lite_(huawei-alice)&amp;oldid=44523">https://wiki.postmarketos.org/index.php?title=Huawei_P8_Lite_(huawei-alice)&amp;oldid=44523</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Huawei_P8_Lite_(huawei-alice)&amp;oldid=46081">https://wiki.postmarketos.org/index.php?title=Huawei_P8_Lite_(huawei-alice)&amp;oldid=46081</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 28 May 2023, at 21:08.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 30 June 2023, at 20:19.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

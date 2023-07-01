@@ -1,571 +1,194 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Mainlining Guide - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Mainlining_Guide rootpage-Mainlining_Guide skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Mainlining Guide
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          General information about Mainlining is on the
-          <a href="../en/Mainlining.html" title="Mainlining">
-           Mainlining
-          </a>
-          page.
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <div class="toc" id="toc">
-       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
-       <div class="toctitle" dir="ltr" lang="en">
-        <h2>
-         Contents
-        </h2>
-        <span class="toctogglespan">
-         <label class="toctogglelabel" for="toctogglecheckbox">
-         </label>
-        </span>
-       </div>
-       <ul>
-        <li class="toclevel-1 tocsection-1">
-         <a href="#Introduction">
-          <span class="tocnumber">
-           1
-          </span>
-          <span class="toctext">
-           Introduction
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-2">
-         <a href="#Requirements">
-          <span class="tocnumber">
-           2
-          </span>
-          <span class="toctext">
-           Requirements
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-3">
-           <a href="#postmarketOS_port">
-            <span class="tocnumber">
-             2.1
-            </span>
-            <span class="toctext">
-             postmarketOS port
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-4">
-         <a href="#Getting_Help">
-          <span class="tocnumber">
-           3
-          </span>
-          <span class="toctext">
-           Getting Help
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-5">
-         <a href="#Cooperative_firmware">
-          <span class="tocnumber">
-           4
-          </span>
-          <span class="toctext">
-           Cooperative firmware
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-6">
-         <a href="#Preparation">
-          <span class="tocnumber">
-           5
-          </span>
-          <span class="toctext">
-           Preparation
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-7">
-           <a href="#Serial_cable">
-            <span class="tocnumber">
-             5.1
-            </span>
-            <span class="toctext">
-             Serial cable
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-8">
-           <a href="#pmbootstrap_setup">
-            <span class="tocnumber">
-             5.2
-            </span>
-            <span class="toctext">
-             pmbootstrap setup
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-9">
-           <a href="#Kernel">
-            <span class="tocnumber">
-             5.3
-            </span>
-            <span class="toctext">
-             Kernel
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-10">
-           <a href="#envkernel.sh">
-            <span class="tocnumber">
-             5.4
-            </span>
-            <span class="toctext">
-             envkernel.sh
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-11">
-           <a href="#Got_everything.3F">
-            <span class="tocnumber">
-             5.5
-            </span>
-            <span class="toctext">
-             Got everything?
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-12">
-         <a href="#Device_Tree_Source">
-          <span class="tocnumber">
-           6
-          </span>
-          <span class="toctext">
-           Device Tree Source
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-13">
-           <a href="#Start_with_an_existing_file">
-            <span class="tocnumber">
-             6.1
-            </span>
-            <span class="toctext">
-             Start with an existing file
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-14">
-           <a href="#Adjust_model_and_compatible">
-            <span class="tocnumber">
-             6.2
-            </span>
-            <span class="toctext">
-             Adjust model and compatible
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-15">
-           <a href="#Minimal_booting_version">
-            <span class="tocnumber">
-             6.3
-            </span>
-            <span class="toctext">
-             Minimal booting version
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-16">
-         <a href="#Adjust_DTS_Makefile">
-          <span class="tocnumber">
-           7
-          </span>
-          <span class="toctext">
-           Adjust DTS Makefile
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-17">
-         <a href="#Testing">
-          <span class="tocnumber">
-           8
-          </span>
-          <span class="toctext">
-           Testing
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-18">
-           <a href="#Defconfig_and_compilation">
-            <span class="tocnumber">
-             8.1
-            </span>
-            <span class="toctext">
-             Defconfig and compilation
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-19">
-           <a href="#Verification_of_your_DTS">
-            <span class="tocnumber">
-             8.2
-            </span>
-            <span class="toctext">
-             Verification of your DTS
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-20">
-           <a href="#pmbootstrap">
-            <span class="tocnumber">
-             8.3
-            </span>
-            <span class="toctext">
-             pmbootstrap
-            </span>
-           </a>
-           <ul>
-            <li class="toclevel-3 tocsection-21">
-             <a href="#Init">
-              <span class="tocnumber">
-               8.3.1
-              </span>
-              <span class="toctext">
-               Init
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-22">
-             <a href="#Building_and_Running">
-              <span class="tocnumber">
-               8.3.2
-              </span>
-              <span class="toctext">
-               Building and Running
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-23">
-             <a href="#Rebuilds">
-              <span class="tocnumber">
-               8.3.3
-              </span>
-              <span class="toctext">
-               Rebuilds
-              </span>
-             </a>
-            </li>
-           </ul>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-24">
-         <a href="#See_also">
-          <span class="tocnumber">
-           9
-          </span>
-          <span class="toctext">
-           See also
-          </span>
-         </a>
-        </li>
-       </ul>
-      </div>
-      <h2>
-       <span class="mw-headline" id="Introduction">
-        Introduction
-       </span>
-      </h2>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          Please have realistic expectations: Booting mainline even if nothing else is working is already a great achievement!
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <p>
-       This guide will walk you through mainlining your device. For the devices where this will work, you should be fine with basic shell knowledge, and you will be rewarded with learning a lot of new stuff and possibly booting the mainline kernel on your device!
-      </p>
-      <h2>
-       <span class="mw-headline" id="Requirements">
-        Requirements
-       </span>
-      </h2>
-      <h3>
-       <span class="mw-headline" id="postmarketOS_port">
-        postmarketOS port
-       </span>
-      </h3>
-      <p>
-       This guide assumes that postmarketOS was already ported with a downstream kernel to your device, and that you can
-       <a href="../en/USB_Network.html" title="USB Network">
-        enter a shell after it booted via USB
-       </a>
-       (SSH or telnet). Downstream kernels are the ones from the vendor, that ship with the device, and all derivatives from that (e.g. your typical Android / LineageOS ROM). You can check if it was ported already on the
-       <a href="../en/Devices.html" title="Devices">
-        devices
-       </a>
-       page, and start a
-       <a class="mw-redirect" href="../en/Porting_to_a_new_device.html" title="Porting guide">
-        new port
-       </a>
-       if necessary.
-      </p>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          An existing port with downstream kernel is not a hard dependency, it may take less effort overall to skip that depending on the state of the codebase.
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <h2>
-       <span class="mw-headline" id="Getting_Help">
-        Getting Help
-       </span>
-      </h2>
-      <p>
-       The mainlining process varies greatly for each device, which means we can't just write down straight forward instructions here. But luckily there are skilled people who have a bigger picture of a specific
-       <a class="external text" href="https://en.wikipedia.org/wiki/System_on_a_chip" rel="nofollow">
-        SoC
-       </a>
-       and they know how to help you out efficiently. Head over to your device's wiki page (as linked in the
-       <a href="../en/Devices.html" title="Devices">
-        device overview
-       </a>
-       ) and look at the chipset the device has (infobox on the top right). You can also check out
-       <a href="../en/Mainlining.html#Getting_help" title="Mainlining">
-        Mainlining#Getting_help
-       </a>
-      </p>
-      <p>
-       Make sure that your SoC is listed in
-       <a href="../en/Mainlining.html#Supported_SoCs" title="Mainlining">
-        Mainlining#Supported_SoCs
-       </a>
-       . If it isn't, ask someone on
-       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
-        #postmarketOS-mainline
-       </a>
-       if it's supported in mainline Linux.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Cooperative_firmware">
-        Cooperative firmware
-       </span>
-      </h2>
-      <p>
-       Some firmware, especially the bootloader, trustzone etc., don't play nice with the mainline Linux kernel. That is because it may require ugly hacks in the kernel, courtesy of being disgustingly broken. Those ugly hacks will not be accepted into mainline, because the proper solution would be to fix the firmware, regardless of the fact that the freedom to do that was taken away from you thanks to signature verification.
-      </p>
-      <p>
-       For example, a device shipping with 32bit kernel or even 64bit kernel with aforementioned ugly hacks, is likely to not support PSCI, the only mainline-approved way of CPU power management (including SMP) on aarch64. Considering this relies on trustzone cooperation, which is as far from being under your control as it possibly can, you're probably out of luck unless you a) implement said ugly hacks or b) manage to exploit your device and supply a proper trustzone.
-      </p>
-      <p>
-       Only if we campaign for the freedom to run our own software on the devices we own will we be able to replace the firmware with an open one, shall one emerge.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Preparation">
-        Preparation
-       </span>
-      </h2>
-      <h3>
-       <span class="mw-headline" id="Serial_cable">
-        Serial cable
-       </span>
-      </h3>
-      <p>
-       It is recommended to have a working
-       <a href="../en/Serial_debugging.html" title="Serial debugging">
-        serial cable
-       </a>
-       for your device. In case you can not make one, it might be possible to
-       <a href="../en/Mainlining_FAQ.html#Writing_dmesg_to_RAM_and_reading_it_out_after_reboot" title="Mainlining FAQ">
-        use a workaround
-       </a>
-       for retrieving log messages but that isn't straight forward. You can also use a framebuffer console to see logs appearing on your screen, which you will have to enable in your dts.
-      </p>
-      <h3>
-       <span class="mw-headline" id="pmbootstrap_setup">
-        pmbootstrap setup
-       </span>
-      </h3>
-      <p>
-       If you have not done this already, please download and initialize
-       <code>
-        pmbootstrap
-       </code>
-       . You can stay with the defaults. Just make sure to select the right device, and (to save you some time), select
-       <code>
-        none
-       </code>
-       as the user interface. Replace
-       <code>
-        ~/code
-       </code>
-       with the path where you would like to store the source code.
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Mainlining Guide - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Mainlining_Guide rootpage-Mainlining_Guide skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Mainlining Guide</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">General information about Mainlining is on the <a href="../en/Mainlining.html" title="Mainlining">Mainlining</a> page.</td>
+</tr></tbody></table>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Getting_Help"><span class="tocnumber">2</span> <span class="toctext">Getting Help</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#Requirements"><span class="tocnumber">3</span> <span class="toctext">Requirements</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#postmarketOS_port"><span class="tocnumber">3.1</span> <span class="toctext">postmarketOS port</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Serial_cable"><span class="tocnumber">3.2</span> <span class="toctext">Serial cable</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Kernel_packaging"><span class="tocnumber">3.3</span> <span class="toctext">Kernel packaging</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Cooperative_firmware"><span class="tocnumber">3.4</span> <span class="toctext">Cooperative firmware</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Device_tree_source"><span class="tocnumber">3.5</span> <span class="toctext">Device tree source</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Preparation"><span class="tocnumber">4</span> <span class="toctext">Preparation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#pmbootstrap_setup"><span class="tocnumber">4.1</span> <span class="toctext">pmbootstrap setup</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Kernel"><span class="tocnumber">4.2</span> <span class="toctext">Kernel</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#envkernel.sh"><span class="tocnumber">4.3</span> <span class="toctext">envkernel.sh</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Reminder"><span class="tocnumber">4.4</span> <span class="toctext">Reminder</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14">
+<a href="#Device_Tree_Source_2"><span class="tocnumber">5</span> <span class="toctext">Device Tree Source</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#Before_start"><span class="tocnumber">5.1</span> <span class="toctext">Before start</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Start_with_an_existing_file"><span class="tocnumber">5.2</span> <span class="toctext">Start with an existing file</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Adjust_model_and_compatible"><span class="tocnumber">5.3</span> <span class="toctext">Adjust model and compatible</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Minimal_booting_version"><span class="tocnumber">5.4</span> <span class="toctext">Minimal booting version</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="#Adjust_DTS_Makefile"><span class="tocnumber">6</span> <span class="toctext">Adjust DTS Makefile</span></a></li>
+<li class="toclevel-1 tocsection-20">
+<a href="#Testing"><span class="tocnumber">7</span> <span class="toctext">Testing</span></a>
+<ul>
+<li class="toclevel-2 tocsection-21"><a href="#Defconfig_and_compilation"><span class="tocnumber">7.1</span> <span class="toctext">Defconfig and compilation</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#Verification_of_your_DTS"><span class="tocnumber">7.2</span> <span class="toctext">Verification of your DTS</span></a></li>
+<li class="toclevel-2 tocsection-23">
+<a href="#Deal_with_packages"><span class="tocnumber">7.3</span> <span class="toctext">Deal with packages</span></a>
+<ul>
+<li class="toclevel-3 tocsection-24"><a href="#Init"><span class="tocnumber">7.3.1</span> <span class="toctext">Init</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#Building_and_Running"><span class="tocnumber">7.3.2</span> <span class="toctext">Building and Running</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="#Rebuilds"><span class="tocnumber">7.3.3</span> <span class="toctext">Rebuilds</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-27"><a href="#Prepare_for_production"><span class="tocnumber">7.4</span> <span class="toctext">Prepare for production</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-28">
+<a href="#See_also"><span class="tocnumber">8</span> <span class="toctext">See also</span></a>
+<ul>
+<li class="toclevel-2 tocsection-29"><a href="#General"><span class="tocnumber">8.1</span> <span class="toctext">General</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="#Misc"><span class="tocnumber">8.2</span> <span class="toctext">Misc</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="#Other_guides"><span class="tocnumber">8.3</span> <span class="toctext">Other guides</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="#Device_specific"><span class="tocnumber">8.4</span> <span class="toctext">Device specific</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="#SoC-specific"><span class="tocnumber">8.5</span> <span class="toctext">SoC-specific</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="#Display"><span class="tocnumber">8.6</span> <span class="toctext">Display</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Please have realistic expectations: Booting mainline even if nothing else is working is already a great achievement!</td>
+</tr></tbody></table>
+<p>The kernel fork used in Android is different from the kernel at <a rel="nofollow" class="external autonumber" href="https://kernel.org">[1]</a>. The former is downstream kernel (aka. baseline kernel) and the latter is upstream kernel.
+Carrying around forks of the kernel is not sustainable as it becomes impossible to provide security patches after a short time. The only way to truly fix this for a device is <i>mainlining</i> it. 
+Making a device boot with the upstream kernel is colloquially referred to as mainlining.
+</p>
+<p>When it comes to postmarketOS, we want to get as many devices working with one shared kernel package (based on upstream). 
+</p>
+<p>This guide will walk you through mainlining your device. For the devices where this will work, you should be fine with basic shell knowledge, and you will be rewarded with learning a lot of new stuff and possibly booting the mainline kernel on your device!
+</p>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Getting_Help">Getting Help</span></h2>
+<p>Read <a href="../en/Mainlining_FAQ.html" title="Mainlining FAQ">Mainlining_FAQ</a> first to check if there provides some tips for your progress.
+</p>
+<p>The mainlining process varies greatly for each device, which means we can't just write down straight forward instructions here. But luckily there are skilled people who have a bigger picture of a specific <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/System_on_a_chip">SoC</a> and they know how to help you out efficiently. Head over to your device's wiki page (as linked in the <a href="../en/Devices.html" title="Devices">device overview</a>) and look at the chipset the device has (infobox on the top right). You can also check out <a href="../en/Mainlining.html#Getting_help" title="Mainlining">Mainlining#Getting_help</a>
+</p>
+<p>Make sure that your SoC is listed in <a href="../en/Mainlining.html#Supported_SoCs" title="Mainlining">Mainlining#Supported_SoCs</a>. If it isn't, ask someone on <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">#postmarketOS-mainline</a> if it's supported in mainline Linux.
+</p>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Requirements">Requirements</span></h2>
+<h3><span class="mw-headline" id="postmarketOS_port">postmarketOS port</span></h3>
+<p>This guide assumes that postmarketOS was already ported with a downstream kernel to your device, and that you can <a href="../en/USB_Network.html" title="USB Network">enter a shell after it booted via USB</a> (SSH or telnet). Downstream kernels are the ones from the vendor, that ship with the device, and all derivatives from that (e.g. your typical Android / LineageOS ROM). You can check if it was ported already on the <a href="../en/Devices.html" title="Devices">devices</a> page, and start a <a href="../en/Porting_to_a_new_device.html" class="mw-redirect" title="Porting guide">new port</a> if necessary.
+</p>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">An existing port with downstream kernel is not a hard dependency, it may take less effort overall to skip that depending on the state of the codebase.</td>
+</tr></tbody></table>
+<h3><span class="mw-headline" id="Serial_cable">Serial cable</span></h3>
+<p>It is recommended to have a working <a href="../en/Serial_debugging.html" title="Serial debugging">serial cable</a> for your device. In case you can not make one, it might be possible to <a href="../en/Mainlining_FAQ.html#Writing_dmesg_to_RAM_and_reading_it_out_after_reboot" title="Mainlining FAQ">use a workaround</a> for retrieving log messages but that isn't straight forward. You can also use a framebuffer console to see logs appearing on your screen, which you will have to enable in your dts.
+</p>
+<h3><span class="mw-headline" id="Kernel_packaging">Kernel packaging</span></h3>
+<p>To make the kernel work with multiple devices, it no longer appends the <code>dtb</code> file to the kernel image. Instead, it puts all <code>dtb</code> files for the current architecture in <code>/usr/share/dtb</code>. The <code>postmarketos-mkinitfs</code> package appends the <code>dtb</code> file defined in the <a href="../en/Deviceinfo_reference.html" class="mw-redirect" title="Deviceinfo">deviceinfo</a> to the linux image in the boot partition.
+</p>
+<h3><span class="mw-headline" id="Cooperative_firmware">Cooperative firmware</span></h3>
+<p>Some firmware, especially the bootloader, trustzone etc., don't play nice with the mainline Linux kernel. That is because it may require ugly hacks in the kernel, courtesy of being disgustingly broken. Those ugly hacks will not be accepted into mainline, because the proper solution would be to fix the firmware, regardless of the fact that the freedom to do that was taken away from you thanks to signature verification.
+</p>
+<p>For example, a device shipping with 32bit kernel or even 64bit kernel with aforementioned ugly hacks, is likely to not support PSCI, the only mainline-approved way of CPU power management (including SMP) on aarch64. Considering this relies on trustzone cooperation, which is as far from being under your control as it possibly can, you're probably out of luck unless you a) implement said ugly hacks or b) manage to exploit your device and supply a proper trustzone.
+</p>
+<p>Only if we campaign for the freedom to run our own software on the devices we own will we be able to replace the firmware with an open one, shall one emerge.
+</p>
+<h3><span class="mw-headline" id="Device_tree_source">Device tree source</span></h3>
+<p>To make your device boot, you will need a device tree source (<code>dts</code>) file (which will get compiled to a <code>dtb</code> mentioned above). The guide would tell you about how to make a device tree from existing file provided by soc. 
+</p>
+<h2><span class="mw-headline" id="Preparation">Preparation</span></h2>
+<p><i>Before proceeding, make sure that you know that your device is supported by the mainline kernel. Otherwise use the source code of a vendor's fork of the kernel, which is known to work as described in the <a href="../en/Porting_to_a_new_device.html" class="mw-redirect" title="Porting guide">porting guide</a>.</i>
+</p>
+<h3><span class="mw-headline" id="pmbootstrap_setup">pmbootstrap setup</span></h3>
+<p>If you have not done this already, please download and initialize <code>pmbootstrap</code>. You can stay with the defaults. Just make sure to select the right device, and (to save you some time), select <code>none</code> as the user interface. Replace <code>~/code</code> with the path where you would like to store the source code.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code
 <span class="gp">$</span> git clone https://gitlab.com/postmarketOS/pmbootstrap.git
 <span class="gp">$</span> <span class="nb">cd</span> pmbootstrap
 <span class="gp">$</span> <span class="nb">alias</span> <span class="nv">pmbootstrap</span><span class="o">=</span><span class="nv">$PWD</span>/pmbootstrap.py
 <span class="gp">$</span> pmbootstrap init
-</pre>
-      </div>
-      <p>
-       Generate an initramfs with the debug-shell hook:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> pmbootstrap initfs hook_add debug-shell
-</pre>
-      </div>
-      <h3>
-       <span class="mw-headline" id="Kernel">
-        Kernel
-       </span>
-      </h3>
-      <p>
-       Download a copy of
-       <code>
-        linux-next
-       </code>
-       . If your device's SoC has a git repository with active development, use that instead of
-       <code>
-        <a class="external free" href="https://github.com/torvalds/linux.git" rel="nofollow">
-         https://github.com/torvalds/linux.git
-        </a>
-       </code>
-       :
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code
+</pre></div>
+<p>Generate an initramfs with the debug-shell hook:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap initfs hook_add debug-shell
+</pre></div>
+<h3><span class="mw-headline" id="Kernel">Kernel</span></h3>
+<p>Download a copy of <code>linux-next</code>. If your device's SoC has a git repository with active development, use that instead of <code><a rel="nofollow" class="external free" href="https://github.com/torvalds/linux.git">https://github.com/torvalds/linux.git</a></code>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code
 <span class="gp">$</span> git clone https://github.com/torvalds/linux.git --depth <span class="m">1</span>
 <span class="gp">$</span> <span class="nb">cd</span> linux
-</pre>
-      </div>
-      <p>
-       If you have already checked out the regular linux repository, you can add the
-       <code>
-        linux-next
-       </code>
-       branch as follows:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code/linux
+</pre></div>
+<p>If you have already checked out the regular linux repository, you can add the <code>linux-next</code> branch as follows:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code/linux
 <span class="gp">$</span> git remote add linux-next https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
 <span class="gp">$</span> git fetch --tags linux-next
 <span class="gp">$</span> git checkout -b development linux-next/master
-</pre>
-      </div>
-      <p>
-       After running the commands of one of the two blocks above, add a new branch for your device:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code/linux
+</pre></div>
+<p>After running the commands of one of the two blocks above, add a new branch for your device:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code/linux
 <span class="gp">$</span> git checkout -b <span class="s2">"device-&lt;vendor&gt;-&lt;codename&gt;"</span>
-</pre>
-      </div>
-      <h3>
-       <span class="mw-headline" id="envkernel.sh">
-        envkernel.sh
-       </span>
-      </h3>
-      <p>
-       Usually when compiling a kernel, you would install
-       <a class="external text" href="https://kernelnewbies.org/KernelBuild" rel="nofollow">
-        all dependencies
-       </a>
-       and a cross compiler in your host system. To make it easier, we have the
-       <code>
-        envkernel.sh
-       </code>
-       script (for fish shell:
-       <code>
-        envkernel.fish
-       </code>
-       ). It sets up an Alpine Linux chroot with all the dependencies by using
-       <code>
-        pmbootstrap
-       </code>
-       internally, exports the environment variables to use the right cross compiler and creates an alias to
-       <code>
-        make
-       </code>
-       . This means, whenever you type
-       <code>
-        make
-       </code>
-       after sourcing that script, it will actually run
-       <code>
-        make
-       </code>
-       in the chroot. Please try the script out once to make sure everything is working as expected:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="go">(enter the directory where you have cloned the linux kernel source)</span>
+</pre></div>
+<h3><span class="mw-headline" id="envkernel.sh">envkernel.sh</span></h3>
+<p>Usually when compiling a kernel, you would install <a rel="nofollow" class="external text" href="https://kernelnewbies.org/KernelBuild">all dependencies</a> and a cross compiler in your host system. To make it easier, we have the <code>envkernel.sh</code> script (for fish shell: <code>envkernel.fish</code>). It sets up an Alpine Linux chroot with all the dependencies by using <code>pmbootstrap</code> internally, exports the environment variables to use the right cross compiler and creates an alias to <code>make</code>. This means, whenever you type <code>make</code> after sourcing that script, it will actually run <code>make</code> in the chroot. Please try the script out once to make sure everything is working as expected:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">(enter the directory where you have cloned the linux kernel source)</span>
 <span class="gp">$</span> <span class="nb">cd</span> ~/code/linux
 <span class="gp">$</span> <span class="nb">source</span> ~/code/pmbootstrap/helpers/envkernel.sh
 <span class="go">Initializing Alpine chroot (details: 'pmbootstrap log')</span>
@@ -574,150 +197,59 @@
 <span class="go"> * output folder:  /home/user/code/linux/.output</span>
 <span class="go"> * architecture:   arm (samsung-i9100 is armhf)</span>
 <span class="go"> * aliases: make, kernelroot, pmbootstrap, pmbroot (see 'type make' etc.)</span>
-<span class="gp">$</span> make defconfig <span class="c1"># or qcom_defconfig for a Qualcomm device</span>
-<span class="go">*** pmbootstrap envkernel.sh active for /home/user/code/linux! ***</span>
-<span class="go">make: Entering directory '/mnt/linux'</span>
-<span class="go">make[1]: Entering directory '/mnt/linux/.output'</span>
-<span class="go">getconf: LFS_CFLAGS: unknown variable</span>
-<span class="go">getconf: LFS_LDFLAGS: unknown variable</span>
-<span class="go">getconf: LFS_LIBS: unknown variable</span>
-<span class="go">  HOSTCC  scripts/basic/fixdep</span>
-<span class="go">  GEN     ./Makefile</span>
-<span class="go">  HOSTCC  scripts/kconfig/conf.o</span>
-<span class="go">  YACC    scripts/kconfig/zconf.tab.c</span>
-<span class="go">  LEX     scripts/kconfig/zconf.lex.c</span>
-<span class="go">  HOSTCC  scripts/kconfig/zconf.tab.o</span>
-<span class="go">  HOSTLD  scripts/kconfig/conf</span>
-<span class="go">*** Default configuration is based on 'multi_v7_defconfig'</span>
-<span class="gp">#</span>
-<span class="gp">#</span> configuration written to .config
-<span class="gp">#</span>
-<span class="go">make[1]: Leaving directory '/mnt/linux/.output'</span>
-<span class="go">make: Leaving directory '/mnt/linux'</span>
-</pre>
-      </div>
-      <p>
-       envkernel.sh has grown to be quite powerful, read more about it at the
-       <a href="../en/Compiling_kernels_with_envkernel.sh.html" title="Compiling kernels with envkernel.sh">
-        compiling kernels with envkernel.sh
-       </a>
-       wiki page.
-      </p>
-      <h3>
-       <span id="Got_everything?">
-       </span>
-       <span class="mw-headline" id="Got_everything.3F">
-        Got everything?
-       </span>
-      </h3>
-      <p>
-       Please double check with the following checklist that you meet
-       <b>
-        all the requirements
-       </b>
-       before proceeding further. If you need any help with the above, just ask
-       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
-        in the channel
-       </a>
-       or
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap" rel="nofollow">
-        on GitLab
-       </a>
-       .
-      </p>
-      <ul>
-       <li>
-        <a href="#Serial_cable">
-         Serial cable
-        </a>
-        (or suitable workaround)
-       </li>
-       <li>
-        <a href="#pmbootstrap_setup">
-         Device ported to postmarketOS
-        </a>
-       </li>
-       <li>
-        <a href="#pmbootstrap_setup">
-         Initramfs with debug-shell generated
-        </a>
-       </li>
-       <li>
-        <a href="#envkernel.sh">
-         envkernel.sh test run
-        </a>
-       </li>
-      </ul>
-      <h2>
-       <span class="mw-headline" id="Device_Tree_Source">
-        Device Tree Source
-       </span>
-      </h2>
-      <p>
-       The
-       <a class="mw-redirect" href="../en/Device_Tree_(dtb).html" title="DTS">
-        DTS
-       </a>
-       file describes how the peripherals of the device are connected to the SoC.
-       <a href="../en/Device_Tree_(dtb).html#Writing_a_device_tree" title="Device Tree (dtb)">
-        Here
-       </a>
-       is a short description of the process you are guided through here.
-      </p>
-      <h3>
-       <span class="mw-headline" id="Start_with_an_existing_file">
-        Start with an existing file
-       </span>
-      </h3>
-      <p>
-       When trying to make a DTS file for your device, it's best to start with one that already works. Look under
-       <code>
-        arch/{arm,arm64}/boot/dts
-       </code>
-       or use Gitlab's find file feature to search for your dts for your specific SoC. If you are having trouble, ask
-       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
-        in the channel
-       </a>
-       .
-      </p>
-      <p>
-       Example for copying an existing file:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code/linux/arch/arm/boot/dts
+</pre></div>
+<p>envkernel.sh has grown to be quite powerful, read more about it at the <a href="../en/Compiling_kernels_with_envkernel.sh.html" title="Compiling kernels with envkernel.sh">compiling kernels with envkernel.sh</a> wiki page.
+</p>
+<h3><span class="mw-headline" id="Reminder">Reminder</span></h3>
+<p>Please double check with the following checklist that you meet <b>all the requirements</b> before proceeding further. If you need any help with the above, just ask <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">in the channel</a> or <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap">on GitLab</a>.
+</p>
+<ul>
+<li>
+<a href="#Serial_cable">Serial cable</a> (or suitable workaround)</li>
+<li><a href="#pmbootstrap_setup">Device ported to postmarketOS</a></li>
+<li><a href="#pmbootstrap_setup">Initramfs with debug-shell generated</a></li>
+<li><a href="#envkernel.sh">envkernel.sh test run</a></li>
+</ul>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Device_Tree_Source_2">Device Tree Source</span></h2>
+<p>The <a href="../en/Device_Tree_(dtb).html" class="mw-redirect" title="DTS">DTS</a> file describes how the peripherals of the device are connected to the SoC. <a href="../en/Device_Tree_(dtb).html#Writing_a_device_tree" title="Device Tree (dtb)"> Here</a> is a short description of the process you are guided through here.
+</p>
+<h3><span class="mw-headline" id="Before_start">Before start</span></h3>
+<p>If you are having trouble, ask <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">in the channel</a>.
+When it comes to DT, it's best to start with one that already works. Look under <code>arch/{arm,arm64}/boot/dts</code> in the kernel source code for relevant files (<a rel="nofollow" class="external text" href="https://elixir.bootlin.com/linux/latest/source/arch/arm/boot/dts">browse online</a>) with your device's codename. 
+You may want to use source code host services (GitLab, github, etc.) to search for your dts for your specific SoC.
+</p>
+<p>The general file naming is <code>$chipset_vendor-$chipset-$vendor-$codename.dts</code>. 
+Examples:
+</p>
+<ul>
+<li><code>qcom-msm8974-lge-nexus5-hammerhead.dts</code></li>
+<li><code>qcom-msm8974-sony-xperia-honami.dts</code></li>
+<li><code>qcom-apq8064-sony-xperia-yuga.dts</code></li>
+<li><code>qcom-apq8064-asus-nexus7-flo.dts</code></li>
+</ul>
+<p>When you don't have a result, try to find a <code>dts</code> file with the same chipset as your device (e.g. <code>msm8974</code>). Try to create a new one for your device based on that by <a href="../en/Patching.html" class="mw-redirect" title="How to create a patch when packaging software">creating a patch</a> for <code>linux-postmarketos-stable</code>. 
+</p>
+<p>If there is not even a <code>dts</code> file for the same chipset, you need to create one from scratch (<i>no idea how to do that, good luck and please extend the wiki</i>). If you have no idea but the faith, you may check the <a href="#Other_guides">#Other guides</a> about DT at the page below to pick up some ideas.
+</p>
+<h3><span class="mw-headline" id="Start_with_an_existing_file">Start with an existing file</span></h3>
+<p>Now we have got source DT <code>qcom-apq8064-asus-nexus7-flo.dts</code> for our target device <code>apq8064-lge-nexus4-mako</code>. Copy it and rename to your device name.
+</p>
+<p>Example for copying an existing file:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code/linux/arch/arm/boot/dts
 <span class="gp">$</span> cp qcom-apq8064-asus-nexus7-flo.dts qcom-apq8064-lge-nexus4-mako.dts
-</pre>
-      </div>
-      <p>
-       Let's commit that directly, so it will be easy to see what you have changed later on by running
-       <code>
-        git diff
-       </code>
-       (adjust the description of the commit accordingly):
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> git add -A
+</pre></div>
+<p>Let's commit that directly, so it will be easy to see what you have changed later on by running <code>git diff</code> (adjust the description of the commit accordingly):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git add -A
 <span class="gp">$</span> git commit -m <span class="s2">"Starting with: qcom-apq8064-asus-nexus7-flo.dts"</span>
-</pre>
-      </div>
-      <h3>
-       <span class="mw-headline" id="Adjust_model_and_compatible">
-        Adjust model and compatible
-       </span>
-      </h3>
-      <p>
-       Open the DTS file in an editor and replace the
-       <code>
-        model
-       </code>
-       and
-       <code>
-        compatible
-       </code>
-       strings at the top of the file:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-2.0-only</span>
+</pre></div>
+<h3><span class="mw-headline" id="Adjust_model_and_compatible">Adjust model and compatible</span></h3>
+<p>Open the DTS file in an editor and replace the <code>model</code> and <code>compatible</code> strings at the top of the file:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-2.0-only</span>
 <span class="cp">#include</span> <span class="cpf">"qcom-apq8064-v2.0.dtsi"</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;dt-bindings/gpio/gpio.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;dt-bindings/input/input.h&gt;</span><span class="cp"></span>
@@ -727,44 +259,20 @@
 	<span class="n">compatible</span> <span class="o">=</span> <span class="s">"asus,nexus7-flo"</span><span class="p">,</span> <span class="s">"qcom,apq8064"</span><span class="p">;</span>
 
 <span class="c1">// ...</span>
-</pre>
-      </div>
-      <p>
-       In the example, we replace
-       <code>
-        model
-       </code>
-       with
-       <code>
-        "LGE Nexus4 (mako)"
-       </code>
-       and the first string after compatible with
-       <code>
-        "lge,nexus4-mako
-       </code>
-       (we leave the second string in place, as this is the name of the SoC, which is the same).
-      </p>
-      <p>
-       And again, let's commit this change. It's recommended to commit after every change you make to the DTS files so you can revert easily to the last known working state if necessary:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> git add -A
+</pre></div>
+<p>In the example, we replace <code>model</code> with <code>"LGE Nexus4 (mako)"</code> and the first string after compatible with <code>"lge,nexus4-mako"</code> (we leave the second string in place, as this is the name of the SoC, which is the same).
+</p>
+<p>And again, let's commit this change. It's recommended to commit after every change you make to the DTS files so you can revert easily to the last known working state if necessary:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git add -A
 <span class="gp">$</span> git commit -m <span class="s2">"Adjusted model and compatible"</span>
-</pre>
-      </div>
-      <p>
-       ! caveat: 
+</pre></div>
+<p>! caveat: 
 The right compatible values can be found in downstream dts. You may however find something unexpected.
-      </p>
-      <p>
-       In the following example (sm-a300fu), msm8916-mtp is used, which will result in the wrong dts being selected unless you copy
-       <code>
-        qcom,board-id = &lt;0xCE08FF01 1&gt;;
-       </code>
-       as well. Unfortunately, this board-id is shared between several Samsung phones, but considering they only bundle the one dtb a particular model uses, we can be grateful there even is a board-id. A solution has not been decided upon yet. (18. 3. 2019)
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-2.0-only</span>
+</p>
+<p>In the following example (sm-a300fu), msm8916-mtp is used, which will result in the wrong dts being selected unless you copy <code>qcom,board-id = &lt;0xCE08FF01 1&gt;;</code> as well. Unfortunately, this board-id is shared between several Samsung phones, but considering they only bundle the one dtb a particular model uses, we can be grateful there even is a board-id. A solution has not been decided upon yet. (18. 3. 2019)
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-2.0-only</span>
 <span class="o">/</span><span class="n">dts</span><span class="o">-</span><span class="n">v1</span><span class="o">/</span><span class="p">;</span>
 
 <span class="cp">#include</span> <span class="cpf">"msm8916-samsung-a300fu.dtsi"</span><span class="cp"></span>
@@ -774,56 +282,18 @@ The right compatible values can be found in downstream dts. You may however find
 	<span class="n">compatible</span> <span class="o">=</span> <span class="s">"qcom,msm8916-mtp"</span><span class="p">,</span> <span class="s">"qcom,msm8916"</span><span class="p">,</span> <span class="s">"qcom,mtp"</span><span class="p">;</span>
 	<span class="n">qcom</span><span class="p">,</span><span class="n">board</span><span class="o">-</span><span class="n">id</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mh">0xCE08FF01</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">};</span>
-</pre>
-      </div>
-      <p>
-       Finally, if you see regulators defined in your dts, remove them. They most likely won't work on your device, and can potentially damage your device/peripherals if set to the wrong values. An example would be:
-       <a class="external free" href="https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/qcom-msm8960-cdp.dts#L39-L273" rel="nofollow">
-        https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/qcom-msm8960-cdp.dts#L39-L273
-       </a>
-      </p>
-      <h3>
-       <span class="mw-headline" id="Minimal_booting_version">
-        Minimal booting version
-       </span>
-      </h3>
-      <p>
-       The next steps are done to try an run a minimal mainline Linux kernel on your device. Almost nothing will work at this point, except for initializing RAM and serial output. We will work our way to enabling one feature after another throughout the process.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Adjust_DTS_Makefile">
-        Adjust DTS Makefile
-       </span>
-      </h2>
-      <p>
-       Open
-       <code>
-        arch/{arm,arm64}/boot/dts/Makefile
-       </code>
-       in an editor and add one line for your new device tree. First find the right location by searching for the prefix in the file (e.g. all
-       <code>
-        qcom-
-       </code>
-       lines are in the
-       <code>
-        dtb-$(CONFIG_ARCH_QCOM) += \
-       </code>
-       section). Then insert the name of your
-       <code>
-        dts
-       </code>
-       file there, but use
-       <code>
-        dtb
-       </code>
-       as extension and don't forget the backslash
-       <code>
-        \
-       </code>
-       at the end of the line. Save, check the diff (it should be similar to the one below) and commit your change:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> git diff
+</pre></div>
+<p>Finally, if you see regulators defined in your dts, remove them. They most likely won't work on your device, and can potentially damage your device/peripherals if set to the wrong values. An example would be: <a rel="nofollow" class="external free" href="https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/qcom-msm8960-cdp.dts#L39-L273">https://github.com/torvalds/linux/blob/master/arch/arm/boot/dts/qcom-msm8960-cdp.dts#L39-L273</a>
+</p>
+<h3><span class="mw-headline" id="Minimal_booting_version">Minimal booting version</span></h3>
+<p>The next steps are done to try an run a minimal mainline Linux kernel on your device. Almost nothing will work at this point, except for initializing RAM and serial output. We will work our way to enabling one feature after another throughout the process.
+</p>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Adjust_DTS_Makefile">Adjust DTS Makefile</span></h2>
+<p>Open <code>arch/{arm,arm64}/boot/dts/Makefile</code> in an editor and add one line for your new device tree. First find the right location by searching for the prefix in the file (e.g. all <code>qcom-</code> lines are in the <code>dtb-$(CONFIG_ARCH_QCOM) += \</code> section). Then insert the name of your <code>dts</code> file there, but use <code>dtb</code> as extension and don't forget the backslash <code>\</code> at the end of the line. Save, check the diff (it should be similar to the one below) and commit your change:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git diff
 <span class="go">diff --git a/arch/{arm,arm64}/boot/dts/Makefile b/arch/{arm,arm64}/boot/dts/Makefile</span>
 <span class="go">index 3b4cc1b64a1e..af74d95b63fa 100644</span>
 <span class="go">--- a/arch/{arm,arm64}/boot/dts/Makefile</span>
@@ -837,188 +307,99 @@ The right compatible values can be found in downstream dts. You may however find
 <span class="go">        qcom-apq8084-ifc6540.dtb \</span>
 <span class="go">        qcom-apq8084-mtp.dtb \</span>
 <span class="gp">$</span> git add arch/<span class="o">{</span>arm,arm64<span class="o">}</span>/boot/dts/Makefile
-<span class="gp">$</span> git commit -m <span class="s2">"Enable my new DTS in the Makefile"</span>
-</pre>
-      </div>
-      <h2>
-       <span class="mw-headline" id="Testing">
-        Testing
-       </span>
-      </h2>
-      <h3>
-       <span class="mw-headline" id="Defconfig_and_compilation">
-        Defconfig and compilation
-       </span>
-      </h3>
-      <p>
-       Look at
-       <code>
-        <a class="external free" href="https://github.com/torvalds/linux/tree/master/arch/%7Barm,arm64%7D/configs" rel="nofollow">
-         https://github.com/torvalds/linux/tree/master/arch/{arm,arm64}/configs
-        </a>
-       </code>
-       to see what defconfig you should use. Generally, for Qualcomm devices
-       <code>
-        qcom_defconfig
-       </code>
-       is used. If you are confused, ask on
-       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
-        in the channel
-       </a>
-       for what defconfig to use. Make a
-       <code>
-        .config
-       </code>
-       file with the following:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code/linux
+<span class="gp">$</span> git commit -m <span class="s2">"Enable my new DTS in the Makefile"</span>  <span class="c1"># See Submitting_Patches for how to write commit messages</span>
+</pre></div>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Testing">Testing</span></h2>
+<h3><span class="mw-headline" id="Defconfig_and_compilation">Defconfig and compilation</span></h3>
+<p>Look at <code><a rel="nofollow" class="external free" href="https://github.com/torvalds/linux/tree/master/arch/%7Barm,arm64%7D/configs">https://github.com/torvalds/linux/tree/master/arch/{arm,arm64}/configs</a></code> to see what defconfig you should use. Generally, for Qualcomm devices <code>qcom_defconfig</code> is used. If you are confused, ask on <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">in the channel</a> for what defconfig to use. Make a <code>.config</code> file with the following:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/code/linux
 <span class="gp">$</span> <span class="nb">source</span> ~/code/pmbootstrap/helpers/envkernel.sh
 <span class="gp">$</span> make qcom_defconfig
 <span class="gp">$</span> make -j5
-</pre>
-      </div>
-      <h3>
-       <span class="mw-headline" id="Verification_of_your_DTS">
-        Verification of your DTS
-       </span>
-      </h3>
-      <p>
-       Before you upload the kernel to the device, it's good practice to check, if the DTS file is valid.
-      </p>
-      <p>
-       You'll need to grep output of the command and look for warnings related to your device DTS file.
-      </p>
-      <table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Icon" decoding="async" height="20" src="../Red_warning_icon.svg" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x" title="Icon" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          <b>
-           WARNING:
-          </b>
-          Currently you have to revert revert of commit "Revert "kbuild: Enable DT schema checks for %.dtb targets"" to get the checks functional on DTB
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> pmbootstrap chroot -- apk update <span class="o">&amp;&amp;</span> pmbootstrap chroot -- apk add git python3-dev py3-pip swig <span class="o">&amp;&amp;</span> pmbootstrap chroot -- pip3 install git+https://github.com/devicetree-org/dt-schema.git@master
+</pre></div>
+<p>there is also a defconfig in linux-postmarketos-qcom that used by postmarketOS, you can run <code>pmbootstrap kconfig edit postmarketos-qcom</code> to inspect it.
+After you get the correct defconfig for your device: 
+</p>
+<ol>
+<li>adjust the kernel config to add the drivers for the device if they are not enabled yet.</li>
+<li>Set as many drivers to build as external module as possible so the main vmlinuz filesize doesn't increase too much.</li>
+<li>Replace <code>qcom</code> with the kernel config you want to modify (see <code>ls aports/main/linux-postmarketos-*</code>).</li>
+</ol>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Verification_of_your_DTS">Verification of your DTS</span></h3>
+<p>Before you upload the kernel to the device, it's good practice to check, if the DTS file is valid.
+</p>
+<p>You'll need to grep output of the command and look for warnings related to your device DTS file.
+</p>
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>WARNING:</b> Currently you have to revert revert of commit "Revert "kbuild: Enable DT schema checks for %.dtb targets"" to get the checks functional on DTB</td>
+</tr></tbody></table>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap chroot -- apk update <span class="o">&amp;&amp;</span> pmbootstrap chroot -- apk add git python3-dev py3-pip swig <span class="o">&amp;&amp;</span> pmbootstrap chroot -- pip3 install git+https://github.com/devicetree-org/dt-schema.git@master
 <span class="gp">$</span> make qcom/sdm845-oneplus-fajita.dtb <span class="c1"># work since 5.16 kernels, DTB can be found in the directory arch/{arm,arm64}/boot/dts/</span>
-</pre>
-      </div>
-      <h3>
-       <span class="mw-headline" id="pmbootstrap">
-        pmbootstrap
-       </span>
-      </h3>
-      <h4>
-       <span class="mw-headline" id="Init">
-        Init
-       </span>
-      </h4>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          Check if any devices based on your SoC have been mainlined using pmbootstrap. They are usually located in the aports/device/{community, main} directories. If there are any based on your SoC, model your APKBUILDs like the mainlined version
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <p>
-       We will now use pmbootstrap and your port in pmaports to our advantage in getting mainline running on your device. Obviously everyone's device is different, so your mileage may vary. It might also be helpful seeing an example of what to expect:
-       <a class="external free" href="https://gitlab.com/LogicalErzor/mainline-kernel-pmos-aports/-/commit/3f3401fc0c6c1c823c464869cd5e0edd72c6c07c" rel="nofollow">
-        https://gitlab.com/LogicalErzor/mainline-kernel-pmos-aports/-/commit/3f3401fc0c6c1c823c464869cd5e0edd72c6c07c
-       </a>
-      </p>
-      <p>
-       First, open both your
-       <code>
-        device-&lt;vendor&gt;-&lt;codename&gt;
-       </code>
-       (referred to as "DEVICE") and
-       <code>
-        linux-&lt;vendor&gt;-&lt;codename&gt;
-       </code>
-       (referred to as "LINUX") directories. We will be working in them heavily.
-      </p>
-      <p>
-       Do the following in order:
-      </p>
-      <ul>
-       <li>
-        Open DEVICE/APKBUILD and LINUX/APKBUILD and up the pkgrel version by 1. Save the file and run
-        <code>
-         pmbootstrap checksum device-&lt;vendor&gt;-&lt;codename&gt;
-        </code>
-       </li>
-       <li>
-        Open LINUX/APKBUILD and change the following:
-        <ul>
-         <li>
-          pkgver=5.16 # mainline kernel version that you are using
-         </li>
-         <li>
-          pkgdesc=... # include mainline in the string
-         </li>
-         <li>
-          change makedepends to the following:
-          <code>
-           makedepends="bash bc bison devicepkg-dev flex openssl-dev perl gmp-dev mpc1-dev mpfr-dev findutils postmarketos-installkernel"
-          </code>
-          . If there are any errors during
-          <code>
-           pmbootstrap install or pmbootstrap build --force
-          </code>
-          then you will most likely be editing this
-         </li>
-         <li>
-          _repository="linux"
-         </li>
-         <li>
-          _commit="&lt;kernel commit number&gt;"
-         </li>
-         <li>
-          in source="" change the following:
-          <ul>
-           <li>
-            $pkgname-$_commit.tar.gz::
-            <a class="external free" href="https://github.com/torvalds/%24_repository/archive/%24_commit.tar.gz" rel="nofollow">
-             https://github.com/torvalds/$_repository/archive/$_commit.tar.gz
-            </a>
-           </li>
-           <li>
-            remove all patches listed here. You used that for downstream, which isn't needed for mainline
-           </li>
-          </ul>
-         </li>
-         <li>
-          replace
-          <code>
-           . downstreamkernel_prepare
-          </code>
-          with
-          <code>
-           cp "$srcdir/config-$_flavor.$arch" .config
-          </code>
-         </li>
-         <li>
-          make package() like the following:
-         </li>
-        </ul>
-       </li>
-      </ul>
-      <pre>package() {
+</pre></div>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Deal_with_packages">Deal with packages</span></h3>
+<h4><span class="mw-headline" id="Init">Init</span></h4>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Check if any devices based on your SoC have been mainlined using pmbootstrap. They are usually located in the aports/device/{community, main} directories. If there are any based on your SoC, model your APKBUILDs like the mainlined version</td>
+</tr></tbody></table>
+<p>We will now use pmbootstrap and your port in pmaports to our advantage in getting mainline running on your device. Obviously everyone's device is different, so your mileage may vary. It might also be helpful seeing an example of what to expect: <a rel="nofollow" class="external free" href="https://gitlab.com/LogicalErzor/mainline-kernel-pmos-aports/-/commit/3f3401fc0c6c1c823c464869cd5e0edd72c6c07c">https://gitlab.com/LogicalErzor/mainline-kernel-pmos-aports/-/commit/3f3401fc0c6c1c823c464869cd5e0edd72c6c07c</a>
+</p>
+<p>In general, you would need to create a new kernel package for your device. You can do following to create a new kernel package:
+</p>
+<ol>
+<li>copy a existing kernel package under <code>&lt;workdir&gt;/cache_git/device/{community testing}/linux-*</code>, rename it to your device model, and place it under <code>testing</code> folder mentioned above.</li>
+<li>create a new package with <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a>. You would need to create a <code>device</code> package and a <code>linux-*&lt;package&gt;</code> if your device is not in pmaports.</li>
+</ol>
+<p>After creating kernel package, specifying device to use the new kernel package (or existing mainline kernel package), use the command below to build the kernel:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">pmbootstrap build --envkernel linux-postmarketos-&lt;soc&gt; # or linux-&lt;brand&gt;-&lt;device&gt; which is your package name</span>
+</pre></div>
+<p>Once you have set these basic parameters, it's time to see if it'll boot.
+</p>
+<h4><span class="mw-headline" id="Building_and_Running">Building and Running</span></h4>
+<p>Run <code>pmbootstrap install</code>. This will fetch the kernel source, compile it, and package it for your device. <code>pmbootstrap flasher flash_kernel</code> should get the mainline kernel onto your device
+</p>
+<h4><span class="mw-headline" id="Rebuilds">Rebuilds</span></h4>
+<p>In order to rebuild, run <code>pmbootstrap zap -p</code>. This will zap your compiled kernel, and now you can run <code>pmbootstrap install</code>.
+</p>
+<h3><span class="mw-headline" id="Prepare_for_production">Prepare for production</span></h3>
+<p>First, open both your <code>device-&lt;vendor&gt;-&lt;codename&gt;</code> (referred to as "DEVICE") and <code>linux-&lt;vendor&gt;-&lt;codename&gt;</code> (referred to as "LINUX") directories. We will be working in them heavily.
+</p>
+<p>Do the following in order:
+</p>
+<ul>
+<li>Open DEVICE/APKBUILD and LINUX/APKBUILD and up the pkgrel version by 1. Save the file and run <code>pmbootstrap checksum device-&lt;vendor&gt;-&lt;codename&gt;</code>
+</li>
+<li>Open LINUX/APKBUILD and change the following:
+<ul>
+<li>pkgver=5.16 # mainline kernel version that you are using</li>
+<li>pkgdesc=... # include mainline in the string</li>
+<li>change makedepends to the following: <code>makedepends="bash bc bison devicepkg-dev flex openssl-dev perl gmp-dev mpc1-dev mpfr-dev findutils postmarketos-installkernel"</code>. If there are any errors during <code>pmbootstrap install or pmbootstrap build --force</code> then you will most likely be editing this</li>
+<li>_repository="linux"</li>
+<li>_commit="&lt;kernel commit number&gt;"</li>
+<li>in source="" change the following:
+<ul>
+<li>$pkgname-$_commit.tar.gz::<a rel="nofollow" class="external free" href="https://github.com/torvalds/%24_repository/archive/%24_commit.tar.gz">https://github.com/torvalds/$_repository/archive/$_commit.tar.gz</a>
+</li>
+<li>remove all patches listed here. You used that for downstream, which isn't needed for mainline</li>
+</ul>
+</li>
+<li>replace <code>. downstreamkernel_prepare</code> with <code>cp "$srcdir/config-$_flavor.$arch" .config</code>
+</li>
+<li>make package() like the following:</li>
+</ul>
+</li>
+</ul>
+<pre>package() {
 	mkdir -p "$pkgdir"/boot
 	make zinstall modules_install dtbs_install \
 		ARCH="$_carch" \
@@ -1031,190 +412,119 @@ The right compatible values can be found in downstream dts. You may however find
 		"$pkgdir/usr/share/kernel/$_flavor/kernel.release"
 }
 </pre>
-      <ul>
-       <li>
-        <ul>
-         <li>
-          Remove the huge GCC check (Don't need that for mainline)
-         </li>
-         <li>
-          Save the file and run
-          <code>
-           pmbootstrap checksum linux-&lt;vendor&gt;-&lt;codename&gt;
-          </code>
-         </li>
-        </ul>
-       </li>
-       <li>
-        Look at DEVICE/deviceinfo and see if any of the variable listed in
-        <a class="external free" href="https://gitlab.com/postmarketOS/boot-deploy/-/blob/master/boot-deploy-functions.sh" rel="nofollow">
-         https://gitlab.com/postmarketOS/boot-deploy/-/blob/master/boot-deploy-functions.sh
-        </a>
-        are needed for your device. For example, for the MSM8960 SoC device, it needs
-        <code>
-         deviceinfo_dtb
-        </code>
-        and
-        <code>
-         deviceinfo_append_dtb
-        </code>
-        as the bootloader doesn't support dtbs
-       </li>
-       <li>
-        Replace the config file in your LINUX folder with the .config file. Make sure it's the same name and run
-        <code>
-         pmbootstrap checksum linux-&lt;vendor&gt;-&lt;codename&gt;
-        </code>
-       </li>
-      </ul>
-      <p>
-       Once you have set these basic parameters, it's time to see if it'll boot.
-      </p>
-      <h4>
-       <span class="mw-headline" id="Building_and_Running">
-        Building and Running
-       </span>
-      </h4>
-      <p>
-       Run
-       <code>
-        pmbootstrap install
-       </code>
-       . This will fetch the kernel source, compile it, and package it for your device.
-       <code>
-        pmbootstrap flasher flash_kernel
-       </code>
-       should get the mainline kernel onto your device
-      </p>
-      <h4>
-       <span class="mw-headline" id="Rebuilds">
-        Rebuilds
-       </span>
-      </h4>
-      <p>
-       In order to rebuild, run
-       <code>
-        pmbootstrap zap -p
-       </code>
-       . This will zap your compiled kernel, and now you can run
-       <code>
-        pmbootstrap install
-       </code>
-       .
-      </p>
-      <h1>
-       <span class="mw-headline" id="See_also">
-        See also
-       </span>
-      </h1>
-      <ul>
-       <li>
-        <a class="external free" href="https://wiki.postmarketos.org/wiki/User:Alexeymin/Kernel_development_in_chroot_using_abuild" rel="nofollow">
-         https://wiki.postmarketos.org/wiki/User:Alexeymin/Kernel_development_in_chroot_using_abuild
-        </a>
-       </li>
-       <li>
-        <a class="external free" href="https://wiki.postmarketos.org/wiki/Troubleshooting:kernel" rel="nofollow">
-         https://wiki.postmarketos.org/wiki/Troubleshooting:kernel
-        </a>
-       </li>
-       <li>
-        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/175" rel="nofollow">
-         pmaports#175
-        </a>
-        Google Galaxy Nexus (samsung-maguro): Mainlining progress (initial tricks with RAM and some sleep calls before the reboots in the code to figure out where it was failing will also be useful for other devices)
-       </li>
-       <li>
-        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/153" rel="nofollow">
-         pmaports#153
-        </a>
-        Google Pixel 3 XL (google-crosshatch): mainlining attempt: progress and questions (useful for newer SoCs, useful info about force-reboot code, stub dtbo partition)
-       </li>
-       <li>
-        <a class="external free" href="https://wiki.postmarketos.org/wiki/Submitting_Patches#Linux" rel="nofollow">
-         https://wiki.postmarketos.org/wiki/Submitting_Patches#Linux
-        </a>
-        guide on submitting patches to Linux
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="catlinks" data-mw="interface" id="catlinks">
-     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-      <a href="../Special:Categories.html" title="Special:Categories">
-       Category
-      </a>
-      :
-      <ul>
-       <li>
-        <a href="../en/Category:Guide.html" title="Category:Guide">
-         Guide
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Mainlining_Guide&amp;oldid=28089">
-      https://wiki.postmarketos.org/index.php?title=Mainlining_Guide&amp;oldid=28089
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 30 May 2022, at 15:35.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Mainlining_Guide&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+<ul>
+<li><ul>
+<li>Remove the huge GCC check (Don't need that for mainline)</li>
+<li>Save the file and run <code>pmbootstrap checksum linux-&lt;vendor&gt;-&lt;codename&gt;</code>
+</li>
+</ul></li>
+<li>Look at DEVICE/deviceinfo and see if any of the variable listed in <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/boot-deploy/-/blob/master/boot-deploy-functions.sh">https://gitlab.com/postmarketOS/boot-deploy/-/blob/master/boot-deploy-functions.sh</a> are needed for your device. For example, for the MSM8960 SoC device, it needs <code>deviceinfo_dtb</code> and <code>deviceinfo_append_dtb</code> as the bootloader doesn't support dtbs</li>
+<li>Replace the config file in your LINUX folder with the .config file. Make sure it's the same name and run <code>pmbootstrap checksum linux-&lt;vendor&gt;-&lt;codename&gt;</code>
+</li>
+</ul>
+<p><br>
+</p>
+<h1><span class="mw-headline" id="See_also">See also</span></h1>
+<h3><span class="mw-headline" id="General">General</span></h3>
+<ul>
+<li>
+<a href="../en/Mainlining_FAQ.html" title="Mainlining FAQ">Mainlining FAQ</a> various information collected from #postmarketOS</li>
+<li>Guides in <a href="../en/Qualcomm_mainline_porting.html" title="Qualcomm mainline porting">Qualcomm mainline porting</a>
+</li>
+<li><a href="../User:Alexeymin_Kernel_development_in_chroot_using_abuild.html" title="User:Alexeymin/Kernel development in chroot using abuild">User:Alexeymin/Kernel_development_in_chroot_using_abuild</a></li>
+<li><a href="../en/Troubleshooting:kernel.html" title="Troubleshooting:kernel">Troubleshooting:kernel</a></li>
+<li>
+<a href="../en/Submitting_Patches.html#Linux" title="Submitting Patches">Submitting_Patches#Linux</a> guide on submitting patches to Linux</li>
+<li><a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/91">#91: "The Mainline Kernel"</a></li>
+</ul>
+<h3><span class="mw-headline" id="Misc">Misc</span></h3>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="http://kroah.com/log/blog/2018/02/05/linux-kernel-release-model/">Linux Kernel Release Model</a> (reasons why we should all be using mainlined kernels)</li>
+<li><a rel="nofollow" class="external text" href="https://nickdesaulniers.github.io/blog/2017/05/16/submitting-your-first-patch-to-the-linux-kernel-and-responding-to-feedback/">Submitting your first patch to the Linux kernel and responding to feedback</a></li>
+<li><a rel="nofollow" class="external text" href="https://redmine.replicant.us/projects/replicant/wiki/Upstream">Replicant upstream kernel and upstream bootloader wiki</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=LPG4EkXK9Us">Linux Foundation youtube video</a> ARM64 SoC Linux Support Check-List (what needs to be done to get an arm64 soc to work on mainline)</li>
+</ul>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Other_guides">Other guides</span></h2>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://forum.xda-developers.com/android/software-hacking/reference-how-to-upstream-android-kernel-t3626913">A XDA thread</a> about How to get an Android kernel up to date with Linux upstream</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/191">pmaports#191</a> Getting started tips from zhuowei</li>
+<li>
+<a rel="nofollow" class="external text" href="https://elinux.org/Device_Tree_Usage">Device Tree usage</a> on elinux.org</li>
+<li>
+<a rel="nofollow" class="external text" href="https://elinux.org/Device_Tree_Reference">Device Tree reference</a> on elinux.org</li>
+<li>
+<a rel="nofollow" class="external text" href="https://elixir.bootlin.com/linux/latest/source/Documentation/devicetree">Documentation of devicetree bindings</a> on bootlin.com</li>
+<li>opendata26 walking alibabzo through mainlining aries <a rel="nofollow" class="external autonumber" href="https://matrix.to/#/!clcCCNrLZYwdfNqkkR:disroot.org/%24152104340146547HXnql:matrix.org">[2]</a>
+</li>
+</ul>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Device_specific">Device specific</span></h2>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/175">pmaports#175</a> Google Galaxy Nexus (samsung-maguro): Mainlining progress (initial tricks with RAM and some sleep calls before the reboots in the code to figure out where it was failing will also be useful for other devices)</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/153">pmaports#153</a> Google Pixel 3 XL (google-crosshatch): mainlining attempt: progress and questions (useful for newer SoCs, useful info about force-reboot code, stub dtbo partition)</li>
+<li>Blog about <a rel="nofollow" class="external text" href="http://elektranox.org/droid4/">mainline kernel support for the Motorola Droid 4</a>
+</li>
+<li><a rel="nofollow" class="external text" href="http://n900.elektranox.org/index.html">Debian on N900</a></li>
+<li><a rel="nofollow" class="external text" href="https://developer.sony.com/develop/open-devices/guides/kernel-compilation-guides/how-to-build-mainline-linux-kernel-for-xperia-devices">Build Mainline for Xperia devices</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://talk.maemo.org/showthread.php?t=99357">Documenting devices with mainline Linux support</a> A thread on maemo forums, provide a list of mainline device DTs</li>
+</ul>
+<h2><span class="mw-headline" id="SoC-specific">SoC-specific</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://linux-sunxi.org/Linux_mainlining_effort">Allwinner mainline effort</a></li>
+<li><a rel="nofollow" class="external text" href="https://github.com/efidroid/projectmanagement/wiki/%5BReference%5D-Chipsets">probably a list of which qualcomm socs are similar</a></li>
+</ul>
+<h2><span class="mw-headline" id="Display">Display</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://github.com/freedreno/freedreno/wiki/DSI-Panel-Driver-Porting">Freedreno wiki: Display driver porting</a></li>
+<li><a rel="nofollow" class="external text" href="http://elixir.free-electrons.com/linux/v3.17/source/include/video/mipi_display.h#L28">List of DTSI -&gt; panel driver function translations</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li>
+<li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li>
+</ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Mainlining_Guide&amp;oldid=45161">https://wiki.postmarketos.org/index.php?title=Mainlining_Guide&amp;oldid=45161</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 19 June 2023, at 17:05.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Mainlining_Guide&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

@@ -67,11 +67,6 @@ testing</td>
     <td class="" style="">
 Android 8.1.0</td>
 </tr>
-<tr class="">
-<th scope="row" style="text-align:left;">postmarketOS kernel</th>
-    <td class="" style="">
-6.3-rc6</td>
-</tr>
 <tr><th colspan="2" class="" style="text-align:center;">Hardware</th></tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Chipset</th>
@@ -97,7 +92,7 @@ Maxwell</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Storage</th>
     <td class="" style="">
-32 GB/64 GB</td>
+32/64 GB</td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Memory</th>
@@ -334,7 +329,7 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Ethernet</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -353,7 +348,10 @@ aarch64</td>
 <p><br>
 </p>
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
-<ul><li>jja2000</li></ul>
+<ul>
+<li>jja2000</li>
+<li><a href="../User:Jenneron.html" title="User:Jenneron">Jenneron</a></li>
+</ul>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
 <li>
@@ -365,17 +363,11 @@ aarch64</td>
 <p>When turned off press and hold the power button and volume down until the bootloader menu displays. Using the volume button select "Switch to fastboot mode" and press the power button.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>When the needed patches are applied you can use <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a> to build your own installation image.
-</p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
-<span class="gp">$</span> pmbootstrap install
+<span class="gp">$</span> pmbootstrap install --no-cgpt
+<span class="gp">$</span> pmbootstrap flasher flash_kernel
+<span class="gp">$</span> pmbootstrap flasher flash_rootfs --partition userdata
 </pre></div>
-<p><br>
-</p>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul><li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/4007">pmaports!4007</a> Initial merge request</li></ul>
-
 </div></div>
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
@@ -394,9 +386,9 @@ aarch64</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Pixel_C_(google-smaug)&amp;oldid=43497">https://wiki.postmarketos.org/index.php?title=Google_Pixel_C_(google-smaug)&amp;oldid=43497</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Pixel_C_(google-smaug)&amp;oldid=45073">https://wiki.postmarketos.org/index.php?title=Google_Pixel_C_(google-smaug)&amp;oldid=45073</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:39.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 15 June 2023, at 18:06.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

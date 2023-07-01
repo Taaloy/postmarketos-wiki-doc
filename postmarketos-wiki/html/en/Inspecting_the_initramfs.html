@@ -1,78 +1,50 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Inspecting the initramfs - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Inspecting_the_initramfs rootpage-Inspecting_the_initramfs skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Inspecting the initramfs
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          This is considered a
-          <b>
-           security hole
-          </b>
-          . Only use it for debugging, and uninstall the debug-shell hook afterwards.
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <p>
-       This page explains how to connect to your device when it has booted to the
-       <a class="mw-redirect" href="../en/Initramfs_development.html" title="Initramfs-development">
-        initramfs
-       </a>
-       by installing the
-       <b>
-        debug-shell
-       </b>
-       hook. This is useful if you want to know more about the boot process, simply inspect the initramfs or if you want to debug why something doesn't work.
-      </p>
-      <p>
-       It is possible to enable a telnet daemon that gives you a shell this way:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> pmbootstrap initfs hook_add debug-shell
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Inspecting the initramfs - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Inspecting_the_initramfs rootpage-Inspecting_the_initramfs skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Inspecting the initramfs</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This is considered a <b>security hole</b>. Only use it for debugging, and uninstall the debug-shell hook afterwards.</td>
+</tr></tbody></table>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">TODO: add description about <code>pmbootstrap initfs hooks_ls</code>
+</td>
+</tr></tbody></table>
+<p>This page explains how to connect to your device when it has booted to the <a href="../en/Initramfs_development.html" class="mw-redirect" title="Initramfs-development">initramfs</a> by installing the <b>debug-shell</b> hook. This is useful if you want to know more about the boot process, simply inspect the initramfs or if you want to debug why something doesn't work.
+</p>
+<p>It is possible to enable a telnet daemon that gives you a shell this way:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap initfs hook_add debug-shell
 <span class="gp">$</span> pmbootstrap flasher flash_kernel <span class="c1"># or however you flash/boot the kernel</span>
 <span class="go">(wait until the device booted up and you are connected to it)</span>
 <span class="gp">$</span> telnet <span class="m">172</span>.16.42.1
@@ -85,224 +57,81 @@
 <span class="go">hello world</span>
 <span class="gp">#</span> pmos_continue_boot
 <span class="go">Connection closed by foreign host.</span>
-</pre>
-      </div>
-      <p>
-       If the telnet command does not work out of the box, read
-       <a class="mw-redirect" href="../en/USB_Network.html" title="Connect via USB Networking in the Initramfs">
-        connect via USB Networking in the Initramfs
-       </a>
-       .
-      </p>
-      <div class="toc" id="toc">
-       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
-       <div class="toctitle" dir="ltr" lang="en">
-        <h2>
-         Contents
-        </h2>
-        <span class="toctogglespan">
-         <label class="toctogglelabel" for="toctogglecheckbox">
-         </label>
-        </span>
-       </div>
-       <ul>
-        <li class="toclevel-1 tocsection-1">
-         <a href="#Enable_initramfs-extra">
-          <span class="tocnumber">
-           1
-          </span>
-          <span class="toctext">
-           Enable initramfs-extra
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-2">
-         <a href="#Additional_programs">
-          <span class="tocnumber">
-           2
-          </span>
-          <span class="toctext">
-           Additional programs
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-3">
-         <a href="#Deleting_the_debug_shell">
-          <span class="tocnumber">
-           3
-          </span>
-          <span class="toctext">
-           Deleting the debug shell
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-4">
-         <a href="#Tips_and_tricks">
-          <span class="tocnumber">
-           4
-          </span>
-          <span class="toctext">
-           Tips and tricks
-          </span>
-         </a>
-        </li>
-       </ul>
-      </div>
-      <h3>
-       <span class="mw-headline" id="Enable_initramfs-extra">
-        Enable initramfs-extra
-       </span>
-      </h3>
-      <p>
-       To enable functionality from initramfs-extra, run the following commands in the shell:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">#</span> . init_functions.sh
+</pre></div>
+<p>If the telnet command does not work out of the box, read <a href="../en/USB_Network.html" class="mw-redirect" title="Connect via USB Networking in the Initramfs">connect via USB Networking in the Initramfs</a>.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Enable_initramfs-extra"><span class="tocnumber">1</span> <span class="toctext">Enable initramfs-extra</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Additional_programs"><span class="tocnumber">2</span> <span class="toctext">Additional programs</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Deleting_the_debug_shell"><span class="tocnumber">3</span> <span class="toctext">Deleting the debug shell</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Tips_and_tricks"><span class="tocnumber">4</span> <span class="toctext">Tips and tricks</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Enable_initramfs-extra">Enable initramfs-extra</span></h3>
+<p>To enable functionality from initramfs-extra, run the following commands in the telnet shell:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> . /etc/deviceinfo
+<span class="gp">#</span> . /init_functions.sh
 <span class="gp">#</span> mount_boot_partition /boot
 <span class="go">Mount boot partition (/dev/dm-0)</span>
-<span class="gp">#</span> extract_initramfs_extra /boot/*-extra
-<span class="go">Extract /boot/initramfs-sony-amami-extra</span>
+<span class="gp">#</span> extract_initramfs_extra /boot/initramfs-extra
+<span class="go">Extract /boot/initramfs-extra</span>
 <span class="go">24128 blocks</span>
-</pre>
-      </div>
-      <p>
-       Here '$initramfs_extra' is a shorthand for the path of the file. An example of a proper command using a device such as the lg-bullhead would be
-       <code>
-        extract_initramfs_extra ./boot/initramfs-lg-bullhead-extra
-       </code>
-       . modify the device name as needed
-      </p>
-      <h3>
-       <span class="mw-headline" id="Additional_programs">
-        Additional programs
-       </span>
-      </h3>
-      <p>
-       After installing the
-       <code>
-        debug-shell
-       </code>
-       initramfs hook, the
-       <code>
-        evtest
-       </code>
-       ,
-       <code>
-        fftest
-       </code>
-       and
-       <code>
-        fbdebug
-       </code>
-       programs are available in the initramfs (
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1358" rel="nofollow">
-        #1358
-       </a>
-       ).
-      </p>
-      <h3>
-       <span class="mw-headline" id="Deleting_the_debug_shell">
-        Deleting the debug shell
-       </span>
-      </h3>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="go">pmbootstrap initfs hook_del debug-shell</span>
-</pre>
-      </div>
-      <h3>
-       <span class="mw-headline" id="Tips_and_tricks">
-        Tips and tricks
-       </span>
-      </h3>
-      <ul>
-       <li>
-        <a class="external text" href="http://www.microhowto.info/howto/copy_a_file_from_one_machine_to_another_using_netcat.html" rel="nofollow">
-         copy files to/from the initramfs with
-         <code>
-          nc
-         </code>
-         while it is running
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="catlinks" data-mw="interface" id="catlinks">
-     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-      <a href="../Special:Categories.html" title="Special:Categories">
-       Category
-      </a>
-      :
-      <ul>
-       <li>
-        <a href="../en/Category:Guide.html" title="Category:Guide">
-         Guide
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Inspecting_the_initramfs&amp;oldid=18435">
-      https://wiki.postmarketos.org/index.php?title=Inspecting_the_initramfs&amp;oldid=18435
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 5 April 2021, at 18:07.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Inspecting_the_initramfs&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+</pre></div>
+<p>In general, while inspecting the initramfs, you can execute commands in order listed in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/postmarketos-initramfs/init.sh">postmarketos-initramfs/init.sh</a>, starting with the line <code>mount_boot_partition /boot</code> and below (everything above it was already executed before entering debug-shell).
+</p>
+<h3><span class="mw-headline" id="Additional_programs">Additional programs</span></h3>
+<p>After installing the <code>debug-shell</code> initramfs hook, the <code>evtest</code>, <code>fftest</code> and <code>fbdebug</code> programs are available in the initramfs (<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1358">#1358</a>).
+</p>
+<h3><span class="mw-headline" id="Deleting_the_debug_shell">Deleting the debug shell</span></h3>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">pmbootstrap initfs hook_del debug-shell</span>
+</pre></div>
+<h3><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h3>
+<ul>
+<li>
+<a href="../en/Initramfs_development.html" title="Initramfs development">Initramfs development</a> has more generalize information about working with initfs.</li>
+<li><a rel="nofollow" class="external text" href="http://www.microhowto.info/howto/copy_a_file_from_one_machine_to_another_using_netcat.html">copy files to/from the initramfs with <code>nc</code> while it is running</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Inspecting_the_initramfs&amp;oldid=45184">https://wiki.postmarketos.org/index.php?title=Inspecting_the_initramfs&amp;oldid=45184</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 20 June 2023, at 10:22.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Inspecting_the_initramfs&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

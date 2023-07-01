@@ -302,7 +302,7 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Touchpad</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -314,7 +314,7 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Video and audio output with HDMI or Display Port works.">HDMI/DP</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -369,13 +369,18 @@ handset</td>
 </div>
 <ul>
 <li class="toclevel-1 tocsection-1"><a href="#Contributors"><span class="tocnumber">1</span> <span class="toctext">Contributors</span></a></li>
-<li class="toclevel-1 tocsection-2"><a href="#How_to_enter_flash_mode"><span class="tocnumber">2</span> <span class="toctext">How to enter flash mode</span></a></li>
-<li class="toclevel-1 tocsection-3"><a href="#Installation"><span class="tocnumber">3</span> <span class="toctext">Installation</span></a></li>
-<li class="toclevel-1 tocsection-4"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Users_owning_this_device"><span class="tocnumber">2</span> <span class="toctext">Users owning this device</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#How_to_enter_flash_mode"><span class="tocnumber">3</span> <span class="toctext">How to enter flash mode</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Installation"><span class="tocnumber">4</span> <span class="toctext">Installation</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Working_UIs"><span class="tocnumber">5</span> <span class="toctext">Working UIs</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Rotate_screen"><span class="tocnumber">6</span> <span class="toctext">Rotate screen</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#See_also"><span class="tocnumber">7</span> <span class="toctext">See also</span></a></li>
 </ul>
 </div>
 
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
+<ul><li><a href="/index.php?title=User:Hitechshell&amp;action=edit&amp;redlink=1" class="new" title="User:Hitechshell (page does not exist)">Hitechshell</a></li></ul>
+<h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <h2><span class="mw-headline" id="How_to_enter_flash_mode">How to enter flash mode</span></h2>
 <ul><li>
 <b>Fastboot</b>: Power on the device with both <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> buttons.</li></ul>
@@ -385,12 +390,33 @@ handset</td>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
 <span class="gp">$</span> pmbootstrap install --fde
 </pre></div>
+<h2><span class="mw-headline" id="Working_UIs">Working UIs</span></h2>
+<ul>
+<li>
+<a href="../en/Sxmo.html" class="mw-redirect" title="SXMO">SXMO</a> (dwm)</li>
+<li><a href="/index.php?title=LXQt&amp;action=edit&amp;redlink=1" class="new" title="LXQt (page does not exist)">LXQt</a></li>
+<li><a href="../en/Xfce4.html" title="Xfce4">Xfce4</a></li>
+</ul>
 <p><br>
 </p>
+<h2><span class="mw-headline" id="Rotate_screen">Rotate screen</span></h2>
+<p>create file <code>/etc/X11/xorg.conf.d/00-display-rotate.conf</code>
+and put this 
+</p>
+<pre>Section "Device"
+  Identifier "LCD"
+  Option "Rotate" "CW"
+EndSection
+</pre>
+<p>also for rotate touchscreen you need to create udev file:
+<code>/etc/udev/rules.d/98-touchscreen-cal.rules</code>
+</p>
+<pre>ATTRS{name}=="fts_ts", ENV{LIBINPUT_CALIBRATION_MATRIX}="0 1 0 -1 0 1"
+</pre>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3976">pmaports!3976</a> Initial merge request</li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/4114">pmaports!4114</a> Initial merge request</li>
 <li><a rel="nofollow" class="external text" href="https://wiki.lineageos.org/devices/Mi439">Lineageos wiki page</a></li>
 </ul>
 
@@ -412,9 +438,9 @@ handset</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_7A_(xiaomi-pine)&amp;oldid=44403">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_7A_(xiaomi-pine)&amp;oldid=44403</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_7A_(xiaomi-pine)&amp;oldid=45065">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_7A_(xiaomi-pine)&amp;oldid=45065</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 24 May 2023, at 05:40.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 15 June 2023, at 08:18.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

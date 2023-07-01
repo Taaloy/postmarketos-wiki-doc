@@ -205,7 +205,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">GPS</th>
     <td class="" style="">
-<div class="feature feature-unavailable">Unavailable</div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
@@ -295,7 +295,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Camera Flash</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -331,25 +331,25 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Ir RX</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Stylus</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Haptics</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Ethernet</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -595,6 +595,14 @@ armv7</td>
 <td>GPS
 </td>
 <td>Broadcom GPS <a rel="nofollow" class="external text" href="https://redmine.replicant.us/projects/replicant/wiki/BCM4751">BCM4751</a> is used. Device itself has weak signal.
+</td>
+</tr>
+<tr>
+<td>Y
+</td>
+<td>GPS
+</td>
+<td>U-Blox 6 in GPS Extension Kit <i>(see below)</i>
 </td>
 </tr>
 <tr>
@@ -874,6 +882,32 @@ armv7</td>
 </p>
 <p>If you need to restore Asus bootloader, you can find one in stock firmware blob and flash it with same method.
 </p>
+<h2><span class="mw-headline" id="USB_Extension_Kit">USB Extension Kit</span></h2>
+<p>As there are signal issues due to the design of the TF201 back-shell, ASUS supplied a GPS Extension Kit for use at the dock-port.
+</p>
+<p><i>(TODO: add picture)</i>
+</p>
+<p>Inside the GPS ExtensionKit is u-blox 6 usb-gps receiver, wich is well supported by gpsd.
+</p>
+<p>If connected it will show up as /dev/ttyACM0 (typically), dmesg output:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go"> usb 1-1: new full-speed USB device number 11 using ci_hdrc</span>
+<span class="go"> usb 1-1: New USB device found, idVendor=1546, idProduct=01a6, bcdDevice= 7.03</span>
+<span class="go"> usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0</span>
+<span class="go"> usb 1-1: Product: u-blox 6  -  GPS Receiver</span>
+<span class="go"> usb 1-1: Manufacturer: u-blox AG - www.u-blox.com</span>
+<span class="go"> cdc_acm 1-1:1.0: ttyACM0: USB ACM device</span>
+</pre></div>
+<p><br>
+To automatically update gpsd on the u-blox receiver availability, create a new .rules file unde r/etc/udev/rules.d:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp"> #</span><span class="c1">### Udev rules for the ASUS TF201 GPS Extension Kit</span>
+<span class="go">ACTION=="add", KERNEL=="ttyACM*" SUBSYSTEMS=="usb" ATTRS{idVendor}=="1546" ATTRS{idProduct}=="01a6" RUN+= "/usr/sbin/gpsdctl add /dev/%k"</span>
+<span class="go"> </span>
+<span class="go">ACTION=="remove",  KERNEL=="ttyACM*" SUBSYSTEMS=="usb" ATTRS{idVendor}=="1546" ATTRS{idProduct}=="01a6" RUN+= "/usr/sbin/gpsdctl remove /dev/%k"</span>
+</pre></div>
+<p><br>
+</p>
 <h2><span class="mw-headline" id="Serial_console">Serial console</span></h2>
 <p>Asus Transformers have serial port both on motherboard and in 40 pin connector.
 </p>
@@ -948,9 +982,9 @@ Then you have to remove all remaining pins, find where 6 and 7 pins are on short
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=ASUS_Transformer_Prime_(asus-tf201)&amp;oldid=37174">https://wiki.postmarketos.org/index.php?title=ASUS_Transformer_Prime_(asus-tf201)&amp;oldid=37174</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=ASUS_Transformer_Prime_(asus-tf201)&amp;oldid=45480">https://wiki.postmarketos.org/index.php?title=ASUS_Transformer_Prime_(asus-tf201)&amp;oldid=45480</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 11 March 2023, at 14:47.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 22 June 2023, at 14:03.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

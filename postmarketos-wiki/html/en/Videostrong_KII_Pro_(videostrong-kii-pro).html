@@ -75,7 +75,7 @@ Android</td>
 <tr class="">
 <th scope="row" style="text-align:left;">postmarketOS kernel</th>
     <td class="" style="">
-6.2.9</td>
+6.3.3</td>
 </tr>
 <tr><th colspan="2" class="" style="text-align:center;">Hardware</th></tr>
 <tr class="">
@@ -417,7 +417,8 @@ aarch64</td>
 <table class="infobox" style="float: right; width: 22em; color: inherit; background-color: #f7fff7; border: 3px solid #8a8;"><tbody><tr><td>
 <b>This device is based on the <a href="../en/Amlogic_S905(-H).html" title="Amlogic S905(-H)">Amlogic S905</a>.</b><br>See the SoC page for common tips, guides and troubleshooting steps</td></tr></tbody></table>
 <p>The KII Pro is a set-top box made by Videostrong, using an Amlogic S905 SoC, and running a custom
-(proprietary) fork of AOSP. It also comes with DVB inputs and an infrared TV remote.
+(proprietary) fork of AOSP based on Amlogic's reference build. It also comes with DVB inputs and 
+an infrared TV remote.
 </p>
 <ul>
 <li><a href="../en/Videostrong_KII_Pro_(videostrong-kii-pro)_DVB.html" title="Videostrong KII Pro (videostrong-kii-pro)/DVB">DVB</a></li>
@@ -522,8 +523,16 @@ be possible to flash postmarketOS, but this is untested.
 <h2><span class="mw-headline" id="What_works">What works</span></h2>
 <p>See the device status at the top (mobile) or at the right (desktop).
 </p>
-<div class="floatleft"><a href="../KIIPro-UART-PinOut.png" class="image" title="Click to enlarge"><img alt="Click to enlarge" src="../KIIPro-UART-PinOut.png" decoding="async" width="229" height="406" srcset="../344px-KIIPro-UART-PinOut.png 1.5x ../458px-KIIPro-UART-PinOut.png 2x"></a></div>
 <h3><span class="mw-headline" id="UART">UART</span></h3>
+<ul class="gallery mw-gallery-traditional">
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:15px auto;"><a href="../KIIPro-UART-PinOut.png" class="image"><img alt="" src="../KIIPro-UART-PinOut.png" decoding="async" width="67" height="120" srcset="../101px-KIIPro-UART-PinOut.png 1.5x ../135px-KIIPro-UART-PinOut.png 2x"></a></div></div>
+			<div class="gallerytext">
+<p>Pinout
+</p>
+			</div>
+		</div></li>
+</ul>
 <p>UART works, but is disabled by default when booting postmarketOS. You can enable UART in postmarketOS by editing the 
 <code>extlinux/extlinux.conf</code> file located in the boot partition.
 </p>
@@ -533,14 +542,12 @@ be possible to flash postmarketOS, but this is untested.
 <p>And change it to:
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre>  append console=ttyAML0,115200 PMOS_NO_OUTPUT_REDIRECT</pre></div>
-<p>Then connect RX, TX, and Ground to your USB-to-TTL, according to the pinout shown. <b>DO NOT CONNECT THE 3V3 PAD</b> 
+<p>Then connect RX, TX, and Ground to your USB-to-TTL, according to the pinout shown above. <b>DO NOT CONNECT THE 3V3 PAD</b> 
 </p>
 <p>Afterwards, you can now run:
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> microcom -s <span class="m">115200</span> /dev/ttyUSB0 <span class="c1"># replace /dev/ttyUSB0 with the path of your USB-to-TTL device</span>
 </pre></div>
-<p><br>
-</p>
 <h3><span class="mw-headline" id="LEDs">LEDs</span></h3>
 <p>The 2 LEDs the device has are functionnal.
 </p>
@@ -788,8 +795,6 @@ Seems like <code>libcec</code> does detect which button in the remote is pressed
 <ul><li>
 <a href="../User:F.html" title="User:F">F</a> (<code>f_</code> on OFTC and Libera, <code>@notrealvitali64:matrix.org</code> on Matrix (NOT USED. PLEASE USE IRC))</li></ul>
 <h3><span class="mw-headline" id="Contributors">Contributors</span></h3>
-<ul><li>
-<a href="../User:Exkc.html" title="User:Exkc">exkc</a> ( <code>@root:exkc.moe</code>/<code>@exxxxkc:yatrix.org</code>/<code>@exxxxkc:matrix.org</code>/<code>@af2e02839bcfb0aae789a9ea66f63afff6bc14a5c1685be36c6db57fcf2cdc6f78176afe0ffab58e82d82df2457744c693593ebc9ac063e65a1e6260503ef373:the-apothecary.club</code>/<code>@exxxxkc:cuteworld.space</code> on Matrix)</li></ul>
 <h3><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h3>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
 <li>
@@ -830,9 +835,9 @@ Seems like <code>libcec</code> does detect which button in the remote is pressed
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)&amp;oldid=44482">https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)&amp;oldid=44482</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)&amp;oldid=45953">https://wiki.postmarketos.org/index.php?title=Videostrong_KII_Pro_(videostrong-kii-pro)&amp;oldid=45953</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 27 May 2023, at 09:12.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 28 June 2023, at 11:56.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

@@ -1,1128 +1,854 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Micro-USB Interface Controller - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Micro-USB_Interface_Controller rootpage-Micro-USB_Interface_Controller skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Micro-USB Interface Controller
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <p>
-       A Micro-USB Interface Controller (MUIC) is a USB multiplexer/switch. (Not a USB Host Controller like the name might imply).
-      </p>
-      <h2>
-       <span class="mw-headline" id="Tested_configurations">
-        Tested configurations
-       </span>
-      </h2>
-      <div class="todo" role="note" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
-       <strong>
-        TODO
-       </strong>
-       Add more devices and fill in missing MUICs
-      </div>
-      <table class="wikitable feature-colors" style="border-collapse: collapse;">
-       <caption>
-       </caption>
-       <tbody>
-        <tr>
-         <th rowspan="2">
-          Device
-         </th>
-         <th colspan="2">
-          MUIC
-         </th>
-         <th rowspan="2">
-          UART signal voltage
-         </th>
-         <th colspan="3">
-          Resistance
-         </th>
-        </tr>
-        <tr>
-         <th>
-          Manufacturer and model
-         </th>
-         <th>
-          Mainline driver?
-         </th>
-         <th>
-          150K
-         </th>
-         <th>
-          523K
-         </th>
-         <th>
-          619K
-         </th>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_Grand_Neo_(samsung-baffinlite).html" title="Samsung Galaxy Grand Neo (samsung-baffinlite)">
-           Samsung Galaxy Grand Neo (samsung-baffinlite)
-          </a>
-         </td>
-         <td>
-          Fairchild FSA9485
-         </td>
-         <td class="feature">
-          N
-         </td>
-         <td>
-          3.3v
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_K_Zoom_(samsung-m2alte).html" title="Samsung Galaxy K Zoom (samsung-m2alte)">
-           Samsung_Galaxy_K_Zoom_(samsung-m2alte)
-          </a>
-         </td>
-         <td>
-          Maxim Integrated MAX77803
-         </td>
-         <td class="feature">
-          N
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Google_Galaxy_Nexus_GSM_(samsung-maguro).html" title="Google Galaxy Nexus GSM (samsung-maguro)">
-           Google Galaxy Nexus GSM (samsung-maguro)
-          </a>
-         </td>
-         <td>
-          Fairchild FSA9480
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a class="mw-redirect" href="../en/Samsung_Galaxy_Mini_2_(samsung-jena).html" title="Samsung Galaxy Mini 2 (samsung-s6500d)">
-           Samsung Galaxy Mini 2 (samsung-s6500d)
-          </a>
-         </td>
-         <td>
-          Fairchild FSA9280
-         </td>
-         <td class="feature">
-          N
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_S_III_LTE_(samsung-m3).html" title="Samsung Galaxy S III LTE (samsung-m3)">
-           Samsung Galaxy S III LTE (samsung-m3)
-          </a>
-         </td>
-         <td>
-          Maxim Integrated MAX77693
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_S4_(samsung-jflte).html" title="Samsung Galaxy S4 (samsung-jflte)">
-           Samsung Galaxy S4 (samsung-jflte)
-          </a>
-         </td>
-         <td>
-          Maxim Integrated MAX77693
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a class="mw-redirect" href="../en/Samsung_Galaxy_S4_Mini_LTE_(samsung-serranolte).html" title="Samsung Galaxy S4 Mini LTE">
-           Samsung Galaxy S4 Mini LTE
-          </a>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_S5_(samsung-klte).html" title="Samsung Galaxy S5 (samsung-klte)">
-           Samsung Galaxy S5 (samsung-klte)
-          </a>
-         </td>
-         <td>
-          Maxim Integrated MAX77804K
-         </td>
-         <td class="feature">
-          N
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_Tab_S2_9.7_LTE_(samsung-gts210lte).html" title="Samsung Galaxy Tab S2 9.7 LTE (samsung-gts210lte)">
-           Samsung Galaxy Tab S2 9.7 LTE (samsung-gts210lte)
-          </a>
-         </td>
-         <td>
-          Samsung SM5703
-         </td>
-         <td class="feature">
-          N
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          Samsung Galaxy
-          <a href="../en/Samsung_Galaxy_S6_(samsung-zerofltexx).html" title="Samsung Galaxy S6 (samsung-zerofltexx)">
-           S6
-          </a>
-          ,
-          <a href="../en/Samsung_Galaxy_S6_Edge_(samsung-zeroltexx).html" title="Samsung Galaxy S6 Edge (samsung-zeroltexx)">
-           S6 Edge
-          </a>
-          ,
-          <a class="new" href="/index.php?title=Samsung_Galaxy_Note5_(samsung-nobleltexx)&amp;action=edit&amp;redlink=1" title="Samsung Galaxy Note5 (samsung-nobleltexx) (page does not exist)">
-           Note5
-          </a>
-         </td>
-         <td>
-          Maxim Integrated MAX77843 and/or MAX77833
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          Samsung Galaxy
-          <a href="../en/Samsung_Galaxy_S7_(samsung-herolte).html" title="Samsung Galaxy S7 (samsung-herolte)">
-           S7
-          </a>
-          ,
-          <a href="../en/Samsung_Galaxy_S7_Edge_(samsung-hero2lte).html" title="Samsung Galaxy S7 Edge (samsung-hero2lte)">
-           S7 Edge
-          </a>
-         </td>
-         <td>
-          Maxim Integrated MAX77854
-         </td>
-         <td class="feature">
-          N
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          Samsung Galaxy
-          <a href="../en/Samsung_Galaxy_S8_(samsung-dreamlte).html" title="Samsung Galaxy S8 (samsung-dreamlte)">
-           S8
-          </a>
-          ,
-          <a class="mw-redirect" href="../en/Samsung_Galaxy_S8_(samsung-dreamlte).html" title="Samsung Galaxy S8+ (samsung-dream2lte)">
-           S8+
-          </a>
-          (USB-C, so cable layout not known)
-         </td>
-         <td>
-          Maxim Integrated MAX77865
-         </td>
-         <td class="feature">
-          N
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          Samsung Galaxy
-          <a href="../en/Samsung_Galaxy_A5_2017_(samsung-a5y17lte).html" title="Samsung Galaxy A5 2017 (samsung-a5y17lte)">
-           A5 2017
-          </a>
-          ,
-          <a class="new" href="/index.php?title=Samsung_Galaxy_A7_2017_(samsung-a7y17lte)&amp;action=edit&amp;redlink=1" title="Samsung Galaxy A7 2017 (samsung-a7y17lte) (page does not exist)">
-           A7 2017
-          </a>
-          (USB-C, so cable layout not known)
-         </td>
-         <td>
-          Samsung S2MU004
-         </td>
-         <td class="feature">
-          N
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_Note_3_(samsung-hlte).html" title="Samsung Galaxy Note 3 (samsung-hlte)">
-           Samsung Galaxy Note 3 (samsung-hlte)
-          </a>
-         </td>
-         <td>
-          Maxim Integrated MAX77803
-         </td>
-         <td class="feature">
-          N
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_S_Advance_(samsung-janice).html" title="Samsung Galaxy S Advance (samsung-janice)">
-           Samsung Galaxy S Advance (samsung-janice)
-          </a>
-         </td>
-         <td>
-          Texas Instruments TSU6111
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_S_III_mini_(samsung-golden).html" title="Samsung Galaxy S III mini (samsung-golden)">
-           Samsung Galaxy S III mini (samsung-golden)
-          </a>
-         </td>
-         <td>
-          ST-Ericsson AB8505
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_Xcover_2_(samsung-skomer).html" title="Samsung Galaxy Xcover 2 (samsung-skomer)">
-           Samsung Galaxy Xcover 2 (samsung-skomer)
-          </a>
-         </td>
-         <td>
-          ST-Ericsson AB8505
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_Xcover_4_(samsung-xcover4lte).html" title="Samsung Galaxy Xcover 4 (samsung-xcover4lte)">
-           Samsung Galaxy Xcover 4 (samsung-xcover4lte)
-          </a>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_Note_8.0_(Wi-Fi)_(samsung-n5110).html" title="Samsung Galaxy Note 8.0 (Wi-Fi) (samsung-n5110)">
-           Samsung Galaxy Note 8.0 (Wi-Fi) (samsung-n5110)
-          </a>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_Tab_4_10.1_(samsung-matissewifi).html" title="Samsung Galaxy Tab 4 10.1 (samsung-matissewifi)">
-           Samsung Galaxy Tab 4 10.1 (samsung-matissewifi)
-          </a>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          Samsung Galaxy Tab S (all variants, i.e.
-          <a href="../en/Samsung_Galaxy_Tab_S_10.5_WiFi_(samsung-chagallwifi).html" title="Samsung Galaxy Tab S 10.5 WiFi (samsung-chagallwifi)">
-           [1]
-          </a>
-          ,
-          <a href="../en/Samsung_Galaxy_Tab_S_10.5_LTE_(samsung-chagalllte).html" title="Samsung Galaxy Tab S 10.5 LTE (samsung-chagalllte)">
-           [2]
-          </a>
-          ,
-          <a href="../en/Samsung_Galaxy_Tab_S_8.4_LTE_(samsung-klimtlte).html" title="Samsung Galaxy Tab S 8.4 LTE (samsung-klimtlte)">
-           [3]
-          </a>
-          ,
-          <a href="../en/Samsung_Galaxy_Note_10.1_2014_(samsung-n1awifi).html" title="Samsung Galaxy Note 10.1 2014 (samsung-n1awifi)">
-           [4]
-          </a>
-          )
-         </td>
-         <td>
-          Maxim Integrated MAX77888
-         </td>
-         <td class="feature">
-          N
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_Y_(samsung-totoro).html" title="Samsung Galaxy Y (samsung-totoro)">
-           Samsung Galaxy Y (samsung-totoro)
-          </a>
-         </td>
-         <td>
-          Maxim Integrated MAX8986
-         </td>
-         <td class="feature">
-          N
-         </td>
-         <td>
-          1.8v/3.3v
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_Tab_3_10.1_3G_(samsung-santos103g).html" title="Samsung Galaxy Tab 3 10.1 3G (samsung-santos103g)">
-           Samsung Galaxy Tab 3 10.1 3G (samsung-santos103g)
-          </a>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a class="mw-redirect" href="../en/Samsung_Galaxy_Grand_Prime_Plus_(samsung-grandpplte).html" title="Samsung Galaxy Grand Prime+ (samsung-grandpplte)">
-           Samsung Galaxy Grand Prime+ (samsung-grandpplte)
-          </a>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Huawei_P9_lite_(huawei-venus).html" title="Huawei P9 lite (huawei-venus)">
-           Huawei P9 lite (huawei-venus)
-          </a>
-         </td>
-         <td>
-          Fairchild FSA9480
-         </td>
-         <td>
-         </td>
-         <td>
-          1.8 V
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_A5_2015_(samsung-a5).html" title="Samsung Galaxy A5 2015 (samsung-a5)">
-           Samsung Galaxy A5 2015 (samsung-a5)
-          </a>
-         </td>
-         <td>
-          Silicon Mitus SM5502
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-          1.8 V
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_A7_2015_(samsung-a7).html" title="Samsung Galaxy A7 2015 (samsung-a7)">
-           Samsung Galaxy A7 2015 (samsung-a7)
-          </a>
-         </td>
-         <td>
-          Silicon Mitus SM5502
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-          1.8 V
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_Core_Prime_LTE_(samsung-coreprimelte).html" title="Samsung Galaxy Core Prime LTE (samsung-coreprimelte)">
-           Samsung Galaxy Core Prime LTE (samsung-coreprimelte)
-          </a>
-         </td>
-         <td>
-          Silicon Mitus SM5504
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-          1.8 V
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_E7_(samsung-e7).html" title="Samsung Galaxy E7 (samsung-e7)">
-           Samsung Galaxy E7 (samsung-e7)
-          </a>
-         </td>
-         <td>
-          Silicon Mitus SM5504
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-          1.8 V
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_Grand_Max_(samsung-grandmax).html" title="Samsung Galaxy Grand Max (samsung-grandmax)">
-           Samsung Galaxy Grand Max (samsung-grandmax)
-          </a>
-         </td>
-         <td>
-          Silicon Mitus SM5504
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-          1.8 V
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_Grand_Prime_(samsung-gprime).html" title="Samsung Galaxy Grand Prime (samsung-gprime)">
-           Samsung Galaxy Grand Prime (samsung-gprime)
-          </a>
-         </td>
-         <td>
-          Silicon Mitus SM5504
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-          1.8 V
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_J3_2016_(samsung-j3).html" title="Samsung Galaxy J3 2016 (samsung-j3)">
-           Samsung Galaxy J3 2016 (samsung-j3)
-          </a>
-         </td>
-         <td>
-          Silicon Mitus SM5703
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-          1.8 V
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_J3_(samsung-j3xnlte).html" title="Samsung Galaxy J3 (samsung-j3xnlte)">
-           Samsung Galaxy J3 (samsung-j3xnlte)
-          </a>
-         </td>
-         <td>
-          Silicon Mitus SM5504
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_J5_2015_(samsung-j5).html" title="Samsung Galaxy J5 2015 (samsung-j5)">
-           Samsung Galaxy J5 2015 (samsung-j5)
-          </a>
-         </td>
-         <td>
-          Silicon Mitus SM5703
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-          1.8 V
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_J5_2016_(samsung-j5x).html" title="Samsung Galaxy J5 2016 (samsung-j5x)">
-           Samsung Galaxy J5 2016 (samsung-j5x)
-          </a>
-         </td>
-         <td>
-          Silicon Mitus SM5703
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-          1.8 V
-         </td>
-         <td>
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a class="mw-redirect" href="../en/Samsung_Galaxy_Core_Prime_VE_LTE_(samsung-coreprimevelte).html" title="Samsung Galaxy Core Prime Value Edition LTE (samsung-coreprimevelte)">
-           Samsung Galaxy Core Prime Value Edition LTE (samsung-coreprimevelte)
-          </a>
-         </td>
-         <td>
-          Silicon Mitus SM5504
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-          1.8V
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <a href="../en/Samsung_Galaxy_Xcover_3_(samsung-xcover3lte).html" title="Samsung Galaxy Xcover 3 (samsung-xcover3lte)">
-           Samsung Galaxy Xcover 3 (samsung-xcover3lte)
-          </a>
-         </td>
-         <td>
-          Silicon Mitus SM5504
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-         </td>
-         <td class="feature feature-yes">
-          Y
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <table class="wikitable feature-colors" style="border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <th colspan="2">
-          Legend
-         </th>
-        </tr>
-        <tr>
-         <td class="feature feature-yes">
-          Y
-         </td>
-         <td>
-          Tested, works
-         </td>
-        </tr>
-        <tr>
-         <td class="feature feature-partial">
-          P
-         </td>
-         <td>
-          Tested, partially works
-         </td>
-        </tr>
-        <tr>
-         <td class="feature">
-          N
-         </td>
-         <td>
-          Tested, doesn't work
-         </td>
-        </tr>
-        <tr>
-         <td>
-         </td>
-         <td>
-          Untested
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <p>
-       <br/>
-      </p>
-      <h1>
-       <span class="mw-headline" id="Links">
-        Links
-       </span>
-      </h1>
-      <p>
-       <a href="../en/Serial_debugging:Cable_schematics.html#USB_debug_cable" title="Serial debugging:Cable schematics">
-        Serial_debugging:Cable_schematics#USB_debug_cable
-       </a>
-      </p>
-      <p>
-       <a class="external text" href="https://greatscottgadgets.com/infiltrate2013/" rel="nofollow">
-        Multiplexed Wired Attack Surfaces
-       </a>
-      </p>
-      <p>
-       <a class="external text" href="https://en.wikipedia.org/wiki/CEA-936-A" rel="nofollow">
-        Wikipedia: CEA-936-A
-       </a>
-      </p>
-      <p>
-       <a class="external text" href="https://standards.cta.tech/kwspub/published_docs/ANSI-CTA-936-A-W-Preview.pdf" rel="nofollow">
-        CEA-936-A USB Carkit Specification Preview
-       </a>
-      </p>
-      <h3>
-       <span class="mw-headline" id="Datasheets">
-        Datasheets
-       </span>
-      </h3>
-      <p>
-       <a class="external text" href="http://www.onsemi.com/pub/Collateral/FSA9288A-D.pdf" rel="nofollow">
-        FSA9288A
-       </a>
-      </p>
-      <p>
-       <a class="external text" href="https://media.digikey.com/pdf/Data%20Sheets/Fairchild%20PDFs/FSA9480.pdf" rel="nofollow">
-        FSA9480
-       </a>
-      </p>
-      <p>
-       <a class="external text" href="https://www.nxp.com/docs/en/data-sheet/MC34827.pdf" rel="nofollow">
-        MC34827
-       </a>
-      </p>
-      <p>
-       <a class="external text" href="https://www.ti.com/lit/ds/symlink/tsu6111.pdf" rel="nofollow">
-        TSU6111
-       </a>
-      </p>
-     </div>
-    </div>
-    <div class="catlinks" data-mw="interface" id="catlinks">
-     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-      <a href="../Special:Categories.html" title="Special:Categories">
-       Categories
-      </a>
-      :
-      <ul>
-       <li>
-        <a href="../en/Category:Todo_Items.html" title="Category:Todo Items">
-         Todo Items
-        </a>
-       </li>
-       <li>
-        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
-         Technical Reference
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Micro-USB_Interface_Controller&amp;oldid=28942">
-      https://wiki.postmarketos.org/index.php?title=Micro-USB_Interface_Controller&amp;oldid=28942
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 5 July 2022, at 21:27.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Micro-USB_Interface_Controller&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Micro-USB Interface Controller - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Micro-USB_Interface_Controller rootpage-Micro-USB_Interface_Controller skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Micro-USB Interface Controller</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>A Micro-USB Interface Controller (MUIC) is a USB multiplexer/switch. (Not a USB Host Controller like the name might imply).
+</p>
+<h2><span class="mw-headline" id="Tested_configurations">Tested configurations</span></h2>
+<table role="text container" style="color: inherit; background-color: #fdd1d1; border: 1px solid #b60000; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>TODO:</b> Add more devices and fill in missing MUICs</td>
+</tr></tbody></table>
+<table class="wikitable feature-colors sortable">
+<caption>
+</caption>
+<tbody>
+<tr>
+<th rowspan="2">Device
+</th>
+<th colspan="2">MUIC
+</th>
+<th rowspan="2">UART signal voltage
+</th>
+<th colspan="3">Resistance
+</th>
+</tr>
+<tr>
+<th>Manufacturer and model
+</th>
+<th>Mainline driver?
+</th>
+<th>150K
+</th>
+<th>523K
+</th>
+<th>619K
+</th>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Grand_Neo_(samsung-baffinlite).html" title="Samsung Galaxy Grand Neo (samsung-baffinlite)">Samsung Galaxy Grand Neo (samsung-baffinlite)</a>
+</td>
+<td>Fairchild FSA9485
+</td>
+<td>N
+</td>
+<td>3.3v
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_K_Zoom_(samsung-m2alte).html" title="Samsung Galaxy K Zoom (samsung-m2alte)">Samsung Galaxy K Zoom (samsung-m2alte)</a>
+</td>
+<td>Maxim Integrated MAX77803
+</td>
+<td>N
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Google_Galaxy_Nexus_GSM_(samsung-maguro).html" title="Google Galaxy Nexus GSM (samsung-maguro)">Google Galaxy Nexus GSM (samsung-maguro)</a>
+</td>
+<td>Fairchild FSA9480
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Mini_2_(samsung-jena).html" class="mw-redirect" title="Samsung Galaxy Mini 2 (samsung-s6500d)">Samsung Galaxy Mini 2 (samsung-s6500d)</a>
+</td>
+<td>Fairchild FSA9280
+</td>
+<td>N
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_S_III_LTE_(samsung-m3).html" title="Samsung Galaxy S III LTE (samsung-m3)">Samsung Galaxy S III LTE (samsung-m3)</a>
+</td>
+<td>Maxim Integrated MAX77693
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_S4_(samsung-jflte).html" title="Samsung Galaxy S4 (samsung-jflte)">Samsung Galaxy S4 (samsung-jflte)</a>
+</td>
+<td>Maxim Integrated MAX77693
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_S4_Mini_LTE_(samsung-serranolte).html" class="mw-redirect" title="Samsung Galaxy S4 Mini LTE">Samsung Galaxy S4 Mini LTE</a>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_S5_(samsung-klte).html" title="Samsung Galaxy S5 (samsung-klte)">Samsung Galaxy S5 (samsung-klte)</a>
+</td>
+<td>Maxim Integrated MAX77804K
+</td>
+<td>N
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Tab_S2_9.7_LTE_(samsung-gts210lte).html" title="Samsung Galaxy Tab S2 9.7 LTE (samsung-gts210lte)">Samsung Galaxy Tab S2 9.7 LTE (samsung-gts210lte)</a>
+</td>
+<td>Silicon Mitus SM5703
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>Samsung Galaxy <a href="../en/Samsung_Galaxy_S6_(samsung-zerofltexx).html" title="Samsung Galaxy S6 (samsung-zerofltexx)">S6</a>, <a href="../en/Samsung_Galaxy_S6_Edge_(samsung-zeroltexx).html" title="Samsung Galaxy S6 Edge (samsung-zeroltexx)">S6 Edge</a>, <a href="/index.php?title=Samsung_Galaxy_Note5_(samsung-nobleltexx)&amp;action=edit&amp;redlink=1" class="new" title="Samsung Galaxy Note5 (samsung-nobleltexx) (page does not exist)">Note5</a>
+</td>
+<td>Maxim Integrated MAX77843 and/or MAX77833
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>Samsung Galaxy <a href="../en/Samsung_Galaxy_S7_(samsung-herolte).html" title="Samsung Galaxy S7 (samsung-herolte)">S7</a>, <a href="../en/Samsung_Galaxy_S7_Edge_(samsung-hero2lte).html" title="Samsung Galaxy S7 Edge (samsung-hero2lte)">S7 Edge</a>
+</td>
+<td>Maxim Integrated MAX77854
+</td>
+<td>N
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>Samsung Galaxy <a href="../en/Samsung_Galaxy_S8_(samsung-dreamlte).html" title="Samsung Galaxy S8 (samsung-dreamlte)">S8</a>, <a href="../en/Samsung_Galaxy_S8_(samsung-dreamlte).html" class="mw-redirect" title="Samsung Galaxy S8+ (samsung-dream2lte)">S8+</a> (USB-C, so cable layout not known)
+</td>
+<td>Maxim Integrated MAX77865
+</td>
+<td>N
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>Samsung Galaxy <a href="../en/Samsung_Galaxy_A5_2017_(samsung-a5y17lte).html" title="Samsung Galaxy A5 2017 (samsung-a5y17lte)">A5 2017</a>, <a href="/index.php?title=Samsung_Galaxy_A7_2017_(samsung-a7y17lte)&amp;action=edit&amp;redlink=1" class="new" title="Samsung Galaxy A7 2017 (samsung-a7y17lte) (page does not exist)">A7 2017</a> (USB-C, so cable layout not known)
+</td>
+<td>Samsung S2MU004
+</td>
+<td>N
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Note_3_(samsung-hlte).html" title="Samsung Galaxy Note 3 (samsung-hlte)">Samsung Galaxy Note 3 (samsung-hlte)</a>
+</td>
+<td>Maxim Integrated MAX77803
+</td>
+<td>N
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Ace_2_(samsung-codina).html" title="Samsung Galaxy Ace 2 (samsung-codina)">Samsung Galaxy Ace 2 (samsung-codina)</a>
+</td>
+<td>Texas Instruments TSU6111
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_S_Advance_(samsung-janice).html" title="Samsung Galaxy S Advance (samsung-janice)">Samsung Galaxy S Advance (samsung-janice)</a>
+</td>
+<td>Texas Instruments TSU6111
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_S_III_mini_(samsung-golden).html" title="Samsung Galaxy S III mini (samsung-golden)">Samsung Galaxy S III mini (samsung-golden)</a>
+</td>
+<td>ST-Ericsson AB8505
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Beam_(samsung-gavini).html" title="Samsung Galaxy Beam (samsung-gavini)">Samsung Galaxy Beam (samsung-gavini)</a>
+</td>
+<td>Texas Instruments TSU6111
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Xcover_2_(samsung-skomer).html" title="Samsung Galaxy Xcover 2 (samsung-skomer)">Samsung Galaxy Xcover 2 (samsung-skomer)</a>
+</td>
+<td>ST-Ericsson AB8505
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Exhibit_(samsung-codina-tmo).html" title="Samsung Galaxy Exhibit (samsung-codina-tmo)">Samsung Galaxy Exhibit (samsung-codina-tmo)</a>
+</td>
+<td>ST-Ericsson AB8505
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Amp_(samsung-kyle).html" title="Samsung Galaxy Amp (samsung-kyle)">Samsung Galaxy Amp (samsung-kyle)</a>
+</td>
+<td>ST-Ericsson AB8505
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Xcover_4_(samsung-xcover4lte).html" title="Samsung Galaxy Xcover 4 (samsung-xcover4lte)">Samsung Galaxy Xcover 4 (samsung-xcover4lte)</a>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Note_8.0_(Wi-Fi)_(samsung-n5110).html" title="Samsung Galaxy Note 8.0 (Wi-Fi) (samsung-n5110)">Samsung Galaxy Note 8.0 (Wi-Fi) (samsung-n5110)</a>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Tab_4_10.1_(samsung-matissewifi).html" title="Samsung Galaxy Tab 4 10.1 (samsung-matissewifi)">Samsung Galaxy Tab 4 10.1 (samsung-matissewifi)</a>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>Samsung Galaxy Tab S (all variants, i.e. <a href="../en/Samsung_Galaxy_Tab_S_10.5_WiFi_(samsung-chagallwifi).html" title="Samsung Galaxy Tab S 10.5 WiFi (samsung-chagallwifi)">[1]</a>, <a href="../en/Samsung_Galaxy_Tab_S_10.5_LTE_(samsung-chagalllte).html" title="Samsung Galaxy Tab S 10.5 LTE (samsung-chagalllte)">[2]</a>, <a href="../en/Samsung_Galaxy_Tab_S_8.4_LTE_(samsung-klimtlte).html" title="Samsung Galaxy Tab S 8.4 LTE (samsung-klimtlte)">[3]</a>, <a href="../en/Samsung_Galaxy_Note_10.1_2014_(samsung-n1awifi).html" title="Samsung Galaxy Note 10.1 2014 (samsung-n1awifi)">[4]</a>)
+</td>
+<td>Maxim Integrated MAX77888
+</td>
+<td>N
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Y_(samsung-totoro).html" title="Samsung Galaxy Y (samsung-totoro)">Samsung Galaxy Y (samsung-totoro)</a>
+</td>
+<td>Maxim Integrated MAX8986
+</td>
+<td>N
+</td>
+<td>1.8v/3.3v
+</td>
+<td>
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Tab_3_10.1_3G_(samsung-santos103g).html" title="Samsung Galaxy Tab 3 10.1 3G (samsung-santos103g)">Samsung Galaxy Tab 3 10.1 3G (samsung-santos103g)</a>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Grand_Prime_Plus_(samsung-grandpplte).html" class="mw-redirect" title="Samsung Galaxy Grand Prime+ (samsung-grandpplte)">Samsung Galaxy Grand Prime+ (samsung-grandpplte)</a>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Huawei_P9_lite_(huawei-venus).html" title="Huawei P9 lite (huawei-venus)">Huawei P9 lite (huawei-venus)</a>
+</td>
+<td>Fairchild FSA9480
+</td>
+<td>
+</td>
+<td>1.8 V
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_A5_2015_(samsung-a5).html" title="Samsung Galaxy A5 2015 (samsung-a5)">Samsung Galaxy A5 2015 (samsung-a5)</a>
+</td>
+<td>Silicon Mitus SM5502
+</td>
+<td>Y
+</td>
+<td>1.8 V
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_A7_2015_(samsung-a7).html" title="Samsung Galaxy A7 2015 (samsung-a7)">Samsung Galaxy A7 2015 (samsung-a7)</a>
+</td>
+<td>Silicon Mitus SM5502
+</td>
+<td>Y
+</td>
+<td>1.8 V
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Core_Prime_LTE_(samsung-coreprimelte).html" title="Samsung Galaxy Core Prime LTE (samsung-coreprimelte)">Samsung Galaxy Core Prime LTE (samsung-coreprimelte)</a>
+</td>
+<td>Silicon Mitus SM5504
+</td>
+<td>Y
+</td>
+<td>1.8 V
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_E7_(samsung-e7).html" title="Samsung Galaxy E7 (samsung-e7)">Samsung Galaxy E7 (samsung-e7)</a>
+</td>
+<td>Silicon Mitus SM5504
+</td>
+<td>Y
+</td>
+<td>1.8 V
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Grand_Max_(samsung-grandmax).html" title="Samsung Galaxy Grand Max (samsung-grandmax)">Samsung Galaxy Grand Max (samsung-grandmax)</a>
+</td>
+<td>Silicon Mitus SM5504
+</td>
+<td>Y
+</td>
+<td>1.8 V
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Grand_Prime_(samsung-gprime).html" title="Samsung Galaxy Grand Prime (samsung-gprime)">Samsung Galaxy Grand Prime (samsung-gprime)</a>
+</td>
+<td>Silicon Mitus SM5504
+</td>
+<td>Y
+</td>
+<td>1.8 V
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_J3_2016_(samsung-j3).html" title="Samsung Galaxy J3 2016 (samsung-j3)">Samsung Galaxy J3 2016 (samsung-j3)</a>
+</td>
+<td>Silicon Mitus SM5703
+</td>
+<td>Y
+</td>
+<td>1.8 V
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_J3_2016_(samsung-j3xnlte).html" class="mw-redirect" title="Samsung Galaxy J3 (samsung-j3xnlte)">Samsung Galaxy J3 (samsung-j3xnlte)</a>
+</td>
+<td>Silicon Mitus SM5504
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_J5_2015_(samsung-j5).html" title="Samsung Galaxy J5 2015 (samsung-j5)">Samsung Galaxy J5 2015 (samsung-j5)</a>
+</td>
+<td>Silicon Mitus SM5703
+</td>
+<td>Y
+</td>
+<td>1.8 V
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_J5_2016_(samsung-j5x).html" title="Samsung Galaxy J5 2016 (samsung-j5x)">Samsung Galaxy J5 2016 (samsung-j5x)</a>
+</td>
+<td>Silicon Mitus SM5703
+</td>
+<td>Y
+</td>
+<td>1.8 V
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Core_Prime_VE_LTE_(samsung-coreprimevelte).html" class="mw-redirect" title="Samsung Galaxy Core Prime Value Edition LTE (samsung-coreprimevelte)">Samsung Galaxy Core Prime Value Edition LTE (samsung-coreprimevelte)</a>
+</td>
+<td>Silicon Mitus SM5504
+</td>
+<td>Y
+</td>
+<td>1.8V
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_Xcover_3_(samsung-xcover3lte).html" title="Samsung Galaxy Xcover 3 (samsung-xcover3lte)">Samsung Galaxy Xcover 3 (samsung-xcover3lte)</a>
+</td>
+<td>Silicon Mitus SM5504
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>Y
+</td>
+<td>
+</td>
+<td>Y
+</td>
+</tr>
+</tbody>
+</table>
+<table class="wikitable feature-colors">
+<tbody>
+<tr>
+<th colspan="2">Legend
+</th>
+</tr>
+<tr>
+<td>Y
+</td>
+<td>Tested, works
+</td>
+</tr>
+<tr>
+<td>P
+</td>
+<td>Tested, partially works
+</td>
+</tr>
+<tr>
+<td>N
+</td>
+<td>Tested, doesn't work
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>Untested
+</td>
+</tr>
+</tbody>
+</table>
+<p><br>
+</p>
+<h1><span class="mw-headline" id="Links">Links</span></h1>
+<p><a href="../en/Serial_debugging:Cable_schematics.html#USB_debug_cable" title="Serial debugging:Cable schematics">Serial_debugging:Cable_schematics#USB_debug_cable</a>
+</p>
+<p><a rel="nofollow" class="external text" href="https://greatscottgadgets.com/infiltrate2013/">Multiplexed Wired Attack Surfaces</a>
+</p>
+<p><a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/CEA-936-A">Wikipedia: CEA-936-A</a>
+</p>
+<p><a rel="nofollow" class="external text" href="https://standards.cta.tech/kwspub/published_docs/ANSI-CTA-936-A-W-Preview.pdf">CEA-936-A USB Carkit Specification Preview</a>
+</p>
+<h3><span class="mw-headline" id="Datasheets">Datasheets</span></h3>
+<p><a rel="nofollow" class="external text" href="http://www.onsemi.com/pub/Collateral/FSA9288A-D.pdf">FSA9288A</a>
+</p>
+<p><a rel="nofollow" class="external text" href="https://media.digikey.com/pdf/Data%20Sheets/Fairchild%20PDFs/FSA9480.pdf">FSA9480</a>
+</p>
+<p><a rel="nofollow" class="external text" href="https://www.nxp.com/docs/en/data-sheet/MC34827.pdf">MC34827</a>
+</p>
+<p><a rel="nofollow" class="external text" href="https://www.ti.com/lit/ds/symlink/tsu6111.pdf">TSU6111</a>
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li>
+<li><a href="../en/Category:Devices_with_known_UART_pinout.html" title="Category:Devices with known UART pinout">Devices with known UART pinout</a></li>
+<li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li>
+</ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Micro-USB_Interface_Controller&amp;oldid=43624">https://wiki.postmarketos.org/index.php?title=Micro-USB_Interface_Controller&amp;oldid=43624</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:42.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Micro-USB_Interface_Controller&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

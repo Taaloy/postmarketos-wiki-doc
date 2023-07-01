@@ -65,12 +65,12 @@ testing</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Original software</th>
     <td class="" style="">
-Android 5.1 on Linux 3.4</td>
+Android</td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">postmarketOS kernel</th>
+<th scope="row" style="text-align:left;"><abbr title="The version the device was shipped with.">Original version</abbr></th>
     <td class="" style="">
-Mainline</td>
+5.1</td>
 </tr>
 <tr><th colspan="2" class="" style="text-align:center;">Hardware</th></tr>
 <tr class="">
@@ -108,6 +108,11 @@ Adreno 330</td>
 <th scope="row" style="text-align:left;">Architecture</th>
     <td class="" style="">
 armv7</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Type</th>
+    <td class="" style="">
+handset</td>
 </tr>
 <tr><td colspan="2" style="text-align:right"></td></tr>
 </tbody>
@@ -148,7 +153,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Full disk encryption and unlocking with osk-sdl.">FDE</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -280,7 +285,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Camera Flash</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
@@ -298,7 +303,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">USB-A</abbr></th>
     <td class="" style="">
-<div class="feature feature-unavailable">Unavailable</div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
@@ -316,31 +321,31 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Ir RX</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Stylus</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Haptics</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Ethernet</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">FOSS bootloader</th>
     <td class="" style="">
-<div class="feature feature-partial">Partial</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr><td colspan="2" style="text-align:right"></td></tr>
@@ -352,6 +357,10 @@ armv7</td>
 </p>
 <p><br>
 </p>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This wiki page is made for <code>mainline</code> kernel. The <code>downstream</code> kernel in the <code>pmbootstrap init</code> selection is not covered here, see the <a href="../en/Fairphone_2_(fairphone-fp2)_Downstream_kernel.html" title="Fairphone 2 (fairphone-fp2)/Downstream kernel">dedicated wiki page for downstream</a>.</td>
+</tr></tbody></table>
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
 <ul><li>Luca Weiss (z3ntu)</li></ul>
 <h2><span class="mw-headline" id="Device_owners">Device owners</span></h2>
@@ -372,7 +381,7 @@ armv7</td>
 <li>
 <a href="../User:TPJS.html" title="User:TPJS">TPJS</a> (<span class="cargoFieldName">Notes:</span> stock, unknown screen type)</li>
 <li>
-<a href="../User:UltrasonicMadness.html" title="User:UltrasonicMadness">UltrasonicMadness</a> (<span class="cargoFieldName">Notes:</span> Runs Ubuntu Touch, has occasional problems with screen flickering)</li>
+<a href="../User:UltrasonicMadness.html" title="User:UltrasonicMadness">UltrasonicMadness</a> (<span class="cargoFieldName">Notes:</span> Runs Ubuntu Touch 16.04, has occasional problems with screen flickering and unreliable touch screen)</li>
 <li>
 <a href="../User:Unrznbl.html" title="User:Unrznbl">Unrznbl</a> (<span class="cargoFieldName">Notes:</span> 2022-09-21 old hardware panel so not supported in mainline and no touchscreen, though display works)</li>
 <li><a href="../User:Z3ntu.html" title="User:Z3ntu">Z3ntu</a></li>
@@ -380,21 +389,18 @@ armv7</td>
 <p><br>
 </p>
 <h2><span class="mw-headline" id="How_to_enter_flash_mode">How to enter flash mode</span></h2>
-<p>Hold volume down while booting the device. The notification LED will blink blue when in fastboot mode.
+<p>Hold <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> while booting the device. The notification LED will blink blue when in fastboot mode.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
 <td style="padding: 0.35em 0.9em; width: 100%;">If you have a very old bootloader installed, installation might fail. Flash any recent stock software onto the device first if you experience any such problem.</td>
 </tr></tbody></table>
-<p>This wiki page is made for <code>mainline</code> kernel. The <code>downstream</code> kernel in the <code>pmbootstrap init</code> selection is not covered here, see the <a href="../en/Fairphone_2_(fairphone-fp2)_Downstream_kernel.html" title="Fairphone 2 (fairphone-fp2)/Downstream kernel">dedicated wiki page for downstream</a>.
+<p>For installation you need to flash <a href="../en/Lk2nd.html" class="mw-redirect" title="Lk2nd">lk2nd</a> and flash the rootfs. Do not flash the <code>boot</code> partition since lk2nd uses <a rel="nofollow" class="external text" href="https://github.com/msm8916-mainline/lk2nd/issues/113">fs-boot</a> functionality to boot the kernel from the <code>/boot</code> partition of the rootfs.
 </p>
-<p>Installation procedure is the same as with most other devices, but in brief I recommend:
-</p>
-<ul>
-<li><code>pmbootstrap flasher flash_kernel</code></li>
-<li><code>pmbootstrap flasher flash_rootfs --partition userdata</code></li>
-</ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_lk2nd
+<span class="gp">$</span> pmbootstrap flasher flash_rootfs --partition userdata
+</pre></div>
 <p>Phosh and Plasma Mobile UIs have been shown to work.
 </p>
 <h2><span class="mw-headline" id="Device_status">Device status</span></h2>
@@ -406,7 +412,9 @@ armv7</td>
 <h3>
 <span id="Display_module_(panel/touchscreen)"></span><span class="mw-headline" id="Display_module_.28panel.2Ftouchscreen.29">Display module (panel/touchscreen)</span>
 </h3>
-<p>In the kernel only support for the new display module is configured. You can identify the display module on your device based on <a rel="nofollow" class="external text" href="https://forum.fairphone.com/t/how-to-recognize-the-new-fp2-display-module/35519/13">this forum post</a>. If you have the old display module, touchscreen will not work (uses Synaptics instead of Ilitek) but it might also lead to issues with the display panel.
+<p>The kernel should support both the old and new display modules. You can identify the display module on your device based on <a rel="nofollow" class="external text" href="https://forum.fairphone.com/t/how-to-recognize-the-new-fp2-display-module/35519/13">this forum post</a>. However if you have the old display module, the touchscreen might not work due to issues with power sequencing (turning screen off turns touchscreen off, however turning screen on doesn't reinitialize the touchscreen).
+</p>
+<p>Lk2nd should automatically detect which display panel is installed and adjust the Linux dtb accordingly.
 </p>
 <h2><span class="mw-headline" id="Links">Links</span></h2>
 <ul>
@@ -420,7 +428,8 @@ armv7</td>
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
 <li><a href="../en/Category:Devices.html" title="Category:Devices">Devices</a></li>
-<li><a href="/index.php?title=Category:Android_5.1_on_Linux_3.4&amp;action=edit&amp;redlink=1" class="new" title="Category:Android 5.1 on Linux 3.4 (page does not exist)">Android 5.1 on Linux 3.4</a></li>
+<li><a href="/index.php?title=Category:Handset&amp;action=edit&amp;redlink=1" class="new" title="Category:Handset (page does not exist)">Handset</a></li>
+<li><a href="../en/Category:Android.html" title="Category:Android">Android</a></li>
 <li><a href="../en/Category:Fairphone.html" title="Category:Fairphone">Fairphone</a></li>
 </ul>
 </div></div>
@@ -432,9 +441,9 @@ armv7</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Fairphone_2_(fairphone-fp2)&amp;oldid=44474">https://wiki.postmarketos.org/index.php?title=Fairphone_2_(fairphone-fp2)&amp;oldid=44474</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Fairphone_2_(fairphone-fp2)&amp;oldid=44945">https://wiki.postmarketos.org/index.php?title=Fairphone_2_(fairphone-fp2)&amp;oldid=44945</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 27 May 2023, at 07:34.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 9 June 2023, at 16:30.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

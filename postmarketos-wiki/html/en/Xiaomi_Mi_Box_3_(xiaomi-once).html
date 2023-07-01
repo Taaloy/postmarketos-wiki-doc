@@ -81,7 +81,7 @@ Android TV</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Chipset</th>
     <td class="" style="">
-<a href="../en/Amlogic_S905X-H.html" class="mw-redirect" title="Amlogic S905X-H">Amlogic S905X-H</a>
+<a href="../en/Amlogic_S905X_S905W_S905Z_S905L_S805X_S805Y.html" class="mw-redirect" title="Amlogic S905X-H">Amlogic S905X-H</a>
 </td>
 </tr>
 <tr class="">
@@ -159,7 +159,7 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Instead of a Linux kernel fork, it is possible to run mainline.">Mainline</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -389,9 +389,10 @@ aarch64</td>
 </ul>
 </li>
 <li class="toclevel-1 tocsection-6"><a href="#Recover_back_to_the_default_booting_behavior"><span class="tocnumber">3</span> <span class="toctext">Recover back to the default booting behavior</span></a></li>
-<li class="toclevel-1 tocsection-7"><a href="#Maintainer"><span class="tocnumber">4</span> <span class="toctext">Maintainer</span></a></li>
-<li class="toclevel-1 tocsection-8"><a href="#Users_owning_this_device"><span class="tocnumber">5</span> <span class="toctext">Users owning this device</span></a></li>
-<li class="toclevel-1 tocsection-9"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Unlock_the_bootlocker"><span class="tocnumber">4</span> <span class="toctext">Unlock the bootlocker</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Maintainer"><span class="tocnumber">5</span> <span class="toctext">Maintainer</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Users_owning_this_device"><span class="tocnumber">6</span> <span class="toctext">Users owning this device</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#See_also"><span class="tocnumber">7</span> <span class="toctext">See also</span></a></li>
 </ul>
 </div>
 
@@ -412,7 +413,7 @@ aarch64</td>
 <td style="padding: 0.35em 0.9em; width: 100%;">
 <b>WARNING:</b> DO NOT PLUG multiple USB devices to the TV box when it boots. DO NOT PLUG USB drives that had pmOS installed to the TV box when it boots into Android because Android will destroy file permissions!</td>
 </tr></tbody></table>
-<p>Before doing everything here, please follow the instructions in <b>Downgrading from Android 9 to Android 8</b>.
+<p>Before doing everything here, please follow the instructions in <a href="#Downgrading_from_Android_9_to_Android_8">#Downgrading from Android 9 to Android 8</a>.
 </p>
 <p>Only installing to a USB drive works currently.
 </p>
@@ -457,7 +458,7 @@ aarch64</td>
 <li>Flash and reboot! Your Mi Box should reboot a few times. You should see a progress bar after that. (It only flashed U-Boot, and Android 9 isn't bootable from it, and thus it loads <code>recovery.img</code> from the USB drive, which runs <code>xiaomi_update</code>)</li>
 <li>After that, it's going to boot into Android 8, which will fail. It's then going to boot into recovery mode and you should see the following error message: "Cannot load Android system. Your data may be corrupt. If you continue to get this message, you may need to perform a factory data reset and erase all user data stored on this device."</li>
 <li>'Factory data reset' &gt; 'Yes'</li>
-<li>Reboot</li>
+<li>Then it should reboot automatically by itself</li>
 <li>Done!</li>
 </ol>
 <h2><span class="mw-headline" id="Recover_back_to_the_default_booting_behavior">Recover back to the default booting behavior</span></h2>
@@ -467,6 +468,9 @@ aarch64</td>
 <span class="go">once# setenv bootandroid </span>
 <span class="go">once# saveenv</span>
 </pre></div>
+<h2><span class="mw-headline" id="Unlock_the_bootlocker">Unlock the bootlocker</span></h2>
+<p>This device has a locked bootloader (It seem only mda-16-ab have this kind of bl) that can only signed boot image supposedly.However <a href="../User:Exkc.html" title="User:Exkc">exkc</a> find out it can chainboot a unlocked bootloader from the locked bootloader via "multiboot" mode.There are some work on unlocking the android 6 bootloader which allow you to boot unsigned boot image directly from the stock bootloader.
+</p>
 <h2><span class="mw-headline" id="Maintainer">Maintainer</span></h2>
 <ul><li><a href="../User:Exkc.html" title="User:Exkc">exkc</a></li></ul>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
@@ -479,14 +483,14 @@ aarch64</td>
 <li><a rel="nofollow" class="external text" href="https://zhuanlan.zhihu.com/p/46565406">What different between Mi box 4(china variant)、4c(china variant)、3s(china variant)、3c(china variant)、3 enhanced(china variant) (Simplify Chinese)</a></li>
 <li><a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=GDOUTCYZWaU">How to flash mda-19-ab's os on mda-19-aa? (Cantonese with Mandarin subtitles)</a></li>
 </ul>
+<ul><li><a rel="nofollow" class="external text" href="https://forum.xda-developers.com/t/mdz-16-ab-bootloader-unlocked.4469467/">unlock bootloader</a></li></ul>
 </div></div>
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="/index.php?title=Category:Pages_using_duplicate_arguments_in_template_calls&amp;action=edit&amp;redlink=1" class="new" title="Category:Pages using duplicate arguments in template calls (page does not exist)">Pages using duplicate arguments in template calls</a></li>
 <li><a href="../en/Category:Devices_with_known_UART_pinout.html" title="Category:Devices with known UART pinout">Devices with known UART pinout</a></li>
 <li><a href="../en/Category:Devices.html" title="Category:Devices">Devices</a></li>
-<li><a href="/index.php?title=Category:Android_TV&amp;action=edit&amp;redlink=1" class="new" title="Category:Android TV (page does not exist)">Android TV</a></li>
+<li><a href="../en/Category:Android_TV.html" title="Category:Android TV">Android TV</a></li>
 <li><a href="../en/Category:Xiaomi.html" title="Category:Xiaomi">Xiaomi</a></li>
 </ul>
 </div></div>
@@ -498,9 +502,9 @@ aarch64</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Box_3_(xiaomi-once)&amp;oldid=43481">https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Box_3_(xiaomi-once)&amp;oldid=43481</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Box_3_(xiaomi-once)&amp;oldid=46031">https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Box_3_(xiaomi-once)&amp;oldid=46031</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:38.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 29 June 2023, at 10:45.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

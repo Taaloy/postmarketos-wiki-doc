@@ -373,6 +373,8 @@ armv7</td>
 </ul></div>
 <p><br>
 </p>
+<p><br>
+</p>
 <h2><span class="mw-headline" id="What_works">What works</span></h2>
 <ul>
 <li>Compiling the mainline kernel</li>
@@ -395,7 +397,12 @@ armv7</td>
 <li>Hold <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span> and connect USB, wait for blue light</li>
 </ul>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<h1><span class="mw-headline" id="Component_support_table">Component support table</span></h1>
+<p>For installation you need to flash <a href="../en/Lk2nd.html" class="mw-redirect" title="Lk2nd">lk2nd</a> and flash the rootfs. Do not flash the <code>boot</code> partition since lk2nd uses <a rel="nofollow" class="external text" href="https://github.com/msm8916-mainline/lk2nd/issues/113">fs-boot</a> functionality to boot the kernel from the <code>/boot</code> partition of the rootfs.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_lk2nd
+<span class="gp">$</span> pmbootstrap flasher flash_rootfs --partition userdata
+</pre></div>
+<h2><span class="mw-headline" id="Component_support_table">Component support table</span></h2>
 <table class="wikitable">
 
 <tbody>
@@ -759,9 +766,9 @@ armv7</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Sony_Xperia_Z3_(sony-leo)&amp;oldid=42954">https://wiki.postmarketos.org/index.php?title=Sony_Xperia_Z3_(sony-leo)&amp;oldid=42954</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Sony_Xperia_Z3_(sony-leo)&amp;oldid=44948">https://wiki.postmarketos.org/index.php?title=Sony_Xperia_Z3_(sony-leo)&amp;oldid=44948</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:29.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 9 June 2023, at 16:36.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

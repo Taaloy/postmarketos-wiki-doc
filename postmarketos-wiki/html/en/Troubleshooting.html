@@ -1,1299 +1,318 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Troubleshooting - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Troubleshooting rootpage-Troubleshooting skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Troubleshooting
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <div class="toc" id="toc">
-       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
-       <div class="toctitle" dir="ltr" lang="en">
-        <h2>
-         Contents
-        </h2>
-        <span class="toctogglespan">
-         <label class="toctogglelabel" for="toctogglecheckbox">
-         </label>
-        </span>
-       </div>
-       <ul>
-        <li class="toclevel-1 tocsection-1">
-         <a href="#General_information">
-          <span class="tocnumber">
-           1
-          </span>
-          <span class="toctext">
-           General information
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-2">
-         <a href="#Specific_troubleshooting_pages">
-          <span class="tocnumber">
-           2
-          </span>
-          <span class="toctext">
-           Specific troubleshooting pages
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-3">
-         <a href="#Port.2Fdevice_troubleshooting">
-          <span class="tocnumber">
-           3
-          </span>
-          <span class="toctext">
-           Port/device troubleshooting
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-4">
-           <a href="#References">
-            <span class="tocnumber">
-             3.1
-            </span>
-            <span class="toctext">
-             References
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-5">
-           <a href="#Porting_process.2C_preparation_and_various_information">
-            <span class="tocnumber">
-             3.2
-            </span>
-            <span class="toctext">
-             Porting process, preparation and various information
-            </span>
-           </a>
-           <ul>
-            <li class="toclevel-3 tocsection-6">
-             <a href="#My_device_runs_the_Linux_kernel_.28e.g._Android.29.2C_but_the_vendor_does_not_provide_the_source">
-              <span class="tocnumber">
-               3.2.1
-              </span>
-              <span class="toctext">
-               My device runs the Linux kernel (e.g. Android), but the vendor does not provide the source
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-7">
-             <a href="#My_Android_device_does_not_have_partition_labels.2C_how_do_I_know_where_to_put_the_boot.img_file_etc.3F">
-              <span class="tocnumber">
-               3.2.2
-              </span>
-              <span class="toctext">
-               My Android device does not have partition labels, how do I know where to put the boot.img file etc?
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-8">
-             <a href="#Serial_Console_Debug_Cable_.28early_boot_debugging.29">
-              <span class="tocnumber">
-               3.2.3
-              </span>
-              <span class="toctext">
-               Serial Console Debug Cable (early boot debugging)
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-9">
-             <a href="#Proprietary_blobs">
-              <span class="tocnumber">
-               3.2.4
-              </span>
-              <span class="toctext">
-               Proprietary blobs
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-10">
-             <a href="#Force_reboot">
-              <span class="tocnumber">
-               3.2.5
-              </span>
-              <span class="toctext">
-               Force reboot
-              </span>
-             </a>
-            </li>
-           </ul>
-          </li>
-          <li class="toclevel-2 tocsection-11">
-           <a href="#Errors_on_the_device">
-            <span class="tocnumber">
-             3.3
-            </span>
-            <span class="toctext">
-             Errors on the device
-            </span>
-           </a>
-           <ul>
-            <li class="toclevel-3 tocsection-12">
-             <a href="#Touch_screen_device_present_but_not_outputting_any_touch_events">
-              <span class="tocnumber">
-               3.3.1
-              </span>
-              <span class="toctext">
-               Touch screen device present but not outputting any touch events
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-13">
-             <a href="#CHARGING_MODE:_error_starting_charging-sdl">
-              <span class="tocnumber">
-               3.3.2
-              </span>
-              <span class="toctext">
-               CHARGING MODE: error starting charging-sdl
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-14">
-             <a href="#During_initramfs_generation:_.22modprobe:_WARNING:_Module_drm_not_found_in_directory_.2Flib.2Fmodules.2F....22">
-              <span class="tocnumber">
-               3.3.3
-              </span>
-              <span class="toctext">
-               During initramfs generation: "modprobe: WARNING: Module drm not found in directory /lib/modules/..."
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-15">
-             <a href="#Phone_shows_the_telnet_message.2C_a_black_screen.2C_or_doesn.27t_leave_the_bootloader_or_Samsung.2FGoogle.2F..._splash_screen">
-              <span class="tocnumber">
-               3.3.4
-              </span>
-              <span class="toctext">
-               Phone shows the telnet message, a black screen, or doesn't leave the bootloader or Samsung/Google/... splash screen
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-16">
-             <a href="#I_have_ported_postmarketOS_to_my_device_and_the_screen_doesn.27t_get_updated">
-              <span class="tocnumber">
-               3.3.5
-              </span>
-              <span class="toctext">
-               I have ported postmarketOS to my device and the screen doesn't get updated
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-17">
-             <a href="#Device_reboots">
-              <span class="tocnumber">
-               3.3.6
-              </span>
-              <span class="toctext">
-               Device reboots
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-18">
-             <a href="#User_interface_is_unresponsive">
-              <span class="tocnumber">
-               3.3.7
-              </span>
-              <span class="toctext">
-               User interface is unresponsive
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-19">
-             <a href="#SSH_.2F_udev_.2F_touch_screen_doesn.27t_work">
-              <span class="tocnumber">
-               3.3.8
-              </span>
-              <span class="toctext">
-               SSH / udev / touch screen doesn't work
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-20">
-             <a href="#I_can.27t_access_the_framebuffer_device">
-              <span class="tocnumber">
-               3.3.9
-              </span>
-              <span class="toctext">
-               I can't access the framebuffer device
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-21">
-             <a href="#.22if_running_weston_from_ssh.2C_use_--tty_to_specify_a_tty.22">
-              <span class="tocnumber">
-               3.3.10
-              </span>
-              <span class="toctext">
-               "if running weston from ssh, use --tty to specify a tty"
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-22">
-             <a href="#Weston_and_fbsplash_-s_.3Cimage.3E_do_not_work">
-              <span class="tocnumber">
-               3.3.11
-              </span>
-              <span class="toctext">
-               Weston and fbsplash -s &lt;image&gt; do not work
-              </span>
-             </a>
-            </li>
-           </ul>
-          </li>
-          <li class="toclevel-2 tocsection-23">
-           <a href="#Flashing_problems">
-            <span class="tocnumber">
-             3.4
-            </span>
-            <span class="toctext">
-             Flashing problems
-            </span>
-           </a>
-           <ul>
-            <li class="toclevel-3 tocsection-24">
-             <a href="#Invalid_sparse_file_format_at_header_magic">
-              <span class="tocnumber">
-               3.4.1
-              </span>
-              <span class="toctext">
-               Invalid sparse file format at header magic
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-25">
-             <a href="#Login_screen_hangs">
-              <span class="tocnumber">
-               3.4.2
-              </span>
-              <span class="toctext">
-               Login screen hangs
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-26">
-             <a href="#Heimdall:_Flashing_fails_at_7.25">
-              <span class="tocnumber">
-               3.4.3
-              </span>
-              <span class="toctext">
-               Heimdall: Flashing fails at 7%
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-27">
-             <a href="#FAILED_.28remote:_Unknown_chunk_type.29">
-              <span class="tocnumber">
-               3.4.4
-              </span>
-              <span class="toctext">
-               FAILED (remote: Unknown chunk type)
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-28">
-             <a href="#flasher_.28fastboot.29_is_stuck_in_.3C_waiting_for_any_device_.3E">
-              <span class="tocnumber">
-               3.4.5
-              </span>
-              <span class="toctext">
-               flasher (fastboot) is stuck in &lt; waiting for any device &gt;
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-29">
-             <a href="#ERROR:_Failed_to_confirm_end_of_file_transfer_sequence.21">
-              <span class="tocnumber">
-               3.4.6
-              </span>
-              <span class="toctext">
-               ERROR: Failed to confirm end of file transfer sequence!
-              </span>
-             </a>
-            </li>
-           </ul>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-30">
-         <a href="#pmbootstrap_and_build_related_errors">
-          <span class="tocnumber">
-           4
-          </span>
-          <span class="toctext">
-           pmbootstrap and build related errors
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-31">
-           <a href="#Alpine.2C_chroots_and_pmbootstrap">
-            <span class="tocnumber">
-             4.1
-            </span>
-            <span class="toctext">
-             Alpine, chroots and pmbootstrap
-            </span>
-           </a>
-           <ul>
-            <li class="toclevel-3 tocsection-32">
-             <a href="#pmbootstrap_is_broken.21_But_it_worked_yesterday.21">
-              <span class="tocnumber">
-               4.1.1
-              </span>
-              <span class="toctext">
-               pmbootstrap is broken! But it worked yesterday!
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-33">
-             <a href="#ERROR:_This_device_does_not_exist_anymore.2C_check_.3Chttps:.2F.2Fpostmarketos.org.2Frenamed.3E_to_see_if_it_was_renamed">
-              <span class="tocnumber">
-               4.1.2
-              </span>
-              <span class="toctext">
-               ERROR: This device does not exist anymore, check &lt;https://postmarketos.org/renamed&gt; to see if it was renamed
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-34">
-             <a href="#BusyBox_does_something_different_than_the_standard_tool_for_the_job.2C_and_this_breaks_building_my_package.21">
-              <span class="tocnumber">
-               4.1.3
-              </span>
-              <span class="toctext">
-               BusyBox does something different than the standard tool for the job, and this breaks building my package!
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-35">
-             <a href="#WARNING:_No_provider_for_dependency...">
-              <span class="tocnumber">
-               4.1.4
-              </span>
-              <span class="toctext">
-               WARNING: No provider for dependency...
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-36">
-             <a href="#ERROR:_busybox-1.27.0-r1.post-install:_script_exited_with_error_127">
-              <span class="tocnumber">
-               4.1.5
-              </span>
-              <span class="toctext">
-               ERROR: busybox-1.27.0-r1.post-install: script exited with error 127
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-37">
-             <a href="#ERROR:_.2Fmnt.2Fpmbootstrap-packages.2Fx86_64.2Fqemu-user-static-repack-2.8-r6.apk:_UNTRUSTED_signature">
-              <span class="tocnumber">
-               4.1.6
-              </span>
-              <span class="toctext">
-               ERROR: /mnt/pmbootstrap-packages/x86_64/qemu-user-static-repack-2.8-r6.apk: UNTRUSTED signature
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-38">
-             <a href="#Installed_version_newer_than_the_version_in_the_repositories">
-              <span class="tocnumber">
-               4.1.7
-              </span>
-              <span class="toctext">
-               Installed version newer than the version in the repositories
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-39">
-             <a href="#It.27s_not_installing_my_changed_package">
-              <span class="tocnumber">
-               4.1.8
-              </span>
-              <span class="toctext">
-               It's not installing my changed package
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-40">
-             <a href="#Newer_version_in_binary_package_repositories_than_in_aports_folder">
-              <span class="tocnumber">
-               4.1.9
-              </span>
-              <span class="toctext">
-               Newer version in binary package repositories than in aports folder
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-41">
-             <a href="#mkbootimg:_error:_argument_--dt:_can.27t_open_.27.2Fboot.2Fdt.img.27">
-              <span class="tocnumber">
-               4.1.10
-              </span>
-              <span class="toctext">
-               mkbootimg: error: argument --dt: can't open '/boot/dt.img'
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-42">
-             <a href="#Permission_denied:_....2Fpmbootstrap.2Fwork.2Fchroot_native.2Fproc.2F1.2Fcwd.27">
-              <span class="tocnumber">
-               4.1.11
-              </span>
-              <span class="toctext">
-               Permission denied: .../pmbootstrap/work/chroot_native/proc/1/cwd'
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-43">
-             <a href="#can.27t_create_.2Fdev.2Fnull:_Permission_denied">
-              <span class="tocnumber">
-               4.1.12
-              </span>
-              <span class="toctext">
-               can't create /dev/null: Permission denied
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-44">
-             <a href="#cp:_write_error:_No_space_left_on_device_.28during_file_transfer_from_chrooted_environment_to_target_image.29">
-              <span class="tocnumber">
-               4.1.13
-              </span>
-              <span class="toctext">
-               cp: write error: No space left on device (during file transfer from chrooted environment to target image)
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-45">
-             <a href="#.22ERROR:_Is_.24builddir_set_correctly.3F.22_for_linux-.2A_package">
-              <span class="tocnumber">
-               4.1.14
-              </span>
-              <span class="toctext">
-               "ERROR: Is $builddir set correctly?" for linux-* package
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-46">
-             <a href="#BAD_signature_errors_from_apk">
-              <span class="tocnumber">
-               4.1.15
-              </span>
-              <span class="toctext">
-               BAD signature errors from apk
-              </span>
-             </a>
-            </li>
-           </ul>
-          </li>
-          <li class="toclevel-2 tocsection-47">
-           <a href="#Build_errors">
-            <span class="tocnumber">
-             4.2
-            </span>
-            <span class="toctext">
-             Build errors
-            </span>
-           </a>
-           <ul>
-            <li class="toclevel-3 tocsection-48">
-             <a href="#Errors_with_grsec-based_kernel_on_the_host_system">
-              <span class="tocnumber">
-               4.2.1
-              </span>
-              <span class="toctext">
-               Errors with grsec-based kernel on the host system
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-49">
-             <a href="#Errors_with_ecryptfs">
-              <span class="tocnumber">
-               4.2.2
-              </span>
-              <span class="toctext">
-               Errors with ecryptfs
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-50">
-             <a href="#musl-.2A.2Fbusybox-static-.2A_fails_to_build_with_a_404_error">
-              <span class="tocnumber">
-               4.2.3
-              </span>
-              <span class="toctext">
-               musl-*/busybox-static-* fails to build with a 404 error
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-51">
-             <a href="#sh:_can.27t_create_.2Fproc.2Fsys.2Ffs.2Fbinfmt_misc.2Fregister:_nonexistent_directory">
-              <span class="tocnumber">
-               4.2.4
-              </span>
-              <span class="toctext">
-               sh: can't create /proc/sys/fs/binfmt_misc/register: nonexistent directory
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-52">
-             <a href="#du:_unrecognized_option:_summarize">
-              <span class="tocnumber">
-               4.2.5
-              </span>
-              <span class="toctext">
-               du: unrecognized option: summarize
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-53">
-             <a href="#Packaging_for_aarch64:_..2Fconfig.guess:_unable_to_guess_system_type">
-              <span class="tocnumber">
-               4.2.6
-              </span>
-              <span class="toctext">
-               Packaging for aarch64: ./config.guess: unable to guess system type
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-54">
-             <a href="#ERROR:_..._BAD_archive">
-              <span class="tocnumber">
-               4.2.7
-              </span>
-              <span class="toctext">
-               ERROR: ... BAD archive
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-55">
-             <a href="#CROSS_COMPILE_ARM32_not_defined_or_empty.2C_the_compat_vDSO_will_not_be_built">
-              <span class="tocnumber">
-               4.2.8
-              </span>
-              <span class="toctext">
-               CROSS_COMPILE_ARM32 not defined or empty, the compat vDSO will not be built
-              </span>
-             </a>
-            </li>
-            <li class="toclevel-3 tocsection-56">
-             <a href="#...2Ftools.2Fdct.2FDrvGen:_No_such_file_or_directory">
-              <span class="tocnumber">
-               4.2.9
-              </span>
-              <span class="toctext">
-               ../tools/dct/DrvGen: No such file or directory
-              </span>
-             </a>
-            </li>
-           </ul>
-          </li>
-          <li class="toclevel-2 tocsection-57">
-           <a href="#Errors_while_running_pmbootstrap_on_non-x86_64_arches">
-            <span class="tocnumber">
-             4.3
-            </span>
-            <span class="toctext">
-             Errors while running pmbootstrap on non-x86_64 arches
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-58">
-         <a href="#Troubleshooting_steps_kept_around_for_historical_reference">
-          <span class="tocnumber">
-           5
-          </span>
-          <span class="toctext">
-           Troubleshooting steps kept around for historical reference
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-59">
-           <a href="#pmbootstrap_builds_packages_that_it_should_download_from_the_binary_repo.2Fthat_are_already_built">
-            <span class="tocnumber">
-             5.1
-            </span>
-            <span class="toctext">
-             pmbootstrap builds packages that it should download from the binary repo/that are already built
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-       </ul>
-      </div>
-      <h1>
-       <span class="mw-headline" id="General_information">
-        General information
-       </span>
-      </h1>
-      <ul>
-       <li>
-        Always look at the log file for a detailed error message:
-        <code>
-         ~/.local/var/pmbootstrap/log.txt
-        </code>
-       </li>
-       <li>
-        Make sure, that you have the latest version. Your bug may already be fixed.
-       </li>
-       <li>
-        Please report the bugs you have found in the
-        <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues" rel="nofollow">
-         issues
-        </a>
-        , so we can fix them.
-       </li>
-       <li>
-        <a class="external text" href="https://wiki.alpinelinux.org/wiki/Syslog" rel="nofollow">
-         Syslog
-        </a>
-        is enabled, and will log to shared memory once the OS has booted. It can be read with the
-        <code>
-         logread
-        </code>
-        tool in BusyBox. The syslog is currently not preserved across reboots.
-       </li>
-      </ul>
-      <h1>
-       <span class="mw-headline" id="Specific_troubleshooting_pages">
-        Specific troubleshooting pages
-       </span>
-      </h1>
-      <ul>
-       <li>
-        <a href="../en/Troubleshooting:alsa.html" title="Troubleshooting:alsa">
-         Troubleshooting:alsa
-        </a>
-        - Troubleshooting related to sound not working after ALSA upgrades
-       </li>
-       <li>
-        <a href="../en/Troubleshooting:boot.html" title="Troubleshooting:boot">
-         Troubleshooting:boot
-        </a>
-        - Troubleshooting the boot process, figuring out if your device boots
-       </li>
-       <li>
-        <a href="../en/Troubleshooting:display.html" title="Troubleshooting:display">
-         Troubleshooting:display
-        </a>
-        - Troubleshooting display issues
-       </li>
-       <li>
-        <a href="../en/Troubleshooting:HID_buttons.html" title="Troubleshooting:HID buttons">
-         Troubleshooting:HID buttons
-        </a>
-        - Troubleshooting on-device buttons
-       </li>
-       <li>
-        <a href="../en/Troubleshooting:host.html" title="Troubleshooting:host">
-         Troubleshooting:host
-        </a>
-        - Troubleshooting the host system
-       </li>
-       <li>
-        <a href="../en/Troubleshooting:kernel.html" title="Troubleshooting:kernel">
-         Troubleshooting:kernel
-        </a>
-        - Common kernel building related issues and how to fix them
-       </li>
-       <li>
-        <a href="../en/Osk-sdl.html#Troubleshooting" title="Osk-sdl">
-         Troubleshooting osk-sdl
-        </a>
-        <b>
-        </b>
-       </li>
-       <li>
-        <a href="../en/Troubleshooting:Xorg.html" title="Troubleshooting:Xorg">
-         Troubleshooting:Xorg
-        </a>
-        - Troubleshooting problems with Xorg
-       </li>
-       <li>
-        <a href="../en/Troubleshooting:QEMU.html" title="Troubleshooting:QEMU">
-         Troubleshooting:QEMU
-        </a>
-        - Debugging problems with
-        <code>
-         pmbootstrap qemu
-        </code>
-       </li>
-       <li>
-        <a href="../en/Troubleshooting:dependencies.html" title="Troubleshooting:dependencies">
-         Troubleshooting:dependencies
-        </a>
-        - A guide to resolving
-        <code>
-         Could not find dependency
-        </code>
-        errors coming from pmbootstrap, as well as
-        <code>
-         unsatisfiable constraints
-        </code>
-        errors coming from apk.
-       </li>
-       <li>
-        <a href="../en/Troubleshooting:grsec.html" title="Troubleshooting:grsec">
-         Troubleshooting:grsec
-        </a>
-        (TL;DR: doesn't work)
-       </li>
-       <li>
-        <a href="../en/Run_pmbootstrap_on_non-x86_64_arches.html" title="Run pmbootstrap on non-x86 64 arches">
-         Run pmbootstrap on non-x86_64 arches
-        </a>
-       </li>
-       <li>
-        <a href="../en/Access_eMMC_install_from_second_storage_medium.html" title="Access eMMC install from second storage medium">
-         Access eMMC install from second storage medium
-        </a>
-       </li>
-      </ul>
-      <h1>
-       <span id="Port/device_troubleshooting">
-       </span>
-       <span class="mw-headline" id="Port.2Fdevice_troubleshooting">
-        Port/device troubleshooting
-       </span>
-      </h1>
-      <h2>
-       <span class="mw-headline" id="References">
-        References
-       </span>
-      </h2>
-      <ul>
-       <li>
-        <a href="../en/Audio.html" title="Audio">
-         Audio
-        </a>
-       </li>
-       <li>
-        <a href="../en/Osk-sdl.html" title="Osk-sdl">
-         osk-sdl
-        </a>
-       </li>
-       <li>
-        <a href="../en/Serial_debugging.html" title="Serial debugging">
-         Serial debugging
-        </a>
-       </li>
-       <li>
-        <a href="../en/Modem.html" title="Modem">
-         Modem
-        </a>
-       </li>
-       <li>
-        <a href="../en/WiFi.html" title="WiFi">
-         WiFi
-        </a>
-       </li>
-       <li>
-        ...and specific troubleshooting pages linked above.
-       </li>
-      </ul>
-      <h2>
-       <span id="Porting_process,_preparation_and_various_information">
-       </span>
-       <span class="mw-headline" id="Porting_process.2C_preparation_and_various_information">
-        Porting process, preparation and various information
-       </span>
-      </h2>
-      <p>
-       See also:
-       <a href="../en/Troubleshooting.html#pmbootstrap_and_build_related_errors" title="Troubleshooting">
-        Troubleshooting#pmbootstrap and build related errors
-       </a>
-      </p>
-      <h3>
-       <span id="My_device_runs_the_Linux_kernel_(e.g._Android),_but_the_vendor_does_not_provide_the_source">
-       </span>
-       <span class="mw-headline" id="My_device_runs_the_Linux_kernel_.28e.g._Android.29.2C_but_the_vendor_does_not_provide_the_source">
-        My device runs the Linux kernel (e.g. Android), but the vendor does not provide the source
-       </span>
-      </h3>
-      <ol>
-       <li>
-        Ask kindly via e-mail.
-       </li>
-       <li>
-        If they don't provide the source, team up with
-        <a class="external text" href="http://gpl-violations.org/faq/violation-faq/" rel="nofollow">
-         gpl-violations.org
-        </a>
-        . You have the legal right to get the source, because the Linux kernel is under the GPLv2!
-       </li>
-       <li>
-        Consider
-        <a href="../en/Building_generic_kernels.html" title="Building generic kernels">
-         building generic kernel
-        </a>
-        for your device.
-       </li>
-       <li>
-        Another option is
-        <a href="../en/Using_prebuilt_kernels.html" title="Using prebuilt kernels">
-         using prebuilt kernels
-        </a>
-       </li>
-      </ol>
-      <h3>
-       <span id="My_Android_device_does_not_have_partition_labels,_how_do_I_know_where_to_put_the_boot.img_file_etc?">
-       </span>
-       <span class="mw-headline" id="My_Android_device_does_not_have_partition_labels.2C_how_do_I_know_where_to_put_the_boot.img_file_etc.3F">
-        My Android device does not have partition labels, how do I know where to put the boot.img file etc?
-       </span>
-      </h3>
-      <ul>
-       <li>
-        Search online for the partitions, they are probably documented somewhere.
-       </li>
-      </ul>
-      <ul>
-       <li>
-        Try to dump all partitions. Run `file` on them, it should roughly tell you the contents. If that does not help, run
-        <a class="external text" href="https://github.com/ReFirmLabs/binwalk" rel="nofollow">
-         binwalk
-        </a>
-        .
-        <ul>
-         <li>
-          file output: check if it is a kernel (vmlinuz),
-          <code>
-           boot.img
-          </code>
-          file or just "data".
-         </li>
-         <li>
-          In case you have "data", don't flash anything there, we probably can't generate that format yet. Please open an issue in GitHub or ask on the channel.
-         </li>
-        </ul>
-       </li>
-       <li>
-        You can also look at recovery zips from other Android ROMs, that were released for your device. Extract it and look at
-        <code>
-         META-INF/com/google/android/updater-script
-        </code>
-        , search for commands starting with
-        <code>
-         run_program("/sbin/busybox", "dd"
-        </code>
-        , they are for flashing partitions.
-       </li>
-      </ul>
-      <ul>
-       <li>
-        <ul>
-         <li>
-          In one example, there was
-          <code>
-           run_program("/sbin/busybox", "dd", "if=/tmp/boot.blob", "of=/dev/block/mmcblk0p4");
-          </code>
-          , which means that a
-          <code>
-           boot.blob
-          </code>
-          file gets flashed to
-          <code>
-           /dev/block/mmcblk0p4
-          </code>
-          . That
-          <code>
-           boot.blob
-          </code>
-          file is also in the recovery zip - run the
-          <code>
-           file
-          </code>
-          program on it (see above).
-         </li>
-        </ul>
-       </li>
-      </ul>
-      <h3>
-       <span id="Serial_Console_Debug_Cable_(early_boot_debugging)">
-       </span>
-       <span class="mw-headline" id="Serial_Console_Debug_Cable_.28early_boot_debugging.29">
-        Serial Console Debug Cable (early boot debugging)
-       </span>
-      </h3>
-      <p>
-       For some devices it's possible to get early boot output using a debug cable that provides access to the UART. Unfortunately manufacturers do not use to publish the details and it is end users who in some cases have figured it out:
-      </p>
-      <ul>
-       <li>
-        Here is one such cable for
-        <a class="external text" href="https://www.optiv.com/blog/building-a-nexus-4-uart-debug-cable" rel="nofollow">
-         Nexus 4
-        </a>
-        and another for
-        <a class="external text" href="https://www.abclinuxu.cz/blog/Lorris/2013/12/serial-console-on-google-nexus-5" rel="nofollow">
-         Nexus 5
-        </a>
-        .
-       </li>
-       <li>
-        <a class="external text" href="http://www.pabr.org/consolejack/consolejack.en.html" rel="nofollow">
-         This article
-        </a>
-        goes a step further with Google Nexus devices.
-       </li>
-       <li>
-        This guide explains how to create one for a
-        <a class="external text" href="https://forum.xda-developers.com/galaxy-s7/how-to/guide-samsung-galaxy-s7-uart-t3743895" rel="nofollow">
-         Samsung devices with a micro usb socket
-        </a>
-        .
-       </li>
-       <li>
-        Sony has published information about how to access the UART port on their
-        <a class="external text" href="https://developer.sonymobile.com/open-devices/how-to-access-uart-ports-on-xperia-devices/" rel="nofollow">
-         Xperia series
-        </a>
-        .
-       </li>
-       <li>
-        The
-        <a class="external text" href="https://redmine.replicant.us/projects/replicant/wiki/SamsungSerial" rel="nofollow">
-         Replicant wiki
-        </a>
-        has useful information on this as well.
-       </li>
-      </ul>
-      <p>
-       On fastboot devices, you may have to enable UART debugging with
-       <code>
-        fastboot oem uart-on
-       </code>
-       .
-      </p>
-      <p>
-       By default, all output from the initramfs get redirected to
-       <code>
-        /pmOS_init.log
-       </code>
-       . If you want the output through the debug cable you need to add
-       <code>
-        PMOS_NO_OUTPUT_REDIRECT
-       </code>
-       to your
-       <a href="../en/Troubleshooting:kernel.html#How_can_I_boot_the_kernel_with_some_specific_arguments.3F" title="Troubleshooting:kernel">
-        kernel command line
-       </a>
-       .
-      </p>
-      <p>
-       See
-       <a href="../en/Serial_debugging.html" title="Serial debugging">
-        Serial debugging
-       </a>
-      </p>
-      <h3>
-       <span class="mw-headline" id="Proprietary_blobs">
-        Proprietary blobs
-       </span>
-      </h3>
-      <p>
-       Many devices require proprietary blobs for enabling certain peripherals (wifi/bluetooth/cellular/GPS).
-       <a class="external text" href="https://github.com/TheMuppets" rel="nofollow">
-        These repositories
-       </a>
-       appear to contain blobs for a large percentage of devices out there.
-      </p>
-      <h3>
-       <span class="mw-headline" id="Force_reboot">
-        Force reboot
-       </span>
-      </h3>
-      <p>
-       On some phones, you can hold down the power button for ten seconds to force a reboot. If that does not work: On other phones, you have to hold the power button down for a full minute (or hold it together with volume down). On some phones, it might take even longer (3 minutes or so).
-      </p>
-      <p>
-       You can also give from console
-       <code>
-        echo b &gt; /proc/sysrq-trigger
-       </code>
-       .
-      </p>
-      <h2>
-       <span class="mw-headline" id="Errors_on_the_device">
-        Errors on the device
-       </span>
-      </h2>
-      <h3>
-       <span class="mw-headline" id="Touch_screen_device_present_but_not_outputting_any_touch_events">
-        Touch screen device present but not outputting any touch events
-       </span>
-      </h3>
-      <p>
-       For some devices (at least motorola-shamu and motorola-lux), the touch screen I2C device is present but not activated at boot, and must be activated before it produces any output.
-      </p>
-      <p>
-       For the motorola-lux, this is done in the following way:
-      </p>
-      <p>
-       <code>
-        echo 1 &gt; /sys/devices/soc.0/78b8000.i2c/i2c-4/4-0020/drv_irq
-       </code>
-      </p>
-      <p>
-       The path to the correct touch device depends on the device. This can be added to an
-       <a href="../en/Device_specific_package.html#Initramfs_hook" title="Device specific package">
-        initfs hook
-       </a>
-       to activate the touch screen automatically at boot.
-      </p>
-      <h3>
-       <span class="mw-headline" id="CHARGING_MODE:_error_starting_charging-sdl">
-        CHARGING MODE: error starting charging-sdl
-       </span>
-      </h3>
-      <p>
-       When attaching the power cable while the device is off, Android devices boot into a special "charging mode". postmarketOS's
-       <a href="../en/Charging-sdl.html" title="Charging-sdl">
-        charging-sdl
-       </a>
-       display does not work yet on all devices.
-      </p>
-      <p>
-       To debug the issue, follow instructions at
-       <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">
-        Inspecting the initramfs
-       </a>
-       including activating the initramfs-extra, then execute
-       <code>
-        start_charging_mode
-       </code>
-       in the shell.
-      </p>
-      <h3>
-       <span id='During_initramfs_generation:_"modprobe:_WARNING:_Module_drm_not_found_in_directory_/lib/modules/..."'>
-       </span>
-       <span class="mw-headline" id="During_initramfs_generation:_.22modprobe:_WARNING:_Module_drm_not_found_in_directory_.2Flib.2Fmodules.2F....22">
-        During initramfs generation: "modprobe: WARNING: Module drm not found in directory /lib/modules/..."
-       </span>
-      </h3>
-      <p>
-       This means, that a module can not be put in an initramfs. When you are not using a mainline kernel, it is likely that there are no modules configured, but the code is built directly into the kernel. This means, it is expected and can be ignored.
-      </p>
-      <h3>
-       <span id="Phone_shows_the_telnet_message,_a_black_screen,_or_doesn't_leave_the_bootloader_or_Samsung/Google/..._splash_screen">
-       </span>
-       <span class="mw-headline" id="Phone_shows_the_telnet_message.2C_a_black_screen.2C_or_doesn.27t_leave_the_bootloader_or_Samsung.2FGoogle.2F..._splash_screen">
-        Phone shows the telnet message, a black screen, or doesn't leave the bootloader or Samsung/Google/... splash screen
-       </span>
-      </h3>
-      <p>
-       See:
-       <a href="../en/Troubleshooting:boot.html" title="Troubleshooting:boot">
-        Troubleshooting:boot
-       </a>
-      </p>
-      <h3>
-       <span id="I_have_ported_postmarketOS_to_my_device_and_the_screen_doesn't_get_updated">
-       </span>
-       <span class="mw-headline" id="I_have_ported_postmarketOS_to_my_device_and_the_screen_doesn.27t_get_updated">
-        I have ported postmarketOS to my device and the screen doesn't get updated
-       </span>
-      </h3>
-      <p>
-       There is a
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/66#issuecomment-306343779" rel="nofollow">
-        known bug
-       </a>
-       where if you execute
-       <code>
-        cat /sys/class/graphics/fb0/modes &gt; /sys/class/graphics/fb0/mode
-       </code>
-       exactly one frame is drawn, and the screen isn't updated otherwise.
-      </p>
-      <h3>
-       <span class="mw-headline" id="Device_reboots">
-        Device reboots
-       </span>
-      </h3>
-      <ul>
-       <li>
-        If your device always reboots after the same time (e.g. 2 minutes) after booting, you probably need to feed (or disable) a watchdog. Try to search your kernel config for watchdog, and also the internet for watchdog + your phone name.
-       </li>
-       <li>
-        Android: The kernel config option
-        <code>
-         CONFIG_ANDROID_LOW_MEMORY_KILLER
-        </code>
-        may cause reboots. Please check if you have disabled it. If this helps you, please let us know, so we can consider checking for this option.
-       </li>
-       <li>
-        Android: it is possible to get the
-        <code>
-         dmesg
-        </code>
-        log from just before the crash after the reboot
-        <a class="external text" href="https://stackoverflow.com/questions/9682306/android-how-to-get-kernel-logs-after-kernel-panic" rel="nofollow">
-         if you enable some kernel options
-        </a>
-        .
-       </li>
-      </ul>
-      <h3>
-       <span class="mw-headline" id="User_interface_is_unresponsive">
-        User interface is unresponsive
-       </span>
-      </h3>
-      <ul>
-       <li>
-        If you have a situation where an application or display manager user interface is unresponsive, you can use
-        <a href="../en/TTYescape.html" title="TTYescape">
-         TTYescape
-        </a>
-        to kill the offending process, power cycle the device, or otherwise access helpful command line utilities.
-       </li>
-      </ul>
-      <h3>
-       <span id="SSH_/_udev_/_touch_screen_doesn't_work">
-       </span>
-       <span class="mw-headline" id="SSH_.2F_udev_.2F_touch_screen_doesn.27t_work">
-        SSH / udev / touch screen doesn't work
-       </span>
-      </h3>
-      <ul>
-       <li>
-        Make sure that
-        <code>
-         DEVTMPFS
-        </code>
-        is enabled in your
-        <a href="../en/Kernel_configuration.html" title="Kernel configuration">
-         kernel config
-        </a>
-        . Do not enable
-        <code>
-         DEVTMPFS_MOUNT
-        </code>
-        .
-       </li>
-      </ul>
-      <h3>
-       <span id="I_can't_access_the_framebuffer_device">
-       </span>
-       <span class="mw-headline" id="I_can.27t_access_the_framebuffer_device">
-        I can't access the framebuffer device
-       </span>
-      </h3>
-      <ul>
-       <li>
-        <code>
-         cat /dev/random &gt; /dev/fb0
-        </code>
-        returns:
-        <code>
-         cat: write error: No such device
-        </code>
-       </li>
-       <li>
-        This could be caused by a proprietary 3d driver enabled in the kernel config.
-        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/66/" rel="nofollow">
-         Try to disable it (the actual config options may be different).
-        </a>
-       </li>
-      </ul>
-      <h3>
-       <span id='"if_running_weston_from_ssh,_use_--tty_to_specify_a_tty"'>
-       </span>
-       <span class="mw-headline" id=".22if_running_weston_from_ssh.2C_use_--tty_to_specify_a_tty.22">
-        "if running weston from ssh, use --tty to specify a tty"
-       </span>
-      </h3>
-      <p>
-       Specify a tty in weston's commandline. The correct syntax is:
-       <code>
-        weston --tty=1
-       </code>
-       .
-      </p>
-      <h3>
-       <span id="Weston_and_fbsplash_-s_&lt;image&gt;_do_not_work">
-       </span>
-       <span class="mw-headline" id="Weston_and_fbsplash_-s_.3Cimage.3E_do_not_work">
-        Weston and fbsplash -s &lt;image&gt; do not work
-       </span>
-      </h3>
-      <p>
-       If Weston returns an error because it could not access
-       <code>
-        /dev/tty1
-       </code>
-       , even when you specify it on the command line as above, you may need to enable Virtual Terminals in the kernel config.
-       <br/>
-       You can enable
-       <code>
-        CONFIG_VT
-       </code>
-       using
-       <code>
-        pmbootstrap menuconfig
-       </code>
-       and checking under Device Drivers -&gt; Character devices -&gt; Virtual terminal
-      </p>
-      <h2>
-       <span class="mw-headline" id="Flashing_problems">
-        Flashing problems
-       </span>
-      </h2>
-      <h3>
-       <span class="mw-headline" id="Invalid_sparse_file_format_at_header_magic">
-        Invalid sparse file format at header magic
-       </span>
-      </h3>
-      <p>
-       In some devices (e.g.: bullhead, titan), when flashing the system (
-       <code>
-        pmbootstrap flasher flash_rootfs
-       </code>
-       ), it works but fastboot complains of
-       <code>
-        Invalid sparse file format at header magic
-       </code>
-       .
-      </p>
-      <pre>$ ./pmbootstrap.py flasher flash_rootfs
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Troubleshooting - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Troubleshooting rootpage-Troubleshooting skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Troubleshooting</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<h1><span class="mw-headline" id="General_information">General information</span></h1>
+<ul>
+<li>Always look at the log file for a detailed error message: <code>~/.local/var/pmbootstrap/log.txt</code>
+</li>
+<li>Make sure, that you have the latest version. Your bug may already be fixed.</li>
+<li>Please report the bugs you have found in the <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues">issues</a>, so we can fix them.</li>
+<li>
+<a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/Syslog">Syslog</a> is enabled, and will log to shared memory once the OS has booted. It can be read with the <code>logread</code> tool in BusyBox. The syslog is currently not preserved across reboots.</li>
+</ul>
+<p><i>See also: <a href="../en/How_to_report_issues.html" title="How to report issues">How to report issues</a></i>
+</p>
+<h1><span class="mw-headline" id="Specific_troubleshooting_pages">Specific troubleshooting pages</span></h1>
+<ul>
+<li>
+<a href="../en/Troubleshooting:alsa.html" title="Troubleshooting:alsa">Troubleshooting:alsa</a> - Troubleshooting related to sound not working after ALSA upgrades</li>
+<li>
+<a href="../en/Troubleshooting:boot.html" title="Troubleshooting:boot">Troubleshooting:boot</a> - Troubleshooting the boot process, figuring out if your device boots</li>
+<li>
+<a href="../en/Troubleshooting:display.html" title="Troubleshooting:display">Troubleshooting:display</a> - Troubleshooting display issues</li>
+<li>
+<a href="../en/Troubleshooting:HID_buttons.html" title="Troubleshooting:HID buttons">Troubleshooting:HID buttons</a> - Troubleshooting on-device buttons</li>
+<li>
+<a href="../en/Troubleshooting:host.html" title="Troubleshooting:host">Troubleshooting:host</a> - Troubleshooting the host system</li>
+<li>
+<a href="../en/Troubleshooting:kernel.html" title="Troubleshooting:kernel">Troubleshooting:kernel</a> - Common kernel building related issues and how to fix them</li>
+<li>
+<a href="../en/Osk-sdl.html#Troubleshooting" title="Osk-sdl">Troubleshooting osk-sdl</a><b></b>
+</li>
+<li>
+<a href="../en/Troubleshooting:Xorg.html" title="Troubleshooting:Xorg">Troubleshooting:Xorg</a> - Troubleshooting problems with Xorg</li>
+<li>
+<a href="../en/Troubleshooting:QEMU.html" title="Troubleshooting:QEMU">Troubleshooting:QEMU</a> - Debugging problems with <code>pmbootstrap qemu</code>
+</li>
+<li>
+<a href="../en/Troubleshooting:dependencies.html" title="Troubleshooting:dependencies">Troubleshooting:dependencies</a> - A guide to resolving <code>Could not find dependency</code> errors coming from pmbootstrap, as well as <code>unsatisfiable constraints</code> errors coming from apk.</li>
+<li>
+<a href="../en/Troubleshooting:grsec.html" title="Troubleshooting:grsec">Troubleshooting:grsec</a> (TL;DR: doesn't work)</li>
+<li><a href="../en/Run_pmbootstrap_on_non-x86_64_arches.html" title="Run pmbootstrap on non-x86 64 arches">Run pmbootstrap on non-x86_64 arches</a></li>
+<li><a href="../en/Access_eMMC_install_from_second_storage_medium.html" title="Access eMMC install from second storage medium">Access eMMC install from second storage medium</a></li>
+<li>
+<a href="../en/Debugging_the_GNOME_stack.html" title="Debugging the GNOME stack">Debugging the GNOME stack</a> - also has some information that applies to other interfaces like Phosh</li>
+</ul>
+<h1><span class="mw-headline" id="Table_of_contents">Table of contents</span></h1>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#General_information"><span class="tocnumber">1</span> <span class="toctext">General information</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Specific_troubleshooting_pages"><span class="tocnumber">2</span> <span class="toctext">Specific troubleshooting pages</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Table_of_contents"><span class="tocnumber">3</span> <span class="toctext">Table of contents</span></a></li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Port.2Fdevice_troubleshooting"><span class="tocnumber">4</span> <span class="toctext">Port/device troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#References"><span class="tocnumber">4.1</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-2 tocsection-6">
+<a href="#Porting_process.2C_preparation_and_various_information"><span class="tocnumber">4.2</span> <span class="toctext">Porting process, preparation and various information</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#My_device_runs_the_Linux_kernel_.28e.g._Android.29.2C_but_the_vendor_does_not_provide_the_source"><span class="tocnumber">4.2.1</span> <span class="toctext">My device runs the Linux kernel (e.g. Android), but the vendor does not provide the source</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#My_Android_device_does_not_have_partition_labels.2C_how_do_I_know_where_to_put_the_boot.img_file_etc.3F"><span class="tocnumber">4.2.2</span> <span class="toctext">My Android device does not have partition labels, how do I know where to put the boot.img file etc?</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Serial_Console_Debug_Cable_.28early_boot_debugging.29"><span class="tocnumber">4.2.3</span> <span class="toctext">Serial Console Debug Cable (early boot debugging)</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Proprietary_blobs"><span class="tocnumber">4.2.4</span> <span class="toctext">Proprietary blobs</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Force_reboot"><span class="tocnumber">4.2.5</span> <span class="toctext">Force reboot</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-12">
+<a href="#Errors_on_the_device"><span class="tocnumber">4.3</span> <span class="toctext">Errors on the device</span></a>
+<ul>
+<li class="toclevel-3 tocsection-13"><a href="#Touch_screen_device_present_but_not_outputting_any_touch_events"><span class="tocnumber">4.3.1</span> <span class="toctext">Touch screen device present but not outputting any touch events</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#CHARGING_MODE:_error_starting_charging-sdl"><span class="tocnumber">4.3.2</span> <span class="toctext">CHARGING MODE: error starting charging-sdl</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#During_initramfs_generation:_.22modprobe:_WARNING:_Module_drm_not_found_in_directory_.2Flib.2Fmodules.2F....22"><span class="tocnumber">4.3.3</span> <span class="toctext">During initramfs generation: "modprobe: WARNING: Module drm not found in directory /lib/modules/..."</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#Phone_shows_the_telnet_message.2C_a_black_screen.2C_or_doesn.27t_leave_the_bootloader_or_Samsung.2FGoogle.2F..._splash_screen"><span class="tocnumber">4.3.4</span> <span class="toctext">Phone shows the telnet message, a black screen, or doesn't leave the bootloader or Samsung/Google/... splash screen</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#I_have_ported_postmarketOS_to_my_device_and_the_screen_doesn.27t_get_updated"><span class="tocnumber">4.3.5</span> <span class="toctext">I have ported postmarketOS to my device and the screen doesn't get updated</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#Device_reboots"><span class="tocnumber">4.3.6</span> <span class="toctext">Device reboots</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#User_interface_is_unresponsive"><span class="tocnumber">4.3.7</span> <span class="toctext">User interface is unresponsive</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#SSH_.2F_udev_.2F_touch_screen_doesn.27t_work"><span class="tocnumber">4.3.8</span> <span class="toctext">SSH / udev / touch screen doesn't work</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="#I_can.27t_access_the_framebuffer_device"><span class="tocnumber">4.3.9</span> <span class="toctext">I can't access the framebuffer device</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="#.22if_running_weston_from_ssh.2C_use_--tty_to_specify_a_tty.22"><span class="tocnumber">4.3.10</span> <span class="toctext">"if running weston from ssh, use --tty to specify a tty"</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#Weston_and_fbsplash_-s_.3Cimage.3E_do_not_work"><span class="tocnumber">4.3.11</span> <span class="toctext">Weston and fbsplash -s &lt;image&gt; do not work</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-24">
+<a href="#Flashing_problems"><span class="tocnumber">4.4</span> <span class="toctext">Flashing problems</span></a>
+<ul>
+<li class="toclevel-3 tocsection-25"><a href="#Invalid_sparse_file_format_at_header_magic"><span class="tocnumber">4.4.1</span> <span class="toctext">Invalid sparse file format at header magic</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="#Login_screen_hangs"><span class="tocnumber">4.4.2</span> <span class="toctext">Login screen hangs</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="#Heimdall:_Flashing_fails_at_7.25"><span class="tocnumber">4.4.3</span> <span class="toctext">Heimdall: Flashing fails at 7%</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#FAILED_.28remote:_Unknown_chunk_type.29"><span class="tocnumber">4.4.4</span> <span class="toctext">FAILED (remote: Unknown chunk type)</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="#flasher_.28fastboot.29_is_stuck_in_.3C_waiting_for_any_device_.3E"><span class="tocnumber">4.4.5</span> <span class="toctext">flasher (fastboot) is stuck in &lt; waiting for any device &gt;</span></a></li>
+<li class="toclevel-3 tocsection-30"><a href="#ERROR:_Failed_to_confirm_end_of_file_transfer_sequence.21"><span class="tocnumber">4.4.6</span> <span class="toctext">ERROR: Failed to confirm end of file transfer sequence!</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-31">
+<a href="#pmbootstrap_and_build_related_errors"><span class="tocnumber">5</span> <span class="toctext">pmbootstrap and build related errors</span></a>
+<ul>
+<li class="toclevel-2 tocsection-32">
+<a href="#Alpine.2C_chroots_and_pmbootstrap"><span class="tocnumber">5.1</span> <span class="toctext">Alpine, chroots and pmbootstrap</span></a>
+<ul>
+<li class="toclevel-3 tocsection-33"><a href="#pmbootstrap_is_broken.21_But_it_worked_yesterday.21"><span class="tocnumber">5.1.1</span> <span class="toctext">pmbootstrap is broken! But it worked yesterday!</span></a></li>
+<li class="toclevel-3 tocsection-34"><a href="#ERROR:_This_device_does_not_exist_anymore.2C_check_.3Chttps:.2F.2Fpostmarketos.org.2Frenamed.3E_to_see_if_it_was_renamed"><span class="tocnumber">5.1.2</span> <span class="toctext">ERROR: This device does not exist anymore, check &lt;https://postmarketos.org/renamed&gt; to see if it was renamed</span></a></li>
+<li class="toclevel-3 tocsection-35"><a href="#BusyBox_does_something_different_than_the_standard_tool_for_the_job.2C_and_this_breaks_building_my_package.21"><span class="tocnumber">5.1.3</span> <span class="toctext">BusyBox does something different than the standard tool for the job, and this breaks building my package!</span></a></li>
+<li class="toclevel-3 tocsection-36"><a href="#WARNING:_No_provider_for_dependency..."><span class="tocnumber">5.1.4</span> <span class="toctext">WARNING: No provider for dependency...</span></a></li>
+<li class="toclevel-3 tocsection-37"><a href="#ERROR:_busybox-1.27.0-r1.post-install:_script_exited_with_error_127"><span class="tocnumber">5.1.5</span> <span class="toctext">ERROR: busybox-1.27.0-r1.post-install: script exited with error 127</span></a></li>
+<li class="toclevel-3 tocsection-38"><a href="#ERROR:_.2Fmnt.2Fpmbootstrap-packages.2Fx86_64.2Fqemu-user-static-repack-2.8-r6.apk:_UNTRUSTED_signature"><span class="tocnumber">5.1.6</span> <span class="toctext">ERROR: /mnt/pmbootstrap-packages/x86_64/qemu-user-static-repack-2.8-r6.apk: UNTRUSTED signature</span></a></li>
+<li class="toclevel-3 tocsection-39"><a href="#Installed_version_newer_than_the_version_in_the_repositories"><span class="tocnumber">5.1.7</span> <span class="toctext">Installed version newer than the version in the repositories</span></a></li>
+<li class="toclevel-3 tocsection-40"><a href="#It.27s_not_installing_my_changed_package"><span class="tocnumber">5.1.8</span> <span class="toctext">It's not installing my changed package</span></a></li>
+<li class="toclevel-3 tocsection-41"><a href="#Newer_version_in_binary_package_repositories_than_in_aports_folder"><span class="tocnumber">5.1.9</span> <span class="toctext">Newer version in binary package repositories than in aports folder</span></a></li>
+<li class="toclevel-3 tocsection-42"><a href="#mkbootimg:_error:_argument_--dt:_can.27t_open_.27.2Fboot.2Fdt.img.27"><span class="tocnumber">5.1.10</span> <span class="toctext">mkbootimg: error: argument --dt: can't open '/boot/dt.img'</span></a></li>
+<li class="toclevel-3 tocsection-43"><a href="#Permission_denied:_....2Fpmbootstrap.2Fwork.2Fchroot_native.2Fproc.2F1.2Fcwd.27"><span class="tocnumber">5.1.11</span> <span class="toctext">Permission denied: .../pmbootstrap/work/chroot_native/proc/1/cwd'</span></a></li>
+<li class="toclevel-3 tocsection-44"><a href="#can.27t_create_.2Fdev.2Fnull:_Permission_denied"><span class="tocnumber">5.1.12</span> <span class="toctext">can't create /dev/null: Permission denied</span></a></li>
+<li class="toclevel-3 tocsection-45"><a href="#cp:_write_error:_No_space_left_on_device_.28during_file_transfer_from_chrooted_environment_to_target_image.29"><span class="tocnumber">5.1.13</span> <span class="toctext">cp: write error: No space left on device (during file transfer from chrooted environment to target image)</span></a></li>
+<li class="toclevel-3 tocsection-46"><a href="#.22ERROR:_Is_.24builddir_set_correctly.3F.22_for_linux-.2A_package"><span class="tocnumber">5.1.14</span> <span class="toctext">"ERROR: Is $builddir set correctly?" for linux-* package</span></a></li>
+<li class="toclevel-3 tocsection-47"><a href="#BAD_signature_errors_from_apk"><span class="tocnumber">5.1.15</span> <span class="toctext">BAD signature errors from apk</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-48">
+<a href="#Build_errors"><span class="tocnumber">5.2</span> <span class="toctext">Build errors</span></a>
+<ul>
+<li class="toclevel-3 tocsection-49"><a href="#Errors_with_grsec-based_kernel_on_the_host_system"><span class="tocnumber">5.2.1</span> <span class="toctext">Errors with grsec-based kernel on the host system</span></a></li>
+<li class="toclevel-3 tocsection-50"><a href="#Errors_with_ecryptfs"><span class="tocnumber">5.2.2</span> <span class="toctext">Errors with ecryptfs</span></a></li>
+<li class="toclevel-3 tocsection-51"><a href="#musl-.2A.2Fbusybox-static-.2A_fails_to_build_with_a_404_error"><span class="tocnumber">5.2.3</span> <span class="toctext">musl-*/busybox-static-* fails to build with a 404 error</span></a></li>
+<li class="toclevel-3 tocsection-52"><a href="#sh:_can.27t_create_.2Fproc.2Fsys.2Ffs.2Fbinfmt_misc.2Fregister:_nonexistent_directory"><span class="tocnumber">5.2.4</span> <span class="toctext">sh: can't create /proc/sys/fs/binfmt_misc/register: nonexistent directory</span></a></li>
+<li class="toclevel-3 tocsection-53"><a href="#du:_unrecognized_option:_summarize"><span class="tocnumber">5.2.5</span> <span class="toctext">du: unrecognized option: summarize</span></a></li>
+<li class="toclevel-3 tocsection-54"><a href="#Packaging_for_aarch64:_..2Fconfig.guess:_unable_to_guess_system_type"><span class="tocnumber">5.2.6</span> <span class="toctext">Packaging for aarch64: ./config.guess: unable to guess system type</span></a></li>
+<li class="toclevel-3 tocsection-55"><a href="#ERROR:_..._BAD_archive"><span class="tocnumber">5.2.7</span> <span class="toctext">ERROR: ... BAD archive</span></a></li>
+<li class="toclevel-3 tocsection-56"><a href="#CROSS_COMPILE_ARM32_not_defined_or_empty.2C_the_compat_vDSO_will_not_be_built"><span class="tocnumber">5.2.8</span> <span class="toctext">CROSS_COMPILE_ARM32 not defined or empty, the compat vDSO will not be built</span></a></li>
+<li class="toclevel-3 tocsection-57"><a href="#...2Ftools.2Fdct.2FDrvGen:_No_such_file_or_directory"><span class="tocnumber">5.2.9</span> <span class="toctext">../tools/dct/DrvGen: No such file or directory</span></a></li>
+<li class="toclevel-3 tocsection-58"><a href="#boot-deploy_exits_with_ERROR:_.22deviceinfo_header_version_is_2.2C_but_.27deviceinfo_dtb.27_is_missing._Set_.27deviceinfo_dtb.27.22_when_compiling_downstream_kernel"><span class="tocnumber">5.2.10</span> <span class="toctext">boot-deploy exits with ERROR: "deviceinfo_header_version is 2, but 'deviceinfo_dtb' is missing. Set 'deviceinfo_dtb'" when compiling downstream kernel</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-59"><a href="#Errors_while_running_pmbootstrap_on_non-x86_64_arches"><span class="tocnumber">5.3</span> <span class="toctext">Errors while running pmbootstrap on non-x86_64 arches</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-60">
+<a href="#Troubleshooting_steps_kept_around_for_historical_reference"><span class="tocnumber">6</span> <span class="toctext">Troubleshooting steps kept around for historical reference</span></a>
+<ul>
+<li class="toclevel-2 tocsection-61"><a href="#pmbootstrap_builds_packages_that_it_should_download_from_the_binary_repo.2Fthat_are_already_built"><span class="tocnumber">6.1</span> <span class="toctext">pmbootstrap builds packages that it should download from the binary repo/that are already built</span></a></li>
+<li class="toclevel-2 tocsection-62"><a href="#Invalid_pkgver_.27.24.7B_pkgbase.7D_git.24.7B_pkgsnap.7D.27"><span class="tocnumber">6.2</span> <span class="toctext">Invalid pkgver '${_pkgbase}_git${_pkgsnap}'</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1>
+<span id="Port/device_troubleshooting"></span><span class="mw-headline" id="Port.2Fdevice_troubleshooting">Port/device troubleshooting</span>
+</h1>
+<h2><span class="mw-headline" id="References">References</span></h2>
+<ul>
+<li><a href="../en/Audio.html" title="Audio">Audio</a></li>
+<li><a href="../en/Osk-sdl.html" title="Osk-sdl">osk-sdl</a></li>
+<li><a href="../en/Serial_debugging.html" title="Serial debugging">Serial debugging</a></li>
+<li><a href="../en/Modem.html" title="Modem">Modem</a></li>
+<li><a href="../en/WiFi.html" title="WiFi">WiFi</a></li>
+<li>...and specific troubleshooting pages linked above.</li>
+</ul>
+<h2>
+<span id="Porting_process,_preparation_and_various_information"></span><span class="mw-headline" id="Porting_process.2C_preparation_and_various_information">Porting process, preparation and various information</span>
+</h2>
+<p>See also: <a href="../en/Troubleshooting.html#pmbootstrap_and_build_related_errors" title="Troubleshooting">Troubleshooting#pmbootstrap and build related errors</a>
+</p>
+<h3>
+<span id="My_device_runs_the_Linux_kernel_(e.g._Android),_but_the_vendor_does_not_provide_the_source"></span><span class="mw-headline" id="My_device_runs_the_Linux_kernel_.28e.g._Android.29.2C_but_the_vendor_does_not_provide_the_source">My device runs the Linux kernel (e.g. Android), but the vendor does not provide the source</span>
+</h3>
+<ol>
+<li>Ask kindly via e-mail.</li>
+<li>If they don't provide the source, team up with <a rel="nofollow" class="external text" href="http://gpl-violations.org/faq/violation-faq/">gpl-violations.org</a>. You have the legal right to get the source, because the Linux kernel is under the GPLv2!</li>
+<li>Consider <a href="../en/Building_generic_kernels.html" title="Building generic kernels">building generic kernel</a> for your device.</li>
+<li>Another option is <a href="../en/Using_prebuilt_kernels.html" title="Using prebuilt kernels">using prebuilt kernels</a>
+</li>
+</ol>
+<h3>
+<span id="My_Android_device_does_not_have_partition_labels,_how_do_I_know_where_to_put_the_boot.img_file_etc?"></span><span class="mw-headline" id="My_Android_device_does_not_have_partition_labels.2C_how_do_I_know_where_to_put_the_boot.img_file_etc.3F">My Android device does not have partition labels, how do I know where to put the boot.img file etc?</span>
+</h3>
+<ul><li>Search online for the partitions, they are probably documented somewhere.</li></ul>
+<ul>
+<li>Try to dump all partitions. Run `file` on them, it should roughly tell you the contents. If that does not help, run <a rel="nofollow" class="external text" href="https://github.com/ReFirmLabs/binwalk">binwalk</a>.
+<ul>
+<li>file output: check if it is a kernel (vmlinuz), <code>boot.img</code> file or just "data".</li>
+<li>In case you have "data", don't flash anything there, we probably can't generate that format yet. Please open an issue in GitHub or ask on the channel.</li>
+</ul>
+</li>
+<li>You can also look at recovery zips from other Android ROMs, that were released for your device. Extract it and look at <code>META-INF/com/google/android/updater-script</code>, search for commands starting with <code>run_program("/sbin/busybox", "dd"</code>, they are for flashing partitions.</li>
+</ul>
+<ul><li><ul><li>In one example, there was <code>run_program("/sbin/busybox", "dd", "if=/tmp/boot.blob", "of=/dev/block/mmcblk0p4");</code>, which means that a <code>boot.blob</code> file gets flashed to <code>/dev/block/mmcblk0p4</code>. That <code>boot.blob</code> file is also in the recovery zip - run the <code>file</code> program on it (see above).</li></ul></li></ul>
+<h3>
+<span id="Serial_Console_Debug_Cable_(early_boot_debugging)"></span><span class="mw-headline" id="Serial_Console_Debug_Cable_.28early_boot_debugging.29">Serial Console Debug Cable (early boot debugging)</span>
+</h3>
+<p>For some devices it's possible to get early boot output using a debug cable that provides access to the UART. Unfortunately manufacturers do not use to publish the details and it is end users who in some cases have figured it out:
+</p>
+<ul>
+<li>Here is one such cable for <a rel="nofollow" class="external text" href="https://www.optiv.com/blog/building-a-nexus-4-uart-debug-cable">Nexus 4</a> and another for <a rel="nofollow" class="external text" href="https://www.abclinuxu.cz/blog/Lorris/2013/12/serial-console-on-google-nexus-5">Nexus 5</a>.</li>
+<li>
+<a rel="nofollow" class="external text" href="http://www.pabr.org/consolejack/consolejack.en.html">This article</a> goes a step further with Google Nexus devices.</li>
+<li>This guide explains how to create one for a <a rel="nofollow" class="external text" href="https://forum.xda-developers.com/galaxy-s7/how-to/guide-samsung-galaxy-s7-uart-t3743895">Samsung devices with a micro usb socket</a>.</li>
+<li>Sony has published information about how to access the UART port on their <a rel="nofollow" class="external text" href="https://developer.sonymobile.com/open-devices/how-to-access-uart-ports-on-xperia-devices/">Xperia series</a>.</li>
+<li>The <a rel="nofollow" class="external text" href="https://redmine.replicant.us/projects/replicant/wiki/SamsungSerial">Replicant wiki</a> has useful information on this as well.</li>
+</ul>
+<p>On fastboot devices, you may have to enable UART debugging with <code>fastboot oem uart-on</code>.
+</p>
+<p>By default, all output from the initramfs get redirected to <code>/pmOS_init.log</code>. If you want the output through the debug cable you need to add <code>PMOS_NO_OUTPUT_REDIRECT</code> to your <a href="../en/Troubleshooting:kernel.html#How_can_I_boot_the_kernel_with_some_specific_arguments.3F" title="Troubleshooting:kernel">kernel command line</a>.
+</p>
+<p>See <a href="../en/Serial_debugging.html" title="Serial debugging">Serial debugging</a>
+</p>
+<h3><span class="mw-headline" id="Proprietary_blobs">Proprietary blobs</span></h3>
+<p>Many devices require proprietary blobs for enabling certain peripherals (wifi/bluetooth/cellular/GPS). <a rel="nofollow" class="external text" href="https://github.com/TheMuppets">These repositories</a> appear to contain blobs for a large percentage of devices out there.
+</p>
+<h3><span class="mw-headline" id="Force_reboot">Force reboot</span></h3>
+<p>On some phones, you can hold down the power button for ten seconds to force a reboot. If that does not work: On other phones, you have to hold the power button down for a full minute (or hold it together with volume down). On some phones, it might take even longer (3 minutes or so).
+</p>
+<p>You can also give from console <code>echo b &gt; /proc/sysrq-trigger</code>.
+</p>
+<h2><span class="mw-headline" id="Errors_on_the_device">Errors on the device</span></h2>
+<h3><span class="mw-headline" id="Touch_screen_device_present_but_not_outputting_any_touch_events">Touch screen device present but not outputting any touch events</span></h3>
+<p>For some devices (at least motorola-shamu and motorola-lux), the touch screen I2C device is present but not activated at boot, and must be activated before it produces any output.
+</p>
+<p>For the motorola-lux, this is done in the following way:
+</p>
+<p><code>echo 1 &gt; /sys/devices/soc.0/78b8000.i2c/i2c-4/4-0020/drv_irq</code>
+</p>
+<p>The path to the correct touch device depends on the device. This can be added to an <a href="../en/Device_specific_package.html#Initramfs_hook" title="Device specific package">initfs hook</a> to activate the touch screen automatically at boot.
+</p>
+<h3><span class="mw-headline" id="CHARGING_MODE:_error_starting_charging-sdl">CHARGING MODE: error starting charging-sdl</span></h3>
+<p>When attaching the power cable while the device is off, Android devices boot into a special "charging mode". postmarketOS's <a href="../en/Charging-sdl.html" title="Charging-sdl">charging-sdl</a> display does not work yet on all devices.
+</p>
+<p>To debug the issue, follow instructions at <a href="../en/Inspecting_the_initramfs.html" title="Inspecting the initramfs">Inspecting the initramfs</a> including activating the initramfs-extra, then execute <code>start_charging_mode</code> in the shell.
+</p>
+<h3>
+<span id='During_initramfs_generation:_"modprobe:_WARNING:_Module_drm_not_found_in_directory_/lib/modules/..."'></span><span class="mw-headline" id="During_initramfs_generation:_.22modprobe:_WARNING:_Module_drm_not_found_in_directory_.2Flib.2Fmodules.2F....22">During initramfs generation: "modprobe: WARNING: Module drm not found in directory /lib/modules/..."</span>
+</h3>
+<p>This means, that a module can not be put in an initramfs. When you are not using a mainline kernel, it is likely that there are no modules configured, but the code is built directly into the kernel. This means, it is expected and can be ignored.
+</p>
+<h3>
+<span id="Phone_shows_the_telnet_message,_a_black_screen,_or_doesn't_leave_the_bootloader_or_Samsung/Google/..._splash_screen"></span><span class="mw-headline" id="Phone_shows_the_telnet_message.2C_a_black_screen.2C_or_doesn.27t_leave_the_bootloader_or_Samsung.2FGoogle.2F..._splash_screen">Phone shows the telnet message, a black screen, or doesn't leave the bootloader or Samsung/Google/... splash screen</span>
+</h3>
+<p>See: <a href="../en/Troubleshooting:boot.html" title="Troubleshooting:boot">Troubleshooting:boot</a>
+</p>
+<h3>
+<span id="I_have_ported_postmarketOS_to_my_device_and_the_screen_doesn't_get_updated"></span><span class="mw-headline" id="I_have_ported_postmarketOS_to_my_device_and_the_screen_doesn.27t_get_updated">I have ported postmarketOS to my device and the screen doesn't get updated</span>
+</h3>
+<p>There is a <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/66#issuecomment-306343779">known bug</a> where if you execute <code>cat /sys/class/graphics/fb0/modes &gt; /sys/class/graphics/fb0/mode</code> exactly one frame is drawn, and the screen isn't updated otherwise.
+</p>
+<h3><span class="mw-headline" id="Device_reboots">Device reboots</span></h3>
+<ul>
+<li>If your device always reboots after the same time (e.g. 2 minutes) after booting, you probably need to feed (or disable) a watchdog. Try to search your kernel config for watchdog, and also the internet for watchdog + your phone name.</li>
+<li>Android: The kernel config option <code>CONFIG_ANDROID_LOW_MEMORY_KILLER</code> may cause reboots. Please check if you have disabled it. If this helps you, please let us know, so we can consider checking for this option.</li>
+<li>Android: it is possible to get the <code>dmesg</code> log from just before the crash after the reboot <a rel="nofollow" class="external text" href="https://stackoverflow.com/questions/9682306/android-how-to-get-kernel-logs-after-kernel-panic">if you enable some kernel options</a>.</li>
+</ul>
+<h3><span class="mw-headline" id="User_interface_is_unresponsive">User interface is unresponsive</span></h3>
+<ul><li>If you have a situation where an application or display manager user interface is unresponsive, you can use <a href="../en/TTYescape.html" title="TTYescape">TTYescape</a> to kill the offending process, power cycle the device, or otherwise access helpful command line utilities.</li></ul>
+<h3>
+<span id="SSH_/_udev_/_touch_screen_doesn't_work"></span><span class="mw-headline" id="SSH_.2F_udev_.2F_touch_screen_doesn.27t_work">SSH / udev / touch screen doesn't work</span>
+</h3>
+<ul><li>Make sure that <code>DEVTMPFS</code> is enabled in your <a href="../en/Kernel_configuration.html" title="Kernel configuration">kernel config</a>. Do not enable <code>DEVTMPFS_MOUNT</code>.</li></ul>
+<h3>
+<span id="I_can't_access_the_framebuffer_device"></span><span class="mw-headline" id="I_can.27t_access_the_framebuffer_device">I can't access the framebuffer device</span>
+</h3>
+<ul>
+<li>
+<code>cat /dev/random &gt; /dev/fb0</code> returns: <code>cat: write error: No such device</code>
+</li>
+<li>This could be caused by a proprietary 3d driver enabled in the kernel config. <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/66/">Try to disable it (the actual config options may be different).</a>
+</li>
+</ul>
+<h3>
+<span id='"if_running_weston_from_ssh,_use_--tty_to_specify_a_tty"'></span><span class="mw-headline" id=".22if_running_weston_from_ssh.2C_use_--tty_to_specify_a_tty.22">"if running weston from ssh, use --tty to specify a tty"</span>
+</h3>
+<p>Specify a tty in weston's commandline. The correct syntax is: <code>weston --tty=1</code>.
+</p>
+<h3>
+<span id="Weston_and_fbsplash_-s_&lt;image&gt;_do_not_work"></span><span class="mw-headline" id="Weston_and_fbsplash_-s_.3Cimage.3E_do_not_work">Weston and fbsplash -s &lt;image&gt; do not work</span>
+</h3>
+<p>If Weston returns an error because it could not access <code>/dev/tty1</code>, even when you specify it on the command line as above, you may need to enable Virtual Terminals in the kernel config.<br>
+You can enable <code>CONFIG_VT</code> using <code>pmbootstrap menuconfig</code> and checking under Device Drivers -&gt; Character devices -&gt; Virtual terminal
+</p>
+<h2><span class="mw-headline" id="Flashing_problems">Flashing problems</span></h2>
+<h3><span class="mw-headline" id="Invalid_sparse_file_format_at_header_magic">Invalid sparse file format at header magic</span></h3>
+<p>In some devices (e.g.: bullhead, titan), when flashing the system (<code>pmbootstrap flasher flash_rootfs</code>), it works but fastboot complains of <code>Invalid sparse file format at header magic</code>.
+</p>
+<pre>$ ./pmbootstrap.py flasher flash_rootfs
 [23:02:58] (native) install android-tools
 [23:02:58] (native) flash rootfs image
 target reported max download size of 536870912 bytes
@@ -1304,166 +323,54 @@ writing 'system' 1/1...
 OKAY [ 12.584s]
 finished. total time: 22.036s
 [23:03:20] Done</pre>
-      <p>
-       It happens when your device expects a sparse system image. The workaround is as follows:
-      </p>
-      <ul>
-       <li>
-        Set
-        <code>
-         deviceinfo_flash_sparse=true
-        </code>
-        in deviceinfo
-       </li>
-      </ul>
-      <p>
-       To do this, edit the file in ./local/var/pmbootstrap/cache_git/pmaports/device/your_device_name/deviceinfo and add
-       <code>
-        deviceinfo_flash_sparse="true"
-       </code>
-       . When finished, run
-       <code>
-        "pmbootstrap install"
-       </code>
-       to rebuild the file system
-      </p>
-      <p>
-       For more information, see issue
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/299" rel="nofollow">
-        #299
-       </a>
-      </p>
-      <h3>
-       <span class="mw-headline" id="Login_screen_hangs">
-        Login screen hangs
-       </span>
-      </h3>
-      <p>
-       When switching from an installation on the system-partition to an installation on the userdata-partition, or when switching from a downstream-kernel to a mainline-kernel, it can happen, that the system boots up but hangs before login.
-      </p>
-      <p>
-       Logread via SSH may print a loop of
-      </p>
-      <pre>Jan 1 02:45:10 device-xy daemon.info init: can't open /dev/ttyHSL0: No such file or directory
+<p>It happens when your device expects a sparse system image. The workaround is as follows:
+</p>
+<ul><li>Set <code>deviceinfo_flash_sparse=true</code> in deviceinfo</li></ul>
+<p>To do this, edit the file in ./local/var/pmbootstrap/cache_git/pmaports/device/your_device_name/deviceinfo and add <code> deviceinfo_flash_sparse="true"</code>. When finished, run <code>"pmbootstrap install"</code> to rebuild the file system
+</p>
+<p>For more information, see issue <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/299">#299</a>
+</p>
+<h3><span class="mw-headline" id="Login_screen_hangs">Login screen hangs</span></h3>
+<p>When switching from an installation on the system-partition to an installation on the userdata-partition, or when switching from a downstream-kernel to a mainline-kernel, it can happen, that the system boots up but hangs before login.
+</p>
+<p>Logread via SSH may print a loop of
+</p>
+<pre>Jan 1 02:45:10 device-xy daemon.info init: can't open /dev/ttyHSL0: No such file or directory
 Jan 1 02:45:10 device-xy daemon.info init: process '/sbin/getty -L ttyHSL0 115200 vt100' (pid 9119) exited. Scheduling for restart.</pre>
-      <p>
-       Try to erase the partitions before flashing:
-       <code>
-        fastboot erase system &amp;&amp; fastboot erase userdata &amp;&amp; fastboot erase cache
-       </code>
-      </p>
-      <h3>
-       <span id="Heimdall:_Flashing_fails_at_7%">
-       </span>
-       <span class="mw-headline" id="Heimdall:_Flashing_fails_at_7.25">
-        Heimdall: Flashing fails at 7%
-       </span>
-      </h3>
-      <p>
-       You might also be getting the error "ERROR: Failed to confirm end of file transfer sequence"
-      </p>
-      <p>
-       It might be, that your device only accepts "sparse images" (
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1643" rel="nofollow">
-        #1643
-       </a>
-       ). Try setting
-       <code>
-        deviceinfo_flash_sparse="true"
-       </code>
-       in the
-       <a class="mw-redirect" href="../en/Deviceinfo_reference.html" title="Deviceinfo">
-        deviceinfo
-       </a>
-       .
-      </p>
-      <h3>
-       <span id="FAILED_(remote:_Unknown_chunk_type)">
-       </span>
-       <span class="mw-headline" id="FAILED_.28remote:_Unknown_chunk_type.29">
-        FAILED (remote: Unknown chunk type)
-       </span>
-      </h3>
-      <p>
-       This is a bootloader limitation. Flash
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/456" rel="nofollow">
-        with netcat
-       </a>
-       as a workaround, or use this wiki's search feature to come up with more related information. Feel free to organize this in a better way, but this should be a good starting point. See also
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1735" rel="nofollow">
-        #1735
-       </a>
-       .
-      </p>
-      <h3>
-       <span id="flasher_(fastboot)_is_stuck_in_&lt;_waiting_for_any_device_&gt;">
-       </span>
-       <span class="mw-headline" id="flasher_.28fastboot.29_is_stuck_in_.3C_waiting_for_any_device_.3E">
-        flasher (fastboot) is stuck in &lt; waiting for any device &gt;
-       </span>
-      </h3>
-      <p>
-       Maybe you need to install udev rules on your host Linux distribution. Arch has the
-       <a class="external text" href="https://www.archlinux.org/packages/community/any/android-udev/" rel="nofollow">
-        android-udev
-       </a>
-       package for example, which uses the rules from
-       <a class="external text" href="https://github.com/M0Rf30/android-udev-rules" rel="nofollow">
-        here
-       </a>
-       .
-      </p>
-      <p>
-       If that does not help, it might be necessary to set the
-       <code>
-        flash_fastboot_vendor_id
-       </code>
-       in your
-       <a class="mw-redirect" href="../en/Deviceinfo_reference.html" title="Deviceinfo">
-        deviceinfo
-       </a>
-       (this was necessary for the
-       <a class="mw-redirect" href="../en/Amazon_Kindle_Fire_HDX_(amazon-thor).html" title="Amazon Kindle Fire HDX">
-        Amazon Kindle Fire HDX
-       </a>
-       ). Try to search the web for your device name and "fastboot vendor id".
-      </p>
-      <p>
-       If you were previously able to use fastboot and it stopped working, sometimes
-       <code>
-        pmbootstrap shutdown
-       </code>
-       to restart the chroot helps (
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1633" rel="nofollow">
-        #1633
-       </a>
-       ). Also try to reboot the device into fastboot again.
-      </p>
-      <h3>
-       <span id="ERROR:_Failed_to_confirm_end_of_file_transfer_sequence!">
-       </span>
-       <span class="mw-headline" id="ERROR:_Failed_to_confirm_end_of_file_transfer_sequence.21">
-        ERROR: Failed to confirm end of file transfer sequence!
-       </span>
-      </h3>
-      <p>
-       This message can mean anything. To get more information you can instead create an
-       <a href="../en/Installation_from_recovery_mode.html" title="Installation from recovery mode">
-        android-recovery-zip
-       </a>
-       and install that from recovery. The installation will probably fail now as well, but at least this time you will have logs in
-       <code>
-        /tmp/postmarketos/
-       </code>
-       .
-      </p>
-      <p>
-       One possible reason for the error is simply that the image is too large for the partition, in which case you need to decrease the size, or maybe re-partition your device.
-      </p>
-      <p>
-       The whole error message might look something like
-      </p>
-      <pre>[...]
+<p>Try to erase the partitions before flashing:
+<code>fastboot erase system &amp;&amp; fastboot erase userdata &amp;&amp; fastboot erase cache</code>
+</p>
+<h3>
+<span id="Heimdall:_Flashing_fails_at_7%"></span><span class="mw-headline" id="Heimdall:_Flashing_fails_at_7.25">Heimdall: Flashing fails at 7%</span>
+</h3>
+<p>You might also be getting the error "ERROR: Failed to confirm end of file transfer sequence"
+</p>
+<p>It might be, that your device only accepts "sparse images" (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1643">#1643</a>). Try setting <code>deviceinfo_flash_sparse="true"</code> in the <a href="../en/Deviceinfo_reference.html" class="mw-redirect" title="Deviceinfo">deviceinfo</a>.
+</p>
+<h3>
+<span id="FAILED_(remote:_Unknown_chunk_type)"></span><span class="mw-headline" id="FAILED_.28remote:_Unknown_chunk_type.29">FAILED (remote: Unknown chunk type)</span>
+</h3>
+<p>This is a bootloader limitation. Flash <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/456">with netcat</a> as a workaround, or use this wiki's search feature to come up with more related information. Feel free to organize this in a better way, but this should be a good starting point. See also <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1735">#1735</a>.
+</p>
+<h3>
+<span id="flasher_(fastboot)_is_stuck_in_&lt;_waiting_for_any_device_&gt;"></span><span class="mw-headline" id="flasher_.28fastboot.29_is_stuck_in_.3C_waiting_for_any_device_.3E">flasher (fastboot) is stuck in &lt; waiting for any device &gt;</span>
+</h3>
+<p>Maybe you need to install udev rules on your host Linux distribution. Arch has the <a rel="nofollow" class="external text" href="https://www.archlinux.org/packages/community/any/android-udev/">android-udev</a> package for example, which uses the rules from <a rel="nofollow" class="external text" href="https://github.com/M0Rf30/android-udev-rules">here</a>.
+</p>
+<p>If that does not help, it might be necessary to set the <code>flash_fastboot_vendor_id</code> in your <a href="../en/Deviceinfo_reference.html" class="mw-redirect" title="Deviceinfo">deviceinfo</a> (this was necessary for the <a href="../en/Amazon_Kindle_Fire_HDX_(amazon-thor).html" class="mw-redirect" title="Amazon Kindle Fire HDX">Amazon Kindle Fire HDX</a>). Try to search the web for your device name and "fastboot vendor id".
+</p>
+<p>If you were previously able to use fastboot and it stopped working, sometimes <code>pmbootstrap shutdown</code> to restart the chroot helps (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1633">#1633</a>). Also try to reboot the device into fastboot again.
+</p>
+<h3>
+<span id="ERROR:_Failed_to_confirm_end_of_file_transfer_sequence!"></span><span class="mw-headline" id="ERROR:_Failed_to_confirm_end_of_file_transfer_sequence.21">ERROR: Failed to confirm end of file transfer sequence!</span>
+</h3>
+<p>This message can mean anything. To get more information you can instead create an <a href="../en/Installation_from_recovery_mode.html" title="Installation from recovery mode">android-recovery-zip</a> and install that from recovery. The installation will probably fail now as well, but at least this time you will have logs in <code>/tmp/postmarketos/</code>.
+</p>
+<p>One possible reason for the error is simply that the image is too large for the partition, in which case you need to decrease the size, or maybe re-partition your device.
+</p>
+<p>The whole error message might look something like
+</p>
+<pre>[...]
 Uploading BOOT
 100%
 ERROR: Failed to confirm end of file transfer sequence!
@@ -1473,707 +380,183 @@ Ending session...
 ERROR: Failed to send end session packet!
 Releasing device interface...
 </pre>
-      <h1>
-       <span class="mw-headline" id="pmbootstrap_and_build_related_errors">
-        pmbootstrap and build related errors
-       </span>
-      </h1>
-      <h2>
-       <span id="Alpine,_chroots_and_pmbootstrap">
-       </span>
-       <span class="mw-headline" id="Alpine.2C_chroots_and_pmbootstrap">
-        Alpine, chroots and pmbootstrap
-       </span>
-      </h2>
-      <h3>
-       <span id="pmbootstrap_is_broken!_But_it_worked_yesterday!">
-       </span>
-       <span class="mw-headline" id="pmbootstrap_is_broken.21_But_it_worked_yesterday.21">
-        pmbootstrap is broken! But it worked yesterday!
-       </span>
-      </h3>
-      <p>
-       Sorry! Revert to the last commit, that was known to work (git checkout $commit) and report an issue, if there is not already one. Consult with others in the
-       <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">
-        IRC/matrix
-       </a>
-       channel to find out, which commit was the last one that worked.
-      </p>
-      <h3>
-       <span id="ERROR:_This_device_does_not_exist_anymore,_check_&lt;https://postmarketos.org/renamed&gt;_to_see_if_it_was_renamed">
-       </span>
-       <span class="mw-headline" id="ERROR:_This_device_does_not_exist_anymore.2C_check_.3Chttps:.2F.2Fpostmarketos.org.2Frenamed.3E_to_see_if_it_was_renamed">
-        ERROR: This device does not exist anymore, check &lt;
-        <a class="external free" href="https://postmarketos.org/renamed" rel="nofollow">
-         https://postmarketos.org/renamed
-        </a>
-        &gt; to see if it was renamed
-       </span>
-      </h3>
-      <p>
-       One case where this might happen is if you remove pmbootstrap's work path, and then run a
-       <code>
-        pmbootstrap init
-       </code>
-       . As you might notice it is still remembering values and devices from previous executions.
-      </p>
-      <p>
-       To solve this you need to remove (or rename)
-       <code>
-        $XDG_CONFIG/pmbootstrap.cfg
-       </code>
-       (i.e
-       <code>
-        ~/.config/pmbootstrap.cfg
-       </code>
-       ). After doing so
-       <code>
-        pmbootstrap init
-       </code>
-       should work fine.
-      </p>
-      <h3>
-       <span id="BusyBox_does_something_different_than_the_standard_tool_for_the_job,_and_this_breaks_building_my_package!">
-       </span>
-       <span class="mw-headline" id="BusyBox_does_something_different_than_the_standard_tool_for_the_job.2C_and_this_breaks_building_my_package.21">
-        BusyBox does something different than the standard tool for the job, and this breaks building my package!
-       </span>
-      </h3>
-      <p>
-       <b>
-        Example:
-       </b>
-       unzip in BusyBox doesn't extract symlinks like the normal unzip implementation (
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/82" rel="nofollow">
-        #82
-       </a>
-       ).
-      </p>
-      <p>
-       <b>
-        Solution:
-       </b>
-       Simply add
-       <code>
-        unzip
-       </code>
-       to the makedepends in the APKBUILD, and the "real" unzip will be used (or in that case, try to get the sources in another archive format, such as
-       <code>
-        .tar.bz2
-       </code>
-       ,
-       <code>
-        .tar.xz
-       </code>
-       ,
-       <code>
-        .tar.gz
-       </code>
-       ).
-      </p>
-      <h3>
-       <span class="mw-headline" id="WARNING:_No_provider_for_dependency...">
-        WARNING: No provider for dependency...
-       </span>
-      </h3>
-      <p>
-       <b>
-        Normal behavior.
-       </b>
-       it means, that your "user" repository (the repository with all custom compiled packaged from pmOS, such as your device package and kernel) does not have the dependencies from the official Alpine Linux repositories (such as
-       <code>
-        cryptsetup
-       </code>
-       ,
-       <code>
-        iw
-       </code>
-       ,
-       <code>
-        htop
-       </code>
-       , ...) when indexing it. But these dependencies
-       <i>
-        are
-       </i>
-       in the official repositories, so they will be found when you try to install something. Usually the package indexing is done on all repositories at once in Alpine (then you wouldn't get the error), but pmOS does it only on the "user" repository.
-      </p>
-      <h3>
-       <span class="mw-headline" id="ERROR:_busybox-1.27.0-r1.post-install:_script_exited_with_error_127">
-        ERROR: busybox-1.27.0-r1.post-install: script exited with error 127
-       </span>
-      </h3>
-      <p>
-       Programs running in (foreign arch) chroots cannot be executed. See
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1972" rel="nofollow">
-        #1972
-       </a>
-       .
-      </p>
-      <h3>
-       <span id="ERROR:_/mnt/pmbootstrap-packages/x86_64/qemu-user-static-repack-2.8-r6.apk:_UNTRUSTED_signature">
-       </span>
-       <span class="mw-headline" id="ERROR:_.2Fmnt.2Fpmbootstrap-packages.2Fx86_64.2Fqemu-user-static-repack-2.8-r6.apk:_UNTRUSTED_signature">
-        ERROR: /mnt/pmbootstrap-packages/x86_64/qemu-user-static-repack-2.8-r6.apk: UNTRUSTED signature
-       </span>
-      </h3>
-      <p>
-       You don't have your own package signing key imported, which gets generated when you compile a package for the first time. pmbootstrap should automatically import it, but when you hit
-       <code>
-        ^C
-       </code>
-       during that, it may go wrong.
-      </p>
-      <p>
-       Your generated key is in
-       <code>
-        ~/.local/var/pmbootstrap/config_abuild
-       </code>
-       , all imported keys are in
-       <code>
-        ~/.local/var/pmbootstrap/config_apk_keys
-       </code>
-       .
-      </p>
-      <p>
-       A quick fix is deleting all packages:
-      </p>
-      <pre>./pmbootstrap zap -p</pre>
-      <p>
-       See issue
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/270" rel="nofollow">
-        #270
-       </a>
-       for more information and don't hesitate to reopen if this didn't work for you.
-      </p>
-      <h3>
-       <span class="mw-headline" id="Installed_version_newer_than_the_version_in_the_repositories">
-        Installed version newer than the version in the repositories
-       </span>
-      </h3>
-      <p>
-       <i>
-        You have a program installed in one of your chroots with a higher version, than what is available in the binary package repositories (either from upstream or the packages you have built yourself).
-       </i>
-      </p>
-      <p>
-       <b>
-        Example how this can happen:
-       </b>
-      </p>
-      <ul>
-       <li>
-        Git branch switch to one which increased the version of
-        <code>
-         postmarketos-mkinitfs
-        </code>
-       </li>
-       <li>
-        Build
-        <code>
-         postmarketos-mkinitfs
-        </code>
-       </li>
-       <li>
-        Install it in a chroot (e.g. by running
-        <code>
-         pmbootstrap install
-        </code>
-        )
-       </li>
-       <li>
-        Branch switched to
-        <code>
-         master
-        </code>
-       </li>
-       <li>
-        All packages got zapped, but not the chroots
-       </li>
-       <li>
-        Build
-        <code>
-         postmarketos-mkinitfs
-        </code>
-        again (this time it has a lower version count!)
-       </li>
-      </ul>
-      <p>
-       <b>
-        Solution:
-       </b>
-       Simply zap your chroot! When it gets set up again, it will use the current package version.
-      </p>
-      <h3>
-       <span id="It's_not_installing_my_changed_package">
-       </span>
-       <span class="mw-headline" id="It.27s_not_installing_my_changed_package">
-        It's not installing my changed package
-       </span>
-      </h3>
-      <p>
-       <i>
-        You have changed a package but it's using the one from the repository and not your changed build.
-       </i>
-      </p>
-      <p>
-       You probably didn't build it or not for the correct architecture.
-       <code>
-        pmbootstrap build
-       </code>
-       defaults to
-       <code>
-        x86_64
-       </code>
-       architecture, if you need that package on your device, use the
-       <code>
-        --arch
-       </code>
-       flag.
-      </p>
-      <h3>
-       <span class="mw-headline" id="Newer_version_in_binary_package_repositories_than_in_aports_folder">
-        Newer version in binary package repositories than in aports folder
-       </span>
-      </h3>
-      <p>
-       <i>
-        You have built a package earlier, and the branch you are currently working in has a lower version in the aports folder.
-       </i>
-      </p>
-      <p>
-       <b>
-        Example how this can happen:
-       </b>
-      </p>
-      <ul>
-       <li>
-        Git branch switch to a feature branch which increased the version of
-        <code>
-         postmarketos-mkinitfs
-        </code>
-       </li>
-       <li>
-        Build
-        <code>
-         postmarketos-mkinitfs
-        </code>
-       </li>
-       <li>
-        Switch to
-        <code>
-         master
-        </code>
-        branch
-       </li>
-       <li>
-        Run just about any
-        <code>
-         pmbootstrap
-        </code>
-        command, it will print this warning:
-       </li>
-      </ul>
-      <pre> Package 'postmarketos-mkinitfs' in your aports folder has version X, but the binary package repositories already have version Y
+<h1><span class="mw-headline" id="pmbootstrap_and_build_related_errors">pmbootstrap and build related errors</span></h1>
+<h2>
+<span id="Alpine,_chroots_and_pmbootstrap"></span><span class="mw-headline" id="Alpine.2C_chroots_and_pmbootstrap">Alpine, chroots and pmbootstrap</span>
+</h2>
+<h3>
+<span id="pmbootstrap_is_broken!_But_it_worked_yesterday!"></span><span class="mw-headline" id="pmbootstrap_is_broken.21_But_it_worked_yesterday.21">pmbootstrap is broken! But it worked yesterday!</span>
+</h3>
+<p>Sorry! Revert to the last commit, that was known to work (git checkout $commit) and report an issue, if there is not already one. Consult with others in the <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">IRC/matrix</a> channel to find out, which commit was the last one that worked.
+</p>
+<h3>
+<span id="ERROR:_This_device_does_not_exist_anymore,_check_&lt;https://postmarketos.org/renamed&gt;_to_see_if_it_was_renamed"></span><span class="mw-headline" id="ERROR:_This_device_does_not_exist_anymore.2C_check_.3Chttps:.2F.2Fpostmarketos.org.2Frenamed.3E_to_see_if_it_was_renamed">ERROR: This device does not exist anymore, check &lt;<a rel="nofollow" class="external free" href="https://postmarketos.org/renamed">https://postmarketos.org/renamed</a>&gt; to see if it was renamed</span>
+</h3>
+<p>One case where this might happen is if you remove pmbootstrap's work path, and then run a <code>pmbootstrap init</code>. As you might notice it is still remembering values and devices from previous executions. 
+</p>
+<p>To solve this you need to remove (or rename) <code>$XDG_CONFIG/pmbootstrap.cfg</code> (i.e <code>~/.config/pmbootstrap.cfg</code>). After doing so <code>pmbootstrap init</code> should work fine.
+</p>
+<h3>
+<span id="BusyBox_does_something_different_than_the_standard_tool_for_the_job,_and_this_breaks_building_my_package!"></span><span class="mw-headline" id="BusyBox_does_something_different_than_the_standard_tool_for_the_job.2C_and_this_breaks_building_my_package.21">BusyBox does something different than the standard tool for the job, and this breaks building my package!</span>
+</h3>
+<p><b>Example:</b> unzip in BusyBox doesn't extract symlinks like the normal unzip implementation (<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/82">#82</a>).
+</p>
+<p><b>Solution:</b> Simply add <code>unzip</code> to the makedepends in the APKBUILD, and the "real" unzip will be used (or in that case, try to get the sources in another archive format, such as <code>.tar.bz2</code>, <code>.tar.xz</code>, <code>.tar.gz</code>).
+</p>
+<h3><span class="mw-headline" id="WARNING:_No_provider_for_dependency...">WARNING: No provider for dependency...</span></h3>
+<p><b>Normal behavior.</b> it means, that your "user" repository (the repository with all custom compiled packaged from pmOS, such as your device package and kernel) does not have the dependencies from the official Alpine Linux repositories (such as <code>cryptsetup</code>, <code>iw</code>, <code>htop</code>, ...) when indexing it. But these dependencies <i>are</i> in the official repositories, so they will be found when you try to install something. Usually the package indexing is done on all repositories at once in Alpine (then you wouldn't get the error), but pmOS does it only on the "user" repository.
+</p>
+<h3><span class="mw-headline" id="ERROR:_busybox-1.27.0-r1.post-install:_script_exited_with_error_127">ERROR: busybox-1.27.0-r1.post-install: script exited with error 127</span></h3>
+<p>Programs running in (foreign arch) chroots cannot be executed. See <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1972">#1972</a>.
+</p>
+<h3>
+<span id="ERROR:_/mnt/pmbootstrap-packages/x86_64/qemu-user-static-repack-2.8-r6.apk:_UNTRUSTED_signature"></span><span class="mw-headline" id="ERROR:_.2Fmnt.2Fpmbootstrap-packages.2Fx86_64.2Fqemu-user-static-repack-2.8-r6.apk:_UNTRUSTED_signature">ERROR: /mnt/pmbootstrap-packages/x86_64/qemu-user-static-repack-2.8-r6.apk: UNTRUSTED signature</span>
+</h3>
+<p>You don't have your own package signing key imported, which gets generated when you compile a package for the first time. pmbootstrap should automatically import it, but when you hit <code>^C</code> during that, it may go wrong.
+</p>
+<p>Your generated key is in <code>~/.local/var/pmbootstrap/config_abuild</code>, all imported keys are in <code>~/.local/var/pmbootstrap/config_apk_keys</code>.
+</p>
+<p>A quick fix is deleting all packages:
+</p>
+<pre>./pmbootstrap zap -p</pre>
+<p>See issue <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/270">#270</a> for more information and don't hesitate to reopen if this didn't work for you.
+</p>
+<h3><span class="mw-headline" id="Installed_version_newer_than_the_version_in_the_repositories">Installed version newer than the version in the repositories</span></h3>
+<p><i>You have a program installed in one of your chroots with a higher version, than what is available in the binary package repositories (either from upstream or the packages you have built yourself).</i>
+</p>
+<p><b>Example how this can happen:</b>
+</p>
+<ul>
+<li>Git branch switch to one which increased the version of <code>postmarketos-mkinitfs</code>
+</li>
+<li>Build <code>postmarketos-mkinitfs</code>
+</li>
+<li>Install it in a chroot (e.g. by running <code>pmbootstrap install</code>)</li>
+<li>Branch switched to <code>master</code>
+</li>
+<li>All packages got zapped, but not the chroots</li>
+<li>Build <code>postmarketos-mkinitfs</code> again (this time it has a lower version count!)</li>
+</ul>
+<p><b>Solution:</b> Simply zap your chroot! When it gets set up again, it will use the current package version.
+</p>
+<h3>
+<span id="It's_not_installing_my_changed_package"></span><span class="mw-headline" id="It.27s_not_installing_my_changed_package">It's not installing my changed package</span>
+</h3>
+<p><i>You have changed a package but it's using the one from the repository and not your changed build.</i>
+</p>
+<p>You probably didn't build it or not for the correct architecture. <code>pmbootstrap build</code> defaults to <code>x86_64</code> architecture, if you need that package on your device, use the <code>--arch</code> flag.
+</p>
+<h3><span class="mw-headline" id="Newer_version_in_binary_package_repositories_than_in_aports_folder">Newer version in binary package repositories than in aports folder</span></h3>
+<p><i>You have built a package earlier, and the branch you are currently working in has a lower version in the aports folder.</i>
+</p>
+<p><b>Example how this can happen:</b>
+</p>
+<ul>
+<li>Git branch switch to a feature branch which increased the version of <code>postmarketos-mkinitfs</code>
+</li>
+<li>Build <code>postmarketos-mkinitfs</code>
+</li>
+<li>Switch to <code>master</code> branch</li>
+<li>Run just about any <code>pmbootstrap</code> command, it will print this warning:</li>
+</ul>
+<pre> Package 'postmarketos-mkinitfs' in your aports folder has version X, but the binary package repositories already have version Y
 </pre>
-      <p>
-       <b>
-        Solution:
-       </b>
-       Run
-       <code>
-        pmbootstrap zap -m
-       </code>
-       to delete the mismatched binary packages.
-      </p>
-      <p>
-       <b>
-        Note:
-       </b>
-       If that does not help it, you can manually delete that specific packages from your aports folder:
-       <code>
-        sudo rm ~/.local/var/pmbootstrap/packages/*/postmarketos-mkinitfs*.apk
-       </code>
-       and run
-       <code>
-        pmbootstrap index
-       </code>
-       to re-index all packages. See also:
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/466" rel="nofollow">
-        #466
-       </a>
-       ,
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/474" rel="nofollow">
-        #474
-       </a>
-      </p>
-      <h3>
-       <span id="mkbootimg:_error:_argument_--dt:_can't_open_'/boot/dt.img'">
-       </span>
-       <span class="mw-headline" id="mkbootimg:_error:_argument_--dt:_can.27t_open_.27.2Fboot.2Fdt.img.27">
-        mkbootimg: error: argument --dt: can't open '/boot/dt.img'
-       </span>
-      </h3>
-      <p>
-       This happens when you have
-       <code>
-        deviceinfo_bootimg_qcdt
-       </code>
-       enabled (which is correct when pmbootstrap generated it that way), but your kernel does not generate the
-       <code>
-        /boot/dt.img
-       </code>
-       file.
-Please adjust your kernel
-       <code>
-        APKBUILD
-       </code>
-       as follows:
-      </p>
-      <ul>
-       <li>
-        add
-        <code>
-         dtbtool
-        </code>
-        to
-        <code>
-         makedepends
-        </code>
-       </li>
-       <li>
-        extend your
-        <code>
-         build()
-        </code>
-        function
-        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/bc2784ece7dbbb5b9fbc8e1855566d3e9e770e59/aports/device/linux-huawei-y530/APKBUILD#L74-L75" rel="nofollow">
-         like this
-        </a>
-       </li>
-       <li>
-        and your
-        <code>
-         package()
-        </code>
-        function
-        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/bc2784ece7dbbb5b9fbc8e1855566d3e9e770e59/aports/device/linux-huawei-y530/APKBUILD#L97-L99" rel="nofollow">
-         like that
-        </a>
-       </li>
-      </ul>
-      <p>
-       See
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/688" rel="nofollow">
-        #688
-       </a>
-       for a plan to automatically generate the linux APKBUILD right.
-      </p>
-      <h3>
-       <span id="Permission_denied:_.../pmbootstrap/work/chroot_native/proc/1/cwd'">
-       </span>
-       <span class="mw-headline" id="Permission_denied:_....2Fpmbootstrap.2Fwork.2Fchroot_native.2Fproc.2F1.2Fcwd.27">
-        Permission denied: .../pmbootstrap/work/chroot_native/proc/1/cwd'
-       </span>
-      </h3>
-      <p>
-       It looks like you have created your work folder as:
-       <code>
-        pmbootstrap/work
-       </code>
-       , where
-       <code>
-        pmbootstrap
-       </code>
-       is the folder with the checked out source code. That is not supported. Please run
-       <code>
-        pmbootstrap shutdown
-       </code>
-       , then delete that folder, then run
-       <code>
-        pmbootstrap init
-       </code>
-       again and choose another work folder (e.g.
-       <code>
-        ~/.local/var/pmbootstrap
-       </code>
-       ).
-      </p>
-      <p>
-       After that it should work - if this still does not resolve it, please open up an issue in the GitLab issue tracker.
-      </p>
-      <h3>
-       <span id="can't_create_/dev/null:_Permission_denied">
-       </span>
-       <span class="mw-headline" id="can.27t_create_.2Fdev.2Fnull:_Permission_denied">
-        can't create
-        <code>
-         /dev/null
-        </code>
-        : Permission denied
-       </span>
-      </h3>
-      <p>
-       Make sure that your working directory is mounted correctly. This can happen when working over NFS, or when you mounted the drive your working directory is on trough the file explorer (if that's the case,
-       <code>
-        umount
-       </code>
-       it, and
-       <code>
-        mount
-       </code>
-       it manually). This can probably happen on every drive mounted with
-       <code>
-        nosuid
-       </code>
-       or similar.
-      </p>
-      <h3>
-       <span id="cp:_write_error:_No_space_left_on_device_(during_file_transfer_from_chrooted_environment_to_target_image)">
-       </span>
-       <span class="mw-headline" id="cp:_write_error:_No_space_left_on_device_.28during_file_transfer_from_chrooted_environment_to_target_image.29">
-        cp: write error: No space left on device (during file transfer from chrooted environment to target image)
-       </span>
-      </h3>
-      <p>
-       This issue is triggered when
-       <code>
-        pmbootstrap
-       </code>
-       determines the wrong size for the target image, as it is unfortunately very hard to calculate the correct size independent of the filesystem on which the chroot resides. Some examples for this:
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1916" rel="nofollow">
-        #1916
-       </a>
-       ;
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/928" rel="nofollow">
-        #928
-       </a>
-       where more elaborate information can be found.
-      </p>
-      <p>
-       While fixing the problem seems impossible for every configuration, there is a workaround available (
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1904" rel="nofollow">
-        #1904
-       </a>
-       and its associated merge request
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1989" rel="nofollow">
-        !1989
-       </a>
-       ): Use the
-       <code>
-        -E
-       </code>
-       /
-       <code>
-        --extra-space
-       </code>
-       option of
-       <code>
-        pmbootstrap
-       </code>
-       to specify extra space on the resulting image file in MB. Just play around with the value until it works for you. You can specify the value also through
-       <code>
-        pmbootstrap init
-       </code>
-       in its
-       <i>
-        Additional options
-       </i>
-       .
-      </p>
-      <h3>
-       <span id='"ERROR:_Is_$builddir_set_correctly?"_for_linux-*_package'>
-       </span>
-       <span class="mw-headline" id=".22ERROR:_Is_.24builddir_set_correctly.3F.22_for_linux-.2A_package">
-        "ERROR: Is $builddir set correctly?" for linux-* package
-       </span>
-      </h3>
-      <p>
-       Check where the kernel sources archive has the kernel-related code stored and change the
-       <code>
-        builddir
-       </code>
-       value accordingly.
-      </p>
-      <h3>
-       <span class="mw-headline" id="BAD_signature_errors_from_apk">
-        BAD signature errors from apk
-       </span>
-      </h3>
-      <p>
-       If apk throws BAD signature errors, oftentimes the dl-cdn mirror from Alpine didn't cache the package properly. The solution is then to send a PURGE to the complete URL of the package (open dl-cdn.alpinelinux.org/alpine in your browser and find the complete URL). Like this:
-      </p>
-      <pre>curl -X PURGE https://dl-cdn.alpinelinux.org/alpine/edge/testing/x86_64/plasma-dialer-0.2-r0.apk
+<p><b>Solution:</b> Run <code>pmbootstrap zap -m</code> to delete the mismatched binary packages.
+</p>
+<p><b>Note:</b> If that does not help it, you can manually delete that specific packages from your aports folder: <code>sudo rm ~/.local/var/pmbootstrap/packages/*/postmarketos-mkinitfs*.apk</code> and run <code>pmbootstrap index</code> to re-index all packages. See also: <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/466">#466</a>, <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/pull/474">#474</a>
+</p>
+<p><br>
+<b>If you want to use older package built locally from pmaports:</b>
+</p>
+<ol>
+<li>Build the package using <code>pmbootstrap build &lt;pkg&gt; --force</code> to ignore newer version present in binary repos</li>
+<li>Enter chroot, e.g. device's rootfs: <code>pmbootstrap chroot -r</code>
+</li>
+<li>Install package in specific version, e.g. <code>apk add linux-postmarketos-qcom-sdm845==6.2.0-r3</code>
+</li>
+</ol>
+<p>The warning (<code>package &lt;pkg&gt;: aport version &lt;v1&gt; is lower than &lt;v2&gt; from the binary repository. &lt;v2&gt; will be used when installing &lt;pkg&gt;.</code>) will still appear during e.g. <code>pmbootstrap install</code>, but your package will stay at specified version until chroot is wiped.
+</p>
+<h3>
+<span id="mkbootimg:_error:_argument_--dt:_can't_open_'/boot/dt.img'"></span><span class="mw-headline" id="mkbootimg:_error:_argument_--dt:_can.27t_open_.27.2Fboot.2Fdt.img.27">mkbootimg: error: argument --dt: can't open '/boot/dt.img'</span>
+</h3>
+<p>This happens when you have <code>deviceinfo_bootimg_qcdt</code> enabled (which is correct when pmbootstrap generated it that way), but your kernel does not generate the <code>/boot/dt.img</code> file.
+Please adjust your kernel <code>APKBUILD</code> as follows:
+</p>
+<ul>
+<li>add <code>dtbtool</code> to <code>makedepends</code>
+</li>
+<li>extend your <code>build()</code> function <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/bc2784ece7dbbb5b9fbc8e1855566d3e9e770e59/aports/device/linux-huawei-y530/APKBUILD#L74-L75">like this</a>
+</li>
+<li>and your <code>package()</code> function <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/blob/bc2784ece7dbbb5b9fbc8e1855566d3e9e770e59/aports/device/linux-huawei-y530/APKBUILD#L97-L99">like that</a>
+</li>
+</ul>
+<p>See <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/688">#688</a> for a plan to automatically generate the linux APKBUILD right.
+</p>
+<h3>
+<span id="Permission_denied:_.../pmbootstrap/work/chroot_native/proc/1/cwd'"></span><span class="mw-headline" id="Permission_denied:_....2Fpmbootstrap.2Fwork.2Fchroot_native.2Fproc.2F1.2Fcwd.27">Permission denied: .../pmbootstrap/work/chroot_native/proc/1/cwd'</span>
+</h3>
+<p>It looks like you have created your work folder as: <code>pmbootstrap/work</code>, where <code>pmbootstrap</code> is the folder with the checked out source code. That is not supported. Please run <code>pmbootstrap shutdown</code>, then delete that folder, then run <code>pmbootstrap init</code> again and choose another work folder (e.g. <code>~/.local/var/pmbootstrap</code>).
+</p>
+<p>After that it should work - if this still does not resolve it, please open up an issue in the GitLab issue tracker.
+</p>
+<h3>
+<span id="can't_create_/dev/null:_Permission_denied"></span><span class="mw-headline" id="can.27t_create_.2Fdev.2Fnull:_Permission_denied">can't create <code>/dev/null</code>: Permission denied</span>
+</h3>
+<p>Make sure that your working directory is mounted correctly. This can happen when working over NFS, or when you mounted the drive your working directory is on trough the file explorer (if that's the case, <code>umount</code> it, and <code>mount</code> it manually). This can probably happen on every drive mounted with <code>nosuid</code> or similar.
+</p>
+<h3>
+<span id="cp:_write_error:_No_space_left_on_device_(during_file_transfer_from_chrooted_environment_to_target_image)"></span><span class="mw-headline" id="cp:_write_error:_No_space_left_on_device_.28during_file_transfer_from_chrooted_environment_to_target_image.29">cp: write error: No space left on device (during file transfer from chrooted environment to target image)</span>
+</h3>
+<p>This issue is triggered when <code>pmbootstrap</code> determines the wrong size for the target image, as it is unfortunately very hard to calculate the correct size independent of the filesystem on which the chroot resides. Some examples for this: <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1916">#1916</a>; <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/928">#928</a> where more elaborate information can be found.
+</p>
+<p>While fixing the problem seems impossible for every configuration, there is a workaround available (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1904">#1904</a> and its associated merge request <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1989">!1989</a>): Use the <code>-E</code>/<code>--extra-space</code> option of <code>pmbootstrap</code> to specify extra space on the resulting image file in MB. Just play around with the value until it works for you. You can specify the value also through <code>pmbootstrap init</code> in its <i>Additional options</i>.
+</p>
+<h3>
+<span id='"ERROR:_Is_$builddir_set_correctly?"_for_linux-*_package'></span><span class="mw-headline" id=".22ERROR:_Is_.24builddir_set_correctly.3F.22_for_linux-.2A_package">"ERROR: Is $builddir set correctly?" for linux-* package</span>
+</h3>
+<p>Check where the kernel sources archive has the kernel-related code stored and change the <code>builddir</code> value accordingly.
+</p>
+<h3><span class="mw-headline" id="BAD_signature_errors_from_apk">BAD signature errors from apk</span></h3>
+<p>If apk throws BAD signature errors, oftentimes the dl-cdn mirror from Alpine didn't cache the package properly. The solution is then to send a PURGE to the complete URL of the package (open dl-cdn.alpinelinux.org/alpine in your browser and find the complete URL). Like this:
+</p>
+<pre>curl -X PURGE https://dl-cdn.alpinelinux.org/alpine/edge/testing/x86_64/plasma-dialer-0.2-r0.apk
 </pre>
-      <p>
-       This also works if bpo is failing with a BAD signature error.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Build_errors">
-        Build errors
-       </span>
-      </h2>
-      <h3>
-       <span class="mw-headline" id="Errors_with_grsec-based_kernel_on_the_host_system">
-        Errors with grsec-based kernel on the host system
-       </span>
-      </h3>
-      <p>
-       See:
-       <a href="../en/Troubleshooting:grsec.html" title="Troubleshooting:grsec">
-        Troubleshooting:grsec
-       </a>
-      </p>
-      <h3>
-       <span class="mw-headline" id="Errors_with_ecryptfs">
-        Errors with ecryptfs
-       </span>
-      </h3>
-      <p>
-       When your "work" folder is inside an ecryptfs mounted folder,
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/53" rel="nofollow">
-        <code>
-         /dev/random
-        </code>
-        may not work inside the chroot
-       </a>
-       and you may have other issues. Try to move your
-       <i>
-        work
-       </i>
-       folder to another location, you can use
-       <code>
-        /tmp
-       </code>
-       to test if this resolves the issue. You can change the location in
-       <code>
-        pmbootstrap init
-       </code>
-       . See also:
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/61" rel="nofollow">
-        #61
-       </a>
-       . (This doesn't seem to be an issue with newer versions of ecryptfs anymore.)
-      </p>
-      <h3>
-       <span id="musl-*/busybox-static-*_fails_to_build_with_a_404_error">
-       </span>
-       <span class="mw-headline" id="musl-.2A.2Fbusybox-static-.2A_fails_to_build_with_a_404_error">
-        <code>
-         musl-*
-        </code>
-        /
-        <code>
-         busybox-static-*
-        </code>
-        fails to build with a 404 error
-       </span>
-      </h3>
-      <p>
-       Run
-       <code>
-        pmbootstrap aportgen musl-armhf musl-aarch64 musl-x86_64
-       </code>
-       . The reason why this fails from time to time is, that we use Alpine's binary
-       <code>
-        musl
-       </code>
-       lib c package for
-       <code>
-        armhf
-       </code>
-       /
-       <code>
-        aarch64
-       </code>
-       in the native chroot, to get the cross-compiler working. So the download URL inside the
-       <code>
-        aports/cross/musl-*/APKBUILD
-       </code>
-       file must be in sync with the upstream version. This pmbootstrap command safely gets the new version, uses
-       <code>
-        apk
-       </code>
-       to verify the signature of the package, generates the hash, and updates the
-       <code>
-        APKBUILD
-       </code>
-       file. To make sure, that
-       <code>
-        pmbootstrap aportgen
-       </code>
-       receives the latest
-       <code>
-        musl
-       </code>
-       version, delete your HTTP cache right before by executing this command:
-       <code>
-        pmbootstrap zap -hc
-       </code>
-       . Don't bother making a pull-request for this, as the fix is really trivial (see
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/commit/0f3b2ea4277679056079000eac581d1b9d05afc8" rel="nofollow">
-        this commit
-       </a>
-       ). Just report it as issue, if it happens.
-      </p>
-      <h3>
-       <span id="sh:_can't_create_/proc/sys/fs/binfmt_misc/register:_nonexistent_directory">
-       </span>
-       <span class="mw-headline" id="sh:_can.27t_create_.2Fproc.2Fsys.2Ffs.2Fbinfmt_misc.2Fregister:_nonexistent_directory">
-        sh: can't create /proc/sys/fs/binfmt_misc/register: nonexistent directory
-       </span>
-      </h3>
-      <p>
-       This issue is known to happen in Alpine Virt hardened and Void Linux. These commands should fix it:
-      </p>
-      <pre class="shell">sudo modprobe binfmt_misc
+<p>This also works if bpo is failing with a BAD signature error.
+</p>
+<h2><span class="mw-headline" id="Build_errors">Build errors</span></h2>
+<h3><span class="mw-headline" id="Errors_with_grsec-based_kernel_on_the_host_system">Errors with grsec-based kernel on the host system</span></h3>
+<p>See: <a href="../en/Troubleshooting:grsec.html" title="Troubleshooting:grsec">Troubleshooting:grsec</a>
+</p>
+<h3><span class="mw-headline" id="Errors_with_ecryptfs">Errors with ecryptfs</span></h3>
+<p>When your "work" folder is inside an ecryptfs mounted folder, <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/53"><code>/dev/random</code> may not work inside the chroot</a> and you may have other issues. Try to move your <i>work</i> folder to another location, you can use <code>/tmp</code> to test if this resolves the issue. You can change the location in <code>pmbootstrap init</code>. See also: <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/61">#61</a>. (This doesn't seem to be an issue with newer versions of ecryptfs anymore.)
+</p>
+<h3>
+<span id="musl-*/busybox-static-*_fails_to_build_with_a_404_error"></span><span class="mw-headline" id="musl-.2A.2Fbusybox-static-.2A_fails_to_build_with_a_404_error"><code>musl-*</code>/<code>busybox-static-*</code> fails to build with a 404 error</span>
+</h3>
+<p>Run <code>pmbootstrap aportgen musl-armhf musl-aarch64 musl-x86_64</code>. The reason why this fails from time to time is, that we use Alpine's binary <code>musl</code> lib c package for <code>armhf</code>/<code>aarch64</code> in the native chroot, to get the cross-compiler working. So the download URL inside the <code>aports/cross/musl-*/APKBUILD</code> file must be in sync with the upstream version. This pmbootstrap command safely gets the new version, uses <code>apk</code> to verify the signature of the package, generates the hash, and updates the <code>APKBUILD</code> file. To make sure, that <code>pmbootstrap aportgen</code> receives the latest <code>musl</code> version, delete your HTTP cache right before by executing this command: <code>pmbootstrap zap -hc</code>. Don't bother making a pull-request for this, as the fix is really trivial (see <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/commit/0f3b2ea4277679056079000eac581d1b9d05afc8">this commit</a>). Just report it as issue, if it happens.
+</p>
+<h3>
+<span id="sh:_can't_create_/proc/sys/fs/binfmt_misc/register:_nonexistent_directory"></span><span class="mw-headline" id="sh:_can.27t_create_.2Fproc.2Fsys.2Ffs.2Fbinfmt_misc.2Fregister:_nonexistent_directory">sh: can't create /proc/sys/fs/binfmt_misc/register: nonexistent directory</span>
+</h3>
+<p>This issue is known to happen in Alpine Virt hardened and Void Linux. These commands should fix it:
+</p>
+<pre class="shell">sudo modprobe binfmt_misc
 sudo mount -t binfmt_misc none /proc/sys/fs/binfmt_misc</pre>
-      <p>
-       If it still does not work, it is probably not supported by your host Linux distribution's kernel (
-       <code>
-        CONFIG_BINFMT_MISC
-       </code>
-       ). Try to use another kernel.
-      </p>
-      <h3>
-       <span class="mw-headline" id="du:_unrecognized_option:_summarize">
-        du: unrecognized option: summarize
-       </span>
-      </h3>
-      <p>
-       Update pmbootstrap.
-      </p>
-      <h3>
-       <span id="Packaging_for_aarch64:_./config.guess:_unable_to_guess_system_type">
-       </span>
-       <span class="mw-headline" id="Packaging_for_aarch64:_..2Fconfig.guess:_unable_to_guess_system_type">
-        Packaging for aarch64: ./config.guess: unable to guess system type
-       </span>
-      </h3>
-      <p>
-       This happens in packages built with autoconf (./configure; make; make install), when it ships an outdated config.guess file in the source code. Adjust your APKBUILD's
-       <code>
-        prepare()
-       </code>
-       function like done in
-       <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/698" rel="nofollow">
-        #698
-       </a>
-       .
-      </p>
-      <h3>
-       <span class="mw-headline" id="ERROR:_..._BAD_archive">
-        ERROR: ... BAD archive
-       </span>
-      </h3>
-      <p>
-       If you
-       <code>
-        pmbootstrap log
-       </code>
-       shows something similar to the following:
-      </p>
-      <pre>(005853) [22:25:47] (native) % apk --no-progress add -u qemu-user-static-repack qemu-user-static-repack-binfmt
+<p>If it still does not work, it is probably not supported by your host Linux distribution's kernel (<code>CONFIG_BINFMT_MISC</code>). Try to use another kernel.
+</p>
+<h3><span class="mw-headline" id="du:_unrecognized_option:_summarize">du: unrecognized option: summarize</span></h3>
+<p>Update pmbootstrap.
+</p>
+<h3>
+<span id="Packaging_for_aarch64:_./config.guess:_unable_to_guess_system_type"></span><span class="mw-headline" id="Packaging_for_aarch64:_..2Fconfig.guess:_unable_to_guess_system_type">Packaging for aarch64: ./config.guess: unable to guess system type</span>
+</h3>
+<p>This happens in packages built with autoconf (./configure; make; make install), when it ships an outdated config.guess file in the source code. Adjust your APKBUILD's <code>prepare()</code> function like done in <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/698">#698</a>.
+</p>
+<h3><span class="mw-headline" id="ERROR:_..._BAD_archive">ERROR: ... BAD archive</span></h3>
+<p>If you <code>pmbootstrap log</code> shows something similar to the following:
+</p>
+<pre>(005853) [22:25:47] (native) % apk --no-progress add -u qemu-user-static-repack qemu-user-static-repack-binfmt
 WARNING: Ignoring /mnt/pmbootstrap-packages/x86_64/APKINDEX.tar.gz: No such file or directory
 (1/2) Installing qemu-user-static-repack (2.8-r9)
 ERROR: qemu-user-static-repack-2.8-r9: BAD archive
@@ -2181,210 +564,95 @@ ERROR: qemu-user-static-repack-2.8-r9: BAD archive
 1 error; 20 MiB in 36 packages
 (005853) [22:25:53] ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 </pre>
-      <p>
-       ...then downloading a package (in this case
-       <code>
-        qemu-user-static-repack
-       </code>
-       ) failed. Please delete the broken package and try it again:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/.local/var/pmbootstrap/ <span class="c1"># go into your work folder, as specified in 'pmbootstrap init'</span>
+<p>...then downloading a package (in this case <code>qemu-user-static-repack</code>) failed. Please delete the broken package and try it again:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> ~/.local/var/pmbootstrap/ <span class="c1"># go into your work folder, as specified in 'pmbootstrap init'</span>
 <span class="gp">$</span> sudo rm -v cache_apk_*/qemu-user-static-repack-* <span class="c1"># adjust the failing package name accordingly</span>
+</pre></div>
+<h3>
+<span id="CROSS_COMPILE_ARM32_not_defined_or_empty,_the_compat_vDSO_will_not_be_built"></span><span class="mw-headline" id="CROSS_COMPILE_ARM32_not_defined_or_empty.2C_the_compat_vDSO_will_not_be_built">CROSS_COMPILE_ARM32 not defined or empty, the compat vDSO will not be built</span>
+</h3>
+<p>Disable <code>CONFIG_COMPAT_VDSO</code> in kernel config.
+</p>
+<h3>
+<span id="../tools/dct/DrvGen:_No_such_file_or_directory"></span><span class="mw-headline" id="...2Ftools.2Fdct.2FDrvGen:_No_such_file_or_directory">../tools/dct/DrvGen: No such file or directory</span>
+</h3>
+<p>This error is specific to Mediatek kernels and it occures when DrvGen tries to load libc6.so library it has been linked against but Alpine chroot doesn't support libc.
+One of the solutions is to copy <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/device/testing/linux-vernee-k506/python3dct.patch">python3dct.patch</a> to your linux-... directory and activate it in the APKBUILD. This patch replaces precompiled DrvGen with a python3 version.
+</p>
+<h3>
+<span id="boot-deploy_exits_with_ERROR:_&quot;deviceinfo_header_version_is_2,_but_'deviceinfo_dtb'_is_missing._Set_'deviceinfo_dtb'&quot;_when_compiling_downstream_kernel"></span><span class="mw-headline" id="boot-deploy_exits_with_ERROR:_.22deviceinfo_header_version_is_2.2C_but_.27deviceinfo_dtb.27_is_missing._Set_.27deviceinfo_dtb.27.22_when_compiling_downstream_kernel">boot-deploy exits with ERROR: "deviceinfo_header_version is 2, but 'deviceinfo_dtb' is missing. Set 'deviceinfo_dtb'" when compiling downstream kernel</span>
+</h3>
+<p>Deviceinfo file is generated with <code>deviceinfo_header_version</code> set to 2 and boot-deploy expects a dtb filel to be appended. This is only the case for mainline kernels, so either set this variable to 0 or delete the line altogether.
+</p>
+<h2><span class="mw-headline" id="Errors_while_running_pmbootstrap_on_non-x86_64_arches">Errors while running pmbootstrap on non-x86_64 arches</span></h2>
+<p>If you get <code>Can't build 'binutils-or1k-elf' for architecture aarch64</code>, see <a href="../en/Run_pmbootstrap_on_non-x86_64_arches.html" title="Run pmbootstrap on non-x86 64 arches">Run pmbootstrap on non-x86_64 arches</a>.
+</p>
+<h1><span class="mw-headline" id="Troubleshooting_steps_kept_around_for_historical_reference">Troubleshooting steps kept around for historical reference</span></h1>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">You're most likely not going to encounter these errors. If you do, file an issue in the appropriate repository.</td>
+</tr></tbody></table>
+<h3>
+<span id="pmbootstrap_builds_packages_that_it_should_download_from_the_binary_repo/that_are_already_built"></span><span class="mw-headline" id="pmbootstrap_builds_packages_that_it_should_download_from_the_binary_repo.2Fthat_are_already_built">pmbootstrap builds packages that it should download from the binary repo/that are already built</span>
+</h3>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Most likely, this is issue <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1023">#1023</a>!</td>
+</tr></tbody></table>
+<p>Try to disable the "timestamp based rebuilds" feature in "pmbootstrap init" as a workaround and please report this as a bug. We need the following for the bug report:
+</p>
+<ul>
+<li>*enable* timestamp based rebuilds</li>
+<li>
+<code>pmbootstrap -v install</code> (let it run until it starts building the package it should not build)</li>
+<li>
+<code>pmbootstrap log</code> (we need the log from here!)</li>
+</ul>
+<h3>
+<span id="Invalid_pkgver_'${_pkgbase}_git${_pkgsnap}'"></span><span class="mw-headline" id="Invalid_pkgver_.27.24.7B_pkgbase.7D_git.24.7B_pkgsnap.7D.27">Invalid pkgver '${_pkgbase}_git${_pkgsnap}'</span>
+</h3>
+<p>If you get the following error, your pmbootstrap needs to be upgraded:
+</p>
+<pre>ERROR: Invalid pkgver '${_pkgbase}_git${_pkgsnap}' in APKBUILD: /home/user/.local/var/pmbootstrap/cache_git/pmaports/cross/gcc-aarch64/APKBUILD
 </pre>
-      </div>
-      <h3>
-       <span id="CROSS_COMPILE_ARM32_not_defined_or_empty,_the_compat_vDSO_will_not_be_built">
-       </span>
-       <span class="mw-headline" id="CROSS_COMPILE_ARM32_not_defined_or_empty.2C_the_compat_vDSO_will_not_be_built">
-        CROSS_COMPILE_ARM32 not defined or empty, the compat vDSO will not be built
-       </span>
-      </h3>
-      <p>
-       Disable
-       <code>
-        CONFIG_COMPAT_VDSO
-       </code>
-       in kernel config.
-      </p>
-      <h3>
-       <span id="../tools/dct/DrvGen:_No_such_file_or_directory">
-       </span>
-       <span class="mw-headline" id="...2Ftools.2Fdct.2FDrvGen:_No_such_file_or_directory">
-        ../tools/dct/DrvGen: No such file or directory
-       </span>
-      </h3>
-      <p>
-       This error is specific to Mediatek kernels and it occures when DrvGen tries to load libc6.so library it has been linked against but Alpine chroot doesn't support libc.
-One of the solutions is to copy
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/device/testing/linux-vernee-k506/python3dct.patch" rel="nofollow">
-        python3dct.patch
-       </a>
-       to your linux-... directory and activate it in the APKBUILD. This patch replaces precompiled DrvGen with a python3 version.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Errors_while_running_pmbootstrap_on_non-x86_64_arches">
-        Errors while running pmbootstrap on non-x86_64 arches
-       </span>
-      </h2>
-      <p>
-       If you get
-       <code>
-        Can't build 'binutils-or1k-elf' for architecture aarch64
-       </code>
-       , see
-       <a href="../en/Run_pmbootstrap_on_non-x86_64_arches.html" title="Run pmbootstrap on non-x86 64 arches">
-        Run pmbootstrap on non-x86_64 arches
-       </a>
-       .
-      </p>
-      <h1>
-       <span class="mw-headline" id="Troubleshooting_steps_kept_around_for_historical_reference">
-        Troubleshooting steps kept around for historical reference
-       </span>
-      </h1>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          You're most likely not going to encounter these errors. If you do, file an issue in the appropriate repository.
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <h3>
-       <span id="pmbootstrap_builds_packages_that_it_should_download_from_the_binary_repo/that_are_already_built">
-       </span>
-       <span class="mw-headline" id="pmbootstrap_builds_packages_that_it_should_download_from_the_binary_repo.2Fthat_are_already_built">
-        pmbootstrap builds packages that it should download from the binary repo/that are already built
-       </span>
-      </h3>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          Most likely, this is issue
-          <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1023" rel="nofollow">
-           #1023
-          </a>
-          !
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <p>
-       Try to disable the "timestamp based rebuilds" feature in "pmbootstrap init" as a workaround and please report this as a bug. We need the following for the bug report:
-      </p>
-      <ul>
-       <li>
-        *enable* timestamp based rebuilds
-       </li>
-       <li>
-        <code>
-         pmbootstrap -v install
-        </code>
-        (let it run until it starts building the package it should not build)
-       </li>
-       <li>
-        <code>
-         pmbootstrap log
-        </code>
-        (we need the log from here!)
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="catlinks" data-mw="interface" id="catlinks">
-     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-      <a href="../Special:Categories.html" title="Special:Categories">
-       Categories
-      </a>
-      :
-      <ul>
-       <li>
-        <a href="../en/Category:Troubleshooting.html" title="Category:Troubleshooting">
-         Troubleshooting
-        </a>
-       </li>
-       <li>
-        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
-         Technical Reference
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting&amp;oldid=30085">
-      https://wiki.postmarketos.org/index.php?title=Troubleshooting&amp;oldid=30085
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 8 August 2022, at 12:43.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../en/Category:Troubleshooting.html" title="Category:Troubleshooting">Troubleshooting</a></li>
+<li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li>
+</ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting&amp;oldid=45087">https://wiki.postmarketos.org/index.php?title=Troubleshooting&amp;oldid=45087</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 16 June 2023, at 20:40.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Troubleshooting&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

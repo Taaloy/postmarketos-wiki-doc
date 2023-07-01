@@ -1,448 +1,182 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Android AB Slots - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Android_AB_Slots rootpage-Android_AB_Slots skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Android AB Slots
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <div class="toc" id="toc">
-       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
-       <div class="toctitle" dir="ltr" lang="en">
-        <h2>
-         Contents
-        </h2>
-        <span class="toctogglespan">
-         <label class="toctogglelabel" for="toctogglecheckbox">
-         </label>
-        </span>
-       </div>
-       <ul>
-        <li class="toclevel-1 tocsection-1">
-         <a href="#What_are_slots.3F">
-          <span class="tocnumber">
-           1
-          </span>
-          <span class="toctext">
-           What are slots?
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-2">
-         <a href="#Technical_information">
-          <span class="tocnumber">
-           2
-          </span>
-          <span class="toctext">
-           Technical information
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-3">
-           <a href="#Upgrade_roll-back">
-            <span class="tocnumber">
-             2.1
-            </span>
-            <span class="toctext">
-             Upgrade roll-back
-            </span>
-           </a>
-           <ul>
-            <li class="toclevel-3 tocsection-4">
-             <a href="#Fix_an_unbootable_system">
-              <span class="tocnumber">
-               2.1.1
-              </span>
-              <span class="toctext">
-               Fix an unbootable system
-              </span>
-             </a>
-            </li>
-           </ul>
-          </li>
-          <li class="toclevel-2 tocsection-5">
-           <a href="#GPT">
-            <span class="tocnumber">
-             2.2
-            </span>
-            <span class="toctext">
-             GPT
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-6">
-           <a href="#UFS">
-            <span class="tocnumber">
-             2.3
-            </span>
-            <span class="toctext">
-             UFS
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-7">
-         <a href="#Qbootctl">
-          <span class="tocnumber">
-           3
-          </span>
-          <span class="toctext">
-           Qbootctl
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-8">
-           <a href="#Switching_slots">
-            <span class="tocnumber">
-             3.1
-            </span>
-            <span class="toctext">
-             Switching slots
-            </span>
-           </a>
-          </li>
-          <li class="toclevel-2 tocsection-9">
-           <a href="#Validated_devices">
-            <span class="tocnumber">
-             3.2
-            </span>
-            <span class="toctext">
-             Validated devices
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-10">
-         <a href="#See_also">
-          <span class="tocnumber">
-           4
-          </span>
-          <span class="toctext">
-           See also
-          </span>
-         </a>
-        </li>
-       </ul>
-      </div>
-      <h2>
-       <span id="What_are_slots?">
-       </span>
-       <span class="mw-headline" id="What_are_slots.3F">
-        What are slots?
-       </span>
-      </h2>
-      <p>
-       Some Android devices contain multiple "slots" for system data, this is implemented by duplicating important partitions such as system, vendor, boot and some others. You can tell if a partition is "slotted" as it's name will end in
-       <code>
-        _a
-       </code>
-       or
-       <code>
-        _b
-       </code>
-       and there will be a matching pair (
-       <a class="external text" href="https://wiki.postmarketos.org/wiki/OnePlus_6_(oneplus-enchilada)#Partition_map" rel="nofollow">
-        you can see an example A/B partition map here
-       </a>
-       ). Most Android devices released after 2017 make use of slots. From 2019 most devices switched to using the new "super" partition, where the partitions aren't created directly in the GPT partition table, but are instead all inside of a large "super" partition, making it easier to manage adding new ones, resizing them etc.
-      </p>
-      <p>
-       Slots are used to make it possible to roll-back an unsuccessful upgrade, as the upgrade process will not touch your working system. It also makes it possible to install upgrades whilst using the device.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Technical_information">
-        Technical information
-       </span>
-      </h2>
-      <div class="todo" role="note" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
-       <strong>
-        TODO
-       </strong>
-       Figure out how this works on devices with a super partition
-      </div>
-      <p>
-       Android slots are implemented in 2 parts, the GPT partition attribute fields, and the UFS bBootLunEn attribute.
-      </p>
-      <h3>
-       <span class="mw-headline" id="Upgrade_roll-back">
-        Upgrade roll-back
-       </span>
-      </h3>
-      <p>
-       Upgrade roll-back is implemented using a counter, it is initialised at 7 and decremented every time you boot the system unless you set the "boot successful" flag from userspace. When the counter reaches 0 the bootloader will automatically mark the slot as "unbootable" and switch to the other slot. For a lot of hackers and postmarketOS users it's quite likely that the other slot is broken (ie because you installed postmarketOS to the userdata partition), so this leads to an unbootable system, requiring the use of fastboot to clear the flags and boot your system again.
-      </p>
-      <h4>
-       <span class="mw-headline" id="Fix_an_unbootable_system">
-        Fix an unbootable system
-       </span>
-      </h4>
-      <p>
-       If you device randomly got stuck in fastboot after a reboot, that means the counter hit zero and the bootloader marked your slot as unbootable.
-      </p>
-      <p>
-       You can fix this quite easily, first get the current slot:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> fastboot getvar current-slot
-</pre>
-      </div>
-      <p>
-       If the current slot is
-       <code>
-        a
-       </code>
-       then run the following the reset the flags:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> fastboot set_active b
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Android AB Slots - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Android_AB_Slots rootpage-Android_AB_Slots skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Android AB Slots</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#What_are_slots.3F"><span class="tocnumber">1</span> <span class="toctext">What are slots?</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Technical_information"><span class="tocnumber">2</span> <span class="toctext">Technical information</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3">
+<a href="#Upgrade_roll-back"><span class="tocnumber">2.1</span> <span class="toctext">Upgrade roll-back</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Fix_an_unbootable_system"><span class="tocnumber">2.1.1</span> <span class="toctext">Fix an unbootable system</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-5"><a href="#GPT"><span class="tocnumber">2.2</span> <span class="toctext">GPT</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#UFS"><span class="tocnumber">2.3</span> <span class="toctext">UFS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7">
+<a href="#Qbootctl"><span class="tocnumber">3</span> <span class="toctext">Qbootctl</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Switching_slots"><span class="tocnumber">3.1</span> <span class="toctext">Switching slots</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Validated_devices"><span class="tocnumber">3.2</span> <span class="toctext">Validated devices</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2>
+<span id="What_are_slots?"></span><span class="mw-headline" id="What_are_slots.3F">What are slots?</span>
+</h2>
+<p>Some Android devices contain multiple "slots" for system data, this is implemented by duplicating important partitions such as system, vendor, boot and some others. You can tell if a partition is "slotted" as its name will end in <code>_a</code> or <code>_b</code> and there will be a matching pair (<a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/OnePlus_6_(oneplus-enchilada)#Partition_map">you can see an example A/B partition map here</a>). Most Android devices released after 2017 make use of slots. From 2019, most devices switched to using the new "super" partition, where the partitions aren't created directly in the GPT partition table, but are instead all inside of a large "super" partition, making it easier to manage adding new ones, resizing them etc. For more information, check <a href="../en/Android_dynamic_partitions.html" title="Android dynamic partitions">Android_dynamic_partitions</a>.
+</p>
+<p>Slots are used to make it possible to roll-back an unsuccessful upgrade, as the upgrade process will not touch your working system. It also makes it possible to install upgrades whilst using the device.
+</p>
+<h2><span class="mw-headline" id="Technical_information">Technical information</span></h2>
+<table role="text container" style="color: inherit; background-color: #fdd1d1; border: 1px solid #b60000; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>TODO:</b> Figure out how this works on devices with a super partition</td>
+</tr></tbody></table>
+<p>Android slots are implemented in 2 parts, the GPT partition attribute fields, and the UFS bBootLunEn attribute.
+</p>
+<h3><span class="mw-headline" id="Upgrade_roll-back">Upgrade roll-back</span></h3>
+<p>Upgrade roll-back is implemented using a counter, it is initialised at 7 and decremented every time you boot the system unless you set the "boot successful" flag from userspace. When the counter reaches 0 the bootloader will automatically mark the slot as "unbootable" and switch to the other slot. For a lot of hackers and postmarketOS users it's quite likely that the other slot is broken (ie because you installed postmarketOS to the userdata partition), so this leads to an unbootable system, requiring the use of fastboot to clear the flags and boot your system again.
+</p>
+<h4><span class="mw-headline" id="Fix_an_unbootable_system">Fix an unbootable system</span></h4>
+<p>If you device randomly got stuck in fastboot after a reboot, that means the counter hit zero and the bootloader marked your slot as unbootable.
+</p>
+<p>You can fix this quite easily, first get the current slot:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> fastboot getvar current-slot
+</pre></div>
+<p>If the current slot is <code>a</code>, run the following to reset the flags:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> fastboot set_active b
 <span class="gp">$</span> fastboot set_active a
-</pre>
-      </div>
-      <p>
-       Invert the order of commands if your current slot is
-       <code>
-        b
-       </code>
-       .
-      </p>
-      <p>
-       This problem should no longer happen once qbootctl is configured, for sdm845 or msm8998 devices make sure the
-       <code>
-        soc-qcom-sdm845-qbootctl
-       </code>
-       package is installed, and check that the qbootctl service is enabled with:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> sudo rc-update add qbootctl default
-</pre>
-      </div>
-      <p>
-       This will automatically set the "boot successful" flag on every postmarketOS boot.
-      </p>
-      <h3>
-       <span class="mw-headline" id="GPT">
-        GPT
-       </span>
-      </h3>
-      <p>
-       Every partition header in GPT contains 8 bytes (64 bits) of attribute flags, of those, the last 16 bits (bits 48-63) are left for vendor specific use. Qualcomm's A/B implementation uses these to store flags representing if a slot is active, if it has booted successfully, and if it is unbootable, as well as the retry count.
-       <a class="external text" href="https://wiki.postmarketos.org/wiki/OnePlus_6_(oneplus-enchilada)#Stuck_in_fastboot_after_rebooting" rel="nofollow">
-        See more here
-       </a>
-       .
-      </p>
-      <h3>
-       <span class="mw-headline" id="UFS">
-        UFS
-       </span>
-      </h3>
-      <p>
-       The UFS specification supports up to two BOOT LUNs, these are special "logical units" specifically for storing a bootloader, on Qualcomm devices these are used for the xbl_a and xbl_b partitions. Switching the active boot LUN requires writing either 1 or 2 to the bBootLunEn attribute (a 0 disables boot LUNs, on the OnePlus 6 at least this flag is ignored thankfully).
-      </p>
-      <p>
-       Downstream uses an old ioctl interface called "sg" for setting this attribute, whilst it was submitted to mainline it was never accepted, instead we have a different interface called UFS BSG, it must be enabled when compiling the kernel by adding "CONFIG_SCSI_UFS_BSG=y" to your kernel configuration.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Qbootctl">
-        Qbootctl
-       </span>
-      </h2>
-      <p>
-       <a class="external text" href="https://gitlab.com/sdm845-mainline/qbootctl" rel="nofollow">
-        Qbootctl
-       </a>
-       is a CLI tool for manipulating A/B slots on Android devices. It is a port of the original Android bootctrl HAL developed by Qualcomm, modified to build on Linux and provide a friendly CLI interface. It also includes a port of the gpt-utils code required by the HAL, and an implementation of the UFS BSG API.
-      </p>
-      <p>
-       It is currently packaged in Alpine testing.
-      </p>
-      <h3>
-       <span class="mw-headline" id="Switching_slots">
-        Switching slots
-       </span>
-      </h3>
-      <p>
-       It's possible to re-use the slot implementation to effectively dual boot your device, by using the Android
-       <code>
-        bootctl
-       </code>
-       tool as root on the Android side, and qbootctl on postmarketOS. Details for how to do that on the OnePlus 6
-       <a class="external text" href="https://wiki.postmarketos.org/wiki/OnePlus_6_(oneplus-enchilada)#Dual_booting" rel="nofollow">
-        can be found here
-       </a>
-       .
-      </p>
-      <p>
-       To switch slots using qbootctl, see the following:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> <span class="c1"># get the current slot</span>
+</pre></div>
+<p>Invert the order of commands if your current slot is <code>b</code>.
+</p>
+<p>This problem should no longer happen once qbootctl is configured, for sdm845 or msm8998 devices make sure the <code>soc-qcom-sdm845-qbootctl</code> package is installed, and check that the qbootctl service is enabled with:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo rc-update add qbootctl default
+</pre></div>
+<p>This will automatically set the "boot successful" flag on every postmarketOS boot.
+</p>
+<h3><span class="mw-headline" id="GPT">GPT</span></h3>
+<p>Every partition header in GPT contains 8 bytes (64 bits) of attribute flags, of those, the last 16 bits (bits 48-63) are left for vendor specific use. Qualcomm's A/B implementation uses these to store flags representing if a slot is active, if it has booted successfully, and if it is unbootable, as well as the retry count. <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/OnePlus_6_(oneplus-enchilada)#Stuck_in_fastboot_after_rebooting">See more here</a>.
+</p>
+<h3><span class="mw-headline" id="UFS">UFS</span></h3>
+<p>The UFS specification supports up to two BOOT LUNs, these are special "logical units" specifically for storing a bootloader, on Qualcomm devices these are used for the xbl_a and xbl_b partitions. Switching the active boot LUN requires writing either 1 or 2 to the bBootLunEn attribute (a 0 disables boot LUNs, on the OnePlus 6 at least this flag is ignored thankfully).
+</p>
+<p>Downstream uses an old ioctl interface called "sg" for setting this attribute, whilst it was submitted to mainline it was never accepted, instead we have a different interface called UFS BSG, it must be enabled when compiling the kernel by adding "CONFIG_SCSI_UFS_BSG=y" to your kernel configuration.
+</p>
+<h2><span class="mw-headline" id="Qbootctl">Qbootctl</span></h2>
+<p><a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/qbootctl">Qbootctl</a> is a CLI tool for manipulating A/B slots on Android devices. It is a port of the original Android bootctrl HAL developed by Qualcomm, modified to build on Linux and provide a friendly CLI interface. It also includes a port of the gpt-utils code required by the HAL, and an implementation of the UFS BSG API.
+</p>
+<p>It is currently packaged in Alpine testing.
+</p>
+<h3><span class="mw-headline" id="Switching_slots">Switching slots</span></h3>
+<p>It's possible to re-use the slot implementation to effectively dual boot your device, by using the Android <code>bootctl</code> tool as root on the Android side, and qbootctl on postmarketOS. Details for how to do that on the OnePlus 6 <a href="../en/OnePlus_6_(oneplus-enchilada)_Dual_Booting_and_Custom_Partitioning.html#Dual_boot_pm_os_with_android_via_a.2Fb_slot" title="OnePlus 6 (oneplus-enchilada)/Dual Booting and Custom Partitioning"> can be found here</a>.
+</p>
+<p>To switch slots using qbootctl, see the following:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="c1"># get the current slot</span>
 <span class="gp">$</span> qbootctl -c
 <span class="gp">$</span> <span class="c1"># Assuming current slot is "a"</span>
 <span class="gp">$</span> qbootctl -s b
 <span class="gp">$</span> <span class="c1"># if your current slot is b</span>
 <span class="gp">$</span> qbootctl -s a
-</pre>
-      </div>
-      <h3>
-       <span class="mw-headline" id="Validated_devices">
-        Validated devices
-       </span>
-      </h3>
-      <p>
-       Qbootctl is known to work on at least the following devices (please add yours if you test it!):
-      </p>
-      <ul>
-       <li>
-        <a href="../en/OnePlus_6_(oneplus-enchilada).html" title="OnePlus 6 (oneplus-enchilada)">
-         OnePlus_6_(oneplus-enchilada)
-        </a>
-       </li>
-       <li>
-        <a href="../en/OnePlus_6T_(oneplus-fajita).html" title="OnePlus 6T (oneplus-fajita)">
-         OnePlus_6T_(oneplus-fajita)
-        </a>
-       </li>
-       <li>
-        <a href="../en/SHIFT_SHIFT6mq_(shift-axolotl).html" title="SHIFT SHIFT6mq (shift-axolotl)">
-         SHIFT_SHIFT6mq_(shift-axolotl)
-        </a>
-       </li>
-      </ul>
-      <h2>
-       <span class="mw-headline" id="See_also">
-        See also
-       </span>
-      </h2>
-      <ul>
-       <li>
-        Qbootctl Alpine package:
-        <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;">
-         <a class="external text" href="https://pkgs.alpinelinux.org/packages?name=qbootctl&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=" rel="nofollow">
-          qbootctl
-         </a>
-        </span>
-       </li>
-       <li>
-        MR enabling qbootctl for A/B sdm845 devices:
-        <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3190" rel="nofollow">
-         pmaports!3190
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="catlinks" data-mw="interface" id="catlinks">
-     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-      <a href="../Special:Categories.html" title="Special:Categories">
-       Category
-      </a>
-      :
-      <ul>
-       <li>
-        <a href="../en/Category:Todo_Items.html" title="Category:Todo Items">
-         Todo Items
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Android_AB_Slots&amp;oldid=29479">
-      https://wiki.postmarketos.org/index.php?title=Android_AB_Slots&amp;oldid=29479
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 21 July 2022, at 14:18.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Android_AB_Slots&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+</pre></div>
+<h3><span class="mw-headline" id="Validated_devices">Validated devices</span></h3>
+<p>Qbootctl is known to work on at least the following devices (please add yours if you test it!):
+</p>
+<ul>
+<li><a href="../en/OnePlus_6_(oneplus-enchilada).html" title="OnePlus 6 (oneplus-enchilada)">OnePlus_6_(oneplus-enchilada)</a></li>
+<li><a href="../en/OnePlus_6T_(oneplus-fajita).html" title="OnePlus 6T (oneplus-fajita)">OnePlus_6T_(oneplus-fajita)</a></li>
+<li><a href="../en/SHIFT_SHIFT6mq_(shift-axolotl).html" title="SHIFT SHIFT6mq (shift-axolotl)">SHIFT_SHIFT6mq_(shift-axolotl)</a></li>
+<li><a href="../en/Google_Pixel_3a_(google-sargo).html" title="Google Pixel 3a (google-sargo)">Google_Pixel_3a_(google-sargo)</a></li>
+<li><a href="../en/OnePlus_8_Pro_(oneplus-instantnoodlep).html" title="OnePlus 8 Pro (oneplus-instantnoodlep)">OnePlus 8 Pro (oneplus-instantnoodlep)</a></li>
+</ul>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="../en/OnePlus_6_(oneplus-enchilada)_Dual_Booting_and_Custom_Partitioning.html#Dual_boot_pm_os_with_android_via_a.2Fb_slot" title="OnePlus 6 (oneplus-enchilada)/Dual Booting and Custom Partitioning"> Guides for Dual boot pm os with android via a/b slot on oneplus 6/6t but some part of it can be reused on some other device.</a></li>
+<li>Qbootctl Alpine package: <span class="plainlinks" style="font-family: monospace, Courier;font-size:10pt;"><a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org/packages?name=qbootctl&amp;branch=edge&amp;repo=&amp;arch=x86_64&amp;maintainer=">qbootctl</a></span>
+</li>
+<li>MR enabling qbootctl for A/B sdm845 devices: <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3190">pmaports!3190</a>
+</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Android_AB_Slots&amp;oldid=45365">https://wiki.postmarketos.org/index.php?title=Android_AB_Slots&amp;oldid=45365</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 21 June 2023, at 08:01.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Android_AB_Slots&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

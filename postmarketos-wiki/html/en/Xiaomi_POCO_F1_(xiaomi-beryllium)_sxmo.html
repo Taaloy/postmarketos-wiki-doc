@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Xiaomi POCO F1 (xiaomi-beryllium)/sxmo - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Xiaomi_POCO_F1_xiaomi-beryllium_sxmo rootpage-Xiaomi_POCO_F1_xiaomi-beryllium_sxmo skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Xiaomi POCO F1 (xiaomi-beryllium)/sxmo</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div role="note" class="note" style="padding: 5px 15px 0 15px; color: #705000; border: 1px solid #fde29b; background-color: #fdf1d1; margin-top: 5px;">
+<p>Sxmo on the poco f1 has an issue with call audio on the newest release of postmarketOS that requires a workaround (installing the sxmo-common-pulse package). Please see: <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1821">https://gitlab.com/postmarketOS/pmaports/-/issues/1821</a>
+</p>
+</div>
+<p>This page is an abridged version of <a rel="nofollow" class="external text" href="https://momi.ca/posts/2022-04-19-sxmopocof1.html">a blog post</a>. The blog post was moved to the postmarketOS wiki so users can help update the info. Please improve the technical details, add your own use-cases for this device with Sxmo, and improve the grammar including removing the first person.
+</p>
+<p>For information about how other devices work with Sxmo, see <a rel="nofollow" class="external text" href="https://sxmo.org/deviceprofile">Sxmo device support page</a>.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;">
+<a href="../Sxmopoco.jpg" class="image"><img alt="" src="../Sxmopoco.jpg" decoding="async" width="300" height="400" class="thumbimage" srcset="../Sxmopoco.jpg 1.5x ../Sxmopoco.jpg 2x"></a>  <div class="thumbcaption">
+<div class="magnify"><a href="../Sxmopoco.jpg" class="internal" title="Enlarge"></a></div>Sxmo on the poco f1. Note the notch does not obstruct the UI.</div>
+</div></div>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Unlocking_the_bootloader"><span class="tocnumber">1</span> <span class="toctext">Unlocking the bootloader</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Installing_PostmarketOS"><span class="tocnumber">2</span> <span class="toctext">Installing PostmarketOS</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Notch"><span class="tocnumber">3</span> <span class="toctext">Notch</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Calling.2FTexting"><span class="tocnumber">4</span> <span class="toctext">Calling/Texting</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Suspend"><span class="tocnumber">5</span> <span class="toctext">Suspend</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Web_Browsing"><span class="tocnumber">6</span> <span class="toctext">Web Browsing</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Bluetooth"><span class="tocnumber">7</span> <span class="toctext">Bluetooth</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Audio_Speakers"><span class="tocnumber">8</span> <span class="toctext">Audio Speakers</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Dino.2FNeomutt.2FEverything_Else"><span class="tocnumber">9</span> <span class="toctext">Dino/Neomutt/Everything Else</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Video_playback"><span class="tocnumber">10</span> <span class="toctext">Video playback</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Unlocking_the_bootloader">Unlocking the bootloader</span></h2>
+<p>To unlock the bootloader: you must insert your sim card into your poco f1, make a Xiaomi account with your phone number, and beg Xiaomi to unlock your device via the proprietary windows only application <sup id="cite_ref-lineage_1-0" class="reference"><a href="#cite_note-lineage-1">[1]</a></sup>. Xiaomi’s unlocking application did not detect that my poco f1 was connected and I had to install the “Mi PC Suite”. I downloaed Mi PC Suite from <a rel="nofollow" class="external text" href="http://pcsuite.mi.com/">here</a> but be advised that the website is not served over https and overall kind of suspect. I used this program because I could not find a reliable source for the USB drivers for this device after searching for hours. Unlocking the bootloader took me 4 hours in total and it was a painful experience. I will probably have to reinstall windows on my burner laptop.
+</p>
+<p>I was told that Xiaomi sometimes makes people wait a couple of weeks to unlock their phone and during that time, they must use the phone with the simcard installed. In other words, an even bigger privacy nightmare than what I went through. Luckily, I didn’t have to deal with Xiaomi denying my unlock request.
+</p>
+<p>Flashing TWRP to my phone via fastboot was trivial.
+</p>
+<h2><span class="mw-headline" id="Installing_PostmarketOS">Installing PostmarketOS</span></h2>
+<p>PostmarketOS gained support for calling in the stable branch after I got my poco f1 and the distro has prebuilt images for the poco f1. However, I like customizing my install via pmbootstrap and followed the wiki to find out which panel my device had and made sure pmbootstrap installed the right image. Overall, installing postmarketOS+Sxmo with full disk encryption was no issue.
+</p>
+<h2><span class="mw-headline" id="Notch">Notch</span></h2>
+<p>The notch was a bit annoying but User:F told me I can add <code>bar { gaps 43 0 }</code> to my sway config to make sure the notch doesnt cover up UI elements. Ideally, we will have gap support preconfigured for users in Sxmo via our deviceprofiles <sup id="cite_ref-notch_2-0" class="reference"><a href="#cite_note-notch-2">[2]</a></sup>.
+</p>
+<h2>
+<span id="Calling/Texting"></span><span class="mw-headline" id="Calling.2FTexting">Calling/Texting</span>
+</h2>
+<p>Calling and texting work fine. DTMF tones used to not work but ModemManager now supports it.
+</p>
+<p>Sometimes received texts appear multiple times in the text log but this might be a bug in Sxmo.
+</p>
+<h2><span class="mw-headline" id="Suspend">Suspend</span></h2>
+<p>Closely related to calling and texting is how the phone behaves when suspended. The phone will not wake from suspend when you receive a call or a text. As far as I can tell, the phone will not silently drop received calls or texts while it’s in suspend. Overall, the battery life on the poco f1 with Sxmo lasts me all day and the phone works well in suspend. The phone connects to wifi very quickly when coming out of suspend. In contrast, on the pinephone, I would wait forever for the radio to connect to wifi.
+</p>
+<h2><span class="mw-headline" id="Web_Browsing">Web Browsing</span></h2>
+<p>The web browsing experience on the poco f1 with Sxmo is very smooth. On the pinephone, the performance was so bad that I stopped using my phone. This was very healthy for me but when I was out at a restaurant, I would often have to use my friend’s phone to read the menu. No more with the poco f1! I can use firefox with all the privacy friendly addons I love and still have a very smooth experience. No matter the benefits of the pinephone, I cannot give up the superior web browsing experience on the poco f1.
+</p>
+<h2><span class="mw-headline" id="Bluetooth">Bluetooth</span></h2>
+<p>The Bluetooth devices connect quickly and the audio quality is good on the poco f1.
+</p>
+<h2><span class="mw-headline" id="Audio_Speakers">Audio Speakers</span></h2>
+<p>Aside from the slight echo the caller on the other side will hear, call audio is perfect on the poco f1 and much better than the pinephone. However, the audio on the speakers is too low when playing media from firefox/mpv. This is an issue with pipewire on the poco f1 <sup id="cite_ref-audio_3-0" class="reference"><a href="#cite_note-audio-3">[3]</a></sup>.
+</p>
+<p>PulseAudio works fine.
+</p>
+<h2>
+<span id="Dino/Neomutt/Everything_Else"></span><span class="mw-headline" id="Dino.2FNeomutt.2FEverything_Else">Dino/Neomutt/Everything Else</span>
+</h2>
+<p>I would often run out of ram and cpu on the pinephone. It’s nice that postmarketOS uses musl which aims to have safety under resource exhaustion. However, I had to close firefox/dino on the pinephone if I wanted to play gnome-chess or open some other app even on a lightweight UI like Sxmo. With the poco f1’s octacore cpu and 6 gb of ram, I no longer have issues with opening heavy webpages or opening multiple apps. According to the postmarketOS wiki, some versions of the poco f1 have 8 gb of ram. I have the 6 gb version and it works great for me.
+</p>
+<h2><span class="mw-headline" id="Video_playback">Video playback</span></h2>
+<p>
+I can watch 1080p videos in mpv smoothly without issues.</p>
+<div class="mw-references-wrap"><ol class="references">
+<li id="cite_note-lineage-1">
+<span class="mw-cite-backlink"><a href="#cite_ref-lineage_1-0">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external text" href="https://lineageosroms.com/beryllium/#unlocking-the-bootloader">LineageOS - Unlocking the bootloader</a></span>
+</li>
+<li id="cite_note-notch-2">
+<span class="mw-cite-backlink"><a href="#cite_ref-notch_2-0">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external text" href="https://todo.sr.ht/~mil/sxmo-tickets/494">Sxmo Issue Tracker - Notch support</a></span>
+</li>
+<li id="cite_note-audio-3">
+<span class="mw-cite-backlink"><a href="#cite_ref-audio_3-0">↑</a></span> <span class="reference-text"><a rel="nofollow" class="external text" href="https://lists.sr.ht/~mil/sxmo-devel/%3C20220611054214.15958-1-anjan%40momi.ca%3E#%3CPHzD3ucMo4uz1A65MQEBarEy_1IacMaoHBMmow9WeddxN7BSQWXCezGykeH0KCxJJlq4QR24vlFzvDeVF4xKwawhTqp7iFkhdQEu_jIjeyk=@protonmail.com%3E">Attempt at fixing PipeWire issues with the poco f1</a></span>
+</li>
+</ol></div>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_POCO_F1_(xiaomi-beryllium)/sxmo&amp;oldid=45775">https://wiki.postmarketos.org/index.php?title=Xiaomi_POCO_F1_(xiaomi-beryllium)/sxmo&amp;oldid=45775</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 25 June 2023, at 16:50.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Xiaomi_POCO_F1_(xiaomi-beryllium)/sxmo&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

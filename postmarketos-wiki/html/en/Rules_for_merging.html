@@ -1,259 +1,116 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Rules for merging - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Rules_for_merging rootpage-Rules_for_merging skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Rules for merging
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <div class="toc" id="toc">
-       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
-       <div class="toctitle" dir="ltr" lang="en">
-        <h2>
-         Contents
-        </h2>
-        <span class="toctogglespan">
-         <label class="toctogglelabel" for="toctogglecheckbox">
-         </label>
-        </span>
-       </div>
-       <ul>
-        <li class="toclevel-1 tocsection-1">
-         <a href="#Workflow">
-          <span class="tocnumber">
-           1
-          </span>
-          <span class="toctext">
-           Workflow
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-2">
-         <a href="#Approval_requirements">
-          <span class="tocnumber">
-           2
-          </span>
-          <span class="toctext">
-           Approval requirements
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-3">
-         <a href="#Testing_requirements">
-          <span class="tocnumber">
-           3
-          </span>
-          <span class="toctext">
-           Testing requirements
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-4">
-         <a href="#Backporting">
-          <span class="tocnumber">
-           4
-          </span>
-          <span class="toctext">
-           Backporting
-          </span>
-         </a>
-        </li>
-       </ul>
-      </div>
-      <h2>
-       <span class="mw-headline" id="Workflow">
-        Workflow
-       </span>
-      </h2>
-      <ul>
-       <li>
-        Use
-        <a class="external text" href="https://gitlab.com/postmarketOS/mrhlpr" rel="nofollow">
-         mrhlpr
-        </a>
-        , so we have the MR ID in the commit message.
-       </li>
-       <li>
-        Review other people's MRs, and merge their stuff after giving them a second approval.
-       </li>
-      </ul>
-      <h2>
-       <span class="mw-headline" id="Approval_requirements">
-        Approval requirements
-       </span>
-      </h2>
-      <p>
-       Each merge request needs the following approval count (from core team members, other than the MR author):
-      </p>
-      <ul>
-       <li>
-        Zero approvals: trivial MRs or a critical fixes that must be deployed immediately.
-       </li>
-       <li>
-        One approval:
-        <ul>
-         <li>
-          MRs to other repositories than pmaports, pmbootstrap.
-         </li>
-         <li>
-          pmaports: simple package upgrade for edge (not stable!)
-         </li>
-        </ul>
-       </li>
-       <li>
-        Two approvals: MRs to pmaports, pmbootstrap.
-       </li>
-       <li>
-        Four approvals and at least one week for review: device move to a
-        <a href="../en/Device_categorization.html#Moving_between_categories" title="Device categorization">
-         higher category
-        </a>
-        .
-       </li>
-      </ul>
-      <h2>
-       <span class="mw-headline" id="Testing_requirements">
-        Testing requirements
-       </span>
-      </h2>
-      <ul>
-       <li>
-        pmaports edge: any person in a MR thread confirms that a MR works
-       </li>
-       <li>
-        pmaports stable: one person from the team confirms that a MR works
-        <ul>
-         <li>
-          device specific MRs that the team can't test: require confirmation of device maintainer that it works on stable
-         </li>
-        </ul>
-       </li>
-      </ul>
-      <h2>
-       <span class="mw-headline" id="Backporting">
-        Backporting
-       </span>
-      </h2>
-      <p>
-       Backporting features from pmaports edge to stable is done in service packs. So the new feature has some additional testing time in edge, before it potentially breaks something in stable.
-      </p>
-      <p>
-       Critical fixes can be backported immediately, after proper testing to make sure that there is no breakage.
-      </p>
-      <p>
-       All patches for stable branches must go through edge first and get backported from there. The only exception are patches that fix build failures that only happen on stable.
-      </p>
-     </div>
-    </div>
-    <div class="catlinks" data-mw="interface" id="catlinks">
-     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-      <a href="../Special:Categories.html" title="Special:Categories">
-       Category
-      </a>
-      :
-      <ul>
-       <li>
-        <a href="../en/Category:Core_Team.html" title="Category:Core Team">
-         Core Team
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Rules_for_merging&amp;oldid=23311">
-      https://wiki.postmarketos.org/index.php?title=Rules_for_merging&amp;oldid=23311
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 31 October 2021, at 08:08.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Rules_for_merging&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Rules for merging - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Rules_for_merging rootpage-Rules_for_merging skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Rules for merging</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Workflow"><span class="tocnumber">1</span> <span class="toctext">Workflow</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Approval_requirements"><span class="tocnumber">2</span> <span class="toctext">Approval requirements</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Testing_requirements"><span class="tocnumber">3</span> <span class="toctext">Testing requirements</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Backporting"><span class="tocnumber">4</span> <span class="toctext">Backporting</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Workflow">Workflow</span></h2>
+<ul>
+<li>Use <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/mrhlpr">mrhlpr</a>, so we have the MR ID in the commit message.</li>
+<li>Review other people's MRs, and merge their stuff after giving them a second approval.</li>
+</ul>
+<h2><span class="mw-headline" id="Approval_requirements">Approval requirements</span></h2>
+<p>Each merge request needs the following approval count (from core team members, other than the MR author):
+</p>
+<ul>
+<li>Zero approvals: trivial MRs or a critical fixes that must be deployed immediately.</li>
+<li>One approval:
+<ul>
+<li>MRs to other repositories than pmaports, pmbootstrap.</li>
+<li>pmaports: simple package upgrade for edge (not stable!)</li>
+</ul>
+</li>
+<li>Two approvals: MRs to pmaports, pmbootstrap.</li>
+<li>Four approvals and at least one week for review: device move to a <a href="../en/Device_categorization.html#Moving_between_categories" title="Device categorization">higher category</a>.</li>
+</ul>
+<h2><span class="mw-headline" id="Testing_requirements">Testing requirements</span></h2>
+<ul>
+<li>pmaports edge: any person in a MR thread confirms that a MR works</li>
+<li>pmaports stable: one person from the team confirms that a MR works
+<ul><li>device specific MRs that the team can't test: require confirmation of device maintainer that it works on stable</li></ul>
+</li>
+</ul>
+<h2><span class="mw-headline" id="Backporting">Backporting</span></h2>
+<p>Backporting features from pmaports edge to stable is done in service packs. So the new feature has some additional testing time in edge, before it potentially breaks something in stable.
+</p>
+<p>Critical fixes can be backported immediately, after proper testing to make sure that there is no breakage.
+</p>
+<p>All patches for stable branches must go through edge first and get backported from there. The only exception are patches that fix build failures that only happen on stable.
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Admin.html" title="Category:Admin">Admin</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Rules_for_merging&amp;oldid=44880">https://wiki.postmarketos.org/index.php?title=Rules_for_merging&amp;oldid=44880</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 6 June 2023, at 22:15.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Rules_for_merging&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

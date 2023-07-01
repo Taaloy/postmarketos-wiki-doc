@@ -87,7 +87,7 @@ yes</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="SMP (bring up secondary CPU cores), CPU frequency scaling, CPUidle">CPU</abbr></th>
     <td class="" style="">
-<div class="feature feature-yes">Works</div>
+<div class="feature feature-partial">Partial</div>
 </td>
 </tr>
 <tr class="">
@@ -196,7 +196,8 @@ yes</td>
 </tbody>
 </table>
 <p><br>
-<b><a rel="nofollow" class="external text" href="https://www.qualcomm.com/products/snapdragon-processors-410">MSM8916</a>/<a rel="nofollow" class="external text" href="https://www.qualcomm.com/products/apq8016e">APQ8016</a></b> (or <b>Snapdragon 410</b>) is Qualcomm SoC released in 2014, with great mainline Linux support originally added for the <a rel="nofollow" class="external text" href="https://www.96boards.org/product/dragonboard410c/">Dragonboard 410c</a>. There is a slightly higher clocked variant (CPU cores up to 1.4 GHz) available as <b>Snapdragon 412</b>.
+</p>
+<p><b><a rel="nofollow" class="external text" href="https://www.qualcomm.com/products/snapdragon-processors-410">MSM8916</a>/<a rel="nofollow" class="external text" href="https://www.qualcomm.com/products/apq8016e">APQ8016</a></b> (or <b>Snapdragon 410</b>) is Qualcomm SoC released in 2014, with great mainline Linux support originally added for the <a rel="nofollow" class="external text" href="https://www.96boards.org/product/dragonboard410c/">Dragonboard 410c</a>. There is a slightly higher clocked variant (CPU cores up to 1.4 GHz) available as <b>Snapdragon 412</b>.
 </p>
 <h2><span class="mw-headline" id="Devices">Devices</span></h2>
 <h3>
@@ -397,7 +398,7 @@ yes</td>
 <td class="field_Category">community</td>
 </tr>
 <tr>
-<td class="field_Device"><a href="../en/Samsung_Galaxy_A5_2015_(samsung-a5).html" title="Samsung Galaxy A5 2015 (samsung-a5)">Samsung Galaxy A5 (2015)</a></td>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_A5_2015_(samsung-a5).html" title="Samsung Galaxy A5 2015 (samsung-a5)">Samsung Galaxy A5</a></td>
 <td class="field_Codename">samsung-a5</td>
 <td class="field_Mainline">Y</td>
 <td class="field_Category">community</td>
@@ -573,7 +574,7 @@ yes</td>
 </tbody>
 </table>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>All MSM8916 devices in postmarketOS use <a href="../en/Lk2nd_Lk1st.html" class="mw-redirect" title="Lk2nd">lk2nd</a> as secondary bootloader. It does <b>not</b> replace the stock bootloader. Instead, it is flashed in place of an Android boot image, so that the stock bootloader will first load lk2nd instead of a regular Linux kernel. The advantage of this approach is that there is a consistent installation procedure for all MSM8916 devices (once lk2nd was installed), and various device-specific quirks can be handled within lk2nd.
+<p>All MSM8916 devices in postmarketOS use <a href="../en/Lk2nd.html" class="mw-redirect" title="Lk2nd">lk2nd</a> as secondary bootloader. It does <b>not</b> replace the stock bootloader. Instead, it is flashed in place of an Android boot image, so that the stock bootloader will first load lk2nd instead of a regular Linux kernel. The advantage of this approach is that there is a consistent installation procedure for all MSM8916 devices (once lk2nd was installed), and various device-specific quirks can be handled within lk2nd.
 </p>
 <h3><span class="mw-headline" id="Installing_lk2nd">Installing lk2nd</span></h3>
 <div class="thumb tright"><div class="thumbinner" style="width:302px;">
@@ -638,43 +639,146 @@ $ fastboot reboot
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>[  400.315351] panel-yushun-nt35520 1a98000.dsi.0: Failed to initialize panel: -22
 [  400.315413] dsi_mgr_bridge_pre_enable: prepare panel 0 failed, -22
 </pre></div>
-<p>This issue has been confimed to occur on <a href="../en/Samsung_Galaxy_S4_Mini_Value_Edition_(samsung-serranove).html" title="Samsung Galaxy S4 Mini Value Edition (samsung-serranove)">Samsung Galaxy S4 Mini Value Edition (samsung-serranove)</a>, <a href="../en/Xiaomi_Redmi_2_(xiaomi-wt88047).html" title="Xiaomi Redmi 2 (xiaomi-wt88047)">Xiaomi Redmi 2 (xiaomi-wt88047)</a>, <a href="../en/BQ_Aquaris_X5_(bq-paella).html" title="BQ Aquaris X5 (bq-paella)">BQ Aquaris X5 (bq-paella)</a>, <a href="../en/Samsung_Galaxy_A5_2015_(samsung-a5).html" title="Samsung Galaxy A5 2015 (samsung-a5)">Samsung Galaxy A5 2015 (samsung-a5)</a>, <a href="../en/ASUS_ZenFone_2_Laser_(720p)_(asus-z00l).html" title="ASUS ZenFone 2 Laser (720p) (asus-z00l)">ASUS ZenFone 2 Laser (720p) (asus-z00l)</a>
+<p>This issue is being work on <a rel="nofollow" class="external text" href="https://github.com/msm8916-mainline/linux/issues/268">the github issue on the our msm8916 kernel fork</a>
 </p>
-<p>There's an untested patch that could probably address this issue:
+<h3><span class="mw-headline" id="Known_Device_that_has_this_issue">Known Device that has this issue</span></h3>
+<table class="wikitable feature-colors">
+<tbody>
+<tr>
+<th>Device
+</th>
+<th>Confirmed By
+</th>
+<th>Reference
+</th>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_S4_Mini_Value_Edition_(samsung-serranove).html" title="Samsung Galaxy S4 Mini Value Edition (samsung-serranove)">Samsung Galaxy S4 Mini Value Edition (samsung-serranove)</a>
+</td>
+<td>
+<a href="../User:Jakko.html" title="User:Jakko">Jakko</a>
+</td>
+<td>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1570">pmaports#1570</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Xiaomi_Redmi_2_(xiaomi-wt88047).html" title="Xiaomi Redmi 2 (xiaomi-wt88047)">Xiaomi Redmi 2 (xiaomi-wt88047)</a>
+</td>
+<td>
+<a href="../User:Exkc.html" title="User:Exkc">exkc</a>,<a href="../User:JulianGro.html" title="User:JulianGro">JulianGro</a>
+</td>
+<td>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1080">pmaports#1080</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/Samsung_Galaxy_A5_2015_(samsung-a5).html" title="Samsung Galaxy A5 2015 (samsung-a5)">Samsung Galaxy A5 2015 (samsung-a5)</a>
+</td>
+<td>
+<a href="../User:Exkc.html" title="User:Exkc">exkc</a>
+</td>
+<td>
+<a rel="nofollow" class="external autonumber" href="https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_410/412_(MSM8916)&amp;direction=next&amp;oldid=42935">[1]</a>(It might not be a good reference but it is the initial report for this deivce to have this issue),<a rel="nofollow" class="external autonumber" href="https://github.com/msm8916-mainline/linux/issues/268#issuecomment-1563073858">[2]</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/BQ_Aquaris_X5_(bq-paella).html" title="BQ Aquaris X5 (bq-paella)">BQ Aquaris X5 (bq-paella)</a>
+</td>
+<td>Github User iamdavidcz
+</td>
+<td>
+<a rel="nofollow" class="external autonumber" href="https://github.com/msm8916-mainline/linux/issues/268#issuecomment-1440982744">[3]</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../en/ASUS_ZenFone_2_Laser_(720p)_(asus-z00l).html" title="ASUS ZenFone 2 Laser (720p) (asus-z00l)">ASUS ZenFone 2 Laser (720p) (asus-z00l)</a>
+</td>
+<td>Github User Ro-Den
+</td>
+<td>
+<a rel="nofollow" class="external autonumber" href="https://github.com/msm8916-mainline/linux/issues/268#issuecomment-1557550039">[4]</a>,<a rel="nofollow" class="external autonumber" href="https://github.com/antony-jr/postmarketos-asus-z00l/issues/3">[5]</a>
+</td>
+</tr>
+</tbody>
+</table>
+<h3><span class="mw-headline" id="The_cause_of_this_issue">The cause of this issue</span></h3>
+<p>The new function "bridge power on" introdced in v5.18-msm8916 is called at boot but not at wake-up. And the function "bridge mode set", which would call "bridge power on", is also called just at boot but not at wake-up. As some of the stuff of "bridge pre-enable" moved into "bridge power on", they are not called anymore on wake-up in v5.18-msm8916 which  caused this issue.
 </p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gh">diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c</span>
-<span class="gh">index 0b516a0..a24504d 100644</span>
-<span class="gd">--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c</span>
-<span class="gi">+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c</span>
-<span class="gu">@@ -25,6 +25,7 @@ struct msm_dsi_manager {</span>
- 
-        bool is_bonded_dsi;
-        bool is_sync_needed;
-<span class="gi">+       bool is_power_needed;</span>
-        int master_dsi_link_id;
- };
- 
-<span class="gu">@@ -32,6 +33,7 @@ static struct msm_dsi_manager msm_dsim_glb;</span>
- 
- #define IS_BONDED_DSI()                (msm_dsim_glb.is_bonded_dsi)
- #define IS_SYNC_NEEDED()       (msm_dsim_glb.is_sync_needed)
-<span class="gi">+#define IS_POWER_NEEDED()      (msm_dsim_glb.is_power_needed)</span>
- #define IS_MASTER_DSI_LINK(id) (msm_dsim_glb.master_dsi_link_id == id)
- 
- #ifdef CONFIG_OF
-<span class="gu">@@ -412,8 +414,10 @@ static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)</span>
-        if (is_bonded_dsi &amp;&amp; !IS_MASTER_DSI_LINK(id))
-                return;
- 
-<span class="gd">-       if (!dsi_mgr_power_on_early(bridge))</span>
-<span class="gi">+       if (IS_POWER_NEEDED())</span>
-                dsi_mgr_bridge_power_on(bridge);
-<span class="gi">+       else</span>
-<span class="gi">+               msm_dsim_glb.is_power_needed = true;</span>
- 
-        /* Always call panel functions once, because even for dual panels,
-         * there is only one drm_panel instance.
-</pre></div>
+<p>See <a rel="nofollow" class="external text" href="https://github.com/msm8916-mainline/linux/issues/268#issuecomment-1575736501">this reply in that github issue</a> by <a href="../User:Jakko.html" title="User:Jakko">Jakko</a>:
+</p>
+<blockquote>
+<p> Nice hints, that's a notable step foreward!
+</p>
+<p> I want to share my state of research, although it's not finished. Still it might help the discussion (I hope it helps and does not mislead).
+</p>
+<p> On samsung-serranove the issue started between `v5.17-msm8916` and `v5.18-msm8916`.
+</p>
+<p> I wanted to do a "git bisect", which would need to rebase the mainline (torvalds) `v5.18` commits on top of `v5.17-msm8916`. I failed to do this rebase cleanly, therefore didn't even get to the "git bisect".
+</p>
+<p> Instead started to poke around in `v5.18-msm8916`. A candidate causing the issue is commit [7d8e9a9](<a rel="nofollow" class="external free" href="https://github.com/msm8916-mainline/linux/commit/7d8e9a90509f1bd1d193a0c93cb8d1dbad9049fb">https://github.com/msm8916-mainline/linux/commit/7d8e9a90509f1bd1d193a0c93cb8d1dbad9049fb</a>) "drm/msm/dsi: move DSI host powerup to modeset time", which is also mentioned in vknecht's hack. Reverting that commit in `v5.18-msm8916` makes my display to wake up as it should.
+</p>
+<p> However, reverting that commit is not a sustainable solution. I tried to understand what the commit acctually does. The change is not easy to understand to me. Actually it makes of function `dsi_mgr_bridge_pre_enable()` in `v5.17-msm8916`...
+</p>
+<p> * <a rel="nofollow" class="external free" href="https://github.com/msm8916-mainline/linux/blob/v5.17-msm8916/drivers/gpu/drm/msm/dsi/dsi_manager.c#L339">https://github.com/msm8916-mainline/linux/blob/v5.17-msm8916/drivers/gpu/drm/msm/dsi/dsi_manager.c#L339</a>
+</p>
+<p> ... two functions `dsi_mgr_bridge_power_on()` and `dsi_mgr_bridge_pre_enable()` in `v5.18-msm8916`, which are slighty different from the original function in `v5.17-msm8916`.
+</p>
+<p> * <a rel="nofollow" class="external free" href="https://github.com/msm8916-mainline/linux/blob/v5.18-msm8916/drivers/gpu/drm/msm/dsi/dsi_manager.c#L318">https://github.com/msm8916-mainline/linux/blob/v5.18-msm8916/drivers/gpu/drm/msm/dsi/dsi_manager.c#L318</a>
+ * <a rel="nofollow" class="external free" href="https://github.com/msm8916-mainline/linux/blob/v5.18-msm8916/drivers/gpu/drm/msm/dsi/dsi_manager.c#L374">https://github.com/msm8916-mainline/linux/blob/v5.18-msm8916/drivers/gpu/drm/msm/dsi/dsi_manager.c#L374</a>
+</p>
+<p> I don't yet have a good understanding what it means. A bit simplified I would say that the content of "bridge pre-enable" in `v5.17-msm8916` was split into "bridge power on" and "bridge pre-enable" in `v5.18-msm8916`. Now the "bridge pre-enable" alone contains less things than before, because some stuff moved into "bridge power on".
+</p>
+<p> Setting some additional debug flags, I could see the order of functions called in `v5.18-msm8916`:
+</p>
+<p> * at boot:
+</p>
+<p>   * bridge mode set
+   * bridge power on
+   * bridge pre-enable
+   * panel prepare
+   * panel on
+   * bridge enable
+   * (panel enable) _# if implemented_
+ * going to sleep:
+</p>
+<p>   * bridge disable
+   * (panel disable) _# if implemented_
+   * bridge post-disable
+   * panel unprepare
+   * panel off
+ * waking up:
+</p>
+<p>   * bridge pre-enable
+   * panel prepare
+   * panel on
+   * bridge enable
+   * (panel enable) _# if implemented_
+</p>
+<p> So the new function "bridge power on" introdced in `v5.18-msm8916` is called at boot but not at wake-up. And the function "bridge mode set", which would call "bridge power on", is also called just at boot but not at wake-up. As some of the stuff of "bridge pre-enable" moved into "bridge power on", they are not called anymore on wake-up in `v5.18-msm8916`.
+</p>
+<p> Notably there is the function `msm_dsi_host_power_on()` that moved from `dsi_mgr_bridge_pre_enable()` to `dsi_mgr_bridge_power_on()` in `v5.18-msm8916`.
+</p>
+<p> Interstingly at the end of function `dsi_mgr_bridge_post_disable()` there is `msm_dsi_host_power_off()`. So at "bridge post-disable" the dsi host gets powered off. But when waking up that host doesn't get powered on because that would happen in "bridge power on" which is not called at wake-up.
+</p>
+<p> That's basically where I currently am with the research.
+</p>
+<p> I just had a short glimpse into the current kernel (the above was just about `v5.18-msm8916`). In `msm8916/6.4-rc4` I see within "bridge pre-enable" there is now a call of "bridge power on" (that's what we need) but under the condition that `dsi_mgr_power_on_early()` isn't valid.
+</p>
+<p> * <a rel="nofollow" class="external free" href="https://github.com/msm8916-mainline/linux/blob/msm8916/6.4-rc4/drivers/gpu/drm/msm/dsi/dsi_manager.c#L415-L416">https://github.com/msm8916-mainline/linux/blob/msm8916/6.4-rc4/drivers/gpu/drm/msm/dsi/dsi_manager.c#L415-L416</a>
+</p>
+<p> Using the "blame" button to see where this condition comes from shows that it was introduced by commit [ec7981e](<a rel="nofollow" class="external free" href="https://github.com/msm8916-mainline/linux/commit/ec7981e6c614254937b37ce0af9eac09901c05c5">https://github.com/msm8916-mainline/linux/commit/ec7981e6c614254937b37ce0af9eac09901c05c5</a>) "drm/msm/dsi: don't powerup at modeset time for parade-ps8640". The commit diff also shows that the "brige power on" should actually happen in "bridge mode set" function.
+</p>
+<p> This closes the circle to vknecht's hack to not power on early. I'm not sure all the text here added something at all ;) Nonetheless I think we're getting closer.
+</p>
+<p> As a next step it would need a better understanding why the `dsi_mgr_bridge_power_on()` is in function `dsi_mgr_bridge_mode_set()`. Looks like this function gets called at boot but not at panel wake-up (so far I just tested on `v5.18-msm8916`).
+</p>
+</blockquote>
 <h2><span class="mw-headline" id="Battery">Battery</span></h2>
 <p>Unfortunately, the battery/charging drivers are device-specific and hard to validate without expert knowledge. The level of battery/charging support can be seen in the "Battery" status row on the device page:
 </p>
@@ -836,11 +940,10 @@ error: couldn't enable the modem: 'GDBus.Error:org.freedesktop.ModemManager1.Err
 <ul><li>MSM8916 is a great platform to get started with mainlining! It has a dedicated <a href="../en/MSM8916_Mainlining.html" title="MSM8916 Mainlining">MSM8916 Mainlining</a> guide that explains how to get started.</li></ul>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
-<li><a href="../en/Lk2nd_Lk1st.html" class="mw-redirect" title="Lk2nd">lk2nd</a></li>
-<li><a href="../en/Qualcomm_Snapdragon_615_616_(MSM8939).html" title="Qualcomm Snapdragon 615/616 (MSM8939)">Qualcomm Snapdragon 615/616 (MSM8939)</a></li>
+<li><a href="../en/Lk2nd.html" class="mw-redirect" title="Lk2nd">lk2nd</a></li>
+<li><a href="../en/Qualcomm_Snapdragon_415_615_616_(MSM8929_MSM8939).html" class="mw-redirect" title="Qualcomm Snapdragon 615/616 (MSM8939)">Qualcomm Snapdragon 615/616 (MSM8939)</a></li>
 <li><a href="../en/Qualcomm_Snapdragon_210_(MSM8909).html" title="Qualcomm Snapdragon 210 (MSM8909)">Qualcomm Snapdragon 210 (MSM8909)</a></li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/community/linux-postmarketos-qcom-msm8916">Kernel package</a></li>
-<li><a rel="nofollow" class="external text" href="https://github.com/msm8916-mainline/linux/issues/268">Common problems of 410 based device : waking the screen.</a></li>
 </ul>
 </div></div>
 		
@@ -855,9 +958,9 @@ error: couldn't enable the modem: 'GDBus.Error:org.freedesktop.ModemManager1.Err
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_410/412_(MSM8916)&amp;oldid=44447">https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_410/412_(MSM8916)&amp;oldid=44447</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_410/412_(MSM8916)&amp;oldid=44859">https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_410/412_(MSM8916)&amp;oldid=44859</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 25 May 2023, at 14:49.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 6 June 2023, at 05:18.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

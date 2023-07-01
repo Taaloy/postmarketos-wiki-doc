@@ -32,7 +32,7 @@
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
-<caption class="" style="">Xiaomi Redmi Note 3</caption>
+<caption class="" style="">Xiaomi Redmi Note 3 Pro</caption>
 <tbody>
 <tr class=""><td colspan="2" class="" style="text-align:center;">
 <a href="../Xiaomi-kenzo.png" class="image"><img alt="Redmi Note 3 running weston" src="../Xiaomi-kenzo.png" decoding="async" width="200" height="364" srcset="../300px-Xiaomi-kenzo.png 1.5x ../400px-Xiaomi-kenzo.png 2x"></a><br><span style="">Redmi Note 3 running weston</span>
@@ -45,7 +45,7 @@ Xiaomi</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Name</th>
     <td class="" style="">
-Redmi Note 3</td>
+Redmi Note 3 Pro</td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Codename</th>
@@ -135,13 +135,13 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Touchscreen</th>
     <td class="" style="">
-<div class="feature feature-yes">Works</div>
+<div class="feature feature-partial">Partial</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Display works. Ideally with sleep mode and brightness control.">Display</abbr></th>
     <td class="" style="">
-<div class="feature feature-yes">Works</div>
+<div class="feature feature-partial">Partial</div>
 </td>
 </tr>
 <tr class="">
@@ -361,7 +361,42 @@ aarch64</td>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
 <td style="padding: 0.35em 0.9em; width: 100%;">Not to be confused with the xiaomi-hennessey, which is based on a MediaTek SoC</td>
 </tr></tbody></table>
-<h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>WARNING:</b> 16.06.2023
+<p>- Takes a long time to boot, none of UI works and screen hangs on bootanimation
+</p>
+- Over SSH it works, but the screen cannot be switched off</td>
+</tr></tbody></table>
+<h1><span class="mw-headline" id="How_to_install">How to install</span></h1>
+<h2><span class="mw-headline" id="Fastboot_Mode">Fastboot Mode</span></h2>
+<p>Hold down <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> buttons simultaneously for a few seconds, until Fastboot Mode screen appears.
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>First build the image:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install
+</pre></div>
+<p>Then in order to flash it put your device in fastboot mode, and plug it in USB. Then do:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs
+<span class="gp">$</span> pmbootstrap flasher flash_kernel
+</pre></div>
+<p>To connect to a Wi-Fi network simply run:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo nmtui
+</pre></div>
+<p>And connect to your prefered wifi network using the terminal UI.
+</p>
+<h2><span class="mw-headline" id="UI_options">UI options</span></h2>
+<p>Nothing works, even console.
+</p>
+<h1><span class="mw-headline" id="Community_info">Community info</span></h1>
+<h2><span class="mw-headline" id="Maintainers">Maintainers</span></h2>
+<ul><li>None</li></ul>
+<h2><span class="mw-headline" id="Old_maintainers">Old maintainers</span></h2>
 <ul><li>IdanHoro</li></ul>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
@@ -379,41 +414,6 @@ aarch64</td>
 <li>
 <a href="../User:Sid127.html" title="User:Sid127">Sid127</a> (<span class="cargoFieldName">Notes:</span> Dying screen, second reserve (3GB/32GB))</li>
 </ul></div>
-<p><br>
-</p>
-<h2><span class="mw-headline" id="Fastboot_Mode">Fastboot Mode</span></h2>
-<p>Hold down <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> buttons simultaneously for a few seconds, until Fastboot Mode screen appears.
-</p>
-<h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>First build the image:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
-<span class="gp">$</span> pmbootstrap install
-</pre></div>
-<p>Then in order to flash it put your device in fastboot mode, and plug it in USB. Then do:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs
-<span class="gp">$</span> pmbootstrap flasher flash_kernel
-</pre></div>
-<h3><span class="mw-headline" id="Wifi">Wifi</span></h3>
-<p>To connect to a wifi network simply run:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo nmtui
-</pre></div>
-<p>And connect to your prefered wifi network using the terminal UI.
-</p>
-<h2><span class="mw-headline" id="UI_options">UI options</span></h2>
-<p>Wayland:
-</p>
-<ul>
-<li>weston: Works.</li>
-<li>plasma-mobile: Works, but very slow.</li>
-<li>phosh: Boots into a black screen.</li>
-<li>sway: Does not work.</li>
-</ul>
-<p>X11:
-</p>
-<ul><li>xfce4: Works, but no virtual keyboard. Get 'onboard' package while installing.</li></ul>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li>
@@ -440,9 +440,9 @@ aarch64</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_3_(xiaomi-kenzo)&amp;oldid=42887">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_3_(xiaomi-kenzo)&amp;oldid=42887</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_3_(xiaomi-kenzo)&amp;oldid=45086">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_3_(xiaomi-kenzo)&amp;oldid=45086</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:26.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 16 June 2023, at 20:34.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

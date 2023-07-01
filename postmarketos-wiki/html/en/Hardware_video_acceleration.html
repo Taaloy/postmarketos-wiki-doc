@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Hardware video acceleration - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Hardware_video_acceleration rootpage-Hardware_video_acceleration skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Hardware video acceleration</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This page is a stub. Please contribute what you know!</td>
+</tr></tbody></table>
+<p>Hardware video acceleration makes it possible for the video card (FIXME: it is not video card) to decode/encode video, thus offloading the CPU and saving power.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Supported_codecs"><span class="tocnumber">1</span> <span class="toctext">Supported codecs</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Decode"><span class="tocnumber">1.1</span> <span class="toctext">Decode</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Encode"><span class="tocnumber">1.2</span> <span class="toctext">Encode</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Status_legend"><span class="tocnumber">1.3</span> <span class="toctext">Status legend</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5">
+<a href="#APIs"><span class="tocnumber">2</span> <span class="toctext">APIs</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#v4l2-request"><span class="tocnumber">2.1</span> <span class="toctext">v4l2-request</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#v4l2m2m"><span class="tocnumber">2.2</span> <span class="toctext">v4l2m2m</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#libvdpau"><span class="tocnumber">2.3</span> <span class="toctext">libvdpau</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#VA-API"><span class="tocnumber">2.4</span> <span class="toctext">VA-API</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10">
+<a href="#Usage"><span class="tocnumber">3</span> <span class="toctext">Usage</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11">
+<a href="#Applications"><span class="tocnumber">3.1</span> <span class="toctext">Applications</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="#Web_browsers"><span class="tocnumber">3.1.1</span> <span class="toctext">Web browsers</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Clapper"><span class="tocnumber">3.1.2</span> <span class="toctext">Clapper</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#mpv"><span class="tocnumber">3.1.3</span> <span class="toctext">mpv</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#obs"><span class="tocnumber">3.1.4</span> <span class="toctext">obs</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Testing"><span class="tocnumber">4</span> <span class="toctext">Testing</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Supported_codecs">Supported codecs</span></h2>
+<h3><span class="mw-headline" id="Decode">Decode</span></h3>
+<table class="wikitable feature-colors">
+<tbody>
+<tr>
+<th>Hardware
+</th>
+<th>Description
+</th>
+<th>H.263
+</th>
+<th>H.264
+</th>
+<th>H.264 MVC
+</th>
+<th>H.265
+</th>
+<th>VP8
+</th>
+<th>VP9
+</th>
+<th>MPEG-2
+</th>
+<th>MPEG-4
+</th>
+<th>VC1
+</th>
+<th>VC1RCV
+</th>
+<th>Xvid
+</th>
+</tr>
+<tr>
+<td>Venus
+</td>
+<td>Qualcomm Snapdragon SoCs
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>Y
+</td>
+</tr>
+<tr>
+<td>Hantro
+</td>
+<td>Rockchip SoCs
+</td>
+<td>-
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+</tr>
+<tr>
+<td>rkvdec1
+</td>
+<td>Rockchip SoCs (rk32xx - rk33xx)
+</td>
+<td>-
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>N
+</td>
+<td>-
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+</tr>
+<tr>
+<td>rkvdec2
+</td>
+<td>Rockchip SoCs (rk356x)
+</td>
+<td>-
+</td>
+<td>N
+</td>
+<td>-
+</td>
+<td>N
+</td>
+<td>-
+</td>
+<td>N
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+</tr>
+<tr>
+<td>MFC v5
+</td>
+<td>Exynos 4, S5PV210
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+</tr>
+<tr>
+<td>MFC v6+
+</td>
+<td>Exynos 5250 (v6), 5420 (v7), 3250 (v7), 5800 (v8)
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+</tr>
+<tr>
+<td>mtk-vpu
+</td>
+<td>MediaTek SoCs
+</td>
+<td>-
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+</tr>
+<tr>
+<td>VDE
+</td>
+<td>Nvidia Tegra T20/T30/T114. T124 is not supported.
+</td>
+<td>-
+</td>
+<td>P
+</td>
+<td>N
+</td>
+<td>-
+</td>
+<td>N
+</td>
+<td>-
+</td>
+<td>N
+</td>
+<td>N
+</td>
+<td>N
+</td>
+<td>-
+</td>
+<td>-
+</td>
+</tr>
+</tbody>
+</table>
+<h3><span class="mw-headline" id="Encode">Encode</span></h3>
+<table class="wikitable feature-colors">
+<tbody>
+<tr>
+<th>Hardware
+</th>
+<th>Description
+</th>
+<th>H.263
+</th>
+<th>H.264
+</th>
+<th>H.264 MVC
+</th>
+<th>H.265
+</th>
+<th>VP8
+</th>
+<th>VP9
+</th>
+<th>MPEG-2
+</th>
+<th>MPEG-4
+</th>
+<th>VC1
+</th>
+<th>VC1RCV
+</th>
+<th>Xvid
+</th>
+</tr>
+<tr>
+<td>Venus
+</td>
+<td>Qualcomm Snapdragon SoCs
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+</tr>
+<tr>
+<td>Hantro
+</td>
+<td>Rockchip SoCs
+</td>
+<td>-
+</td>
+<td>N
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>N
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+</tr>
+<tr>
+<td>rkvenc2
+</td>
+<td>Rockchip SoCs (rk356x)
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>N
+</td>
+<td>-
+</td>
+<td>N
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+</tr>
+<tr>
+<td>MFC v5
+</td>
+<td>Exynos 4, S5PV210
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+</tr>
+<tr>
+<td>MFC v6+
+</td>
+<td>Exynos 5250 (v6), 5420 (v7), 3250 (v7), 5800 (v8)
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+</tr>
+<tr>
+<td>mtk-vpu
+</td>
+<td>MediaTek SoCs
+</td>
+<td>-
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>
+</td>
+<td>Y
+</td>
+<td>Y
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+</tr>
+<tr>
+<td>VDE
+</td>
+<td>Nvidia Tegra T20/T30/T114/T124.
+</td>
+<td>-
+</td>
+<td>N
+</td>
+<td>N
+</td>
+<td>-
+</td>
+<td>N
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+<td>-
+</td>
+</tr>
+</tbody>
+</table>
+<h3><span class="mw-headline" id="Status_legend">Status legend</span></h3>
+<table class="wikitable feature-colors">
+<tbody>
+<tr>
+<th>Code
+</th>
+<th>Meaning
+</th>
+</tr>
+<tr>
+<td>Y
+</td>
+<td>Fully implemented
+</td>
+</tr>
+<tr>
+<td>P
+</td>
+<td>Partially implemented
+</td>
+</tr>
+<tr>
+<td>N
+</td>
+<td>Broken / unsupported in mainline
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>Untested / unknown
+</td>
+</tr>
+<tr>
+<td>-
+</td>
+<td>Unsupported by hardware
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="APIs">APIs</span></h2>
+<h3><span class="mw-headline" id="v4l2-request">v4l2-request</span></h3>
+<p>TODO
+</p>
+<h3><span class="mw-headline" id="v4l2m2m">v4l2m2m</span></h3>
+<p>TODO
+</p>
+<h3><span class="mw-headline" id="libvdpau">libvdpau</span></h3>
+<p>TODO
+</p>
+<h3><span class="mw-headline" id="VA-API">VA-API</span></h3>
+<p>TODO
+</p>
+<h2><span class="mw-headline" id="Usage">Usage</span></h2>
+<h3><span class="mw-headline" id="Applications">Applications</span></h3>
+<h4><span class="mw-headline" id="Web_browsers">Web browsers</span></h4>
+<p>There are no browsers with support for v4l2m2m or v4l2-request. Chromium has related code, but it is enabled only for Chrome OS builds
+</p>
+<h4><span class="mw-headline" id="Clapper">Clapper</span></h4>
+<p><a rel="nofollow" class="external free" href="https://flathub.org/apps/com.github.rafostar.Clapper">https://flathub.org/apps/com.github.rafostar.Clapper</a> can use v4l2-request api
+</p>
+<h4><span class="mw-headline" id="mpv">mpv</span></h4>
+<p>mpv should be able to do video decoding with v4l2m2m with <code>--hwdec=v4l2m2m-copy</code>, but it has been broken for a long time <a rel="nofollow" class="external free" href="https://github.com/mpv-player/mpv/issues/10701">https://github.com/mpv-player/mpv/issues/10701</a>
+</p>
+<h4><span class="mw-headline" id="obs">obs</span></h4>
+<p>If yours deivce Hardware video acceleration is working , you should see vaapi option in the seettings
+</p>
+<h2><span class="mw-headline" id="Testing">Testing</span></h2>
+<p><b>TODO: Add potential good examples and validate. Potential candidates:</b>
+</p>
+<ul>
+<li><a rel="nofollow" class="external free" href="https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/software-reference-manual/camera-and-video/video-decode">https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/software-reference-manual/camera-and-video/video-decode</a></li>
+<li><a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/Qualcomm_Snapdragon_450/625/626/632_(MSM8953)#Video_Encoder_.2F_Decoder_.28Venus.29">https://wiki.postmarketos.org/wiki/Qualcomm_Snapdragon_450/625/626/632_(MSM8953)#Video_Encoder_.2F_Decoder_.28Venus.29</a></li>
+<li>
+<code>gst-launch-1.0 videotestsrc ! videoconvert ! v4l2vp8enc ! queue ! v4l2vp8dec ! xvimagesink</code> (from <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/Xiaomi_Mi_Note_2_(xiaomi-scorpio)#Mainline)">https://wiki.postmarketos.org/wiki/Xiaomi_Mi_Note_2_(xiaomi-scorpio)#Mainline)</a>
+</li>
+<li>for v4l2m2m <code>ffplay -vcodec h264_v4l2m2m file.mp4</code>
+</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Hardware_video_acceleration&amp;oldid=45993">https://wiki.postmarketos.org/index.php?title=Hardware_video_acceleration&amp;oldid=45993</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 28 June 2023, at 18:59.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Hardware_video_acceleration&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

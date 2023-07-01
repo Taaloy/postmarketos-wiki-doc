@@ -452,10 +452,30 @@ mount: mounting /dev/sda10 on /boot failed: Invalid argument
 <h2><span class="mw-headline" id="Status">Status</span></h2>
 <p>Work is ongoing, flashing works and telnet can be accessed during boot.
 </p>
+<h2><span class="mw-headline" id="UART">UART</span></h2>
+<h3><span class="mw-headline" id="USB">USB</span></h3>
+<p>See also: <a rel="nofollow" class="external free" href="https://github.com/Peter-Easton/android-debug-cable-howto">https://github.com/Peter-Easton/android-debug-cable-howto</a>, <a href="../en/Serial_debugging:Cable_schematics.html#Google_Pixel_.22Android_Debug_Cable.22" title="Serial debugging:Cable schematics">Serial_debugging:Cable_schematics#Google_Pixel_.22Android_Debug_Cable.22 </a>
+</p>
+<p>Baud rate is 115200. Voltage is 3.3V, although 1.8V seems to work as well.
+</p>
+<ol>
+<li>Obtain a USB-C breakout board and a UART adapter</li>
+<li>Connect pins <code>board pin (USB-C pinout) - UART adapter pin</code> as following:
+<ol>
+<li>A1 (GND) - GND</li>
+<li>A8 (SBU1) - RXD</li>
+<li>B8 (SBU2) - TXD</li>
+</ol>
+</li>
+<li>Connect breakout board and phone using a USB-C cable that has working SBU1/2 (I had to use a thicker TB3/USB 3.0 capable cable). Make sure the cable is in "top" orientation (in my case Thunderbolt logos were facing same side as phone's screen and the <code>A</code> side of breakout board), it won't work if the plug is reversed on one side.</li>
+<li>Boot phone into fastboot, then execute <code>fastboot oem uart enable</code> and poweroff.</li>
+</ol>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li>
 <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1229">pmaports#1229</a> Pixel 3 (google-blueline) porting: progress and questions</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3932">pmaports!3932</a> Draft: Device/blueline</li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/-/snippets/2189490">dmesg and pmOS_init.log</a></li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/-/snippets/2177610">Device Map</a></li>
 </ul>
@@ -478,9 +498,9 @@ mount: mounting /dev/sda10 on /boot failed: Invalid argument
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Pixel_3_(google-blueline)&amp;oldid=40286">https://wiki.postmarketos.org/index.php?title=Google_Pixel_3_(google-blueline)&amp;oldid=40286</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Pixel_3_(google-blueline)&amp;oldid=45780">https://wiki.postmarketos.org/index.php?title=Google_Pixel_3_(google-blueline)&amp;oldid=45780</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 09:54.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 25 June 2023, at 20:15.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

@@ -81,7 +81,7 @@ Close-to-mainline 6.2-rc5</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Chipset</th>
     <td class="" style="">
-<a href="../en/Qualcomm_Snapdragon_410_412_415_(MSM8916_MSM8916V2_MSM8929).html" class="mw-redirect" title="Qualcomm Snapdragon 410 (MSM8916)">Qualcomm Snapdragon 410 (MSM8916)</a>
+<a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" class="mw-redirect" title="Qualcomm Snapdragon 410 (MSM8916)">Qualcomm Snapdragon 410 (MSM8916)</a>
 </td>
 </tr>
 <tr class="">
@@ -372,7 +372,7 @@ armv7</td>
 <h2>
 <span id="Why_armv7?"></span><span class="mw-headline" id="Why_armv7.3F">Why armv7?</span>
 </h2>
-<p>With a quirky bootloader that only supports booting 32-bit armv7 kernels and without secure boot, this device was <i>supposed</i> to be running postmarketOS and mainline on aarch64, with <a href="../en/Lk2nd_Lk1st.html" title="Lk2nd/Lk1st">lk1st</a> being used as the primary bootloader. However, due to a strange method the device uses to implement a regulator for powering the panel, which as of now does not yet have a solution on <a rel="nofollow" class="external text" href="https://github.com/msm8916-mainline/linux">msm8916-mainline/linux</a> or <a href="../en/Lk2nd_Lk1st.html" title="Lk2nd/Lk1st">lk1st</a>, plus an unknown "load yl image" boot stage that happens BEFORE the system bootloader as shown in the UART output, we will fall back to armv7 in order to make use of the stock bootloader - which in contrast IS capable of turning on the regulator and thus the panel - as a workaround for the display problem. This should be changed once a suitable solution is found!
+<p>With a quirky bootloader that only supports booting 32-bit armv7 kernels and without secure boot, this device was <i>supposed</i> to be running postmarketOS and mainline on aarch64, with <a href="../en/Lk2nd_lk1st.html" class="mw-redirect" title="Lk2nd/Lk1st">lk1st</a> being used as the primary bootloader. However, due to a strange method the device uses to implement a regulator for powering the panel, which as of now does not yet have a solution on <a rel="nofollow" class="external text" href="https://github.com/msm8916-mainline/linux">msm8916-mainline/linux</a> or <a href="../en/Lk2nd_lk1st.html" class="mw-redirect" title="Lk2nd/Lk1st">lk1st</a>, plus an unknown "load yl image" boot stage that happens BEFORE the system bootloader as shown in the UART output, we will fall back to armv7 in order to make use of the stock bootloader - which in contrast IS capable of turning on the regulator and thus the panel - as a workaround for the display problem. This should be changed once a suitable solution is found!
 </p>
 <h3><span class="mw-headline" id="Reference:_Early_boot_log">Reference: Early boot log</span></h3>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre>Format: Log Type - Time(microsec) - Message

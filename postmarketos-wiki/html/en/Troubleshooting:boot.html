@@ -70,9 +70,10 @@
 <li class="toclevel-2 tocsection-13"><a href="#Netconsole_debugging"><span class="tocnumber">4.2</span> <span class="toctext">Netconsole debugging</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-14"><a href="#Document_your_progress"><span class="tocnumber">5</span> <span class="toctext">Document your progress</span></a></li>
-<li class="toclevel-1 tocsection-15"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
-<li class="toclevel-1 tocsection-16"><a href="#Further_reading"><span class="tocnumber">7</span> <span class="toctext">Further reading</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Boot_partition_not_found"><span class="tocnumber">5</span> <span class="toctext">Boot partition not found</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Document_your_progress"><span class="tocnumber">6</span> <span class="toctext">Document your progress</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#See_also"><span class="tocnumber">7</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#Further_reading"><span class="tocnumber">8</span> <span class="toctext">Further reading</span></a></li>
 </ul>
 </div>
 
@@ -202,6 +203,9 @@ Depending on your device <code>console-ramoops</code> might also get overwritten
 <li>Add netconsole parameters to the deviceinfo_kernel_cmdline for your device as described <a rel="nofollow" class="external text" href="https://www.kernel.org/doc/html/latest/networking/netconsole.html">here</a>. Use usb0 for the device name</li>
 <li>Execute <code>nc -u -l -p &lt;port&gt;</code> and boot your device</li>
 </ol>
+<h2><span class="mw-headline" id="Boot_partition_not_found">Boot partition not found</span></h2>
+<p>If your device uses UFS, check that <code>deviceinfo_rootfs_image_sector_size</code> is set to 4096.
+</p>
 <h2><span class="mw-headline" id="Document_your_progress">Document your progress</span></h2>
 <p>If you haven't already done so, please <a href="../en/Help:Device_Page.html" title="Help:Device Page">create a wiki page for your device</a>. On this page, document everything you tried so that others can build on the work you have already done.
 </p>
@@ -234,9 +238,9 @@ Depending on your device <code>console-ramoops</code> might also get overwritten
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:boot&amp;oldid=44037">https://wiki.postmarketos.org/index.php?title=Troubleshooting:boot&amp;oldid=44037</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:boot&amp;oldid=44983">https://wiki.postmarketos.org/index.php?title=Troubleshooting:boot&amp;oldid=44983</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 7 May 2023, at 16:11.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 12 June 2023, at 19:40.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

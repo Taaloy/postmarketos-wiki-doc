@@ -33,10 +33,104 @@
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr">
 <div class="mw-parser-output">
+<p>On many devices the bootloader is locked and you must unlock it before you can flash a custom ROM or recovery.
+Unlocking is therefore also required for <a href="../en/Installation.html" class="mw-redirect" title="Installation guide">installing postmarketOS</a>.
+</p>
+<p>If you have forgotten whether your device is unlocked or not, check to see if it displays "device unlocked" or something similar at the bottom in flash mode or during the boot.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Unlocking_the_bootloader"><span class="tocnumber">1</span> <span class="toctext">Unlocking the bootloader</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#HMD_Global"><span class="tocnumber">1.1</span> <span class="toctext">HMD Global</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#HTC"><span class="tocnumber">1.2</span> <span class="toctext">HTC</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Huawei"><span class="tocnumber">1.3</span> <span class="toctext">Huawei</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Motorola"><span class="tocnumber">1.4</span> <span class="toctext">Motorola</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Sony"><span class="tocnumber">1.5</span> <span class="toctext">Sony</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Wiko"><span class="tocnumber">1.6</span> <span class="toctext">Wiko</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Windows_Phones"><span class="tocnumber">1.7</span> <span class="toctext">Windows Phones</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Xiaomi"><span class="tocnumber">1.8</span> <span class="toctext">Xiaomi</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Mixed"><span class="tocnumber">1.9</span> <span class="toctext">Mixed</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Unlocking_the_bootloader">Unlocking the bootloader</span></h2>
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>WARNING:</b> Unlocking the bootloader will result in a formatted userdata partition. Make sure that you have backed up your data.</td>
+</tr></tbody></table>
+<p>On some devices it is enough to enter:
+<code>
+fastboot oem unlock
+</code>
+</p>
+<p>Others will require you to enter a code:
+<code>
+fastboot oem unlock your-code-here
+</code>
+</p>
+<h3><span class="mw-headline" id="HMD_Global">HMD Global</span></h3>
+<p><b>HMD Global no longer provides unlock codes.</b>
+</p>
+<p>There are several unofficial ways to unlock these devices. Some devices can be unlocked for free, while some are not.
+</p>
+<h3><span class="mw-headline" id="HTC">HTC</span></h3>
+<p><a rel="nofollow" class="external text" href="https://www.htcdev.com/bootloader/">htcdev unlock site</a>
+</p>
+<h3><span class="mw-headline" id="Huawei">Huawei</span></h3>
+<p><b>Huawei no longer provides unlock codes.</b>
+</p>
+<p>Tutorials that tell you to go to some Huawei website, log in with your Huawei ID and sign the unlock agreement to get a code are NO LONGER working. Even contacting their support has no effect.
+</p>
+<p>Some services claim to be able to unlock these devices, but they charge money for it (e.g. DC-Unlocker charges 4€). Be careful and try to do your research and make sure that you're not one some fishy website before giving any of these services your money!<br>
+If you do try, please run wireshark usb capture, so there's a chance to understand how it works and replicate that
+</p>
+<p>Another option is to try <a rel="nofollow" class="external text" href="https://github.com/SkyEmie/huawei-honor-unlock-bootloader">brute forcing</a> the code. This takes time and might not work.
+</p>
+<p>There is also this <a rel="nofollow" class="external text" href="https://github.com/mashed-potatoes/PotatoNV">Open Source Solution for devices on Kirin SoC</a> called PotatoNV which can be used to unlock the bootloader of Kirin-based devices, but has the disadvantage that you have to open the device and short a "test point" (unique to each device) to ground. This will also change your bootloader unlock code to a new one instead of printing out the original code.
+</p>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Huawei_Ascend_G7_(huawei-g7)#Preparation">WIP Experimental work around which involves replace the entire bootloader</a> &amp; <a rel="nofollow" class="external autonumber" href="https://wiki.postmarketos.org/wiki/Huawei_Y635_(huawei-y635)#Flashing_custom_bootloader">[1]</a>
+</li>
+<li><a rel="nofollow" class="external text" href="https://github.com/hhj4ck/checkm30">A bootrom exploit of Huawei Hisilicon Smartphones that could be used to unlock Huawei bootloaders</a></li>
+</ul>
+<h3><span class="mw-headline" id="Motorola">Motorola</span></h3>
+<p><a rel="nofollow" class="external text" href="https://motorola-global-portal.custhelp.com/app/standalone/bootloader/unlock-your-device-a/">Motorola unlock site</a>
+</p>
+<p>An exploit does exist, see <a rel="nofollow" class="external text" href="http://bits-please.blogspot.com/2016/02/unlocking-motorola-bootloader.html">here</a>.
+</p>
+<h3><span class="mw-headline" id="Sony">Sony</span></h3>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This is your last chance to download the latest ROM via OTA update before unlocking the bootloader. Sony does not provide OTA updates for unlocked devices.</td>
+</tr></tbody></table>
+<p><a rel="nofollow" class="external text" href="https://developer.sony.com/develop/open-devices/get-started/unlock-bootloader/">Sony Unlock Page</a>.
+</p>
+<h3><span class="mw-headline" id="Wiko">Wiko</span></h3>
+<p>Just enable OEM unlocking in the Developer options and then use <code>fastboot oem unlock</code> in fastboot mode.
+</p>
+<h3><span class="mw-headline" id="Windows_Phones">Windows Phones</span></h3>
+<p>Use <a href="../en/Windows_Phone.html#Tools" title="Windows Phone">WPInternals</a>. The tool contains the instructions for unlocking.
+</p>
+<h3><span class="mw-headline" id="Xiaomi">Xiaomi</span></h3>
+<p><a rel="nofollow" class="external text" href="https://en.miui.com/unlock/index.html">Xiaomi Unlock Page</a>.
+</p>
+<h3><span class="mw-headline" id="Mixed">Mixed</span></h3>
+<p><a rel="nofollow" class="external text" href="https://github.com/osm0sis/boot-unlocker">BootUnlocker</a> for <a href="../en/Google_Galaxy_Nexus_GSM_(samsung-maguro).html" title="Google Galaxy Nexus GSM (samsung-maguro)">Google Galaxy Nexus (maguro)</a> <i>&amp; (toro, toroplus)</i>, <a href="../en/Google_Nexus_4_(lg-mako).html" title="Google Nexus 4 (lg-mako)">Google Nexus 4 (mako)</a>, <a href="../en/Google_Nexus_5_(lg-hammerhead).html" title="Google Nexus 5 (lg-hammerhead)">Google Nexus 5 (hammerhead)</a>, <a href="../en/Google_Nexus_7_2013_(asus-flo).html" title="Google Nexus 7 2013 (asus-flo)">Google Nexus 7 2013 (flo)</a>, <a href="../en/Google_Nexus_7_2013_LTE_(asus-deb).html" title="Google Nexus 7 2013 LTE (asus-deb)">Google Nexus 7 2013 (deb)</a>, <a href="../en/Google_Nexus_10_(samsung-manta).html" title="Google Nexus 10 (samsung-manta)">Google Nexux 10 (manta)</a>, <a href="../en/OnePlus_One_(oneplus-bacon).html" title="OnePlus One (oneplus-bacon)">OnePlus One (bacon)</a>, <a href="../en/OnePlus_Two_(oneplus-oneplus2).html" title="OnePlus Two (oneplus-oneplus2)">OnePlus Two (oneplus2)</a>, <a href="../en/OnePlus_X_(oneplus-onyx).html" title="OnePlus X (oneplus-onyx)">OnePlus X (onyx)</a>, YU Yuphoria (lettuce), <a href="../en/Yu_Yureka_(yu-tomato).html" title="Yu Yureka (yu-tomato)">YU Yureka (tomato)</a>, <a href="../en/Zuk_Z1_(zuk-z1-ham).html" title="Zuk Z1 (zuk-z1-ham)">Lenovo Zuk Z1 (ham)</a>, InFocus M810 (VNA), InFocus M812 (VN2), or Yota Phone 2 (yotaphone2).
+</p>
 </div>
 <div class="mw-category-generated" lang="en" dir="ltr"><div id="mw-pages">
 <h2>Pages in category "Bootloaders"</h2>
-<p>The following 7 pages are in this category, out of 7 total.
+<p>The following 8 pages are in this category, out of 8 total.
 </p>
 <div lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-category">
 <div class="mw-category-group">
@@ -51,12 +145,16 @@
 <h3>L</h3>
 <ul>
 <li><a href="../en/LinuxBoot.html" title="LinuxBoot">LinuxBoot</a></li>
-<li><a href="../en/Lk2nd_Lk1st.html" title="Lk2nd/Lk1st">Lk2nd/Lk1st</a></li>
+<li><a href="../en/Lk2nd_lk1st.html" title="Lk2nd/lk1st">Lk2nd/lk1st</a></li>
 </ul>
 </div>
 <div class="mw-category-group">
 <h3>P</h3>
 <ul><li><a href="../en/Petitboot.html" title="Petitboot">Petitboot</a></li></ul>
+</div>
+<div class="mw-category-group">
+<h3>R</h3>
+<ul><li><a href="../en/Renegade_Project.html" title="Renegade Project">Renegade Project</a></li></ul>
 </div>
 <div class="mw-category-group">
 <h3>T</h3>
@@ -70,7 +168,9 @@
 </div></div>
 </div>
 		
-		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
 		<div class="visualClear"></div>
 		
 	</div>
@@ -79,9 +179,9 @@
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Category:Bootloaders&amp;oldid=34563">https://wiki.postmarketos.org/index.php?title=Category:Bootloaders&amp;oldid=34563</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Category:Bootloaders&amp;oldid=45281">https://wiki.postmarketos.org/index.php?title=Category:Bootloaders&amp;oldid=45281</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 25 December 2022, at 11:58.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 20 June 2023, at 19:39.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

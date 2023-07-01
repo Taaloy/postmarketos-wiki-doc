@@ -31,10 +31,6 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">This device is still running on armhf, although the processor supports armv7. If you own it, change it and test it <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Tips_and_tricks#Update_the_architecture_of_your_device">that</a> way.</td>
-</tr></tbody></table>
 <table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
 <caption class="" style="">Samsung Galaxy Note 8.0 (Wi-Fi)</caption>
 <tbody>
@@ -374,7 +370,8 @@ tablet</td>
 <li class="toclevel-1 tocsection-5"><a href="#How_to_enter_flash_mode"><span class="tocnumber">5</span> <span class="toctext">How to enter flash mode</span></a></li>
 <li class="toclevel-1 tocsection-6"><a href="#Installation"><span class="tocnumber">6</span> <span class="toctext">Installation</span></a></li>
 <li class="toclevel-1 tocsection-7"><a href="#Mainline_Kernel"><span class="tocnumber">7</span> <span class="toctext">Mainline Kernel</span></a></li>
-<li class="toclevel-1 tocsection-8"><a href="#See_also"><span class="tocnumber">8</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Partition_map"><span class="tocnumber">8</span> <span class="toctext">Partition map</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#See_also"><span class="tocnumber">9</span> <span class="toctext">See also</span></a></li>
 </ul>
 </div>
 
@@ -424,6 +421,31 @@ Replicant is also interested in mainlining this device and replacing the bootloa
 </p>
 <p>A developer at the <a rel="nofollow" class="external text" href="https://replicant.us">Replicant</a> project, belgin, is currently (as of December, 2020) working on porting the mainline kernel to the n5110. Please contact him if you are interested in helping.
 </p>
+<h2><span class="mw-headline" id="Partition_map">Partition map</span></h2>
+<div class="toccolours mw-collapsible mw-collapsed" style="width: 1000px; overflow: auto;">
+<p><code>/ # ls -lah /dev/block/platform/dw_mmc/by-name/ </code>
+</p>
+<div class="mw-collapsible-content">
+<pre>drwxr-xr-x    2 root     root         280 Jan  1 06:45 .
+drwxr-xr-x    4 root     root         340 Jan  1 06:45 ..
+lrwxrwxrwx    1 root     root          20 Jan  1 06:45 BOOT -&gt; /dev/block/mmcblk0p5
+lrwxrwxrwx    1 root     root          20 Jan  1 06:45 BOTA0 -&gt; /dev/block/mmcblk0p1
+lrwxrwxrwx    1 root     root          20 Jan  1 06:45 BOTA1 -&gt; /dev/block/mmcblk0p2
+lrwxrwxrwx    1 root     root          20 Jan  1 06:45 CACHE -&gt; /dev/block/mmcblk0p8
+lrwxrwxrwx    1 root     root          20 Jan  1 06:45 EFS -&gt; /dev/block/mmcblk0p3
+lrwxrwxrwx    1 root     root          21 Jan  1 06:45 HIDDEN -&gt; /dev/block/mmcblk0p10
+lrwxrwxrwx    1 root     root          21 Jan  1 06:45 OTA -&gt; /dev/block/mmcblk0p11
+lrwxrwxrwx    1 root     root          20 Jan  1 06:45 PARAM -&gt; /dev/block/mmcblk0p4
+lrwxrwxrwx    1 root     root          20 Jan  1 06:45 RADIO -&gt; /dev/block/mmcblk0p7
+lrwxrwxrwx    1 root     root          20 Jan  1 06:45 RECOVERY -&gt; /dev/block/mmcblk0p6
+lrwxrwxrwx    1 root     root          20 Jan  1 06:45 SYSTEM -&gt; /dev/block/mmcblk0p9
+lrwxrwxrwx    1 root     root          21 Jan  1 06:45 USERDATA -&gt; /dev/block/mmcblk0p12
+
+</pre>
+</div>
+</div>
+<p><br>
+</p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li>
@@ -456,9 +478,9 @@ Replicant is also interested in mainlining this device and replacing the bootloa
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_8.0_(Wi-Fi)_(samsung-n5110)&amp;oldid=43595">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_8.0_(Wi-Fi)_(samsung-n5110)&amp;oldid=43595</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_8.0_(Wi-Fi)_(samsung-n5110)&amp;oldid=45157">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_8.0_(Wi-Fi)_(samsung-n5110)&amp;oldid=45157</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:41.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 19 June 2023, at 14:24.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

@@ -1,327 +1,519 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Pmbootstrap - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Pmbootstrap rootpage-Pmbootstrap skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Pmbootstrap
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <p>
-       <b>
-        pmbootstrap
-       </b>
-       is the central tool to develop and install postmarketOS. It works using Alpine chroots to avoid installing software on the host's machine. It works well on any Linux distribution, but performs poorly on
-       <a class="external text" href="https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux" rel="nofollow">
-        WSL
-       </a>
-       . If you are using Windows, you should set up a dual boot or use a VM.
-      </p>
-      <div class="toc" id="toc">
-       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
-       <div class="toctitle" dir="ltr" lang="en">
-        <h2>
-         Contents
-        </h2>
-        <span class="toctogglespan">
-         <label class="toctogglelabel" for="toctogglecheckbox">
-         </label>
-        </span>
-       </div>
-       <ul>
-        <li class="toclevel-1 tocsection-1">
-         <a href="#Installation">
-          <span class="tocnumber">
-           1
-          </span>
-          <span class="toctext">
-           Installation
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-2">
-         <a href="#Example_Development_Workflows">
-          <span class="tocnumber">
-           2
-          </span>
-          <span class="toctext">
-           Example Development Workflows
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-3">
-           <a href="#Developing_packages_with_pmbootstrap">
-            <span class="tocnumber">
-             2.1
-            </span>
-            <span class="toctext">
-             Developing packages with pmbootstrap
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-4">
-         <a href="#Developing_pmbootstrap_itself">
-          <span class="tocnumber">
-           3
-          </span>
-          <span class="toctext">
-           Developing pmbootstrap itself
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-5">
-         <a href="#Warning">
-          <span class="tocnumber">
-           4
-          </span>
-          <span class="toctext">
-           Warning
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-6">
-         <a href="#Useful_Links">
-          <span class="tocnumber">
-           5
-          </span>
-          <span class="toctext">
-           Useful Links
-          </span>
-         </a>
-        </li>
-       </ul>
-      </div>
-      <h2>
-       <span class="mw-headline" id="Installation">
-        Installation
-       </span>
-      </h2>
-      <p>
-       refer to the
-       <a href="../en/Installing_pmbootstrap.html" title="Installing pmbootstrap">
-        installation page
-       </a>
-       .
-      </p>
-      <p>
-       <br/>
-      </p>
-      <h2>
-       <span class="mw-headline" id="Example_Development_Workflows">
-        Example Development Workflows
-       </span>
-      </h2>
-      <p>
-       This doesn't concern installation for an existing device. For that refer to the
-       <a href="../en/Installation_guide.html" title="Installation guide">
-        installation guide
-       </a>
-       . It will be useful for working on postmarketOS packages and when one want to port postmarketOS to a new device (along with the
-       <a href="../en/Porting_to_a_new_device.html" title="Porting to a new device">
-        porting guide
-       </a>
-       ).
-      </p>
-      <div class="todo" role="note" style="padding: 5px 15px; color: #700000; border: 1px solid #b60000; background-color: #fdd1d1; margin-top: 5px; margin-bottom: 15px;">
-       <strong>
-        TODO
-       </strong>
-       add more typical uses of pmbootstrap
-      </div>
-      <h3>
-       <span class="mw-headline" id="Developing_packages_with_pmbootstrap">
-        Developing packages with pmbootstrap
-       </span>
-      </h3>
-      <p>
-       When developing postmarketOS packages, you will want to keep the package definition at hand. For that, you can move the
-       <a class="mw-redirect" href="../en/Pmaports.git.html" title="Pmaports">
-        pmaports
-       </a>
-       repository to an accessible location, using for example:
-      </p>
-      <pre>$ olddir="$(pmbootstrap config aports)"
-$ newdir="$HOME/pmaports"
-$ mv "$olddir" "$newdir"
-$ pmbootstrap config aports "$newdir"
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>pmbootstrap - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Pmbootstrap rootpage-Pmbootstrap skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">pmbootstrap</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><b>pmbootstrap</b> (<a rel="nofollow" class="external text" href="https://git.sr.ht/~postmarketos/pmbootstrap">git</a>) is the central command-line application for postmarketOS development. Among other things, it allows building packages, creating installation images and flashing them to your phone. If you only want to install postmarketOS, make sure to read the <a href="../en/Installation.html" title="Installation">installation</a> article first since you might not need to install pmbootstrap depending on the method.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Installation"><span class="tocnumber">1</span> <span class="toctext">Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2">
+<a href="#On_Linux"><span class="tocnumber">1.1</span> <span class="toctext">On Linux</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#From_package_manager"><span class="tocnumber">1.1.1</span> <span class="toctext">From package manager</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="#From_git"><span class="tocnumber">1.1.2</span> <span class="toctext">From git</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-5"><a href="#Other_operating_systems"><span class="tocnumber">1.2</span> <span class="toctext">Other operating systems</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Using_pmbootstrap"><span class="tocnumber">2</span> <span class="toctext">Using pmbootstrap</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7">
+<a href="#Initialization"><span class="tocnumber">2.1</span> <span class="toctext">Initialization</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#Work_path"><span class="tocnumber">2.1.1</span> <span class="toctext">Work path</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Channel"><span class="tocnumber">2.1.2</span> <span class="toctext">Channel</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Device"><span class="tocnumber">2.1.3</span> <span class="toctext">Device</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#User_interface"><span class="tocnumber">2.1.4</span> <span class="toctext">User interface</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#More_questions"><span class="tocnumber">2.1.5</span> <span class="toctext">More questions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13">
+<a href="#Installing_postmarketOS"><span class="tocnumber">2.2</span> <span class="toctext">Installing postmarketOS</span></a>
+<ul>
+<li class="toclevel-3 tocsection-14">
+<a href="#pmbootstrap_install"><span class="tocnumber">2.2.1</span> <span class="toctext">pmbootstrap install</span></a>
+<ul>
+<li class="toclevel-4 tocsection-15"><a href="#SD_card"><span class="tocnumber">2.2.1.1</span> <span class="toctext">SD card</span></a></li>
+<li class="toclevel-4 tocsection-16"><a href="#Encrypted_Image_file"><span class="tocnumber">2.2.1.2</span> <span class="toctext">Encrypted Image file</span></a></li>
+<li class="toclevel-4 tocsection-17"><a href="#Android_recovery_zip"><span class="tocnumber">2.2.1.3</span> <span class="toctext">Android recovery zip</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-18">
+<a href="#pmbootstrap_flasher"><span class="tocnumber">2.2.2</span> <span class="toctext">pmbootstrap flasher</span></a>
+<ul>
+<li class="toclevel-4 tocsection-19"><a href="#flash_rootfs"><span class="tocnumber">2.2.2.1</span> <span class="toctext">flash_rootfs</span></a></li>
+<li class="toclevel-4 tocsection-20"><a href="#flash_kernel"><span class="tocnumber">2.2.2.2</span> <span class="toctext">flash_kernel</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-21"><a href="#Inspecting_generated_files"><span class="tocnumber">2.2.3</span> <span class="toctext">Inspecting generated files</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-22">
+<a href="#Development_actions"><span class="tocnumber">2.3</span> <span class="toctext">Development actions</span></a>
+<ul>
+<li class="toclevel-3 tocsection-23"><a href="#Building_packages"><span class="tocnumber">2.3.1</span> <span class="toctext">Building packages</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="#Entering_chroots"><span class="tocnumber">2.3.2</span> <span class="toctext">Entering chroots</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#Running_CI_scripts_locally"><span class="tocnumber">2.3.3</span> <span class="toctext">Running CI scripts locally</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="#Device_porting_assistance"><span class="tocnumber">2.3.4</span> <span class="toctext">Device porting assistance</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="#Repository_maintenance"><span class="tocnumber">2.3.5</span> <span class="toctext">Repository maintenance</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#Logging"><span class="tocnumber">2.3.6</span> <span class="toctext">Logging</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-29"><a href="#Clean_up"><span class="tocnumber">3</span> <span class="toctext">Clean up</span></a></li>
+<li class="toclevel-1 tocsection-30"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>pmbootstrap runs on pretty much any Linux distribution with python3, openssl and git installed. It uses Alpine Linux chroots internally to avoid installing software on the host machine. If you don't run Linux on your PC, see <a href="#Other_operating_systems">#Other operating systems</a>.
+</p>
+<h3><span class="mw-headline" id="On_Linux">On Linux</span></h3>
+<h4><span class="mw-headline" id="From_package_manager">From package manager</span></h4>
+<p>Use the package manager of your distribution to install pmbootstrap:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">Alpine Linux, postmarketOS:</span>
+<span class="gp">#</span> apk add pmbootstrap
+<span class="go">Arch Linux:</span>
+<span class="gp">#</span> pacman -S pmbootstrap
+<span class="go">Debian (unstable):</span>
+<span class="gp">#</span> apt install pmbootstrap
+<span class="go">Fedora:</span>
+<span class="gp">#</span> dnf install pmbootstrap
+<span class="go">Void Linux:</span>
+<span class="gp">#</span> xbps-install -S pmbootstrap
+</pre></div>
+<p>Continue reading at <a href="#Using_pmbootstrap">#Using pmbootstrap</a>.
+</p>
+<h4><span class="mw-headline" id="From_git">From git</span></h4>
+<p>Follow this section if your Linux distribution doesn't have pmbootstrap packaged, or its version of pmbootstrap is too old, or you would like to change the code. Run the following to clone and install pmbootstrap from git.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://git.sr.ht/~postmarketos/pmbootstrap
+<span class="gp">$</span> mkdir -p ~/.local/bin
+<span class="gp">$</span> ln -s <span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/pmbootstrap/pmbootstrap.py"</span> ~/.local/bin/pmbootstrap
+<span class="gp">$</span> pmbootstrap --version
+<span class="go">1.50.1</span>
+</pre></div>
+<p>If this returns something like <code>pmbootstrap: command not found</code> instead of a version number, ensure that <code>~/.local/bin</code> is in your <code>PATH</code>. For example by adding the following to your <code>~/.profile</code> (zsh: <code>~/.zprofile</code>): 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+</pre></div>
+<p>Then open a new terminal and try again.
+</p>
+<p>Continue reading at <a href="#Using_pmbootstrap">#Using pmbootstrap</a>.
+</p>
+<h3><span class="mw-headline" id="Other_operating_systems">Other operating systems</span></h3>
+<p>Running pmbootstrap on other operating systems than Linux is not supported. If you run another OS, consider setting up a virtual machine with Linux. Some people also made it worth with WSL, see the <a href="../en/Windows_FAQ.html" title="Windows FAQ">Windows FAQ</a>. But again, it's not officially supported - we recommend getting some sort of Linux install instead and running it there.
+</p>
+<h2><span class="mw-headline" id="Using_pmbootstrap">Using pmbootstrap</span></h2>
+<p>Frequent users may want to set up <a href="../en/Pmbootstrap:_Tab_Completion.html" title="Pmbootstrap: Tab Completion">tab completion</a> at this point, to be able to automatically complete your pmbootstrap commands and arguments with the tab key while writing them.
+</p>
+<h3><span class="mw-headline" id="Initialization">Initialization</span></h3>
+<p>Before pmbootstrap can be used, a number of configuration questions need to be answered. The sections below go into detail for the various questions.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+</pre></div>
+<p>If you already ran this before, run the following to update your local clone of <a href="../en/Pmaports.git.html" title="Pmaports.git">pmaports.git</a> instead:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap pull
+</pre></div>
+<h4><span class="mw-headline" id="Work_path">Work path</span></h4>
+<p>Make sure that the location has a few GB of space available, and that it is a relatively standard Linux filesystem (one that supports device nodes and symbolic links). Notably <i>unsupported</i> are: eCryptFS, encfs, fat, ntfs, nfs shares, tmpvs, and VirtualBox shared folders. pmbootstrap will automatically clone <a href="../en/Pmaports.git.html" title="Pmaports.git">pmaports.git</a> into a subdirectory of the work path.
+</p>
+<pre>Location of the 'work' path. Multiple chroots (native, device arch, device rootfs) will be created in there.
+Work path [/home/user/.local/var/pmbootstrap]: 
+Setting up the native chroot and cloning the package build recipes (pmaports)...
+Clone git repository: https://gitlab.com/postmarketOS/pmaports.git
+Cloning into '/home/user/.local/var/pmbootstrap/cache_git/pmaports'...
+NOTE: pmaports path: /home/user/.local/var/pmbootstrap/cache_git/pmaports
 </pre>
-      <p>
-       or just the last command, if you don't have something to save yet.
-      </p>
-      <hr/>
-      <p>
-       When you are editing packages and want to test the modifications, you will maybe notice that pmbootstrap doesn't rebuild the package, as it already built a package with the same version number and revision. To force a rebuild, don't increment the pkgrel. Instead, use
-       <code>
-        pmbootstrap build --force package-name
-       </code>
-       .
-      </p>
-      <hr/>
-      <p>
-       Before uploading a package you just created, you may use
-       <code>
-        pmbootstrap build --force --strict
-       </code>
-       to check that the dependencies you specified are sufficient to build the package.
-      </p>
-      <p>
-       <br/>
-      </p>
-      <h2>
-       <span class="mw-headline" id="Developing_pmbootstrap_itself">
-        Developing pmbootstrap itself
-       </span>
-      </h2>
-      <p>
-       Development happens
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap" rel="nofollow">
-        here
-       </a>
-       . You'll find information on parts of the code in
-       <a href="../en/Pmbootstrap_development_guide.html" title="Pmbootstrap development guide">
-        the pmbootstrap development guide
-       </a>
-       .
-      </p>
-      <p>
-       <br/>
-      </p>
-      <h2>
-       <span class="mw-headline" id="Warning">
-        Warning
-       </span>
-      </h2>
-      <p>
-       The Bash shell works nicely, and the fish shell also seem to work. However, the Korn Shell (KSH93 / KSH88) doesn't work properly. Although some functions of pmbootstrap works, you would not be able to use some functions such as envkernel.sh and may get unexpected errors. If you are using ksh or another shell, you may need to install bash or fish to use pmbootstrap properly.
-      </p>
-      <p>
-       Pmbootstrap needs sudo to work, otherwise you would not be able to use it at all, since pmbootstrap uses sudo to run root commands. If you are using an alternative such as doas, you would need to install sudo.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Useful_Links">
-        Useful Links
-       </span>
-      </h2>
-      <ul>
-       <li>
-        <a class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap" rel="nofollow">
-         The git repository
-        </a>
-        .
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="catlinks" data-mw="interface" id="catlinks">
-     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-      <a href="../Special:Categories.html" title="Special:Categories">
-       Category
-      </a>
-      :
-      <ul>
-       <li>
-        <a href="../en/Category:Todo_Items.html" title="Category:Todo Items">
-         Todo Items
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Pmbootstrap&amp;oldid=22764">
-      https://wiki.postmarketos.org/index.php?title=Pmbootstrap&amp;oldid=22764
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 1 October 2021, at 12:40.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Pmbootstrap&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+<h4><span class="mw-headline" id="Channel">Channel</span></h4>
+<p>Unless your <a href="../en/Devices.html" title="Devices">device</a> is in the community or main category of devices, you need to choose <code>edge</code> here. Otherwise you can consider using the latest release. See the <a href="../en/Releases.html" title="Releases">releases</a> article for more information about the difference between the release channels.
+</p>
+<pre>Choose the postmarketOS release channel.
+Available (7):
+* edge: Rolling release / Most devices / Occasional breakage: https://postmarketos.org/edge
+* v22.12: Latest release / Recommended for best stability
+* v22.06: Old release (unsupported)
+* v21.12: Old release (unsupported)
+* v21.06: Old release (unsupported)
+* v21.03: Old release (unsupported)
+* v20.05: Old release (unsupported)
+Channel [edge]: 
+</pre>
+<h4><span class="mw-headline" id="Device">Device</span></h4>
+<p>Type in the vendor and code-name of your device at the prompt. If you're unsure, find your device in the <a href="../en/Devices.html" title="Devices">list of devices</a>.
+</p>
+<p>In case you do not wish to install to a real device, you can create a VM image for a <a href="../en/Category:QEMU.html" class="mw-redirect" title="QEMU">QEMU</a> device such as <a href="../en/QEMU_amd64_(qemu-amd64).html" title="QEMU amd64 (qemu-amd64)">qemu-amd64</a>. Run it afterwards with <code>pmbootstrap qemu</code>, as described in the related wiki pages.
+</p>
+<h4><span class="mw-headline" id="User_interface">User interface</span></h4>
+<p>Choose the user interface you would like to install. Check your <a href="../en/Devices.html" title="Devices">device's wiki page</a>, it may have more information on which interfaces are known to be working with your device. Weston and XFCE4 are usable on devices which do not have hardware 3D acceleration, the others are notably slowed down. If you are unsure, read <a href="../en/Category:Interface.html" title="Category:Interface">Category:Interface</a> for information.
+</p>
+<pre>Available user interfaces (20): 
+* none: Bare minimum OS image for testing and manual customization. The "console" UI should be selected if a graphical UI is not desired.
+* asteroid: (Wayland) Smartwatch UI from AsteroidOS
+* console: Console environment, with no graphical/touch UI
+* fbkeyboard: Plain framebuffer console with touchscreen keyboard support
+* framebufferphone: Minimalist framebuffer menu/keyboard UI accessible via touch/volume keys &amp; compatible scripts
+* gnome: (Wayland) Gnome Shell
+* gnome-mobile: (Wayland) Gnome Shell patched to adapt better to phones (Experimental)
+* i3wm: (X11) Tiling WM (keyboard required)
+* kodi: (GBM) 10-foot UI useful on TV's
+* lxqt: (X11) Lightweight Qt Desktop Environment (stylus recommended)
+* mate: (X11) MATE Desktop Environment, fork of GNOME2 (stylus recommended)
+* phosh: (Wayland) Mobile UI developed for the Librem 5
+* plasma-bigscreen: (Wayland) 10-feet variant of Plasma, made for big screen TVs
+* plasma-desktop: (X11/Wayland) KDE Desktop Environment (works well with tablets)
+* plasma-mobile: (Wayland) Mobile variant of KDE Plasma (does not run without hardware acceleration)
+* shelli: Plain console with touchscreen gesture support
+* sway: (Wayland) Tiling WM, drop-in replacement for i3wm (DOES NOT RUN WITHOUT HW ACCELERATION!)
+* sxmo-de-dwm: Simple Mobile: Mobile environment based on SXMO and running on dwm
+* sxmo-de-sway: Simple Mobile: Mobile environment based on SXMO and running on sway
+* weston: (Wayland) Reference compositor (demo, not a phone interface)
+* xfce4: (X11) Lightweight desktop (stylus recommended)
+User interface [phosh]:
+</pre>
+<h4><span class="mw-headline" id="More_questions">More questions</span></h4>
+<p>Unless you know that you want to change something, it's fine to answer with the defaults here by just pressing the <code>return</code> key.
+</p>
+<pre>Additional options: extra free space: 0 MB, boot partition size: 256 MB, parallel jobs: 3, ccache per arch: 5G, sudo timer: False, mirror: http://mirror.postmarketos.org/postmarketos/
+Change them? (y/n) [n]: 
+Additional packages that will be installed to rootfs. Specify them in a comma separated list (e.g.: vim,file) or "none"
+Extra packages [none]: 
+Your host timezone: Europe/Berlin
+Use this timezone instead of GMT? (y/n) [y]: 
+Available locales (14): C.UTF-8, ch_DE.UTF-8, de_CH.UTF-8, de_DE.UTF-8, en_GB.UTF-8, en_US.UTF-8, es_ES.UTF-8, fr_FR.UTF-8, it_IT.UTF-8, nb_NO.UTF-8, nl_NL.UTF-8, pt_BR.UTF-8, ru_RU.UTF-8, sv_SE.UTF-8
+Choose default locale for installation [C.UTF-8]: 
+Device hostname (short form, e.g. 'foo') [pine64-pinephone]: 
+After pmaports are changed, the binary packages may be outdated. If you want to install postmarketOS without changes, reply 'n' for a faster installation.
+Build outdated packages during 'pmbootstrap install'? (y/n) [y]: 
+WARNING: The chroots and git repositories in the work dir do not get updated automatically.
+Run 'pmbootstrap status' once a day before working with pmbootstrap to make sure that everything is up-to-date.
+DONE!
+</pre>
+<h3><span class="mw-headline" id="Installing_postmarketOS">Installing postmarketOS</span></h3>
+<p>Depending on the device, the installation instructions may be quite different. You might need to unlock or flash a bootloader before continuing here, or you may need to use a specific install command. Make sure you read the installation section of your <a href="../en/Devices.html" title="Devices">device's wiki page</a> first.
+</p>
+<p>All device ports have in common that they run some form of the <code>pmboostrap install</code> command at one point. It will build a chroot with the full installation as it will be placed on the device, copy it to an image file or write it directly to an SD card and ask you for the user and encryption password. Below are the most commonly used <code>pmbootstrap install</code> commands.
+</p>
+<p>All examples have <code>--fde</code> added to enable Full Disk Encryption. Omit it if you don't want to encrypt your device or if your device port isn't able to show the FDE prompt yet (see FDE column of the <a href="../en/All_devices.html" title="All devices">all devices</a> table).
+</p>
+<p>Find all available arguments (such as ones for choosing different filesystems etc.) with <code>pmbootstrap install --help</code>.
+</p>
+<h4><span class="mw-headline" id="pmbootstrap_install">pmbootstrap install</span></h4>
+<h5><span class="mw-headline" id="SD_card">SD card</span></h5>
+<p>Devices like the PinePhone, Samsung Galaxy S II, Nokia N900, various laptops etc. boot from an SD card, USB stick or other external storage. Find the name with <code>lsblk</code> first and <b>make sure it is the right one as you will overwrite everything on it.</b> Use a path without partition number at the end, such as <code>/dev/mmcblk0</code>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install --sdcard<span class="o">=</span>/dev/mmcblk... --fde
+</pre></div>
+<p>If your device is able to boot from SD card without flashing anything (such as the PinePhone), you should now be able to insert it into your device and boot it up. You are done with installing postmarketOS, congratulations!
+</p>
+<p>To make Androids like the Samsung Galaxy S II boot from SD card, you will need to flash a boot.img file to the internal storage. Read on at <a href="#flash_kernel">#flash_kernel</a>.
+</p>
+<h5><span class="mw-headline" id="Encrypted_Image_file">Encrypted Image file</span></h5>
+<p>Most Androids, the Librem 5 and other devices need to have an image file generated, that will then be flashed to the device while it is in a special flashing mode. To generate such an image, run:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install --fde
+</pre></div>
+<p>Then read on at <a href="#pmbootstrap_flasher">#pmbootstrap flasher</a>.
+</p>
+<h5><span class="mw-headline" id="Android_recovery_zip">Android recovery zip</span></h5>
+<p>A less reliable, but for some devices required method is using the Android recovery zip. The <a href="../en/Installation_from_recovery_mode.html" title="Installation from recovery mode">Installation from recovery mode</a> article explains how to generate the zip file and how to flash it.
+</p>
+<h4><span class="mw-headline" id="pmbootstrap_flasher">pmbootstrap flasher</span></h4>
+<p>This action wraps various flash programs (e.g. fastboot and heimdall) with a common syntax, and automatically fills out the paths to the files generated earlier during <code>pmbootstrap install</code>. Bring your phone into the flashing mode, typically by holding a special button combination such as <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> while booting up. This should be described in you <a href="../en/Devices.html" title="Devices">device's wiki page</a>.
+</p>
+<p>If you specify partition names below, note that they are case sensitive. If flashing onto a Samsung device, you can use <code>heimdall print-pit</code> to verify the names.
+</p>
+<h5><span class="mw-headline" id="flash_rootfs">flash_rootfs</span></h5>
+<p>Flash the rootfs to internal storage. You will need to do this, unless you plan to boot the rootfs from elsewhere, such as from SD card. <b>Beware that this will overwrite the existing installation/data on your phone!</b>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs
+</pre></div>
+<p>For Androids, we don't change the partition layout. If the default partition (typically "system") is too small for the generated image, it is possible to flash to another partition. Just be sure to erase any previous installations of postmarketOS in other partitions, because the init script will start with the first one that it encounters. (To delete a previous version either use <code>fastboot format system</code> for fastboot compatible devices, or simply install the known working OS, e.g. Android, on it. And if you really know what you are doing, you might consider using <code>dd</code>). Using multiple partitions with LVM is planned (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/60">pmbootstrap#60</a>).
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs --partition userdata
+</pre></div>
+<h5><span class="mw-headline" id="flash_kernel">flash_kernel</span></h5>
+<p>For Androids, you will also need to flash a <a href="../en/Glossary.html#boot.img" class="mw-redirect" title="Boot.img">boot.img</a> (kernel + initramfs). Instruct pmbootstrap to do so with:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_kernel
+</pre></div>
+<p>Afterwards you should be able to restart your phone and postmarketOS should boot up. You are done with installing postmarketOS, congratulations!
+</p>
+<h4><span class="mw-headline" id="Inspecting_generated_files">Inspecting generated files</span></h4>
+<p>If you want to conveniently access the files generated by <code>pmbootstrap install</code>, let pmbootstrap create a bunch of symlinks with <code>export</code>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap <span class="nb">export</span>
+<span class="go">(rootfs_lg-mako) install device-lg-mako</span>
+<span class="go">(rootfs_lg-mako) install postmarketos-mkinitfs</span>
+<span class="go">(rootfs_lg-mako) mkinitfs lg-mako</span>
+<span class="go">Export symlinks to: /tmp/postmarketOS-export</span>
+<span class="go"> * boot.img (Fastboot compatible boot.img file, contains initramfs and kernel)</span>
+<span class="go"> * initramfs (Initramfs)</span>
+<span class="go"> * initramfs-extra (Extra initramfs files in /boot)</span>
+<span class="go"> * vmlinuz (Linux kernel)</span>
+<span class="go"> * lg-mako.img (Rootfs with partitions for /boot and /)</span>
+</pre></div>
+<p>Run the following to extract the generated initramfs:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap initfs extract
+</pre></div>
+<h3><span class="mw-headline" id="Development_actions">Development actions</span></h3>
+<h4><span class="mw-headline" id="Building_packages">Building packages</span></h4>
+<p>Build any package from <a href="../en/Pmaports.git.html" title="Pmaports.git">pmaports.git</a>, for example <code>main/hello-world</code>. pmbootstrap will automatically pick one of the architectures that the APKBUILD can be built for, preferably the native architecture of the PC running pmbootstrap, or if that's not possible, the device's architecture. You can explicitly specify an architecture with <code>--arch</code>.
+</p>
+<p>pmbootstrap uses cross compilers as described in <a href="../en/Build_internals.html#Cross-compile_types" title="Build internals">Build_internals#Cross-compile_types</a>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap build hello-world
+<span class="gp">$</span> pmbootstrap build --arch<span class="o">=</span>armv7 hello-world
+</pre></div>
+<p>If you edited the sources of an <code>APKBUILD</code>, update its checksums:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap checksum hello-world
+</pre></div>
+<p>To find out where your local <code>APKBUILD</code> copies are saved (for instance, in order to modify them), run:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap config aports
+</pre></div>
+<p>If you modify anything in there, you will need to update its checksums and then re-build as above.
+</p>
+<p><br>
+To build a package from Alpine, it needs to be forked from Alpine's aports.git first:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap aportgen --fork-alpine megapixels
+<span class="go">Generate aport: megapixels</span>
+<span class="go">Checkout aports.git branch: master</span>
+<span class="go">*** pmaport generated: /home/user/.local/var/pmbootstrap/cache_git/pmaports/temp/megapixels</span>
+<span class="go">NOTE: chroot is still active (use 'pmbootstrap shutdown' as necessary)</span>
+<span class="go">DONE!</span>
+<span class="gp">$</span> pmbootstrap build megapixels
+</pre></div>
+<p>It is also possible to specify a local source tree for building a package.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://gitlab.com/postmarketOS/megapixels/
+<span class="gp">$</span> pmbootstrap build megapixels --src<span class="o">=</span>megapixels
+</pre></div>
+<p>Generate a template for a new package:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap newapkbuild <span class="s2">"https://gitlab.com/postmarketOS/osk-sdl/-/archive/0.52/osk-sdl-0.52.tar.bz2"</span>
+</pre></div>
+<h4><span class="mw-headline" id="Entering_chroots">Entering chroots</span></h4>
+<p>Enter the armv7 building chroot:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap chroot -b armv7
+</pre></div>
+<p>Run a command inside a chroot:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap chroot -- <span class="nb">echo</span> <span class="nb">test</span>
+</pre></div>
+<p>Safely delete all chroots:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap zap
+</pre></div>
+<h4><span class="mw-headline" id="Running_CI_scripts_locally">Running CI scripts locally</span></h4>
+<p>Before a patch with modifications to pmaports (or other postmarketOS projects, such as pmbootstrap itself) gets accepted, it needs to pass the CI scripts. These run automatically when you submit the patch, but of course it makes sense to run it beforehand on your machine locally. That way you can fix up your patches until it passes and you have a shorter test iteration time than you would have with pushing it to the server every time.
+</p>
+<p>Navigate to the git repository that you have modified and run the <code>ci</code> action.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap ci
+<span class="go">Available CI scripts (15):</span>
+<span class="go">* flake8: lint CI related python scripts/tests</span>
+<span class="go">* apkbuild-lint: run apkbuild-lint on modified APKBUILDs</span>
+<span class="go">* wiki: verify devices are documented in the wiki</span>
+<span class="go">* ec: editorconfig-checker: lint for trailing whitespaces etc.</span>
+<span class="go">* pytest: lint with various python tests</span>
+<span class="go">* commits: check pkgver/pkgrel bumps, amount of changed pkgs etc</span>
+<span class="go">* kconfig: check all kernel configs with 'pmbootstrap kconfig check'</span>
+<span class="go">* grep: check various bad patterns with grep</span>
+<span class="go">* shellcheck: lint all shell scripts</span>
+<span class="go">* build-riscv64: build modified packages for this architecture (slow)</span>
+<span class="go">* build-x86: build modified packages for this architecture (slow)</span>
+<span class="go">* build-armhf: build modified packages for this architecture (slow)</span>
+<span class="go">* build-aarch64: build modified packages for this architecture (slow)</span>
+<span class="go">* build-x86_64: build modified packages for this architecture (slow)</span>
+<span class="go">* build-armv7: build modified packages for this architecture (slow)</span>
+<span class="go">Which script? [all]: </span>
+<span class="go">*** (1/15) RUNNING CI SCRIPT: .ci/flake8.sh [pmbootstrap chroot] ***</span>
+<span class="go">...</span>
+</pre></div>
+<p>See the <a href="../en/Pmbootstrap_CI.html" title="Pmbootstrap CI">pmbootstrap CI</a> article for more information on this feature.
+</p>
+<h4><span class="mw-headline" id="Device_porting_assistance">Device porting assistance</span></h4>
+<p>Analyze Android <a href="../en/Glossary.html#boot.img" class="mw-redirect" title="Boot.img">boot.img</a> files (also works with recovery OS images like TWRP):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap bootimg_analyze ~/Downloads/twrp-3.7.0_9-0-FP2.img 
+<span class="go">NOTE: You will be prompted for your sudo/doas password, so we can set up a chroot to extract and analyze your boot.img file</span>
+<span class="go">(native) install file unpackbootimg</span>
+<span class="go">Put these variables in the deviceinfo file of your device:</span>
+
+<span class="go">deviceinfo_kernel_cmdline="console=ttyHSL0,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x3b7 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1"</span>
+<span class="go">deviceinfo_generate_bootimg="true"</span>
+<span class="go">deviceinfo_bootimg_qcdt="true"</span>
+<span class="go">deviceinfo_bootimg_mtk_mkimage="false"</span>
+<span class="go">deviceinfo_bootimg_dtb_second="false"</span>
+<span class="go">deviceinfo_flash_pagesize="2048"</span>
+<span class="go">deviceinfo_flash_offset_base="0x00000000"</span>
+<span class="go">deviceinfo_flash_offset_kernel="0x00008000"</span>
+<span class="go">deviceinfo_flash_offset_ramdisk="0x02000000"</span>
+<span class="go">deviceinfo_flash_offset_second="0x00f00000"</span>
+<span class="go">deviceinfo_flash_offset_tags="0x01e00000"</span>
+
+<span class="go">NOTE: chroot is still active (use 'pmbootstrap shutdown' as necessary)</span>
+<span class="go">DONE!</span>
+</pre></div>
+<p>Check kernel configs:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap kconfig check
+</pre></div>
+<p>Edit a kernel config:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap kconfig edit --arch<span class="o">=</span>aarch64 linux-postmarketos-allwinner
+</pre></div>
+<h4><span class="mw-headline" id="Repository_maintenance">Repository maintenance</span></h4>
+<p>Generate cross-compiler aports based on the latest version from Alpine's aports:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> <span class="s2">"</span><span class="k">$(</span>pmbootstrap config work<span class="k">)</span><span class="s2">"</span>/cache_git/pmaports/cross
+<span class="gp">$</span> pmbootstrap aportgen binutils-* gcc-*
+</pre></div>
+<p>Manually rebuild package index:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap index
+</pre></div>
+<p>List pmaports that don't have a binary package:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap repo_missing --arch<span class="o">=</span>armhf --overview
+</pre></div>
+<p>Increase the pkgrel for each aport where the binary package has outdated dependencies (e.g. after soname bumps):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap pkgrel_bump --auto
+</pre></div>
+<h4><span class="mw-headline" id="Logging">Logging</span></h4>
+<p>pmbootstrap writes all log output, and each shell command it runs to <code>log.txt</code> inside the work dir. Use the following command to follow the log in a second terminal:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap log
+</pre></div>
+<p>Use <code>-v</code> on any action to get verbose logging:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap -v build hello-world
+</pre></div>
+<p>Parse a single deviceinfo and return it as JSON:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap deviceinfo_parse pine64-pinephone
+</pre></div>
+<p>Parse a single APKBUILD and return it as JSON:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap apkbuild_parse hello-world
+</pre></div>
+<p>Parse a package from an APKINDEX and return it as JSON:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap apkindex_parse <span class="nv">$WORK</span>/cache_apk_x86_64/APKINDEX.8b865e19.tar.gz hello-world
+</pre></div>
+<h2><span class="mw-headline" id="Clean_up">Clean up</span></h2>
+<p>The <code>zap</code> action is used to clean up files generated while using pmbootstrap:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">Remove all chroots:</span>
+<span class="gp">$</span> pmbootstrap zap
+
+<span class="go">Remove all chroots and built packages:</span>
+<span class="gp">$</span> pmbootstrap zap -p
+
+<span class="go">See all options:</span>
+<span class="gp">$</span> pmbootstrap zap --help
+</pre></div>
+<p>Removing and recreating chroots is relatively fast, as the Alpine packages that get installed into the chroots are still cached. Sometimes users ask how to completely remove everything related to pmbootstrap (all caches and the config file), this would be done as follows. You can do this if your pmbootstrap install is completely broken for some reason, and then cleanly re-install it as described in this article.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap shutdown
+<span class="gp">$</span> <span class="nb">export</span> <span class="nv">WORK</span><span class="o">=</span><span class="k">$(</span>pmbootstrap config work<span class="k">)</span>
+<span class="gp">#</span> rm -rf <span class="s2">"</span><span class="nv">$WORK</span><span class="s2">"</span>
+<span class="gp">$</span> rm -f ~/.config/pmbootstrap.cfg
+<span class="gp">$</span> rm -f ~/.local/bin/pmbootstrap
+</pre></div>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://git.sr.ht/~postmarketos/pmbootstrap">git repository</a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues">issue tracker</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://postmarketos.org/blog/2021/05/26/four-years/#pmbootstrap-the-swiss-army-knife-of-postmarketos-development">pmbootstrap: the Swiss Army knife of postmarketOS development</a> — Video Presentation at AlpineConf 2021</li>
+<li><a href="../en/Installation.html" title="Installation">Installation</a></li>
+<li><a href="../en/Porting_to_a_new_device.html#Alternatives_to_regular_flashing" title="Porting to a new device">Alternatives to regular flashing</a></li>
+<li><a href="../en/Porting_to_a_new_device.html" title="Porting to a new device">Porting to a new device</a></li>
+<li><a href="../en/On-device_installer.html" title="On-device installer">On-device installer</a></li>
+<li><a href="../en/Troubleshooting.html" title="Troubleshooting">Troubleshooting</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Pmbootstrap&amp;oldid=45360">https://wiki.postmarketos.org/index.php?title=Pmbootstrap&amp;oldid=45360</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 21 June 2023, at 07:56.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Pmbootstrap&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

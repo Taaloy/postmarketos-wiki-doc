@@ -76,7 +76,7 @@ Mainline</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Chipset</th>
     <td class="" style="">
-<a href="../en/Qualcomm_Snapdragon_410_412_415_(MSM8916_MSM8916V2_MSM8929).html" class="mw-redirect" title="Qualcomm Snapdragon 412 (MSM8916v2)">Qualcomm Snapdragon 412 (MSM8916v2)</a>
+<a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" class="mw-redirect" title="Qualcomm Snapdragon 412 (MSM8916v2)">Qualcomm Snapdragon 412 (MSM8916v2)</a>
 </td>
 </tr>
 <tr class="">
@@ -146,7 +146,7 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Display works. Ideally with sleep mode and brightness control.">Display</abbr></th>
     <td class="" style="">
-<div class="feature feature-yes">Works</div>
+<div class="feature feature-partial">Partial</div>
 </td>
 </tr>
 <tr class="">
@@ -361,7 +361,7 @@ handset</td>
 <p><br>
 </p>
 <table class="infobox" style="float: right; width: 22em; color: inherit; background-color: #f7fff7; border: 3px solid #8a8;"><tbody><tr><td>
-<b>This device is based on the <a href="../en/Qualcomm_Snapdragon_410_412_415_(MSM8916_MSM8916V2_MSM8929).html" class="mw-redirect" title="Qualcomm Snapdragon 410/412 (MSM8916)">Snapdragon 412</a>.</b><br>See the SoC page for common tips, guides and troubleshooting steps</td></tr></tbody></table>
+<b>This device is based on the <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm Snapdragon 410/412 (MSM8916)">Snapdragon 412</a>.</b><br>See the SoC page for common tips, guides and troubleshooting steps</td></tr></tbody></table>
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
 <ul><li><a href="../User:Lazzardo.html" title="User:Lazzardo">Lazzardo</a></li></ul>
 <h2>
@@ -463,7 +463,7 @@ $ fastboot flash splash splash.img
 <ul><li>
 <b>Warning:</b> lk2nd is installed to the <code>boot</code> partition, <b>not</b> the <code>aboot</code> partition you flashed earlier!</li></ul>
 </li></ol>
-<p>When you have lk2nd installed and running, follow <a href="../en/Qualcomm_Snapdragon_410_412_415_(MSM8916_MSM8916V2_MSM8929).html#Installation" class="mw-redirect" title="Qualcomm Snapdragon 410/412 (MSM8916)">Qualcomm_Snapdragon_410/412_(MSM8916)#Installation</a>.
+<p>When you have lk2nd installed and running, follow <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html#Installation" title="Qualcomm Snapdragon 410/412 (MSM8916)">Qualcomm_Snapdragon_410/412_(MSM8916)#Installation</a>.
 </p>
 <h4><span class="mw-headline" id="Downstream">Downstream</span></h4>
 <p>There is an alternative device port using the downstream kernel, <code>bq-paella-downstream</code>. It can be selected by entering the name in <code>pmbootstrap init</code>.
@@ -477,9 +477,12 @@ $ fastboot flash splash splash.img
 <p>Audio routing seems to work properly now, so you can make a call without switching anything in settings.
 You need to watch battery drain as this soc, has no working CPU suspend mode.
 </p>
-<p>Make sure you have checked <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues?scope=all&amp;state=opened&amp;label_name%5B%5D=device-bq-paella">bq-paella issues</a> and fully read <a href="../en/Qualcomm_Snapdragon_410_412_415_(MSM8916_MSM8916V2_MSM8929).html" class="mw-redirect" title="Qualcomm Snapdragon 410/412 (MSM8916)">Qualcomm_Snapdragon_410/412_(MSM8916)</a>, as it contains information about important bugs related generally to this SoC (they are not mentioned directly here).
+<p>Make sure you have checked <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues?scope=all&amp;state=opened&amp;label_name%5B%5D=device-bq-paella">bq-paella issues</a> and fully read <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" title="Qualcomm Snapdragon 410/412 (MSM8916)">Qualcomm_Snapdragon_410/412_(MSM8916)</a>, as it contains information about important bugs related generally to this SoC (they are not mentioned directly here).
 </p>
 <p>Cellular networking requires the package <code>msm-modem-uim-selection</code> and setting <code>/etc/conf.d/msm-modem-uim-selection</code> to <code>sim_wait_time=30</code>, this will automatically detect a sim card in one of the slots and activate it.
+</p>
+<h2><span class="mw-headline" id="Display_sleep_issue_in_X11">Display sleep issue in X11</span></h2>
+<p>This device is known to has this common issue where in X11 user interfaces like Xfce4 and MATE, when the screen blacks out after a while of inactivity it can't be woken up anymore. As a workaround, set display sleeping time to "never" in the power managament settings. To solve this issue properly, work on the Quclcomm DRM Driver is needed. See <a rel="nofollow" class="external text" href="https://github.com/msm8916-mainline/linux/issues/268">the github issue on the our msm8916 kernel fork for learn more</a>.
 </p>
 <h2><span class="mw-headline" id="Pictures">Pictures</span></h2>
 <ul class="gallery mw-gallery-traditional">
@@ -622,9 +625,9 @@ You need to watch battery drain as this soc, has no working CPU suspend mode.
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=BQ_Aquaris_X5_(bq-paella)&amp;oldid=42978">https://wiki.postmarketos.org/index.php?title=BQ_Aquaris_X5_(bq-paella)&amp;oldid=42978</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=BQ_Aquaris_X5_(bq-paella)&amp;oldid=44843">https://wiki.postmarketos.org/index.php?title=BQ_Aquaris_X5_(bq-paella)&amp;oldid=44843</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:30.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 6 June 2023, at 04:31.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

@@ -1,212 +1,88 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Mrtest - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Mrtest rootpage-Mrtest skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Mrtest
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <div class="thumb tright">
-       <div class="thumbinner" style="width:302px;">
-        <a class="image" href="../Mrtest.jpg">
-         <img alt="" class="thumbimage" decoding="async" height="400" src="../Mrtest.jpg" srcset="../Mrtest.jpg 1.5x ../Mrtest.jpg 2x" width="300"/>
-        </a>
-        <div class="thumbcaption">
-         <div class="magnify">
-          <a class="internal" href="../Mrtest.jpg" title="Enlarge">
-          </a>
-         </div>
-         <code>
-          mrtest add
-         </code>
-         in action, about to upgrade the kernel to a version from a merge request
-        </div>
-       </div>
-      </div>
-      <p>
-       mrtest helps with testing merge requests from both
-       <a class="mw-redirect" href="../en/Pmaports.git.html" title="Pmaports">
-        pmaports
-       </a>
-       , as well as Alpine's
-       <a class="external text" href="https://gitlab.alpinelinux.org/alpine/aports/" rel="nofollow">
-        aports
-       </a>
-       . It automatizes downloading the packages that were built in CI and offers a convenient, interactive prompt to install them.
-      </p>
-      <div class="toc" id="toc">
-       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
-       <div class="toctitle" dir="ltr" lang="en">
-        <h2>
-         Contents
-        </h2>
-        <span class="toctogglespan">
-         <label class="toctogglelabel" for="toctogglecheckbox">
-         </label>
-        </span>
-       </div>
-       <ul>
-        <li class="toclevel-1 tocsection-1">
-         <a href="#Installation">
-          <span class="tocnumber">
-           1
-          </span>
-          <span class="toctext">
-           Installation
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-2">
-         <a href="#Installing_packages">
-          <span class="tocnumber">
-           2
-          </span>
-          <span class="toctext">
-           Installing packages
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-3">
-           <a href="#Example">
-            <span class="tocnumber">
-             2.1
-            </span>
-            <span class="toctext">
-             Example
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-4">
-         <a href="#Uninstalling_packages">
-          <span class="tocnumber">
-           3
-          </span>
-          <span class="toctext">
-           Uninstalling packages
-          </span>
-         </a>
-         <ul>
-          <li class="toclevel-2 tocsection-5">
-           <a href="#Example_2">
-            <span class="tocnumber">
-             3.1
-            </span>
-            <span class="toctext">
-             Example
-            </span>
-           </a>
-          </li>
-         </ul>
-        </li>
-        <li class="toclevel-1 tocsection-6">
-         <a href="#See_also">
-          <span class="tocnumber">
-           4
-          </span>
-          <span class="toctext">
-           See also
-          </span>
-         </a>
-        </li>
-       </ul>
-      </div>
-      <h2>
-       <span class="mw-headline" id="Installation">
-        Installation
-       </span>
-      </h2>
-      <p>
-       Either from Alpine's packages (as of writing in edge, not yet in stable):
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">#</span> apk add mrtest
-</pre>
-      </div>
-      <p>
-       Or from the git repository:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> git clone https://gitlab.com/postmarketOS/mrhlpr.git
-</pre>
-      </div>
-      <p>
-       mrtest source code lives inside
-       <a class="external text" href="https://gitlab.com/postmarketOS/mrhlpr" rel="nofollow">
-        mrhlpr.git
-       </a>
-       , as it shares code for interacting with the gitlab API with the mrhlpr project.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Installing_packages">
-        Installing packages
-       </span>
-      </h2>
-      <p>
-       Navigate to a merge request that you want to test. After reading through the changes made in the merge request, run
-       <code>
-        mrtest add
-       </code>
-       with the ID. It will automatically figure out the last pipeline, get the job with the suitable arch of your device, and show which packages are available for installation. Then you will be able to select the packages in an interactive prompt.
-      </p>
-      <p>
-       To install packages from a merge request in Alpine, use
-       <code>
-        mrtest add -a
-       </code>
-       (or
-       <code>
-        --alpine
-       </code>
-       ).
-      </p>
-      <h3>
-       <span class="mw-headline" id="Example">
-        Example
-       </span>
-      </h3>
-      <p>
-       Trying to test
-       <a class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3025" rel="nofollow">
-        pmaports!3025
-       </a>
-       results in the following output:
-      </p>
-      <pre>$ mrtest add 3025
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Mrtest - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Mrtest rootpage-Mrtest skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Mrtest</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<div class="thumb tright"><div class="thumbinner" style="width:302px;">
+<a href="../Mrtest.jpg" class="image"><img alt="" src="../Mrtest.jpg" decoding="async" width="300" height="400" class="thumbimage" srcset="../Mrtest.jpg 1.5x ../Mrtest.jpg 2x"></a>  <div class="thumbcaption">
+<div class="magnify"><a href="../Mrtest.jpg" class="internal" title="Enlarge"></a></div>
+<code>mrtest add</code> in action, about to upgrade the kernel to a version from a merge request</div>
+</div></div>
+<p>mrtest helps with testing merge requests from both <a href="../en/Pmaports.git.html" class="mw-redirect" title="Pmaports">pmaports</a>, as well as Alpine's <a rel="nofollow" class="external text" href="https://gitlab.alpinelinux.org/alpine/aports/">aports</a>. It automatizes downloading the packages that were built in CI and offers a convenient, interactive prompt to install them. 
+</p>
+<p><i>It's meant to be run on your postmarketOS device (ie. your phone).</i>
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Installation_on_PostmarketOS"><span class="tocnumber">1</span> <span class="toctext">Installation on PostmarketOS</span></a></li>
+<li class="toclevel-1 tocsection-2">
+<a href="#Installing_packages"><span class="tocnumber">2</span> <span class="toctext">Installing packages</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Example"><span class="tocnumber">2.1</span> <span class="toctext">Example</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4">
+<a href="#Uninstalling_packages"><span class="tocnumber">3</span> <span class="toctext">Uninstalling packages</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Example_2"><span class="tocnumber">3.1</span> <span class="toctext">Example</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Installation_on_PostmarketOS">Installation on PostmarketOS</span></h2>
+<p>Either from Alpine's packages
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">#</span> apk add mrtest
+</pre></div>
+<p>Or from the git repository
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://gitlab.com/postmarketOS/mrhlpr.git
+</pre></div>
+<p>mrtest source code lives inside <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/mrhlpr">mrhlpr.git</a>, as it shares code for interacting with the gitlab API with the mrhlpr project.
+</p>
+<h2><span class="mw-headline" id="Installing_packages">Installing packages</span></h2>
+<p>Navigate to a merge request that you want to test. After reading through the changes made in the merge request, run <code>mrtest add</code> with the ID. It will automatically figure out the last pipeline, get the job with the suitable arch of your device, and show which packages are available for installation. Then you will be able to select the packages in an interactive prompt.
+</p>
+<p>To install packages from a merge request in Alpine, use <code>mrtest add -a</code> (or <code>--alpine</code>).
+</p>
+<h3><span class="mw-headline" id="Example">Example</span></h3>
+<p>Trying to test <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3025">pmaports!3025</a> results in the following output:
+</p>
+<pre>$ mrtest add 3025
 Download https://gitlab.com/api/v4/projects/postmarketOS%2Fpmaports/merge_requests/3025
 Download https://gitlab.com/api/v4/projects/8065375
 Download https://gitlab.com/api/v4/projects/8065375/pipelines/502182185/jobs
@@ -244,36 +120,11 @@ Executing gtk-update-icon-cache-2.24.33-r0.trigger
 OK: 1985 MiB in 919 packages
 All done! Use 'mrtest zap' to uninstall added packages.
 </pre>
-      <h2>
-       <span class="mw-headline" id="Uninstalling_packages">
-        Uninstalling packages
-       </span>
-      </h2>
-      <p>
-       Use
-       <code>
-        mrtest zap
-       </code>
-       to check for previously installed virtual packages, and to get a prompt to uninstall them. Uninstalling virtual packages will remove all packages that were added with a
-       <code>
-        mrtest add
-       </code>
-       command. Note that this does not include upgraded packages, to remove upgrade packages you will need to run
-       <code>
-        apk upgrade -a
-       </code>
-       as the output at the end of
-       <code>
-        mrtest zap
-       </code>
-       explains.
-      </p>
-      <h3>
-       <span class="mw-headline" id="Example_2">
-        Example
-       </span>
-      </h3>
-      <pre>$ mrtest zap              
+<h2><span class="mw-headline" id="Uninstalling_packages">Uninstalling packages</span></h2>
+<p>Use <code>mrtest zap</code> to check for previously installed virtual packages, and to get a prompt to uninstall them. Uninstalling virtual packages will remove all packages that were added with a <code>mrtest add</code> command. Note that this does not include upgraded packages, to remove upgrade packages you will need to run <code>apk upgrade -a</code> as the output at the end of <code>mrtest zap</code> explains.
+</p>
+<h3><span class="mw-headline" id="Example_2">Example</span></h3>
+<pre>$ mrtest zap              
 Getting installed packages...
 Virtual packages from previous 'mrtest add':
 * .mrtest-3025-postmarketOS
@@ -296,90 +147,48 @@ Note that 'mrtest zap' will only remove packages *added* during
 'apk upgrade -a'. This will upgrade/downgrade all your packages
 to the versions in the repositories.
 </pre>
-      <h2>
-       <span class="mw-headline" id="See_also">
-        See also
-       </span>
-      </h2>
-      <ul>
-       <li>
-        <a class="external text" href="https://gitlab.com/postmarketOS/mrhlpr/-/merge_requests/12" rel="nofollow">
-         mrhlpr!12
-        </a>
-        : initial merge request
-       </li>
-       <li>
-        <a class="external text" href="https://cast.postmarketos.org/episode/16-SDM845-mrtest-PinePhone-keyboard-Chromebooks-PowerVR/" rel="nofollow">
-         postmarketOS podcast #16
-        </a>
-        where the tool gets introduced and discussed
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="catlinks catlinks-allhidden" data-mw="interface" id="catlinks">
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Mrtest&amp;oldid=26581">
-      https://wiki.postmarketos.org/index.php?title=Mrtest&amp;oldid=26581
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 28 March 2022, at 21:09.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Mrtest&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+<p>Note that packages installed through <code>mrtest add</code> won't be automatically upgraded. You'll need to <code>mrtest zap</code> them before you'd be able to install newer versions from the official binary repo later using <code>apk upgrade</code>.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/mrhlpr/-/merge_requests/12">mrhlpr!12</a>: initial merge request</li>
+<li>
+<a rel="nofollow" class="external text" href="https://cast.postmarketos.org/episode/16-SDM845-mrtest-PinePhone-keyboard-Chromebooks-PowerVR/">postmarketOS podcast #16</a> where the tool gets introduced and discussed</li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/mrhlpr">Source code</a></li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Mrtest&amp;oldid=46056">https://wiki.postmarketos.org/index.php?title=Mrtest&amp;oldid=46056</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 30 June 2023, at 02:41.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Mrtest&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

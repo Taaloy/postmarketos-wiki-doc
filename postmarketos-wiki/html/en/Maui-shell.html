@@ -1,212 +1,136 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Maui-shell - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Maui-shell rootpage-Maui-shell skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Maui-shell
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <p>
-       [
-       <a class="external text" href="https://github.com/Nitrux/maui-shell" rel="nofollow">
-        maui-shell
-       </a>
-       ] is an experimental convergent UI written in QT. It isn't quite ready for use yet but it can be tested in postmarketOS using the
-       <code>
-        maui
-       </code>
-       feature branch of pmaports:
-       <a class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/tree/maui" rel="nofollow">
-        https://gitlab.com/postmarketOS/pmaports/-/tree/maui
-       </a>
-      </p>
-      <p>
-       Check out the feature branch, change your UI to maui with
-       <code>
-        pmbootstrap config ui maui
-       </code>
-       and then do a standard install.
-You may need to manually set the session to maui with
-       <code>
-        tinydm-set-session -s -f /usr/share/wayland-sessions/cask.desktop
-       </code>
-       , cask is the name of the maui compositor.
-      </p>
-      <p>
-       You should now be able to start maui by starting the tinydm service.
-      </p>
-      <h3>
-       <span class="mw-headline" id="scaling">
-        scaling
-       </span>
-      </h3>
-      <p>
-       Scaling for QT apps can be overriden by editing
-       <code>
-        /usr/share/wayland-sessions/cask.desktop
-       </code>
-       and prepending to the Exec line, change 2 to your preferred scale factor.
-      </p>
-      <pre>Exec=env QT_QPA_PLATFORM=eglfs QT_SCALE_FACTOR=2 QT_AUTO_SCREEN_SCALE_FACTOR=0 /usr/bin/....
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Maui-shell - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Maui-shell rootpage-Maui-shell skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Maui-shell</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">Maui Shell</caption>
+<tbody>
+<tr class=""><td colspan="2" class="" style="text-align:center;">
+<a href="/index.php?title=Special:Upload&amp;wpDestFile=Maui-shell.png" class="new" title="File:Maui-shell.png">200px</a><br><span style="">Default Maui Shell homescreen.</span>
+</td></tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Name</th>
+    <td class="" style="">
+Maui Shell</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Graphics stack</th>
+    <td class="" style="">
+X11/Wayland</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Toolkit</th>
+    <td class="" style="">
+Mauikit + QT5</td>
+</tr>
+<tr><th colspan="2" class="" style="text-align:center;">In postmarketOS</th></tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Package</th>
+    <td class="" style="">
+N/A</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Status</th>
+    <td class="" style="">
+Unavailable</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<p>[<a rel="nofollow" class="external text" href="https://github.com/Nitrux/maui-shell">maui-shell</a>] is an experimental convergent UI written in QT. It isn't quite ready for use yet but it can be tested in postmarketOS using the <code>maui</code> feature branch of pmaports: <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/tree/maui">https://gitlab.com/postmarketOS/pmaports/-/tree/maui</a>
+</p>
+<p>Check out the feature branch, change your UI to maui with <code>pmbootstrap config ui maui</code> and then do a standard install.
+You may need to manually set the session to maui with <code>tinydm-set-session -s -f /usr/share/wayland-sessions/cask.desktop</code>, cask is the name of the maui compositor.
+</p>
+<p>You should now be able to start maui by starting the tinydm service.
+</p>
+<h3><span class="mw-headline" id="scaling">scaling</span></h3>
+<p>Scaling for QT apps can be overriden by editing <code>/usr/share/wayland-sessions/cask.desktop</code> and prepending to the Exec line, change 2 to your preferred scale factor.
+</p>
+<pre>Exec=env QT_QPA_PLATFORM=eglfs QT_SCALE_FACTOR=2 QT_AUTO_SCREEN_SCALE_FACTOR=0 /usr/bin/....
 </pre>
-      <h3>
-       <span class="mw-headline" id="Debugging">
-        Debugging
-       </span>
-      </h3>
-      <p>
-       You may want to pipe the output of cask somewhere so that you can read it, by default it should log to /tmp/cask.log but this doesn't seem to work as intended, you can try editing
-       <code>
-        /usr/share/applications/cask.desktop
-       </code>
-       and changing it's Exec to something like
-      </p>
-      <pre>Exec=sh -c '/usr/bin/cask -r -plugin libinput 2&gt;&amp;1 &gt; /tmp/cask.log'
+<h3><span class="mw-headline" id="Debugging">Debugging</span></h3>
+<p>You may want to pipe the output of cask somewhere so that you can read it, by default it should log to /tmp/cask.log but this doesn't seem to work as intended, you can try editing <code>/usr/share/applications/cask.desktop</code> and changing it's Exec to something like
+</p>
+<pre>Exec=sh -c '/usr/bin/cask -r -plugin libinput 2&gt;&amp;1 &gt; /tmp/cask.log'
 </pre>
-      <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;">
-       <tbody>
-        <tr>
-         <td style="padding: 2px 0 2px 0.9em; text-align: center;">
-          <span style="white-space: nowrap;">
-           <img alt="Note" decoding="async" height="20" src="../Reference_icon.svg" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x" title="Note" width="20"/>
-          </span>
-         </td>
-         <td style="padding: 0.35em 0.9em; width: 100%;">
-          The above is entirely untested and probably required some tweaking
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <h3>
-       <span class="mw-headline" id="See_also">
-        See also
-       </span>
-      </h3>
-      <ul>
-       <li>
-        maui-shell github:
-        <a class="external free" href="https://github.com/Nitrux/maui-shell" rel="nofollow">
-         https://github.com/Nitrux/maui-shell
-        </a>
-       </li>
-       <li>
-        pmaports feature branch:
-        <a class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/tree/maui" rel="nofollow">
-         https://gitlab.com/postmarketOS/pmaports/-/tree/maui
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="catlinks" data-mw="interface" id="catlinks">
-     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-      <a href="../Special:Categories.html" title="Special:Categories">
-       Category
-      </a>
-      :
-      <ul>
-       <li>
-        <a href="../en/Category:Interface.html" title="Category:Interface">
-         Interface
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Maui-shell&amp;oldid=30042">
-      https://wiki.postmarketos.org/index.php?title=Maui-shell&amp;oldid=30042
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 8 August 2022, at 12:05.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Maui-shell&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">The above is entirely untested and probably required some tweaking</td>
+</tr></tbody></table>
+<h3><span class="mw-headline" id="See_also">See also</span></h3>
+<ul>
+<li>maui-shell github: <a rel="nofollow" class="external free" href="https://github.com/Nitrux/maui-shell">https://github.com/Nitrux/maui-shell</a>
+</li>
+<li>pmaports feature branch: <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/tree/maui">https://gitlab.com/postmarketOS/pmaports/-/tree/maui</a>
+</li>
+</ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../en/Category:Pages_with_broken_file_links.html" title="Category:Pages with broken file links">Pages with broken file links</a></li>
+<li><a href="../en/Category:Unavailable_and_or_unmaintained_interfaces.html" title="Category:Unavailable and/or unmaintained interfaces">Unavailable and/or unmaintained interfaces</a></li>
+</ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Maui-shell&amp;oldid=44801">https://wiki.postmarketos.org/index.php?title=Maui-shell&amp;oldid=44801</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 3 June 2023, at 20:27.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Maui-shell&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

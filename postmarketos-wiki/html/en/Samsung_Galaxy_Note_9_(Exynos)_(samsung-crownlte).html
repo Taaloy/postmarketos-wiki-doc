@@ -396,6 +396,8 @@ aarch64</td>
 </pre></div>
 <p>or follow <a href="../en/Installation_from_recovery_mode.html" title="Installation from recovery mode">Installation_from_recovery_mode</a> instead.
 </p>
+<p>Note: if you choose not to install the firmware package, boot will take 3 minutes due to something (elogind? udev?) timeouting on V4L2 device nodes due to missing <code>mfc_fw.bin</code> blob. See this MR for details: <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/4176">https://gitlab.com/postmarketOS/pmaports/-/merge_requests/4176</a>
+</p>
 <p><br>
 </p>
 <h2><span class="mw-headline" id="USB_networking">USB networking</span></h2>
@@ -649,6 +651,7 @@ Received DHCP DISCOVER from client: 8e:9f:b6:8e:9b:6e
 <h3><span class="mw-headline" id="Todo">Todo</span></h3>
 <ul><li>You can refresh the screen manually with "echo 0,0 &gt; /sys/class/graphics/fb0/pan" or use msm-fb-refresher. When reading <a href="../en/Troubleshooting:display.html#Screen_does_not_refresh" title="Troubleshooting:display">Troubleshooting:display#Screen_does_not_refresh</a> I was under the impression that msm-fb-refresher wouldn't be helpful, since "cat modes &gt; mode" didn't refresh screen on this phone. Maybe this note could be added to that wiki page, if true?</li></ul>
 <h2><span class="mw-headline" id="Serial_debugging">Serial debugging</span></h2>
+<h3><span class="mw-headline" id="USB">USB</span></h3>
 <p>Kernel config has CONFIG_MUIC_MAX77705 enabled. Kernel code (android_kernel_samsung_universal9810/drivers/muic/max77705-muic.c) has this:
 </p>
 <pre>static const struct max77705_muic_vps_data muic_vps_table[] = {
@@ -687,7 +690,18 @@ Received DHCP DISCOVER from client: 8e:9f:b6:8e:9b:6e
 </pre>
 <p>Perhaps a serial cable could be made? <a href="../en/Serial_debugging:Cable_schematics.html#Samsung_Galaxy_S7_and_S5" title="Serial debugging:Cable schematics">Serial_debugging:Cable_schematics#Samsung_Galaxy_S7_and_S5</a>
 </p>
-<h2><span class="mw-headline" id="USB">USB</span></h2>
+<h3><span class="mw-headline" id="UART">UART</span></h3>
+<p>Service manual, file SM-N960F_SVC_SCHEMATIC.pdf, page 5 shows that JTAG Connector's (picture below) pin 10 (AP_UART_TXD) is UART TX signal and pin 12 (AP_UART_RXD) is UART RX.
+</p>
+<p><a href="../Samsung-crownlte_jtag_connector.png" class="image"><img alt="Samsung-crownlte jtag connector.png" src="../Samsung-crownlte_jtag_connector.png" decoding="async" width="500" height="357" srcset="../crownlte_jtag_connector.png 1.5x"></a>
+</p>
+<p>The following picture shows the motherboard and a zoom in on JTAG Connector with its pin numbers. Wires have been soldered to ground, UART TX and UART RX.
+</p>
+<p><a href="../Samsung-crownlte_ground-uart_tx-uart_rx.jpg" class="image"><img alt="Samsung-crownlte ground-uart tx-uart rx.jpg" src="../Samsung-crownlte_ground-uart_tx-uart_rx.jpg" decoding="async" width="500" height="375" srcset="../750px-Samsung-crownlte_ground-uart_tx-uart_rx.jpg 1.5x ../1000px-Samsung-crownlte_ground-uart_tx-uart_rx.jpg 2x"></a>
+</p>
+<p>You can connect to the ground by soldering to the pin shown in picture above or just using some part of the motherboard's ground plane, e.g. the metal shielding marked '672 #2'. Apparently, screw holes are not connected to the ground plane. Be aware that UART high level (logical 1) is 1.8 V. UART decoder settings: baud rate - 115200, parity - none, data bits - 8.
+</p>
+<h2><span class="mw-headline" id="USB_2">USB</span></h2>
 <h3><span class="mw-headline" id="OTG">OTG</span></h3>
 <p>Tested, works: mouse, RTL8152 based NIC, DAC (Fiio E10K).
 </p>
@@ -909,7 +923,7 @@ System Benchmarks Index Score (Partial Only)                         6053.8
 <li>
 <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1843">pmaports!1843</a> - samsung-dream color order fix and different networking setup in initfs-hook.sh (the one that also works for crownlte)</li>
 <li>
-<a rel="nofollow" class="external text" href="https://drive.google.com/file/d/14986qJyU_cbFK_El0L9azzpvT14LeOGP/view">Service manual</a> with schematics (<a rel="nofollow" class="external text" href="https://anonfiles.com/n1c9fcv5y4/Service_Manual_Note_9_SM-N960F_phonelumi.com_rar">mirror</a>)</li>
+<a rel="nofollow" class="external text" href="https://www.mediafire.com/file/b3ug04gff5u3ckz/Schematic+Service+Manual+Note+9+(SM-N960F)-MobileRdx.com.rar/file">Service manual</a> with schematics (ask <a href="../User:Rom4nik.html" title="User:Rom4nik">User:Rom4nik</a> for mirror, if needed)</li>
 </ul>
 
 </div></div>
@@ -929,9 +943,9 @@ System Benchmarks Index Score (Partial Only)                         6053.8
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_9_(Exynos)_(samsung-crownlte)&amp;oldid=43845">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_9_(Exynos)_(samsung-crownlte)&amp;oldid=43845</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_9_(Exynos)_(samsung-crownlte)&amp;oldid=45992">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Note_9_(Exynos)_(samsung-crownlte)&amp;oldid=45992</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 27 April 2023, at 12:43.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 28 June 2023, at 18:17.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

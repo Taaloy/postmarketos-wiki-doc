@@ -137,7 +137,7 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;">WiFi</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -374,56 +374,17 @@ aarch64</td>
 <h2><span class="mw-headline" id="Display">Display</span></h2>
 <p>Both the display and the touchscreen work normally, although the interface won't show up if you are using LightDM. This happens because for whatever reason logind does not recognize the user's session as graphical. To fix this, edit <code>/etc/lightdm/lightdm.conf</code> and add the line <code>logind-check-graphical=false</code> to force LightDM to start the graphical session. See this article for more info: <a href="../en/Display_manager.html#CanGraphical_issue" title="Display manager">Display_manager#CanGraphical_issue</a>.
 </p>
-<p>The display also has trouble waking up after being put to sleep. The backlight is enabled as expected, but the screen stays blank. 
+<p>The display also has trouble waking up after being put to sleep. The backlight is enabled as expected, but the screen stays blank.
 </p>
-<p>The following error appears in the kernel log when the screen falls to sleep:
+<h2><span class="mw-headline" id="WiFi">WiFi</span></h2>
+<p>The WiFi works, but only with the proprietary firmware distributed with the phone. Make sure to enable nonfree firmware if you need to use WiFi.
 </p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>[  203.062450] gf3208: [info] goodix_fb_state_chg_callback go to the goodix_fb_state_chg_callback value = 16
-[  203.062549] gf3208: [info] goodix_fb_state_chg_callback go to the goodix_fb_state_chg_callback value = 16
-[  203.062552] gf3208: goodix_fb_state_chg_callback defalut
-[  203.062819] [FTS]do_ts_resume_work start.
-[  203.062822] [FTS]fts_ts_resume: Enter
-[  203.062824] [FTS]Already in awake state
-[  203.062827] [FTS]fts_ts_resume: Exit(1353)
-[  203.062828] [FTS]fts_ts_resume fail.
-[  203.062830] [FTS]do_ts_resume_work end.
-[  203.062836] bq2560x: bq2560x_system_temp_level_set: bq2560x_system_temp_level_set lvl_sel=0, bq-&gt;therm_lvl_sel = 0
-[  203.304470] ysg mdss_dsi_panel_power_off:290
-[  203.304474] ysg mdss_dsi_panel_reset:366
+<p>When the WCNSS driver gets enabled, it might complain with the following error:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>[  140.798259] wcnss: no space available for smd frame
 </pre></div>
-<p>This error appears a minute later:
+<p>This is probably a false error. After the firmware is loaded, the interface appears and works correctly, so you can ignore it.
 </p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>[  259.267754] gf3208: [info] goodix_fb_state_chg_callback go to the goodix_fb_state_chg_callback value = 16
-[  259.267775] [FTS]fts_ts_suspend: Enter
-[  259.267778] [FTS]fts_esdcheck_suspend: Enter
-[  259.267780] [FTS]fts_esdcheck_switch: Enter
-[  259.267782] [FTS][Info][ESD]: ESD check stop!!
-[  259.267787] [FTS]fts_esdcheck_switch: Exit(254)
-[  259.267790] [FTS]fts_esdcheck_suspend: Exit(263)
-[  259.267792] [FTS]fts_gesture_suspend: Enter
-[  259.267794] [FTS]gesture is disabled
-[  259.267796] [FTS]fts_gesture_suspend: Exit(322)
-[  259.268046] [FTS]TP set sleep mode , ret=1!
-[  259.268049] [FTS]fts_ts_suspend: Exit(1341)
-[  259.268143] bq2560x: bq2560x_system_temp_level_set: bq2560x_system_temp_level_set lvl_sel=0, bq-&gt;therm_lvl_sel = 0
-</pre></div>
-<p>This error appears when the screen is waking up:
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>[  270.136859] PMIC input: code=116, sts=0x5
-[  270.137247] gf3208: [info] goodix_fb_state_chg_callback go to the goodix_fb_state_chg_callback value = 16
-[  270.137493] [FTS]do_ts_resume_work start.
-[  270.137496] [FTS]fts_ts_resume: Enter
-[  270.137498] [FTS]Already in awake state
-[  270.137501] [FTS]fts_ts_resume: Exit(1353)
-[  270.137503] [FTS]fts_ts_resume fail.
-[  270.137505] [FTS]do_ts_resume_work end.
-[  270.137510] bq2560x: bq2560x_system_temp_level_set: bq2560x_system_temp_level_set lvl_sel=0, bq-&gt;therm_lvl_sel = 0
-[  270.139191] ysg:mdss_dsi_panel_power_on:323
-[  270.139219] ysg mdss_dsi_panel_reset:366
-[  270.209106] swb.mdss_dsi_panel_power_on:get lcd_detect id0=0,id1=0
-[  270.257077] tsx_feature_type=0,ce_state=0
-[  270.299617] PMIC input: code=116, sts=0x4
-</pre></div>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 </div></div>
 		
@@ -442,9 +403,9 @@ aarch64</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_5A&amp;oldid=44610">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_5A&amp;oldid=44610</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_5A&amp;oldid=44897">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_5A&amp;oldid=44897</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 30 May 2023, at 16:22.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 7 June 2023, at 16:32.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

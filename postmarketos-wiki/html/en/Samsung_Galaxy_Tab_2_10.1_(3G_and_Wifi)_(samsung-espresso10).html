@@ -92,7 +92,7 @@ PowerVR SGX540 @ 307 MHz</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Storage</th>
     <td class="" style="">
-16 GB (expandable with up to 32 GB MicroSD)</td>
+16 GB (expandable with up to 64 GB MicroSD)</td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Memory</th>
@@ -350,8 +350,104 @@ tablet</td>
 </p>
 <p><br>
 </p>
-<p><br>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This device has recently been upgraded to the <a href="../en/Devices.html#community" title="Devices">community</a> category.  
+<p>You can download a Pre-built image from the <a rel="nofollow" class="external text" href="https://postmarketos.org/download/">download</a> page 
 </p>
+and follow instructions from the <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Samsung_Galaxy_Tab_2_10.1_(3G_and_Wifi)_(samsung-espresso10)#use_Community_pre-built_image_(works)">use Community pre-built image</a> section.</td>
+</tr></tbody></table>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Contributors"><span class="tocnumber">1</span> <span class="toctext">Contributors</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Maintainer.28s.29"><span class="tocnumber">2</span> <span class="toctext">Maintainer(s)</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Users_owning_this_device"><span class="tocnumber">3</span> <span class="toctext">Users owning this device</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#What_works"><span class="tocnumber">4</span> <span class="toctext">What works</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#What_does_not_work"><span class="tocnumber">5</span> <span class="toctext">What does not work</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#To_test.2Fdo"><span class="tocnumber">6</span> <span class="toctext">To test/do</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#How_to_enter_flash_mode"><span class="tocnumber">7</span> <span class="toctext">How to enter flash mode</span></a></li>
+<li class="toclevel-1 tocsection-8">
+<a href="#._build_pmos_for_samsung-espresso10_and_flash_it_to_the_device"><span class="tocnumber">8</span> <span class="toctext">. build pmos for samsung-espresso10 and flash it to the device</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9">
+<a href="#The_pure_pmbootstrap_classic_way_.28partial.29"><span class="tocnumber">8.1</span> <span class="toctext">The pure pmbootstrap classic way (partial)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#generate_some_partitions_images_for_the_device_.28works.29"><span class="tocnumber">8.1.1</span> <span class="toctext">generate some partitions images for the device (works)</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#flash_pmos.img_to_the_.2Fsystem_partition_.28broken_.3F.29"><span class="tocnumber">8.1.2</span> <span class="toctext">flash pmos.img to the /system partition (broken ?)</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#if_you_prefer.2C_flash_pmos.img_to_the_.2Fdata_partition_instead_.28broken_.3F.29"><span class="tocnumber">8.1.3</span> <span class="toctext">if you prefer, flash pmos.img to the /data partition instead (broken ?)</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#flash_the_boot.img_to_the_.2Fboot_partition"><span class="tocnumber">8.1.4</span> <span class="toctext">flash the boot.img to the /boot partition</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-14">
+<a href="#The_alternative_Heimdall_method_.28partial.29"><span class="tocnumber">8.2</span> <span class="toctext">The alternative Heimdall method (partial)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="#generate_some_partitions_images_for_the_device_.28works.29_2"><span class="tocnumber">8.2.1</span> <span class="toctext">generate some partitions images for the device (works)</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#flash_pmos.img_to_the_.2Fsystem_partition_.28broken_.3F.29_2"><span class="tocnumber">8.2.2</span> <span class="toctext">flash pmos.img to the /system partition (broken ?)</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#flash_pmos.img_to_the_.2Fdata_partition_.28broken_.3F.29"><span class="tocnumber">8.2.3</span> <span class="toctext">flash pmos.img to the /data partition (broken ?)</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_.28works.29"><span class="tocnumber">8.2.4</span> <span class="toctext">flash the boot.img to the /boot partition (works)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-19">
+<a href="#The_alternative_Odin_method_.28not_documented.29"><span class="tocnumber">8.3</span> <span class="toctext">The alternative Odin method (not documented)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-20"><a href="#generate_some_partitions_images_for_the_device_.28works.29_3"><span class="tocnumber">8.3.1</span> <span class="toctext">generate some partitions images for the device (works)</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="#create_some_.TAR_files_from_the_generated_partitions_images"><span class="tocnumber">8.3.2</span> <span class="toctext">create some .TAR files from the generated partitions images</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="#flash_a_pmos.tar_to_the_AP_section_.28not_tested.29"><span class="tocnumber">8.3.3</span> <span class="toctext">flash a pmos.tar to the AP section (not tested)</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#flash_a_boot.tar_to_the_AP_section_.28not_tested.29"><span class="tocnumber">8.3.4</span> <span class="toctext">flash a boot.tar to the AP section (not tested)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-24">
+<a href="#The_alternative_.22dd.22_method_.28not_documented.29_.28should_work.29"><span class="tocnumber">8.4</span> <span class="toctext">The alternative "dd" method (not documented) (should work)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-25"><a href="#generate_some_partitions_images_for_the_device_.28works.29_4"><span class="tocnumber">8.4.1</span> <span class="toctext">generate some partitions images for the device (works)</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="#flash_the_pmos.img_to_the_.2Fsystem_partition_.28not_tested.29"><span class="tocnumber">8.4.2</span> <span class="toctext">flash the pmos.img to the /system partition (not tested)</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_.28not_tested.29"><span class="tocnumber">8.4.3</span> <span class="toctext">flash the boot.img to the /boot partition (not tested)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-28">
+<a href="#The_recommanded_TWRP_method_.28works.29"><span class="tocnumber">8.5</span> <span class="toctext">The recommanded TWRP method (works)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-29"><a href="#generate_a_recovery_flashable_.ZIP_targeting_.2Fsystem_partition_.28works.29"><span class="tocnumber">8.5.1</span> <span class="toctext">generate a recovery flashable .ZIP targeting /system partition (works)</span></a></li>
+<li class="toclevel-3 tocsection-30"><a href="#generate_a_recovery_flashable_.ZIP_targeting_.2Fdata_partition_.28works.29"><span class="tocnumber">8.5.2</span> <span class="toctext">generate a recovery flashable .ZIP targeting /data partition (works)</span></a></li>
+<li class="toclevel-3 tocsection-31"><a href="#sideload_the_pmos.zip_using_pmbootstrap_.2B_TWRP_.28broken_.3F.29"><span class="tocnumber">8.5.3</span> <span class="toctext">sideload the pmos.zip using pmbootstrap + TWRP (broken ?)</span></a></li>
+<li class="toclevel-3 tocsection-32"><a href="#sideload_the_pmos.zip_using_ADB_.2B_TWRP_.28works.29"><span class="tocnumber">8.5.4</span> <span class="toctext">sideload the pmos.zip using ADB + TWRP (works)</span></a></li>
+<li class="toclevel-3 tocsection-33"><a href="#installing_the_pmos.zip_using_TWRP_via_a_SDcard_.28works.29"><span class="tocnumber">8.5.5</span> <span class="toctext">installing the pmos.zip using TWRP via a SDcard (works)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-34">
+<a href="#The_recommanded_running_from_the_.2Fexternal_sd_method_.28works.29"><span class="tocnumber">8.6</span> <span class="toctext">The recommanded running from the /external_sd method (works)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-35"><a href="#generate_pmos_directly_on_a_MicroSDcard_.28works.29"><span class="tocnumber">8.6.1</span> <span class="toctext">generate pmos directly on a MicroSDcard (works)</span></a></li>
+<li class="toclevel-3 tocsection-36"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_using_pmbootstrap_.28warning_.3F.29"><span class="tocnumber">8.6.2</span> <span class="toctext">flash the boot.img to the /boot partition using pmbootstrap (warning ?)</span></a></li>
+<li class="toclevel-3 tocsection-37"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_using_Heimdall_.28works.29"><span class="tocnumber">8.6.3</span> <span class="toctext">flash the boot.img to the /boot partition using Heimdall (works)</span></a></li>
+<li class="toclevel-3 tocsection-38"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_using_TWRP_.28works.29"><span class="tocnumber">8.6.4</span> <span class="toctext">flash the boot.img to the /boot partition using TWRP (works)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-39">
+<a href="#use_Community_pre-built_image_.28works.29"><span class="tocnumber">9</span> <span class="toctext">use Community pre-built image (works)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-40"><a href="#preparation_in_a_way_to_easily_switch_between_Android_OS_and_PostmarketOS"><span class="tocnumber">9.1</span> <span class="toctext">preparation in a way to easily switch between Android_OS and PostmarketOS</span></a></li>
+<li class="toclevel-2 tocsection-41"><a href="#Download_the_pmOS_pre-built_image"><span class="tocnumber">9.2</span> <span class="toctext">Download the pmOS pre-built image</span></a></li>
+<li class="toclevel-2 tocsection-42"><a href="#insert_a_MicroSDcard_into_your_Computer"><span class="tocnumber">9.3</span> <span class="toctext">insert a MicroSDcard into your Computer</span></a></li>
+<li class="toclevel-2 tocsection-43"><a href="#decompress_the_downloaded_file_and_write_it_to_your_MicroSDcard_:"><span class="tocnumber">9.4</span> <span class="toctext">decompress the downloaded file and write it to your MicroSDcard :</span></a></li>
+<li class="toclevel-2 tocsection-44"><a href="#insert_the_MicroSDcard_into_your_device.2C_and_boot_it_into_TWRP"><span class="tocnumber">9.5</span> <span class="toctext">insert the MicroSDcard into your device, and boot it into TWRP</span></a></li>
+<li class="toclevel-2 tocsection-45"><a href="#reboot_system"><span class="tocnumber">9.6</span> <span class="toctext">reboot system</span></a></li>
+<li class="toclevel-2 tocsection-46"><a href="#to_restore_your_Android_OS"><span class="tocnumber">9.7</span> <span class="toctext">to restore your Android_OS</span></a></li>
+<li class="toclevel-2 tocsection-47"><a href="#to_restore_your_PostmarketOS"><span class="tocnumber">9.8</span> <span class="toctext">to restore your PostmarketOS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-48"><a href="#Photos"><span class="tocnumber">10</span> <span class="toctext">Photos</span></a></li>
+<li class="toclevel-1 tocsection-49"><a href="#Partition_layout"><span class="tocnumber">11</span> <span class="toctext">Partition layout</span></a></li>
+<li class="toclevel-1 tocsection-50"><a href="#Links"><span class="tocnumber">12</span> <span class="toctext">Links</span></a></li>
+</ul>
+</div>
+
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
 <ul>
 <li>WilliamO7</li>
@@ -387,7 +483,11 @@ tablet</td>
 <li>
 <a href="../User:Nulldayo.html" title="User:Nulldayo">Nulldayo</a> (<span class="cargoFieldName">Notes:</span> Has 5 of the 10.1" Wi-Fi-only model (espressowifi))</li>
 <li>
+<a href="../User:Piero-e.html" title="User:Piero-e">Piero-e</a> (<span class="cargoFieldName">Notes:</span> 10.1" inch 3g variant / gt-p5100 / testing PostmaketOS (big thanks to Mighty) / running <a rel="nofollow" class="external text" href="https://community.e.foundation/t/unofficial-build-for-samsung-galaxy-tab-2-espresso3g-espressowifi/28432">unofficial /e/OS</a> android 7 based (espresso3g) (special thanks to Android-Andi))</li>
+<li>
 <a href="../User:TPJS.html" title="User:TPJS">TPJS</a> (<span class="cargoFieldName">Notes:</span> running Lineage-OS)</li>
+<li>
+<a href="../User:UltrasonicMadness.html" title="User:UltrasonicMadness">UltrasonicMadness</a> (<span class="cargoFieldName">Notes:</span> Wi-Fi version)</li>
 <li><a href="../User:UxAmadeus.html" title="User:UxAmadeus">UxAmadeus</a></li>
 <li><a href="../User:Wjtje.html" title="User:Wjtje">Wjtje</a></li>
 </ul></div>
@@ -427,33 +527,485 @@ tablet</td>
 <li>RIL</li>
 </ul>
 <h2><span class="mw-headline" id="How_to_enter_flash_mode">How to enter flash mode</span></h2>
-<p>Press <b>Power + Volume Up</b> to enter download/odin mode.
+<ul>
+<li>to enter into download/odin mode : Hold <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span>.</li>
+<li>to enter into recovery/TWRP mode : Hold <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span>, and release <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> when you see the Samsung logo for the second time.</li>
+</ul>
+<p><br>
 </p>
-<h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>This has to be done in two parts:
+<h2><span class="mw-headline" id="._build_pmos_for_samsung-espresso10_and_flash_it_to_the_device">. build pmos for samsung-espresso10 and flash it to the device</span></h2>
+<ul><li>you will need to <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Pmbootstrap#Installation">install pmbootstrap</a> on your Linux Computer</li></ul>
+<p>then open a new terminal, or restart your session or restart your computer...
 </p>
-<ul><li>First create an <a href="../en/Installation_from_recovery_mode.html" class="mw-redirect" title="Android Recovery Zip Installation">Android recovery image</a> of PMOS and flash it using TWRP. If it refuses to flash using the "Install" option, try to flash it with adb sideload. Note that the system-partition is likely too small, which will -for example- prevent the lightdm-windowmanager from starting up. The recovery-zip should be built to target the data partition!</li></ul>
-<pre>  pmbootstrap install --android-recovery-zip --recovery-install-partition=data
+<ul><li>and run :</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap pull
+<span class="gp">$</span> pmbootstrap status
+</pre></div>
+<p>Follow the <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a> article to build your own image
+</p>
+<p>you may need to :
+</p>
+<ul>
+<li>Install <code>adb</code> on your host Linux distribution (usually in an <code>android-tools-adb</code> package that you can install with your distribution's package manager),</li>
+<li>Install <code>heimdall</code> on your host Linux distribution (usually in a  <code>heimdall-flash</code> package that you can install with your distribution's package manager), or install odin if using windows</li>
+</ul>
+<p>in a way to 
+</p>
+<ul><li>install TWRP on the device (you can download <a rel="nofollow" class="external text" href="https://androidfilehost.com/?w=files&amp;flid=48848&amp;sort_by=date&amp;sort_dir=DESC">Galaxy Tab 2 common TWRP</a> by Android-Andi)</li></ul>
+<p>.
+</p>
+<h3>
+<span id="The_pure_pmbootstrap_classic_way_(partial)"></span><span class="mw-headline" id="The_pure_pmbootstrap_classic_way_.28partial.29">The pure pmbootstrap classic way (partial)</span>
+</h3>
+<p>.
+this will create 
+</p>
+<p>"/home/username/.local/var/pmbootstrap/chroot_native/home/pmos/rootfs/samsung-espresso10.img"
+</p>
+<p>and 
+</p>
+<p>"/home/username/.local/var/pmbootstrap/chroot_rootfs_samsung-espresso10/boot/boot.img"
+</p>
+<p>then push it to the device
+</p>
+<h4>
+<span id="generate_some_partitions_images_for_the_device_(works)"></span><span class="mw-headline" id="generate_some_partitions_images_for_the_device_.28works.29">generate some partitions images for the device (works)</span>
+</h4>
+<p>run : 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install
+</pre></div>
+<p><b> if you want to enable Full Disk Encryption </b>
+</p>
+<p>add the " --fde" suffix to the command :
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install --fde
+</pre></div>
+<h4>
+<span id="flash_pmos.img_to_the_/system_partition_(broken_?)"></span><span class="mw-headline" id="flash_pmos.img_to_the_.2Fsystem_partition_.28broken_.3F.29">flash pmos.img to the /system partition (broken ?)</span>
+</h4>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">broken : heimdall ERROR: FACTORYFS partition is too small for given file. Use --skip-size-check to flash anyways.</td>
+</tr></tbody></table>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Comment : adding --skip-size-check dont work</td>
+</tr></tbody></table>
+<p>This action wraps various flash programs (e.g. fastboot and heimdall) with a common syntax, and automatically fills out the paths to the files previously generated during <code>pmbootstrap install</code>. 
+</p>
+<p>Boot your phone into the downloading mode (also called Odin mode), typically by holding the special button combination 
+</p>
+<p><span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> while booting up then <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span>
+</p>
+<p>and run :
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs
+</pre></div>
+<p>By default, this will target the /FACTORYFS partition of your Galaxy Tab 2.
+</p>
+<pre><b>Beware that this will overwrite the existing installation and data on your phone!</b>
 </pre>
-<ul><li>Then use the usual heimdall flasher method to install the kernel and initramfs (flash_kernel).</li></ul>
-<pre>  pmbootstrap flasher flash_kernel
+<p><b>or</b>
+</p>
+<h4>
+<span id="if_you_prefer,_flash_pmos.img_to_the_/data_partition_instead_(broken_?)"></span><span class="mw-headline" id="if_you_prefer.2C_flash_pmos.img_to_the_.2Fdata_partition_instead_.28broken_.3F.29">if you prefer, flash pmos.img to the /data partition instead (broken ?)</span>
+</h4>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">broken : heimdall ERROR: Uploading DATAFS at 1% Failed to confirm end of file transfer sequence!</td>
+</tr></tbody></table>
+<p>because the default partition (typically "/system", here /FACTORYFS) is became too small for the generated image, it is possible to flash to another partition. Just be sure to erase any previous installations of postmarketOS in other partitions, because the init script will start with the first one that it encounters. (To delete a previous version simply install the known working OS, e.g. Android, on it, or wipe or format the partitions using TWRP if installed). And if you really know what you are doing, you might consider using <code>dd</code> command). Using multiple partitions with LVM is planned (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/60">pmbootstrap#60</a>).
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_rootfs --partition DATAFS
+</pre></div>
+<p>this will target the /DATAFS partition of your Galaxy Tab 2.
+</p>
+<pre><b>Beware that this will overwrite the existing installation and data on your phone!</b>
 </pre>
-<p>Doing both with one method, may results in errors in both situations.
+<h4>
+<span id="flash_the_boot.img_to_the_/boot_partition"></span><span class="mw-headline" id="flash_the_boot.img_to_the_.2Fboot_partition">flash the boot.img to the /boot partition</span>
+</h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_kernel
+</pre></div>
+<p>reboot the device and enjoy...
 </p>
-<p>Note: If you wish to install to the /data partition instead of the system partition, extract the Android recovery image, replace FACTORYFS with DATAFS in chroot/install_options, and re-archive it with no compression. (zip -0r disiredFileName.zip *) or <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/Installation_from_recovery_mode#Create_the_recovery_zip_image">https://wiki.postmarketos.org/wiki/Installation_from_recovery_mode#Create_the_recovery_zip_image</a>
+<p>.
 </p>
-<h3><span class="mw-headline" id="SD_Card">SD Card</span></h3>
-<p>In case you want to boot from an SD card, write the image to the it:
+<h3>
+<span id="The_alternative_Heimdall_method_(partial)"></span><span class="mw-headline" id="The_alternative_Heimdall_method_.28partial.29">The alternative Heimdall method (partial)</span>
+</h3>
+<p>.
 </p>
-<p>1. Download the image from the <a rel="nofollow" class="external text" href="https://postmarketos.org/download/">download</a> page
+<h4>
+<span id="generate_some_partitions_images_for_the_device_(works)_2"></span><span class="mw-headline" id="generate_some_partitions_images_for_the_device_.28works.29_2">generate some partitions images for the device (works)</span>
+</h4>
+<p>run : 
 </p>
-<p>2. Decompress the *.img.xz file and write it to the SD Card using the command from <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Installation#SD_card">Installation - Flashing - From SD Card </a>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install
+</pre></div>
+<p><b> if you want to enable Full Disk Encryption </b>
 </p>
-<p>or 
+<p>add the " --fde" suffix to the command :
 </p>
-<p>1. Build your own image using pmbootstrap <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Pmbootstrap">Using pmbootstrap - installing postmarketOS - SD Card</a>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install --fde
+</pre></div>
+<h4>
+<span id="flash_pmos.img_to_the_/system_partition_(broken_?)_2"></span><span class="mw-headline" id="flash_pmos.img_to_the_.2Fsystem_partition_.28broken_.3F.29_2">flash pmos.img to the /system partition (broken ?)</span>
+</h4>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">broken : heimdall ERROR: Uploading FACTORYFS at 1% Failed to confirm end of file transfer sequence!</td>
+</tr></tbody></table>
+<p>$ heimdall flash --FACTORYFS samsung-espresso10.img
 </p>
-<p>2. Write it to your SD Card using the command from <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Pmbootstrap#SD_card">Installing postmarketOS - SD Card</a>
+<p><b>or</b>
+</p>
+<h4>
+<span id="flash_pmos.img_to_the_/data_partition_(broken_?)"></span><span class="mw-headline" id="flash_pmos.img_to_the_.2Fdata_partition_.28broken_.3F.29">flash pmos.img to the /data partition (broken ?)</span>
+</h4>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">broken : heimdall ERROR: Uploading DATAFS at 1% Failed to confirm end of file transfer sequence!</td>
+</tr></tbody></table>
+<p>$ heimdall flash --DATAFS samsung-espresso10.img
+</p>
+<h4>
+<span id="flash_the_boot.img_to_the_/boot_partition_(works)"></span><span class="mw-headline" id="flash_the_boot.img_to_the_.2Fboot_partition_.28works.29">flash the boot.img to the /boot partition (works)</span>
+</h4>
+<p>$ heimdall flash --KERNEL boot.img
+</p>
+<p>.
+</p>
+<h3>
+<span id="The_alternative_Odin_method_(not_documented)"></span><span class="mw-headline" id="The_alternative_Odin_method_.28not_documented.29">The alternative Odin method (not documented)</span>
+</h3>
+<p>.
+</p>
+<h4>
+<span id="generate_some_partitions_images_for_the_device_(works)_3"></span><span class="mw-headline" id="generate_some_partitions_images_for_the_device_.28works.29_3">generate some partitions images for the device (works)</span>
+</h4>
+<p>run : 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install
+</pre></div>
+<p><b> if you want to enable Full Disk Encryption </b>
+</p>
+<p>add the " --fde" suffix to the command :
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install --fde
+</pre></div>
+<h4><span class="mw-headline" id="create_some_.TAR_files_from_the_generated_partitions_images">create some .TAR files from the generated partitions images</span></h4>
+<h4>
+<span id="flash_a_pmos.tar_to_the_AP_section_(not_tested)"></span><span class="mw-headline" id="flash_a_pmos.tar_to_the_AP_section_.28not_tested.29">flash a pmos.tar to the AP section (not tested)</span>
+</h4>
+<h4>
+<span id="flash_a_boot.tar_to_the_AP_section_(not_tested)"></span><span class="mw-headline" id="flash_a_boot.tar_to_the_AP_section_.28not_tested.29">flash a boot.tar to the AP section (not tested)</span>
+</h4>
+<p>.
+</p>
+<h3>
+<span id='The_alternative_"dd"_method_(not_documented)_(should_work)'></span><span class="mw-headline" id="The_alternative_.22dd.22_method_.28not_documented.29_.28should_work.29">The alternative "dd" method (not documented) (should work)</span>
+</h3>
+<p>.
+</p>
+<h4>
+<span id="generate_some_partitions_images_for_the_device_(works)_4"></span><span class="mw-headline" id="generate_some_partitions_images_for_the_device_.28works.29_4">generate some partitions images for the device (works)</span>
+</h4>
+<p>run : 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install
+</pre></div>
+<p><b> if you want to enable Full Disk Encryption </b>
+</p>
+<p>add the " --fde" suffix to the command :
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install --fde
+</pre></div>
+<h4>
+<span id="flash_the_pmos.img_to_the_/system_partition_(not_tested)"></span><span class="mw-headline" id="flash_the_pmos.img_to_the_.2Fsystem_partition_.28not_tested.29">flash the pmos.img to the /system partition (not tested)</span>
+</h4>
+<h4>
+<span id="flash_the_boot.img_to_the_/boot_partition_(not_tested)"></span><span class="mw-headline" id="flash_the_boot.img_to_the_.2Fboot_partition_.28not_tested.29">flash the boot.img to the /boot partition (not tested)</span>
+</h4>
+<p>.
+</p>
+<h3>
+<span id="The_recommanded_TWRP_method_(works)"></span><span class="mw-headline" id="The_recommanded_TWRP_method_.28works.29">The recommanded TWRP method (works)</span>
+</h3>
+<p>this will create
+</p>
+<p>"/home/user/.local/var/pmbootstrap/chroot_buildroot_armv7/var/lib/postmarketos-android-recovery-installer/pmos-samsung-espresso10.zip"
+</p>
+<p><br>
+</p>
+<h4>
+<span id="generate_a_recovery_flashable_.ZIP_targeting_/system_partition_(works)"></span><span class="mw-headline" id="generate_a_recovery_flashable_.ZIP_targeting_.2Fsystem_partition_.28works.29">generate a recovery flashable .ZIP targeting /system partition (works)</span>
+</h4>
+<p>according to <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Installation_from_recovery_mode">Installation from recovery mode</a> page.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install --android-recovery-zip
+</pre></div>
+<p>By default, this will target the /FACTORYFS partition of your Galaxy Tab 2.
+</p>
+<p><b>If your want Full Disk Encryption add the <code>--fde</code> argument.</b>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install --android-recovery-zip --fde
+</pre></div>
+<p><b>or</b>
+</p>
+<h4>
+<span id="generate_a_recovery_flashable_.ZIP_targeting_/data_partition_(works)"></span><span class="mw-headline" id="generate_a_recovery_flashable_.ZIP_targeting_.2Fdata_partition_.28works.29">generate a recovery flashable .ZIP targeting /data partition (works)</span>
+</h4>
+<p>Note that the /system-partition is likely too small (1,4 GB), which will -for example- prevent the lightdm-windowmanager from starting up. The recovery-zip should be built to target the data partition!
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install --android-recovery-zip --recovery-install-partition<span class="o">=</span>data
+</pre></div>
+<p>this will target the /DATAFS partition of your Galaxy Tab 2.
+</p>
+<p><br>
+</p>
+<h4>
+<span id="sideload_the_pmos.zip_using_pmbootstrap_+_TWRP_(broken_?)"></span><span class="mw-headline" id="sideload_the_pmos.zip_using_pmbootstrap_.2B_TWRP_.28broken_.3F.29">sideload the pmos.zip using pmbootstrap + TWRP (broken ?)</span>
+</h4>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">broken : (native) % adb -P 5038 wait-for-usb-sideload</td>
+</tr></tbody></table>
+<p><br>
+This allows pushing the zip file on the fly directly from your computer.
+</p>
+<ul>
+<li>Boot the device into TWRP mode</li>
+<li>Unmount the partitions (Click on "Mount", then deselect all checkboxes)</li>
+<li>Click on "Advanced / ADB Sideload", then "Swipe to start sideload"</li>
+<li>Connect your phone to your PC</li>
+<li>Start the sideloading process from your PC:</li>
+</ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher --method<span class="o">=</span>adb sideload
+</pre></div>
+<p>reboot and enjoy
+</p>
+<p><b>or</b>
+</p>
+<h4>
+<span id="sideload_the_pmos.zip_using_ADB_+_TWRP_(works)"></span><span class="mw-headline" id="sideload_the_pmos.zip_using_ADB_.2B_TWRP_.28works.29">sideload the pmos.zip using ADB + TWRP (works)</span>
+</h4>
+<p>This allows pushing the zip file on the fly directly from your computer.  
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap <span class="nb">export</span>
+<span class="go">[07:48:04] NOTE: To export the rootfs image, run 'pmbootstrap install' first (without the 'sdcard' parameter).</span>
+<span class="go">[07:48:07] Export symlinks to: /tmp/postmarketOS-export</span>
+<span class="go">[07:48:07]  * initramfs-samsung-espresso10 (Initramfs)</span>
+<span class="go">[07:48:07]  * boot.img-samsung-espresso10 (TWRP flashable boot.img file, contains initramfs and kernel)</span>
+<span class="go">[07:48:07]  * vmlinuz-samsung-espresso10 (Linux kernel)</span>
+<span class="go">[07:48:07]  * pmos-samsung-espresso10.zip (Android recovery flashable zip)</span>
+<span class="go">[07:48:07] NOTE: chroot is still active (use 'pmbootstrap shutdown' as necessary)</span>
+<span class="go">[07:48:07] Done</span>
+</pre></div>
+<ul>
+<li>Boot device into TWRP mode</li>
+<li>Unmount the partitions (Click on "Mount, then deselect all checkboxes)</li>
+<li>Click on "Advanced / ADB Sideload", then "Swipe to start sideload"</li>
+<li>Connect your phone to your PC</li>
+<li>Start the sideloading process from your PC:</li>
+</ul>
+<p><br>
+run the following commands. The special <code>cd</code> is necessary, because <code>adb</code> can't resolve the symlink on its own. :
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> <span class="k">$(</span>dirname <span class="k">$(</span>readlink /tmp/postmarketOS-export/pmos-samsung-espresso10.zip<span class="k">))</span>
+<span class="gp">$</span> adb sideload pmos-samsung-espresso10.zip
+<span class="go">loading: 'pmos-samsung-espresso10.zip'...</span>
+<span class="go">connecting...</span>
+<span class="go">Total xfer: 1.08x</span>
+</pre></div>
+<p>reboot and enjoy...
+</p>
+<p><b>or</b>
+</p>
+<h4>
+<span id="installing_the_pmos.zip_using_TWRP_via_a_SDcard_(works)"></span><span class="mw-headline" id="installing_the_pmos.zip_using_TWRP_via_a_SDcard_.28works.29">installing the pmos.zip using TWRP via a SDcard (works)</span>
+</h4>
+<p>Instead of sideloading, you can run 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap <span class="nb">export</span>
+<span class="go">[07:48:04] NOTE: To export the rootfs image, run 'pmbootstrap install' first (without the 'sdcard' parameter).</span>
+<span class="go">[07:48:07] Export symlinks to: /tmp/postmarketOS-export</span>
+<span class="go">[07:48:07]  * initramfs-samsung-espresso10 (Initramfs)</span>
+<span class="go">[07:48:07]  * boot.img-samsung-espresso10 (TWRP flashable boot.img file, contains initramfs and kernel)</span>
+<span class="go">[07:48:07]  * vmlinuz-samsung-espresso10 (Linux kernel)</span>
+<span class="go">[07:48:07]  * pmos-samsung-espresso10.zip (Android recovery flashable zip)</span>
+<span class="go">[07:48:07] NOTE: chroot is still active (use 'pmbootstrap shutdown' as necessary)</span>
+<span class="go">[07:48:07] Done</span>
+</pre></div>
+<p>copy the <code>pmos-samsung-esspresso10.zip</code> file to a SDcard. 
+Insert it into your phone, 
+</p>
+<ul>
+<li>Boot the device into TWRP mode</li>
+<li>Unmount the partitions (Click on "Mount, then deselect all checkboxes)</li>
+<li>select "Install" Then navigate to the zip file and flash it.</li>
+</ul>
+<p>reboot and enjoy...
+</p>
+<p>.
+</p>
+<h3>
+<span id="The_recommanded_running_from_the_/external_sd_method_(works)"></span><span class="mw-headline" id="The_recommanded_running_from_the_.2Fexternal_sd_method_.28works.29">The recommanded running from the /external_sd method (works)</span>
+</h3>
+<p>insert a MicroSDcard into your computer and find its name by running
+</p>
+<p>$ lsblk
+</p>
+<p>make sure it is the right one as you will overwrite everything on it. Use a path without partition number at the end,
+</p>
+<p>such as /dev/mmcblk0, or /dev/sdd 
+</p>
+<p>.
+</p>
+<h4>
+<span id="generate_pmos_directly_on_a_MicroSDcard_(works)"></span><span class="mw-headline" id="generate_pmos_directly_on_a_MicroSDcard_.28works.29">generate pmos directly on a MicroSDcard (works)</span>
+</h4>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install --sdcard<span class="o">=</span>/dev/name-of-your-SDcard
+</pre></div>
+<p><b> if you want to enable Full Disk Encryption </b>
+</p>
+<p>add the " --fde" suffix to the command :
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install --sdcard<span class="o">=</span>/dev/name-of-your-SDcard --fde
+</pre></div>
+<h4>
+<span id="flash_the_boot.img_to_the_/boot_partition_using_pmbootstrap_(warning_?)"></span><span class="mw-headline" id="flash_the_boot.img_to_the_.2Fboot_partition_using_pmbootstrap_.28warning_.3F.29">flash the boot.img to the /boot partition using pmbootstrap (warning ?)</span>
+</h4>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">WARNING: config-postmarketos-omap.armv7: CONFIG_USB_FUNCTIONFS should *not* be set (usb_gadgets): <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/kconfig#CONFIG_USB_FUNCTIONFS">https://wiki.postmarketos.org/wiki/kconfig#CONFIG_USB_FUNCTIONFS</a>
+</td>
+</tr></tbody></table>
+<p>insert the MicroSDcard into the device and boot into downloading mode 
+</p>
+<p>(also called Odin mode), by holding the special button combination 
+</p>
+<p><span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> while booting up then <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_kernel
+</pre></div>
+<p>now reboot and enjoy...
+</p>
+<p><b>or</b>
+</p>
+<h4>
+<span id="flash_the_boot.img_to_the_/boot_partition_using_Heimdall_(works)"></span><span class="mw-headline" id="flash_the_boot.img_to_the_.2Fboot_partition_using_Heimdall_.28works.29">flash the boot.img to the /boot partition using Heimdall (works)</span>
+</h4>
+<p>insert the MicroSDcard into the device and boot into downloading mode 
+</p>
+<p>(also called Odin mode), by holding the special button combination 
+</p>
+<p><span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> while booting up then <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span>
+</p>
+<p>$ heimdall flash --KERNEL boot.img 
+</p>
+<p>reboot the device and enjoy...
+</p>
+<p><b>or</b>
+</p>
+<h4>
+<span id="flash_the_boot.img_to_the_/boot_partition_using_TWRP_(works)"></span><span class="mw-headline" id="flash_the_boot.img_to_the_.2Fboot_partition_using_TWRP_.28works.29">flash the boot.img to the /boot partition using TWRP (works)</span>
+</h4>
+<p>insert the MicroSDcard into your device, and boot it in recovery mode by holding the special button combination 
+</p>
+<p><span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span> while booting up, then release <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> when you sée thé Samsung logo for the second time. 
+</p>
+<p>using the mount feature, unselect all /partitions except "MicroSDcard", 
+</p>
+<p>using the install feature, switch to "install image" rather than "install ZIP"
+</p>
+<p>navigate to the "/external_sd/boot.img", and flash it to the /boot partition
+</p>
+<p>reboot system and enjoy...
+</p>
+<p>.
+</p>
+<h2>
+<span id="use_Community_pre-built_image_(works)"></span><span class="mw-headline" id="use_Community_pre-built_image_.28works.29">use Community pre-built image (works)</span>
+</h2>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">install instructions for Phosh and XFCE4 images</td>
+</tr></tbody></table>
+<p><br>
+works running from a SD card 
+</p>
+<p>as explained in <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Installation#SD_card">Installation - Flashing - From SD Card </a>
+Our device can boot a SD card, USB stick or other external storage.
+</p>
+<p>.
+</p>
+<h4><span class="mw-headline" id="preparation_in_a_way_to_easily_switch_between_Android_OS_and_PostmarketOS">preparation in a way to easily switch between Android_OS and PostmarketOS</span></h4>
+<p>from your actual Android_OS install file (AP_Stock_Samsung_Firmware.tar.md5 or Custom_Android_Based_OS.zip), extract the boot.img and copy it to your TWRP folder in internal storage (/sdcard/TWRP)
+</p>
+<h4><span class="mw-headline" id="Download_the_pmOS_pre-built_image">Download the pmOS pre-built image</span></h4>
+<p>from the <a rel="nofollow" class="external text" href="https://postmarketos.org/download/">download</a> page
+</p>
+<h4><span class="mw-headline" id="insert_a_MicroSDcard_into_your_Computer">insert a MicroSDcard into your Computer</span></h4>
+<p>and find its name by running
+</p>
+<p>$ lsblk
+</p>
+<p>make sure it is the right one as you will overwrite everything on it. Use a path without partition number at the end, 
+</p>
+<p>such as /dev/mmcblk0, or /dev/sdd
+</p>
+<h4><span class="mw-headline" id="decompress_the_downloaded_file_and_write_it_to_your_MicroSDcard_:">decompress the downloaded file and write it to your MicroSDcard :</span></h4>
+<p>$ xz --decompress --stdout /path-to-pmos-samsung-espresso10.img.xz | sudo dd of=/dev/name-of-your-SDcard bs=4M status=progress
+</p>
+<p>Wait until the command completes and eject the SD card.
+</p>
+<p>If you are on Windows, see <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Windows_FAQ#Flashing_images_to_SD_cards">here</a>.
+</p>
+<h4>
+<span id="insert_the_MicroSDcard_into_your_device,_and_boot_it_into_TWRP"></span><span class="mw-headline" id="insert_the_MicroSDcard_into_your_device.2C_and_boot_it_into_TWRP">insert the MicroSDcard into your device, and boot it into TWRP</span>
+</h4>
+<p>using the mount feature, unselect all /partitions except "MicroSDcard", 
+</p>
+<p>using the install feature, switch to "install image" rather than "install ZIP"
+</p>
+<p>navigate to the "/external_sd/boot.img", and flash it to the /boot partition
+</p>
+<h4><span class="mw-headline" id="reboot_system">reboot system</span></h4>
+<p>The rootfs image will boot right into postmarketOS. You are done with installing postmarketOS, congratulations! 
+</p>
+<p>default login is user and password is 147147
+</p>
+<h4><span class="mw-headline" id="to_restore_your_Android_OS">to restore your Android_OS</span></h4>
+<p>boot the device into TWRP mode, 
+</p>
+<p>and simply using the install feature, switch to "install image" rather than "install ZIP"
+</p>
+<p>navigate to the previously stored "/sdcard/TWRP/boot.img", and flash it to the /boot partition
+</p>
+<h4><span class="mw-headline" id="to_restore_your_PostmarketOS">to restore your PostmarketOS</span></h4>
+<p>boot the device into TWRP mode, 
+</p>
+<p>and simply using the install feature, switch to "install image" rather than "install ZIP"
+</p>
+<p>navigate to the "/external_sd/boot.img", and flash it to the /boot partition
+</p>
+<p>.
 </p>
 <h2><span class="mw-headline" id="Photos">Photos</span></h2>
 <ul class="gallery mw-gallery-traditional">
@@ -511,6 +1063,9 @@ tmpfs on /run/user/10000 type tmpfs (rw,nosuid,nodev,relatime,size=101716k,nr_in
 </pre>
 </div>
 <h2><span class="mw-headline" id="Links">Links</span></h2>
+<p>PostmarketOS
+</p>
+<ul><li><a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Samsung_Galaxy_Tab_2_7.0%22_(samsung-espresso7)">Samsung Galaxy Tab 2 7.0" (samsung-espresso7)</a></li></ul>
 <p>LineageOS:
 </p>
 <ul>
@@ -542,9 +1097,9 @@ tmpfs on /run/user/10000 type tmpfs (rw,nosuid,nodev,relatime,size=101716k,nr_in
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_10.1_(3G_and_Wifi)_(samsung-espresso10)&amp;oldid=43572">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_10.1_(3G_and_Wifi)_(samsung-espresso10)&amp;oldid=43572</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_10.1_(3G_and_Wifi)_(samsung-espresso10)&amp;oldid=45924">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_10.1_(3G_and_Wifi)_(samsung-espresso10)&amp;oldid=45924</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:41.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 28 June 2023, at 00:34.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

@@ -182,7 +182,7 @@ SoCs used in televisions.
 <td class="field_Device"><a href="../en/Xiaomi_Mi_Box_3_(xiaomi-once).html" title="Xiaomi Mi Box 3 (xiaomi-once)">Xiaomi Mi Box 3</a></td>
 <td class="field_Chipset">Amlogic S905X-H</td>
 <td class="field_Booting">Yes</td>
-<td class="field_Mainline"></td>
+<td class="field_Mainline">Y</td>
 </tr>
 <tr>
 <td class="field_Device"><a href="../en/Xiaomi_Mi_TV_Stick_(xiaomi-aquaman).html" title="Xiaomi Mi TV Stick (xiaomi-aquaman)">Xiaomi Mi TV Stick</a></td>
@@ -281,7 +281,7 @@ they're the same as the non-H counterparts.
 <li>eMMC</li>
 <li>NAND</li>
 <li>an SD card</li>
-<li>USB (via a custom protocol) (Not usb stick)</li>
+<li>USB (via a custom protocol, please note that all Amlogic SoCs <i>cannot</i> boot from a USB stick)</li>
 </ul>
 <p>You can force them to boot from an SD card or USB (via Amlogic's in-house protocol) by using a <a rel="nofollow" class="external text" href="https://github.com/superna9999/linux/wiki/Amlogic-HDMI-Boot-Dongle">HDMI dongle</a>. This is a suitable alternative for those who want to boot to an SD card without wiping everything else, and for devices that have a locked flash mode that would be bricked if the eMMC is wiped.
 </p>
@@ -300,7 +300,7 @@ on either an SD card or a USB device (FAT32 boot partition!):
 </p>
 <p>We use this quirk to load a mainline U-Boot and then boot postmarketOS (see soc-amlogic-s905).
 </p>
-<p>Sometimes, however, the "multiboot" mode isn't available on some devices or after some Android TV upgrades; that is the case for the <a href="../en/Xiaomi_Mi_Box_3_(xiaomi-once).html" title="Xiaomi Mi Box 3 (xiaomi-once)">Xiaomi Mi Box 3 (xiaomi-once)</a>, which doesn't have this feature unless you downgrade to Android 8 or lower.
+<p>Sometimes, however, the "multiboot" mode isn't available on some devices or after some Android TV upgrades; that is the case for the <a href="../en/Xiaomi_Mi_Box_3_(xiaomi-once).html" title="Xiaomi Mi Box 3 (xiaomi-once)">Xiaomi Mi Box 3 (xiaomi-once)</a>, which doesn't have this feature unless you manually implement it in the U-Boot environment via the U-Boot shell (some devices may not give you the U-Boot shell).
 </p>
 <p>Depending on the SoC family, what happens before U-Boot runs may differ; refer to their respective SoC page.
 </p>
@@ -349,9 +349,9 @@ Instructions on how to use it can be found on the GitHub page linked below.
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Amlogic&amp;oldid=44615">https://wiki.postmarketos.org/index.php?title=Amlogic&amp;oldid=44615</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Amlogic&amp;oldid=44959">https://wiki.postmarketos.org/index.php?title=Amlogic&amp;oldid=44959</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 31 May 2023, at 03:57.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 10 June 2023, at 17:29.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

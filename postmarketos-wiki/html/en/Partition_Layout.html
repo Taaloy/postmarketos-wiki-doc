@@ -1,282 +1,134 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Partition Layout - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Partition_Layout rootpage-Partition_Layout skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Partition Layout
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <p>
-       A postmarketOS installation consists of two partitions, the boot and the root partition. This distinction was made to support FDE (full disk encryption). With FDE, the entire root partition gets encrypted, and the only non-encrypted part remains the boot partition (which does not hold any personal data).
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span>p1 <span class="c1"># label: pmOS_boot (contains kernel, initramfs, initramfs-extra)</span>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Partition Layout - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Partition_Layout rootpage-Partition_Layout skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Partition Layout</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">this article is about pmOS partition infrastructure and has little to do with Android Partition layout. For the latter, check <a href="../en/Android_AB_Slots.html" title="Android AB Slots">Android AB Slots</a>, <a href="../en/Android_dynamic_partitions.html" title="Android dynamic partitions">Android_dynamic_partitions</a>.</td>
+</tr></tbody></table>
+<p>A postmarketOS installation consists of two partitions, the boot and the root partition. This distinction was made to support FDE (full disk encryption). With FDE, the entire root partition gets encrypted, and the only non-encrypted part remains the boot partition (which does not hold any personal data).
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>p1 <span class="c1"># label: pmOS_boot (contains kernel, initramfs, initramfs-extra)</span>
 p2 <span class="c1"># label: pmOS_root (contains everything else, can be encrypted)</span>
-</pre>
-      </div>
-      <p>
-       Due to the wide range of devices we support, there are a few variations of where these partitions will be exactly after installing postmarketOS.
-      </p>
-      <h3>
-       <span class="mw-headline" id="Use_the_whole_storage_device">
-        Use the whole storage device
-       </span>
-      </h3>
-      <p>
-       Both partitions are directly written to the storage device (SD card, eMMC, ...), for example
-       <code>
-        /dev/mmcblk0p1
-       </code>
-       and
-       <code>
-        /dev/mmcblk0p2
-       </code>
-       .
-      </p>
-      <p>
-       This is always done with SD cards. With the eMMC (internal storage), this is only done if it the factory OS can be flashed back without relying on a specific partitioning layout. (This is not possible with Android, see
-       <a href="#Subpartitions">
-        subpartitions
-       </a>
-       below.)
-      </p>
-      <p>
-       A typical SD card installation:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> pmbootstrap init
+</pre></div>
+<p>Due to the wide range of devices we support, there are a few variations of where these partitions will be exactly after installing postmarketOS.
+</p>
+<h3><span class="mw-headline" id="Use_the_whole_storage_device">Use the whole storage device</span></h3>
+<p>Both partitions are directly written to the storage device (SD card, eMMC, ...), for example <code>/dev/mmcblk0p1</code> and <code>/dev/mmcblk0p2</code>.
+</p>
+<p>This is always done with SD cards. With the eMMC (internal storage), this is only done if it the factory OS can be flashed back without relying on a specific partitioning layout. (This is not possible with Android, see <a href="#Subpartitions">subpartitions</a> below.)
+</p>
+<p>A typical SD card installation:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
 <span class="gp">$</span> pmbootstrap install --sdcard<span class="o">=</span>/dev/path-to-sdcard-device
-</pre>
-      </div>
-      <p>
-       A typical eMMC installation (you would flash the resulting image with a tool like
-       <a class="external text" href="https://wiki.pine64.org/index.php/PinePhone#Flashing_eMMC_using_Jumpdrive" rel="nofollow">
-        Jumpdrive
-       </a>
-       ):
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> pmbootstrap init
+</pre></div>
+<p>A typical eMMC installation (you would flash the resulting image with a tool like <a rel="nofollow" class="external text" href="https://wiki.pine64.org/index.php/PinePhone#Flashing_eMMC_using_Jumpdrive">Jumpdrive</a>):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
 <span class="gp">$</span> pmbootstrap install
 <span class="gp">$</span> pmbootstrap <span class="nb">export</span>  <span class="c1"># create a symlink to the rootfs image file for further usage</span>
-</pre>
-      </div>
-      <h3>
-       <span class="mw-headline" id="Subpartitions">
-        Subpartitions
-       </span>
-      </h3>
-      <p>
-       Android (and other factory OS) require a specific partition layout. In order to make it feasible for the user to switch back to Android on their device, we install postmarketOS only into an existing partition. The postmarketOS boot and root partitions will become subpartitions of that partition.
-      </p>
-      <p>
-       For example, a typical Android installation consists of:
-      </p>
-      <ul>
-       <li>
-        boot
-       </li>
-       <li>
-        system
-       </li>
-       <li>
-        userdata
-       </li>
-       <li>
-        (more partitions with firmware etc.)
-       </li>
-      </ul>
-      <p>
-       postmarketOS will be installed into the system partition, which means the postmarketOS boot partition becomes
-       <code>
-        systemp1
-       </code>
-       and the postmarketOS root partition becomes
-       <code>
-        systemp2
-       </code>
-       .
-      </p>
-      <p>
-       Example:
-      </p>
-      <div class="mw-highlight mw-content-ltr" dir="ltr">
-       <pre><span></span><span class="gp">$</span> pmbootstrap init
+</pre></div>
+<h3><span class="mw-headline" id="Subpartitions">Subpartitions</span></h3>
+<p>Android (and other factory OS) require a specific partition layout. In order to make it feasible for the user to switch back to Android on their device, we install postmarketOS only into an existing partition. The postmarketOS boot and root partitions will become subpartitions of that partition.
+</p>
+<p>For example, a typical Android installation consists of:
+</p>
+<ul>
+<li>boot</li>
+<li>system</li>
+<li>userdata</li>
+<li>(more partitions with firmware etc.)</li>
+</ul>
+<p>postmarketOS will be installed into the system partition, which means the postmarketOS boot partition becomes <code>systemp1</code> and the postmarketOS root partition becomes <code>systemp2</code>.
+</p>
+<p>Example:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
 <span class="gp">$</span> pmbootstrap install
 <span class="gp">$</span> pmbootstrap flasher flash_kernel
 <span class="gp">$</span> pmbootstrap flasher flash_rootfs
-</pre>
-      </div>
-      <p>
-       Note that the
-       <code>
-        flash_kernel
-       </code>
-       command fills Android's boot partition with a boot.img file, that consists of the Linux kernel and initramfs from postmarketOS. The files are duplicated on the postmarketOS boot partition, but not used from there. Some Android devices have a strict size limit for this boot.img file, which is why we load additional files from the initramfs-extra file from the postmarketOS boot partition.
-      </p>
-      <h4>
-       <span class="mw-headline" id="Pick_a_different_subpartition">
-        Pick a different subpartition
-       </span>
-      </h4>
-      <p>
-       While on some devices, the system partition is bigger than the userdata partition, it is the other way around on others. So it is possible to switch to the userdata partition with
-       <code>
-        pmbootstrap flasher flash_rootfs --partition userdata
-       </code>
-       . To clear a previous postmarketOS installation from the system partition, use
-       <code>
-        fastboot format system
-       </code>
-       (otherwise, the initramfs may boot into the wrong installation!).
-      </p>
-      <h3>
-       <span class="mw-headline" id="On-device_installer">
-        On-device installer
-       </span>
-      </h3>
-      <p>
-       The on-device installer starts with three partitions (boot, reserved space, installer). It installs postmarketOS into the reserved space, and removes the third partition, so in the end it looks like the regular boot and root partition layout. Details are in the
-       <a href="../en/On-device_installer.html" title="On-device installer">
-        on-device installer
-       </a>
-       article.
-      </p>
-      <h2>
-       <span class="mw-headline" id="See_also">
-        See also
-       </span>
-      </h2>
-      <ul>
-       <li>
-        <a href="../en/Boot_process.html" title="Boot process">
-         Boot process
-        </a>
-        , in particular how the partitions for boot and root are determined
-       </li>
-       <li>
-        <a class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/953" rel="nofollow">
-         #953
-        </a>
-        : idea to boot from an image file (did not go anywhere, open a new issue if you are interested in implementing this)
-       </li>
-       <li>
-        <a href="../en/Deviceinfo_flash_methods.html" title="Deviceinfo flash methods">
-         Deviceinfo: flash methods
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="catlinks" data-mw="interface" id="catlinks">
-     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-      <a href="../Special:Categories.html" title="Special:Categories">
-       Category
-      </a>
-      :
-      <ul>
-       <li>
-        <a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">
-         Technical Reference
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Partition_Layout&amp;oldid=13080">
-      https://wiki.postmarketos.org/index.php?title=Partition_Layout&amp;oldid=13080
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 6 July 2020, at 22:10.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Partition_Layout&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+</pre></div>
+<p>Note that the <code>flash_kernel</code> command fills Android's boot partition with a boot.img file, that consists of the Linux kernel and initramfs from postmarketOS. The files are duplicated on the postmarketOS boot partition, but not used from there. Some Android devices have a strict size limit for this boot.img file, which is why we load additional files from the initramfs-extra file from the postmarketOS boot partition.
+</p>
+<h4><span class="mw-headline" id="Pick_a_different_subpartition">Pick a different subpartition</span></h4>
+<p>While on some devices, the system partition is bigger than the userdata partition, it is the other way around on others. So it is possible to switch to the userdata partition with <code>pmbootstrap flasher flash_rootfs --partition userdata</code>. To clear a previous postmarketOS installation from the system partition, use <code>fastboot format system</code> (otherwise, the initramfs may boot into the wrong installation!).
+</p>
+<h3><span class="mw-headline" id="On-device_installer">On-device installer</span></h3>
+<p>The on-device installer starts with three partitions (boot, reserved space, installer). It installs postmarketOS into the reserved space, and removes the third partition, so in the end it looks like the regular boot and root partition layout. Details are in the <a href="../en/On-device_installer.html" title="On-device installer">on-device installer</a> article.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li>
+<a href="../en/Boot_process.html" title="Boot process">Boot process</a>, in particular how the partitions for boot and root are determined</li>
+<li>
+<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/953">#953</a>: idea to boot from an image file (did not go anywhere, open a new issue if you are interested in implementing this)</li>
+<li><a href="../en/Deviceinfo_flash_methods.html" title="Deviceinfo flash methods">Deviceinfo: flash methods</a></li>
+</ul>
+
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Partition_Layout&amp;oldid=45179">https://wiki.postmarketos.org/index.php?title=Partition_Layout&amp;oldid=45179</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 20 June 2023, at 10:11.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Partition_Layout&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

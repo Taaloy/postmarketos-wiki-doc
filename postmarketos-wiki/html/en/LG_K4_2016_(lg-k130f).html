@@ -347,25 +347,74 @@ aarch64</td>
 <p><br>
 </p>
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
-<ul><li><a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/User:Brunothedev">Brunothedev</a></li></ul>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/User:Brunothedev">Brunothedev</a></li>
+<li><a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/User:Mark">Mark</a></li>
+</ul>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
 <li><a href="../User:Brunothedev.html" title="User:Brunothedev">Brunothedev</a></li>
+<li>
+<a href="../User:Mark.html" title="User:Mark">Mark</a> (<span class="cargoFieldName">Notes:</span> Actual phone model number I have is LG-K120E)</li>
 </ul></div>
 <p><br>
 </p>
-<h2><span class="mw-headline" id="How_to_enter_flash_mode">How to enter flash mode</span></h2>
+<h2><span class="mw-headline" id="How_to_enter_fastboot">How to enter fastboot</span></h2>
 <p>Press Volume Down on your device and then plug the cable, you now can use fastboot commands
 </p>
-<h2><span class="mw-headline" id="How_to_unlock_flashing">How to unlock flashing</span></h2>
-<p>after entering flashmode, on the terminal, use:
+<h2><span class="mw-headline" id="How_to_unlock_the_bootloader">How to unlock the bootloader</span></h2>
+<p>Install <a rel="nofollow" class="external text" href="https://github.com/bkerler/mtkclient">mtkclient</a> run:
 </p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>fastboot oem unlock</pre></div>
-<p>and then check with:
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>mtk e userdata</pre></div>
+<p>after that:
 </p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>fastboot getvar unlocked</pre></div>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre>mtk da seccfg unlock</pre></div>
 <h2><span class="mw-headline" id="Development">Development</span></h2>
-<p>Currently waiting for <a rel="nofollow" class="external text" href="https://github.com/bkerler/mtkclient/issues/634">this MTKClient issue</a> to be fixed
+<p>The device bootloops, fixing that
+</p>
+<h2><span class="mw-headline" id="UART_setup_and_soldering_guide">UART setup and soldering guide</span></h2>
+<p>Connecting UART will require you to solder two wires: one wire to ground and the second wire to the transmit pad on the motherboard. Additionally, you will need a USB to TTL module.
+</p>
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>WARNING:</b> Soldering a wire to the transmit pad is difficult, and if not done carefully, <b>there is a high chance of destroying the solder pad</b>, which then becomes very difficult to repair. You have been warned!</td>
+</tr></tbody></table>
+<p>To solder the wire successfully, especially for a soldering beginner, it's recommended to find some scrap electronic board to train soldering on and try to solder a wire to the smallest solder pad you can find on the board. To solder a wire to the small UART transmit pad, you will need a small tip for the soldering iron, solder, and a microscope (it doesn't need to be expensive). Flux is also good to have to help the solder flow, but it's possible to solder without it.
+</p>
+<p>Next, find a small wire and strip the wire end open with a knife to reveal strands of small wires inside. Leave just one strand of wire for soldering, and once you have done that, fill the strand with solder.
+</p>
+<table role="text container" style="color: inherit; background-color: #D3E4FA; border: 1px solid #0B6B9F; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Notice" src="../Notice.png" decoding="async" title="Notice" width="20" height="20" srcset="../Notice.png 1.5x ../Notice.png 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">If the strand doesn't accept solder, take a knife and scratch the strand of wire with the knife (this is to remove oxidation) and be gentle scratching it, as the strand can easily break.</td>
+</tr></tbody></table>
+<p>Once you have tinned the strand with solder, then proceed to solder the strand of wire to the transmit pad, TX0. Take your time to solder; no rush. 
+</p>
+<p>When you have successfully soldered the strand of wire to transmit pad (TX0), then connect that wire or also solder the wire to the receive pad (RX) on your USB to TTL module.
+</p>
+<p>Also remember to solder the ground wire :).
+</p>
+<table role="text container" style="color: inherit; background-color: #D3E4FA; border: 1px solid #0B6B9F; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Notice" src="../Notice.png" decoding="async" title="Notice" width="20" height="20" srcset="../Notice.png 1.5x ../Notice.png 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">You don't need to solder the ground wire to the small UART ground solder pad; you can use any other grounding pad on the board. Use two multimeter leads (multimeter set to resistance mode or the continuity/beep mode) to find a common ground. Use one lead of the multimeter to poke around the board and keep the other lead on one of the UART ground pads number 2 or number 5 (refer to schematic picture below). Once you have found 0 ohms or the multimeter beeps on beep mode, it usually means you have found a ground. If you are still unsure, research online for instructions on how to find ground.</td>
+</tr></tbody></table>
+<p>For me, the writer for this UART setup and soldering guide section, I used CH341A v1.7 programmer with a voltage selection switch. I used the 1.8V setting.
+</p>
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>WARNING:</b> UART for this phone outputs 1.8V. Be careful what USB to TTL voltage you connect, as it could cause problems or even destroy your phone. Take your own voltage measurements with a multimeter to be sure. You have been warned!</td>
+</tr></tbody></table>
+<table role="text container" style="color: inherit; background-color: #D3E4FA; border: 1px solid #0B6B9F; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Notice" src="../Notice.png" decoding="async" title="Notice" width="20" height="20" srcset="../Notice.png 1.5x ../Notice.png 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">UART baudrate for bootrom is 115200, and to get readable text after bootrom output, switch the speed to 921600, which is the lk output.</td>
+</tr></tbody></table>
+<p>For further documentation or troubleshooting, refer to the postmarketOS serial debugging wiki: <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/Serial_debugging#Plugging_in_the_cable">https://wiki.postmarketos.org/wiki/Serial_debugging#Plugging_in_the_cable</a>
+</p>
+<p><a href="../UART_pads_from_schematics.png" class="image" title="LG K4 2016 UART pads from schematics"><img alt="LG K4 2016 UART pads from schematics" src="../UART_pads_from_schematics.png" decoding="async" width="250" height="219" srcset="../UART_pads_from_schematics.png 1.5x ../UART_pads_from_schematics.png 2x"></a>
+<a href="../LG_K4_Uart_pads.jpg" class="image" title="LG K4 2016 UART pads"><img alt="LG K4 2016 UART pads" src="../LG_K4_Uart_pads.jpg" decoding="async" width="250" height="333" srcset="../LG_K4_Uart_pads.jpg 1.5x ../LG_K4_Uart_pads.jpg 2x"></a>
+</p>
+<p><br>
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -392,9 +441,9 @@ aarch64</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=LG_K4_2016_(lg-k130f)&amp;oldid=43791">https://wiki.postmarketos.org/index.php?title=LG_K4_2016_(lg-k130f)&amp;oldid=43791</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=LG_K4_2016_(lg-k130f)&amp;oldid=45134">https://wiki.postmarketos.org/index.php?title=LG_K4_2016_(lg-k130f)&amp;oldid=45134</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 24 April 2023, at 21:40.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 18 June 2023, at 22:54.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

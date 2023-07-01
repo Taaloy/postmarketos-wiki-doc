@@ -1,363 +1,74 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   ZRAM - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-ZRAM rootpage-ZRAM skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    ZRAM
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <div class="toc" id="toc">
-       <input class="toctogglecheckbox" id="toctogglecheckbox" role="button" style="display:none" type="checkbox"/>
-       <div class="toctitle" dir="ltr" lang="en">
-        <h2>
-         Contents
-        </h2>
-        <span class="toctogglespan">
-         <label class="toctogglelabel" for="toctogglecheckbox">
-         </label>
-        </span>
-       </div>
-       <ul>
-        <li class="toclevel-1 tocsection-1">
-         <a href="#Overview">
-          <span class="tocnumber">
-           1
-          </span>
-          <span class="toctext">
-           Overview
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-2">
-         <a href="#Kernel_Configuration">
-          <span class="tocnumber">
-           2
-          </span>
-          <span class="toctext">
-           Kernel Configuration
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-3">
-         <a href="#Manual_ZRAM_setup">
-          <span class="tocnumber">
-           3
-          </span>
-          <span class="toctext">
-           Manual ZRAM setup
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-4">
-         <a href="#ZRAM_settings_strategy">
-          <span class="tocnumber">
-           4
-          </span>
-          <span class="toctext">
-           ZRAM settings strategy
-          </span>
-         </a>
-        </li>
-        <li class="toclevel-1 tocsection-5">
-         <a href="#Starting_ZRAM_at_boot_time">
-          <span class="tocnumber">
-           5
-          </span>
-          <span class="toctext">
-           Starting ZRAM at boot time
-          </span>
-         </a>
-        </li>
-       </ul>
-      </div>
-      <h2>
-       <span class="mw-headline" id="Overview">
-        Overview
-       </span>
-      </h2>
-      <p>
-       Zram uses a part of physical RAM to emulate a block device and use it for swapping. In essence, in compress unused RAM content within itself, to leave more memory for the currently active one. It can also be used to host the
-       <code>
-        /tmp
-       </code>
-       filesystem but this is not practical.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Kernel_Configuration">
-        Kernel Configuration
-       </span>
-      </h2>
-      <p>
-       To use ZRAM, the following kernel configuration is needed:
-      </p>
-      <pre>CONFIG_ZSMALLOC=m
-CONFIG_ZSMALLOC_STAT=y
-CONFIG_ZRAM=m
-CONFIG_ZRAM_WRITEBACK=y
-CONFIG_ZRAM_MEMORY_TRACKING=y
-</pre>
-      <p>
-       or, in terms of
-       <code>
-        menuconfig
-       </code>
-       tree,
-      </p>
-      <pre>Memory Management options  ---&gt;
-    &lt;M&gt; Memory allocator for compressed pages
-    [*]   Export zsmalloc statistics
-Device Drivers  ---&gt;
-    [*] Block devices ---&gt;
-        &lt;M&gt; Compressed RAM block device support
-        [*]     Write back incompressible or idle page to backing device
-        [*]     Track zRam block status
-</pre>
-      <p>
-       Additionally, to use the LZ4 compression algorithm (the least efficient and the fastest), it must also be enabled:
-      </p>
-      <pre>Cryptographic API ---&gt;
-    *** Compression ***
-    &lt;*&gt; LZ4 compression algorithm
-</pre>
-      <p>
-       Remove the old setup, configure the kernel as said above, rebuild it and redo the setup:
-      </p>
-      <pre>$ pmbootstrap -y zap -p
-$ pmbootstrap kconfig edit YOUR-KERNEL-PACKAGE
-$ pmbootstrap build --force YOUR-KERNEL-PACKAGE
-$ pmbootstrap install ...
-</pre>
-      <p>
-       See
-       <a class="external text" href="https://wiki.postmarketos.org/wiki/Kernel_configuration" rel="nofollow">
-        Kernel configuration
-       </a>
-       for package naming and other details.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Manual_ZRAM_setup">
-        Manual ZRAM setup
-       </span>
-      </h2>
-      <p>
-       ZRAM is built as a module. First, load it, specifying the number of ZRAM devices to create:
-      </p>
-      <pre># modprobe zram "num_devices=NUMBER"
-</pre>
-      <p>
-       Configure these ZRAM devices with
-       <code>
-        zramctl
-       </code>
-       . Specify, at least, the size of memory that you'd like to dedicate to a particular, or to the first available, device:
-      </p>
-      <pre># zramctl -f -s SIZE
-</pre>
-      <p>
-       See
-       <code>
-        zramctl --help
-       </code>
-       for more keys.
-      </p>
-      <p>
-       Make it (e.g.
-       <code>
-        zram0
-       </code>
-       ) a swap device, activate it and check:
-      </p>
-      <pre># mkswap /dev/zram0
-# swapon /dev/zram0
-# swapon --show
-</pre>
-      <h2>
-       <span class="mw-headline" id="ZRAM_settings_strategy">
-        ZRAM settings strategy
-       </span>
-      </h2>
-      <p>
-       Optimal ZRAM settings may vary greatly depending on particular hardware configuration, set of installed applications, particular use cases and user's habits. Thus it is not easy to recommend a universal setup that would equally fit everyone. For example:
-      </p>
-      <ul>
-       <li>
-        the
-        <code>
-         zram-init
-        </code>
-        script from pmOS repository suggests making two ZRAM devices: 512MB for swap and 2GB for
-        <code>
-         /tmp
-        </code>
-        . However, the former seems too little for modern hardware with 3 to 8GB RAM; and the latter is definitely too little and is rejected by system, thus it remains unused.
-       </li>
-      </ul>
-      <ul>
-       <li>
-        the
-        <code>
-         zram-config
-        </code>
-        script used in Debian-based distributions makes a dedicated ZRAM device per CPU core, totaling 1/2 of physical RAM. This does not seem the best option for pmOS devices, as compared to desktops: with less memory, greater cores number, and unequal cores.
-       </li>
-      </ul>
-      <p>
-       The simplest solution to begin with is probably a single ZRAM device of 1/2 of physical RAM. Monitor RAM usage and do further investigation yourselves.
-      </p>
-      <h2>
-       <span class="mw-headline" id="Starting_ZRAM_at_boot_time">
-        Starting ZRAM at boot time
-       </span>
-      </h2>
-      <p>
-       To make ZRAM devices automatically on system start-up, install the two scripts:
-      </p>
-      <pre># apk add zram-init zram-init-openrc
-</pre>
-      <p>
-       Edit the configuration file
-       <code>
-        /etc/conf.d/zram-init
-       </code>
-       . In accordance with the above considerations, the following minimal changes may be recommended:
-      </p>
-      <pre>num_devices=1
-size0=&lt;half of physical RAM, in MB&gt;
-    or
-size0=`LC_ALL=C free -m | awk '/^Mem:/{print int($2/2)}'`
-</pre>
-      <p>
-       To use lz4 (the fastest and easiest) or lzo compression,
-       <code>
-        algo0
-       </code>
-       should also be set explicitly. The default is
-       <code>
-        zstd
-       </code>
-       (the most efficient but also the most CPU-hungry one).
-Settings for devices beyond the specified number are ignored anyways.
-      </p>
-      <p>
-       Add the script to
-       <code>
-        boot
-       </code>
-       runlevel:
-      </p>
-      <pre># rc-update add zram-init boot 
-</pre>
-     </div>
-    </div>
-    <div class="catlinks" data-mw="interface" id="catlinks">
-     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-      <a href="../Special:Categories.html" title="Special:Categories">
-       Category
-      </a>
-      :
-      <ul>
-       <li>
-        <a href="../en/Category:Guide.html" title="Category:Guide">
-         Guide
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=ZRAM&amp;oldid=28037">
-      https://wiki.postmarketos.org/index.php?title=ZRAM&amp;oldid=28037
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 28 May 2022, at 19:13.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=ZRAM&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>ZRAM - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-ZRAM rootpage-ZRAM skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">ZRAM</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Zram uses a part of physical RAM to emulate a block device and use it for swapping. In essence, in compress unused RAM content within itself, to leave more memory for the currently active one. It can also be used to host the <code>/tmp</code> filesystem but this is not practical.
+</p>
+<p>As of pmOS 23.06, the default kernel is already built with ZRAM support, and ZRAM is enabled by default. Use <code>swapon --show</code> to verify. You may want to play with the default settings with <code>zramctl</code> utility, or alter them in <code>/etc/conf.d/zram-init</code> if you can offer a more suitable setup for your particular device, applications suite, and usage habits.
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=ZRAM&amp;oldid=44933">https://wiki.postmarketos.org/index.php?title=ZRAM&amp;oldid=44933</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 9 June 2023, at 14:31.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=ZRAM&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

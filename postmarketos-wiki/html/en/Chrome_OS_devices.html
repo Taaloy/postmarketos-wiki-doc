@@ -149,6 +149,12 @@
 <td class="field_Chipset">MediaTek MT8173C</td>
 </tr>
 <tr>
+<td class="field_Device"><a href="../en/ASUS_Chromebook_CZ1_(google-cerise).html" title="ASUS Chromebook CZ1 (google-cerise)">ASUS Chromebook CZ1</a></td>
+<td class="field_Codename">google-cerise</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Chipset">MediaTek MT8183</td>
+</tr>
+<tr>
 <td class="field_Device"><a href="../en/ASUS_Chromebook_Detachable_CM3_(CM3000)_(google-kakadu).html" title="ASUS Chromebook Detachable CM3 (CM3000) (google-kakadu)">ASUS Chromebook Detachable CM3 (CM3000)</a></td>
 <td class="field_Codename">google-kakadu</td>
 <td class="field_Architecture">aarch64</td>
@@ -175,6 +181,12 @@
 <tr>
 <td class="field_Device"><a href="../en/ASUS_Chromebook_Flip_CM3_(CM3200,_MT8183)_(google-damu).html" title="ASUS Chromebook Flip CM3 (CM3200, MT8183) (google-damu)">ASUS Chromebook Flip CM3 (CM3200, MT8183)</a></td>
 <td class="field_Codename">google-damu</td>
+<td class="field_Architecture">aarch64</td>
+<td class="field_Chipset">MediaTek MT8183</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/ASUS_Chromebook_Flip_CZ1_(google-stern).html" title="ASUS Chromebook Flip CZ1 (google-stern)">ASUS Chromebook Flip CZ1</a></td>
+<td class="field_Codename">google-stern</td>
 <td class="field_Architecture">aarch64</td>
 <td class="field_Chipset">MediaTek MT8183</td>
 </tr>
@@ -537,16 +549,19 @@
 <li>Press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span> button, now you should see a menu with options like "Show Debug Info", "Cancel", "Power Off", and "Language".</li>
 <li>Press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> buttons at the same time. Option "Show Debug Info" will be replaced with "Confirm Disabling OS Verification".</li>
 <li>Select this option by using volume buttons and confirm by pressing <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span>.</li>
-<li>The device now should boot up in Developer Mode saying that it is INSECURE.</li>
 </ol>
 <h4><span class="mw-headline" id="Enable_booting_from_external_storage">Enable booting from external storage</span></h4>
 <ol>
 <li>Boot into Chrome OS.</li>
-<li>Open console: <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Ctrl</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Alt</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">T</span>.</li>
+<li>Open console: <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Ctrl</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Alt</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">T</span>.
+<ul><li>without keyboard: open <code>chrome-untrusted://crosh</code> in the browser.</li></ul>
+</li>
 <li>Enter <code>shell</code> in console.</li>
 <li>Enter <code>sudo crossystem dev_boot_usb=1 dev_boot_signed_only=0</code> in shell.</li>
 </ol>
 <p>After that you can boot from external storage (SD or USB) with <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Ctrl</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">U</span>.
+</p>
+<p>It might be necessary to reseat the storage (SD or USB) between bootup and triggering the boot from external storage.
 </p>
 <h3><span class="mw-headline" id="Installation_to_SD_card_or_USB_storage">Installation to SD card or USB storage</span></h3>
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
@@ -582,9 +597,9 @@
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Chrome_OS_devices&amp;oldid=44097">https://wiki.postmarketos.org/index.php?title=Chrome_OS_devices&amp;oldid=44097</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Chrome_OS_devices&amp;oldid=46069">https://wiki.postmarketos.org/index.php?title=Chrome_OS_devices&amp;oldid=46069</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 9 May 2023, at 16:31.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 30 June 2023, at 14:22.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

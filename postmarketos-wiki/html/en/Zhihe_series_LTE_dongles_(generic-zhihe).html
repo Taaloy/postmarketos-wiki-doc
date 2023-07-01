@@ -55,7 +55,7 @@ generic-zhihe</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Released</th>
     <td class="" style="">
-2019-2022</td>
+2019-2023</td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Category</th>
@@ -71,7 +71,7 @@ Android 4.3</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Chipset</th>
     <td class="" style="">
-<a href="../en/Qualcomm_Snapdragon_410_412_415_(MSM8916_MSM8916V2_MSM8929).html" class="mw-redirect" title="Qualcomm Snapdragon 410 (MSM8916)">Qualcomm Snapdragon 410 (MSM8916)</a>
+<a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" class="mw-redirect" title="Qualcomm Snapdragon 410 (MSM8916)">Qualcomm Snapdragon 410 (MSM8916)</a>
 </td>
 </tr>
 <tr class="">
@@ -275,7 +275,7 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Camera Flash</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -348,6 +348,10 @@ aarch64</td>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
 <li>
+<a href="../User:Adomerle.html" title="User:Adomerle">Adomerle</a> (<span class="cargoFieldName">Notes:</span> UF896)</li>
+<li>
+<a href="../User:CodeDaraW.html" title="User:CodeDaraW">CodeDaraW</a> (<span class="cargoFieldName">Notes:</span> UFI003_MB_V02 &amp; UFI103S_V05)</li>
+<li>
 <a href="../User:Notfound405.html" title="User:Notfound405">Notfound405</a> (<span class="cargoFieldName">Notes:</span> UZ801 v3.0 &amp; UFI001C_MB_V01 &amp; UFI003_MB_V02)</li>
 <li>
 <a href="../User:TravMurav.html" title="User:TravMurav">TravMurav</a> (<span class="cargoFieldName">Notes:</span> uf896)</li>
@@ -377,30 +381,32 @@ By default, we get only </p>
 </pre></div>
 <h3><span class="mw-headline" id="UZ801_V3.0">UZ801 V3.0</span></h3>
 <p>adb interface is not enabled by default.<br>
-To enable adb access and root permission, plug this device into your PC and use browser to access this URL: <a rel="nofollow" class="external free" href="http://192.168.100.1/usb_debug.html">http://192.168.100.1/usb_debug.html</a>, and replug your device. You'll find an adb device and may try the intructions above.
+To enable adb access and root permission, plug this device into your PC and use browser to access this URL: <a rel="nofollow" class="external free" href="http://192.168.100.1/usb_debug.html">http://192.168.100.1/usb_debug.html</a>, and then reboot your device(replug it). You'll find an adb device and get root permission with adb shell.<br>
 See the section below if your device bricks.
 </p>
 <h2><span class="mw-headline" id="Debug_UART_pin_and_test_pins">Debug UART pin and test pins</span></h2>
 <h3><span class="mw-headline" id="UZ801_V3.0_2">UZ801 V3.0</span></h3>
 <p><a href="../Uz801_board.jpg" class="image"><img alt="Uz801 board.jpg" src="../Uz801_board.jpg" decoding="async" width="300" height="169" srcset="../Uz801_board.jpg 1.5x ../Uz801_board.jpg 2x"></a>
 </p>
-<p>Note: 1.8 volt
+<p>Note: voltage: 1.8V
 </p>
 <h3>
 <span id="UFI103S,_UFI001C(B),_UFI003_etc."></span><span class="mw-headline" id="UFI103S.2C_UFI001C.28B.29.2C_UFI003_etc.">UFI103S, UFI001C(B), UFI003 etc.</span>
 </h3>
 <p>They are clearly labeled on the board, the only button is the EDL button.
 </p>
-<p>Note: 3.3 volt
+<p>Note: voltage: 3.3V
 </p>
 <h2><span class="mw-headline" id="Preparation">Preparation</span></h2>
 <p>It is recommended to backup the eMMC before flashing. Refer to <a rel="nofollow" class="external text" href="https://github.com/bkerler/EDL">EDL</a>.<br>
-The original Android image contains too old firmware to boot mainline kernel, use firmwares from Dragon Board 410c as replacement. Also, you may need qhypstub as well as lk1st (lk2nd is not recommended).<br>
+The original Android image contains too old firmware to boot mainline kernel, use firmwares from Dragon Board 410c as replacement. Also, you may need qhypstub as well as lk1st (lk2nd is not recommended since vendor aboot firmwares vary and have different strange quirks which causes a lot of trouble).<br>
 </p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> wget https://releases.linaro.org/96boards/dragonboard410c/linaro/rescue/17.09/dragonboard410c_bootloader_emmc_android-88.zip
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> <span class="c1"># Please do NOT use a later release from linaro, the tz firmware becomes too large to flash to tz partition. Just use the link below.</span>
+<span class="gp">$</span> wget https://releases.linaro.org/96boards/dragonboard410c/linaro/rescue/17.09/dragonboard410c_bootloader_emmc_android-88.zip
 <span class="gp">$</span> unzip dragonboard410c_bootloader_emmc_android-88.zip
-<span class="gp">$</span> <span class="c1"># put your device into EDL mode or fastboot mode and flash sbl1(only uz801 is required) and tz with the corresponding files extracted.</span>
-<span class="gp">$</span> <span class="c1"># Note: Flashing other images such as rpm/sbl1 is not recommended anymore. It is causing problem for some models.</span>
+<span class="gp">$</span> <span class="c1"># put your device into EDL mode or fastboot mode, flash sbl1(only required for uz801) and tz with the corresponding files extracted.</span>
+<span class="gp">$</span> <span class="c1"># That is, the minimum firmwares needed to be replaced are: for uz801, both sbl1 and tz; for other models, only tz.</span>
+<span class="gp">$</span> <span class="c1"># Note: Flashing other images such as rpm/sbl1 is not recommended anymore. It is causing problems for some other models, better to keep them untouched.</span>
 </pre></div>
 <p>For qhypstub and lk1st:
 </p>
@@ -410,19 +416,21 @@ The original Android image contains too old firmware to boot mainline kernel, us
 <span class="gp">$</span> <span class="c1"># get the generated qhypstub-test-signed.mbn and store it somewhere</span>
 <span class="gp">$</span>
 <span class="gp">$</span> <span class="nb">cd</span> ..<span class="p">;</span> git clone https://github.com/msm8916-mainline/lk2nd.git
-<span class="gp">$</span> <span class="nb">cd</span> lk2nd<span class="p">;</span> make <span class="nv">LK1ST_DTB</span><span class="o">=</span>msm8916-512mb-mtp <span class="nv">LK1ST_COMPATIBLE</span><span class="o">=</span>zhihe,uz801-v3 <span class="nv">TOOLCHAIN_PREFIX</span><span class="o">=</span>arm-none-eabi- msm8916-lk1st
-<span class="gp">$</span> <span class="c1"># The instructions here assumes Ubuntu as the host OS and UZ801 as the device.</span>
-<span class="gp">$</span> <span class="c1"># You also need to install some packages with apt.</span>
+<span class="gp">$</span> <span class="c1"># The command below assumes Ubuntu as the host OS and UZ801 as the device.</span>
+<span class="gp">$</span> <span class="c1"># You may also need to install some additional packages with a package manager.</span>
 <span class="gp">$</span> <span class="c1"># Refer to the README.md of the repository for detailed instructions. </span>
+<span class="gp">$</span> <span class="nb">cd</span> lk2nd<span class="p">;</span> make <span class="nv">LK1ST_DTB</span><span class="o">=</span>msm8916-512mb-mtp <span class="nv">LK1ST_COMPATIBLE</span><span class="o">=</span>zhihe,uz801-v3 <span class="nv">TOOLCHAIN_PREFIX</span><span class="o">=</span>arm-none-eabi- lk1st-msm8916
 <span class="gp">$</span> ../qhypstub/qtestsign/qtestsign.py aboot build-lk1st-msm8916/emmc_appsboot.mbn
 <span class="gp">$</span> <span class="c1"># get build-lk1st-msm8916/emmc_appsboot-test-signed.mbn and store it somewhere</span>
 <span class="gp">$</span>
-<span class="gp">$</span> <span class="c1"># Now flash them to hyp(bak) and aboot(abootbak) partitions with EDL or fastboot.</span>
+<span class="gp">$</span> <span class="c1"># Now flash them to hyp and aboot partitions with EDL or fastboot.</span>
 </pre></div>
+<p>Sadly, with the modifications above, it's impossible to boot original Android system anymore if you do not restore the original firmwares back. Say goodbye to the stock Android system, and do what you think necessary before proceeding, like modifying IMEI, switching SIM card slot and so on, since it's difficult to perform the tasks in postmarketOS.
+</p>
 <p><br>
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>See <a href="../en/Qualcomm_Snapdragon_410_412_415_(MSM8916_MSM8916V2_MSM8929).html#Installation" class="mw-redirect" title="Qualcomm Snapdragon 410/412 (MSM8916)">Qualcomm_Snapdragon_410/412_(MSM8916)#Installation</a>.
+<p>See <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html#Installation" title="Qualcomm Snapdragon 410/412 (MSM8916)">Qualcomm_Snapdragon_410/412_(MSM8916)#Installation</a>.
 </p>
 <h3><span class="mw-headline" id="partition_usage_strategy">partition usage strategy</span></h3>
 <p>There are several strategies to make full use of the limited eMMC storage. They are listed below, feel free to add more.
@@ -433,7 +441,7 @@ The original Android image contains too old firmware to boot mainline kernel, us
 <dl><dd><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>$ pmbootstrap install --filesystem btrfs
 </pre></div></dd></dl>
 </li>
-<li>reduce the size of /boot partition to 128 MB or even smaller (64MB should be enough to boot, but a slightly larger size is recommended)
+<li>reduce the size of /boot partition to 128 MB or even smaller (64MB should be enough to hold the contents, but a slightly larger size is recommended)
 <dl><dd><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>$ pmbootstrap config boot_size 128
 </pre></div></dd></dl>
 </li>
@@ -513,9 +521,9 @@ The original Android image contains too old firmware to boot mainline kernel, us
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Zhihe_series_LTE_dongles_(generic-zhihe)&amp;oldid=44168">https://wiki.postmarketos.org/index.php?title=Zhihe_series_LTE_dongles_(generic-zhihe)&amp;oldid=44168</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Zhihe_series_LTE_dongles_(generic-zhihe)&amp;oldid=45748">https://wiki.postmarketos.org/index.php?title=Zhihe_series_LTE_dongles_(generic-zhihe)&amp;oldid=45748</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 16 May 2023, at 21:09.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 25 June 2023, at 09:46.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

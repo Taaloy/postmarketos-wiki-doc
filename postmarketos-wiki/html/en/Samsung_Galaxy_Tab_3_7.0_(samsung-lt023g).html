@@ -369,16 +369,17 @@ armv7</td>
 <li class="toclevel-1 tocsection-5"><a href="#Packages_required_for_installation"><span class="tocnumber">5</span> <span class="toctext">Packages required for installation</span></a></li>
 <li class="toclevel-1 tocsection-6"><a href="#What_works"><span class="tocnumber">6</span> <span class="toctext">What works</span></a></li>
 <li class="toclevel-1 tocsection-7"><a href="#What_does_not_work"><span class="tocnumber">7</span> <span class="toctext">What does not work</span></a></li>
-<li class="toclevel-1 tocsection-8"><a href="#How_hpagseddy_get_camera_working"><span class="tocnumber">8</span> <span class="toctext">How hpagseddy get camera working</span></a></li>
-<li class="toclevel-1 tocsection-9">
-<a href="#How_to_get_WiFi_working"><span class="tocnumber">9</span> <span class="toctext">How to get WiFi working</span></a>
+<li class="toclevel-1 tocsection-8"><a href="#Incompatible_software"><span class="tocnumber">8</span> <span class="toctext">Incompatible software</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#How_hpagseddy_get_camera_working"><span class="tocnumber">9</span> <span class="toctext">How hpagseddy get camera working</span></a></li>
+<li class="toclevel-1 tocsection-10">
+<a href="#How_to_get_WiFi_working"><span class="tocnumber">10</span> <span class="toctext">How to get WiFi working</span></a>
 <ul>
-<li class="toclevel-2 tocsection-10"><a href="#Notes"><span class="tocnumber">9.1</span> <span class="toctext">Notes</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Notes"><span class="tocnumber">10.1</span> <span class="toctext">Notes</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-11"><a href="#About_GPU"><span class="tocnumber">10</span> <span class="toctext">About GPU</span></a></li>
-<li class="toclevel-1 tocsection-12"><a href="#Mainline"><span class="tocnumber">11</span> <span class="toctext">Mainline</span></a></li>
-<li class="toclevel-1 tocsection-13"><a href="#Links"><span class="tocnumber">12</span> <span class="toctext">Links</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#About_GPU"><span class="tocnumber">11</span> <span class="toctext">About GPU</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Mainline"><span class="tocnumber">12</span> <span class="toctext">Mainline</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Links"><span class="tocnumber">13</span> <span class="toctext">Links</span></a></li>
 </ul>
 </div>
 
@@ -431,6 +432,16 @@ armv7</td>
 </ul>
 <p>Everything else is untested as of writing this.
 </p>
+<h2><span class="mw-headline" id="Incompatible_software">Incompatible software</span></h2>
+<p>Due to the lack of upstream support for the PXA986 SoC, the kernel remains to a very old 3.4.5 version. As of 2023, there is still largely chance that the software on the edge channel of postmarketos will run on this device with some notable exceptions. Concerning the choice of the environment, lxqt works out of the box. It has been reported that xfce4, gnome, and mate never reach the desktop.
+</p>
+<p>Some issues related to general software:
+</p>
+<ul>
+<li>Software using sandboxing will fail (e.g. epiphany browser). Of course, this includes all flatpaks as well</li>
+<li>/etc/fstab cannot be used to mount a partition (an unsupported kernel syscall in newer versions of mount prevents the access to the file)</li>
+<li>Some programs will just fail to start</li>
+</ul>
 <h2><span class="mw-headline" id="How_hpagseddy_get_camera_working">How hpagseddy get camera working</span></h2>
 <p>Right now it's not usable for daily use, just for testing camera quality and checking if camera is working or not. I used "motion" package from alpine linux to capture pictures. If you want to test it too, just use "apk add motion" command to install that package. Then simply type "motion" and it will start capturing pictures nearly every second. If it doesn't capture pictures or pictures are just black squares then your camera isn't working. For opening pictures, i used feh image viewer to view images but every gallery app works great.
 </p>
@@ -491,9 +502,9 @@ If starting the service didn't work, start wpa_supplicant manually with:
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_3_7.0_(samsung-lt023g)&amp;oldid=43618">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_3_7.0_(samsung-lt023g)&amp;oldid=43618</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_3_7.0_(samsung-lt023g)&amp;oldid=45048">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_3_7.0_(samsung-lt023g)&amp;oldid=45048</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:41.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 14 June 2023, at 19:41.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

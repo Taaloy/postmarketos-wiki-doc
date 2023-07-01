@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>OnePlus 6 (oneplus-enchilada)/Dual Booting and Custom Partitioning - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-OnePlus_6_oneplus-enchilada_Dual_Booting_and_Custom_Partitioning rootpage-OnePlus_6_oneplus-enchilada_Dual_Booting_and_Custom_Partitioning skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">OnePlus 6 (oneplus-enchilada)/Dual Booting and Custom Partitioning</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>WARNING:</b> WARNING! THIS PROCESS MAY IRREVOCABLY BRICK YOUR PHONE! YOU HAVE BEEN WARNED!.THIS KIND OF THINGS IS FOR ADVANCED USERS ONLY!</td>
+</tr></tbody></table>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Custom_Partition"><span class="tocnumber">1</span> <span class="toctext">Custom Partition</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Spliting_userdata_for_a.2Fb_slot_dual_booing"><span class="tocnumber">1.1</span> <span class="toctext">Spliting userdata for a/b slot dual booing</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Reverting_back_to_stock_partition_layout_from_spliting_userdata"><span class="tocnumber">1.2</span> <span class="toctext">Reverting back to stock partition layout from spliting userdata</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Partitioning_for_booting_pmos_via_Renegade_Project"><span class="tocnumber">1.3</span> <span class="toctext">Partitioning for booting pmos via Renegade Project</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Partitioning_for_dual_booting_pmos_with_other_uefi_based_os_.28like_openbsd_.2C_netbsd_.2C_freebsd.2Cwindows.2Cetc.29_via_Renegade_Project"><span class="tocnumber">1.4</span> <span class="toctext">Partitioning for dual booting pmos with other uefi based os (like openbsd , netbsd , freebsd,windows,etc) via Renegade Project</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Erasing_unused_partitions.2FCustom_formatting"><span class="tocnumber">1.5</span> <span class="toctext">Erasing unused partitions/Custom formatting</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Reverting_to_stock_partition"><span class="tocnumber">1.6</span> <span class="toctext">Reverting to stock partition</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8">
+<a href="#Dual_booting"><span class="tocnumber">2</span> <span class="toctext">Dual booting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Dual_boot_pm_os_with_android_via_a.2Fb_slot"><span class="tocnumber">2.1</span> <span class="toctext">Dual boot pm os with android via a/b slot</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Rebooting_to_specific_OS"><span class="tocnumber">2.2</span> <span class="toctext">Rebooting to specific OS</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#On_the_go"><span class="tocnumber">2.3</span> <span class="toctext">On the go</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Using_fastboot"><span class="tocnumber">2.4</span> <span class="toctext">Using fastboot</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Updating_Android"><span class="tocnumber">2.5</span> <span class="toctext">Updating Android</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Dual_booting_pmos_with_other_uefi_based_os_.28like_openbsd_.2C_netbsd_.2C_freebsd.2Cwindows.2Cetc.29_via_Renegade_Project"><span class="tocnumber">2.6</span> <span class="toctext">Dual booting pmos with other uefi based os (like openbsd , netbsd , freebsd,windows,etc) via Renegade Project</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Dual_booting_pmos_with_other_uefi_based_os_and_android_.28like_openbsd_.2C_netbsd_.2C_freebsd.2Cwindows.2Cetc.29_via_Renegade_Project_and_slot_A.2FB"><span class="tocnumber">2.7</span> <span class="toctext">Dual booting pmos with other uefi based os and android (like openbsd , netbsd , freebsd,windows,etc) via Renegade Project and slot A/B</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Custom_Partition">Custom Partition</span></h2>
+<h3>
+<span id="Spliting_userdata_for_a/b_slot_dual_booing"></span><span class="mw-headline" id="Spliting_userdata_for_a.2Fb_slot_dual_booing">Spliting userdata for a/b slot dual booing</span>
+</h3>
+<p>Using a <a rel="nofollow" class="external text" href="https://github.com/Wishmasterflo/TWRP-DualBoot-Guac-Unified/releases">modified recovery</a>, it is possible to split the userdata partition. (Keep in mind to first use Android 9-based recovery, and match the version mentioned in the modified recovery's name, as suggested in the link above)
+</p>
+<p>A/B partitioning was tested and works perfectly with FDE enabled on pmOS and FBE enabled on Android, although data sharing will not work with an A/B partition layout if encryption is used. A common data partition may be possible with the A/B/C layout option available. Since the pmOS initramfs searches for a partition label instead of a specific partition, it will automatically detect the partition that the pmOS rootfs was installed to.
+</p>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Reverting_back_to_stock_partition_layout_from_spliting_userdata">Reverting back to stock partition layout from spliting userdata</span></h3>
+<p>Reverting to a stock partition layout from the modified userdata layout is extremely simple. Simply boot into TWRP on either slot, push the Dualboot mod to /tmp/ as before, and flash. When the installer asks if you would like to keep your current layout, select no, and then select the stock layout when prompted. Follow the rest of the instructions as you would like (if you are going to be reflashing OOS afterwards, these options do not matter).
+</p>
+<h3><span class="mw-headline" id="Partitioning_for_booting_pmos_via_Renegade_Project">Partitioning for booting pmos via Renegade Project</span></h3>
+<p>First remove unused partition (see <a href="#Erasing_unused_partitions.2FCustom_formatting">#Erasing unused partitions/Custom formatting</a>)
+</p>
+<p>Then create two partition : pmOS_boot and pmOS_root (see <a href="../en/Partition_Layout.html" title="Partition Layout">Partition Layout</a>)
+</p>
+<h3>
+<span id="Partitioning_for_dual_booting_pmos_with_other_uefi_based_os_(like_openbsd_,_netbsd_,_freebsd,windows,etc)_via_Renegade_Project"></span><span class="mw-headline" id="Partitioning_for_dual_booting_pmos_with_other_uefi_based_os_.28like_openbsd_.2C_netbsd_.2C_freebsd.2Cwindows.2Cetc.29_via_Renegade_Project">Partitioning for dual booting pmos with other uefi based os (like openbsd , netbsd , freebsd,windows,etc) via Renegade Project</span>
+</h3>
+<p>First fellow <a href="#Partitioning_for_booting_pmos_via_Renegade_Project">#Partitioning for booting pmos via Renegade Project</a>
+</p>
+<p>Next create partition for your uefi based os needed (for example : openbsd , netbsd , freebsd 
+,windows useually need 2 partition : uefi/boot partition , root partition).
+</p>
+<h3>
+<span id="Erasing_unused_partitions/Custom_formatting"></span><span class="mw-headline" id="Erasing_unused_partitions.2FCustom_formatting">Erasing unused partitions/Custom formatting</span>
+</h3>
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>WARNING:</b> After performing these steps, it will be IMPOSSIBLE to run ANY downstream OS, including, but not limited to OxygenOS stock ROMS, ANY custom Android ROMs, ANY Halium-based Linux distro, or anything else not using a MAINLINE Linux kernel from the sdm845-mainline team/Linaro.</td>
+</tr></tbody></table>
+<p>It is safe to wipe partitions /dev/sda13-17 (system_a , system_b , odm_a , odm_b , userdata) without any harm being done to the bootloader (on oneplus 6t you can only can remove /dev/sda17. Removing /dev/sda13-16 will cause the bootloader cant boot anything). Erasing these partitions will leave only mainline kernels bootable.
+</p>
+<p>Since only advanced users should be doing this, no detailed instructions are going to be provided in this guide (ie: no copy/pasting Terminal commands). man pages are helpful here if you do not know how to use a tool.
+</p>
+<p>First thing's first: You must have a working aarch64 binary of sgdisk or parted . If you have an OS of any kind installed to your phone, you can get it from there. Find a way to run that binary in a Terminal on your device.  Custom android recovery (like orange fox , twrp) , a mainline Linux liveboot (pmOS supports netboot) or a custom postmaketos android boot image that has the debug shell enabled and has included the parted or sgdisk.they will work as long as nothing is accessing the device storage.(For some reason parted error out on custom android recovery when doing custom partition.)
+</p>
+<p>Using sgdisk or parted , delete partitions /dev/sda13 (or /dev/block/sda13 if using TWRP) through /dev/sda17.
+</p>
+<p>Using sgdisk ot parted , create whatever partitions you want, then change the labels to whatever you want. <a href="/index.php?title=Users:Syboxez&amp;action=edit&amp;redlink=1" class="new" title="Users:Syboxez (page does not exist)">Syboxez</a> choses to create two partitions of different sizes: one named 'rootfs_stable' for postmarketOS, and one named 'rootfs_test' for other mainline distros. Make sure your labels do not conflict with any existing partitions.
+</p>
+<p>After creating the partitions, fastboot will successfully flash images to those partitions using the labels you assigned to them. So for instance, 'pmbootstrap flasher flash_rootfs -- partition rootfs_stable' would work fine, along with using 'fastboot flash rootfs_temp linuxdistrotwoelectricboogaloo.img' Converting to sparse images isn't necessary, since fastboot will do that for you.
+</p>
+<h3><span class="mw-headline" id="Reverting_to_stock_partition">Reverting to stock partition</span></h3>
+<p>To revert to stock, MsmDownloadTool or bkerler's edl tool with an extracted ops is necessary. Normal unbricking instructions through EDL mode apply here. If for any reason, it is impossible to access EDL mode anymore by plugging in a USB cable while the phone is off and volume up is being held down, then the phone is bricked.
+</p>
+<h2><span class="mw-headline" id="Dual_booting">Dual booting</span></h2>
+<h3>
+<span id="Dual_boot_pm_os_with_android_via_a/b_slot"></span><span class="mw-headline" id="Dual_boot_pm_os_with_android_via_a.2Fb_slot">Dual boot pm os with android via a/b slot</span>
+</h3>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">You need to partition your phone phone first. (See <a href="#Spliting_userdata_for_a.2Fb_slot_dual_booing">#Spliting userdata for a/b slot dual booing</a>).</td>
+</tr></tbody></table>
+<p>To install <b>Android on slot A</b> and <b>pmOS on slot B</b>: <br>(NOTE: if you would like to use Jumpdrive, then you will need to put pmOS on Slot A)
+</p>
+<ul>
+<li>Remember that all zips will always flash to the opposite slot.</li>
+<li>First, <b>install the latest version of OOS 10 onto both slots</b> via recovery, or via stock local upgrade. (In <a href="/index.php?title=Users:Syboxez&amp;action=edit&amp;redlink=1" class="new" title="Users:Syboxez (page does not exist)">Syboxez</a> cases, it was possible to just install LineageOS in both slots, which allows to skip the next step and installing Android custom ROM later on.)</li>
+<li>Because OOS 10 was installed, "fastboot boot" will stop working, so you may need to flash a working recovery (such as LineageOS recovery) to either boot_a or boot_b (or just boot to flash to your current slot) partitions from fastboot is necessary.</li>
+</ul>
+<pre>fastboot flash boot lineageos-18.1-202xxxxx-enchilada-recovery.img
+</pre>
+<ul><li>Select Reboot Recovery and sideload a working version of TWRP.</li></ul>
+<pre>adb sideload twrp-3.4.0-3-enchilada-installer.zip
+</pre>
+<ul><li>Reboot recovery. Push the Dualboot zip:</li></ul>
+<pre>adb push Dualboot_TWRP_OP6_enchilada_v6_2.zip /tmp/
+</pre>
+<ul>
+<li>Now in TWRP, install and navigate to /tmp/Dualboot_TWRP_OP6_enchilada_v6_2.zip and install it. Select the options that you would like. <br>For encryption, keep slot B as-is, and make sure you select no for Magisk on slot B. <br>Options for Slot A are up to the user.</li>
+<li>After installation, Reboot to recovery. Go to reboot, select <b>Slot B</b>, and reboot to recovery again.</li>
+<li>
+<b>Install the Android ROM</b> you would like, then <b>without rebooting, reflash the Dualboot mod</b> to repatch the boot.img with the recovery ramdisk.</li>
+<li>Reboot to recovery again.</li>
+<li>Currently, there seems to be a bug with the Dualboot installer, where it will always disable encryption on Android. <br>If you would like file-based encryption enabled, you will have to manually patch the fstab.</li>
+</ul>
+<pre># If you want encryption enabled in Android:
+adb shell mount /dev/block/sde16 /vendor #Mounts vendor_a to /vendor
+adb pull /vendor/etc/fstab.qcom ./
+</pre>
+<ul><li>In the line that mounts userdata, there will be an option listed as such: <b>"... ,=ice, ..."</b>. If you would like encryption enabled, change that to <b>"fileencryption=ice"</b> and push it back with</li></ul>
+<pre># If you want encryption enabled in Android:
+adb push ./fstab.qcom /vendor/etc/fstab.qcom
+</pre>
+<ul>
+<li>Select reboot and make sure <b>Slot A</b> is the current slot, then back out <b>without rebooting</b>. <br>Install any <b>addons</b> you may want (GApps if you need them, for example). <br>Format data (do not just wipe Internal Storage) and reboot.</li>
+<li>Once Android boots, verify that your phone is either encrypted or not encrypted (depending on what you wanted) and reboot to the bootloader.</li>
+</ul>
+<p>To <b>flash postmarketOS to slot B</b>, follow the general OP6 pmbootstrap install instructions (optionally with <b>--fde</b> to enable full disk encryption) and flash:
+</p>
+<pre>fastboot --set-active=b
+fastboot erase dtbo_b
+pmbootstrap flasher flash_rootfs --partition userdata_b
+pmbootstrap flasher flash_kernel --partition boot_b
+fastboot reboot
+</pre>
+<p>You should now be booting into postmarketOS.
+</p>
+<ul>
+<li>Note: Make sure OTA updates are disabled in your Android ROM. It will mess with things if it is not.</li>
+<li>Note: In mainline Linux, userdata_a is /dev/sda17 and userdata_b is /dev/sda18</li>
+</ul>
+<h3><span class="mw-headline" id="Rebooting_to_specific_OS">Rebooting to specific OS</span></h3>
+<h3><span class="mw-headline" id="On_the_go">On the go</span></h3>
+<p>To reboot to pmOS from Android:
+</p>
+<ul>
+<li>either use bundled <b>Dualboot Companion</b> app (note - it did not work for me, because <a href="../User:Syboxez.html" title="User:Syboxez">Syboxez</a> did not root my Android ROM)</li>
+<li>or simply boot the recovery, go to Reboot, switch to the opposite slot then pick Reboot and Do not install.</li>
+</ul>
+<p>To boot Android from pmOS, use command:
+</p>
+<pre>sudo qbootctl -s a</pre>
+<h3><span class="mw-headline" id="Using_fastboot">Using fastboot</span></h3>
+<p>To switch to Android, reboot to bootloader, and use fastboot to switch slots:
+</p>
+<pre>fastboot --set-active=[a|b]
+fastboot reboot
+</pre>
+<h3><span class="mw-headline" id="Updating_Android">Updating Android</span></h3>
+<p>Updating Android is a bit more of a pain, since Android ROMs are always flashed to the opposite slot.
+</p>
+<ul>
+<li>Backup your pmOS boot.img (located at /boot/boot.img in pmOS) to your PC.</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/syboxez1/op6-copy-partitions/-/raw/main/copy-boot.zip">Grab this script (adapted from LineageOS original),</a> which will copy your boot and dtbo partitions from Slot A to Slot B, temporarily overwriting the pmOS kernel/initram.</li>
+<li>Boot into TWRP on your Android slot (Slot A in this case) and start sideloading:</li>
+</ul>
+<pre>adb sideload copy-boot.zip
+</pre>
+<ul>
+<li>Switch to your pmOS slot (Slot B in this case), reboot to recovery, update your ROM, flash the Dualboot mod again, repatch the fstab on vendor_a in Slot A recovery for encryption if necessary (or just copy back the one you modified before), install GApps/other addons in Slot A if necessary, and reboot to bootloader.</li>
+<li>Reflash the pmOS kernel:</li>
+</ul>
+<pre>fastboot --set-active=b
+fastboot erase dtbo_b
+
+#If you have a pmOS boot.img backup:
+fastboot flash boot_b /path/to/backup/pmOS/boot.img
+
+#Alternatively if you did not make a boot.img backup (do not run the command below if you ran the command above this line):
+pmbootstrap flasher flash_kernel --partition boot_b
+
+fastboot reboot
+</pre>
+<h3>
+<span id="Dual_booting_pmos_with_other_uefi_based_os_(like_openbsd_,_netbsd_,_freebsd,windows,etc)_via_Renegade_Project"></span><span class="mw-headline" id="Dual_booting_pmos_with_other_uefi_based_os_.28like_openbsd_.2C_netbsd_.2C_freebsd.2Cwindows.2Cetc.29_via_Renegade_Project">Dual booting pmos with other uefi based os (like openbsd , netbsd , freebsd,windows,etc) via Renegade Project</span>
+</h3>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">You need to partition your phone phone first. (See <a href="#Partitioning_for_dual_booting_pmos_with_other_uefi_based_os_.28like_openbsd_.2C_netbsd_.2C_freebsd.2Cwindows.2Cetc.29_via_Renegade_Project">#Partitioning for dual booting pmos with other uefi based os (like openbsd , netbsd , freebsd,windows,etc) via Renegade Project</a>).</td>
+</tr></tbody></table>
+<p>By default , pm os utilize subpartitions to fit the boot partition (pmOS_boot) and root partition (pmOS_root) into a one normal partiton on oneplus 6/6t and many device  (see <a href="../en/Partition_Layout.html" title="Partition Layout">Partition Layout</a>).That partition scheme isnt suitable for booing pm os via Renegade Project because of leak of uefi partition so you need to convert pm os "subpartitions" partition scheme to "Use the whole storage device" partition scheme. (pmOS_boot had to be fat32/16). After that you you need to add pm os to Renegade Project boot menu  or  install a uefi bootloader to pm os.(if you want the aduio to work , do the first one ) 
+</p>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Most of the pre-build os disk image found online are not made for 4k sectors.The oneplus 6/6t use 4k sectors.Therefore you have to convert those os image to 4k sectors before you flash the partition image that is extected from the os disk image to your phone partituon.</td>
+</tr></tbody></table>
+<p>After all that , you need to install other uefi based os by fellow their guies.If you done all that correctly , you should saw a boot entry for other uefi based os in Renegade Project.
+</p>
+<h3>
+<span id="Dual_booting_pmos_with_other_uefi_based_os_and_android_(like_openbsd_,_netbsd_,_freebsd,windows,etc)_via_Renegade_Project_and_slot_A/B"></span><span class="mw-headline" id="Dual_booting_pmos_with_other_uefi_based_os_and_android_.28like_openbsd_.2C_netbsd_.2C_freebsd.2Cwindows.2Cetc.29_via_Renegade_Project_and_slot_A.2FB">Dual booting pmos with other uefi based os and android (like openbsd , netbsd , freebsd,windows,etc) via Renegade Project and slot A/B</span>
+</h3>
+<p>First install android in slot a (See [#Dual boot pm os with android via a/b slot] )
+</p>
+<p>Next install Renegade Project slot b
+</p>
+<p>Then fellow <a href="#Dual_booting_pmos_with_other_uefi_based_os_.28like_openbsd_.2C_netbsd_.2C_freebsd.2Cwindows.2Cetc.29_via_Renegade_Project">#Dual booting pmos with other uefi based os (like openbsd , netbsd , freebsd,windows,etc) via Renegade Project</a>
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Dual_Booting_and_Custom_Partitioning&amp;oldid=45745">https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Dual_Booting_and_Custom_Partitioning&amp;oldid=45745</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 24 June 2023, at 02:04.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Dual_Booting_and_Custom_Partitioning&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

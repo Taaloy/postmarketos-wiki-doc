@@ -443,14 +443,19 @@ armv7</td>
 <li>Baseline kernel sources on p895: <a rel="nofollow" class="external free" href="https://github.com/grate-driver/linux">https://github.com/grate-driver/linux</a>
 </li>
 <li>Proper dts for P895 is added</li>
-<li>Version: 6.2.0</li>
+<li>Version: 6.4.0-rc6</li>
 <li>Status: Boots. See status below.</li>
 </ul>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <h3><span class="mw-headline" id="Bootloader_replacement">Bootloader replacement</span></h3>
-<p>LG bootloader is highly NOT recommended to use with pmOS. To switch to open source booloader you need to use P895 Nvflash zip, it can be found here <a rel="nofollow" class="external free" href="https://github.com/clamor-s/wheelie/releases/tag/p895">https://github.com/clamor-s/wheelie/releases/tag/p895</a> and you MUST use native Linux, virtual machine and WSL will NOT work.
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>WARNING:</b> Bootloader replacement will erase all data on the device!</td>
+</tr></tbody></table>
+<p>LG bootloader is highly NOT recommended to use with pmOS. To switch to open source booloader you need to use P895 re-crypt zip, it can be found here <a rel="nofollow" class="external free" href="https://github.com/clamor-s/wheelie/releases/tag/p895">https://github.com/clamor-s/wheelie/releases/tag/p895</a> (one with re-crypt in its name) and you MUST use native Linux, virtual machine and WSL will NOT work.
 </p>
-<p>Unpack zip and cd into it. Plug your P895 to PC and reboot it with holding both <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span>. If all is done correct <code>lsusb</code> should show <code>ID 0955:7130 NVIDIA Corp. APX</code> device.
+<p>Unpack zip and cd into it. Plug your P895 to PC and reboot it with holding both <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span>. If all is done correct <code>lsusb</code> should show <code>ID 0955:7130 NVIDIA Corp. APX</code> device. Instructions are in the <b>commands</b> file or you can see them below.
 </p>
 <p>Now perform:
 </p>
@@ -467,12 +472,12 @@ armv7</td>
 <span class="go">[+] Sending bootloader...</span>
 <span class="go">Sending file: 100 %</span>
 <span class="go">[!] Done - your device should now be ready for nvflash</span>
-<span class="gp">$</span> sudo ./nvflash --resume --rawdevicewrite <span class="m">0</span> <span class="m">2944</span> u-boot-bricksafe.img --go
+<span class="gp">$</span> sudo ./nvflash --resume --rawdevicewrite <span class="m">0</span> <span class="m">1024</span> repart-block.bin --go
 <span class="go">Nvflash v1.13.87205 started</span>
 <span class="go">[resume mode]</span>
-<span class="go">sending file: u-boot-bricksafe.img</span>
-<span class="go">/ 12058624/12058624 bytes sent</span>
-<span class="go">u-boot-bricksafe.img sent successfully</span>
+<span class="go">sending file: repart-block.bin</span>
+<span class="go">/ 4194304/4194304 bytes sent</span>
+<span class="go">repart-block.bin sent successfully</span>
 </pre></div>
 <p>If phone did not reboot automatically, force reboot with holding <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span>. This will replace LG bootloader with u-boot. For more deep look into u-boot actions refer to dedicated section below.
 </p>
@@ -480,31 +485,13 @@ armv7</td>
 <table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
 <td style="padding: 0.35em 0.9em; width: 100%;">
-<b>WARNING:</b> P895 as /root uses userdata partition, MAKE A BACKUP OF IT!</td>
+<b>WARNING:</b> U-Boot mode is heavy power consuming, do not stay in it for prolonged periods of time!</td>
 </tr></tbody></table>
-<p>You should configure p895 build using pmbootstrap and build it using split images <code>pmbootstrap install --split</code>. Now you can use <b>nvflash</b> or <b>dd</b>. 
+<p>Thanks to u-boot you have installed on previous step, entire p895 eMMC can be mounted as a simple storage device.
 </p>
-<p>For <b>nvflash</b> place your pmOS images into Nvflash folder and enter APX mode with wheelie. Flash rootfs first with 
+<p>Boot into u-boot bootmenu by holding <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span>. Then using volume buttons you can navigate bootmenu and using <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> choose its entries.
 </p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo ./nvflash --resume --download UDA lg-p895-root.img --go
-<span class="go">Nvflash v1.13.87205 started</span>
-<span class="go">[resume mode]</span>
-<span class="go">sending file: lg-p895-root.img</span>
-<span class="go">/ 1205862445/1205862445 bytes sent</span>
-<span class="go">lg-p895-root.img sent successfully</span>
-</pre></div>
-<p>Phone will reboot and poweroff itself. Enter APX mode with wheelie once more and flash boot with
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo ./nvflash --resume --download CAC lg-p895-boot.img --go
-<span class="go">Nvflash v1.13.87205 started</span>
-<span class="go">[resume mode]</span>
-<span class="go">sending file: lg-p895-boot.img</span>
-<span class="go">/ 205862445/205862445 bytes sent</span>
-<span class="go">lg-p895-boot.img sent successfully</span>
-</pre></div>
-<p>After pmOS should boot fine. If you have issues with /root size, use <code>resize2fs</code>.
-</p>
-<p>For <b>dd</b> you can mount /boot and /root partitions directly as external storage on your PC. For this u-boot has options <code>mount /boot</code> and <code>mount /root</code> and you will just need to flash images onto those external storage correspondingly.
+<p>Plug your p895 to PC and choose mount internal storage. Your p895 eMMC should be detected by PC as a simple mass storage. Then it can be flashed as any SD card using <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a>.
 </p>
 <h2>
 <span id="Hardware_status_(mainline)"></span><span class="mw-headline" id="Hardware_status_.28mainline.29">Hardware status (mainline)</span>
@@ -914,9 +901,9 @@ armv7</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=LG_Optimus_Vu_(lg-p895)&amp;oldid=43382">https://wiki.postmarketos.org/index.php?title=LG_Optimus_Vu_(lg-p895)&amp;oldid=43382</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=LG_Optimus_Vu_(lg-p895)&amp;oldid=45111">https://wiki.postmarketos.org/index.php?title=LG_Optimus_Vu_(lg-p895)&amp;oldid=45111</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:37.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 18 June 2023, at 10:34.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

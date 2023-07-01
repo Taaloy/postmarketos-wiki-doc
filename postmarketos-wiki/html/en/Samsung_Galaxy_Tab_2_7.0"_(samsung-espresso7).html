@@ -362,6 +362,17 @@ tablet</td>
 </p>
 <table class="infobox" style="float: right; width: 22em; color: inherit; background-color: #f7fff7; border: 3px solid #8a8;"><tbody><tr><td>
 <b>This device is based on the <a href="../en/Texas_Instruments_OMAP_4_(OMAP44xx).html" title="Texas Instruments OMAP 4 (OMAP44xx)">TI OMAP 4430</a>.</b><br>See the SoC page for common tips, guides and troubleshooting steps</td></tr></tbody></table>
+<p><br>
+</p>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This device has recently been upgraded to the <a href="../en/Devices.html#community" title="Devices">community</a> category.  
+<p>Download a Pre-built image from the <a rel="nofollow" class="external text" href="https://postmarketos.org/download/">download</a> page 
+</p>
+and follow instructions there : <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Samsung_Galaxy_Tab_2_7.0%22_(samsung-espresso7)#use_Community_pre-built_image">use Community pre-built image</a> section.</td>
+</tr></tbody></table>
+<p><br>
+</p>
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
 <ul>
 <li>Mighty</li>
@@ -375,9 +386,7 @@ tablet</td>
 <li>
 <a href="../User:Nieldv.html" title="User:Nieldv">Nieldv</a> (<span class="cargoFieldName">Notes:</span> 7" wifi, runs pmos, crack in digitizer)</li>
 <li>
-<a href="../User:Piero-e.html" title="User:Piero-e">Piero-e</a> (<span class="cargoFieldName">Notes:</span> 7.0" inch WIFI / gt-p3110 / testing (samsung-espresso7) PostmaketOS (big thanks to Mighty))</li>
-<li>
-<a href="../User:UltrasonicMadness.html" title="User:UltrasonicMadness">UltrasonicMadness</a> (<span class="cargoFieldName">Notes:</span> espressowifi version)</li>
+<a href="../User:UltrasonicMadness.html" title="User:UltrasonicMadness">UltrasonicMadness</a> (<span class="cargoFieldName">Notes:</span> Wi-Fi version)</li>
 <li>
 <a href="../User:Ungeskriptet.html" title="User:Ungeskriptet">Ungeskriptet</a> (<span class="cargoFieldName">Notes:</span> GT-P3110)</li>
 <li><a href="../User:Velikoss.html" title="User:Velikoss">Velikoss</a></li>
@@ -549,10 +558,8 @@ tablet</td>
 </tbody>
 </table>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">This device has recently been upgraded to the <a href="../en/Devices.html#community" title="Devices">community</a> category.  Download a <a href="#Pre-built">#Pre-built</a> image from the <a rel="nofollow" class="external text" href="https://postmarketos.org/download/">download</a> page or follow the general pmbootstrap instructions.</td>
-</tr></tbody></table>
+<p>follow the general pmbootstrap instructions to build your own.
+</p>
 <p>Prerequisites: TWRP installed on the Tab, see the LineageOS wiki for instructions: <a rel="nofollow" class="external text" href="https://wiki.lineageos.org/devices/espressowifi/install">espressowifi</a>, use the espresso3g TWRP image if you have the espresso3g tablet.
 </p>
 <p>Make sure to backup your data and store this somewhere safe if you care about the stock OS and/or your files!
@@ -604,11 +611,66 @@ pmbootstrap install --android-recovery-zip
 </code>
 </p>
 <hr>
-<h3><span class="mw-headline" id="Pre-built_image">Pre-built image</span></h3>
+<h3><span class="mw-headline" id="use_Community_pre-built_image">use Community pre-built image</span></h3>
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">FIXME install instructions for Phosh and XFCE4 images FIXME</td>
+<td style="padding: 0.35em 0.9em; width: 100%;">install instructions for Phosh and XFCE4 images</td>
 </tr></tbody></table>
+<p><br>
+</p>
+<p>works running from a SD card 
+</p>
+<p>as explained in <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Installation#SD_card">Installation - Flashing - From SD Card </a>
+Our device can boot SD card, USB stick or other external storage.
+</p>
+<p><br>
+</p>
+<h4><span class="mw-headline" id="preparation_in_a_way_to_easily_switch_between_Android_OS_and_PostmarketOS">preparation in a way to easily switch between Android_OS and PostmarketOS</span></h4>
+<p>from your actual Android_OS install file (AP_Stock_Samsung_Firmware.tar.md5 or Custom_Android_Based_OS.zip), extract the boot.img and copy it to your TWRP folder in internal storage (/sdcard/TWRP)
+</p>
+<h4><span class="mw-headline" id="Download_the_pmOS_pre-built_image">Download the pmOS pre-built image</span></h4>
+<p>from the <a rel="nofollow" class="external text" href="https://postmarketos.org/download/">download</a> page
+</p>
+<h4><span class="mw-headline" id="insert_a_MicroSDcard_into_your_Computer">insert a MicroSDcard into your Computer</span></h4>
+<p>and find its name by running
+</p>
+<p>$ lsblk
+</p>
+<p>make sure it is the right one as you will overwrite everything on it. Use a path without partition number at the end, 
+</p>
+<p>such as /dev/mmcblk0, or /dev/sdd
+</p>
+<h4><span class="mw-headline" id="decompress_the_downloaded_file_and_write_it_to_your_MicroSDcard_:">decompress the downloaded file and write it to your MicroSDcard :</span></h4>
+<p>$ xz --decompress --stdout path-to-pmos-samsung-espresso7.img.xz | sudo dd of=/dev/name-of-your-SDcard bs=4M status=progress
+</p>
+<p>Wait until the command completes and eject the SD card. 
+</p>
+<h4>
+<span id="insert_the_MicroSDcard_into_your_device,_and_boot_it_into_TWRP"></span><span class="mw-headline" id="insert_the_MicroSDcard_into_your_device.2C_and_boot_it_into_TWRP">insert the MicroSDcard into your device, and boot it into TWRP</span>
+</h4>
+<p>using the mount feature, unselect all /partitions except "MicroSDcard", 
+</p>
+<p>using the install feature, switch to "install image" rather than "install ZIP"
+</p>
+<p>navigate to the "/external_sd/boot.img", and flash it to the /boot partition
+</p>
+<h4><span class="mw-headline" id="reboot_system">reboot system</span></h4>
+<p>The rootfs image will boot right into postmarketOS. You are done with installing postmarketOS, congratulations! default login is user and password is 147147
+</p>
+<h4><span class="mw-headline" id="to_restore_your_Android_OS">to restore your Android_OS</span></h4>
+<p>boot the device into TWRP mode, 
+</p>
+<p>and simply using the install feature, switch to "install image" rather than "install ZIP"
+</p>
+<p>navigate to the previously stored "/sdcard/TWRP/boot.img", and flash it to the /boot partition
+</p>
+<h4><span class="mw-headline" id="to_restore_your_PostmarketOS">to restore your PostmarketOS</span></h4>
+<p>boot the device into TWRP mode, 
+</p>
+<p>and simply using the install feature, switch to "install image" rather than "install ZIP"
+</p>
+<p>navigate to the "/external_sd/boot.img", and flash it to the /boot partition
+</p>
 <h2><span class="mw-headline" id="Status">Status</span></h2>
 <h3><span class="mw-headline" id="Supported_variants">Supported variants</span></h3>
 <ul><li>samsung-espressowifi, which is almost identically similar to samsung-espresso3g, but with the exception that it has no modem.</li></ul>
@@ -642,12 +704,27 @@ wlr-randr can also be used.
 </p>
 <h2><span class="mw-headline" id="Known_issues">Known issues</span></h2>
 <h3><span class="mw-headline" id="WiFi_not_working_after_reboot">WiFi not working after reboot</span></h3>
+<p>workaround : always boot the device to TWRP first, then from there, reboot to system.
+</p>
 <p>See <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1211">https://gitlab.com/postmarketOS/pmaports/-/issues/1211</a>
 </p>
 <p>Fixes with patch in kernel: <a rel="nofollow" class="external free" href="https://github.com/hansemro/kc1-linux/blob/v5.16.x/patches/0006-Add-clk32kg-to-twl6030.patch">https://github.com/hansemro/kc1-linux/blob/v5.16.x/patches/0006-Add-clk32kg-to-twl6030.patch</a>
 </p>
 <h3><span class="mw-headline" id="Graphic_desktop_not_launching">Graphic desktop not launching</span></h3>
 <p>For Phosh (and maybe other wayland desktops?): create a <code>.sh</code> file in <code>/etc/tinydm.d/env-wayland.d/</code> and add the following text <code>export MESA_LOADER_DRIVER_OVERRIDE=pvr</code>. See <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2790">https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2790</a>
+</p>
+<h3><span class="mw-headline" id="always_shutdown_the_device_from_the_Linux_interface">always shutdown the device from the Linux interface</span></h3>
+<p>otherwise (buttons or TWRP) it will immediatly reboot to system
+</p>
+<p>if you want to charge the device during it stays off, plug it before shutdown from the Linux interface, because plugging the USB charger make the device booting
+</p>
+<h3>
+<span id="Never_let_the_battery_fall_down_to_0%"></span><span class="mw-headline" id="Never_let_the_battery_fall_down_to_0.25">Never let the battery fall down to 0%</span>
+</h3>
+<p>because of the partialy fonctional charging feature
+</p>
+<p>otherwise even plugged to an USB power supply, the device will enter in an endless bootloop. 
+and you will have to open the device, disconnect the motherboard from the charge module to wait some times, letting the battery charging in peace
 </p>
 <h2><span class="mw-headline" id="Non-free_unofficial_GPU_support">Non-free unofficial GPU support</span></h2>
 <p>As said in the Status section, GPU support can be enabled by copying additional PostmarketOS pmaports in your work directory, called pvrports.
@@ -657,7 +734,10 @@ This means that any device that has a PowerVR SGX Series 5 GPU could be enabled 
 </p>
 <ul><li><a rel="nofollow" class="external text" href="https://gitlab.com/pvrports/pvrports">See here</a></li></ul>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
+<p>PostmarketOS
+</p>
 <ul>
+<li><a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Samsung_Galaxy_Tab_2_10.1_(3G_and_Wifi)_(samsung-espresso10)">Samsung Galaxy Tab 2 10.1" (3G and Wifi) (samsung-espresso10)</a></li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/community/device-samsung-espresso3g">Device package</a></li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/community/linux-postmarketos-omap">Kernel package</a></li>
 </ul>
@@ -716,9 +796,9 @@ This means that any device that has a PowerVR SGX Series 5 GPU could be enabled 
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_7.0%22_(samsung-espresso7)&amp;oldid=43648">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_7.0%22_(samsung-espresso7)&amp;oldid=43648</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_7.0%22_(samsung-espresso7)&amp;oldid=45587">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_7.0%22_(samsung-espresso7)&amp;oldid=45587</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:42.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 23 June 2023, at 01:30.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

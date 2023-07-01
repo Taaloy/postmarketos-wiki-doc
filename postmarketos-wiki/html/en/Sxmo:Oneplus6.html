@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Sxmo:Oneplus6 - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Sxmo_Oneplus6 rootpage-Sxmo_Oneplus6 skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Sxmo:Oneplus6</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Here are some tips and tricks to ease the use of sxmo on the Oneplus6/T
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Sound_issues"><span class="tocnumber">1</span> <span class="toctext">Sound issues</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Calls"><span class="tocnumber">2</span> <span class="toctext">Calls</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Lisgd"><span class="tocnumber">3</span> <span class="toctext">Lisgd</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Working_around_the_notch"><span class="tocnumber">4</span> <span class="toctext">Working around the notch</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#The_tristate_button"><span class="tocnumber">5</span> <span class="toctext">The tristate button</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Vibration"><span class="tocnumber">6</span> <span class="toctext">Vibration</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Sound_issues">Sound issues</span></h2>
+<p>Sxmo images seem come with pipewire by default.
+</p>
+<p>At the moment pipewire does not seem to work well (see <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1534">https://gitlab.com/postmarketOS/pmaports/-/issues/1534</a>). Sound volume is low and saturated (as if there were some too low gains as well as saturated ones on the sound path).
+</p>
+<p>To get better results it is advised to switch back to pulse (sxmo supports alsa/pulse/pipewire). You can do so by removing the constraint on pipewire and installing pulseaudio :
+</p>
+<pre>$ sudo apk del sxmo-common-audio-pipewire
+$ sudo apk add sxmo-common-audio-pulse
+</pre>
+<p>If you use <b>pmbootstrap</b> to generate your image, you can add <b>sxmo-common-audio-pulse</b> to your extra packages, it will generate a correct image.
+</p>
+<p>Sometimes sound stops to work in calls, it can sometimes be solved by reloading ucm files :
+</p>
+<pre>$ sudo alsaucm reload
+</pre>
+<h2><span class="mw-headline" id="Calls">Calls</span></h2>
+<p>Once sound problems are solved you should be able to make calls.
+</p>
+<p>But as there is no proximity sensor (yet), when receiving calls, the screen stays black.
+</p>
+<p>A workaround is to add <b>sxmo_wm.sh dpms off</b> to <b>sxmo_hook_ring.sh</b> .
+</p>
+<p>Beware that it does not (intentionaly) turns on the touchscreen, you'll have to answer using the physical button.
+</p>
+<h2><span class="mw-headline" id="Lisgd">Lisgd</span></h2>
+<p>Oneplus6 and Oneplus6t have round corners, and corner gestures might not work well.
+</p>
+<p>One workaround is to recompile lisgd increasing <b>edgesizes</b> increasing it to 100 seems to work. Here is a diff of the changes that works for me.
+</p>
+<pre>diff --git a/config.def.h b/config.def.h
+index d07f50d..feb6003 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -16,10 +16,10 @@ unsigned int degreesleniency = 15;
+ unsigned int timeoutms = 800;
+ unsigned int orientation = 0;
+ unsigned int verbose = 0;
+-double edgesizeleft = 50.0;
+-double edgesizetop = 50.0;
+-double edgesizeright = 50.0;
+-double edgesizebottom = 50.0;
++double edgesizeleft = 100.0;
++double edgesizetop = 100.0;
++double edgesizeright = 100.0;
++double edgesizebottom = 100.0;
+ char *device = "/dev/input/touchscreen";
+ 
+ //Gestures can also be specified interactively from the command line using -g
+
+</pre>
+<h2><span class="mw-headline" id="Working_around_the_notch">Working around the notch</span></h2>
+<p>This can be done playing with gaps. On my OP6T, using <b>SXMO_SWAY_SCALE=1</b> (my personal preference), the bar can be defined this way in <b>.config/sxmo/sway</b>
+</p>
+<pre>bar {
+    position top
+    gaps 30 30 0 40
+    height 46
+     
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    status_command sxmo_status_watch.sh -o pango
+    swaybar_command /home/florent/bin/swaybar
+     
+     
+    pango_markup enabled
+     
+    colors {
+        statusline #ffffff
+        background #00000000
+        inactive_workspace #32323200 #32323200 #5c5c5c
+        font "sxmo" 22
+    }                                                                                                                          
+}  
+
+</pre>
+<p>Then, to update the bars when rotating the screen you can use <b>sxmo_rotate_hook.sh</b>
+</p>
+<pre>case $1 in
+normal)
+    swaymsg bar bar-0 gaps 30 30 0 40
+    swaymsg bar bar-0 height 46
+    swaymsg gaps left all set 0
+    swaymsg gaps right all set 0
+    ;;
+left)
+    swaymsg bar bar-0 gaps 0 80 0 80
+    swaymsg bar bar-0 height 40
+    swaymsg gaps left all set 0
+    swaymsg gaps right all set 80
+    ;;
+right)
+    swaymsg bar bar-0 gaps 0 80 0 80
+    swaymsg bar bar-0 height 40
+    swaymsg gaps left all set 80
+    swaymsg gaps right all set 0
+    ;;
+esac
+
+</pre>
+<h2><span class="mw-headline" id="The_tristate_button">The tristate button</span></h2>
+<p>Tristate button support has been included in the kernel and can be queried with <b>evtest</b>.
+</p>
+<p>So if you type <b>evtest /dev/input/event2</b> it should follow the state of your button (note: on my installation the top position (17) does not work, but it doesn't matter because middle and bottom position work and you can infer top from them). Here is what should happen when launching <b>evtest</b> and playing with the switch.
+</p>
+<pre>$ evtest /dev/input/event2
+Input driver version is 1.0.1
+Input device ID: bus 0x19 vendor 0x1 product 0x1 version 0x100
+Input device name: "Tri-state key"
+Supported events:
+  Event type 0 (EV_SYN)
+  Event type 5 (EV_SW)
+    Event code 17 (?) state 1
+    Event code 18 (?) state 0
+    Event code 19 (?) state 1
+Properties:
+Testing ... (interrupt to exit)
+Event: time 1686057348.435336, type 5 (EV_SW), code 18 (?), value 1
+Event: time 1686057348.435336, -------------- SYN_REPORT ------------
+Event: time 1686057348.439594, type 5 (EV_SW), code 19 (?), value 0
+Event: time 1686057348.439594, -------------- SYN_REPORT ------------
+Event: time 1686057349.312552, type 5 (EV_SW), code 19 (?), value 1
+Event: time 1686057349.312552, -------------- SYN_REPORT ------------
+Event: time 1686057349.348182, type 5 (EV_SW), code 18 (?), value 0
+Event: time 1686057349.348182, -------------- SYN_REPORT ------------
+Event: time 1686057349.788464, type 5 (EV_SW), code 18 (?), value 1
+Event: time 1686057349.788464, -------------- SYN_REPORT ------------
+Event: time 1686057350.658555, type 5 (EV_SW), code 18 (?), value 0
+Event: time 1686057350.658555, -------------- SYN_REPORT ------------
+Event: time 1686057351.145399, type 5 (EV_SW), code 18 (?), value 1
+Event: time 1686057351.145399, -------------- SYN_REPORT ------------
+Event: time 1686057351.159578, type 5 (EV_SW), code 19 (?), value 0
+Event: time 1686057351.159578, -------------- SYN_REPORT ------------
+Event: time 1686057351.974367, type 5 (EV_SW), code 19 (?), value 1
+Event: time 1686057351.974367, -------------- SYN_REPORT ------------
+Event: time 1686057352.121047, type 5 (EV_SW), code 18 (?), value 0
+
+</pre>
+<p>It should be possible to use <b>evetest</b> to query each position
+</p>
+<pre>evtest --query /dev/input/event2 5 18
+</pre>
+<p>The return code should be non-null if the switch is on the middle position. But if you issue that command, <b>evtest</b> fails with a <b>Key 18 out of bounds.</b> error. One dirty workaround is to recompile <b>evtest</b> removing the offending test. you can then test your switch for each position.
+</p>
+<p>For instance, in my installation, I use the tristate switch to control suspend. So I added a wakelock in <b>sxmo_hook_wakelocks.sh</b>
+</p>
+<pre># tristate
+if lowsw || midsw ; then
+    sxmo_wakelock.sh lock tristate_disabled "$DEFAULT_DURATION"
+else
+    sxmo_wakelock.sh unlock tristate_disabled
+fi        
+
+</pre>
+<p><b>lowsw</b> and <b>midsw</b> are small utility scripts in my <b>~/bin</b>
+</p>
+<pre>$ cat ~/bin/midsw 
+#!/bin/bash
+myevt --query /dev/input/event2 5 18
+
+</pre>
+<h2><span class="mw-headline" id="Vibration">Vibration</span></h2>
+<p>You need to modify the hooks for vibraton to work. In fact default hooks does not set the second argument of <b>sxmo_vibrate</b>. To perceive something it needs to be set at least to 1000, 20000 is ok. 
+</p>
+<p>So to vibrate during 1s you should use :
+</p>
+<pre>$ sxmo_vibrate 10000 20000
+
+</pre>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Sxmo:Oneplus6&amp;oldid=44874">https://wiki.postmarketos.org/index.php?title=Sxmo:Oneplus6&amp;oldid=44874</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 6 June 2023, at 20:20.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Sxmo:Oneplus6&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

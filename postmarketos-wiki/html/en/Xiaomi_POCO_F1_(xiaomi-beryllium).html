@@ -390,6 +390,7 @@ To know your panel variant, get into a terminal with root access (you can use TW
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <p>It is possible to either use a pre-built image as explained in the <a href="../en/Installation.html" title="Installation">installation</a> article, or to use <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a> to build your own image.
+It's <b>highly</b> recommended to update your bootloader; see below for more details.
 </p>
 <p>1. Run <code>pmbootstrap init</code> and select xiaomi as vendor and beryllium as device.
 </p>
@@ -458,6 +459,9 @@ $ fastboot flash boot 20230212-1217-postmarketOS-v22.12-plasma-mobile-3.9-xiaomi
 $ unxz -v 20230212-1217-postmarketOS-v22.12-plasma-mobile-3.9-xiaomi-beryllium-ebbg.img.xz
 $ fastboot flash userdata 20230212-1217-postmarketOS-v22.12-plasma-mobile-3.9-xiaomi-beryllium-ebbg.img
 </pre>
+<h3><span class="mw-headline" id="Updating_the_bootloader">Updating the bootloader</span></h3>
+<p>This involves downloading MIUI and extracting bootloader images to flash. Refer to <a rel="nofollow" class="external text" href="https://wiki.lineageos.org/devices/beryllium/fw_update">the LineageOS wiki for more info</a>.
+</p>
 <h1><span class="mw-headline" id="Mainline_status">Mainline status</span></h1>
 <h2><span class="mw-headline" id="Display">Display</span></h2>
 <p>Works fine. MSM DRM based panel. 
@@ -676,7 +680,7 @@ sudo mmcli -m 0 | grep -v -e imei -e Numbers -e equipment # excludes some person
 <li>
 <a href="../User:Entrider.html" title="User:Entrider">Entrider</a> (<span class="cargoFieldName">Notes:</span> Running LineageOS. Daily driver.)</li>
 <li>
-<a href="../User:F.html" title="User:F">F</a> (<span class="cargoFieldName">Notes:</span> ~3 years old. Daily driver running SXMO.)</li>
+<a href="../User:F.html" title="User:F">F</a> (<span class="cargoFieldName">Notes:</span> ~3 years old. Daily driver running LineageOS 20. Previous postmarketOS daily driver.)</li>
 <li>
 <a href="../User:Hilledkinged.html" title="User:Hilledkinged">Hilledkinged</a> (<span class="cargoFieldName">Notes:</span> EBBG display type)</li>
 <li>
@@ -724,7 +728,7 @@ sudo mmcli -m 0 | grep -v -e imei -e Numbers -e equipment # excludes some person
 </li>
 <li>Attempt at fixing PipeWire issues with this device: <a rel="nofollow" class="external free" href="https://lists.sr.ht/~mil/sxmo-devel/%3C20220611054214.15958-1-anjan%40momi.ca%3E#%3CPHzD3ucMo4uz1A65MQEBarEy_1IacMaoHBMmow9WeddxN7BSQWXCezGykeH0KCxJJlq4QR24vlFzvDeVF4xKwawhTqp7iFkhdQEu_jIjeyk=@protonmail.com%3E">https://lists.sr.ht/~mil/sxmo-devel/%3C20220611054214.15958-1-anjan%40momi.ca%3E#%3CPHzD3ucMo4uz1A65MQEBarEy_1IacMaoHBMmow9WeddxN7BSQWXCezGykeH0KCxJJlq4QR24vlFzvDeVF4xKwawhTqp7iFkhdQEu_jIjeyk=@protonmail.com%3E</a>
 </li>
-<li><a href="../en/Sxmo:_Xiaomi_Poco_F1_(xiaomi-beryllium).html" title="Sxmo: Xiaomi Poco F1 (xiaomi-beryllium)">Sxmo: Xiaomi Poco F1 (xiaomi-beryllium)</a></li>
+<li><a href="../en/Xiaomi_POCO_F1_(xiaomi-beryllium)_sxmo.html" title="Xiaomi POCO F1 (xiaomi-beryllium)/sxmo">Xiaomi POCO F1 (xiaomi-beryllium)/sxmo</a></li>
 </ul>
 </div></div>
 		
@@ -744,9 +748,9 @@ sudo mmcli -m 0 | grep -v -e imei -e Numbers -e equipment # excludes some person
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_POCO_F1_(xiaomi-beryllium)&amp;oldid=44541">https://wiki.postmarketos.org/index.php?title=Xiaomi_POCO_F1_(xiaomi-beryllium)&amp;oldid=44541</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_POCO_F1_(xiaomi-beryllium)&amp;oldid=45777">https://wiki.postmarketos.org/index.php?title=Xiaomi_POCO_F1_(xiaomi-beryllium)&amp;oldid=45777</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 29 May 2023, at 13:42.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 25 June 2023, at 16:54.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>
