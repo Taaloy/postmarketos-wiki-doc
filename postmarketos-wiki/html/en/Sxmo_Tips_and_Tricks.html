@@ -109,6 +109,7 @@
 <ul>
 <li class="toclevel-2 tocsection-39"><a href="#A_Wayland_version_of_Sxmo.2C_really.3F.3F"><span class="tocnumber">4.1</span> <span class="toctext">A Wayland version of Sxmo, really??</span></a></li>
 <li class="toclevel-2 tocsection-40"><a href="#How_to_Add_Apps_to_the_List.3F"><span class="tocnumber">4.2</span> <span class="toctext">How to Add Apps to the List?</span></a></li>
+<li class="toclevel-2 tocsection-41"><a href="#List_all_available_icons_for_the_hook_entry"><span class="tocnumber">4.3</span> <span class="toctext">List all available icons for the hook entry</span></a></li>
 </ul>
 </li>
 </ul>
@@ -305,7 +306,10 @@ Possible keyboard layouts for option <code>-l</code> are: Full, Special, Emoji, 
 <p>edit KEYBOARD_ARGS in your ~/.config/sxmo/profile and add "-H &lt;height&gt;" to change the portrait height, "-L &lt;height&gt;" to change the landscape height.
 </p>
 <h3><span class="mw-headline" id="How_to_activate_data">How to activate data</span></h3>
-<p>In menu under Networks select 'Add a GSM'.
+<p>In menu under Networks select 'Add a GSM'. Enter the APN settings for your carrier.
+</p>
+<p>find a list here:
+<a rel="nofollow" class="external free" href="https://wiki.pine64.org/wiki/PinePhone_APN_Settings">https://wiki.pine64.org/wiki/PinePhone_APN_Settings</a>
 </p>
 <h3>
 <span id="How_to_launch_programms_on_startup?"></span><span class="mw-headline" id="How_to_launch_programms_on_startup.3F">How to launch programms on startup?</span>
@@ -453,7 +457,16 @@ echo "set format_title= %a %t %c cmus" &gt;&gt; .config/cmus/rc
 <h3>
 <span id="How_to_Add_Apps_to_the_List?"></span><span class="mw-headline" id="How_to_Add_Apps_to_the_List.3F">How to Add Apps to the List?</span>
 </h3>
-<p>Copy /usr/share/sxmo/default_hooks/sxmo_hook_apps.sh ~/.config/sxmo/hooks/sxmo_hook_apps.sh and edit that file. NOTE: make sure you chmod +x ~/.config/sxmo/hooks/sxmo_hook_apps.sh
+<p>Copy
+<code>/usr/share/sxmo/default_hooks/sxmo_hook_apps.sh </code>
+to
+<code>~/.config/sxmo/hooks/sxmo_hook_apps.sh </code>
+and edit that file. 
+</p>
+<p>NOTE: make sure you chmod +x ~/.config/sxmo/hooks/sxmo_hook_apps.sh
+</p>
+<h3><span class="mw-headline" id="List_all_available_icons_for_the_hook_entry">List all available icons for the hook entry</span></h3>
+<p><code>cat /usr/share/sxmo/default_hooks/sxmo_hook_icons.sh</code>
 </p>
 </div></div>
 		
@@ -466,9 +479,9 @@ echo "set format_title= %a %t %c cmus" &gt;&gt; .config/cmus/rc
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Sxmo/Tips_and_Tricks&amp;oldid=44624">https://wiki.postmarketos.org/index.php?title=Sxmo/Tips_and_Tricks&amp;oldid=44624</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Sxmo/Tips_and_Tricks&amp;oldid=46301">https://wiki.postmarketos.org/index.php?title=Sxmo/Tips_and_Tricks&amp;oldid=46301</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 31 May 2023, at 11:21.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 7 July 2023, at 17:58.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

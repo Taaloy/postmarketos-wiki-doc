@@ -209,13 +209,13 @@ aarch64</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">USB OTG</th>
+<th scope="row" style="text-align:left;"><abbr title="USB On-The-Go or USB-C Role switching">USB OTG</abbr></th>
     <td class="" style="">
 <div></div>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">NFC</th>
+<th scope="row" style="text-align:left;"><abbr title="Near Field Communication">NFC</abbr></th>
     <td class="" style="">
 <div class="feature feature-unavailable">Unavailable</div>
 </td>
@@ -233,7 +233,7 @@ aarch64</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Magnetometer</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to measure magnetism">Magnetometer</abbr></th>
     <td class="" style="">
 <div class="feature feature-no">Broken</div>
 </td>
@@ -257,13 +257,13 @@ aarch64</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Barometer</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to measure air pressure">Barometer</abbr></th>
     <td class="" style="">
 <div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Power Sensor</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to monitor current, voltage and power. Not fuel gauge!">Power Sensor</abbr></th>
     <td class="" style="">
 <div></div>
 </td>
@@ -352,16 +352,33 @@ aarch64</td>
 <h2>
 <span id="Maintainer(s)"></span><span class="mw-headline" id="Maintainer.28s.29">Maintainer(s)</span>
 </h2>
+<p><a href="../User:Bczeman.html" title="User:Bczeman">User:Bczeman</a>
+</p>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
-<li>
-<a href="../User:Bczeman.html" title="User:Bczeman">Bczeman</a> (<span class="cargoFieldName">Notes:</span> PMOS with mainline kernel. It has replacment display, and missing many parts.)</li>
+<li><a href="../User:Bczeman.html" title="User:Bczeman">Bczeman</a></li>
 </ul></div>
 <p><br>
 </p>
-<h2><span class="mw-headline" id="Current_status">Current status</span></h2>
-<ul><li>The device support has merged in msm8953-mainline/linux and msm8953-mainline/lk2nd</li></ul>
 <h2><span class="mw-headline" id="How_to_enter_flash_mode">How to enter flash mode</span></h2>
+<p>Press Power and Volume Down(fastboot mode)
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<ol>
+<li>Install custom <a rel="nofollow" class="external text" href="https://github.com/msm8953-mainline/lk2nd">lk2nd</a> (alternative bootloader that provides a standard fastboot interface). You need to compile it yourself.</li>
+<li>Follow the <a href="../en/Installation.html" class="mw-redirect" title="Installation guide">Installation guide</a>
+</li>
+<li>If using recovery zip, boot into lk2nd and flash boot.img into lk2nd using</li>
+</ol>
+<p><code>$ fastboot flash boot boot.img</code>, then hit the power button to reboot
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://github.com/msm8953-mainline/linux">Kernel source</a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/linux-postmarketos-qcom-msm8953">Kernel package</a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/device-xiaomi-ysl">Device package</a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/firmware-xiaomi-ysl">Firmware package</a></li>
+</ul>
 </div></div>
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
@@ -379,9 +396,9 @@ aarch64</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_S2_/_Redmi_Y2_(xiaomi-ysl)&amp;oldid=45902">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_S2_/_Redmi_Y2_(xiaomi-ysl)&amp;oldid=45902</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_S2_/_Redmi_Y2_(xiaomi-ysl)&amp;oldid=46398">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_S2_/_Redmi_Y2_(xiaomi-ysl)&amp;oldid=46398</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 27 June 2023, at 21:24.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 10 July 2023, at 17:53.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

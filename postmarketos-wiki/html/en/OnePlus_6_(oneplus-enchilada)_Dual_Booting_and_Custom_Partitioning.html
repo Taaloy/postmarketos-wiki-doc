@@ -224,7 +224,7 @@ fastboot reboot
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
 <td style="padding: 0.35em 0.9em; width: 100%;">You need to partition your phone phone first. (See <a href="#Partitioning_for_dual_booting_pmos_with_other_uefi_based_os_.28like_openbsd_.2C_netbsd_.2C_freebsd.2Cwindows.2Cetc.29_via_Renegade_Project">#Partitioning for dual booting pmos with other uefi based os (like openbsd , netbsd , freebsd,windows,etc) via Renegade Project</a>).</td>
 </tr></tbody></table>
-<p>By default , pm os utilize subpartitions to fit the boot partition (pmOS_boot) and root partition (pmOS_root) into a one normal partiton on oneplus 6/6t and many device  (see <a href="../en/Partition_Layout.html" title="Partition Layout">Partition Layout</a>).That partition scheme isnt suitable for booing pm os via Renegade Project because of leak of uefi partition so you need to convert pm os "subpartitions" partition scheme to "Use the whole storage device" partition scheme. (pmOS_boot had to be fat32/16). After that you you need to add pm os to Renegade Project boot menu  or  install a uefi bootloader to pm os.(if you want the aduio to work , do the first one ) 
+<p>By default , pm os utilize subpartitions to fit the boot partition (pmOS_boot) and root partition (pmOS_root) into a one normal partiton on oneplus 6/6t and many device  (see <a href="../en/Partition_Layout.html" title="Partition Layout">Partition Layout</a>).That partition scheme isnt suitable for booing pm os via Renegade Project because of leak of uefi partition so you need to convert pm os "subpartitions" partition scheme to "Use the whole storage device" partition scheme. (pmOS_boot had to be fat32/16). After that you you need to add pm os to Renegade Project boot menu (make sure uefi runtime checkbox isnt ticked otherwise the audio will not work) or  install a uefi bootloader to pm os.(if you want the aduio to work , do the first one ) 
 </p>
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
@@ -252,9 +252,9 @@ fastboot reboot
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Dual_Booting_and_Custom_Partitioning&amp;oldid=45745">https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Dual_Booting_and_Custom_Partitioning&amp;oldid=45745</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Dual_Booting_and_Custom_Partitioning&amp;oldid=46199">https://wiki.postmarketos.org/index.php?title=OnePlus_6_(oneplus-enchilada)/Dual_Booting_and_Custom_Partitioning&amp;oldid=46199</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 24 June 2023, at 02:04.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 4 July 2023, at 11:25.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

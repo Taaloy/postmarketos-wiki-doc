@@ -217,13 +217,13 @@ aarch64</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">USB OTG</th>
+<th scope="row" style="text-align:left;"><abbr title="USB On-The-Go or USB-C Role switching">USB OTG</abbr></th>
     <td class="" style="">
 <div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">NFC</th>
+<th scope="row" style="text-align:left;"><abbr title="Near Field Communication">NFC</abbr></th>
     <td class="" style="">
 <div class="feature feature-unavailable">Unavailable</div>
 </td>
@@ -241,7 +241,7 @@ aarch64</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Magnetometer</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to measure magnetism">Magnetometer</abbr></th>
     <td class="" style="">
 <div class="feature feature-partial">Partial</div>
 </td>
@@ -265,13 +265,13 @@ aarch64</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Barometer</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to measure air pressure">Barometer</abbr></th>
     <td class="" style="">
 <div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Power Sensor</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to monitor current, voltage and power. Not fuel gauge!">Power Sensor</abbr></th>
     <td class="" style="">
 <div class="feature feature-unavailable">Unavailable</div>
 </td>
@@ -414,6 +414,20 @@ $sudo modprobe rmi_i2c
 <h2><span class="mw-headline" id="Battery">Battery</span></h2>
 <p>The battery charge report works.
 </p>
+<h2><span class="mw-headline" id="Audio">Audio</span></h2>
+<p>Soundcard is correctly detected and a dedicated ALSA UCM2 is provided.
+</p>
+<p>You can find it under <code>/usr/share/alsa/ucm2/xiaomi-vnce</code>
+</p>
+<p>Both primary and secondary microphones work on recording.
+Headset microphone is reported to work.
+</p>
+<p>Media buttions work (play/pause, vol+/vol-).
+</p>
+<p>Playback only works on headphones. (Speaker is not supported yet).
+</p>
+<p>The ALSA UCM2 profile for vince is very similar to motorola-ocean and xiaomi-mido (provided by soc-qcom-msm8916-ucm package). In this case CS-Voice and Speaker entries are simply bypassed, to make everything work.
+</p>
 <h2><span class="mw-headline" id="Parts">Parts</span></h2>
 <h3><span class="mw-headline" id="Smart_Speaker">Smart Speaker</span></h3>
 <p>To use the speaker, the device relies on:
@@ -553,9 +567,9 @@ $sudo modprobe rmi_i2c
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_5_Plus_(xiaomi-vince)&amp;oldid=46032">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_5_Plus_(xiaomi-vince)&amp;oldid=46032</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_5_Plus_(xiaomi-vince)&amp;oldid=46218">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_5_Plus_(xiaomi-vince)&amp;oldid=46218</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 29 June 2023, at 10:45.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 4 July 2023, at 19:25.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

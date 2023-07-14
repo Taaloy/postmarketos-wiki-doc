@@ -35,7 +35,7 @@
 <caption class="" style="">WEXLER Tab 7t</caption>
 <tbody>
 <tr class=""><td colspan="2" class="" style="text-align:center;">
-<a href="../PSX_20201118_083122.jpg" class="image"><img alt="Booted tablet, with weston" src="../PSX_20201118_083122.jpg" decoding="async" width="200" height="267" srcset="../PSX_20201118_083122.jpg 1.5x ../PSX_20201118_083122.jpg 2x"></a><br><span style="">Booted tablet, with weston</span>
+<a href="../PXL_20230710_231202953.jpg" class="image"><img alt="Booted tablet with lxqt" src="../PXL_20230710_231202953.jpg" decoding="async" width="200" height="267" srcset="../PXL_20230710_231202953.jpg 1.5x ../PXL_20230710_231202953.jpg 2x"></a><br><span style="">Booted tablet with lxqt</span>
 </td></tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Manufacturer</th>
@@ -76,7 +76,7 @@ downstream 3.1.10</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Chipset</th>
     <td class="" style="">
-<a href="../en/Nvidia_Tegra_3_(tegra30).html" class="mw-redirect" title="Nvidia Tegra 3 (T30L)">Nvidia Tegra 3 (T30L)</a>
+<a href="../en/Nvidia_Tegra_3_(T30L).html" class="mw-redirect" title="Nvidia Tegra 3 (T30L)">Nvidia Tegra 3 (T30L)</a>
 </td>
 </tr>
 <tr class="">
@@ -160,7 +160,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Charging and battery level reporting works">Battery</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-partial">Partial</div>
 </td>
 </tr>
 <tr class="">
@@ -208,17 +208,17 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Calls</th>
     <td class="" style="">
-<div class="feature feature-unavailable">Unavailable</div>
-</td>
-</tr>
-<tr class="">
-<th scope="row" style="text-align:left;">USB OTG</th>
-    <td class="" style="">
 <div></div>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">NFC</th>
+<th scope="row" style="text-align:left;"><abbr title="USB On-The-Go or USB-C Role switching">USB OTG</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Near Field Communication">NFC</abbr></th>
     <td class="" style="">
 <div class="feature feature-unavailable">Unavailable</div>
 </td>
@@ -236,7 +236,7 @@ armv7</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Magnetometer</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to measure magnetism">Magnetometer</abbr></th>
     <td class="" style="">
 <div></div>
 </td>
@@ -260,13 +260,13 @@ armv7</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Barometer</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to measure air pressure">Barometer</abbr></th>
     <td class="" style="">
 <div></div>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Power Sensor</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to monitor current, voltage and power. Not fuel gauge!">Power Sensor</abbr></th>
     <td class="" style="">
 <div></div>
 </td>
@@ -351,33 +351,45 @@ armv7</td>
 <p><br>
 </p>
 <table class="infobox" style="float: right; width: 22em; color: inherit; background-color: #f7fff7; border: 3px solid #8a8;"><tbody><tr><td>
-<b>This device is based on the <a href="../en/Nvidia_Tegra_3_(tegra30).html" title="Nvidia Tegra 3 (tegra30)">Tegra 3</a>.</b><br>See the SoC page for common tips, guides and troubleshooting steps</td></tr></tbody></table>
+<b>This device is based on the <a href="../en/Nvidia_Tegra.html" class="mw-redirect" title="Nvidia Tegra 3 (tegra30)">Tegra 3</a>.</b><br>See the SoC page for common tips, guides and troubleshooting steps</td></tr></tbody></table>
 <h2><span class="mw-headline" id="Notes">Notes</span></h2>
 <ul>
 <li>Device SoC should be similar to SoC in <a href="../en/Google_Nexus_7_2012_(asus-grouper).html" title="Google Nexus 7 2012 (asus-grouper)">Google Nexus 7 2012</a> and <a href="../en/Google_Nexus_7_2012_GSM_(asus-tilapia).html" title="Google Nexus 7 2012 GSM (asus-tilapia)">Google Nexus 7 2012 GSM</a>
 </li>
-<li>OTG available - partially (full USB port, working only when device connected before booting)</li>
+<li>OTG available - full support, connect and disconnect, at least USB keyboard-mouse and USB drives <s><span style="color:#777777">partially (full USB port, working only when device connected before booting)</span></s>
+</li>
+<li>Battery charges (at least not discharges while OS work). Somehow reports status only in xfce4.</li>
 <li>Device have 3G modem (not working?)</li>
 <li>MiniHDMI port available (not working?)</li>
+<li>I accidentally broke my touchscreen connector on the motherboard, so I'm working with wireless USB keyboard-mouse now</li>
 </ul>
 <h2><span class="mw-headline" id="Tested_environments">Tested environments</span></h2>
 <ul>
-<li>weston: works</li>
-<li>xfce4: works fine with <code>matchbox-keyboard</code>, can't manage to reboot or power off, doing through terminal</li>
+<li>lxqt: works fine, can't manage to reboot or power off in UI, doing through terminal</li>
+<li>xfce4: starts only with startxfce4 in console, weirdly buggy</li>
+<li>console: works with connected wireless USB keyboard-mouse</li>
+<li>fbkeyboard: works, can't test touchscreen</li>
 </ul>
+<p>Any other UIs is not working, or I can't get them to work for now.
+</p>
 <h2><span class="mw-headline" id="How_to_enter_flash_mode">How to enter flash mode</span></h2>
 <p>Press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> keys, with <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> move selection to <code>Fastboot Protocol</code>, then choose it by pressing <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span>.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>We can install to sdcard now, so fastboot restrictions is now in the past.
+</p>
 <ul>
 <li>
 <code>pmbootstrap init</code> with vendor <b>wexler</b> and codename <b>qc750</b>
 </li>
-<li><code>pmbootstrap install</code></li>
+<li><code>pmbootstrap install --sdcard /dev/sda</code></li>
 <li>
 <code>pmbootstrap flasher flash_kernel</code> Partition limit: 8 MB</li>
-<li><code>pmbootstrap flasher flash_rootfs</code></li>
 </ul>
+<p><br>
+Legacy information, about flashing directly to the device:
+</p>
+<ul><li><code>pmbootstrap flasher flash_rootfs</code></li></ul>
 <p>It's possible to flash to <i>userdata</i>, but fastboot limit size of images is still to figure out (possibly 800 MB).
 </p>
 <ul>
@@ -393,7 +405,7 @@ armv7</td>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
 <li>
-<a href="../User:DragonX256.html" title="User:DragonX256">DragonX256</a> (<span class="cargoFieldName">Notes:</span> Tegra 3 tablet, carrying old AOSP 4.2.2 built from sources, free to use)</li>
+<a href="../User:DragonX256.html" title="User:DragonX256">DragonX256</a> (<span class="cargoFieldName">Notes:</span> Tegra 3 tablet, trying to mainline with <a href="../User:Clamor.html" title="User:Clamor">Clamor</a>)</li>
 </ul></div>
 <p><br>
 </p>
@@ -403,7 +415,7 @@ armv7</td>
 <li>Using this old 3.1.10 kernel, built with <b>gcc6</b>: <a rel="nofollow" class="external free" href="https://github.com/DmitryADP/morpheus_kernel_wexler_qc750">https://github.com/DmitryADP/morpheus_kernel_wexler_qc750</a>
 </li>
 <li><a rel="nofollow" class="external text" href="https://github.com/DmitryADP/device_qc750">Device related build files</a></li>
-<li><a rel="nofollow" class="external text" href="https://github.com/DmitryADP/diff_qc750">Possibly full device related source files</a></li>
+<li><a rel="nofollow" class="external text" href="https://github.com/clamor-s/diff_qc750">Possibly full device related source files</a></li>
 <li><a rel="nofollow" class="external text" href="https://www.reddit.com/r/postmarketOS/comments/jwld44">Some nice photos on Reddit</a></li>
 <li><a rel="nofollow" class="external text" href="https://www.reddit.com/r/postmarketOS/comments/jyw5mw">Photos on Reddit about getting UART debug ready</a></li>
 <li>
@@ -428,9 +440,9 @@ armv7</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=WEXLER_Tab_7t_(wexler-qc750)&amp;oldid=43094">https://wiki.postmarketos.org/index.php?title=WEXLER_Tab_7t_(wexler-qc750)&amp;oldid=43094</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=WEXLER_Tab_7t_(wexler-qc750)&amp;oldid=46394">https://wiki.postmarketos.org/index.php?title=WEXLER_Tab_7t_(wexler-qc750)&amp;oldid=46394</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:31.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 10 July 2023, at 16:43.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

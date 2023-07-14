@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Push notifications - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Push_notifications rootpage-Push_notifications skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Push notifications</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #E8E0CC; border: 2px dotted #C1B598; margin: 4px 10%; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;">🚧</span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>This page is a work-in-progress.</b> Some information contained within may be inaccurate or incomplete.</td>
+</tr></tbody></table>
+<p>It's important to receive <a href="/index.php?title=Notifications&amp;action=edit&amp;redlink=1" class="new" title="Notifications (page does not exist)">notifications</a> from network during sleep mode*, but (unlike GMS calls or SMS messages) events from network is hard in that state. When phone suspend-to-ram the kernel freezes all processes and then set all unnecessary peripherials to their own power saving modes or suspend/shut down (if we don't need them to wake up), very hardware and peripherials's firmware spesific. Even the kernel goes RAM and gives control of the CPU to the firmware and then the CPU is basically shut down. Some peripherials can wake up the system and in mobile devices the modem belongs to these. The modem only go power-saving mode and still keep connection to the cellular network and if it receives a call or message, it wakes the system up. This (sleep-to-ram) is what Linux phones nowdays do, but in the future we will use stanby sleep-mode and receive notifications from the network as well. Then the kernel doesn't suspend the CPU or freeze all processes and the system need keep active connetion(s) to the services on network. The problem is we can't keep active connection to every service because the battery drains out. Android and iOS is solved this problem with Google Firebase Cloud Messaging and Apple Push Notification service, which means that every notification goes through these services. However, we also want notifications with only one or few active connections because battery-life.
+</p>
+<p>* Remember, there is many various sleep modes like Suspend-to-Idle, Standby, Susbend-to-RAM, hibernation (actually not sleep mode) and compinations of these. This is important keep mind then talking about suspend. Typically phones use Standby or Suspend-to-RAM sleep modes..
+</p>
+<h2><span class="mw-headline" id="The_solution">The solution</span></h2>
+<p>On Linux, the solution for problem of push notifications is follows: 
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;">
+<a href="../UnifiedPush-diagram.png" class="image"><img alt="" src="../UnifiedPush-diagram.png" decoding="async" width="300" height="425" class="thumbimage" srcset="../450px-UnifiedPush-diagram.png 1.5x ../diagram.png 2x"></a>  <div class="thumbcaption">
+<div class="magnify"><a href="../UnifiedPush-diagram.png" class="internal" title="Enlarge"></a></div>UnifiedPush</div>
+</div></div>
+<p>A few services are allowed to keep active connection when necessary and other notifications received with <a href="../en/UnifiedPush.html" title="UnifiedPush">UnifiedPush</a> protocol. UnifiedPush spesification standardize connection between application service -&gt; push notification service (online) and notification push service (local via e.g. Dbus) -&gt; application client.
+</p>
+<p><i>Read more: </i><a href="../en/UnifiedPush.html" title="UnifiedPush">UnifiedPush</a>
+</p>
+<h2><span class="mw-headline" id="Notification_softwares">Notification softwares</span></h2>
+<ul><li>
+<a rel="nofollow" class="external text" href="https://github.com/binwiederhier/ntfy">ntfy</a>, WIP PR for Linux support</li></ul>
+<h2><span class="mw-headline" id="Links">Links</span></h2>
+<ul><li><a rel="nofollow" class="external free" href="https://conf.linuxappsummit.org/event/5/contributions/149/">https://conf.linuxappsummit.org/event/5/contributions/149/</a></li></ul>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Work-in-progress_pages.html" title="Category:Work-in-progress pages">Work-in-progress pages</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Push_notifications&amp;oldid=46244">https://wiki.postmarketos.org/index.php?title=Push_notifications&amp;oldid=46244</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 5 July 2023, at 00:09.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Push_notifications&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

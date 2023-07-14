@@ -212,13 +212,13 @@ tablet</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">USB OTG</th>
+<th scope="row" style="text-align:left;"><abbr title="USB On-The-Go or USB-C Role switching">USB OTG</abbr></th>
     <td class="" style="">
 <div></div>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">NFC</th>
+<th scope="row" style="text-align:left;"><abbr title="Near Field Communication">NFC</abbr></th>
     <td class="" style="">
 <div></div>
 </td>
@@ -236,7 +236,7 @@ tablet</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Magnetometer</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to measure magnetism">Magnetometer</abbr></th>
     <td class="" style="">
 <div></div>
 </td>
@@ -260,13 +260,13 @@ tablet</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Barometer</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to measure air pressure">Barometer</abbr></th>
     <td class="" style="">
 <div></div>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Power Sensor</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to monitor current, voltage and power. Not fuel gauge!">Power Sensor</abbr></th>
     <td class="" style="">
 <div></div>
 </td>
@@ -374,77 +374,86 @@ and follow instructions from the <a rel="nofollow" class="external text" href="h
 <a href="#._build_pmos_for_samsung-espresso10_and_flash_it_to_the_device"><span class="tocnumber">8</span> <span class="toctext">. build pmos for samsung-espresso10 and flash it to the device</span></a>
 <ul>
 <li class="toclevel-2 tocsection-9">
-<a href="#The_pure_pmbootstrap_classic_way_.28partial.29"><span class="tocnumber">8.1</span> <span class="toctext">The pure pmbootstrap classic way (partial)</span></a>
+<a href="#Preparation"><span class="tocnumber">8.1</span> <span class="toctext">Preparation</span></a>
 <ul>
-<li class="toclevel-3 tocsection-10"><a href="#generate_some_partitions_images_for_the_device_.28works.29"><span class="tocnumber">8.1.1</span> <span class="toctext">generate some partitions images for the device (works)</span></a></li>
-<li class="toclevel-3 tocsection-11"><a href="#flash_pmos.img_to_the_.2Fsystem_partition_.28broken_.3F.29"><span class="tocnumber">8.1.2</span> <span class="toctext">flash pmos.img to the /system partition (broken ?)</span></a></li>
-<li class="toclevel-3 tocsection-12"><a href="#if_you_prefer.2C_flash_pmos.img_to_the_.2Fdata_partition_instead_.28broken_.3F.29"><span class="tocnumber">8.1.3</span> <span class="toctext">if you prefer, flash pmos.img to the /data partition instead (broken ?)</span></a></li>
-<li class="toclevel-3 tocsection-13"><a href="#flash_the_boot.img_to_the_.2Fboot_partition"><span class="tocnumber">8.1.4</span> <span class="toctext">flash the boot.img to the /boot partition</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#you_will_need_to_install_pmbootstrap_on_your_Linux_Computer"><span class="tocnumber">8.1.1</span> <span class="toctext">you will need to install pmbootstrap on your Linux Computer</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#then_open_a_new_terminal.2C_or_restart_your_session_or_restart_your_computer..."><span class="tocnumber">8.1.2</span> <span class="toctext">then open a new terminal, or restart your session or restart your computer...</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#you_may_need_to_:"><span class="tocnumber">8.1.3</span> <span class="toctext">you may need to :</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#each_days_before_building"><span class="tocnumber">8.1.4</span> <span class="toctext">each days before building</span></a></li>
 </ul>
 </li>
 <li class="toclevel-2 tocsection-14">
-<a href="#The_alternative_Heimdall_method_.28partial.29"><span class="tocnumber">8.2</span> <span class="toctext">The alternative Heimdall method (partial)</span></a>
+<a href="#The_pure_pmbootstrap_classic_way_.28partial.29"><span class="tocnumber">8.2</span> <span class="toctext">The pure pmbootstrap classic way (partial)</span></a>
 <ul>
-<li class="toclevel-3 tocsection-15"><a href="#generate_some_partitions_images_for_the_device_.28works.29_2"><span class="tocnumber">8.2.1</span> <span class="toctext">generate some partitions images for the device (works)</span></a></li>
-<li class="toclevel-3 tocsection-16"><a href="#flash_pmos.img_to_the_.2Fsystem_partition_.28broken_.3F.29_2"><span class="tocnumber">8.2.2</span> <span class="toctext">flash pmos.img to the /system partition (broken ?)</span></a></li>
-<li class="toclevel-3 tocsection-17"><a href="#flash_pmos.img_to_the_.2Fdata_partition_.28broken_.3F.29"><span class="tocnumber">8.2.3</span> <span class="toctext">flash pmos.img to the /data partition (broken ?)</span></a></li>
-<li class="toclevel-3 tocsection-18"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_.28works.29"><span class="tocnumber">8.2.4</span> <span class="toctext">flash the boot.img to the /boot partition (works)</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#generate_some_partitions_images_for_the_device_.28works.29"><span class="tocnumber">8.2.1</span> <span class="toctext">generate some partitions images for the device (works)</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#flash_pmos.img_to_the_.2Fsystem_partition_.28broken_.3F.29"><span class="tocnumber">8.2.2</span> <span class="toctext">flash pmos.img to the /system partition (broken ?)</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#if_you_prefer.2C_flash_pmos.img_to_the_.2Fdata_partition_instead_.28broken_.3F.29"><span class="tocnumber">8.2.3</span> <span class="toctext">if you prefer, flash pmos.img to the /data partition instead (broken ?)</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#flash_the_boot.img_to_the_.2Fboot_partition"><span class="tocnumber">8.2.4</span> <span class="toctext">flash the boot.img to the /boot partition</span></a></li>
 </ul>
 </li>
 <li class="toclevel-2 tocsection-19">
-<a href="#The_alternative_Odin_method_.28not_documented.29"><span class="tocnumber">8.3</span> <span class="toctext">The alternative Odin method (not documented)</span></a>
+<a href="#The_alternative_Heimdall_method_.28partial.29"><span class="tocnumber">8.3</span> <span class="toctext">The alternative Heimdall method (partial)</span></a>
 <ul>
-<li class="toclevel-3 tocsection-20"><a href="#generate_some_partitions_images_for_the_device_.28works.29_3"><span class="tocnumber">8.3.1</span> <span class="toctext">generate some partitions images for the device (works)</span></a></li>
-<li class="toclevel-3 tocsection-21"><a href="#create_some_.TAR_files_from_the_generated_partitions_images"><span class="tocnumber">8.3.2</span> <span class="toctext">create some .TAR files from the generated partitions images</span></a></li>
-<li class="toclevel-3 tocsection-22"><a href="#flash_a_pmos.tar_to_the_AP_section_.28not_tested.29"><span class="tocnumber">8.3.3</span> <span class="toctext">flash a pmos.tar to the AP section (not tested)</span></a></li>
-<li class="toclevel-3 tocsection-23"><a href="#flash_a_boot.tar_to_the_AP_section_.28not_tested.29"><span class="tocnumber">8.3.4</span> <span class="toctext">flash a boot.tar to the AP section (not tested)</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#generate_some_partitions_images_for_the_device_.28works.29_2"><span class="tocnumber">8.3.1</span> <span class="toctext">generate some partitions images for the device (works)</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="#flash_pmos.img_to_the_.2Fsystem_partition_.28broken_.3F.29_2"><span class="tocnumber">8.3.2</span> <span class="toctext">flash pmos.img to the /system partition (broken ?)</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="#flash_pmos.img_to_the_.2Fdata_partition_.28broken_.3F.29"><span class="tocnumber">8.3.3</span> <span class="toctext">flash pmos.img to the /data partition (broken ?)</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_.28works.29"><span class="tocnumber">8.3.4</span> <span class="toctext">flash the boot.img to the /boot partition (works)</span></a></li>
 </ul>
 </li>
 <li class="toclevel-2 tocsection-24">
-<a href="#The_alternative_.22dd.22_method_.28not_documented.29_.28should_work.29"><span class="tocnumber">8.4</span> <span class="toctext">The alternative "dd" method (not documented) (should work)</span></a>
+<a href="#The_alternative_Odin_method_.28not_documented.29"><span class="tocnumber">8.4</span> <span class="toctext">The alternative Odin method (not documented)</span></a>
 <ul>
-<li class="toclevel-3 tocsection-25"><a href="#generate_some_partitions_images_for_the_device_.28works.29_4"><span class="tocnumber">8.4.1</span> <span class="toctext">generate some partitions images for the device (works)</span></a></li>
-<li class="toclevel-3 tocsection-26"><a href="#flash_the_pmos.img_to_the_.2Fsystem_partition_.28not_tested.29"><span class="tocnumber">8.4.2</span> <span class="toctext">flash the pmos.img to the /system partition (not tested)</span></a></li>
-<li class="toclevel-3 tocsection-27"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_.28not_tested.29"><span class="tocnumber">8.4.3</span> <span class="toctext">flash the boot.img to the /boot partition (not tested)</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#generate_some_partitions_images_for_the_device_.28works.29_3"><span class="tocnumber">8.4.1</span> <span class="toctext">generate some partitions images for the device (works)</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="#create_some_.TAR_files_from_the_generated_partitions_images"><span class="tocnumber">8.4.2</span> <span class="toctext">create some .TAR files from the generated partitions images</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="#flash_a_pmos.tar_to_the_AP_section_.28not_tested.29"><span class="tocnumber">8.4.3</span> <span class="toctext">flash a pmos.tar to the AP section (not tested)</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#flash_a_boot.tar_to_the_AP_section_.28not_tested.29"><span class="tocnumber">8.4.4</span> <span class="toctext">flash a boot.tar to the AP section (not tested)</span></a></li>
 </ul>
 </li>
-<li class="toclevel-2 tocsection-28">
-<a href="#The_recommanded_TWRP_method_.28works.29"><span class="tocnumber">8.5</span> <span class="toctext">The recommanded TWRP method (works)</span></a>
+<li class="toclevel-2 tocsection-29">
+<a href="#The_alternative_.22dd.22_method_.28not_documented.29_.28should_work.29"><span class="tocnumber">8.5</span> <span class="toctext">The alternative "dd" method (not documented) (should work)</span></a>
 <ul>
-<li class="toclevel-3 tocsection-29"><a href="#generate_a_recovery_flashable_.ZIP_targeting_.2Fsystem_partition_.28works.29"><span class="tocnumber">8.5.1</span> <span class="toctext">generate a recovery flashable .ZIP targeting /system partition (works)</span></a></li>
-<li class="toclevel-3 tocsection-30"><a href="#generate_a_recovery_flashable_.ZIP_targeting_.2Fdata_partition_.28works.29"><span class="tocnumber">8.5.2</span> <span class="toctext">generate a recovery flashable .ZIP targeting /data partition (works)</span></a></li>
-<li class="toclevel-3 tocsection-31"><a href="#sideload_the_pmos.zip_using_pmbootstrap_.2B_TWRP_.28broken_.3F.29"><span class="tocnumber">8.5.3</span> <span class="toctext">sideload the pmos.zip using pmbootstrap + TWRP (broken ?)</span></a></li>
-<li class="toclevel-3 tocsection-32"><a href="#sideload_the_pmos.zip_using_ADB_.2B_TWRP_.28works.29"><span class="tocnumber">8.5.4</span> <span class="toctext">sideload the pmos.zip using ADB + TWRP (works)</span></a></li>
-<li class="toclevel-3 tocsection-33"><a href="#installing_the_pmos.zip_using_TWRP_via_a_SDcard_.28works.29"><span class="tocnumber">8.5.5</span> <span class="toctext">installing the pmos.zip using TWRP via a SDcard (works)</span></a></li>
+<li class="toclevel-3 tocsection-30"><a href="#generate_some_partitions_images_for_the_device_.28works.29_4"><span class="tocnumber">8.5.1</span> <span class="toctext">generate some partitions images for the device (works)</span></a></li>
+<li class="toclevel-3 tocsection-31"><a href="#flash_the_pmos.img_to_the_device_.28not_tested.29"><span class="tocnumber">8.5.2</span> <span class="toctext">flash the pmos.img to the device (not tested)</span></a></li>
+<li class="toclevel-3 tocsection-32"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_.28not_tested.29"><span class="tocnumber">8.5.3</span> <span class="toctext">flash the boot.img to the /boot partition (not tested)</span></a></li>
 </ul>
 </li>
-<li class="toclevel-2 tocsection-34">
-<a href="#The_recommanded_running_from_the_.2Fexternal_sd_method_.28works.29"><span class="tocnumber">8.6</span> <span class="toctext">The recommanded running from the /external_sd method (works)</span></a>
+<li class="toclevel-2 tocsection-33">
+<a href="#The_recommanded_TWRP_method_.28works.29"><span class="tocnumber">8.6</span> <span class="toctext">The recommanded TWRP method (works)</span></a>
 <ul>
-<li class="toclevel-3 tocsection-35"><a href="#generate_pmos_directly_on_a_MicroSDcard_.28works.29"><span class="tocnumber">8.6.1</span> <span class="toctext">generate pmos directly on a MicroSDcard (works)</span></a></li>
-<li class="toclevel-3 tocsection-36"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_using_pmbootstrap_.28warning_.3F.29"><span class="tocnumber">8.6.2</span> <span class="toctext">flash the boot.img to the /boot partition using pmbootstrap (warning ?)</span></a></li>
-<li class="toclevel-3 tocsection-37"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_using_Heimdall_.28works.29"><span class="tocnumber">8.6.3</span> <span class="toctext">flash the boot.img to the /boot partition using Heimdall (works)</span></a></li>
-<li class="toclevel-3 tocsection-38"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_using_TWRP_.28works.29"><span class="tocnumber">8.6.4</span> <span class="toctext">flash the boot.img to the /boot partition using TWRP (works)</span></a></li>
+<li class="toclevel-3 tocsection-34"><a href="#generate_a_recovery_flashable_.ZIP_targeting_.2Fsystem_partition_.28works.29"><span class="tocnumber">8.6.1</span> <span class="toctext">generate a recovery flashable .ZIP targeting /system partition (works)</span></a></li>
+<li class="toclevel-3 tocsection-35"><a href="#generate_a_recovery_flashable_.ZIP_targeting_.2Fdata_partition_.28works.29"><span class="tocnumber">8.6.2</span> <span class="toctext">generate a recovery flashable .ZIP targeting /data partition (works)</span></a></li>
+<li class="toclevel-3 tocsection-36"><a href="#sideload_the_pmos.zip_using_pmbootstrap_.2B_TWRP_.28broken_.3F.29"><span class="tocnumber">8.6.3</span> <span class="toctext">sideload the pmos.zip using pmbootstrap + TWRP (broken ?)</span></a></li>
+<li class="toclevel-3 tocsection-37"><a href="#sideload_the_pmos.zip_using_ADB_.2B_TWRP_.28works.29"><span class="tocnumber">8.6.4</span> <span class="toctext">sideload the pmos.zip using ADB + TWRP (works)</span></a></li>
+<li class="toclevel-3 tocsection-38"><a href="#installing_the_pmos.zip_using_TWRP_via_a_SDcard_.28works.29"><span class="tocnumber">8.6.5</span> <span class="toctext">installing the pmos.zip using TWRP via a SDcard (works)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-39">
+<a href="#The_recommanded_running_from_the_.2Fexternal_sd_method_.28works.29"><span class="tocnumber">8.7</span> <span class="toctext">The recommanded running from the /external_sd method (works)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-40"><a href="#generate_pmos_directly_on_a_MicroSDcard_.28works.29"><span class="tocnumber">8.7.1</span> <span class="toctext">generate pmos directly on a MicroSDcard (works)</span></a></li>
+<li class="toclevel-3 tocsection-41"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_using_pmbootstrap_.28warning_.3F.29"><span class="tocnumber">8.7.2</span> <span class="toctext">flash the boot.img to the /boot partition using pmbootstrap (warning ?)</span></a></li>
+<li class="toclevel-3 tocsection-42"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_using_Heimdall_.28works.29"><span class="tocnumber">8.7.3</span> <span class="toctext">flash the boot.img to the /boot partition using Heimdall (works)</span></a></li>
+<li class="toclevel-3 tocsection-43"><a href="#flash_the_boot.img_to_the_.2Fboot_partition_using_TWRP_.28works.29"><span class="tocnumber">8.7.4</span> <span class="toctext">flash the boot.img to the /boot partition using TWRP (works)</span></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-39">
+<li class="toclevel-1 tocsection-44">
 <a href="#use_Community_pre-built_image_.28works.29"><span class="tocnumber">9</span> <span class="toctext">use Community pre-built image (works)</span></a>
 <ul>
-<li class="toclevel-2 tocsection-40"><a href="#preparation_in_a_way_to_easily_switch_between_Android_OS_and_PostmarketOS"><span class="tocnumber">9.1</span> <span class="toctext">preparation in a way to easily switch between Android_OS and PostmarketOS</span></a></li>
-<li class="toclevel-2 tocsection-41"><a href="#Download_the_pmOS_pre-built_image"><span class="tocnumber">9.2</span> <span class="toctext">Download the pmOS pre-built image</span></a></li>
-<li class="toclevel-2 tocsection-42"><a href="#insert_a_MicroSDcard_into_your_Computer"><span class="tocnumber">9.3</span> <span class="toctext">insert a MicroSDcard into your Computer</span></a></li>
-<li class="toclevel-2 tocsection-43"><a href="#decompress_the_downloaded_file_and_write_it_to_your_MicroSDcard_:"><span class="tocnumber">9.4</span> <span class="toctext">decompress the downloaded file and write it to your MicroSDcard :</span></a></li>
-<li class="toclevel-2 tocsection-44"><a href="#insert_the_MicroSDcard_into_your_device.2C_and_boot_it_into_TWRP"><span class="tocnumber">9.5</span> <span class="toctext">insert the MicroSDcard into your device, and boot it into TWRP</span></a></li>
-<li class="toclevel-2 tocsection-45"><a href="#reboot_system"><span class="tocnumber">9.6</span> <span class="toctext">reboot system</span></a></li>
-<li class="toclevel-2 tocsection-46"><a href="#to_restore_your_Android_OS"><span class="tocnumber">9.7</span> <span class="toctext">to restore your Android_OS</span></a></li>
-<li class="toclevel-2 tocsection-47"><a href="#to_restore_your_PostmarketOS"><span class="tocnumber">9.8</span> <span class="toctext">to restore your PostmarketOS</span></a></li>
+<li class="toclevel-2 tocsection-45"><a href="#preparation_in_a_way_to_easily_switch_between_Android_OS_and_PostmarketOS"><span class="tocnumber">9.1</span> <span class="toctext">preparation in a way to easily switch between Android_OS and PostmarketOS</span></a></li>
+<li class="toclevel-2 tocsection-46"><a href="#Download_the_pmOS_pre-built_image"><span class="tocnumber">9.2</span> <span class="toctext">Download the pmOS pre-built image</span></a></li>
+<li class="toclevel-2 tocsection-47"><a href="#insert_a_MicroSDcard_into_your_Computer"><span class="tocnumber">9.3</span> <span class="toctext">insert a MicroSDcard into your Computer</span></a></li>
+<li class="toclevel-2 tocsection-48"><a href="#decompress_the_downloaded_file_and_write_it_to_your_MicroSDcard_:"><span class="tocnumber">9.4</span> <span class="toctext">decompress the downloaded file and write it to your MicroSDcard :</span></a></li>
+<li class="toclevel-2 tocsection-49"><a href="#insert_the_MicroSDcard_into_your_device.2C_and_boot_it_into_TWRP"><span class="tocnumber">9.5</span> <span class="toctext">insert the MicroSDcard into your device, and boot it into TWRP</span></a></li>
+<li class="toclevel-2 tocsection-50"><a href="#reboot_system"><span class="tocnumber">9.6</span> <span class="toctext">reboot system</span></a></li>
+<li class="toclevel-2 tocsection-51"><a href="#to_restore_your_Android_OS"><span class="tocnumber">9.7</span> <span class="toctext">to restore your Android_OS</span></a></li>
+<li class="toclevel-2 tocsection-52"><a href="#to_restore_your_PostmarketOS"><span class="tocnumber">9.8</span> <span class="toctext">to restore your PostmarketOS</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-48"><a href="#Photos"><span class="tocnumber">10</span> <span class="toctext">Photos</span></a></li>
-<li class="toclevel-1 tocsection-49"><a href="#Partition_layout"><span class="tocnumber">11</span> <span class="toctext">Partition layout</span></a></li>
-<li class="toclevel-1 tocsection-50"><a href="#Links"><span class="tocnumber">12</span> <span class="toctext">Links</span></a></li>
+<li class="toclevel-1 tocsection-53"><a href="#Photos"><span class="tocnumber">10</span> <span class="toctext">Photos</span></a></li>
+<li class="toclevel-1 tocsection-54"><a href="#Partition_layout"><span class="tocnumber">11</span> <span class="toctext">Partition layout</span></a></li>
+<li class="toclevel-1 tocsection-55"><a href="#Links"><span class="tocnumber">12</span> <span class="toctext">Links</span></a></li>
 </ul>
 </div>
 
@@ -534,18 +543,45 @@ and follow instructions from the <a rel="nofollow" class="external text" href="h
 <p><br>
 </p>
 <h2><span class="mw-headline" id="._build_pmos_for_samsung-espresso10_and_flash_it_to_the_device">. build pmos for samsung-espresso10 and flash it to the device</span></h2>
-<ul><li>you will need to <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Pmbootstrap#Installation">install pmbootstrap</a> on your Linux Computer</li></ul>
-<p>then open a new terminal, or restart your session or restart your computer...
+<h3><span class="mw-headline" id="Preparation">Preparation</span></h3>
+<h4><span class="mw-headline" id="you_will_need_to_install_pmbootstrap_on_your_Linux_Computer">you will need to <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Pmbootstrap#Installation">install pmbootstrap</a> on your Linux Computer</span></h4>
+<ul><li>From package manager</li></ul>
+<p>Use the package manager of your distribution to install pmbootstrap:
 </p>
-<ul><li>and run :</li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
-<span class="gp">$</span> pmbootstrap pull
-<span class="gp">$</span> pmbootstrap status
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">Alpine Linux, postmarketOS:</span>
+<span class="gp">#</span> apk add pmbootstrap
+<span class="go">Arch Linux:</span>
+<span class="gp">#</span> pacman -S pmbootstrap
+<span class="go">Debian (unstable):</span>
+<span class="gp">#</span> apt install pmbootstrap
+<span class="go">Fedora:</span>
+<span class="gp">#</span> dnf install pmbootstrap
+<span class="go">Void Linux:</span>
+<span class="gp">#</span> xbps-install -S pmbootstrap
+</pre></div>
+<ul><li>From git</li></ul>
+<p>Follow this section if your Linux distribution doesn't have pmbootstrap packaged, or its version of pmbootstrap is too old, or you would like to change the code. Run the following to clone and install pmbootstrap from git.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://git.sr.ht/~postmarketos/pmbootstrap
+<span class="gp">$</span> mkdir -p ~/.local/bin
+<span class="gp">$</span> ln -s <span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/pmbootstrap/pmbootstrap.py"</span> ~/.local/bin/pmbootstrap
+</pre></div>
+<p><br>
+</p>
+<h4>
+<span id="then_open_a_new_terminal,_or_restart_your_session_or_restart_your_computer..."></span><span class="mw-headline" id="then_open_a_new_terminal.2C_or_restart_your_session_or_restart_your_computer...">then open a new terminal, or restart your session or restart your computer...</span>
+</h4>
+<p>and run :
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap --version
+<span class="go">it must return something like</span>
+<span class="go">1.52.1</span>
 </pre></div>
 <p>Follow the <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a> article to build your own image
 </p>
-<p>you may need to :
+<p><br>
 </p>
+<h4><span class="mw-headline" id="you_may_need_to_:">you may need to :</span></h4>
 <ul>
 <li>Install <code>adb</code> on your host Linux distribution (usually in an <code>android-tools-adb</code> package that you can install with your distribution's package manager),</li>
 <li>Install <code>heimdall</code> on your host Linux distribution (usually in a  <code>heimdall-flash</code> package that you can install with your distribution's package manager), or install odin if using windows</li>
@@ -553,6 +589,14 @@ and follow instructions from the <a rel="nofollow" class="external text" href="h
 <p>in a way to 
 </p>
 <ul><li>install TWRP on the device (you can download <a rel="nofollow" class="external text" href="https://androidfilehost.com/?w=files&amp;flid=48848&amp;sort_by=date&amp;sort_dir=DESC">Galaxy Tab 2 common TWRP</a> by Android-Andi)</li></ul>
+<p><br>
+</p>
+<h4><span class="mw-headline" id="each_days_before_building">each days before building</span></h4>
+<p>Run
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap pull
+<span class="gp">$</span> pmbootstrap status
+</pre></div>
 <p>.
 </p>
 <h3>
@@ -731,9 +775,15 @@ this will create
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
 <span class="gp">$</span> pmbootstrap install --fde
 </pre></div>
+<p><br>
+</p>
 <h4>
-<span id="flash_the_pmos.img_to_the_/system_partition_(not_tested)"></span><span class="mw-headline" id="flash_the_pmos.img_to_the_.2Fsystem_partition_.28not_tested.29">flash the pmos.img to the /system partition (not tested)</span>
+<span id="flash_the_pmos.img_to_the_device_(not_tested)"></span><span class="mw-headline" id="flash_the_pmos.img_to_the_device_.28not_tested.29">flash the pmos.img to the device (not tested)</span>
 </h4>
+<ul><li>to the /system partition (not tested)</li></ul>
+<p>or 
+</p>
+<ul><li>to the /userdata partition (not tested)</li></ul>
 <h4>
 <span id="flash_the_boot.img_to_the_/boot_partition_(not_tested)"></span><span class="mw-headline" id="flash_the_boot.img_to_the_.2Fboot_partition_.28not_tested.29">flash the boot.img to the /boot partition (not tested)</span>
 </h4>
@@ -1097,9 +1147,9 @@ tmpfs on /run/user/10000 type tmpfs (rw,nosuid,nodev,relatime,size=101716k,nr_in
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_10.1_(3G_and_Wifi)_(samsung-espresso10)&amp;oldid=45924">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_10.1_(3G_and_Wifi)_(samsung-espresso10)&amp;oldid=45924</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_10.1_(3G_and_Wifi)_(samsung-espresso10)&amp;oldid=46329">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_2_10.1_(3G_and_Wifi)_(samsung-espresso10)&amp;oldid=46329</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 28 June 2023, at 00:34.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 8 July 2023, at 23:08.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

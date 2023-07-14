@@ -231,13 +231,13 @@ handset</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">USB OTG</th>
+<th scope="row" style="text-align:left;"><abbr title="USB On-The-Go or USB-C Role switching">USB OTG</abbr></th>
     <td class="" style="">
 <div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">NFC</th>
+<th scope="row" style="text-align:left;"><abbr title="Near Field Communication">NFC</abbr></th>
     <td class="" style="">
 <div class="feature feature-no">Broken</div>
 </td>
@@ -255,7 +255,7 @@ handset</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Magnetometer</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to measure magnetism">Magnetometer</abbr></th>
     <td class="" style="">
 <div class="feature feature-unavailable">Unavailable</div>
 </td>
@@ -279,13 +279,13 @@ handset</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Barometer</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to measure air pressure">Barometer</abbr></th>
     <td class="" style="">
 <div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Power Sensor</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to monitor current, voltage and power. Not fuel gauge!">Power Sensor</abbr></th>
     <td class="" style="">
 <div class="feature feature-no">Broken</div>
 </td>
@@ -394,21 +394,22 @@ handset</td>
 <b>MTKClient</b>: Hold Volume Up + Volume Down and plug the device into the host computer running MTKClient.</li></ul>
 <p><br>
 </p>
-<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<h2>
+<span id="Installation_(pmbootstrap)"></span><span class="mw-headline" id="Installation_.28pmbootstrap.29">Installation (pmbootstrap)</span>
+</h2>
+<p><b>Before following the installation steps, follow the MTKClient section below.</b>
+</p>
 <p>Use <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a> to build your own installation image.
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
 <span class="gp">$</span> pmbootstrap install --android-recovery-zip --recovery-install-partition<span class="o">=</span>data
-<span class="go">Directly flashing zip with pmbootstrap does not seem to work at the moment:</span>
-<span class="gp">$</span> pmbootstrap <span class="nb">export</span>
-<span class="gp">$</span> <span class="nb">cd</span> <span class="k">$(</span>dirname <span class="k">$(</span>readlink /tmp/postmarketOS-export/pmos-*.zip<span class="k">))</span>
 <span class="go">Put TWRP into sideload mode.</span>
-<span class="gp">$</span> adb sideload pmos-alcatel-bangkok_tf.zip
+<span class="gp">$</span> pmbootstrap flasher --method<span class="o">=</span>adb sideload
 </pre></div>
-<p><br>
+<p>The install will error around 59%. This is to be expected. If the device states that the installation was completed, then this error can be ignored and flashing is complete.
 </p>
 <h2><span class="mw-headline" id="MTKClient">MTKClient</span></h2>
-<p>Due to the disabling of fastboot in the device bootloader, it is required that TWRP is installed to flash easily. As such, to install TWRP in the first place, a tool called <a rel="nofollow" class="external text" href="https://duckduckgo.com/?t=ffab&amp;q=mtkclient&amp;ia=web#readme">MTKClient</a> is required.
+<p>Due to the disabling of fastboot in the device bootloader, it is required that TWRP is installed to flash easily. As such, to install TWRP in the first place, a tool called <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Mtkclient#readme">MTKClient</a> is required.
 </p>
 <p>To install TWRP:
 </p>
@@ -422,8 +423,24 @@ $ python mtk reset</pre></div>
 </ul>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre>$ python mtk w recovery &lt;name of TWRP file&gt;
 $ python mtk reset</pre></div>
+<p>Then, reboot your device and TWRP should be installed. Enter TWRP by holding Power + Volume Up during boot.
+</p>
+<h2>
+<span id="Installation_(MTKClient)"></span><span class="mw-headline" id="Installation_.28MTKClient.29">Installation (MTKClient)</span>
+</h2>
+<p>This is not required anymore following the method above. This is only here for debugging purposes.
+</p>
+<p>To install using MTKClient, proceed with the following:
+</p>
+<ul><li>Hold Volume Up + Volume Down and plug the device into the host computer running MTKClient.</li></ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> python mtk w boot &lt;name of postmarketOS bootimg file&gt;
+<span class="gp">$</span> python mtk w userdata &lt;name of postmarketOS rootfs file&gt;
+<span class="gp">$</span> python mtk reset
+</pre></div>
+<p>Power the device on normally and the device should boot into postmarketOS.
+</p>
 <h2><span class="mw-headline" id="Bugs">Bugs</span></h2>
-<p>Sometimes TWRP is unable to read the /data partition. An easy fix is to wipe the partition using TWRP <b>[THIS WILL WIPE YOUR PMOS INSTALL]</b> and then continue with flashing.
+<p>Sometimes TWRP is unable to read the /data partition. An easy fix is to wipe the partition using TWRP <b>[THIS WILL WIPE YOUR PMOS INSTALL AND/OR ANY ANDROID DATA LEFTOVER]</b> and then continue with flashing.
 </p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
@@ -451,9 +468,9 @@ $ python mtk reset</pre></div>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=TCL_A3_(tcl-bangkok_tf)&amp;oldid=45826">https://wiki.postmarketos.org/index.php?title=TCL_A3_(tcl-bangkok_tf)&amp;oldid=45826</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=TCL_A3_(tcl-bangkok_tf)&amp;oldid=46444">https://wiki.postmarketos.org/index.php?title=TCL_A3_(tcl-bangkok_tf)&amp;oldid=46444</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 26 June 2023, at 21:24.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 11 July 2023, at 15:21.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

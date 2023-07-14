@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Mtkclient - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Mtkclient rootpage-Mtkclient skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Mtkclient</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p><a href="../Mtkclient.png" class="image" title="Logo of MTKClient"><img alt="Logo of MTKClient" src="../Mtkclient.png" decoding="async" width="256" height="256"></a>
+</p>
+<p>MTKClient is a flashing tool for devices based on MediaTek SOCs that uses exploits in the SOC itself to edit partitions on the device.
+</p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Benefits"><span class="tocnumber">1</span> <span class="toctext">Benefits</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Installation"><span class="tocnumber">2</span> <span class="toctext">Installation</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Connection"><span class="tocnumber">3</span> <span class="toctext">Connection</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Bootloader_Unlocking"><span class="tocnumber">4</span> <span class="toctext">Bootloader Unlocking</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Flashing_With_pmbootstrap"><span class="tocnumber">5</span> <span class="toctext">Flashing With pmbootstrap</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Flashing_Directly"><span class="tocnumber">6</span> <span class="toctext">Flashing Directly</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#See_also"><span class="tocnumber">7</span> <span class="toctext">See also</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Benefits">Benefits</span></h2>
+<p>The usage of MTKClient has a variety of benefits over other methods of device manipulation. For one, it is possible to unlock the bootloader of devices that either do not have an official unlocking method or do not support commands such as fastboot or heimdall. It is also possible to flash partitions that otherwise would be inaccessible through normal flashing methods. All of this is done through two modes that MediaTek SOCs have called Preloader and Boot Rom Mode (BROM Mode).
+</p>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>MTKClient is already packaged under Alpine in the testing repository.<a rel="nofollow" class="external autonumber" href="https://pkgs.alpinelinux.org/packages?name=mtkclient&amp;branch=edge&amp;repo=&amp;arch=&amp;maintainer=">[1]</a> Other distributions may have it packaged. If your distribution does not have MTKClient packaged, it is possible to git clone the repository and run the program from the cloned folder using Python. For older SOCs [mt6260 or lower], a recompiled kernel supporting the kamakiri attack exploit is required. (Instructions for compiling with the exploit supported are on MTKClient's git page.
+</p>
+<h2><span class="mw-headline" id="Connection">Connection</span></h2>
+<p>To put the device in BROM mode, device specific buttons need to be pressed. Refer to the device page for information on which buttons to press.
+</p>
+<p>If you are attempting to port a device using MTKClient, your only options are to either search the internet for instances of other people using MTKClient with your device (XDA Developers Forums are a good source), or to go through trial and error. Sometimes it is possible to short pins on the device to ground to drop it into BROM mode, but that can be damage the device if done wrong, so make sure to check the MTKClient git README and issues for information before attempting to do so.
+</p>
+<h2><span class="mw-headline" id="Bootloader_Unlocking">Bootloader Unlocking</span></h2>
+<p>To unlock the bootloader of a device using MTKClient, connect the device to MTKClient and proceed with the following:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">  Factory Reset Device</span>
+<span class="gp">$</span> python mtk e metadata,userdata,md_udc
+<span class="go">  Unlock Bootloader</span>
+<span class="gp">$</span> python mtk da seccfg unlock
+<span class="go">  Reboot Device</span>
+<span class="gp">$</span> python mtk reset
+</pre></div>
+<h2><span class="mw-headline" id="Flashing_With_pmbootstrap">Flashing With pmbootstrap</span></h2>
+<p>To flash with pmbootstrap, the flash method <code>mtkclient</code> needs to be selected either during <code>pmbootstrap init</code> or added to the deviceinfo file of a port. From there, flashing using <code>pmbootstrap flasher</code> is available.
+</p>
+<h2><span class="mw-headline" id="Flashing_Directly">Flashing Directly</span></h2>
+<p>To flash partitions using MTKClient, connect the device to MTKClient and proceed with the following:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> python mtk w &lt;partition name&gt; &lt;path to image file&gt;
+</pre></div>
+<p>To flash multiple partitions using MTKClient:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="go">  Make sure to put the image paths in the same order you put the partitions to flash, otherwise the images will flash to the wrong partitions.</span>
+<span class="gp">$</span> python mtk w &lt;partition name, partition name&gt; &lt;path to image file, path to image file&gt;
+</pre></div>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<p><a rel="nofollow" class="external text" href="https://github.com/bkerler/mtkclient#readme">MTKClient</a>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/commit/caf4d779e30ad7b051ad1076021b15cbc2711d8d#readme">Initial Commit for Flashing Method</a>
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Mtkclient&amp;oldid=46479">https://wiki.postmarketos.org/index.php?title=Mtkclient&amp;oldid=46479</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 13 July 2023, at 12:38.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Mtkclient&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

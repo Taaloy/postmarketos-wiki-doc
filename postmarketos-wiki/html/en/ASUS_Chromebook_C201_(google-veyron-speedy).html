@@ -207,13 +207,13 @@ armv7</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">USB OTG</th>
+<th scope="row" style="text-align:left;"><abbr title="USB On-The-Go or USB-C Role switching">USB OTG</abbr></th>
     <td class="" style="">
 <div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">NFC</th>
+<th scope="row" style="text-align:left;"><abbr title="Near Field Communication">NFC</abbr></th>
     <td class="" style="">
 <div class="feature feature-unavailable">Unavailable</div>
 </td>
@@ -231,7 +231,7 @@ armv7</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Magnetometer</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to measure magnetism">Magnetometer</abbr></th>
     <td class="" style="">
 <div class="feature feature-unavailable">Unavailable</div>
 </td>
@@ -255,13 +255,13 @@ armv7</td>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Barometer</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to measure air pressure">Barometer</abbr></th>
     <td class="" style="">
 <div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
-<th scope="row" style="text-align:left;">Power Sensor</th>
+<th scope="row" style="text-align:left;"><abbr title="Sensor to monitor current, voltage and power. Not fuel gauge!">Power Sensor</abbr></th>
     <td class="" style="">
 <div class="feature feature-unavailable">Unavailable</div>
 </td>
@@ -275,7 +275,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Camera Flash</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -311,31 +311,31 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Ir RX</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Stylus</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Haptics</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Ethernet</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">FOSS bootloader</th>
     <td class="" style="">
-<div class="feature feature-partial">Partial</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr><td colspan="2" style="text-align:right"></td></tr>
@@ -347,7 +347,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="It is possible to replace stock bootloader with U-Boot.">Primary Bootloader</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -359,13 +359,13 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Latest versions of U-Boot are not broken and it is possible to use them.">Mainline</abbr></th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="It is possible to boot from internal storage (e.g. eMMC or UFS).">Internal Storage</abbr></th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -377,7 +377,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="It is possible to boot from a USB storage or connect a keyboard.">USB Host</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-partial">Partial</div>
 </td>
 </tr>
 <tr class="">
@@ -411,16 +411,23 @@ armv7</td>
 </p>
 <p><br>
 </p>
-<p><br>
-</p>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>NOTE:</b> This device is affected with the issue that when device discharges it loses crossystem settings. If you have a pmOS installation on eMMC it may be difficult to enable booting from external storage again. It is recommended to replace bootloader with U-Boot. See <a href="#U-Boot">#U-Boot</a>.</td>
+</tr></tbody></table>
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
 <ul><li><a href="../User:Jenneron.html" title="User:Jenneron">Jenneron</a></li></ul>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
 <li>
+<a href="../User:Dragon788.html" title="User:Dragon788">Dragon788</a> (<span class="cargoFieldName">Notes:</span> only one that is currently enterprise locked, will replace the firmware once I find my reprogrammer)</li>
+<li>
 <a href="../User:Dusky.html" title="User:Dusky">Dusky</a> (<span class="cargoFieldName">Notes:</span> PostmarketOS)</li>
 <li>
-<a href="../User:Jenneron.html" title="User:Jenneron">Jenneron</a> (<span class="cargoFieldName">Notes:</span> no battery)</li>
+<a href="../User:Jenneron.html" title="User:Jenneron">Jenneron</a> (<span class="cargoFieldName">Notes:</span> U-Boot on SPI, no battery)</li>
+<li>
+<a href="../User:Rainbyte.html" title="User:Rainbyte">Rainbyte</a> (<span class="cargoFieldName">Notes:</span> OS: ArchLinuxARM + Sway)</li>
 <li>
 <a href="../User:Thenightterrorx.html" title="User:Thenightterrorx">Thenightterrorx</a> (<span class="cargoFieldName">Notes:</span> modified to power by lead acid battery)</li>
 </ul></div>
@@ -434,16 +441,27 @@ armv7</td>
 </p>
 <ul><li>workaround: switch to internal mic in pavucontrol, reboot and never switch to headset.</li></ul>
 <h2><span class="mw-headline" id="U-Boot">U-Boot</span></h2>
-<p>Packaged and used in pmOS.
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>NOTE:</b> One of USB ports doesn't work in U-Boot. If you can't boot from USB, connect your storage to another port.</td>
+</tr></tbody></table>
+<h3><span class="mw-headline" id="Replacing_bootloader_with_U-Boot">Replacing bootloader with U-Boot</span></h3>
+<p>1. Remove write-protect screw.
 </p>
-<h3><span class="mw-headline" id="Mainline">Mainline</span></h3>
-<p>Mainline version results in black screen. 2021.01 is the latest known-to-work version.
+<p><a href="../Speedy-wp-screw.png" class="image"><img alt="Speedy-wp-screw.png" src="../Speedy-wp-screw.png" decoding="async" width="400" height="267" srcset="../600px-Speedy-wp-screw.png 1.5x ../800px-Speedy-wp-screw.png 2x"></a>
 </p>
-<h3><span class="mw-headline" id="Internal_Storage">Internal Storage</span></h3>
-<p>Results in <code>Card did not respond to voltage select! : -110</code>.
+<p>2. Install flashrom and U-Boot package.
 </p>
-<h3><span class="mw-headline" id="Panel">Panel</span></h3>
-<p>Works, but has issues with some fonts (e.g. in grub), may be caused by config.
+<p><code>$ sudo apk add flashrom u-boot-veyron-speedy</code>
+</p>
+<p>3. Make a backup and save it somewhere on external storage. It contains HDCP keys, network MAC addresses, etc. Do not throw it away even after successful installation of U-Boot.
+</p>
+<p><code>$ sudo flashrom -p linux_mtd -r ~/backup.img</code>
+</p>
+<p>4. Flash U-Boot.
+</p>
+<p><code>$ sudo flashrom -p linux_mtd -w /usr/share/u-boot/google-veyron-speedy/u-boot.rom</code>
 </p>
 </div></div>
 		
@@ -462,9 +480,9 @@ armv7</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=ASUS_Chromebook_C201_(google-veyron-speedy)&amp;oldid=43340">https://wiki.postmarketos.org/index.php?title=ASUS_Chromebook_C201_(google-veyron-speedy)&amp;oldid=43340</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=ASUS_Chromebook_C201_(google-veyron-speedy)&amp;oldid=46140">https://wiki.postmarketos.org/index.php?title=ASUS_Chromebook_C201_(google-veyron-speedy)&amp;oldid=46140</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:35.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 2 July 2023, at 17:46.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>
