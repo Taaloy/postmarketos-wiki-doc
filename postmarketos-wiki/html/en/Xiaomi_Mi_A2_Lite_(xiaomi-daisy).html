@@ -386,8 +386,10 @@ Then with device powered off, hold the <span class="nowrap" title="This is not a
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
 <span class="gp">$</span> pmbootstrap install
 </pre></div>
-<h4><span class="mw-headline" id="Mainline_kernel">Mainline kernel</span></h4>
-<p>In order to use the mainline kernel, installing lk2nd is needed. The package <code>lk2nd-msm8953</code> provides a prebuilt version ready to flash to the device.
+<h4>
+<span id="Mi_A2_Lite_(xiaomi-daisy)"></span><span class="mw-headline" id="Mi_A2_Lite_.28xiaomi-daisy.29">Mi A2 Lite (xiaomi-daisy)</span>
+</h4>
+<p>In order to use the daisy, installing lk2nd is needed. The package <code>lk2nd-msm8953</code> provides a prebuilt version ready to flash to the device.
 </p>
 <p>To use it, add it in the init step or instead of running <code>pmbootstrap install</code>, add the package like this: <code>pmbootstrap install --add lk2nd-msm8953</code>
 </p>
@@ -397,9 +399,19 @@ Then with device powered off, hold the <span class="nowrap" title="This is not a
 </pre></div>
 <p>Then reboot the device and press the <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> just after the Android logo shows up and hold until the device vibrates and shows <code>START</code> in green at the top left corner of the screen.
 </p>
-<h4><span class="mw-headline" id="Downstream_kernel">Downstream kernel</span></h4>
-<p>If using the downstream kernel, put your device in fastboot mode.
+<h4>
+<span id="Redmi_6_Pro_(xiaomi-sakura)"></span><span class="mw-headline" id="Redmi_6_Pro_.28xiaomi-sakura.29">Redmi 6 Pro (xiaomi-sakura)</span>
+</h4>
+<p>In order to use the sakura, installing lk2nd is needed. There is no prebuilt version of lk2nd for sakura you need to build yourself.
 </p>
+<p>Redmi 6 Pro has rollback protection for lk2nd installation first you need
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> fastboot boot lk2nd.img
+</pre></div>
+<p>then
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> fastboot flash lk2nd lk2nd.img
+</pre></div>
 <h4><span class="mw-headline" id="Install_the_image">Install the image</span></h4>
 <p>To proceed with the installation to internal storage of pmOS, plug the device to the computer with an USB cable and run:
 </p>
@@ -412,7 +424,7 @@ Then with device powered off, hold the <span class="nowrap" title="This is not a
 I.e. (using lk2nd): <code>pmbootstrap install --add msm8953-lkn2d --sdcard /dev/&lt;your_sdcard&gt;</code>
 </td>
 </tr></tbody></table>
-<h2><span class="mw-headline" id="Mainline_Kernel_2">Mainline Kernel</span></h2>
+<h2><span class="mw-headline" id="Mainline_Kernel">Mainline Kernel</span></h2>
 <p>To use it select mainline kernel when running <code>pmbootstrap init</code>
 </p>
 <p>Flashing lk2nd is needed. (<a rel="nofollow" class="external autonumber" href="https://github.com/msm8953-mainline/lk2nd">[2]</a>).
@@ -530,11 +542,10 @@ I.e. (using lk2nd): <code>pmbootstrap install --add msm8953-lkn2d --sdcard /dev/
 <li>
 <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2225">pmaports!2225</a> Mainline merge request</li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/device-xiaomi-daisy">Device package</a></li>
-<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/linux-xiaomi-daisy">Kernel package</a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/linux-postmarketos-qcom-msm8953">Kernel package</a></li>
 <li><a rel="nofollow" class="external text" href="https://github.com/msm8953-mainline/linux">Mainline kernel</a></li>
 <li><a rel="nofollow" class="external text" href="https://github.com/msm8953-mainline/lk2nd">lk2nd</a></li>
 <li><a rel="nofollow" class="external text" href="https://github.com/alikates/linux/tree/smbcharger">Charger driver fork</a></li>
-<li><a rel="nofollow" class="external text" href="http://deviceinfohw.ru/devices/item.php?item=578336">Device specifications (otm1911plus panel)</a></li>
 </ul>
 </div></div>
 		
@@ -553,9 +564,9 @@ I.e. (using lk2nd): <code>pmbootstrap install --add msm8953-lkn2d --sdcard /dev/
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_A2_Lite_(xiaomi-daisy)&amp;oldid=40471">https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_A2_Lite_(xiaomi-daisy)&amp;oldid=40471</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_A2_Lite_(xiaomi-daisy)&amp;oldid=46907">https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_A2_Lite_(xiaomi-daisy)&amp;oldid=46907</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 10:26.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 26 July 2023, at 15:45.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

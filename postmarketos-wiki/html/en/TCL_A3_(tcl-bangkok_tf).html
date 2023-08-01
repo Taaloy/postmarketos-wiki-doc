@@ -37,7 +37,7 @@
 <caption class="" style="">TCL A3</caption>
 <tbody>
 <tr class=""><td colspan="2" class="" style="text-align:center;">
-<a href="../TCLA3.png" class="image"><img alt="An image of the TCL A3 boot screen." src="../TCLA3.png" decoding="async" width="200" height="402" srcset="../TCLA3.png 1.5x ../TCLA3.png 2x"></a><br><span style="">An image of the TCL A3 boot screen.</span>
+<a href="../Bangkok_tf-booting-pmOS.jpg" class="image"><img alt="An image of the TCL A3 with the postmarketOS splash screen." src="../Bangkok_tf-booting-pmOS.jpg" decoding="async" width="200" height="323" srcset="../300px-Bangkok_tf-booting-pmOS.jpg 1.5x ../400px-Bangkok_tf-booting-pmOS.jpg 2x"></a><br><span style="">An image of the TCL A3 with the postmarketOS splash screen.</span>
 </td></tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Manufacturer</th>
@@ -129,8 +129,6 @@ handset</td>
 <tr><td colspan="2" style="text-align:right"></td></tr>
 </tbody>
 </table>
-<div class="infobox" style="width: 22em; box-sizing: border-box; background-color: #fee7e6; border-color: #d33; border-width: 2px; color: #000; padding: 4px; text-align: center;">This device is marked as <b>not booting</b>.<br>Status: <i>Kernel compiles and flashing works, yet the device refuses to load the kernel. Further debugging needed.</i>
-</div>
 <table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
 <caption class="" style="">Features</caption>
 <tbody>
@@ -143,7 +141,7 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="It is possible to flash the device with `pmbootstrap flasher`.">Flashing</abbr></th>
     <td class="" style="">
-<div class="feature feature-partial">Partial</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -155,7 +153,7 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Display works. Ideally with sleep mode and brightness control.">Display</abbr></th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -257,13 +255,13 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Sensor to measure magnetism">Magnetometer</abbr></th>
     <td class="" style="">
-<div class="feature feature-unavailable">Unavailable</div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Ambient Light</th>
     <td class="" style="">
-<div class="feature feature-unavailable">Unavailable</div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
@@ -281,7 +279,7 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Sensor to measure air pressure">Barometer</abbr></th>
     <td class="" style="">
-<div class="feature feature-unavailable">Unavailable</div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
@@ -353,7 +351,7 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Ethernet</th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -369,6 +367,8 @@ handset</td>
 </p>
 <p><br>
 </p>
+<p><br>
+</p>
 <table role="text container" style="color: inherit; background-color: #D3E4FA; border: 1px solid #0B6B9F; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Notice" src="../Notice.png" decoding="async" title="Notice" width="20" height="20" srcset="../Notice.png 1.5x ../Notice.png 2x"></span></td>
 <td style="padding: 0.35em 0.9em; width: 100%;">While the kernel compiles and flashing is available, this device is in an extremely early state of development. <b>Here Be Dragons</b>
@@ -377,7 +377,10 @@ handset</td>
 <p>The TCL A3 is a low-range smartphone manufactured by TCL. The device is quite powerful for its low price-point, making it a prime candidate for porting. The device is always carrier locked to the U.S. carrier Tracfone. The back cover can be removed with a small notch on the bottom right portion of the phone. Removing this reveals one microsd card slot, one sim card slot, and the battery, which is removable.
 </p>
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
-<ul><li>Justsoup</li></ul>
+<ul>
+<li>Justsoup</li>
+<li>hexaheximal</li>
+</ul>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
 <li>
@@ -392,12 +395,28 @@ handset</td>
 <b>Recovery</b>: Power on the device while holding Volume Up + Power.</li></ul>
 <ul><li>
 <b>MTKClient</b>: Hold Volume Up + Volume Down and plug the device into the host computer running MTKClient.</li></ul>
-<p><br>
-</p>
 <h2>
 <span id="Installation_(pmbootstrap)"></span><span class="mw-headline" id="Installation_.28pmbootstrap.29">Installation (pmbootstrap)</span>
 </h2>
-<p><b>Before following the installation steps, follow the MTKClient section below.</b>
+<p>Use <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a> to build your own installation image.
+</p>
+<table role="text container" style="color: inherit; background-color: #D3E4FA; border: 1px solid #0B6B9F; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Notice" src="../Notice.png" decoding="async" title="Notice" width="20" height="20" srcset="../Notice.png 1.5x ../Notice.png 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">While it is possible to flash to system, it is recommended to flash to userdata to make use of most of the device's space and to make the transition back to Android easier.</td>
+</tr></tbody></table>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
+<span class="gp">$</span> pmbootstrap install
+<span class="gp">$</span> pmbootstrap flasher flash_kernel
+<span class="gp">$</span> pmbootstrap flasher flash_userdata
+</pre></div>
+<p><br>
+</p>
+<h2>
+<span id="Installation_(recovery)"></span><span class="mw-headline" id="Installation_.28recovery.29">Installation (recovery)</span>
+</h2>
+<p><b>Before following this installation method, follow the MTKClient section below.</b>
+</p>
+<p>The normal pmbootstrap flashing can take a while depending on the user interface chosen. As such, flashing with the <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Installation_from_recovery_mode#readme">recovery installation</a> is also supported.
 </p>
 <p>Use <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a> to build your own installation image.
 </p>
@@ -425,27 +444,318 @@ $ python mtk reset</pre></div>
 $ python mtk reset</pre></div>
 <p>Then, reboot your device and TWRP should be installed. Enter TWRP by holding Power + Volume Up during boot.
 </p>
-<h2>
-<span id="Installation_(MTKClient)"></span><span class="mw-headline" id="Installation_.28MTKClient.29">Installation (MTKClient)</span>
-</h2>
-<p>This is not required anymore following the method above. This is only here for debugging purposes.
-</p>
-<p>To install using MTKClient, proceed with the following:
-</p>
-<ul><li>Hold Volume Up + Volume Down and plug the device into the host computer running MTKClient.</li></ul>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> python mtk w boot &lt;name of postmarketOS bootimg file&gt;
-<span class="gp">$</span> python mtk w userdata &lt;name of postmarketOS rootfs file&gt;
-<span class="gp">$</span> python mtk reset
-</pre></div>
-<p>Power the device on normally and the device should boot into postmarketOS.
-</p>
+<h2><span class="mw-headline" id="Feature_Progress">Feature Progress</span></h2>
+<table class="wikitable">
+<tbody>
+<tr>
+<th>Feature
+</th>
+<th>Model
+</th>
+<th>State
+</th>
+<th>Notes
+</th>
+</tr>
+<tr>
+<td>
+<code>USB Networking</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>USB module missing from downstream kernel.
+</td>
+</tr>
+<tr>
+<td>
+<code>Flashing</code>
+</td>
+<td>N/A
+</td>
+<td>Works
+</td>
+<td>With the addition of MTKClient as a flashing option, flashing is available.
+</td>
+</tr>
+<tr>
+<td>
+<code>Touchscreen</code>
+</td>
+<td>Focaltech(?)
+</td>
+<td>Broken
+</td>
+<td>Most likely a sysfs issue. Cannot debug until USB Networking works.
+</td>
+</tr>
+<tr>
+<td>
+<code>Display</code>
+</td>
+<td>Unknown
+</td>
+<td>Works
+</td>
+<td>Surprisingly works ootb without any hacks.
+</td>
+</tr>
+<tr>
+<td>
+<code>WiFi</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>Proprietary driver. No way to test without USB Networking. Presumed broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>FDE</code>
+</td>
+<td>N/A
+</td>
+<td>Broken
+</td>
+<td>Does not work without the Touchscreen.
+</td>
+</tr>
+<tr>
+<td>
+<code>Mainline</code>
+</td>
+<td>N/A
+</td>
+<td>Broken
+</td>
+<td>There is some basic support for the MT6765 SOC, which the MT6762 is compatible with, but it has not been tested yet.
+</td>
+</tr>
+<tr>
+<td>
+<code>Battery</code>
+</td>
+<td>TLi028C7 (Alcatel Branding)
+</td>
+<td>Broken
+</td>
+<td>No way to test without USB Networking. Presumed broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>3D Acceleration</code>
+</td>
+<td>PowerVR GE8320
+</td>
+<td>Broken
+</td>
+<td>Proprietary driver. No way to test without USB Networking. Definitely broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>Audio</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>Proprietary driver. No way to test without USB Networking. Presumed broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>Bluetooth</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>Proprietary driver. No way to test without USB Networking. Presumed broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>Camera</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>Proprietary driver. No way to test without USB Networking. Definitely broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>GPS</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>No way to test without USB Networking. Presumed broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>Mobile Data</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>Proprietary driver. No way to test without USB Networking. Definitely broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>SMS</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>Proprietary driver. No way to test without USB Networking. Definitely broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>Calls</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>Proprietary driver. No way to test without USB Networking. Definitely broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>USB OTG</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>USB module missing from downstream kernel.
+</td>
+</tr>
+<tr>
+<td>
+<code>NFC</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>No way to test without USB Networking. Presumed broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>Accelerometer</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>No way to test without USB Networking. Presumed broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>Magnetometer</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>No way to test without USB Networking. Presumed broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>Ambient Light</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>No way to test without USB Networking. Presumed broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>Proximity</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>No way to test without USB Networking. Presumed broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>Barometer</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>No way to test without USB Networking. Presumed broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>Power Sensor</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>No way to test without USB Networking. Presumed broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>Camera Flash</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>No way to test without USB Networking. Probably works. Presumed broken.
+</td>
+</tr>
+<tr>
+<td>
+<code>Haptics</code>
+</td>
+<td>Unknown
+</td>
+<td>Broken
+</td>
+<td>No way to test without USB Networking. Presumed broken.
+</td>
+</tr>
+</tbody>
+</table>
 <h2><span class="mw-headline" id="Bugs">Bugs</span></h2>
-<p>Sometimes TWRP is unable to read the /data partition. An easy fix is to wipe the partition using TWRP <b>[THIS WILL WIPE YOUR PMOS INSTALL AND/OR ANY ANDROID DATA LEFTOVER]</b> and then continue with flashing.
-</p>
+<ul>
+<li>Sometimes TWRP is unable to read the /data partition. An easy fix is to wipe the partition using TWRP <b>[THIS WILL WIPE YOUR PMOS INSTALL AND/OR ANY ANDROID DATA LEFTOVER]</b> and then continue with flashing.</li>
+<li>USB Networking is hindered by some form of power issue within the kernel drivers.</li>
+</ul>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow" class="external text" href="https://sourceforge.net/projects/tcl-mobile/files/#readme">Kernel Source</a></li>
 <li><a rel="nofollow" class="external text" href="https://github.com/bkerler/mtkclient#readme">MTKClient</a></li>
+<li><a rel="nofollow" class="external text" href="https://github.com/lowendlibre/lowendlibre#readme">lowendlibre Project</a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/commit/caf4d779e30ad7b051ad1076021b15cbc2711d8d#readme">MTKClient integration into pmbootstrap</a></li>
 </ul>
 
 </div></div>
@@ -457,7 +767,6 @@ $ python mtk reset</pre></div>
 <li><a href="/index.php?title=Category:Handset&amp;action=edit&amp;redlink=1" class="new" title="Category:Handset (page does not exist)">Handset</a></li>
 <li><a href="../en/Category:Android.html" title="Category:Android">Android</a></li>
 <li><a href="/index.php?title=Category:TCL&amp;action=edit&amp;redlink=1" class="new" title="Category:TCL (page does not exist)">TCL</a></li>
-<li><a href="../en/Category:Not_booting.html" title="Category:Not booting">Not booting</a></li>
 </ul>
 </div></div>
 		<div class="visualClear"></div>
@@ -468,9 +777,9 @@ $ python mtk reset</pre></div>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=TCL_A3_(tcl-bangkok_tf)&amp;oldid=46444">https://wiki.postmarketos.org/index.php?title=TCL_A3_(tcl-bangkok_tf)&amp;oldid=46444</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=TCL_A3_(tcl-bangkok_tf)&amp;oldid=47059">https://wiki.postmarketos.org/index.php?title=TCL_A3_(tcl-bangkok_tf)&amp;oldid=47059</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 11 July 2023, at 15:21.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 30 July 2023, at 21:13.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

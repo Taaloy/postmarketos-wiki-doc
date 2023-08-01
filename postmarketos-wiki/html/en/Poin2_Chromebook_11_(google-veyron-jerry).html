@@ -33,7 +33,7 @@
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">This device page also represents next devices: CTL Chromebook J2 / J4, CDI eduGear Chromebook K, Epik Chromebook ELB1101, HiSense Chromebook 11, Mecer Xpression V2, NComputing Chromebook CX100 / CX110, Positivo Chromebook CH1190, VideoNet Chromebook BL10. Some of them are not tested. If you cannot get something from this list to work, open an issue in <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/pmaports">https://gitlab.com/postmarketOS/pmaports</a>.</td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This page is supplementary to the <b><a href="../en/Google_Veyron_Chromebook_(google-veyron).html" title="Google Veyron Chromebook (google-veyron)">Google Veyron Chromebook</a></b>, refer to it before attempting to install postmarketOS.</td>
 </tr></tbody></table>
 <table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
 <caption class="" style="">Poin2 Chromebook 11</caption>
@@ -107,6 +107,11 @@ Mali-T760 MP4</td>
 <th scope="row" style="text-align:left;">Architecture</th>
     <td class="" style="">
 armv7</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Type</th>
+    <td class="" style="">
+laptop</td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Unixbench Whet/Dhry score</th>
@@ -420,77 +425,18 @@ armv7</td>
 </p>
 <p><br>
 </p>
-<p><br>
-</p>
-<h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
-<ul>
-<li>tvall</li>
-<li><a href="../User:Jenneron.html" title="User:Jenneron">Jenneron</a></li>
-</ul>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
 <li>
 <a href="../User:Rainbyte.html" title="User:Rainbyte">Rainbyte</a> (<span class="cargoFieldName">Notes:</span> OS: empty ; Model: Positivo BGH Chromebook G1160 2G+16G)</li>
 </ul></div>
-<p><br>
-</p>
-<h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Device comes stock with coreboot and depthcharge. depthcharge is annoying to work with in my opinion, and the version included on this device does not support loading an initramfs. so the first step is to get a bootloader that works properly and ideally doesnt get in out way loading for us. it should be possible to build a new version of coreboot+depthcharge, but there is not much documentation and what is there is old and broken. U-Boot should be able to replace coreboot and depthcharge, but i havent had luck getting it to work properly standalone, so our best option is chainloading an older version from depthcharge.
-</p>
-<h2><span class="mw-headline" id="U-Boot">U-Boot</span></h2>
-<p>The latest known-to-work version is 2017.07.
-</p>
-<h3><span class="mw-headline" id="chainloading">chainloading</span></h3>
-<p>Chainloading is safest with no chance of bricks, if something goes wrong you can just restore using the chromeos recovery image.
-will write instructions later
-</p>
-<p>info on chainloading u-boot
-<a rel="nofollow" class="external free" href="https://github.com/hexdump0815/u-boot-chainloading-for-arm-chromebooks/blob/master/readme.cbr">https://github.com/hexdump0815/u-boot-chainloading-for-arm-chromebooks/blob/master/readme.cbr</a>
-</p>
-<p>the goal is to write uboot.kpart.cbr-jerry to one of the kern partitions and set it bootable.
-</p>
-<p>If you are stating from a fresh ChromeOS install:
-</p>
-<p>1. enable developer mode (hold esc+refresh then hit power. hit ctrl+d at recovery screen)
-</p>
-<p>2. connect to wifi.
-</p>
-<p>3. Ctrl+alt+F2 (right arrow)
-</p>
-<p>4. login, username should be chronos
-</p>
-<p>5. curl -LO <a rel="nofollow" class="external free" href="https://github.com/hexdump0815/imagebuilder/releases/download/210613-03/uboot.kpart.cbr-jerry">https://github.com/hexdump0815/imagebuilder/releases/download/210613-03/uboot.kpart.cbr-jerry</a>
-</p>
-<p>6. sudo dd if=uboot.kpart.cbr-jerry of=/dev/mmcblk0p4
-</p>
-<p>7. sudo cgpt add -i 4 -S 1 -T 15 -P 15 /dev/mmcblk0 
-</p>
-<p>8. reboot. you should now boot to u-boot after the dev-mode warning screen and can boot postmarketos from sd.
-</p>
-<h3><span class="mw-headline" id="U-Boot_on_SPI">U-Boot on SPI</span></h3>
-<p>preferred method, but with some chance of brick. 
-can't seem to get kernel to boot properly, ignore this for now.
-</p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> git clone https://github.com/u-boot/u-boot
 
-<span class="gp">$</span> make -j8 <span class="nv">O</span><span class="o">=</span>b/chromebook_jerry <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-none-eabi-    chromebook_jerry_defconfig all
-
-<span class="gp">$</span> ./b/chromebook_jerry/tools/mkimage -n rk3288 -T rkspi  -d b/chromebook_jerry/spl/u-boot-spl.bin spl.bin <span class="o">&amp;&amp;</span>    dd <span class="k">if</span><span class="o">=</span>spl.bin <span class="nv">of</span><span class="o">=</span>spl-out.bin <span class="nv">bs</span><span class="o">=</span>128K <span class="nv">conv</span><span class="o">=</span>sync <span class="o">&amp;&amp;</span>    cat spl-out.bin b/chromebook_jerry/u-boot-dtb.img &gt;out.bin <span class="o">&amp;&amp;</span>    dd <span class="k">if</span><span class="o">=</span>out.bin <span class="nv">of</span><span class="o">=</span>out.bin.pad <span class="nv">bs</span><span class="o">=</span>4M <span class="nv">conv</span><span class="o">=</span>sync
-
-<span class="go">// copy out.bin.pad to chromebook</span>
-<span class="gp">$</span> sudo flashrom -p linux_mtd -w out.bin.pad
-</pre></div>
-<h2><span class="mw-headline" id="Audio">Audio</span></h2>
-<p>See <a href="../en/ASUS_Chromebook_C201_(google-veyron-speedy).html#Audio" title="ASUS Chromebook C201 (google-veyron-speedy)">ASUS_Chromebook_C201_(google-veyron-speedy)#Audio</a>.
-</p>
-<h2><span class="mw-headline" id="See_also">See also</span></h2>
-<ul><li>
-<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/2318">pmaports!2318</a> Initial merge request</li></ul>
 </div></div>
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
 <li><a href="../en/Category:Devices.html" title="Category:Devices">Devices</a></li>
+<li><a href="/index.php?title=Category:Laptop&amp;action=edit&amp;redlink=1" class="new" title="Category:Laptop (page does not exist)">Laptop</a></li>
 <li><a href="../en/Category:ChromeOS.html" title="Category:ChromeOS">ChromeOS</a></li>
 <li><a href="/index.php?title=Category:Poin2&amp;action=edit&amp;redlink=1" class="new" title="Category:Poin2 (page does not exist)">Poin2</a></li>
 </ul>
@@ -503,9 +449,9 @@ can't seem to get kernel to boot properly, ignore this for now.
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Poin2_Chromebook_11_(google-veyron-jerry)&amp;oldid=46128">https://wiki.postmarketos.org/index.php?title=Poin2_Chromebook_11_(google-veyron-jerry)&amp;oldid=46128</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Poin2_Chromebook_11_(google-veyron-jerry)&amp;oldid=46544">https://wiki.postmarketos.org/index.php?title=Poin2_Chromebook_11_(google-veyron-jerry)&amp;oldid=46544</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 2 July 2023, at 14:28.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 15 July 2023, at 14:49.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

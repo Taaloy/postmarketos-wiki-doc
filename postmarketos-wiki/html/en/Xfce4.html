@@ -128,7 +128,16 @@ Available</td>
 <li>The onboard keyboard can be hidden/shown by clicking the onboard icon in the panel. A bigger floating icon can be enabled in the onboard settings.</li>
 <li>To simulate right mouse clicks with the touchscreen, long-click the return key of the onboard keyboard to get some mouse click options at the right side of the keyboard. For other possibilities of right mouse click emulation see <a href="../en/Input_methods.html#Simulate_secondary_click" title="Input methods">Input_methods#Simulate_secondary_click</a>.</li>
 <li>Hiding the cursor is done by autostart command <code>unclutter-xfixes --start-hidden --hide-on-touch</code> (just for information).</li>
+<li>Tooltips can be annoying as one cannot interact with what is underneath them, and there is a mouse hovering effect where the screen was last touched so they tend to pop-up a lot. Unfortunately it seems that GTK3 no longer supports optional tooltips so the only real workaround is to make them transparent. Adding the following to <code>~/.config/gtk-3.0/gtk.css</code> make tooltips transparent and reduce there size.</li>
 </ul>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>tooltip <span class="o">{</span> font-size: <span class="m">0</span><span class="p">;</span> 
+        background-color: rgba<span class="o">(</span><span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>.0<span class="o">)</span><span class="p">;</span> 
+        border-color: rgba<span class="o">(</span><span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>, <span class="m">0</span>.0<span class="o">)</span><span class="p">;</span> 
+        border-radius: 0px<span class="p">;</span> 
+<span class="o">}</span>
+</pre></div>
+<p>Note; Transparency requires a compositor, so this will only affect the size of the tooltips if "display compositing" is disabled in the Settings/Windows Manager Tweaks/Compositor tab. Also how small the size of the tooltips can be reduced to seem to affected by the theme used (in Appearance/Style), with some themes like "Dexy-Color-Dark-GTK" the size is reduced to a tiny square (the smaller there are the less obstructive it is). 
+</p>
 <h3><span class="mw-headline" id="Panel">Panel</span></h3>
 <ul>
 <li>In Settings -&gt; Panel, the panel height can be increased. Setting automatically hide to <code>Intelligently</code> will hide it if a window overlaps the panel area.</li>
@@ -382,9 +391,9 @@ Available</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xfce4&amp;oldid=44313">https://wiki.postmarketos.org/index.php?title=Xfce4&amp;oldid=44313</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xfce4&amp;oldid=46754">https://wiki.postmarketos.org/index.php?title=Xfce4&amp;oldid=46754</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 21 May 2023, at 10:10.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 20 July 2023, at 15:17.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

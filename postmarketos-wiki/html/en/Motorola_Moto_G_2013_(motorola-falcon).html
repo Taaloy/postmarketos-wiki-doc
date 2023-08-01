@@ -532,8 +532,15 @@ bootreason=charger			|	bootreason=power_key_press</pre></div>
 <li>Test additional functionality, interfaces, etc.</li>
 <li>Maintain the device</li>
 </ul>
+<h2><span class="mw-headline" id="UART">UART</span></h2>
+<p>On phone schematics, there is a block called <code>UART OVER HEADSET</code>, that includes the chips u4950, u4951 and u4952, but they are very likely missing in production boards (DNI means Do Not Include?), as found on a picture of the board available on the web.
+Therefore the remaining option is try to get serial output from <code>MSM_UART_TX/RX</code> on <code>JTAG:MINI</code>, which was reported <a href="../en/Serial_debugging:Cable_schematics.html#Some_Motorola_Devices" title="Serial debugging:Cable schematics">elsewhere</a> on this wiki for Motorola devices.
+</p>
+<p><br>
+</p>
 <h2><span class="mw-headline" id="Links">Links</span></h2>
 <ul>
+<li><a rel="nofollow" class="external text" href="https://github.com/msm8226-mainline">Close to mainline repository (but without kernel device tree for falcon)</a></li>
 <li><a rel="nofollow" class="external text" href="https://github.com/LineageOS/android_kernel_motorola_msm8226">android_kernel_motorola_msm8226</a></li>
 <li><a rel="nofollow" class="external text" href="https://github.com/LineageOS/android_kernel_motorola_msm8226/blob/cm-14.1/arch/arm/configs/falcon_defconfig">defconfig</a></li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/device-motorola-falcon">Device package</a></li>
@@ -557,9 +564,9 @@ bootreason=charger			|	bootreason=power_key_press</pre></div>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Motorola_Moto_G_2013_(motorola-falcon)&amp;oldid=42522">https://wiki.postmarketos.org/index.php?title=Motorola_Moto_G_2013_(motorola-falcon)&amp;oldid=42522</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Motorola_Moto_G_2013_(motorola-falcon)&amp;oldid=47031">https://wiki.postmarketos.org/index.php?title=Motorola_Moto_G_2013_(motorola-falcon)&amp;oldid=47031</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 13:45.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 29 July 2023, at 01:50.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

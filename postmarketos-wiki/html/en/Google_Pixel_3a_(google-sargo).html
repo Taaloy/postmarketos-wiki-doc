@@ -182,7 +182,7 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Audio playback, microphone, headset and buttons.">Audio</abbr></th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-partial">Partial</div>
 </td>
 </tr>
 <tr class="">
@@ -242,7 +242,7 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Auto screen rotation works in desktops e.g. Phosh or Plasma Mobile">Accelerometer</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
@@ -290,7 +290,7 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Camera Flash</th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -417,6 +417,9 @@ handset</td>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <p>You can follow a relatively typical installation using pmbootstrap as documented <a href="../en/Installation.html" title="Installation">here</a> (there are no pre-built images). There are a few things to keep in mind.
 </p>
+<h3><span class="mw-headline" id="Modem_firmware">Modem firmware</span></h3>
+<p>The modem firmware is based on the last Android/LineageOS update installed on your device's slot with postmarketOS. Before flashing, consider updating your firmware with the latest <a rel="nofollow" class="external text" href="https://developers.google.com/android/ota#sargo">OTA image</a> (Note: the official OTA images apply to the slot opposite to the one used to apply them).
+</p>
 <h3><span class="mw-headline" id="Flashing">Flashing</span></h3>
 <p>If your device has Android 10 or later, you might get the following error when flashing the rootfs:
 </p>
@@ -449,7 +452,7 @@ fastboot: error: Command failed
 <p>This device has the FPC1020 fingerprint sensor. A driver is being worked on <a rel="nofollow" class="external text" href="https://gitlab.com/msm8996-mainline/linux/-/commits/msm8996-staging-fingerprint">here</a> but doesn't seem to be ready yet.
 </p>
 <h3><span class="mw-headline" id="Haptics">Haptics</span></h3>
-<p>The Pixel 3a doesn't use SPMI haptics. Instead, it uses the TI DRV2624. The driver included in the SoC kernel works with fftest, but is in bad condition. There is no feedbackd support either.
+<p>The Pixel 3a doesn't use SPMI haptics. Instead, it uses the TI DRV2624. The driver included in the SoC kernel works with fftest, but there is no feedbackd support.
 </p>
 <h3><span class="mw-headline" id="Full-disk_encryption">Full-disk encryption</span></h3>
 <p>Full-disk encryption works without 3D acceleration.
@@ -466,11 +469,17 @@ fastboot: error: Command failed
 <p>It seems to be possible to initiate calls. However, this is useless because there is no call audio.
 </p>
 <h3><span class="mw-headline" id="Audio">Audio</span></h3>
-<p>You can get audio over Bluetooth, but this isn't what the feature table entry represents. On-board speakers and the headphone jack currently don't work.
+<p>You can get audio (but not call audio) over Bluetooth and on the built-in speakers. The built-in speakers only support 16-bit audio.
 </p>
 <h3><span class="mw-headline" id="Flashlight">Flashlight</span></h3>
-<p>There is no flashlight support yet.
+<p>From the command line, the flashlight can be turned on:
 </p>
+<pre>$ echo 255 | sudo tee /sys/class/leds/led-0/brightness
+</pre>
+<p>and off:
+</p>
+<pre>$ echo 0 | sudo tee /sys/class/leds/led-0/brightness
+</pre>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow" class="external text" href="https://github.com/LineageOS/android_kernel_google_msm-4.9">LineageOS Linux 4.9 kernel for sargo (3a) and bonito (3a XL)</a></li>
@@ -498,9 +507,9 @@ fastboot: error: Command failed
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)&amp;oldid=44361">https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)&amp;oldid=44361</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)&amp;oldid=47030">https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)&amp;oldid=47030</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 May 2023, at 01:44.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 29 July 2023, at 00:49.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

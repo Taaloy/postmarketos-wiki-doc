@@ -31,11 +31,6 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<table role="text container" style="color: inherit; background-color: #fdd1d1; border: 1px solid #b60000; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">
-<b>TODO:</b>  fix typo and fomat , etc</td>
-</tr></tbody></table>
 <table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
 <caption class="" style="">Xiaomi Mi TV Stick</caption>
 <tbody>
@@ -357,13 +352,12 @@ aarch64</td>
 </p>
 <p><br>
 </p>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Xiaomi Mi TV Stick has only android 9 and there are few version of android 9 firmware for it.Older of version android 9 fireware has a uboot that will give you shell via uarl.However the uboot seem to only allow signed kernel and chain boot a uboot  to boot when it isnt unlocked.Newer of version android 9 fireware dont has a uboot that will give you shell via uarl.</td>
-</tr></tbody></table>
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
-<p><a href="../User:Exkc.html" title="User:Exkc">exkc</a>(has done some research bout it but too lazy to doc them)
-</p>
+<ul>
+<li>
+<a href="../User:Exkc.html" title="User:Exkc">exkc</a> (some initial research)</li>
+<li><a href="../User:Knuxfanwin8.html" title="User:Knuxfanwin8">knuxify</a></li>
+</ul>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
 <li><a href="../User:Exkc.html" title="User:Exkc">Exkc</a></li>
@@ -375,81 +369,81 @@ aarch64</td>
 <h2><span class="mw-headline" id="How_to_enter_recovery_mode">How to enter recovery mode</span></h2>
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">otg will not work in recovery mode</td>
-</tr></tbody></table>
-<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">the revoery will you a shell via a uarl but the shell is very resticed bc of selinux (see this memes on reddit <a rel="nofollow" class="external free" href="https://www.reddit.com/r/linuxmasterrace/comments/128ewn2/i_am_root/">https://www.reddit.com/r/linuxmasterrace/comments/128ewn2/i_am_root/</a> (that memes is created on xiaomi-aquaman's recovery mode's shell)</td>
+<td style="padding: 0.35em 0.9em; width: 100%;">On older firmware versions, you can get a shell in recovery via UART, however it is heavily restricted due to SELinux. Newer firmware versions do not expose a shell via UART.</td>
 </tr></tbody></table>
 <p>Hold down the OK+Back keys on the remote while booting to boot into recovery.
 </p>
-<p>or
+<p>Alternatively,
 </p>
-<p><br>
-0. plug to the pc
-</p>
-<p>1. enable devloader mode in setting
-</p>
-<p><br>
-2. adb reboot recovery
+<ul>
+<li>Plug in to PC</li>
+<li>Enable devloader mode in settings</li>
+<li>Run <code>adb reboot recovery</code>
+</li>
+</ul>
+<p>Note that OTG does not work in the recovery, unlike on the Mi Box 3.
 </p>
 <h2><span class="mw-headline" id="How_to_enter_fastboot">How to enter fastboot</span></h2>
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">there are no way to unlock bl</td>
+<td style="padding: 0.35em 0.9em; width: 100%;">There is currently no known way to unlock the bootloader.</td>
 </tr></tbody></table>
-<p>0. plug to the pc
+<ul>
+<li>Plug in to PC</li>
+<li>Enable devloader mode in settings</li>
+<li>Run <code>adb reboot fastboot</code>
+</li>
+</ul>
+<h2><span class="mw-headline" id="WiFi">WiFi</span></h2>
+<p>There are many variants with many different WiFi chips, including ones from Amlogic (not supported in mainline) or Realtek (some are supported, others aren't).
 </p>
-<p>1. enable devloader mode in setting
+<h2><span class="mw-headline" id="PCB_variants">PCB variants</span></h2>
+<p>There are two variants of the PCB:
 </p>
-<p><br>
-2. adb reboot fastboot
+<ul class="gallery mw-gallery-traditional">
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:41.5px auto;"><a href="../Old_variant_xiaomi-aquaman.png" class="image"><img alt="" src="../Old_variant_xiaomi-aquaman.png" decoding="async" width="120" height="67" srcset="../180px-Old_variant_xiaomi-aquaman.png 1.5x ../240px-Old_variant_xiaomi-aquaman.png 2x"></a></div></div>
+			<div class="gallerytext">
+<p>Old variant
 </p>
-<h2><span class="mw-headline" id="Wifi">Wifi</span></h2>
-<p>There are too many variant of it , Each variant use different wifi chip so it is bettter to not support it.( Supporting it will requirit a  lot of subpackage and dts and  lot of wrok).Plus some of them use amlogic wifi chip(no driver in mainline) adn realtek(not all of them has mainline support but most of them dont) chip.
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:15px auto;"><a href="../New_variant.png" class="image"><img alt="" src="../New_variant.png" decoding="async" width="78" height="120" srcset="../New_variant.png 1.5x ../New_variant.png 2x"></a></div></div>
+			<div class="gallerytext">
+<p>New variant
 </p>
-<p><br>
+			</div>
+		</div></li>
+</ul>
+<h2><span class="mw-headline" id="How_to_downgrade_to_older_version_of_Android_9">How to downgrade to older version of Android 9</span></h2>
+<p>TODO. The downgrade method used for the <a href="../en/Xiaomi_Mi_Box_3_(xiaomi-once).html" title="Xiaomi Mi Box 3 (xiaomi-once)">Xiaomi Mi Box 3 (xiaomi-once)</a> will not work, as OTG does not work in the recovery.
 </p>
-<h2><span class="mw-headline" id="Pcb_variant">Pcb variant</span></h2>
-<p>There are two pcb variant
-</p>
-<p><br>
-old variant
-</p>
-<p><a href="../Old_variant_xiaomi-aquaman.png" class="image"><img alt="Old variant xiaomi-aquaman.png" src="../Old_variant_xiaomi-aquaman.png" decoding="async" width="200" height="111" srcset="../300px-Old_variant_xiaomi-aquaman.png 1.5x ../400px-Old_variant_xiaomi-aquaman.png 2x"></a>
-</p>
-<p>new variant
-</p>
-<p><a href="../New_variant.png" class="image"><img alt="New variant.png" src="../New_variant.png" decoding="async" width="200" height="306" srcset="../New_variant.png 1.5x ../New_variant.png 2x"></a>
-</p>
-<h2><span class="mw-headline" id="How_to_downgrade_to_older_version_of_android_9">How to downgrade to older version of android 9</span></h2>
-<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<h2>
+<span id='"Multiboot"_mode'></span><span class="mw-headline" id=".22Multiboot.22_mode">"Multiboot" mode</span>
+</h2>
+<table role="text container" style="color: inherit; background-color: #fdd1d1; border: 1px solid #b60000; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
 <td style="padding: 0.35em 0.9em; width: 100%;">
-<b>WARNING:</b>  the method of downgrading that used in mi box 3 will not work in mi tv because  of the otg isnt work in recovery</td>
+<b>TODO:</b> Write down instructions for this.</td>
 </tr></tbody></table>
-<h2>
-<span id='"multiboot"_mode'></span><span class="mw-headline" id=".22multiboot.22_mode">"multiboot" mode</span>
-</h2>
-<p>you  need to manually implement it in the U-Boot environment) (see <a rel="nofollow" class="external autonumber" href="https://www.youtube.com/watch?v=UaRMF0nqqTI">[1]</a>)  via the U-Boot shell .In order to boot 
-pm os on it
+<p>You can add a script to be executed by U-Boot, in order to allow for booting another operating system (see <a rel="nofollow" class="external autonumber" href="https://www.youtube.com/watch?v=UaRMF0nqqTI">[1]</a>). This is likely the best way to run postmarketOS on the device.
 </p>
 <h2><span class="mw-headline" id="see_also">see also</span></h2>
-<p>[<a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=UaRMF0nqqTI">armbian booting on Xiaomi Mi TV Stick  via "multiboot" mode</a>]
-</p>
-<p><br>
-<a href="../en/Xiaomi_Mi_Box_3_(xiaomi-once).html" title="Xiaomi Mi Box 3 (xiaomi-once)">Xiaomi_Mi_Box_3_(xiaomi-once)</a> like wise the uboot in older firmware has a uboot that give u a shell that allow boot pm os from chainbooted uboot but the newer fireware dont have a bl that give you a shell
-</p>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=UaRMF0nqqTI">Armbian booting on Xiaomi Mi TV Stick via "multiboot" mode</a></li>
+<li><a href="../en/Xiaomi_Mi_Box_3_(xiaomi-once).html" title="Xiaomi Mi Box 3 (xiaomi-once)">Xiaomi Mi Box 3 (xiaomi-once)</a></li>
+</ul>
 </div></div>
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li>
 <li><a href="../en/Category:Pages_with_broken_file_links.html" title="Category:Pages with broken file links">Pages with broken file links</a></li>
 <li><a href="../en/Category:Devices.html" title="Category:Devices">Devices</a></li>
 <li><a href="../en/Category:Android_TV.html" title="Category:Android TV">Android TV</a></li>
 <li><a href="../en/Category:Xiaomi.html" title="Category:Xiaomi">Xiaomi</a></li>
 <li><a href="../en/Category:Not_booting.html" title="Category:Not booting">Not booting</a></li>
+<li><a href="../en/Category:Todo_Items.html" title="Category:Todo Items">Todo Items</a></li>
 </ul>
 </div></div>
 		<div class="visualClear"></div>
@@ -460,9 +454,9 @@ pm os on it
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_TV_Stick_(xiaomi-aquaman)&amp;oldid=44963">https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_TV_Stick_(xiaomi-aquaman)&amp;oldid=44963</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_TV_Stick_(xiaomi-aquaman)&amp;oldid=46978">https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_TV_Stick_(xiaomi-aquaman)&amp;oldid=46978</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 10 June 2023, at 17:37.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 28 July 2023, at 08:46.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

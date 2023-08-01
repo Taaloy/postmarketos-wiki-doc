@@ -374,16 +374,34 @@ tablet</td>
 <h2><span class="mw-headline" id="How_to_enter_flash_mode">How to enter flash mode</span></h2>
 <p>You have to press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> to enter the bootloader.
 </p>
-<h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>(Optional) Backup super partiton(need root, recommand to use <a rel="nofollow" class="external text" href="https://topjohnwu.github.io/Magisk/install.html">magisk</a>):
+<h2><span class="mw-headline" id="Backup">Backup</span></h2>
+<p>This section is Optional
+</p>
+<p>Backup super partiton, either by using Magisk (need root) or without root using a recovery program such as TWRP or Orange Fox.
+</p>
+<h3><span class="mw-headline" id="Method_1:_Magisk">Method 1: Magisk</span></h3>
+<p>Use <a rel="nofollow" class="external text" href="https://topjohnwu.github.io/Magisk/install.html">Magisk</a>:
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp"> $</span> adb shell
 <span class="gp"> $</span> su
-<span class="gp"> $</span> dd <span class="k">if</span><span class="o">=</span>/dev/block/by-name/super <span class="nv">of</span><span class="o">=</span>/sdcard/super.img
-<span class="gp"> $</span> <span class="nb">exit</span>
+<span class="gp"> #</span> dd <span class="k">if</span><span class="o">=</span>/dev/block/by-name/super <span class="nv">of</span><span class="o">=</span>/sdcard/super.img
+<span class="gp"> #</span> <span class="nb">exit</span>
 <span class="gp"> $</span> <span class="nb">exit</span>
 <span class="gp"> $</span> adb pull /sdcard/super.img
 </pre></div>
+<h3><span class="mw-headline" id="Method_2:_Orange_Fox_Recovery_Project">Method 2: Orange Fox Recovery Project</span></h3>
+<p>Use <a rel="nofollow" class="external text" href="https://github.com/ymdzq/OFRP-device_xiaomi_elish/releases">Orange Fox Recovery Project</a>:
+</p>
+<p>Download and rename "OrangeFox-23.07.04-Unofficial-elish.img" to "boot.img"
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp"> $</span> mv OrangeFox-23.07.04-Unofficial-elish.img boot.img
+<span class="gp"> $</span> fastboot boot boot.img
+<span class="gp"> $</span> adb shell
+<span class="gp"> #</span> dd <span class="k">if</span><span class="o">=</span>/dev/block/by-name/super <span class="nv">of</span><span class="o">=</span>/sdcard/super.img
+<span class="gp"> #</span> <span class="nb">exit</span>
+<span class="gp"> $</span> adb pull /sdcard/super.img
+</pre></div>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <p><a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Installing_pmbootstrap">Install pmbootstrap</a> and execute:
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp"> $</span> pmbootstrap init
@@ -407,7 +425,7 @@ msm_drm.dsi_display0=qcom,mdss_dsi_k81_35_02_0b_dual_cphy_video is BOE panel
 <span class="gp"> $</span> fastboot set_active b
 </pre></div>
 <h3>
-<span id="2.Use_fastbootd_to_flash_rootfs_to_system_b_partition(dual_boot):"></span><span class="mw-headline" id="2.Use_fastbootd_to_flash_rootfs_to_system_b_partition.28dual_boot.29:">2.Use fastbootd to flash rootfs to system_b partition(dual boot):</span>
+<span id="2.Use_fastboot_to_flash_rootfs_to_system_b_partition_(dual_boot):"></span><span class="mw-headline" id="2.Use_fastboot_to_flash_rootfs_to_system_b_partition_.28dual_boot.29:">2.Use fastboot to flash rootfs to system_b partition (dual boot):</span>
 </h3>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp"> $</span> fastboot set_active a
 <span class="gp"> $</span> fastboot reboot fastboot
@@ -442,9 +460,9 @@ pmaports fork: <a rel="nofollow" class="external autonumber" href="https://gitla
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Pad_5_Pro_(xiaomi-elish)&amp;oldid=45849">https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Pad_5_Pro_(xiaomi-elish)&amp;oldid=45849</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Pad_5_Pro_(xiaomi-elish)&amp;oldid=46743">https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Pad_5_Pro_(xiaomi-elish)&amp;oldid=46743</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 27 June 2023, at 13:43.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 20 July 2023, at 04:26.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

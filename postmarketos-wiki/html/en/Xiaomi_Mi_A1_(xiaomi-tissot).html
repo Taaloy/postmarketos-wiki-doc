@@ -467,26 +467,26 @@ aarch64</td>
 <p>First make sure to enable USB debugging <a rel="nofollow" class="external autonumber" href="https://developer.android.com/studio/debug/dev-options#enable">[1]</a> and OEM unlock in Android.
 Then with device powered off, hold down <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> buttons simultaneously for a few seconds, until Fastboot Mode screen appears. Plug in USB cable and do:
 </p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo fastboot oem unlock
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> fastboot oem unlock
 </pre></div>
 <h3><span class="mw-headline" id="Wipes">Wipes</span></h3>
 <p>Wipes work very strangely. Fastboot says that the wipes were successfully completed, but the partitions are not cleared. Therefore, the only way out is to make wipes from twrp or use formatting.
 </p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo fastboot format:ext4 boot_a
-<span class="gp">$</span> sudo fastboot format:ext4 boot_b
-<span class="gp">$</span> sudo fastboot format:ext4 system_a
-<span class="gp">$</span> sudo fastboot format:ext4 system_b
-<span class="gp">$</span> sudo fastboot format:ext4 userdata
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> fastboot format:ext4 boot_a
+<span class="gp">$</span> fastboot format:ext4 boot_b
+<span class="gp">$</span> fastboot format:ext4 system_a
+<span class="gp">$</span> fastboot format:ext4 system_b
+<span class="gp">$</span> fastboot format:ext4 userdata
 </pre></div>
 <h3><span class="mw-headline" id="Dual_booting">Dual booting</span></h3>
 <p>We can use the a/b markup feature for dual booting. In this case, we will have the kernel in the boot_a (or boot_b) section and the rootfs will be located in the same system_a (or system_b) slot. The opposite slot will use Android. The system partition severely limits the available space, so you can use an sd card for rootfs.<br>
 To find out the active slot, run in fastboot:
 </p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo fastboot getvar current-slot
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> fastboot getvar current-slot
 </pre></div>
 <p>To switch a slot, run:
 </p>
-<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo fastboot set_active a / b
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> fastboot set_active a / b
 </pre></div>
 <h2><span class="mw-headline" id="What_works">What works</span></h2>
 <p>Main:
@@ -594,9 +594,9 @@ To find out the active slot, run in fastboot:
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_A1_(xiaomi-tissot)&amp;oldid=44234">https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_A1_(xiaomi-tissot)&amp;oldid=44234</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_A1_(xiaomi-tissot)&amp;oldid=46793">https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_A1_(xiaomi-tissot)&amp;oldid=46793</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 19 May 2023, at 14:23.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 23 July 2023, at 07:57.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

@@ -90,7 +90,7 @@ Partial</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="eMMC, SD cards, UFS, ...">Storage</abbr></th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-partial">Partial</div>
 </td>
 </tr>
 <tr class="">
@@ -114,7 +114,7 @@ Partial</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Pinctrl</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -217,8 +217,29 @@ Marvell PXA1908 is a low-end ARM64 SoC, released in either late 2014 or 2015 acc
 <h2><span class="mw-headline" id="Mainline">Mainline</span></h2>
 <p>A work-in-progress tree is available <a rel="nofollow" class="external text" href="https://gitlab.com/LegoLivesMatter/linux/-/tree/pxa1908">here</a>.
 </p>
-<p>Due to some S-Boot quirks (unable to pass initramfs to kernel and does not properly start the ARM system timer), the kernel can't be packaged for postmarketOS nor upstreamed at the moment.
+<p>S-Boot can pass the initramfs to the kernel only when the default kernel cmdline is used. Also, S-Boot does not start the ARM architected timer as it should, requiring a hack in the kernel which probably can't be upstreamed into Linux (at least not inside the clock driver).
 </p>
+<p>S-Boot also hardcodes the size of the (compressed) initramfs to 2624K. If a larger initramfs is used, init may panic by failing to find files which should exist.
+</p>
+<p>As of writing, the kernel fork can successfully initialize the SD card and boot postmarketOS off of it. The internal eMMC on the other hand shows these errors:
+</p>
+<pre>[    0.219469] mmc2: Tuning failed, falling back to fixed sampling clock
+[    1.838001] mmc2: Card stuck being busy! __mmc_poll_for_busy
+[    1.838121] mmc2: error -110 whilst initialising MMC card
+[    1.936529] mmc2: Tuning failed, falling back to fixed sampling clock
+[    3.543552] mmc2: Card stuck being busy! __mmc_poll_for_busy
+[    3.543669] mmc2: error -110 whilst initialising MMC card
+[    3.655114] mmc2: Tuning failed, falling back to fixed sampling clock
+[    5.311571] mmc2: Card stuck being busy! __mmc_poll_for_busy
+[    5.311591] mmc2: error -110 whilst initialising MMC card
+[    5.461058] mmc2: Tuning failed, falling back to fixed sampling clock
+[    7.077998] mmc2: Card stuck being busy! __mmc_poll_for_busy
+[    7.078018] mmc2: error -110 whilst initialising MMC card
+[    7.079290] mmc2: Failed to initialize a non-removable card
+</pre>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/4267">pmaports!4267</a> Mainline merge request</li></ul>
 </div></div>
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
@@ -232,9 +253,9 @@ Marvell PXA1908 is a low-end ARM64 SoC, released in either late 2014 or 2015 acc
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Marvell_PXA1908&amp;oldid=30836">https://wiki.postmarketos.org/index.php?title=Marvell_PXA1908&amp;oldid=30836</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Marvell_PXA1908&amp;oldid=46946">https://wiki.postmarketos.org/index.php?title=Marvell_PXA1908&amp;oldid=46946</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 11 September 2022, at 20:40.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 27 July 2023, at 16:02.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

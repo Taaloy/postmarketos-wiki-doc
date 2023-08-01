@@ -129,7 +129,7 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="It is possible to flash the device with `pmbootstrap flasher`.">Flashing</abbr></th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -147,7 +147,7 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;">WiFi</th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -362,7 +362,8 @@ aarch64</td>
 <li>
 <a href="../User:AAT596.html" title="User:AAT596">AAT596</a> (<span class="cargoFieldName">Notes:</span> (1+) Original Android, trying to build a custom ROM for them because there's none as of now)</li>
 <li><a href="../User:CoderCharmander.html" title="User:CoderCharmander">CoderCharmander</a></li>
-<li><a href="../User:LegoLivesMatter.html" title="User:LegoLivesMatter">LegoLivesMatter</a></li>
+<li>
+<a href="../User:LegoLivesMatter.html" title="User:LegoLivesMatter">LegoLivesMatter</a> (<span class="cargoFieldName">Notes:</span> Currently mainlining)</li>
 <li><a href="../User:StandaSK.html" title="User:StandaSK">StandaSK</a></li>
 <li>
 <a href="../User:TryzenAlpensky.html" title="User:TryzenAlpensky">TryzenAlpensky</a> (<span class="cargoFieldName">Notes:</span> Near perfect condition.)</li>
@@ -390,14 +391,14 @@ aarch64</td>
 <h2><span class="mw-headline" id="Flashing">Flashing</span></h2>
 <p>The device can be put in flashing mode by powering it on while pressing the POWER + HOME + VOLUME DOWN buttons simultaneously, and answering the appearing question by pressing VOLUME UP.
 </p>
-<p>As of now, <code>pmbootstrap flasher flash_kernel</code> works correctly, but <code>flash_rootfs</code> errors out with <code>Failed to confirm end of file transfer sequence!</code>. As some Samsung devices seem to check whether the flashed payload is valid, it's possible that the device denies the image because of the "weird" partitioning scheme (the system image is partitioned into two filesystems).
+<p>As of now, <code>pmbootstrap flasher flash_kernel</code> works correctly, <strike>but <code>flash_rootfs</code> errors out with <code>Failed to confirm end of file transfer sequence!</code>. As some Samsung devices seem to check whether the flashed payload is valid, it's possible that the device denies the image because of the "weird" partitioning scheme (the system image is partitioned into two filesystems).</strike> Fixed in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3352">pmaports!3352</a>.
 </p>
 <p>Flashing via recovery zip works.
 </p>
 <h2><span class="mw-headline" id="Booting">Booting</span></h2>
 <p>The SM-G361F uses the Marvell PXA1908 chipset, which uses a nonstandard boot.img and dtb format, handled by <a rel="nofollow" class="external text" href="https://github.com/osm0sis/pxa-mkbootimg">pxa-mkbootimg</a>.
 </p>
-<p>Additionally, the device requires a legacy U-Boot kernel image as the kernel in boot.img, with a quirk: the image name must be exactly <code>pxa1928dkb linux</code>. With this parameter overridden, the device boots successfully into the postmarketOS kernel, and USB networking is available, however it automatically reboots after around 3-4 minutes of uptime. This is yet to be investigated.
+<p>Additionally, the device requires a legacy U-Boot kernel image as the kernel in boot.img, with a quirk: the image name must be exactly <code>pxa1928dkb linux</code>. With this parameter overridden, the device boots successfully into the postmarketOS kernel, and USB networking is available, <strike>however it automatically reboots after around 3-4 minutes of uptime. This is yet to be investigated.</strike> Fixed in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3352">pmaports!3352</a>.
 </p>
 <h2><span class="mw-headline" id="UART">UART</span></h2>
 <p>UART over the microUSB connector can be enabled by putting a 150K or 619K resistor between the ID and GND pins. The device TX will be on the D- pin, and RX will be on the D+ pin. A 619K will power on the device as soon as the UART cable is connected, while a 150K won't. Signal level is 1.8V.
@@ -406,6 +407,8 @@ aarch64</td>
 <ul>
 <li>
 <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/1823">pmaports!1823</a> Initial merge request</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/4267">pmaports!4267</a> Mainline kernel merge request</li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/device-samsung-coreprimevelte">Device package</a></li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/linux-samsung-coreprimevelte">Kernel package</a></li>
 </ul>
@@ -426,9 +429,9 @@ aarch64</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Core_Prime_VE_LTE_(samsung-coreprimevelte)&amp;oldid=43060">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Core_Prime_VE_LTE_(samsung-coreprimevelte)&amp;oldid=43060</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Core_Prime_VE_LTE_(samsung-coreprimevelte)&amp;oldid=46771">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Core_Prime_VE_LTE_(samsung-coreprimevelte)&amp;oldid=46771</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:31.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 21 July 2023, at 10:38.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

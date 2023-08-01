@@ -70,7 +70,7 @@ Android 4.0 - 4.1</td>
 <tr class="">
 <th scope="row" style="text-align:left;">postmarketOS kernel</th>
     <td class="" style="">
-3.4.106</td>
+6.5_rc2</td>
 </tr>
 <tr><th colspan="2" class="" style="text-align:center;">Hardware</th></tr>
 <tr class="">
@@ -118,7 +118,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="After connecting the device with USB to your PC, you can connect to it via telnet (initramfs) or SSH (booted system).">USB Networking</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -130,13 +130,13 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Touchscreen</th>
     <td class="" style="">
-<div class="feature feature-yes">Works</div>
+<div></div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Display works. Ideally with sleep mode and brightness control.">Display</abbr></th>
     <td class="" style="">
-<div class="feature feature-partial">Partial</div>
+<div></div>
 </td>
 </tr>
 <tr class="">
@@ -363,10 +363,7 @@ armv7</td>
 <li class="toclevel-1 tocsection-3"><a href="#Users_owning_this_device"><span class="tocnumber">3</span> <span class="toctext">Users owning this device</span></a></li>
 <li class="toclevel-1 tocsection-4"><a href="#How_to_enter_download.2Fflash_mode"><span class="tocnumber">4</span> <span class="toctext">How to enter download/flash mode</span></a></li>
 <li class="toclevel-1 tocsection-5"><a href="#Installation"><span class="tocnumber">5</span> <span class="toctext">Installation</span></a></li>
-<li class="toclevel-1 tocsection-6"><a href="#Current_Known_Problems"><span class="tocnumber">6</span> <span class="toctext">Current Known Problems</span></a></li>
-<li class="toclevel-1 tocsection-7"><a href="#Mainline_Progress"><span class="tocnumber">7</span> <span class="toctext">Mainline Progress</span></a></li>
-<li class="toclevel-1 tocsection-8"><a href="#Smallest_CAF_Kernel"><span class="tocnumber">8</span> <span class="toctext">Smallest CAF Kernel</span></a></li>
-<li class="toclevel-1 tocsection-9"><a href="#See_also"><span class="tocnumber">9</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
 </ul>
 </div>
 
@@ -392,32 +389,12 @@ armv7</td>
 <li>Flash pmOS using pmbootstrap flasher flash_rootfs</li>
 <li>Flash kernel using pmbootstrap flasher flash_kernel</li>
 </ul>
-<h2><span class="mw-headline" id="Current_Known_Problems">Current Known Problems</span></h2>
-<ul>
-<li>Red Tint</li>
-<li>Power button doesn't do anything</li>
-<li>Screen on 24/7</li>
-<li>Only works on Weston</li>
-</ul>
-<h2><span class="mw-headline" id="Mainline_Progress">Mainline Progress</span></h2>
-<p>Mainline progress can be found here: <a rel="nofollow" class="external free" href="https://gitlab.com/LogicalErzor/mainline-kernel-pmos-aports">https://gitlab.com/LogicalErzor/mainline-kernel-pmos-aports</a>
-</p>
-<p>Also look at the SoC page for general tips and tricks: <a rel="nofollow" class="external free" href="https://wiki.postmarketos.org/wiki/Qualcomm_Snapdragon_S4_Plus_(MSM8960)">https://wiki.postmarketos.org/wiki/Qualcomm_Snapdragon_S4_Plus_(MSM8960)</a>
-</p>
-<h2><span class="mw-headline" id="Smallest_CAF_Kernel">Smallest CAF Kernel</span></h2>
-<p>Methodology: <a rel="nofollow" class="external free" href="https://gitlab.com/LogicalErzor/find-closest-caf-tag">https://gitlab.com/LogicalErzor/find-closest-caf-tag</a> (Can also use: <a rel="nofollow" class="external free" href="https://gitlab.com/postmarketOS/wiki/-/issues/43">https://gitlab.com/postmarketOS/wiki/-/issues/43</a>)
-</p>
-<p>Samsung Provided Kernel: <a rel="nofollow" class="external free" href="https://gitlab.com/LogicalErzor/samsung-downstream-kernel">https://gitlab.com/LogicalErzor/samsung-downstream-kernel</a>
-</p>
-<p>In order to find the smallest diff, I iterated over every tag. It seems like M8960AAAAANLYA106305 in the CAF kernel has the smallest size. Here is a list of the other tags:
-</p>
-<p><a rel="nofollow" class="external free" href="https://pastebin.com/aXQdCwAw">https://pastebin.com/aXQdCwAw</a>
-</p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow" class="external text" href="https://www.gsmarena.com/samsung_galaxy_express_i437-5018.php">GSMArena</a></li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/device-samsung-expressatt">Device package</a></li>
-<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/linux-samsung-expressatt">Kernel package</a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/device/testing/linux-postmarketos-qcom-msm8960">Kernel package</a></li>
+<li><a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/MSM8960_Mainlining">MSM8960 Mainlining</a></li>
 </ul>
 </div></div>
 		
@@ -436,9 +413,9 @@ armv7</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Express_SGH-I437_(samsung-expressatt)&amp;oldid=42934">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Express_SGH-I437_(samsung-expressatt)&amp;oldid=42934</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Express_SGH-I437_(samsung-expressatt)&amp;oldid=46924">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Express_SGH-I437_(samsung-expressatt)&amp;oldid=46924</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:27.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 27 July 2023, at 01:14.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

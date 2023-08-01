@@ -65,12 +65,17 @@ testing</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Original software</th>
     <td class="" style="">
-Android 4.2.2</td>
+Android</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="The version the device was shipped with.">Original version</abbr></th>
+    <td class="" style="">
+4.2.2</td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">postmarketOS kernel</th>
     <td class="" style="">
-downstream 3.1.10</td>
+downstream 3.1.10, mainline 6.4.0</td>
 </tr>
 <tr><th colspan="2" class="" style="text-align:center;">Hardware</th></tr>
 <tr class="">
@@ -97,7 +102,7 @@ NVIDIA ULP GeForce GPU 12 cores</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Storage</th>
     <td class="" style="">
-8 GB</td>
+8, 16, 32 GB</td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Memory</th>
@@ -108,6 +113,16 @@ NVIDIA ULP GeForce GPU 12 cores</td>
 <th scope="row" style="text-align:left;">Architecture</th>
     <td class="" style="">
 armv7</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Type</th>
+    <td class="" style="">
+tablet</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Unixbench Whet/Dhry score</th>
+    <td class="" style="">
+1161.4</td>
 </tr>
 <tr><td colspan="2" style="text-align:right"></td></tr>
 </tbody>
@@ -154,13 +169,13 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Instead of a Linux kernel fork, it is possible to run mainline.">Mainline</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Charging and battery level reporting works">Battery</abbr></th>
     <td class="" style="">
-<div class="feature feature-partial">Partial</div>
+<div></div>
 </td>
 </tr>
 <tr class="">
@@ -220,7 +235,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Near Field Communication">NFC</abbr></th>
     <td class="" style="">
-<div class="feature feature-unavailable">Unavailable</div>
+<div></div>
 </td>
 </tr>
 <tr><td colspan="2" style="text-align:right"></td></tr>
@@ -280,25 +295,25 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Camera Flash</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Keyboard</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Touchpad</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">USB-A</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -310,37 +325,103 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Ir TX</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Ir RX</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Stylus</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Haptics</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Ethernet</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">FOSS bootloader</th>
     <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr><td colspan="2" style="text-align:right"></td></tr>
+</tbody>
+</table>
+<table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
+<caption class="" style="">U-Boot</caption>
+<tbody>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="It is possible to replace stock bootloader with U-Boot.">Primary Bootloader</abbr></th>
+    <td class="" style="">
+<div class="feature feature-partial">Partial</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="It is possible to chainload U-Boot from stock bootloader.">Secondary Bootloader</abbr></th>
+    <td class="" style="">
 <div></div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="Latest versions of U-Boot are not broken and it is possible to use them.">Mainline</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="It is possible to boot from internal storage (e.g. eMMC or UFS).">Internal Storage</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="It is possible to boot from SD card.">SD card</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="It is possible to boot from a USB storage or connect a keyboard.">USB Host</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="It is possible to use device as a peripheral in U-Boot, e.g. for fastboot mode.">USB Peripheral</abbr></th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Display</th>
+    <td class="" style="">
+<div class="feature feature-yes">Works</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Keyboard</th>
+    <td class="" style="">
+<div class="feature feature-unavailable">Unavailable</div>
+</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="It is possible to navigate in boot menu or grub with volume and power buttons.">Buttons</abbr></th>
+    <td class="" style="">
+<div class="feature feature-partial">Partial</div>
 </td>
 </tr>
 <tr><td colspan="2" style="text-align:right"></td></tr>
@@ -350,11 +431,12 @@ armv7</td>
 </p>
 <p><br>
 </p>
-<table class="infobox" style="float: right; width: 22em; color: inherit; background-color: #f7fff7; border: 3px solid #8a8;"><tbody><tr><td>
-<b>This device is based on the <a href="../en/Nvidia_Tegra.html" class="mw-redirect" title="Nvidia Tegra 3 (tegra30)">Tegra 3</a>.</b><br>See the SoC page for common tips, guides and troubleshooting steps</td></tr></tbody></table>
+<p><br>
+</p>
 <h2><span class="mw-headline" id="Notes">Notes</span></h2>
 <ul>
-<li>Device SoC should be similar to SoC in <a href="../en/Google_Nexus_7_2012_(asus-grouper).html" title="Google Nexus 7 2012 (asus-grouper)">Google Nexus 7 2012</a> and <a href="../en/Google_Nexus_7_2012_GSM_(asus-tilapia).html" title="Google Nexus 7 2012 GSM (asus-tilapia)">Google Nexus 7 2012 GSM</a>
+<li>Mainline in progress now.</li>
+<li>Device SoC is similar to SoC in <a href="../en/Google_Nexus_7_2012_(asus-grouper).html" title="Google Nexus 7 2012 (asus-grouper)">Google Nexus 7 2012</a> and <a href="../en/Google_Nexus_7_2012_GSM_(asus-tilapia).html" title="Google Nexus 7 2012 GSM (asus-tilapia)">Google Nexus 7 2012 GSM</a>
 </li>
 <li>OTG available - full support, connect and disconnect, at least USB keyboard-mouse and USB drives <s><span style="color:#777777">partially (full USB port, working only when device connected before booting)</span></s>
 </li>
@@ -365,17 +447,23 @@ armv7</td>
 </ul>
 <h2><span class="mw-headline" id="Tested_environments">Tested environments</span></h2>
 <ul>
+<li>xfce4: works better than other environments, but still have some issues</li>
 <li>lxqt: works fine, can't manage to reboot or power off in UI, doing through terminal</li>
-<li>xfce4: starts only with startxfce4 in console, weirdly buggy</li>
 <li>console: works with connected wireless USB keyboard-mouse</li>
 <li>fbkeyboard: works, can't test touchscreen</li>
 </ul>
 <p>Any other UIs is not working, or I can't get them to work for now.
 </p>
 <h2><span class="mw-headline" id="How_to_enter_flash_mode">How to enter flash mode</span></h2>
-<p>Press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> keys, with <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> move selection to <code>Fastboot Protocol</code>, then choose it by pressing <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span>.
+<p><b>fastboot</b>: Press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> keys, with <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> move selection to <code>Fastboot Protocol</code>, then choose it by pressing <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span>.
+</p>
+<p><b>APX</b>: Press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> keys, with <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> move selection to <code>Forced Recovery</code>, then choose it by pressing <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span>.
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">For now this section refers to downstream kernel installation.</td>
+</tr></tbody></table>
 <p>We can install to sdcard now, so fastboot restrictions is now in the past.
 </p>
 <ul>
@@ -386,8 +474,7 @@ armv7</td>
 <li>
 <code>pmbootstrap flasher flash_kernel</code> Partition limit: 8 MB</li>
 </ul>
-<p><br>
-Legacy information, about flashing directly to the device:
+<p>Legacy information, about flashing directly to the device:
 </p>
 <ul><li><code>pmbootstrap flasher flash_rootfs</code></li></ul>
 <p>It's possible to flash to <i>userdata</i>, but fastboot limit size of images is still to figure out (possibly 800 MB).
@@ -396,8 +483,339 @@ Legacy information, about flashing directly to the device:
 <li><code>pmbootstrap flasher flash_rootfs --partition userdata</code></li>
 <li><code>fastboot format system</code></li>
 </ul>
+<h2><span class="mw-headline" id="Mainline_status">Mainline status</span></h2>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This part is in development.</td>
+</tr></tbody></table>
+<p>Tablet boots mainline kernel 6.4.0-rc6 <a rel="nofollow" class="external free" href="https://github.com/grate-driver/linux">https://github.com/grate-driver/linux</a>, adaptation is going on in forked tree <a rel="nofollow" class="external free" href="https://github.com/DX37/linux/tree/wexler-qc750">https://github.com/DX37/linux/tree/wexler-qc750</a>
+</p>
+<table class="wikitable feature-colors">
+<tbody>
+<tr>
+<th>Status
+</th>
+<th>Hardware
+</th>
+<th>Info
+</th>
+</tr>
+<tr>
+<td>P
+</td>
+<td>Booting
+</td>
+<td>Mainline kernel boots with U-Boot, so it needs to be placed in pmOS_boot partition on microSD card. Can be in theory loaded from eMMC boot partition, but grate kernel is bigger, than old downstream kernel, and surpasses 8 Mb partition size. Needs testing.
+</td>
+</tr>
+<tr>
+<td>P
+</td>
+<td>Bootloader
+</td>
+<td>Open source bootloader <a rel="nofollow" class="external text" href="https://github.com/clamor-s/u-boot/tree/qc750">U-Boot</a> is available as alternative for vendor bootloader and can replace it, but starts only sometimes.
+</td>
+</tr>
+<tr>
+<td>Y
+</td>
+<td>Panel
+</td>
+<td>Chunghwa CLAA070WP03XG LVDS simple panel.
+</td>
+</tr>
+<tr>
+<td>Y
+</td>
+<td>Backlight
+</td>
+<td>Simple pwm-backlight GPIO backlight. Working and even manageable in xfce4.
+</td>
+</tr>
+<tr>
+<td>P
+</td>
+<td>miniHDMI output
+</td>
+<td>Maximum output is 1920x1080. Needs manual detection by opening Display settings (in xfce4). No audio.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>Touchscreen
+</td>
+<td>Novatek NT11003 with nt1103-ts driver. Worked in downstream kernel, but can't test it in mainline since I broke touchscreen connector on the motherboard.
+</td>
+</tr>
+<tr>
+<td>Y
+</td>
+<td>microUSB &amp; Full size USB
+</td>
+<td>Works. USB storage and USB peripherals are working (using USB keyboard-mouse kit instead of touchscreen).
+</td>
+</tr>
+<tr>
+<td>Y
+</td>
+<td>Internal memory
+</td>
+<td>eMMC 8 Gb, but can be 16 or even 32 Gb.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>GPS
+</td>
+<td>Not tested yet.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>WiFi
+</td>
+<td>Not tested yet, possibly wl12xx driver.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>Bluetooth
+</td>
+<td>SD8787? Not tested yet.
+</td>
+</tr>
+<tr>
+<td>P
+</td>
+<td>GPIO keys
+</td>
+<td>There is 3 keys on GPIO: Power, Volume up, Volume down. Power key responding only to holding for force poweroff.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>GPIO led
+</td>
+<td>There's only one GPIO led for charging state. Not tested yet, possibly works only on low-level hardware.
+</td>
+</tr>
+<tr>
+<td>Y
+</td>
+<td>Battery
+</td>
+<td>TI BQ27500, works.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>Charger
+</td>
+<td>TI BQ24160, not tested yet.
+</td>
+</tr>
+<tr>
+<td>Y
+</td>
+<td>PMIC
+</td>
+<td>Maxim MAX77663 PMIC.
+</td>
+</tr>
+<tr>
+<td>P
+</td>
+<td>Sound
+</td>
+<td>TI TLV320AIC3206, headphones and speakers sound is working, can't test microphone (guess still need UCM for that and speakers/headphones switching).
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>Thermal sensor
+</td>
+<td>NCT1008 ON Semiconductor, not tested yet.
+</td>
+</tr>
+<tr>
+<td>P
+</td>
+<td>Orientation sensors
+</td>
+<td>Magnetometer Asahi-Kasei AK8975 and accelerometer Kionix KXTF9 seems to be working. Gyroscope Invensense MPU3050 does not.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>Light sensor
+</td>
+<td>ISL29018? ISL29028? Not tested yet.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>Front camera
+</td>
+<td>GC0308, not tested yet.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>Rear camera
+</td>
+<td>T8EV5, not tested yet.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>Modem
+</td>
+<td>usi_3g? Not tested yet.
+</td>
+</tr>
+<tr>
+<td>P
+</td>
+<td>Graphics support
+</td>
+<td>2D acceleration works with xf86-video-opentegra (<a href="../en/Nvidia_Tegra.html#GPU" title="Nvidia Tegra">Nvidia_Tegra#GPU</a>).
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="U-Boot">U-Boot</span></h2>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">This part is in development.</td>
+</tr></tbody></table>
+<p>Current U-Boot status (in development by <a href="../User:Clamor.html" title="User:Clamor">Clamor</a>):
+</p>
+<table class="wikitable feature-colors">
+<tbody>
+<tr>
+<th>Status
+</th>
+<th>Feature
+</th>
+<th>Info
+</th>
+</tr>
+<tr>
+<td>P
+</td>
+<td>Primary bootloader
+</td>
+<td>U-Boot can be loaded with patched nvflash (tegra30_debrick) through APX (Forced Recovery), but after flashing starting only sometimes.
+<p>Created bricksafe.img successfully restores vendor bootloader (and original ROM flash, of course).
+</p>
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>Secondary bootloader
+</td>
+<td>U-Boot chainloading from both /boot and /recovery partitions not tested.
+</td>
+</tr>
+<tr>
+<td>Y
+</td>
+<td>Panel
+</td>
+<td>LVDS simple panel works.
+</td>
+</tr>
+<tr>
+<td>Y
+</td>
+<td>MicroSD
+</td>
+<td>Fully functional and detectable. Can be used as boot source. Can be mounted from U-Boot.
+</td>
+</tr>
+<tr>
+<td>Y
+</td>
+<td>eMMC
+</td>
+<td>Fully functional and detectable. Can be used as boot source. Can be mounted from U-Boot.
+</td>
+</tr>
+<tr>
+<td>Y
+</td>
+<td>Boot kernel
+</td>
+<td>Yes, and can be highly adjusted with extlinux.conf.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>Boot menu
+</td>
+<td>Not tested.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>Power management
+</td>
+<td>Not tested.
+</td>
+</tr>
+<tr>
+<td>P
+</td>
+<td>Fastboot
+</td>
+<td>Not fully tested.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>Bricksafe hook (legacy)
+</td>
+<td>Not tested.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>Boot Android
+</td>
+<td>Not tested and possibly not working.
+</td>
+</tr>
+<tr>
+<td>?
+</td>
+<td>Self update
+</td>
+<td>Not tested.
+</td>
+</tr>
+</tbody>
+</table>
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
-<ul><li><a href="../User:DragonX256.html" title="User:DragonX256">DragonX256</a></li></ul>
+<ul>
+<li><a href="../User:DragonX256.html" title="User:DragonX256">DragonX256</a></li>
+<li><a href="../User:Clamor.html" title="User:Clamor">Clamor</a></li>
+</ul>
 <h2>
 <span id="Maintainer(s)"></span><span class="mw-headline" id="Maintainer.28s.29">Maintainer(s)</span>
 </h2>
@@ -405,7 +823,7 @@ Legacy information, about flashing directly to the device:
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
 <li>
-<a href="../User:DragonX256.html" title="User:DragonX256">DragonX256</a> (<span class="cargoFieldName">Notes:</span> Tegra 3 tablet, trying to mainline with <a href="../User:Clamor.html" title="User:Clamor">Clamor</a>)</li>
+<a href="../User:DragonX256.html" title="User:DragonX256">DragonX256</a> (<span class="cargoFieldName">Notes:</span> Tegra 3 tablet, trying to mainline)</li>
 </ul></div>
 <p><br>
 </p>
@@ -428,7 +846,8 @@ Legacy information, about flashing directly to the device:
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
 <li><a href="../en/Category:Devices.html" title="Category:Devices">Devices</a></li>
-<li><a href="/index.php?title=Category:Android_4.2.2&amp;action=edit&amp;redlink=1" class="new" title="Category:Android 4.2.2 (page does not exist)">Android 4.2.2</a></li>
+<li><a href="/index.php?title=Category:Tablet&amp;action=edit&amp;redlink=1" class="new" title="Category:Tablet (page does not exist)">Tablet</a></li>
+<li><a href="../en/Category:Android.html" title="Category:Android">Android</a></li>
 <li><a href="/index.php?title=Category:WEXLER&amp;action=edit&amp;redlink=1" class="new" title="Category:WEXLER (page does not exist)">WEXLER</a></li>
 </ul>
 </div></div>
@@ -440,9 +859,9 @@ Legacy information, about flashing directly to the device:
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=WEXLER_Tab_7t_(wexler-qc750)&amp;oldid=46394">https://wiki.postmarketos.org/index.php?title=WEXLER_Tab_7t_(wexler-qc750)&amp;oldid=46394</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=WEXLER_Tab_7t_(wexler-qc750)&amp;oldid=47041">https://wiki.postmarketos.org/index.php?title=WEXLER_Tab_7t_(wexler-qc750)&amp;oldid=47041</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 10 July 2023, at 16:43.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 30 July 2023, at 04:54.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

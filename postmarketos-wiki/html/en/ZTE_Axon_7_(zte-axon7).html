@@ -364,11 +364,26 @@ aarch64</td>
 <p><br>
 </p>
 <h2><span class="mw-headline" id="How_to_enter_flash_mode">How to enter flash mode</span></h2>
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>WARNING:</b> Device may get stuck in EDL mode. To reset drain or disconnect the battery.</td>
+</tr></tbody></table>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>Note:</b> Fastboot may not be available on latest stock firmware</td>
+</tr></tbody></table>
 <ul>
 <li>
-<b>Fastboot</b>: Power on the device by pressing and holding <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span>.</li>
+<b>EDL Mode</b>: Hold down <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> while connecting the device to a computer with a USB cable.</li>
 <li>
-<b>Recovery</b>: Power on the device by pressing and holding <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span>.</li>
+<b>Bootloader</b>: Boot into recovery and select 'Reboot to bootloader' or run <code>adb reboot bootloader</code> on a computer from Android or factory test mode</li>
+<li>
+<b>Recovery</b>: Power on the device by holding <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span>.</li>
+<li>
+<b>Factory test mode (FTM)</b>: Power on the device by holding <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span>
+</li>
 </ul>
 <h2><span class="mw-headline" id="Unlocking_the_bootloader">Unlocking the bootloader</span></h2>
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
@@ -376,57 +391,40 @@ aarch64</td>
 <td style="padding: 0.35em 0.9em; width: 100%;">
 <b>Note:</b> This has been only tested on A2017<b>G</b> version of the Axon 7</td>
 </tr></tbody></table>
-<p>Unlocking the bootloader on this phone is quite complicated and dangerous so only proceed with caution. This will also wipe userdata so be sure to backup any important files.
+<p>Unlocking the bootloader on this phone is quite complicated and dangerous, so only proceed with caution. This will also wipe userdata so be sure to backup any important files.
 </p>
-<div class="toccolours mw-collapsible" style="overflow:auto;">
-<div style="font-weight:bold;line-height:1.6;">Unlocking the bootloader</div>
-<div class="mw-collapsible-content">
 <ol>
 <li>Download and Install the <a rel="nofollow" class="external text" href="https://github.com/bkerler/edl">EDL tool</a> (follow the instrucitons on the GitHub page to install it)</li>
-<li>Boot into EDL mode: <code>adb reboot edl</code>
-</li>
+<li>Boot into EDL mode with <code>adb reboot edl</code> from Android or with the key combination</li>
 <li>Backup all partitions from the phone (without userdata):
 <dl><dd><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ./edl --loader<span class="o">=</span>Loaders/zte/009470e100040000_d1b89b1385b0db46_fhprg_peek.bin --memory<span class="o">=</span>ufs rl backup --skip<span class="o">=</span>userdata --genxml
 </pre></div></dd></dl>
 </li>
-<li>Downgrade the phone to B12 Nougat firmware:
+<li>Downgrade the phone to Android 7 (Nougat) firmware:
 <ol>
-<li>Download the EDL mode compatible firmware from <a rel="nofollow" class="external text" href="https://androidfilehost.com/?fid=1322778262903993129">here</a> or <a rel="nofollow" class="external text" href="https://androidfilehost.com/?fid=7161016148664813849">here</a> and extract it</li>
+<li>Download the Android 7 EDL flashable firmware from <a rel="nofollow" class="external text" href="https://androidfilehost.com/?w=files&amp;flid=220826">here</a> and extract it</li>
 <li>Flash the firmware (Only proceed if partitions were backed up!)
 <dl><dd><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ./edl --loader<span class="o">=</span>Loaders/zte/009470e100040000_d1b89b1385b0db46_fhprg_peek.bin --memory<span class="o">=</span>ufs qfil A2017G_B12_NOUGAT_FULL_EDL/rawprogram*.xml A2017G_B12_NOUGAT_FULL_EDL/patch*.xml A2017G_B12_NOUGAT_FULL_EDL
 </pre></div></dd></dl>
 </li>
 </ol>
+<ul><li>This step can also be done with <code>qdl</code> like <a href="../en/ZTE_Axon_7_(zte-axon7).html#Back_to_stock_firmware" title="ZTE Axon 7 (zte-axon7)">this</a>
+</li></ul>
 </li>
-<li>Reboot the phone by just holding <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> for a few seconds</li>
-<li>Boot into the stock Nougat system and enable "OEM Unlocking"</li>
-<li>Reboot into EDL mode again: <code>adb reboot edl</code>
-</li>
-<li>Download and flash signed TWRP from <a rel="nofollow" class="external text" href="https://www.androidfilehost.com/?fid=7161016148664813848">here</a> or <a rel="nofollow" class="external text" href="https://androidfilehost.com/?fid=673956719939817588">here</a> (look for recovery.bin)
-<dl><dd><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ./edl --loader<span class="o">=</span>Loaders/zte/009470e100040000_d1b89b1385b0db46_fhprg_peek.bin --memory<span class="o">=</span>ufs w recovery twrp_signed-axon7.bin --lun<span class="o">=</span><span class="m">4</span>
+<li>Reboot the phone by holding down <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> for a few seconds</li>
+<li>Boot into the stock Nougat ROM and enable OEM Unlocking in the developer settings</li>
+<li>Reboot into EDL mode again</li>
+<li>Download new bootloader files <a rel="nofollow" class="external text" href="https://www.androidfilehost.com/?fid=7161016148664813850">aboot_unlock.img</a> and <a rel="nofollow" class="external text" href="https://www.androidfilehost.com/?fid=7161016148664813851">fbop_unlock.img</a> to allow unlocking</li>
+<li>Flash new bootloader files
+<dl><dd><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ./edl --loader<span class="o">=</span>Loaders/zte/009470e100040000_d1b89b1385b0db46_fhprg_peek.bin --memory<span class="o">=</span>ufs --lun<span class="o">=</span><span class="m">4</span> w aboot aboot_unlock.img
+<span class="gp">$</span> ./edl --loader<span class="o">=</span>Loaders/zte/009470e100040000_d1b89b1385b0db46_fhprg_peek.bin --memory<span class="o">=</span>ufs --lun<span class="o">=</span><span class="m">0</span> w fbop fbop_unlock.img
 </pre></div></dd></dl>
 </li>
-<li>Reboot the phone into recovery (see above)</li>
-<li>Download patched <a rel="nofollow" class="external text" href="https://www.androidfilehost.com/?fid=7161016148664813850">aboot.img</a> and <a rel="nofollow" class="external text" href="https://www.androidfilehost.com/?fid=7161016148664813851">fbop/fastboot_unlock.img</a> (<a rel="nofollow" class="external text" href="https://mega.nz/#F!rcFCQZ7C!vn457hU1zDwc0uVpvm5otw">aboot.img mirror</a> and <a rel="nofollow" class="external text" href="https://androidfilehost.com/?fid=529152257862665656">fbop/fastboot_unlock.img mirror</a>)</li>
-<li>Backup current partitions and flash the patched ones
-<dl><dd><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> adb push aboot.img fastboot_unlock.img /sdcard
-<span class="gp">$</span> adb shell dd <span class="k">if</span><span class="o">=</span>/dev/block/bootdevice/by-name/fbop <span class="nv">of</span><span class="o">=</span>/sdcard/fbop_lock.img
-<span class="gp">$</span> adb shell dd <span class="k">if</span><span class="o">=</span>/dev/block/bootdevice/by-name/aboot <span class="nv">of</span><span class="o">=</span>/sdcard/aboot_lock.img
-<span class="gp">$</span> adb pull /sdcard/fbop_lock.img /sdcard/aboot_lock.img . <span class="c1">#save in safe place</span>
-<span class="gp">$</span> adb shell dd <span class="k">if</span><span class="o">=</span>/sdcard/fastboot_unlock.img <span class="nv">of</span><span class="o">=</span>/dev/block/bootdevice/by-name/fbop
-<span class="gp">$</span> adb shell dd <span class="k">if</span><span class="o">=</span>/sdcard/aboot.img <span class="nv">of</span><span class="o">=</span>/dev/block/bootdevice/by-name/aboot
-<span class="gp">$</span> adb reboot bootloader
-</pre></div></dd></dl>
-</li>
-<li>Unlock the bootloader (finally): <code>fastboot oem unlock</code>
-</li>
-<li>Reboot back into the bootloader and flash the latest <a rel="nofollow" class="external text" href="https://twrp.me/zte/zteaxon7.html">official TWRP</a>: <code>fastboot flash recovery twrp-3.5.2_9-0-ailsa_ii.img</code>
+<li>Unlock the bootloader: <code>fastboot oem unlock</code>
 </li>
 </ol>
-<p>Your ZTE Axon 7 should now have an unlocked bootloader with latest TWRP, for questions ask @ungeskriptet:matrix.org on Matrix.
+<p>Your ZTE Axon 7 should now have an unlocked bootloader. For questions ask @ungeskriptet:matrix.org on Matrix.
 </p>
-</div>
-</div>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
 <p>/* Not yet */
 </p>
@@ -570,11 +568,24 @@ aarch64</td>
 </tr>
 </tbody>
 </table>
+<h2><span class="mw-headline" id="Back_to_stock_firmware">Back to stock firmware</span></h2>
+<p>Linux tutorial:
+</p>
+<ol>
+<li><a href="../en/ZTE_Axon_7_(zte-axon7).html#How_to_enter_flash_mode" title="ZTE Axon 7 (zte-axon7)">Enter EDL Mode</a></li>
+<li>Download the <b>qdl</b> tool from <a rel="nofollow" class="external text" href="https://www.96boards.org/documentation/consumer/guides/qdl.md.html">here</a> and build it. Arch Linux users can simply install the <b><a rel="nofollow" class="external text" href="https://aur.archlinux.org/packages/qdl">qdl</a></b> AUR package.</li>
+<li>Download the firmware from <a rel="nofollow" class="external text" href="https://androidfilehost.com/?w=files&amp;flid=220826">here</a>.</li>
+<li>Open a terminal inside the extracted ZIP directory</li>
+<li>Execute the following command: <code>qdl --storage ufs --include ./ ./prog_ufs_firehose_8996_ddr.elf ./rawprogram0.xml ./patch0.xml ./rawprogram1.xml ./patch1.xml ./rawprogram2.xml ./patch2.xml ./rawprogram3.xml ./patch3.xml ./rawprogram4.xml ./patch4.xml ./rawprogram5.xml ./patch5.xml</code>
+</li>
+<li>After it has finished, the command will exit itself and the phone should reset. If it does not reset automatically, hold down the power button. Now you should be able to boot back into stock firmware.</li>
+</ol>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow" class="external text" href="https://www.gsmarena.com/zte_axon_7-8067.php">GSMArena page</a></li>
 <li><a rel="nofollow" class="external text" href="https://forum.xda-developers.com/t/guide-a2017g-install-twrp-unlock-bl-flash-custom-rom.3517379/">How to unlock the bootloader</a></li>
 <li><a rel="nofollow" class="external text" href="https://github.com/ungeskriptet/linux/tree/zte-axon7">Mainline kernel fork</a></li>
+<li><a rel="nofollow" class="external text" href="http://deviceinfohw.ru/devices/item.php?item=85921">Device Info HW</a></li>
 </ul>
 </div></div>
 		
@@ -593,9 +604,9 @@ aarch64</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=ZTE_Axon_7_(zte-axon7)&amp;oldid=43222">https://wiki.postmarketos.org/index.php?title=ZTE_Axon_7_(zte-axon7)&amp;oldid=43222</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=ZTE_Axon_7_(zte-axon7)&amp;oldid=46995">https://wiki.postmarketos.org/index.php?title=ZTE_Axon_7_(zte-axon7)&amp;oldid=46995</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:33.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 28 July 2023, at 11:33.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>
