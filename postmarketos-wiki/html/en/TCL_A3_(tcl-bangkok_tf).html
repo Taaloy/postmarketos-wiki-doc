@@ -31,13 +31,11 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<p><br>
-</p>
 <table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
 <caption class="" style="">TCL A3</caption>
 <tbody>
 <tr class=""><td colspan="2" class="" style="text-align:center;">
-<a href="../Bangkok_tf-booting-pmOS.jpg" class="image"><img alt="An image of the TCL A3 with the postmarketOS splash screen." src="../Bangkok_tf-booting-pmOS.jpg" decoding="async" width="200" height="323" srcset="../300px-Bangkok_tf-booting-pmOS.jpg 1.5x ../400px-Bangkok_tf-booting-pmOS.jpg 2x"></a><br><span style="">An image of the TCL A3 with the postmarketOS splash screen.</span>
+<a href="../Bangkok_tf-booting-pmOS.jpg" class="image"><img alt="The TCL A3 with the postmarketOS splash screen running the downstream kernel." src="../Bangkok_tf-booting-pmOS.jpg" decoding="async" width="200" height="323" srcset="../300px-Bangkok_tf-booting-pmOS.jpg 1.5x ../400px-Bangkok_tf-booting-pmOS.jpg 2x"></a><br><span style="">The TCL A3 with the postmarketOS splash screen running the downstream kernel.</span>
 </td></tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Manufacturer</th>
@@ -77,13 +75,13 @@ Android</td>
 <tr class="">
 <th scope="row" style="text-align:left;">postmarketOS kernel</th>
     <td class="" style="">
-4.19.127</td>
+6.5.0-rc5</td>
 </tr>
 <tr><th colspan="2" class="" style="text-align:center;">Hardware</th></tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Chipset</th>
     <td class="" style="">
-<a href="/index.php?title=MediaTek_Helio_P22_(MT6762)&amp;action=edit&amp;redlink=1" class="new" title="MediaTek Helio P22 (MT6762) (page does not exist)">MediaTek Helio P22 (MT6762)</a>
+<a href="../en/MediaTek_MT6765.html" class="mw-redirect" title="MediaTek Helio P22 (MT6762)">MediaTek Helio P22 (MT6762)</a>
 </td>
 </tr>
 <tr class="">
@@ -153,7 +151,7 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Display works. Ideally with sleep mode and brightness control.">Display</abbr></th>
     <td class="" style="">
-<div class="feature feature-yes">Works</div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
@@ -171,7 +169,7 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Instead of a Linux kernel fork, it is possible to run mainline.">Mainline</abbr></th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-partial">Partial</div>
 </td>
 </tr>
 <tr class="">
@@ -357,12 +355,14 @@ handset</td>
 <tr class="">
 <th scope="row" style="text-align:left;">FOSS bootloader</th>
     <td class="" style="">
-<div class="feature feature-unavailable">Unavailable</div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr><td colspan="2" style="text-align:right"></td></tr>
 </tbody>
 </table>
+<p><br>
+</p>
 <p><br>
 </p>
 <p><br>
@@ -380,6 +380,7 @@ handset</td>
 <ul>
 <li>Justsoup</li>
 <li>hexaheximal</li>
+<li>adomerle</li>
 </ul>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
@@ -389,12 +390,14 @@ handset</td>
 <p><br>
 </p>
 <h2><span class="mw-headline" id="How_to_enter_flash_mode">How to enter flash mode</span></h2>
-<p>Due to the bootloader blocking access to fastboot mode, a <a rel="nofollow" class="external text" href="https://mega.nz/folder/4B9WVYxQ#FFzIdlQS-mdA7hqpz414lg/folder/YYsTyTiR#readme">TWRP</a> recovery is required for flashing.
-</p>
 <ul><li>
 <b>Recovery</b>: Power on the device while holding Volume Up + Power.</li></ul>
 <ul><li>
 <b>MTKClient</b>: Hold Volume Up + Volume Down and plug the device into the host computer running MTKClient.</li></ul>
+<table role="text container" style="color: inherit; background-color: #D3E4FA; border: 1px solid #0B6B9F; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Notice" src="../Notice.png" decoding="async" title="Notice" width="20" height="20" srcset="../Notice.png 1.5x ../Notice.png 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;"><b>Before following any installation method, follow the MTKClient section to unlock the bootloader. Installing TWRP is optional but highly recommended.</b></td>
+</tr></tbody></table>
 <h2>
 <span id="Installation_(pmbootstrap)"></span><span class="mw-headline" id="Installation_.28pmbootstrap.29">Installation (pmbootstrap)</span>
 </h2>
@@ -407,15 +410,14 @@ handset</td>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
 <span class="gp">$</span> pmbootstrap install
 <span class="gp">$</span> pmbootstrap flasher flash_kernel
-<span class="gp">$</span> pmbootstrap flasher flash_userdata
+<span class="gp">$</span> pmbootstrap flasher flash_rootfs
+<span class="gp">$</span> pmbootstrap flasher flash_dtbo
 </pre></div>
 <p><br>
 </p>
 <h2>
 <span id="Installation_(recovery)"></span><span class="mw-headline" id="Installation_.28recovery.29">Installation (recovery)</span>
 </h2>
-<p><b>Before following this installation method, follow the MTKClient section below.</b>
-</p>
 <p>The normal pmbootstrap flashing can take a while depending on the user interface chosen. As such, flashing with the <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Installation_from_recovery_mode#readme">recovery installation</a> is also supported.
 </p>
 <p>Use <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a> to build your own installation image.
@@ -465,7 +467,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>USB module missing from downstream kernel.
+<td>Initial dts nodes added. USB initializes but only a very weak connection can be made to the device.
 </td>
 </tr>
 <tr>
@@ -487,18 +489,29 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>Most likely a sysfs issue. Cannot debug until USB Networking works.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
 <td>
 <code>Display</code>
 </td>
+<td>Zhunyi Z69001-ZC (gc9702p)
+</td>
+<td>Broken
+</td>
+<td>No mainline driver. Work is being done to create one.
+</td>
+</tr>
+<tr>
+<td>
+<code>Framebuffer</code>
+</td>
 <td>Unknown
 </td>
-<td>Works
+<td>Broken
 </td>
-<td>Surprisingly works ootb without any hacks.
+<td>See Display.
 </td>
 </tr>
 <tr>
@@ -509,7 +522,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>Proprietary driver. No way to test without USB Networking. Presumed broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -520,7 +533,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>Does not work without the Touchscreen.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -529,9 +542,9 @@ $ python mtk reset</pre></div>
 </td>
 <td>N/A
 </td>
-<td>Broken
+<td>Partial
 </td>
-<td>There is some basic support for the MT6765 SOC, which the MT6762 is compatible with, but it has not been tested yet.
+<td>Justsoup has added basic mt6762 support to a <a rel="nofollow" class="external text" href="https://gitlab.com/mtk-mainline/mt6762/linux#readme">mainline fork</a> but is only able to get past the bootloader.
 </td>
 </tr>
 <tr>
@@ -542,7 +555,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>No way to test without USB Networking. Presumed broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -553,7 +566,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>Proprietary driver. No way to test without USB Networking. Definitely broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -564,7 +577,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>Proprietary driver. No way to test without USB Networking. Presumed broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -575,7 +588,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>Proprietary driver. No way to test without USB Networking. Presumed broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -586,7 +599,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>Proprietary driver. No way to test without USB Networking. Definitely broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -597,7 +610,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>No way to test without USB Networking. Presumed broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -608,7 +621,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>Proprietary driver. No way to test without USB Networking. Definitely broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -619,7 +632,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>Proprietary driver. No way to test without USB Networking. Definitely broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -630,7 +643,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>Proprietary driver. No way to test without USB Networking. Definitely broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -641,7 +654,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>USB module missing from downstream kernel.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -652,7 +665,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>No way to test without USB Networking. Presumed broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -663,7 +676,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>No way to test without USB Networking. Presumed broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -674,7 +687,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>No way to test without USB Networking. Presumed broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -685,7 +698,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>No way to test without USB Networking. Presumed broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -696,7 +709,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>No way to test without USB Networking. Presumed broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -707,7 +720,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>No way to test without USB Networking. Presumed broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -718,7 +731,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>No way to test without USB Networking. Presumed broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -729,7 +742,7 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>No way to test without USB Networking. Probably works. Presumed broken.
+<td>No work done yet for mainline.
 </td>
 </tr>
 <tr>
@@ -740,11 +753,47 @@ $ python mtk reset</pre></div>
 </td>
 <td>Broken
 </td>
-<td>No way to test without USB Networking. Presumed broken.
+<td>No work done yet for mainline.
+</td>
+</tr>
+<tr>
+<td>
+<code>Downstream</code>
+</td>
+<td>N/A
+</td>
+<td>Works
+</td>
+<td>Abandoned. Only the display and storage access works.
+</td>
+</tr>
+<tr>
+<td>
+<code>FOSS Bootloader</code>
+</td>
+<td>N/A
+</td>
+<td>Broken
+</td>
+<td>MediaTek secure boot is enabled so a new lk cannot be flashed. Most likely will require a U-Boot port.
 </td>
 </tr>
 </tbody>
 </table>
+<h2><span class="mw-headline" id="Mainlining">Mainlining</span></h2>
+<p>The mainlining workflow for this device is the following:
+</p>
+<ul>
+<li>Patch Kernel</li>
+<li>Commit</li>
+<li><code>mtk e expdb</code></li>
+<li><code>pmbootstrap flasher flash_kernel</code></li>
+<li>Boot Device Twice</li>
+<li>Remove Battery Before Third Boot</li>
+<li><code>mtk r expdb expdb.img</code></li>
+<li>Read expdb.img as a Text File</li>
+<li>Read Logs from expdb.img</li>
+</ul>
 <h2><span class="mw-headline" id="Bugs">Bugs</span></h2>
 <ul>
 <li>Sometimes TWRP is unable to read the /data partition. An easy fix is to wipe the partition using TWRP <b>[THIS WILL WIPE YOUR PMOS INSTALL AND/OR ANY ANDROID DATA LEFTOVER]</b> and then continue with flashing.</li>
@@ -752,10 +801,12 @@ $ python mtk reset</pre></div>
 </ul>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
-<li><a rel="nofollow" class="external text" href="https://sourceforge.net/projects/tcl-mobile/files/#readme">Kernel Source</a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.com/mtk-mainline/mt6762/linux#readme">Mainline Fork</a></li>
 <li><a rel="nofollow" class="external text" href="https://github.com/bkerler/mtkclient#readme">MTKClient</a></li>
 <li><a rel="nofollow" class="external text" href="https://github.com/lowendlibre/lowendlibre#readme">lowendlibre Project</a></li>
 <li><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/commit/caf4d779e30ad7b051ad1076021b15cbc2711d8d#readme">MTKClient integration into pmbootstrap</a></li>
+<li><a rel="nofollow" class="external text" href="https://mega.nz/folder/4B9WVYxQ#FFzIdlQS-mdA7hqpz414lg/folder/YYsTyTiR#readme">TWRP</a></li>
+<li><a rel="nofollow" class="external text" href="https://sourceforge.net/projects/tcl-mobile/files/#readme">Downstream Kernel Source</a></li>
 </ul>
 
 </div></div>
@@ -777,9 +828,9 @@ $ python mtk reset</pre></div>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=TCL_A3_(tcl-bangkok_tf)&amp;oldid=47059">https://wiki.postmarketos.org/index.php?title=TCL_A3_(tcl-bangkok_tf)&amp;oldid=47059</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=TCL_A3_(tcl-bangkok_tf)&amp;oldid=47616">https://wiki.postmarketos.org/index.php?title=TCL_A3_(tcl-bangkok_tf)&amp;oldid=47616</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 30 July 2023, at 21:13.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 14 August 2023, at 17:26.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

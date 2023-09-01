@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Qualcomm Modem Debugging - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Qualcomm_Modem_Debugging rootpage-Qualcomm_Modem_Debugging skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Qualcomm Modem Debugging</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<h2><span class="mw-headline" id="Qualcomm_Modem_Debugging_-_Parse_QMI_commands_from_IPC_Router_Kernel_Dump_using_Libqmi">Qualcomm Modem Debugging - Parse QMI commands from IPC Router Kernel Dump using Libqmi</span></h2>
+<p>Qualcomm modems uses QMI commands for controlling the modem. Part of which is already implemented in the <a rel="nofollow" class="external text" href="https://gitlab.freedesktop.org/mobile-broadband/libqmi">libqmi</a> library.
+In modern qcom SoCs like the SDM845, the IPC Router (downstream) / QRTR (mainline) driver is used as kind of the transport protocol through which the SoC communicates with the modem using QMI commands. Therefore, by basically `printk`-ing the IPC Router driver, we can get the QMI commands that is sent to the modem.
+</p>
+<p>The downstream android IPC Router driver already have logging functionality that can be enabled. However, it only prints the QMI header data and not the entire QMI message.
+So I wrote a small function that pretty prints these QMI messages in XML format (For a good reason😅, we are gonna use it later).
+</p>
+<p>The downstream kernel side implementation can be found here: <a rel="nofollow" class="external free" href="https://gitlab.com/sdm845-mainline/android_kernel_xiaomi_sdm845_downstream/-/commits/modem-dump-qmi">https://gitlab.com/sdm845-mainline/android_kernel_xiaomi_sdm845_downstream/-/commits/modem-dump-qmi</a>
+</p>
+<p>Now we can grab the QMI messages we dumped from the dmesg using something like the following:
+</p>
+<pre>adb root
+adb shell dmesg -t | grep "@QMI@" | sed -e "s/@QMI@//g" &amp;&gt; pocof1_qmi_dump.xml
+</pre>
+<p>Here is a sample output of the saved kernel dump:
+</p>
+<pre>&lt;qmi svc_id="0x03" type="0" txn_id="30" msg_id="0x0043" android_process="DispatcherModul"&gt;
+00 30 00 43 00 00 00 00
+&lt;/qmi&gt;
+&lt;qmi svc_id="0x03" type="0" txn_id="2f" msg_id="0x006c" android_process="DispatcherModul"&gt;
+00 2f 00 6c 00 38 00 11 02 00 14 00 1c 09 00 04
+d2 fb fa fb 36 fc 86 fc 1e 09 00 04 82 fb e6 fb
+4a fc ae fc 28 09 00 04 00 fb 64 fb c8 fb 2c fc
+34 02 00 28 00 36 02 00 3c 00 37 02 00 03 05 00
+&lt;/qmi&gt;
+&lt;qmi svc_id="0x05" type="2" txn_id="0e" msg_id="0x003d" android_process="mpss_IPCRTR"&gt;
+02 0e 00 3d 00 07 00 02 04 00 00 00 00 00 00 00
+&lt;/qmi&gt;
+</pre>
+<h2><span class="mw-headline" id="Parsing_the_QMI_Kernel_Dump_using_Libqmi">Parsing the QMI Kernel Dump using Libqmi</span></h2>
+<p>Now that we have nicely formatted dump of the QMI commands, let's take it bit further by using <a rel="nofollow" class="external text" href="https://gitlab.freedesktop.org/mobile-broadband/libqmi">libqmi</a> to parse already implemented QMI commands! And handily libqmi can also "semi"-parse unknown yet valid QMI commands, which can also be useful. 
+</p>
+<p>The libqmi parsing functionality is implemented in the following repo:
+<a rel="nofollow" class="external free" href="https://gitlab.com/sdm845-mainline/qmi-parse-kernel-dump">https://gitlab.com/sdm845-mainline/qmi-parse-kernel-dump</a>
+</p>
+<p>Compile the <a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/qmi-parse-kernel-dump">qmi-parse-kernel-dump</a> project and run the following to parse the kernel dump XML file we generated:
+</p>
+<pre>parse_qmi_kernel_dump -f pocof1_qmi_dump.xml
+</pre>
+<p>The parsed output of the sample qmi commands we dumped in the "previous" section:
+</p>
+<pre>x--------------------------------------------------------------------
+x--------------------------QMI MESSAGE 1----------------------------
+x-----------------Android Process: DispatcherModul------------------------
+
+QMI Service ID     = 0x03
+QMI Message ID     = 0x0043
+QMI Message Type   = request
+QMI Transaction ID = 30
+
+&gt;&gt;&gt;&gt;&gt;&gt; Parsed QMI using Libqmi
+&lt;&lt;&lt;&lt;&lt;&lt; QMUX:
+&lt;&lt;&lt;&lt;&lt;&lt;   length  = 12
+&lt;&lt;&lt;&lt;&lt;&lt;   flags   = 0x00
+&lt;&lt;&lt;&lt;&lt;&lt;   service = "nas"
+&lt;&lt;&lt;&lt;&lt;&lt;   client  = 1
+&lt;&lt;&lt;&lt;&lt;&lt; QMI:
+&lt;&lt;&lt;&lt;&lt;&lt;   flags       = "none"
+&lt;&lt;&lt;&lt;&lt;&lt;   transaction = 48
+&lt;&lt;&lt;&lt;&lt;&lt;   tlv_length  = 0
+&lt;&lt;&lt;&lt;&lt;&lt;   message     = "Get Cell Location Info" (0x0043)
+
+x--------------------------------------------------------------------
+x--------------------------QMI MESSAGE 2----------------------------
+x-----------------Android Process: DispatcherModul------------------------
+
+QMI Service ID     = 0x03
+QMI Message ID     = 0x006C
+QMI Message Type   = request
+QMI Transaction ID = 2f
+
+&gt;&gt;&gt;&gt;&gt;&gt; Parsed QMI using Libqmi
+&lt;&lt;&lt;&lt;&lt;&lt; QMUX:
+&lt;&lt;&lt;&lt;&lt;&lt;   length  = 68
+&lt;&lt;&lt;&lt;&lt;&lt;   flags   = 0x00
+&lt;&lt;&lt;&lt;&lt;&lt;   service = "nas"
+&lt;&lt;&lt;&lt;&lt;&lt;   client  = 1
+&lt;&lt;&lt;&lt;&lt;&lt; QMI:
+&lt;&lt;&lt;&lt;&lt;&lt;   flags       = "none"
+&lt;&lt;&lt;&lt;&lt;&lt;   transaction = 47
+&lt;&lt;&lt;&lt;&lt;&lt;   tlv_length  = 56
+&lt;&lt;&lt;&lt;&lt;&lt;   message     = "Config Signal Info v2" (0x006C)
+&lt;&lt;&lt;&lt;&lt;&lt; TLV:
+&lt;&lt;&lt;&lt;&lt;&lt;   type       = "CDMA RSSI Delta" (0x11)
+&lt;&lt;&lt;&lt;&lt;&lt;   length     = 2
+&lt;&lt;&lt;&lt;&lt;&lt;   value      = 14:00
+&lt;&lt;&lt;&lt;&lt;&lt;   translated = 20
+&lt;&lt;&lt;&lt;&lt;&lt; TLV:
+&lt;&lt;&lt;&lt;&lt;&lt;   type       = "GSM RSSI Threshold List" (0x1c)
+&lt;&lt;&lt;&lt;&lt;&lt;   length     = 9
+&lt;&lt;&lt;&lt;&lt;&lt;   value      = 04:D2:FB:FA:FB:36:FC:86:FC
+&lt;&lt;&lt;&lt;&lt;&lt;   translated = { [0] = '-1070 ' [1] = '-1030 ' [2] = '-970 ' [3] = '-890 '}
+&lt;&lt;&lt;&lt;&lt;&lt; TLV:
+&lt;&lt;&lt;&lt;&lt;&lt;   type       = "WCDMA RSSI Threshold List" (0x1e)
+&lt;&lt;&lt;&lt;&lt;&lt;   length     = 9
+&lt;&lt;&lt;&lt;&lt;&lt;   value      = 04:82:FB:E6:FB:4A:FC:AE:FC
+&lt;&lt;&lt;&lt;&lt;&lt;   translated = { [0] = '-1150 ' [1] = '-1050 ' [2] = '-950 ' [3] = '-850 '}
+&lt;&lt;&lt;&lt;&lt;&lt; TLV:
+&lt;&lt;&lt;&lt;&lt;&lt;   type       = "LTE RSRP Threshold List" (0x28)
+&lt;&lt;&lt;&lt;&lt;&lt;   length     = 9
+&lt;&lt;&lt;&lt;&lt;&lt;   value      = 04:00:FB:64:FB:C8:FB:2C:FC
+&lt;&lt;&lt;&lt;&lt;&lt;   translated = { [0] = '-1280 ' [1] = '-1180 ' [2] = '-1080 ' [3] = '-980 '}
+&lt;&lt;&lt;&lt;&lt;&lt; TLV:
+&lt;&lt;&lt;&lt;&lt;&lt;   type       = "NR5G SNR Delta" (0x34)
+&lt;&lt;&lt;&lt;&lt;&lt;   length     = 2
+&lt;&lt;&lt;&lt;&lt;&lt;   value      = 28:00
+&lt;&lt;&lt;&lt;&lt;&lt;   translated = 40
+&lt;&lt;&lt;&lt;&lt;&lt; TLV:
+&lt;&lt;&lt;&lt;&lt;&lt;   type       = "NR5G RSRP Delta" (0x36)
+&lt;&lt;&lt;&lt;&lt;&lt;   length     = 2
+&lt;&lt;&lt;&lt;&lt;&lt;   value      = 3C:00
+&lt;&lt;&lt;&lt;&lt;&lt;   translated = 60
+&lt;&lt;&lt;&lt;&lt;&lt; TLV:
+&lt;&lt;&lt;&lt;&lt;&lt;   type       = "NR5G Report" (0x37)
+&lt;&lt;&lt;&lt;&lt;&lt;   length     = 2
+&lt;&lt;&lt;&lt;&lt;&lt;   value      = 03:05
+&lt;&lt;&lt;&lt;&lt;&lt;   translated = [ rate = '3' average_period = '5' ]
+
+x--------------------------------------------------------------------
+x--------------------------QMI MESSAGE 3----------------------------
+x-----------------Android Process: mpss_IPCRTR------------------------
+
+QMI Service ID     = 0x05
+QMI Message ID     = 0x003D
+QMI Message Type   = response
+QMI Transaction ID = 0e
+
+&gt;&gt;&gt;&gt;&gt;&gt; Parsed QMI using Libqmi
+&lt;&lt;&lt;&lt;&lt;&lt; QMUX:
+&lt;&lt;&lt;&lt;&lt;&lt;   length  = 19
+&lt;&lt;&lt;&lt;&lt;&lt;   flags   = 0x00
+&lt;&lt;&lt;&lt;&lt;&lt;   service = "wms"
+&lt;&lt;&lt;&lt;&lt;&lt;   client  = 1
+&lt;&lt;&lt;&lt;&lt;&lt; QMI:
+&lt;&lt;&lt;&lt;&lt;&lt;   flags       = "response"
+&lt;&lt;&lt;&lt;&lt;&lt;   transaction = 14
+&lt;&lt;&lt;&lt;&lt;&lt;   tlv_length  = 7
+&lt;&lt;&lt;&lt;&lt;&lt;   message     = (0x003d)
+&lt;&lt;&lt;&lt;&lt;&lt; TLV:
+&lt;&lt;&lt;&lt;&lt;&lt;   type   = 0x02
+&lt;&lt;&lt;&lt;&lt;&lt;   length = 4
+&lt;&lt;&lt;&lt;&lt;&lt;   value  = 00:00:00:00
+</pre>
+<h2><span class="mw-headline" id="Discussion">Discussion</span></h2>
+<p>As we can see from the above example, using libqmi to parse the known QMI commands is very useful in understanding the QMI messages. We can note that the 3rd command is not actually implemented, but libqmi is able to semi-parse it. Although libqmi doesn't exactly know what message is this, what the TLVs/variables mean, it is still able to provide information on what the QMI service (WMS - Wireless Message Service) is, the QMI message id is <code>0x003d</code>, there is only single TLV of length 4 and the TLVs value.
+</p>
+<p>The sad part, while we know the QMI messages and it's structure, we can't just go ahead and implement it without knowing what each TLV means and what the values represent. And since QMI protocal is Qualcomm's proprietary protocol, it's bit hard to find the specification of all of the missing QMI messages.
+</p>
+<p>So what's the use of all this..............?
+</p>
+<p>Mainly, understanding the flow of modem communication and figuring out what's missing. This work started as we were trying to understand what's missing to implement VoLTE functionality in ModemManager (<a rel="nofollow" class="external free" href="https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/issues/378">https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/issues/378</a>). Now we can compare ModemManager debug logs and Android QMI logs and how the QMI message flows for each functionality. Like what are the QMI messages involved when enabling mobile data, when enabling VoLTE, etc and eventually fill the gaps in ModemManager. 
+</p>
+<p>Once we know what we are missing, we can try to guess the parts of the missing QMI commands. Qualcomm is not very strict when it comes to implementing these commands. They just don't want to officially dump their documentation on the internet. Recently engineers from Qualcomm and Google with access to QMI documentation contribute directly to ModemManager and libqmi. In my understanding, some developers have access to the QMI documentation under NDA agreements. So currently our best bet would be, once we document the process and note the needed QMI commands, we can probably open up a discussion in the ModemManager project.
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Qualcomm_Modem_Debugging&amp;oldid=47122">https://wiki.postmarketos.org/index.php?title=Qualcomm_Modem_Debugging&amp;oldid=47122</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 2 August 2023, at 06:53.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Qualcomm_Modem_Debugging&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

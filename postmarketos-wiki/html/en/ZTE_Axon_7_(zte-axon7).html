@@ -65,7 +65,12 @@ testing</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Original software</th>
     <td class="" style="">
-MiFavor 4.0 (Android 6.0.1)</td>
+Android</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="The version the device was shipped with.">Original version</abbr></th>
+    <td class="" style="">
+6.0.1 (MiFavor 4.0)</td>
 </tr>
 <tr><th colspan="2" class="" style="text-align:center;">Hardware</th></tr>
 <tr class="">
@@ -359,7 +364,7 @@ aarch64</td>
 <li>
 <a href="../User:Segfault.html" title="User:Segfault">Segfault</a> (<span class="cargoFieldName">Notes:</span> Bricked)</li>
 <li>
-<a href="../User:Ungeskriptet.html" title="User:Ungeskriptet">Ungeskriptet</a> (<span class="cargoFieldName">Notes:</span> A2017G, Replaced panel &amp; unlocked bootloader)</li>
+<a href="../User:Ungeskriptet.html" title="User:Ungeskriptet">Ungeskriptet</a> (<span class="cargoFieldName">Notes:</span> stupid dual dsi)</li>
 </ul></div>
 <p><br>
 </p>
@@ -415,7 +420,7 @@ aarch64</td>
 <li>Boot into the stock Nougat ROM and enable OEM Unlocking in the developer settings</li>
 <li>Reboot into EDL mode again</li>
 <li>Download new bootloader files <a rel="nofollow" class="external text" href="https://www.androidfilehost.com/?fid=7161016148664813850">aboot_unlock.img</a> and <a rel="nofollow" class="external text" href="https://www.androidfilehost.com/?fid=7161016148664813851">fbop_unlock.img</a> to allow unlocking</li>
-<li>Flash new bootloader files
+<li>Flash new bootloader files (these files will also restore access to fastboot)
 <dl><dd><div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> ./edl --loader<span class="o">=</span>Loaders/zte/009470e100040000_d1b89b1385b0db46_fhprg_peek.bin --memory<span class="o">=</span>ufs --lun<span class="o">=</span><span class="m">4</span> w aboot aboot_unlock.img
 <span class="gp">$</span> ./edl --loader<span class="o">=</span>Loaders/zte/009470e100040000_d1b89b1385b0db46_fhprg_peek.bin --memory<span class="o">=</span>ufs --lun<span class="o">=</span><span class="m">0</span> w fbop fbop_unlock.img
 </pre></div></dd></dl>
@@ -462,7 +467,7 @@ aarch64</td>
 <tr>
 <td>Display</td>
 <td>Samsung s6e3ha3</td>
-<td>N</td>
+<td>P</td>
 <td>Using dual DSI
 </td>
 </tr>
@@ -503,7 +508,7 @@ aarch64</td>
 </tr>
 <tr>
 <td>Magnetometer</td>
-<td>AKM (Asahi Kasei Microdevices) AK09915</td>
+<td>AKM (Asahi Kasei Microdevices) ak09915</td>
 <td>N</td>
 <td>
 </td>
@@ -525,14 +530,13 @@ aarch64</td>
 </tr>
 <tr>
 <td>Wi-Fi</td>
-<td>Qualcomm qca6174</td>
+<td rowspan="2">Qualcomm qca6174</td>
 <td>Y</td>
 <td>Connected through PCIe
 </td>
 </tr>
 <tr>
 <td>Bluetooth</td>
-<td>Qualcomm qca6174</td>
 <td>N</td>
 <td>Connected through UART
 </td>
@@ -574,7 +578,7 @@ aarch64</td>
 <ol>
 <li><a href="../en/ZTE_Axon_7_(zte-axon7).html#How_to_enter_flash_mode" title="ZTE Axon 7 (zte-axon7)">Enter EDL Mode</a></li>
 <li>Download the <b>qdl</b> tool from <a rel="nofollow" class="external text" href="https://www.96boards.org/documentation/consumer/guides/qdl.md.html">here</a> and build it. Arch Linux users can simply install the <b><a rel="nofollow" class="external text" href="https://aur.archlinux.org/packages/qdl">qdl</a></b> AUR package.</li>
-<li>Download the firmware from <a rel="nofollow" class="external text" href="https://androidfilehost.com/?w=files&amp;flid=220826">here</a>.</li>
+<li>Download firmware for your model from <a rel="nofollow" class="external text" href="https://androidfilehost.com/?w=files&amp;flid=220826">here</a>.</li>
 <li>Open a terminal inside the extracted ZIP directory</li>
 <li>Execute the following command: <code>qdl --storage ufs --include ./ ./prog_ufs_firehose_8996_ddr.elf ./rawprogram0.xml ./patch0.xml ./rawprogram1.xml ./patch1.xml ./rawprogram2.xml ./patch2.xml ./rawprogram3.xml ./patch3.xml ./rawprogram4.xml ./patch4.xml ./rawprogram5.xml ./patch5.xml</code>
 </li>
@@ -583,8 +587,7 @@ aarch64</td>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow" class="external text" href="https://www.gsmarena.com/zte_axon_7-8067.php">GSMArena page</a></li>
-<li><a rel="nofollow" class="external text" href="https://forum.xda-developers.com/t/guide-a2017g-install-twrp-unlock-bl-flash-custom-rom.3517379/">How to unlock the bootloader</a></li>
-<li><a rel="nofollow" class="external text" href="https://github.com/ungeskriptet/linux/tree/zte-axon7">Mainline kernel fork</a></li>
+<li><a rel="nofollow" class="external text" href="https://github.com/ungeskriptet/linux/tree/msm8996">Mainline kernel fork</a></li>
 <li><a rel="nofollow" class="external text" href="http://deviceinfohw.ru/devices/item.php?item=85921">Device Info HW</a></li>
 </ul>
 </div></div>
@@ -592,7 +595,7 @@ aarch64</td>
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
 <li><a href="../en/Category:Devices.html" title="Category:Devices">Devices</a></li>
-<li><a href="/index.php?title=Category:MiFavor_4.0_(Android_6.0.1)&amp;action=edit&amp;redlink=1" class="new" title="Category:MiFavor 4.0 (Android 6.0.1) (page does not exist)">MiFavor 4.0 (Android 6.0.1)</a></li>
+<li><a href="../en/Category:Android.html" title="Category:Android">Android</a></li>
 <li><a href="/index.php?title=Category:ZTE&amp;action=edit&amp;redlink=1" class="new" title="Category:ZTE (page does not exist)">ZTE</a></li>
 </ul>
 </div></div>
@@ -604,9 +607,9 @@ aarch64</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=ZTE_Axon_7_(zte-axon7)&amp;oldid=46995">https://wiki.postmarketos.org/index.php?title=ZTE_Axon_7_(zte-axon7)&amp;oldid=46995</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=ZTE_Axon_7_(zte-axon7)&amp;oldid=47258">https://wiki.postmarketos.org/index.php?title=ZTE_Axon_7_(zte-axon7)&amp;oldid=47258</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 28 July 2023, at 11:33.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 5 August 2023, at 15:16.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

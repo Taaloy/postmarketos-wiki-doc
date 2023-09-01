@@ -227,8 +227,9 @@ yes</td>
 <li class="toclevel-1 tocsection-5"><a href="#Mainline"><span class="tocnumber">2</span> <span class="toctext">Mainline</span></a></li>
 <li class="toclevel-1 tocsection-6"><a href="#SMMU"><span class="tocnumber">3</span> <span class="toctext">SMMU</span></a></li>
 <li class="toclevel-1 tocsection-7"><a href="#GPS"><span class="tocnumber">4</span> <span class="toctext">GPS</span></a></li>
-<li class="toclevel-1 tocsection-8"><a href="#Join_us"><span class="tocnumber">5</span> <span class="toctext">Join us</span></a></li>
-<li class="toclevel-1 tocsection-9"><a href="#Who.27s_working_on_it"><span class="tocnumber">6</span> <span class="toctext">Who's working on it</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Gallery"><span class="tocnumber">5</span> <span class="toctext">Gallery</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Join_us"><span class="tocnumber">6</span> <span class="toctext">Join us</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Who.27s_working_on_it"><span class="tocnumber">7</span> <span class="toctext">Who's working on it</span></a></li>
 </ul>
 </div>
 
@@ -262,8 +263,8 @@ yes</td>
 <td class="field_Mainline">Y</td>
 </tr>
 <tr>
-<td class="field_Device"><a href="../en/Lenovo_Xiaoxin_Pad_Pro_2020_(lenovo-tbj706f).html" title="Lenovo Xiaoxin Pad Pro 2020 (lenovo-tbj706f)">Lenovo 小新 Pad Pro 2020</a></td>
-<td class="field_Codename">lenovo-tbj706f</td>
+<td class="field_Device"><a href="../en/Lenovo_Tab_P11_Pro_(lenovo-j706f).html" title="Lenovo Tab P11 Pro (lenovo-j706f)">Lenovo Tab P11 Pro</a></td>
+<td class="field_Codename">lenovo-j706f</td>
 <td class="field_Mainline"></td>
 </tr>
 <tr>
@@ -303,6 +304,16 @@ yes</td>
 </p>
 <p>There is a dedicated <a href="../en/SM7150_Mainlining.html" title="SM7150 Mainlining">SM7150 Mainlining</a> guide that explains how to get started.
 </p>
+<ul>
+<li>
+<b>Kernel release</b>, e.g. v6.4: the feature was incorporated upstream as of this release.</li>
+<li>
+<b>WIP</b>: Feature works or works partially in community kernel fork. Not upstream yet.</li>
+<li>
+<b>Y</b>: The feature works with a generic or compatible driver.</li>
+<li>
+<b>N</b>: Feature is not currently supported.</li>
+</ul>
 <table class="wikitable">
 <tbody>
 <tr>
@@ -324,7 +335,7 @@ yes</td>
 <tr>
 <td rowspan="2">Storage
 </td>
-<td>UFS</td>
+<td>UFS 2.1</td>
 <td>qcom,sm7150-ufshc <br> qcom,ufshc <br> jedec,ufs-2.0</td>
 <td class="feature feature-yes">v6.4</td>
 <td>
@@ -338,11 +349,25 @@ yes</td>
 </td>
 </tr>
 <tr>
-<td>USB</td>
-<td></td>
+<td rowspan="3">USB Type C
+</td>
+<td>USB 2.0</td>
 <td></td>
 <td class="feature feature-partial">P</td>
 <td>Peripheral mode only
+</td>
+</tr>
+<tr>
+<td>USB 3.1</td>
+<td></td>
+<td class="feature feature-no">N</td>
+<td rowspan="2">Need a device that has this for tests
+</td>
+</tr>
+<tr>
+<td>DisplayPort 1.4</td>
+<td></td>
+<td class="feature feature-no">N
 </td>
 </tr>
 <tr>
@@ -553,7 +578,7 @@ yes</td>
 </td>
 </tr>
 <tr>
-<td rowspan="5">Clocks
+<td rowspan="6">Clocks
 </td>
 <td>Global Clock Controller</td>
 <td>qcom,sm7150-gcc</td>
@@ -583,6 +608,13 @@ yes</td>
 </td>
 </tr>
 <tr>
+<td>Video Clock Controller</td>
+<td>qcom,sm7150-videocc</td>
+<td class="feature feature-yes">WIP</td>
+<td>
+</td>
+</tr>
+<tr>
 <td>Camera Clock Controller</td>
 <td>qcom,sm7150-camcc</td>
 <td class="feature feature-partial">WIP</td>
@@ -598,7 +630,7 @@ yes</td>
 </td>
 </tr>
 <tr>
-<td rowspan="7">PMIC
+<td rowspan="8">PMIC
 </td>
 <td>Buttons</td>
 <td>gpio-keys</td>
@@ -638,6 +670,13 @@ yes</td>
 <td>Flashlight</td>
 <td>qcom,spmi-flash-led</td>
 <td class="feature feature-yes">v6.4</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>Wled</td>
+<td>qcom,pm8150l-wled</td>
+<td class="feature feature-yes">WIP</td>
 <td>
 </td>
 </tr>
@@ -711,11 +750,36 @@ yes</td>
 <td>&lt;&amp;apps_smmu 0x800 0x440&gt;
 </td>
 </tr>
+<tr>
+<td>7
+</td>
+<td>PCI0
+</td>
+<td>&lt;&amp;apps_smmu 0x1e60 0x0&gt;
+</td>
+</tr>
 </tbody>
 </table>
 <h2><span class="mw-headline" id="GPS">GPS</span></h2>
 <p>Install <a rel="nofollow" class="external text" href="https://gitlab.com/gpsd/gpsd/-/merge_requests/139">GPSD with the Qualcomm PDS patch</a>, configure it to use <code>pds://any</code> as the device during runtime and you should be good to go.
 </p>
+<h2><span class="mw-headline" id="Gallery">Gallery</span></h2>
+<ul class="gallery mw-gallery-traditional">
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:40.5px auto;"><a href="../SM7150_Advanced_Block_Diagram.jpg" class="image"><img alt="" src="../SM7150_Advanced_Block_Diagram.jpg" decoding="async" width="120" height="69" srcset="../SM7150_Advanced_Block_Diagram.jpg 1.5x ../SM7150_Advanced_Block_Diagram.jpg 2x"></a></div></div>
+			<div class="gallerytext">
+<p>Advanced Block Diagram
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:39.5px auto;"><a href="../SM7150_Principle_Block_Diagram.jpg" class="image"><img alt="" src="../SM7150_Principle_Block_Diagram.jpg" decoding="async" width="120" height="71" srcset="../SM7150_Principle_Block_Diagram.jpg 1.5x ../SM7150_Principle_Block_Diagram.jpg 2x"></a></div></div>
+			<div class="gallerytext">
+<p>SM7150 Principle Block Diagram
+</p>
+			</div>
+		</div></li>
+</ul>
 <h2><span class="mw-headline" id="Join_us">Join us</span></h2>
 <p>Feel free to join us at <a rel="nofollow" class="external text" href="https://matrix.to/#/#sm7150-mainline:matrix.org">#sm7150-mainline:matrix.org</a> on Matrix.
 </p>
@@ -741,9 +805,9 @@ yes</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_730/730G/732G_(SM7150)&amp;oldid=47013">https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_730/730G/732G_(SM7150)&amp;oldid=47013</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_730/730G/732G_(SM7150)&amp;oldid=47896">https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_730/730G/732G_(SM7150)&amp;oldid=47896</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 28 July 2023, at 18:27.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 26 August 2023, at 19:40.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

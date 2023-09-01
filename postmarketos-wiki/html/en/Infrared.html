@@ -1,270 +1,123 @@
 <!DOCTYPE html>
-<html class="client-nojs" dir="ltr" lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Infrared - postmarketOS
-  </title>
-  <link href="../PostmarketOSWikiOffline.css" rel="stylesheet"/>
-  <meta content="" name="ResourceLoaderDynamicStyles"/>
-  <meta content="MediaWiki 1.34.2" name="generator"/>
-  <link href="/favicon.ico" rel="shortcut icon"/>
-  <link href="/opensearch_desc.php" rel="search" title="postmarketOS (en)" type="application/opensearchdescription+xml"/>
-  <link href="https://wiki.postmarketos.org/api.php?action=rsd" rel="EditURI" type="application/rsd+xml"/>
-  <link href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license"/>
-  <link href="/index.php?title=Special:RecentChanges&amp;feed=atom" rel="alternate" title="postmarketOS Atom feed" type="application/atom+xml"/>
- </head>
- <body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Infrared rootpage-Infrared skin-vector action-view">
-  <div class="mw-body" id="content" role="main" style="margin: 0">
-   <a id="top">
-   </a>
-   <div class="mw-indicators mw-body-content">
-   </div>
-   <h1 class="firstHeading" id="firstHeading" lang="en">
-    Infrared
-   </h1>
-   <div class="mw-body-content" id="bodyContent">
-    <div class="noprint" id="siteSub">
-     From postmarketOS
-    </div>
-    <div id="contentSub">
-    </div>
-    <div id="jump-to-nav">
-    </div>
-    <a class="mw-jump-link" href="#mw-head">
-     Jump to navigation
-    </a>
-    <a class="mw-jump-link" href="#p-search">
-     Jump to search
-    </a>
-    <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en">
-     <div class="mw-parser-output">
-      <p>
-       Infrared, or
-       <a class="external text" href="https://en.wikipedia.org/wiki/Consumer_IR" rel="nofollow">
-        Consumer IR
-       </a>
-       specifically, is widely used in televisions, set-top boxes, air conditioners and other home appliances for remote controls. It is supported in Linux through Linux Infrared Remote Control (LIRC), which consists of a
-       <a class="external text" href="https://www.kernel.org/doc/html/latest/userspace-api/media/rc/lirc-dev-intro.html" rel="nofollow">
-        kernel subsystem
-       </a>
-       and a
-       <a class="external text" href="https://lirc.org/" rel="nofollow">
-        userspace daemon
-       </a>
-       .
-      </p>
-      <p>
-       Devices fitted with an IR blaster can be used to control appliances that use infrared remote controls.
-Through userspace drivers, LIRC can also make use of external IR blasters and receivers over USB, or even home-brew ones connected to a
-       <a class="external text" href="https://lirc.org/transmitters.html" rel="nofollow">
-        serial port
-       </a>
-       or
-       <a class="external text" href="https://lirc.org/ir-audio.html" rel="nofollow">
-        audio jack
-       </a>
-       .
-      </p>
-      <h2>
-       <span class="mw-headline" id="Devices_with_infrared_transmission_support">
-        Devices with infrared transmission support
-       </span>
-      </h2>
-      <p>
-       These devices support infrared transmission through built-in IR blasters:
-      </p>
-      <table class="cargoTable noMerge sortable" style="border-collapse: collapse;">
-       <thead>
-        <tr style="background-color: #eeeeee;">
-         <th class="field_Device">
-          Device
-         </th>
-         <th class="field_Codename">
-          Codename
-         </th>
-         <th class="field_Category">
-          Category
-         </th>
-        </tr>
-       </thead>
-       <tbody>
-        <tr>
-         <td class="field_Device">
-          <a href="../en/Xiaomi_Mi_Note_2_(xiaomi-scorpio).html" title="Xiaomi Mi Note 2 (xiaomi-scorpio)">
-           Xiaomi Mi Note 2
-          </a>
-         </td>
-         <td class="field_Codename">
-          xiaomi-scorpio
-         </td>
-         <td class="field_Category">
-          community
-         </td>
-        </tr>
-       </tbody>
-      </table>
-      <h2>
-       <span class="mw-headline" id="Testing">
-        Testing
-       </span>
-      </h2>
-      <p>
-       v4l-utils includes an
-       <code>
-        ir-ctl
-       </code>
-       utility to send and receive raw pulse/space sequences without needing the LIRC daemon. It is also able to send scancodes in specific protocols, like sending
-       <code>
-        0x1e01
-       </code>
-       encoded in the
-       <a class="external text" href="https://en.wikipedia.org/wiki/RC-5" rel="nofollow">
-        RC-5
-       </a>
-       protocol for example:
-      </p>
-      <pre>ir-ctl -d /dev/lircX -S rc5:0x1e01
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Infrared - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Infrared rootpage-Infrared skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Infrared</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>Infrared, or <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Consumer_IR">Consumer IR</a> specifically, is widely used in televisions, set-top boxes, air conditioners and other home appliances for remote controls. It is supported in Linux through Linux Infrared Remote Control (LIRC), which consists of a <a rel="nofollow" class="external text" href="https://www.kernel.org/doc/html/latest/userspace-api/media/rc/lirc-dev-intro.html">kernel subsystem</a> and a <a rel="nofollow" class="external text" href="https://lirc.org/">userspace daemon</a>.
+</p>
+<p>Devices fitted with an IR blaster can be used to control appliances that use infrared remote controls.
+Through userspace drivers, LIRC can also make use of external IR blasters and receivers over USB, or even home-brew ones connected to a <a rel="nofollow" class="external text" href="https://lirc.org/transmitters.html">serial port</a> or <a rel="nofollow" class="external text" href="https://lirc.org/ir-audio.html">audio jack</a>.
+</p>
+<h2><span class="mw-headline" id="Devices_with_infrared_transmission_support">Devices with infrared transmission support</span></h2>
+<p>These devices support infrared transmission through built-in IR blasters:
+</p>
+<table class="cargoTable noMerge sortable">
+<thead><tr>
+<th class="field_Device">Device</th>
+<th class="field_Codename">Codename</th>
+<th class="field_Category">Category</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="field_Device"><a href="../en/Nokia_N900_(nokia-n900).html" title="Nokia N900 (nokia-n900)">Nokia N900</a></td>
+<td class="field_Codename">nokia-n900</td>
+<td class="field_Category">community</td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Xiaomi_Mi_Note_2_(xiaomi-scorpio).html" title="Xiaomi Mi Note 2 (xiaomi-scorpio)">Xiaomi Mi Note 2</a></td>
+<td class="field_Codename">xiaomi-scorpio</td>
+<td class="field_Category">community</td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="Testing">Testing</span></h2>
+<p>v4l-utils includes an <code>ir-ctl</code> utility to send and receive raw pulse/space sequences without needing the LIRC daemon. It is also able to send scancodes in specific protocols, like sending <code>0x1e01</code> encoded in the <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/RC-5">RC-5</a> protocol for example:
+</p>
+<pre>ir-ctl -d /dev/lircX -S rc5:0x1e01
 </pre>
-      <p>
-       With a receiver available on the system, a sequence can be recorded as well:
-      </p>
-      <pre>ir-ctl -d /dev/lircX -r
+<p>With a receiver available on the system, a sequence can be recorded as well:
+</p>
+<pre>ir-ctl -d /dev/lircX -r
 </pre>
-      <h2>
-       <span class="mw-headline" id="LIRC_Daemon">
-        LIRC Daemon
-       </span>
-      </h2>
-      <p>
-       lircd is used to manage infrared devices in userspace. It includes several userspace drivers for legacy hardware as well as home-brew devices, and has a large
-       <a class="external text" href="http://lirc-remotes.sourceforge.net/remotes-table.html" rel="nofollow">
-        remote database
-       </a>
-       which it uses to match received signals, as well as to encode keys sent by clients connected to it using the
-       <a class="external text" href="https://lirc.org/api-docs/html/group__lirc__client.html" rel="nofollow">
-        client API
-       </a>
-       it provides.
-      </p>
-      <p>
-       It also provides a set of tools, such as
-       <code>
-        irrecord
-       </code>
-       , which is an interactive tool used to generate configuration files for remote control units. With a receiver attached to the system, it can record scancodes from a remote control so that they can be later used either to control its original device with an IR blaster, or to use the remote control as an input device.
-      </p>
-      <p>
-       <code>
-        irsend
-       </code>
-       is another tool provided by LIRC, used to send pre-configured key codes.
-      </p>
-      <p>
-       This sends a
-       <code>
-        KEY_POWER
-       </code>
-       code as defined in the
-       <a class="external text" href="https://sourceforge.net/p/lirc-remotes/code/ci/master/tree/remotes/sony/RMT-D115P.lircd.conf" rel="nofollow">
-        Sony RMT-D115P remote configuration
-       </a>
-       :
-      </p>
-      <pre>irsend SEND_ONCE Sony_RMT-D115P KEY_POWER
+<h2><span class="mw-headline" id="LIRC_Daemon">LIRC Daemon</span></h2>
+<p>lircd is used to manage infrared devices in userspace. It includes several userspace drivers for legacy hardware as well as home-brew devices, and has a large <a rel="nofollow" class="external text" href="http://lirc-remotes.sourceforge.net/remotes-table.html">remote database</a> which it uses to match received signals, as well as to encode keys sent by clients connected to it using the <a rel="nofollow" class="external text" href="https://lirc.org/api-docs/html/group__lirc__client.html">client API</a> it provides.
+</p>
+<p>It also provides a set of tools, such as <code>irrecord</code>, which is an interactive tool used to generate configuration files for remote control units. With a receiver attached to the system, it can record scancodes from a remote control so that they can be later used either to control its original device with an IR blaster, or to use the remote control as an input device.
+</p>
+<p><code>irsend</code> is another tool provided by LIRC, used to send pre-configured key codes.
+</p>
+<p>This sends a <code>KEY_POWER</code> code as defined in the <a rel="nofollow" class="external text" href="https://sourceforge.net/p/lirc-remotes/code/ci/master/tree/remotes/sony/RMT-D115P.lircd.conf">Sony RMT-D115P remote configuration</a>:
+</p>
+<pre>irsend SEND_ONCE Sony_RMT-D115P KEY_POWER
 </pre>
-      <h2>
-       <span class="mw-headline" id="See_also">
-        See also
-       </span>
-      </h2>
-      <p>
-       -
-       <a class="external text" href="http://manpages.ubuntu.com/manpages/artful/en/man1/ir-ctl.1.html" rel="nofollow">
-        <code>
-         ir-ctl
-        </code>
-        man page
-       </a>
-      </p>
-     </div>
-    </div>
-    <div class="catlinks" data-mw="interface" id="catlinks">
-     <div class="mw-normal-catlinks" id="mw-normal-catlinks">
-      <a href="../Special:Categories.html" title="Special:Categories">
-       Category
-      </a>
-      :
-      <ul>
-       <li>
-        <a href="../en/Category:Hardware.html" title="Category:Hardware">
-         Hardware
-        </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="visualClear">
-    </div>
-   </div>
-  </div>
-  <div id="footer" role="contentinfo" style="margin: 0">
-   <ul id="footer-info">
-    <li>
-     Retrieved from "
-     <a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Infrared&amp;oldid=30060">
-      https://wiki.postmarketos.org/index.php?title=Infrared&amp;oldid=30060
-     </a>
-     "
-    </li>
-    <li id="footer-info-lastmod">
-     This page was last edited on 8 August 2022, at 12:19.
-    </li>
-    <li id="footer-info-copyright">
-     Content is available under
-     <a class="external" href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">
-      Creative Commons Attribution-ShareAlike
-     </a>
-     unless otherwise noted.
-    </li>
-    <br/>
-   </ul>
-   <ul id="footer-places">
-    <li id="footer-places-privacy">
-     <a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">
-      Privacy policy
-     </a>
-    </li>
-    <li id="footer-places-about">
-     <a class="mw-redirect" href="../en/About_postmarketOS.html" title="PostmarketOS:About">
-      About postmarketOS
-     </a>
-    </li>
-    <li id="footer-places-disclaimer">
-     <a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">
-      Disclaimers
-     </a>
-    </li>
-    <li id="footer-places-mobileview">
-     <a class="noprint stopMobileRedirectToggle" href="https://wiki.postmarketos.org/index.php?title=Infrared&amp;mobileaction=toggle_view_mobile">
-      Mobile view
-     </a>
-    </li>
-   </ul>
-   <ul class="noprint" id="footer-icons">
-    <li id="footer-copyrightico">
-     <a href="https://creativecommons.org/licenses/by-sa/4.0/">
-      <img alt="Creative Commons Attribution-ShareAlike" height="31" src="../cc-by-sa.png" width="88"/>
-     </a>
-    </li>
-    <li id="footer-poweredbyico">
-     <a href="https://www.mediawiki.org/">
-      <img alt="Powered by MediaWiki" height="31" src="../poweredby_mediawiki_88x31.png" srcset="" width="88"/>
-     </a>
-    </li>
-   </ul>
-   <div style="clear: both;">
-   </div>
-  </div>
- </body>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<p>- <a rel="nofollow" class="external text" href="http://manpages.ubuntu.com/manpages/artful/en/man1/ir-ctl.1.html"><code>ir-ctl</code> man page</a>
+</p>
+<p><br>
+<a rel="nofollow" class="external text" href="https://linux-sunxi.org/LIRC">LIRC on linux meson (It had alot of info about ir receiver in linux</a>
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Hardware.html" title="Category:Hardware">Hardware</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Infrared&amp;oldid=41022">https://wiki.postmarketos.org/index.php?title=Infrared&amp;oldid=41022</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 10:40.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Infrared&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
 </html>

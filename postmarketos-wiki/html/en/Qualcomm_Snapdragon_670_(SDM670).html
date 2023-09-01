@@ -143,7 +143,7 @@ yes</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Audio</th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-partial">Partial</div>
 </td>
 </tr>
 <tr class="">
@@ -155,7 +155,7 @@ yes</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Thermal</th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div></div>
 </td>
 </tr>
 <tr class="">
@@ -214,6 +214,11 @@ yes</td>
 <td class="field_Codename">google-sargo</td>
 <td class="field_Mainline">Y</td>
 </tr>
+<tr>
+<td class="field_Device"><a href="../en/Google_Pixel_3a_XL_(google-bonito).html" title="Google Pixel 3a XL (google-bonito)">Google Pixel 3a XL</a></td>
+<td class="field_Codename">google-bonito</td>
+<td class="field_Mainline">P</td>
+</tr>
 </tbody>
 </table>
 <h2><span class="mw-headline" id="Display">Display</span></h2>
@@ -235,17 +240,27 @@ yes</td>
 <p>Bluetooth is available on uart6. Modem and WiFi are not required.
 </p>
 <h2><span class="mw-headline" id="Feature_table">Feature table</span></h2>
+<h3><span class="mw-headline" id="Audio">Audio</span></h3>
+<p>Only one vendor-specific codec is supported by the sound card.
+</p>
+<p>The sound card does not currently suspend.
+</p>
 <h3><span class="mw-headline" id="Pinctrl">Pinctrl</span></h3>
 <p>There is a pin control driver but it has no wakeirqs. There is also an LPI TLMM for audio with no mainline driver.
 </p>
 <h3><span class="mw-headline" id="Storage">Storage</span></h3>
-<p>eMMC works but not UFS. Perhaps it will be added with an SDM710 device.
+<p>eMMC is added but not UFS.
+</p>
+<h3><span class="mw-headline" id="Thermals">Thermals</span></h3>
+<p>Thermal zones are partially provided by the PMIC device tree, but are not actively tested.
 </p>
 <h3><span class="mw-headline" id="USB">USB</span></h3>
 <p>There is currently only USB 2.0.
 </p>
 <h3><span class="mw-headline" id="Video">Video</span></h3>
 <p>Video decoding works, but not encoding. There is still bad userspace support for video (ffmpeg isn't even packaged in Alpine with v4l2 video acceleration).
+</p>
+<p>The video decoder is underclocked at 1920x1080 30fps, but not 24fps.
 </p>
 <h2>
 <span id="Who's_working_on_it"></span><span class="mw-headline" id="Who.27s_working_on_it">Who's working on it</span>
@@ -264,9 +279,9 @@ yes</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_670_(SDM670)&amp;oldid=46921">https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_670_(SDM670)&amp;oldid=46921</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_670_(SDM670)&amp;oldid=47619">https://wiki.postmarketos.org/index.php?title=Qualcomm_Snapdragon_670_(SDM670)&amp;oldid=47619</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 27 July 2023, at 01:12.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 15 August 2023, at 02:46.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

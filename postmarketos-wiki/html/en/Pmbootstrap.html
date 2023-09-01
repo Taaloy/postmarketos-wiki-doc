@@ -124,7 +124,7 @@
 </pre></div>
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
 <td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
-<td style="padding: 0.35em 0.9em; width: 100%;">Fixed release distributions, i.e. Debian, may freeze pmboostrap version. Consider installing it from git if you want the latest features and bug fixes.</td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Fixed release distributions, i.e. Debian, may freeze pmbootstrap version. Consider installing it from git if you want the latest features and bug fixes.</td>
 </tr></tbody></table>
 <p>Continue reading at <a href="#Using_pmbootstrap">#Using pmbootstrap</a>.
 </p>
@@ -137,7 +137,7 @@
 <span class="gp">$</span> pmbootstrap --version
 <span class="go">1.50.1</span>
 </pre></div>
-<p>If this returns something like <code>pmbootstrap: command not found</code> instead of a version number, ensure that <code>~/.local/bin</code> is in your <code>PATH</code>. For example by adding the following to your <code>~/.profile</code> (zsh: <code>~/.zprofile</code>): 
+<p>If this returns something like <code>pmbootstrap: command not found</code> instead of a version number, ensure that <code>~/.local/bin</code> is in your <code>PATH</code>. For example by adding the following to your <code>~/.profile</code> (zsh: <code>~/.zprofile</code>) followed by <code>source ~/.profile</code> to update your environment 
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
 </pre></div>
@@ -237,7 +237,7 @@ DONE!
 <h3><span class="mw-headline" id="Installing_postmarketOS">Installing postmarketOS</span></h3>
 <p>Depending on the device, the installation instructions may be quite different. You might need to unlock or flash a bootloader before continuing here, or you may need to use a specific install command. Make sure you read the installation section of your <a href="../en/Devices.html" title="Devices">device's wiki page</a> first.
 </p>
-<p>All device ports have in common that they run some form of the <code>pmboostrap install</code> command at one point. It will build a chroot with the full installation as it will be placed on the device, copy it to an image file or write it directly to an SD card and ask you for the user and encryption password. Below are the most commonly used <code>pmbootstrap install</code> commands.
+<p>All device ports have in common that they run some form of the <code>pmbootstrap install</code> command at one point. It will build a chroot with the full installation as it will be placed on the device, copy it to an image file or write it directly to an SD card and ask you for the user and encryption password. Below are the most commonly used <code>pmbootstrap install</code> commands.
 </p>
 <p>All examples have <code>--fde</code> added to enable Full Disk Encryption. Omit it if you don't want to encrypt your device or if your device port isn't able to show the FDE prompt yet (see FDE column of the <a href="../en/All_devices.html" title="All devices">all devices</a> table).
 </p>
@@ -306,7 +306,7 @@ DONE!
 <h4><span class="mw-headline" id="Building_packages">Building packages</span></h4>
 <p>Build any package from <a href="../en/Pmaports.git.html" title="Pmaports.git">pmaports.git</a>, for example <code>main/hello-world</code>. pmbootstrap will automatically pick one of the architectures that the APKBUILD can be built for, preferably the native architecture of the PC running pmbootstrap, or if that's not possible, the device's architecture. You can explicitly specify an architecture with <code>--arch</code>.
 </p>
-<p>pmbootstrap uses cross compilers as described in <a href="../en/Build_internals.html#Cross-compile_types" title="Build internals">Build_internals#Cross-compile_types</a>.
+<p>pmbootstrap uses cross compilers as described in detail in the <a href="../en/Pmbootstrap:_Cross_Compiling.html" title="Pmbootstrap: Cross Compiling">cross compiling</a> article.
 </p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap build hello-world
 <span class="gp">$</span> pmbootstrap build --arch<span class="o">=</span>armv7 hello-world
@@ -499,9 +499,9 @@ To build a package from Alpine, it needs to be forked from Alpine's aports.git f
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Pmbootstrap&amp;oldid=46913">https://wiki.postmarketos.org/index.php?title=Pmbootstrap&amp;oldid=46913</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Pmbootstrap&amp;oldid=47933">https://wiki.postmarketos.org/index.php?title=Pmbootstrap&amp;oldid=47933</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 26 July 2023, at 23:57.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 29 August 2023, at 19:54.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

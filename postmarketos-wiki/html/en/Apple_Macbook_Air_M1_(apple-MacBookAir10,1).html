@@ -189,7 +189,7 @@ laptop</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Camera</th>
     <td class="" style="">
-<div class="feature feature-unavailable">Unavailable</div>
+<div class="feature feature-no">Broken</div>
 </td>
 </tr>
 <tr class="">
@@ -503,8 +503,65 @@ It is able to boot from any external media (USB drive, network, etc.) and users 
 </tbody>
 </table>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>Use this script: curl <a rel="nofollow" class="external free" href="https://alx.sh">https://alx.sh</a> | sh
+</p>
+<h2><span class="mw-headline" id="UART_Debug_Port"><a rel="nofollow" class="external text" href="https://github.com/AsahiLinux/docs/wiki/HW:USB-PD">UART Debug Port</a></span></h2>
+<p>This device has UART port on the USB-C port closest to the edge. To activate this, you need to send various of commands via USB-PD.<br>
+If you enabled UART successfully, here is a command reference :
+</p>
+<h3><span class="mw-headline" id="103:_PD_reset">103: PD reset</span></h3>
+<p>This needs a 0x8000 argument (taken from the get action info reply).
+</p>
+<h3><span class="mw-headline" id="105:_Reboot">105: Reboot</span></h3>
+<p>This needs a 0x8000 argument (taken from the get action info reply).<br>
+</p>
+<h4><span class="mw-headline" id="about_reboot_command">about reboot command</span></h4>
+<p>the command "5AC8012,0105,80000000" is sent through the Serial Monitor of Arduino IDE. if you want to reboot Mac more conveniently.
+</p>
+<h3>
+<span id="106:_DFU_/_hold_mode"></span><span class="mw-headline" id="106:_DFU_.2F_hold_mode">106: DFU / hold mode</span>
+</h3>
+<p>This needs a 0x8001 argument (taken from the get action info reply). It only works properly in DFP mode (Mac acting as UFP).<br>
+This mode is special. On the Mac Mini, a hard shutdown normally disables PD communications and UFP mode (Rd open). However, a hard shutdown from this mode (e.g. holding down the power button) will power down the machine while PD communications remain active. The machine can also be rebooted via 105 into normal mode, and again PD is not reset and existing modes remain active. This can be used to maintain debug connectivity through a machine reset.
+</p>
+<h3><span class="mw-headline" id="306:_Debug_UART">306: Debug UART</span></h3>
+<p>Pin order: TX, RX<br>
+This can be mapped to pin sets 0-2 (D+/D- B, D+/D- A, or SBU1/2). The UART uses 1.2V voltage levels.<br>
+</p>
+<p>pin 1 is TX and pin 2 is RX, orientation-aware (for CC=CC2 they are flipped). In other words, the SBU pin on the same side of the connector (A or B) as your CC pin is TX.
+</p>
+<h3><span class="mw-headline" id="606:_DFU_USB">606: DFU USB</span></h3>
+<p>Pin order: D+, D- (of course)<br>
+This is automatically mapped to pin set 1 (D+/D- primary) in DFU mode, but can be moved.
+</p>
+<h3>
+<span id="4606:_Debug_USB(What_we_need)"></span><span class="mw-headline" id="4606:_Debug_USB.28What_we_need.29">4606: Debug USB(What we need)</span>
+</h3>
+<p>Interesting. This is not main-CPU-driven, it enumerates even when the system is off (in persistent mode). It re-enumerates on power transitions.
+</p>
+<h3>
+<span id="0803:_An_I²C_bus_(3.3V)"></span><span class="mw-headline" id="0803:_An_I.C2.B2C_bus_.283.3V.29">0803: An I²C bus (3.3V)</span>
+</h3>
+<p>Pin order: SCL, SDA<br>
+</p>
+<p>Device addresses seen (unshifted): 0x38, 0x3f<br>
+It doesn't do anything interesting during normal boot, but does in macOS.<br>
+Also, sometimes it just sends START 00 STOP (no ACK cycle) at slower speed (?)<br>
+</p>
+<h3>
+<span id="0809:_Another_I²C_bus_(3.3V)"></span><span class="mw-headline" id="0809:_Another_I.C2.B2C_bus_.283.3V.29">0809: Another I²C bus (3.3V)</span>
+</h3>
+<p>Pin order: SCL, SDA<br>
+</p>
+<p>Device addresses seen (unshifted): 0x6b, 0x38, 0x3f,
+</p>
+<h3><span class="mw-headline" id="TBD">TBD</span></h3>
+<p>0206 weak (30kΩ) pull to 1.2V, no reaction to gnd, no transitions. Good chance this is SWD.<br>
+0301 1.2V, one pin drives high, the other no drive. Another UART? high-z in DFU mode, no activity except high pin tracking power/boots.<br>
+0303 Only maps to pinsets 1-2? Seems to be GND? No transitions seen. Unused UART mode?<br>
+</p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
-<p>This device does currently boot and works to a degree, it has a actively developed Linux port (<a rel="nofollow" class="external free" href="https://asahilinux.org/">https://asahilinux.org/</a>), as well as a somewhat working port by corellium that is claimed to be "completely usable" yet lacks any optimisation (<a rel="nofollow" class="external free" href="https://www.corellium.com/blog/linux-m1">https://www.corellium.com/blog/linux-m1</a>)
+<p>This device does currently boot and works to a degree, it has a actively developed Linux port (<a rel="nofollow" class="external free" href="https://asahilinux.org/">https://asahilinux.org/</a>).
 </p>
 <h2><span class="mw-headline" id="Notes">Notes</span></h2>
 <table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
@@ -533,9 +590,9 @@ To use Asahi's graphics driver, Update your kernel to their develop branch. <br>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Apple_Macbook_Air_M1_(apple-MacBookAir10,1)&amp;oldid=46169">https://wiki.postmarketos.org/index.php?title=Apple_Macbook_Air_M1_(apple-MacBookAir10,1)&amp;oldid=46169</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Apple_Macbook_Air_M1_(apple-MacBookAir10,1)&amp;oldid=47829">https://wiki.postmarketos.org/index.php?title=Apple_Macbook_Air_M1_(apple-MacBookAir10,1)&amp;oldid=47829</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 4 July 2023, at 03:40.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 24 August 2023, at 02:51.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

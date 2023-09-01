@@ -31,10 +31,10 @@
 		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
 		<a class="mw-jump-link" href="#p-search">Jump to search</a>
 		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
-<table role="text container" style="color: inherit; background-color: #E8E0CC; border: 2px dotted #C1B598; margin: 4px 10%; border-collapse: collapse;"><tbody><tr>
-<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;">🚧</span></td>
+<table role="text container" style="color: inherit; background-color: #CCD7E8; border: 2px dotted #98A9C1; margin: 4px 10%; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Circle_icon_crossroads.png" decoding="async" title="Icon" width="28" height="28" srcset="../Circle_icon_crossroads.png 1.5x ../Circle_icon_crossroads.png 2x"></span></td>
 <td style="padding: 0.35em 0.9em; width: 100%;">
-<b>This page is a work-in-progress.</b> Some information contained within may be inaccurate or incomplete.
+<b>This page could use some expansion.</b> If you'd like to help out, feel free to <span class="plainlinks"><a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/index.php?title=Dual_Booting&amp;action=edit">edit this article</a></span>!
 <br>In particular: <i>This huge list could be split up into more specific tutorials. Perhaps include the contents from <a href="../en/Use_PostmarketOS_Community_pre-built_image_on_your_device.html" title="Use PostmarketOS Community pre-built image on your device">Use PostmarketOS Community pre-built image on your device</a> here?</i>
 </td>
 </tr></tbody></table>
@@ -50,9 +50,11 @@
 </li>
 <li>One more way with u-boot: <a href="../en/U-Boot_porting.html#Implement_multiboot_involving_Android_in_a_device_aport" title="U-Boot porting">U-Boot_porting#Implement_multiboot_involving_Android_in_a_device_aport</a>
 </li>
+<li>On some amlogic device 's uboot . there are a multiboot mode : <a href="../en/Amlogic.html#Boot_process" title="Amlogic">Amlogic#Boot process</a>
+</li>
 <li>On fastboot devices that have an SD card, it is possible to install postmarketOS on the SD card, and boot through <code class="mw-highlight" dir="ltr">pmbootstrap flasher boot</code>. This has the advantage of not modifying anything on the phone itself, but a USB cable and a host device (like a computer) are needed to boot the device with this procedure.</li>
 <li>On most devices, the recovery partition holds a recovery image (or fastboot boot image (on some deivce)) . With the postmarketOS boot image flashed to the recovery partition and the root image flashed to either an internal partition or an sdcard, you will able to dualboot but doing that will make you lose the android recovery mode (this works on xiaomi-santoni and samsung-degaswifi)</li>
-<li>On msm8916 devices with lk2nd the boot image is loaded from an ext2 boot partition either on EMMC or SD card. Since <a href="../en/Lk2nd.html" class="mw-redirect" title="Lk2nd">lk2nd</a> keeps backwards compatibility with android boot images, you can flash your android boot.img via lk2nd and it will boot that image unless an SD card with postmarketOS is inserted.</li>
+<li>On devices with lk2nd the boot image is loaded from an ext2 boot partition either on EMMC or SD card. Since <a href="../en/Lk2nd.html" class="mw-redirect" title="Lk2nd">lk2nd</a> keeps backwards compatibility with android boot images, you can flash your android boot.img via lk2nd and it will boot that image unless an SD card with postmarketOS is inserted.</li>
 <li>Some uefi Implementation for android phone like (<a rel="nofollow" class="external text" href="https://efidroid.org">efidroid</a>,<a href="../en/Renegade_Project.html" title="Renegade Project">Renegade Project</a>) can be used together with postmarketOS (see <a href="../en/OnePlus_6_(oneplus-enchilada)_Dual_Booting_and_Custom_Partitioning.html#Dual_booting_pmos_with_other_uefi_based_os_.28like_openbsd_.2C_netbsd_.2C_freebsd.2Cwindows.2Cetc.29_via_Renegade_Project" title="OnePlus 6 (oneplus-enchilada)/Dual Booting and Custom Partitioning"> Guides for Dual boot pm os with other uefi based os via Renegade Project (with included guides for booting pm os via Renegade Project) on oneplus 6/6t  but some part of it can be reused on some other device as well.</a>)</li>
 <li>On uefi / bios based device , grub can be used for dual booting (see <a rel="nofollow" class="external text" href="https://wiki.archlinux.org/title/Dual_boot_with_Windows">Dual boot with Windows on arch wiki</a>)</li>
 <li>On newer android phone <a href="../en/Android_AB_Slots.html" title="Android AB Slots">Android AB Slots</a> can be used for dual boot.</li>
@@ -61,7 +63,7 @@
 <h3><span class="mw-headline" id="See_also">See also</span></h3>
 <ul>
 <li>
-<a href="../en/FAQ.html#Is_dual_boot_supported" title="FAQ"> FAQ Entry</a>.</li>
+<a rel="nofollow" class="external text" href="https://postmarketos.org/faq/#is-dual-boot-supported">FAQ Entry</a>.</li>
 <li>"<a rel="nofollow" class="external free" href="http://gitlab.com/postmarketOS/pmbootstrap/-/issues/421">http://gitlab.com/postmarketOS/pmbootstrap/-/issues/421</a>" describes potentially how to implement this.</li>
 <li><a rel="nofollow" class="external text" href="https://youtube.com/watch?v=pI3ek2C0Ca8">Dual booting pm os and netbsd demo video</a></li>
 <li><a href="../en/OnePlus_6_(oneplus-enchilada)_Dual_Booting_and_Custom_Partitioning.html" title="OnePlus 6 (oneplus-enchilada)/Dual Booting and Custom Partitioning"> Gudies for Dual boot pm os on oneplus 6/6t but some part of it can be reused on some other device.</a></li>
@@ -70,7 +72,7 @@
 		
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
-<li><a href="../en/Category:Work-in-progress_pages.html" title="Category:Work-in-progress pages">Work-in-progress pages</a></li>
+<li><a href="../en/Category:Stubs.html" title="Category:Stubs">Stubs</a></li>
 <li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li>
 </ul>
 </div></div>
@@ -82,9 +84,9 @@
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Dual_Booting&amp;oldid=46713">https://wiki.postmarketos.org/index.php?title=Dual_Booting&amp;oldid=46713</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Dual_Booting&amp;oldid=47992">https://wiki.postmarketos.org/index.php?title=Dual_Booting&amp;oldid=47992</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 19 July 2023, at 21:17.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 31 August 2023, at 14:49.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

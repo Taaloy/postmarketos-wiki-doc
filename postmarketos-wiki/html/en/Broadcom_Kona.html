@@ -43,11 +43,13 @@
 <h2>
 <span id="BCM21664/BCM23550"></span><span class="mw-headline" id="BCM21664.2FBCM23550">BCM21664/BCM23550</span>
 </h2>
-<p>The BCM21664 and BCM23550 share some components, so most drivers can be reused between the two. They're often paired with the BCM59054 PMU and the BCM2093 modem.
+<p>The BCM21664 and BCM23550 are pretty much identical (the only difference is the CPU and some multimedia stuff), so most drivers can be reused between the two. They're often paired with the BCM59054 PMU and the BCM2093 modem.
 </p>
-<p>Currently, the 3 devices being worked on can boot into the initramfs. The BCM59054 PMU used in these devices works with the BCM59056 driver - some modifications have been made to add proper support for the different regulators in the bcm-kona-mainline repository.
+<p>Currently, the 3 devices being worked on can boot into the initramfs (with at least the Grand Neo being able to boot to the entire OS). The BCM59054 PMU used in these devices works with the BCM59056 driver - some modifications have been made to add proper support for the different regulators in the bcm-kona-mainline repository.
 </p>
 <p>On at least the BCM23550, SMP does not work. Some peripherals are slowly being enabled, but the general support is still quite bare-bones.
+</p>
+<p>The relevant patches will be upstreamed soon; see the <a rel="nofollow" class="external text" href="https://github.com/bcm-kona-mainline/linux/issues/2">upstreaming progress issue</a>.
 </p>
 <p>Progress can be tracked in <a rel="nofollow" class="external text" href="https://github.com/bcm-kona-mainline/linux/issues/1">this issue in the bcm-kona-mainline/linux repository</a>.
 </p>
@@ -132,7 +134,7 @@
 </p>
 <h1><span class="mw-headline" id="Chipsets">Chipsets</span></h1>
 <h2>
-<span id="Broadcom_BCM21664_(Hawaii)"></span><span class="mw-headline" id="Broadcom_BCM21664_.28Hawaii.29">Broadcom BCM21664 (Hawaii)</span>
+<span id="Broadcom_BCM21663/BCM21664_(Hawaii)"></span><span class="mw-headline" id="Broadcom_BCM21663.2FBCM21664_.28Hawaii.29">Broadcom BCM21663/BCM21664 (Hawaii)</span>
 </h2>
 <table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
 <caption class="" style="">Broadcom BCM21664</caption>
@@ -368,7 +370,7 @@ yes</td>
 <h2>
 <span id="Broadcom_BCM23550_(Java)"></span><span class="mw-headline" id="Broadcom_BCM23550_.28Java.29">Broadcom BCM23550 (Java)</span>
 </h2>
-<p>Shares a lot of common platform code with Hawaii chips, and has a lot of similar drivers.
+<p>Pretty much identical to the BCM21664, but with a different CPU.
 </p>
 <table class="infobox" cellspacing="3" style="border-spacing: 3px; width:22em;">
 <caption class="" style="">Broadcom BCM23550</caption>
@@ -708,25 +710,25 @@ no</td>
 <tr class="">
 <th scope="row" style="text-align:left;">WiFi</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Bluetooth</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Calls, SMS, Internet">Modem</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">GPS</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -777,7 +779,7 @@ no</td>
 <li>VideoCore IV GPU</li>
 </ul>
 <h3><span class="mw-headline" id="Mainline_status_4">Mainline status</span></h3>
-<p>No DTSI. May be similar to the BCM28155, but this hasn't been researched yet.
+<p>No DTSI. Similar in many ways to the BCM21664 that came after it (though notably "earlier" in some regards).
 </p>
 <h3><span class="mw-headline" id="More_information_3">More information</span></h3>
 <ul>
@@ -833,7 +835,7 @@ Broadcom VideoCore IV</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Mainline</th>
     <td class="" style="">
-no</td>
+yes</td>
 </tr>
 <tr><th colspan="2" class="" style="text-align:center;">Components</th></tr>
 <tr class="">
@@ -911,25 +913,25 @@ no</td>
 <tr class="">
 <th scope="row" style="text-align:left;">WiFi</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Bluetooth</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Calls, SMS, Internet">Modem</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">GPS</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -960,6 +962,11 @@ no</td>
 <tr>
 <td class="field_Device"><a href="../en/Amazon_Fire_TV_Stick_1st_gen_(amazon-montoya).html" title="Amazon Fire TV Stick 1st gen (amazon-montoya)">Amazon Fire TV Stick (1st gen)</a></td>
 <td class="field_Codename">amazon-montoya</td>
+<td class="field_Mainline"></td>
+</tr>
+<tr>
+<td class="field_Device"><a href="../en/Samsung_Galaxy_SII_Plus_(samsung-s2ve).html" title="Samsung Galaxy SII Plus (samsung-s2ve)">Samsung Galaxy S II Plus</a></td>
+<td class="field_Codename">samsung-s2ve</td>
 <td class="field_Mainline"></td>
 </tr>
 </tbody>
@@ -993,9 +1000,9 @@ no</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Broadcom_Kona&amp;oldid=43012">https://wiki.postmarketos.org/index.php?title=Broadcom_Kona&amp;oldid=43012</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Broadcom_Kona&amp;oldid=47470">https://wiki.postmarketos.org/index.php?title=Broadcom_Kona&amp;oldid=47470</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:30.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 10 August 2023, at 20:34.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

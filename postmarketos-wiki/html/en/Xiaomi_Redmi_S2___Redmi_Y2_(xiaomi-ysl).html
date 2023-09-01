@@ -70,7 +70,7 @@ Android 8.1</td>
 <tr class="">
 <th scope="row" style="text-align:left;">postmarketOS kernel</th>
     <td class="" style="">
-6.3</td>
+6.4.7</td>
 </tr>
 <tr><th colspan="2" class="" style="text-align:center;">Hardware</th></tr>
 <tr class="">
@@ -172,7 +172,7 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Audio playback, microphone, headset and buttons.">Audio</abbr></th>
     <td class="" style="">
-<div class="feature feature-partial">Partial</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -214,7 +214,7 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="USB On-The-Go or USB-C Role switching">USB OTG</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -367,25 +367,32 @@ aarch64</td>
 <p>Press Power and Volume Down(fastboot mode)
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>On your host machine, install <code>arm-none-eabi-gcc</code> toolchain and follow the instructions below
-</p>
-<pre>git clone https://github.com/msm8953-mainline/lk2nd
-cd lk2nd
-make TOOLCHAIN_PREFIX=arm-none-eabi- msm8953-secondary
-fastboot flash boot build-msm8953-secondary/lk2nd.img
-fastboot reboot
-</pre>
-<p>Boot your device. Once you see the Xiaomi logo and the startup vibration, hold the <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span>. You should now see a version of the fastboot screen with selectable entries (use Volume buttons to select between) and a summary of your device specs. This is lk2nd's fastboot mode and you can now continue the normal flashing procedure.
-</p>
-<p><a href="../Xiaomi-ysl-lk2nd.png" class="image"><img alt="Xiaomi-ysl-lk2nd.png" src="../Xiaomi-ysl-lk2nd.png" decoding="async" width="300" height="274" srcset="../450px-Xiaomi-ysl-lk2nd.png 1.5x ../600px-Xiaomi-ysl-lk2nd.png 2x"></a>
-</p>
-<p><br>
-Follow the <a href="../en/Installation.html" class="mw-redirect" title="Installation guide">Installation guide</a>
-</p>
-<p>If using recovery zip, boot into lk2nd and flash boot.img into lk2nd using 
-</p>
-<p><code>$ fastboot flash boot boot.img</code>, then hit the power button to reboot
-</p>
+<ul><li>Follow the <a href="../en/Installation.html" class="mw-redirect" title="Installation guide">Installation guide</a>
+</li></ul>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>Note:</b> <a href="../en/Lk2nd.html" class="mw-redirect" title="Lk2nd">lk2nd</a> is a hard dependency, without it the mainline kernel will not select the panel.</td>
+</tr></tbody></table>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install
+<span class="gp">$</span> pmbootstrap flasher flash_lk2nd
+<span class="gp">$</span> pmbootstrap flasher flash_rootfs --partition userdata
+</pre></div>
+<h3><span class="mw-headline" id="How_to_enter_flash_mode_2">How to enter flash mode</span></h3>
+<ul>
+<li>
+<b>Stock Fastboot</b>: Power on the device with both <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> buttons</li>
+<li>
+<b>lk2nd Fastboot</b>: Power on the device. After it vibrates, hold <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span>
+</li>
+</ul>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>Note:</b> Pressing the keys too early will cause the stock bootloader to handle the key combination. You will end up in the wrong Fastboot interface.</td>
+</tr></tbody></table>
+<ul><li>
+<b>Recovery</b>: Power on the device with both <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Up</span> buttons</li></ul>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow" class="external text" href="https://github.com/msm8953-mainline/linux">Kernel source</a></li>
@@ -410,9 +417,9 @@ Follow the <a href="../en/Installation.html" class="mw-redirect" title="Installa
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_S2_/_Redmi_Y2_(xiaomi-ysl)&amp;oldid=46586">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_S2_/_Redmi_Y2_(xiaomi-ysl)&amp;oldid=46586</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_S2_/_Redmi_Y2_(xiaomi-ysl)&amp;oldid=47754">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_S2_/_Redmi_Y2_(xiaomi-ysl)&amp;oldid=47754</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 17 July 2023, at 23:02.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 21 August 2023, at 12:55.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

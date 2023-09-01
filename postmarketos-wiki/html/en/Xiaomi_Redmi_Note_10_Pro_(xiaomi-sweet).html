@@ -372,6 +372,11 @@ aarch64</td>
 <p><br>
 </p>
 <h2><span class="mw-headline" id="Port_status">Port status</span></h2>
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>WARNING:</b> THIS PORT WILL (PROBABLY) <b>NOT WORK</b> ON THE <b>Redmi Note 12 Pro 4G (sweet_k6a)</b>. IF YOU TRY FLASHING IT, YOU MAY END WITH A BRICK!</td>
+</tr></tbody></table>
 <p>Downstream kernel compiles with pmOS's build system but the resulting artifact does not boot.
 The same source code compiles also using android's build system and the resulting artifact boots. (See below for the required steps.)
 </p>
@@ -390,7 +395,7 @@ The same source code compiles also using android's build system and the resultin
 <span id="Unlock_Bootloader_(if_not_done)"></span><span class="mw-headline" id="Unlock_Bootloader_.28if_not_done.29">Unlock Bootloader (if not done)</span>
 </h3>
 <ul>
-<li>First unlock your device (if not done yet). Use <a rel="nofollow" class="external text" href="https://en.miui.com/unlock/">MiUnlock</a> to unlock <b>(Windows only)'<i>. // </i>If MiUnlock doesn't detect your device, follow this: <a rel="nofollow" class="external text" href="https://streamable.com/3xh2n7">Google USB Drivers install guide</a></b>
+<li>First unlock your device (if not done yet). Use <a rel="nofollow" class="external text" href="https://en.miui.com/unlock/">MiUnlock</a> to unlock <b>(Windows only)</b>. // <b>If MiUnlock doesn't detect your device, follow this: <a rel="nofollow" class="external text" href="https://streamable.com/3xh2n7">Google USB Drivers install guide</a></b>
 </li>
 <li>Follow the Instructions on the selected site</li>
 <li>Note: After that do not log off your Mi Account on your phone or it won't work! It may take 7 days or more to be able to unlock your device!</li>
@@ -474,7 +479,7 @@ root:
  </code>
 </pre>
 <h2><span class="mw-headline" id="Mainlining">Mainlining</span></h2>
-<p><b>NOT VERIFIED:</b> <a rel="nofollow" class="external text" href="http://deviceinfohw.ru/devices/item.php?item=583588">sourced from deviceinfohw</a>, status from <a rel="nofollow" class="external text" href="https://github.com/sm7150-mainline/linux/blob/v6.0/arch/arm64/boot/dts/qcom/sm7150-xiaomi-sweet.dts">sm7150-xiaomi-sweet DTS</a>
+<p><b>NOT VERIFIED:</b> <a rel="nofollow" class="external text" href="http://deviceinfohw.ru/devices/item.php?item=583588">sourced from deviceinfohw</a>, status from <a rel="nofollow" class="external text" href="https://github.com/sm7150-mainline/linux/blob/next/arch/arm64/boot/dts/qcom/sm7150-xiaomi-sweet.dts">sm7150-xiaomi-sweet DTS</a> <b>(UNTESTED!)</b>
 </p>
 <table class="wikitable">
 <tbody>
@@ -500,9 +505,9 @@ root:
 <tr>
 <td>Charging IC
 </td>
-<td>bq2597x (early units) / ln8000 (new units)
+<td>TI bq2597x (early units) / LionSemi ln8000 (new units)
 </td>
-<td>? (bq26xx/bq25980 drivers available)
+<td>Bringup in progress
 </td>
 </tr>
 <tr>
@@ -526,15 +531,15 @@ root:
 </td>
 <td>? (nq-nci driver on Android)
 </td>
-<td>N/A
+<td>Bringup in progress
 </td>
 </tr>
 <tr>
 <td>Audio
 </td>
-<td>aw882xx, sm6150idpsndcar
+<td>Awinic aw882xx, sm6150idpsndcar
 </td>
-<td>?
+<td>Bringup in progress
 </td>
 </tr>
 <tr>
@@ -548,9 +553,9 @@ root:
 <tr>
 <td>Touchscreen
 </td>
-<td>? (gtx8 driver on Android)
+<td>Goodix GT9896 (gtx8 driver on Android)
 </td>
-<td>?
+<td>Bringup in progress
 </td>
 </tr>
 <tr>
@@ -558,7 +563,7 @@ root:
 </td>
 <td>Samsung E3 Super AMOLED (dsi_k6_38_0c_0a_fhd_dsc_video_display interface on Android)
 </td>
-<td>No driver
+<td>Y (dsi0)
 </td>
 </tr>
 <tr>
@@ -614,7 +619,7 @@ root:
 </td>
 <td>Awinic AW8624
 </td>
-<td>?
+<td>Y
 </td>
 </tr>
 <tr>
@@ -630,7 +635,15 @@ root:
 </td>
 <td>?
 </td>
-<td>Y (untested)
+<td>Y
+</td>
+</tr>
+<tr>
+<td>Flash
+</td>
+<td>?
+</td>
+<td>Y
 </td>
 </tr>
 </tbody>
@@ -665,9 +678,9 @@ root:
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_10_Pro_(xiaomi-sweet)&amp;oldid=43294">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_10_Pro_(xiaomi-sweet)&amp;oldid=43294</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_10_Pro_(xiaomi-sweet)&amp;oldid=47987">https://wiki.postmarketos.org/index.php?title=Xiaomi_Redmi_Note_10_Pro_(xiaomi-sweet)&amp;oldid=47987</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:34.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 31 August 2023, at 02:08.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

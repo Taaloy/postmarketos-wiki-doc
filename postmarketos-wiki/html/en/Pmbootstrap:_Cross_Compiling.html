@@ -61,8 +61,10 @@
 <h3><span class="mw-headline" id="Rust">Rust</span></h3>
 <p>Rust support in crossdirect is still experimental. <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/4234">pmaports!4234</a> (cross/crossdirect: improve rust handling) describes some of the problems with it.
 </p>
-<p>This is important to know when packaging a program that uses Rust in pmaports (once pmaports!4234 is merged):
+<h4><span class="mw-headline" id="CARGO_HOME">CARGO_HOME</span></h4>
+<p>If a program needs to download git repositories of dependencies with cargo (ideally they are bundled with the source tarball and don't need to be downloaded), then these git repositories are cached with pmbootstrap. This works as long as the program does not override <a rel="nofollow" class="external text" href="https://doc.rust-lang.org/cargo/guide/cargo-home.html">CARGO_HOME</a>. GNOME podcasts does this for example, so if building gnome-podcasts from the git repository with <code>pmbootstrap build --src</code>, patch out the override of CARGO_HOME so the dependencies do not get downloaded for every build.
 </p>
+<h4><span class="mw-headline" id="Packaging_caveats">Packaging caveats</span></h4>
 <ul>
 <li>
 <code>cargo auditable build</code> is unsupported and falls back to compiling in QEMU. Change it to <code>cargo build</code> to build the package with the native compiler.</li>
@@ -91,9 +93,9 @@
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Pmbootstrap:_Cross_Compiling&amp;oldid=46559">https://wiki.postmarketos.org/index.php?title=Pmbootstrap:_Cross_Compiling&amp;oldid=46559</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Pmbootstrap:_Cross_Compiling&amp;oldid=47278">https://wiki.postmarketos.org/index.php?title=Pmbootstrap:_Cross_Compiling&amp;oldid=47278</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 16 July 2023, at 11:26.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 6 August 2023, at 11:15.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

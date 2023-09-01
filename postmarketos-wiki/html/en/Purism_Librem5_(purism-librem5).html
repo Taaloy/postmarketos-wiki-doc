@@ -376,6 +376,7 @@ handset</td>
 <li>
 <a href="../User:Newbyte.html" title="User:Newbyte">Newbyte</a> (<span class="cargoFieldName">Notes:</span> thanks bart)</li>
 <li><a href="../User:PanzerSajt.html" title="User:PanzerSajt">PanzerSajt</a></li>
+<li><a href="../User:Pbryan.html" title="User:Pbryan">Pbryan</a></li>
 <li>
 <a href="../User:QC8086.html" title="User:QC8086">QC8086</a> (<span class="cargoFieldName">Notes:</span> Evergreen, SparkLAN WiFi)</li>
 <li>
@@ -412,6 +413,19 @@ handset</td>
 <td style="padding: 0.35em 0.9em; width: 100%;">Some USB-C cables may need to be plugged into the phone with a particular orientation. If the instructions above do not appear to work, try flipping the USB-C end of the cable over and replugging it into the phone.</td>
 </tr></tbody></table>
 <p>These directions were gathered from <b><a rel="nofollow" class="external text" href="https://developer.puri.sm/Librem5/Development_Environment/Phone/Troubleshooting/Reflashing_the_Phone.html#flash-the-image">Purism's documentation</a></b>, refer to it for additional details/troubleshooting.
+</p>
+<h2><span class="mw-headline" id="SD_Card_booting">SD Card booting</span></h2>
+<p>The Librem 5's version of u-boot now supports SD Card booting!
+</p>
+<p>To use pmbootstrap to prepare an SD Card, issue the following command:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap install --sdcard<span class="o">=</span>/dev/sdX
+</pre></div>
+<p>where /dev/sdX represents the block device your SD Card is mounted at.
+</p>
+<p>You can now boot the SD Card by inserting it into your Librem 5 and holding volume down as you power it on.
+</p>
+<p>Unfortunately, some Librem 5's have an issue with the SD Card being mounted as read-only after waking from suspend. If your Librem 5 has this issue and you attempt to suspend it while booted from an SD Card, on resume tinydm and phosh will crash.
 </p>
 <h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
 <h3><span class="mw-headline" id="LED_colours_and_flashing_patterns">LED colours and flashing patterns</span></h3>
@@ -530,9 +544,9 @@ handset</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Purism_Librem5_(purism-librem5)&amp;oldid=46300">https://wiki.postmarketos.org/index.php?title=Purism_Librem5_(purism-librem5)&amp;oldid=46300</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Purism_Librem5_(purism-librem5)&amp;oldid=47503">https://wiki.postmarketos.org/index.php?title=Purism_Librem5_(purism-librem5)&amp;oldid=47503</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 7 July 2023, at 17:16.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 11 August 2023, at 17:34.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

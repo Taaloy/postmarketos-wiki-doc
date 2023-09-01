@@ -109,6 +109,11 @@ Intel HD Graphics</td>
     <td class="" style="">
 x86_64</td>
 </tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Type</th>
+    <td class="" style="">
+tablet</td>
+</tr>
 <tr><td colspan="2" style="text-align:right"></td></tr>
 </tbody>
 </table>
@@ -360,11 +365,26 @@ x86_64</td>
 <a href="../User:Bastindo.html" title="User:Bastindo">Bastindo</a> (<span class="cargoFieldName">Notes:</span> Running Void Linux)</li>
 <li><a href="../User:Nickre.html" title="User:Nickre">Nickre</a></li>
 <li><a href="../User:R31k0.html" title="User:R31k0">R31k0</a></li>
+<li><a href="../User:Rambonette.html" title="User:Rambonette">Rambonette</a></li>
 </ul></div>
 <p><br>
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
-<p>Do a sdcard install to a USB stick or SD card and select it as a boot drive in the UEFI (USB keyboard required).
+<p>Init <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a>:
+</p>
+<pre>$ pmbootstrap init
+</pre>
+<p>note that this model is listed under Vendor <code>surftab</code> and not <code>trekstor</code>. To fix touchscreen drivers add <code>g++,make</code> as additional packages.
+Plug your micro sd card into your computer and take note of its file system position with:
+</p>
+<pre>$ dmesg|tail
+</pre>
+<p>usually a common position is <code>/dev/mmcblk0</code>.
+Then run:
+</p>
+<pre>$ pmbootstrap install --sdcard=/dev/mmcblk...
+</pre>
+<p>do not use <code>--fda</code>. This device does not support encryption.
 </p>
 <h2><span class="mw-headline" id="Hardware">Hardware</span></h2>
 <p>This is some information about the hardware that does not work out of the box.
@@ -389,6 +409,13 @@ CONFIG_AXP288_ADC
 <p>The back camera is a OmniVision OV2680. There seems to be some support in the kernel.
 <a rel="nofollow" class="external autonumber" href="https://github.com/torvalds/linux/commit/3ee47cad3e6955147882f1a24a9465704d8eddd2#diff-a8a5a22c348086869e2efd5206bbe62e">[3]</a>
 </p>
+<h3><span class="mw-headline" id="Touchscreen">Touchscreen</span></h3>
+<p>Touchscreen is semi-working. These are the steps to get it working properly:
+</p>
+<pre>$ git clone <a rel="nofollow" class="external free" href="https://github.com/onitake/gslx680-acpi">https://github.com/onitake/gslx680-acpi</a>
+$ cd gslx680-acpi
+$ sudo make install
+</pre>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li>
@@ -400,6 +427,7 @@ CONFIG_AXP288_ADC
 		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
 <li><a href="../en/Category:Devices.html" title="Category:Devices">Devices</a></li>
+<li><a href="/index.php?title=Category:Tablet&amp;action=edit&amp;redlink=1" class="new" title="Category:Tablet (page does not exist)">Tablet</a></li>
 <li><a href="/index.php?title=Category:Windows&amp;action=edit&amp;redlink=1" class="new" title="Category:Windows (page does not exist)">Windows</a></li>
 <li><a href="/index.php?title=Category:TrekStor&amp;action=edit&amp;redlink=1" class="new" title="Category:TrekStor (page does not exist)">TrekStor</a></li>
 </ul>
@@ -412,9 +440,9 @@ CONFIG_AXP288_ADC
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Trekstor_Surftab_Wintron_7.0_(surftab-wintron7.0)&amp;oldid=43628">https://wiki.postmarketos.org/index.php?title=Trekstor_Surftab_Wintron_7.0_(surftab-wintron7.0)&amp;oldid=43628</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Trekstor_Surftab_Wintron_7.0_(surftab-wintron7.0)&amp;oldid=47369">https://wiki.postmarketos.org/index.php?title=Trekstor_Surftab_Wintron_7.0_(surftab-wintron7.0)&amp;oldid=47369</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:42.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 8 August 2023, at 13:33.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

@@ -370,32 +370,24 @@ tablet</td>
 <p>Hold  <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> until "FASTBOOT" shows on screen
 </p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>Following is the old manufactor's kernel installation.
+</p>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap initfs hook_add debug-shell
 <span class="gp">$</span> pmbootstrap install
 <span class="gp">$</span> pmbootstrap flasher flash_rootfs --partition userdata <span class="c1"># Flashing to the system partition fails with (remote: '(InvalidSize)'), May cause by 2 system partition.</span>
 
 <span class="gp">$</span> pmbootstrap flasher flash_kernel
 </pre></div>
-<h2><span class="mw-headline" id="Situations">Situations</span></h2>
-<p>Mainline in progress although very slow. Sorry about that but I have limit time since I'm also busy with my life.
-Based on existing work. <a rel="nofollow" class="external autonumber" href="https://github.com/MiPadLinux/linux">[1]</a>
-Try to bringing to the last Linux LTS.
+<h2><span class="mw-headline" id="Progress">Progress</span></h2>
+<p>I'm busying with my daily work, so i have limit time to do this.
 </p>
+<p>There are many developers working on Android 10/11/12 on this device. If there's no possible to work on further, I will try to call them working on it.
+</p>
+<p>I aim to base on  6.1.46 and continue working.
+</p>
+<h2><span class="mw-headline" id="Mainline_Status">Mainline Status</span></h2>
 <p>This device comes with a interesting boot package method, which dt.img isn't QCDT style at all. Instead, it just use dtb file as dt.img. 
 </p>
-<blockquote>
-<p>Below are Issues in downstream kernel and only for historical purpose.
-</p>
-<p><del>after some random defconfig edit, the situation fell back.( w/o debug-shell it will hang up and watchdog will perform reboot)  try to fall back to defconfig which cause kernel crash.</del>
-</p>
-<p><del>the dt.img is still blob<a rel="nofollow" class="external autonumber" href="https://raw.githubusercontent.com/MiPadLinux/stuff/main/dt.img">[2]</a> (extract from lineage), discussed in matrix and result is that I need a special dtbTool for this device.<a rel="nofollow" class="external autonumber" href="https://matrix.to/#/!XDpyJuXdDnuBLFJWlG:postmarketos.org/%24lDUx7-smHbkPYgpPiBywHQwMwieRPEXRmplf-9Rmt0M?via=matrix.org&amp;via=kde.org&amp;via=envs.net">[3]</a> I dont have experience with this.</del>
-</p>
-<p><del>Nearly all /sys except /sys/fs will disappear after continue booting with pmos_continue_boot, but it can be remounted.</del>
-</p>
-<p><del>Screen can work ( tested by cat random to device)</del>
-</p>
-</blockquote>
-<h2><span class="mw-headline" id="Mainline_Status">Mainline Status</span></h2>
 <table class="wikitable feature-colors">
 <tbody>
 <tr>
@@ -413,9 +405,9 @@ Try to bringing to the last Linux LTS.
 </td>
 <td>-
 </td>
-<td>Y
+<td>P
 </td>
-<td>Boot with exists 5.4 fork.
+<td>Boot with exists 5.4 fork, working on 6.1.46
 </td>
 </tr>
 <tr>
@@ -435,7 +427,7 @@ Try to bringing to the last Linux LTS.
 </td>
 <td>P
 </td>
-<td>There are two kinds of touchscreen, which for my device is mXT1664T2-C2U. Now work with forward port driver.
+<td>There are two kinds of touchscreen, which for my device is mXT1664T2-C2U.
 </td>
 </tr>
 <tr>
@@ -445,7 +437,7 @@ Try to bringing to the last Linux LTS.
 </td>
 <td>Y
 </td>
-<td>Need to add to DTS
+<td>Need to add to DTS Documentation/leds/leds-lp5521
 </td>
 </tr>
 <tr>
@@ -465,7 +457,7 @@ Try to bringing to the last Linux LTS.
 </td>
 <td>Y
 </td>
-<td>Need to add to DTS
+<td>Need to add to DTS Documentation/devicetree/bindings/power/supply/bq24190
 </td>
 </tr>
 <tr>
@@ -475,7 +467,7 @@ Try to bringing to the last Linux LTS.
 </td>
 <td>Y
 </td>
-<td>Need to add to DTS
+<td>Need to add to DTS Documentation/devicetree/bindings/power/supply/bq27xxx
 </td>
 </tr>
 <tr>
@@ -483,9 +475,9 @@ Try to bringing to the last Linux LTS.
 </td>
 <td>Cypress(Broadcom) CYW4354XKUBG
 </td>
-<td>P
+<td>-
 </td>
-<td>Only work without TOSforPSCI, or it will not work
+<td>Documentation/devicetree/bindings/net/wireless/brcm,bcm4329-fmac
 </td>
 </tr>
 <tr>
@@ -515,13 +507,13 @@ Try to bringing to the last Linux LTS.
 </td>
 <td>-
 </td>
-<td>newly added, cant be found in exists works. <a rel="nofollow" class="external free" href="https://lore.kernel.org/all/20220602164504.261361-1-amartinz@shiftphones.com/T/">https://lore.kernel.org/all/20220602164504.261361-1-amartinz@shiftphones.com/T/</a>
+<td>Documentation/devicetree/bindings/sound/nxp,tfa989x
 </td>
 </tr>
 </tbody>
 </table>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
-<p>The Kernel Xiaomi Official released: <a rel="nofollow" class="external autonumber" href="https://github.com/MiCode/Xiaomi_Kernel_OpenSource/tree/mocha-kk-oss">[4]</a>
+<p>The Kernel Xiaomi Official released: <a rel="nofollow" class="external autonumber" href="https://github.com/MiCode/Xiaomi_Kernel_OpenSource/tree/mocha-kk-oss">[1]</a>
 </p>
 <p><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/3735">pmaports!3735</a> Initial merge request
 </p>
@@ -545,9 +537,9 @@ Try to bringing to the last Linux LTS.
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Pad_(xiaomi-mocha)&amp;oldid=43424">https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Pad_(xiaomi-mocha)&amp;oldid=43424</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Pad_(xiaomi-mocha)&amp;oldid=47841">https://wiki.postmarketos.org/index.php?title=Xiaomi_Mi_Pad_(xiaomi-mocha)&amp;oldid=47841</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:38.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 24 August 2023, at 09:27.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

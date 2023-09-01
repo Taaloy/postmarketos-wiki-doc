@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Google Pixel 3a (google-sargo)/Installation guide - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Google_Pixel_3a_google-sargo_Installation_guide rootpage-Google_Pixel_3a_google-sargo_Installation_guide skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">Google Pixel 3a (google-sargo)/Installation guide</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<table role="text container" style="color: inherit; background-color: #E8E0CC; border: 2px dotted #C1B598; margin: 4px 10%; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;">🚧</span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>This page is a work-in-progress.</b> Some information contained within may be inaccurate or incomplete.
+<br>In particular: <i>Known issues are not integrated into the guide. Commands for preserving a dual-boot setup have not been verified to work.</i>
+</td>
+</tr></tbody></table>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#Relevant_known_issues"><span class="tocnumber">1</span> <span class="toctext">Relevant known issues</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Dependence_on_modem_firmware_partition"><span class="tocnumber">1.1</span> <span class="toctext">Dependence on modem firmware partition</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Full_system_backup_on_dynamic_partitions"><span class="tocnumber">1.2</span> <span class="toctext">Full system backup on dynamic partitions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1">
+<a href="#Pre-installation"><span class="tocnumber">2</span> <span class="toctext">Pre-installation</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Read_through"><span class="tocnumber">2.1</span> <span class="toctext">Read through</span></a></li>
+<li class="toclevel-2"><a href="#Back_up_your_data"><span class="tocnumber">2.2</span> <span class="toctext">Back up your data</span></a></li>
+<li class="toclevel-2"><a href="#Allow_bootloader_unlocking"><span class="tocnumber">2.3</span> <span class="toctext">Allow bootloader unlocking</span></a></li>
+<li class="toclevel-2">
+<a href="#Obtain_an_installation"><span class="tocnumber">2.4</span> <span class="toctext">Obtain an installation</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Building_your_own_images_with_pmbootstrap"><span class="tocnumber">2.4.1</span> <span class="toctext">Building your own images with pmbootstrap</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Enter_flashing_mode"><span class="tocnumber">2.5</span> <span class="toctext">Enter flashing mode</span></a></li>
+<li class="toclevel-2"><a href="#Unlock_the_bootloader"><span class="tocnumber">2.6</span> <span class="toctext">Unlock the bootloader</span></a></li>
+<li class="toclevel-2">
+<a href="#Choose_a_target_partition"><span class="tocnumber">2.7</span> <span class="toctext">Choose a target partition</span></a>
+<ul>
+<li class="toclevel-3"><a href="#The_system_dynamic_partition"><span class="tocnumber">2.7.1</span> <span class="toctext">The system dynamic partition</span></a></li>
+<li class="toclevel-3"><a href="#The_system_partition"><span class="tocnumber">2.7.2</span> <span class="toctext">The system partition</span></a></li>
+<li class="toclevel-3"><a href="#The_userdata_partition"><span class="tocnumber">2.7.3</span> <span class="toctext">The userdata partition</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Choose_a_target_slot"><span class="tocnumber">2.8</span> <span class="toctext">Choose a target slot</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1">
+<a href="#Installation"><span class="tocnumber">3</span> <span class="toctext">Installation</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Erase_the_DTBO"><span class="tocnumber">3.1</span> <span class="toctext">Erase the DTBO</span></a></li>
+<li class="toclevel-2">
+<a href="#Flash_the_installation"><span class="tocnumber">3.2</span> <span class="toctext">Flash the installation</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Flashing_a_pre-built_installation"><span class="tocnumber">3.2.1</span> <span class="toctext">Flashing a pre-built installation</span></a></li>
+<li class="toclevel-3"><a href="#Flashing_an_installation_created_with_pmbootstrap"><span class="tocnumber">3.2.2</span> <span class="toctext">Flashing an installation created with pmbootstrap</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Launch_the_installation"><span class="tocnumber">3.3</span> <span class="toctext">Launch the installation</span></a></li>
+<li class="toclevel-2"><a href="#Recovering_from_a_faulty_connection"><span class="tocnumber">3.4</span> <span class="toctext">Recovering from a faulty connection</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1">
+<a href="#Maintenance"><span class="tocnumber">4</span> <span class="toctext">Maintenance</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Updating"><span class="tocnumber">4.1</span> <span class="toctext">Updating</span></a></li>
+<li class="toclevel-2"><a href="#Keeping_your_installation_on_a_dual-boot_setup"><span class="tocnumber">4.2</span> <span class="toctext">Keeping your installation on a dual-boot setup</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Relevant_known_issues">Relevant known issues</span></h2>
+<h3><span class="mw-headline" id="Dependence_on_modem_firmware_partition">Dependence on modem firmware partition</span></h3>
+<p>The modem firmware is currently sourced from your device's modem partition.
+</p>
+<p>Make sure that your modem firmware is up-to-date by <a rel="nofollow" class="external text" href="https://developers.google.com/android/ota#sargo">applying an OTA image on the opposite slot</a> (time-consuming) or flashing a <code>modem.img</code> filesystem image to your target slot (requires special scripts to <a rel="nofollow" class="external text" href="https://wiki.lineageos.org/extracting_blobs_from_zips#extracting-proprietary-blobs-from-payload-based-otas">extract</a>).
+</p>
+<h3><span class="mw-headline" id="Full_system_backup_on_dynamic_partitions">Full system backup on dynamic partitions</span></h3>
+<p>The dynamic partitions cannot be accessed through named device nodes (e.g. <code>/dev/mapper/system_a</code>) but can be accessed through numbered device nodes (e.g. <code>/dev/dm-0</code>).
+</p>
+<p>When backing up a installation on a dynamic partition, first find the device node:
+</p>
+<pre># dmsetup ls | grep system_a
+system_a	(253:0)
+</pre>
+<p>Then use <code>/dev/dm-</code> with the minor ID of the device node to take a rootfs backup when needed (e.g. <code>/dev/dm-0</code>).
+</p>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Pre-installation">Pre-installation</span></h2>
+<p>In this section, you will obtain two partition images comprising a full
+installation of postmarketOS and prepare your device to be flashed with them.
+</p>
+<h3><span class="mw-headline" id="Read_through">Read through</span></h3>
+<p>Read the pre-installation and installation sections fully before taking any
+steps. One of the worst things that can happen is being left with no working OS
+on your device, postmarketOS or otherwise, and no volunteers immediately
+available on the <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">Matrix and IRC</a> channels. Plan ahead, fully understand the
+instructions, and decide on the details of your desired installation first.
+</p>
+<h3><span class="mw-headline" id="Back_up_your_data">Back up your data</span></h3>
+<p>Your data will be wiped when you lock or unlock your bootloader, and when you
+install to the userdata partition. Back up any important data somewhere safe.
+</p>
+<p>Additionally, if you wish to use your device regardless of whether you perform
+a successful installation, be prepared to reinstall your current operating
+system.
+</p>
+<h3><span class="mw-headline" id="Allow_bootloader_unlocking">Allow bootloader unlocking</span></h3>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">If you already have a custom ROM installed with the bootloader unlocked,
+skip this section.</td>
+</tr></tbody></table>
+<p>On Android, go to the <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">About phone</span> page in the Settings app. Click on
+the build number 7 times to enable developer settings. You will be prompted for
+your PIN or password.
+</p>
+<p>In the Settings main page, go to <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">System</span>, then <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Developer
+options</span>. Enable <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">OEM unlocking</span>.
+</p>
+<p>No unlock codes are needed to enable unlocking on this
+device.
+</p>
+<h3><span class="mw-headline" id="Obtain_an_installation">Obtain an installation</span></h3>
+<p>A complete installation for this device can be created with pmbootstrap.
+</p>
+<h4><span class="mw-headline" id="Building_your_own_images_with_pmbootstrap">Building your own images with pmbootstrap</span></h4>
+<p>The pmbootstrap program can be used to create a custom installation when there
+are no pre-built images to fit your needs. You may wish to install a different
+UI, boot from netboot, test unfinished features, or install to a
+testing-category device.
+</p>
+<p>See <a href="../en/Pmbootstrap.html" title="Pmbootstrap">Pmbootstrap</a> for instructions on how to set up pmbootstrap and prepare
+an installation for your device. You will be prompted for your sudo password.
+</p>
+<h3><span class="mw-headline" id="Enter_flashing_mode">Enter flashing mode</span></h3>
+<p>Hold down the power button and select <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power off</span> to
+power off the device. Then press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> and <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span>
+at the same time to enter flashing mode.
+</p>
+<p>In flashing mode, connect to your device with a USB cable.
+</p>
+<h3><span class="mw-headline" id="Unlock_the_bootloader">Unlock the bootloader</span></h3>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">If you already have a custom ROM installed with the bootloader unlocked,
+skip this section.</td>
+</tr></tbody></table>
+<p>Before flashing anything, you need to unlock the bootloader with this command:
+</p>
+<pre>$ fastboot flashing unlock
+</pre>
+<p>Follow the prompts on your device's screen to complete the operation.
+</p>
+<h3><span class="mw-headline" id="Choose_a_target_partition">Choose a target partition</span></h3>
+<p>The boot image must always be flashed to the <code>boot</code> partition.
+</p>
+<p>By default, pmbootstrap installs the rootfs image for your device to
+the <code>userdata</code> partition. The rootfs can be
+installed to various places, depending on your needs:
+</p>
+<h4><span class="mw-headline" id="The_system_dynamic_partition">The <code>system</code> dynamic partition</span></h4>
+<p>This is a small partition which normally stores read-only system components for
+an Android-like OS.
+It is not intended for user data, but can be used for a dual-boot
+installation.
+</p>
+<p>This partition needs to be flashed in fastbootd instead of the bootloader
+fastboot. Run this command while in the bootloader to enter fastbootd:
+</p>
+<pre>$ fastboot reboot fastboot
+</pre>
+<h4><span class="mw-headline" id="The_system_partition">The <code>system</code> partition</span></h4>
+<p>This is a small partition which normally contains dynamic partitions like
+<code>system</code>, <code>vendor</code>, etc.
+</p>
+<p>You cannot use pmbootstrap's built-in flasher for this partition. If you have a
+rootfs image from pmbootstrap, run:
+</p>
+<pre>$ pmbootstrap export
+</pre>
+<p>Then use the
+<code>/tmp/postmarketOS-export/google-sargo.img</code> and
+<code>/tmp/postmarketOS-export/boot.img</code> images as prebuilt images.
+</p>
+<p>To flash to this partition, add the <code>--force</code> option to fastboot
+when flashing the rootfs image further down.
+</p>
+<h4><span class="mw-headline" id="The_userdata_partition">The <code>userdata</code> partition</span></h4>
+<p>This uses the majority of your device's internal storage and is normally used
+to store files for the user on an Android-like OS. Choose this partition if you
+want to use most of your device's storage.
+</p>
+<h3><span class="mw-headline" id="Choose_a_target_slot">Choose a target slot</span></h3>
+<p>Flashing both images to mismatched slots will not prevent postmarketOS from
+booting, but will limit your opportunities to dual-boot. Before flashing
+anything, choose the slot that you wish to install to.
+</p>
+<p>If you wish to dual-boot, you should select the opposite slot of the current
+one, so that you can continue running the most up-to-date version of your
+Android-like OS.
+</p>
+<p>For example, if the current slot in the flashing interface is b:
+</p>
+<pre>$ fastboot getvar current-slot
+current-slot: b
+Finished. Total time: 0.013s
+</pre>
+<p>flash postmarketOS to slot a:
+</p>
+<pre>$ fastboot set_active a
+</pre>
+<h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<p>In this section, you will install postmarketOS on your device.
+</p>
+<h3><span class="mw-headline" id="Erase_the_DTBO">Erase the DTBO</span></h3>
+<p>The device tree overlay, or DTBO, supplements the kernel's device tree. Android
+installs this by default.
+</p>
+<p>Thanks to a hack in the kernel fork, you do not need
+to erase the DTBO partition.
+</p>
+<p>Keeping the DTBO comes with a few side effects. Instead of seeing "Google
+Pixel 3a" as the machine name, you might see something like "Google Inc. MSM
+sdm670 S4 PVT v1.0". You may also see a dmesg error complaining about a
+ramoops reserved memory region.
+</p>
+<p>You can erase it with the following command:
+</p>
+<pre>$ fastboot erase dtbo
+</pre>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="Flash_the_installation">Flash the installation</span></h3>
+<h4><span class="mw-headline" id="Flashing_a_pre-built_installation">Flashing a pre-built installation</span></h4>
+<p>You can flash a pre-built installation with fastboot.
+</p>
+<pre>$ fastboot flash system_a 19700101-0000-postmarketOS-v23.06-phosh-0.1-google-sargo.img
+$ fastboot flash boot_a 19700101-0000-postmarketOS-v23.06-phosh-0.1-google-sargo-boot.img
+</pre>
+<h4><span class="mw-headline" id="Flashing_an_installation_created_with_pmbootstrap">Flashing an installation created with pmbootstrap</span></h4>
+<p>There is a built-in flashing utility included in pmbootstrap. Flash with:
+</p>
+<pre>$ pmbootstrap flasher flash_rootfs # You can flash to the default partition
+$ pmbootstrap flasher flash_rootfs --partition system # or to a custom partition like system
+</pre>
+<p>Finally, flash the kernel:
+</p>
+<pre>$ pmbootstrap flasher flash_kernel
+</pre>
+<h3><span class="mw-headline" id="Launch_the_installation">Launch the installation</span></h3>
+<p>On the device, navigate to the <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Start</span> option
+with the volume keys, then press the <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> button.
+</p>
+<p>Alternatively, you may run this command:
+</p>
+<pre>$ fastboot reboot
+</pre>
+<h3><span class="mw-headline" id="Recovering_from_a_faulty_connection">Recovering from a faulty connection</span></h3>
+<p>You should ideally have a reliable USB connection.
+</p>
+<p>If your cable disconnects while flashing, reconnect it
+and set your active slot again.
+</p>
+<pre>$ fastboot set_active a
+</pre>
+<p>Then, try to flash the same partition again and continue.
+</p>
+<p><br>
+</p>
+<h2><span class="mw-headline" id="Maintenance">Maintenance</span></h2>
+<h3><span class="mw-headline" id="Updating">Updating</span></h3>
+<p>As with other distros, keep your system up-to-date with the <code>apk</code>
+package manager.
+</p>
+<h3><span class="mw-headline" id="Keeping_your_installation_on_a_dual-boot_setup">Keeping your installation on a dual-boot setup</span></h3>
+<p>Android updates normally make use of both slots to apply updates seamlessly,
+but you may have postmarketOS installed on one of them.
+</p>
+<p>If you have an Android-like OS installed that publishes regular updates that
+you want to apply, back up your installation before applying these updates.
+</p>
+<p>Reboot to your Android-like OS, apply the update, and reboot again to complete
+it.
+</p>
+<p>Then restore your postmarketOS installation on the opposite slot:
+</p>
+<pre>$ fastboot flash system_b postmarketOS-rootfs.img
+$ fastboot flash boot_b postmarketOS-boot.img
+</pre>
+<p>This will change the slot of your installation, so keep track of it.
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Work-in-progress_pages.html" title="Category:Work-in-progress pages">Work-in-progress pages</a></li></ul>
+</div></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)/Installation_guide&amp;oldid=47779">https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)/Installation_guide&amp;oldid=47779</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 22 August 2023, at 03:09.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)/Installation_guide&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>

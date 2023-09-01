@@ -63,13 +63,19 @@
 </ul>
 </li>
 <li class="toclevel-1 tocsection-12">
-<a href="#Initramfs_hook"><span class="tocnumber">8</span> <span class="toctext">Initramfs hook</span></a>
+<a href="#Initramfs"><span class="tocnumber">8</span> <span class="toctext">Initramfs</span></a>
 <ul>
-<li class="toclevel-2 tocsection-13"><a href="#Notes"><span class="tocnumber">8.1</span> <span class="toctext">Notes</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Kernel_modules"><span class="tocnumber">8.1</span> <span class="toctext">Kernel modules</span></a></li>
+<li class="toclevel-2 tocsection-14">
+<a href="#Hooks"><span class="tocnumber">8.2</span> <span class="toctext">Hooks</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="#Notes"><span class="tocnumber">8.2.1</span> <span class="toctext">Notes</span></a></li>
 </ul>
 </li>
-<li class="toclevel-1 tocsection-14"><a href="#Android_dynamic_partitions"><span class="tocnumber">9</span> <span class="toctext">Android dynamic partitions</span></a></li>
-<li class="toclevel-1 tocsection-15"><a href="#See_also"><span class="tocnumber">10</span> <span class="toctext">See also</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Android_dynamic_partitions"><span class="tocnumber">9</span> <span class="toctext">Android dynamic partitions</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#See_also"><span class="tocnumber">10</span> <span class="toctext">See also</span></a></li>
 </ul>
 </div>
 
@@ -229,8 +235,16 @@ kernel_mainline<span class="o">()</span> <span class="o">{</span>
 <li>Implementation details and discussion: <a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/issues/1363">#1363</a>, <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/devicepkg-dev/devicepkg_subpackage_kernel.sh">devicepkg_subpackage_kernel source</a>
 </li>
 </ul>
-<h2><span class="mw-headline" id="Initramfs_hook">Initramfs hook</span></h2>
-<p>Some devices need to run special commands at boot time, for example turning on the display or kicking a watchdog. It is possible to do this with a device specific initramfs hook.
+<h2><span class="mw-headline" id="Initramfs">Initramfs</span></h2>
+<h3><span class="mw-headline" id="Kernel_modules">Kernel modules</span></h3>
+<p>If your device needs to have specific kernel modules in the initramfs, add a <code>modules-initfs</code> file with a list of these kernel modules (and nothing else) next to your <code>APKBUILD</code>. Add it to <code>source=</code> inside the <code>APKBUILD</code> and it will get used.
+</p>
+<p>If your device has <a href="#Multiple_kernels">#Multiple kernels</a>, then add multiple <code>modules-initfs.NAME</code> files. Replace <code>NAME</code> with the suffix for the kernel you have used in the subpackages. With the examples from above it would be <code>modules-initfs.mainline</code> and <code>modules-initfs.downstream</code>.
+</p>
+<p>Find examples in pmaports.git with <code>find -name 'modules-initfs'</code> (and for multiple kernels <code>find -name 'modules-initfs.*'</code>).
+</p>
+<h3><span class="mw-headline" id="Hooks">Hooks</span></h3>
+<p>Some devices need to run special commands at boot time, for example turning on the display or triggering a watchdog. It is possible to do this with a device specific initramfs hook.
 </p>
 <p>Create a new <code>initfs-hook.sh</code> file in your device package's dir and fill it with the command that needs to be executed, along with a comment describing what it does:
 </p>
@@ -243,7 +257,7 @@ kernel_mainline<span class="o">()</span> <span class="o">{</span>
 </p>
 <p>As usually, update the checksums, build the package with <code>--force</code> and test the hook on your device.
 </p>
-<h3><span class="mw-headline" id="Notes">Notes</span></h3>
+<h4><span class="mw-headline" id="Notes">Notes</span></h4>
 <p>If you have a modern device-specific APKBUILD (i.e. because you have just generated it), it will use <code>devicepkg_package</code> in <code>package()</code>, which will detect the initfs hook and install it automatically (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/191">pmaports!191</a>). This is the preferred way to do things. Otherwise you would have to copy <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/blob/0d966c7a6fe92486c5b9b8fe4525fef7f89c3a90/main/devicepkg-dev/devicepkg_package.sh#L30-31">this install command</a> to the end of your <code>package()</code> function.
 </p>
 <p>For reference, you can look at the existing initfs-hooks:
@@ -279,9 +293,9 @@ kernel_mainline<span class="o">()</span> <span class="o">{</span>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Device_specific_package&amp;oldid=45181">https://wiki.postmarketos.org/index.php?title=Device_specific_package&amp;oldid=45181</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Device_specific_package&amp;oldid=47205">https://wiki.postmarketos.org/index.php?title=Device_specific_package&amp;oldid=47205</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 20 June 2023, at 10:19.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 4 August 2023, at 06:50.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

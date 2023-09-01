@@ -172,15 +172,6 @@
 </tr>
 <tr>
 <td>
-<code>modules_initfs</code>
-</td>
-<td>Kernel modules to include in the initramfs image. Modules ext4 and usb_f_rndis should not be included in this list, they are always added to the initramfs image if they were built as module (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/673">pmaports!673</a>). Note: modules to be loaded <i>after</i> the initramfs can be specified like in a <code>modules-load.conf</code> (<a rel="nofollow" class="external text" href="https://github.com/postmarketOS/pmbootstrap/tree/master/aports/device/device-samsung-i9070">example</a>).
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td>
 <code>external_storage</code>
 </td>
 <td>Does the device have an sdcard or other external storage medium?
@@ -1142,6 +1133,8 @@ OR plug in device running stock Android/TWRP and watch dmesg for things like
 <code>nonfree</code>: Components of the device, that only run with closed source firmware. This is now legacy due to nobody uses it. (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/438">pmaports#438</a>)</li>
 <li>
 <code>dev_keyboard</code>: Originally intended to point osk-sdl to the hardware keyboard, but was never used. (It should detect hardware keyboards automatically...)</li>
+<li>
+<code>modules_initfs</code>: Kernel modules to include in the initramfs, has been replaced with the <code>modules-initfs</code> file in the device package (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/4169">pmaports!4169</a>). See <a href="../en/Device_specific_package.html#Kernel_modules" title="Device specific package">Device_specific_package#Kernel_modules</a> for more information.</li>
 </ul>
 <h3><span class="mw-headline" id="flash_2">flash</span></h3>
 <ul><li>
@@ -1164,9 +1157,9 @@ OR plug in device running stock Android/TWRP and watch dmesg for things like
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Deviceinfo_reference&amp;oldid=46478">https://wiki.postmarketos.org/index.php?title=Deviceinfo_reference&amp;oldid=46478</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Deviceinfo_reference&amp;oldid=47206">https://wiki.postmarketos.org/index.php?title=Deviceinfo_reference&amp;oldid=47206</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 13 July 2023, at 12:35.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 4 August 2023, at 06:51.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

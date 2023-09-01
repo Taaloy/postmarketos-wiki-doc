@@ -65,7 +65,12 @@ testing</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Original software</th>
     <td class="" style="">
-Android 8.1.0</td>
+Android</td>
+</tr>
+<tr class="">
+<th scope="row" style="text-align:left;"><abbr title="The version the device was shipped with.">Original version</abbr></th>
+    <td class="" style="">
+8.1.0</td>
 </tr>
 <tr><th colspan="2" class="" style="text-align:center;">Hardware</th></tr>
 <tr class="">
@@ -104,6 +109,11 @@ Maxwell</td>
     <td class="" style="">
 aarch64</td>
 </tr>
+<tr class="">
+<th scope="row" style="text-align:left;">Type</th>
+    <td class="" style="">
+tablet</td>
+</tr>
 <tr><td colspan="2" style="text-align:right"></td></tr>
 </tbody>
 </table>
@@ -119,13 +129,13 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="It is possible to flash the device with `pmbootstrap flasher`.">Flashing</abbr></th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Touchscreen</th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -137,7 +147,7 @@ aarch64</td>
 <tr class="">
 <th scope="row" style="text-align:left;">WiFi</th>
     <td class="" style="">
-<div class="feature feature-no">Broken</div>
+<div class="feature feature-yes">Works</div>
 </td>
 </tr>
 <tr class="">
@@ -347,6 +357,38 @@ aarch64</td>
 </p>
 <p><br>
 </p>
+<div id="toc" class="toc">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2>Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Contributors"><span class="tocnumber">1</span> <span class="toctext">Contributors</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Users_owning_this_device"><span class="tocnumber">2</span> <span class="toctext">Users owning this device</span></a></li>
+<li class="toclevel-1 tocsection-3">
+<a href="#How_to_enter_flash_mode"><span class="tocnumber">3</span> <span class="toctext">How to enter flash mode</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#fastboot"><span class="tocnumber">3.1</span> <span class="toctext">fastboot</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#APX"><span class="tocnumber">3.2</span> <span class="toctext">APX</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6">
+<a href="#Installation"><span class="tocnumber">4</span> <span class="toctext">Installation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Installation_keeping_Android_partition_table_.28easy_way.29"><span class="tocnumber">4.1</span> <span class="toctext">Installation keeping Android partition table (easy way)</span></a></li>
+<li class="toclevel-2 tocsection-8">
+<a href="#Installation_with_repartition_and_booting_from_USB_.28recommended_way.29"><span class="tocnumber">4.2</span> <span class="toctext">Installation with repartition and booting from USB (recommended way)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#Enable_booting_from_USB"><span class="tocnumber">4.2.1</span> <span class="toctext">Enable booting from USB</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Installation_to_USB_storage"><span class="tocnumber">4.2.2</span> <span class="toctext">Installation to USB storage</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Installation_to_eMMC"><span class="tocnumber">4.2.3</span> <span class="toctext">Installation to eMMC</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
 <h2><span class="mw-headline" id="Contributors">Contributors</span></h2>
 <ul>
 <li>jja2000</li>
@@ -362,13 +404,81 @@ aarch64</td>
 <p><br>
 </p>
 <h2><span class="mw-headline" id="How_to_enter_flash_mode">How to enter flash mode</span></h2>
+<h4><span class="mw-headline" id="fastboot">fastboot</span></h4>
 <p>When turned off press and hold the power button and volume down until the bootloader menu displays. Using the volume button select "Switch to fastboot mode" and press the power button.
 </p>
+<h4><span class="mw-headline" id="APX">APX</span></h4>
+<p>There seems to be no key combination for entering APX mode. Use these commands instead:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap initfs hook_add apx
+<span class="gp">$</span> pmbootstrap flasher flash_kernel
+</pre></div>
+<p>This will cause device entering APX on boot
+</p>
 <h2><span class="mw-headline" id="Installation">Installation</span></h2>
+<h3>
+<span id="Installation_keeping_Android_partition_table_(easy_way)"></span><span class="mw-headline" id="Installation_keeping_Android_partition_table_.28easy_way.29">Installation keeping Android partition table (easy way)</span>
+</h3>
 <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init
 <span class="gp">$</span> pmbootstrap install --no-cgpt
-<span class="gp">$</span> pmbootstrap flasher flash_kernel
+</pre></div>
+<p>Then in fastboot mode:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap flasher flash_kernel
 <span class="gp">$</span> pmbootstrap flasher flash_rootfs --partition userdata
+</pre></div>
+<h3>
+<span id="Installation_with_repartition_and_booting_from_USB_(recommended_way)"></span><span class="mw-headline" id="Installation_with_repartition_and_booting_from_USB_.28recommended_way.29">Installation with repartition and booting from USB (recommended way)</span>
+</h3>
+<h4><span class="mw-headline" id="Enable_booting_from_USB">Enable booting from USB</span></h4>
+<p>On PC:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> wget https://dl.google.com/dl/edgedl/chromeos/recovery/chromeos_15183.78.0_trogdor_recovery_stable-channel_mp-v7.bin.zip
+<span class="gp">$</span> unzip chromeos_15183.78.0_trogdor_recovery_stable-channel_mp-v7.bin.zip
+<span class="gp">$</span> sudo losetup -Pf chromeos_15183.78.0_trogdor_recovery_stable-channel_mp-v7.bin
+<span class="gp">$</span> sudo cp <span class="k">$(</span>findfs <span class="nv">LABEL</span><span class="o">=</span>ROOT-A<span class="k">)</span> recovery.img
+<span class="gp">$</span> adb push recovery.img /sdcard/recovery.img
+</pre></div>
+<p>On device in <code>adb shell</code>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> su <span class="c1"># assuming you have root</span>
+<span class="gp">#</span> <span class="nb">cd</span> /sdcard
+<span class="gp">#</span> mkdir rootdir
+<span class="gp">#</span> losetup /dev/block/loop0 recovery.img <span class="c1"># this may throw an error, but still pass. check blkid command, make sure there is /dev/block/loop0 in the output</span>
+<span class="gp">#</span> mount -o ro -t ext4 /dev/block/loop0 rootdir
+<span class="gp">#</span> <span class="nb">cd</span> rootdir
+<span class="gp">#</span> mount -t sysfs /sys sys
+<span class="gp">#</span> mount -t proc /proc proc
+<span class="gp">#</span> mount -o <span class="nb">bind</span> /dev dev
+<span class="gp">#</span> mount -t tmpfs -o <span class="nv">size</span><span class="o">=</span>100M tmpfs tmp <span class="c1"># for flashrom to avoid read-only fs</span>
+<span class="gp">#</span> mount -t tmpfs -o <span class="nv">size</span><span class="o">=</span>100M tmpfs run <span class="c1"># for crossystem to avoid read-only fs</span>
+<span class="gp">#</span> mkdir run/lock <span class="c1"># crossystem will create /run/lock/crossystem.lock there</span>
+<span class="gp">#</span> chroot . /bin/bash
+<span class="gp">#</span> <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PATH</span><span class="s2">:/usr/sbin:/bin"</span>
+<span class="gp">#</span> ln -s /dev/mtd/mtd0 /dev/mtd0 <span class="c1"># this is needed for crossystem to work with downstream SPI flash driver</span>
+<span class="gp">#</span> crossystem <span class="nv">dev_boot_usb</span><span class="o">=</span><span class="m">1</span> <span class="nv">dev_boot_signed_only</span><span class="o">=</span><span class="m">0</span> <span class="c1"># this command enables booting from USB</span>
+</pre></div>
+<p>Everything else is the same to <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Chrome_OS_devices">Chrome OS devices</a> except that we don't have prebuilt images yet.
+</p>
+<h4><span class="mw-headline" id="Installation_to_USB_storage">Installation to USB storage</span></h4>
+<p>Use these commands:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> pmbootstrap init <span class="c1"># select google-smaug</span>
+<span class="gp">$</span> pmbootstrap install --sdcard /dev/sdX <span class="c1"># replace /dev/sdX with your storage</span>
+</pre></div>
+<p>You can boot from USB with pressing <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Ctrl</span> + <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">U</span> in bootloader.
+</p>
+<h4><span class="mw-headline" id="Installation_to_eMMC">Installation to eMMC</span></h4>
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" title="Icon" width="20" height="20" srcset="../Red_warning_icon.svg 1.5x ../Red_warning_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>WARNING:</b>  This part is not tested. Make a backup before attempting this.</td>
+</tr></tbody></table>
+<p>Boot pmOS from USB, connect to WiFi and install pmOS on eMMC:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$</span> sudo apk add pmbootstrap
+<span class="gp">$</span> pmbootstrap init <span class="c1"># select google-smaug</span>
+<span class="gp">$</span> pmbootstrap install --sdcard /dev/mmcblkX <span class="c1"># replace X with your eMMC</span>
 </pre></div>
 </div></div>
 		
@@ -376,7 +486,8 @@ aarch64</td>
 <a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
 <li><a href="../en/Category:Pages_with_broken_file_links.html" title="Category:Pages with broken file links">Pages with broken file links</a></li>
 <li><a href="../en/Category:Devices.html" title="Category:Devices">Devices</a></li>
-<li><a href="/index.php?title=Category:Android_8.1.0&amp;action=edit&amp;redlink=1" class="new" title="Category:Android 8.1.0 (page does not exist)">Android 8.1.0</a></li>
+<li><a href="/index.php?title=Category:Tablet&amp;action=edit&amp;redlink=1" class="new" title="Category:Tablet (page does not exist)">Tablet</a></li>
+<li><a href="../en/Category:Android.html" title="Category:Android">Android</a></li>
 <li><a href="../en/Category:Google.html" title="Category:Google">Google</a></li>
 </ul>
 </div></div>
@@ -388,9 +499,9 @@ aarch64</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Pixel_C_(google-smaug)&amp;oldid=45073">https://wiki.postmarketos.org/index.php?title=Google_Pixel_C_(google-smaug)&amp;oldid=45073</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Pixel_C_(google-smaug)&amp;oldid=47577">https://wiki.postmarketos.org/index.php?title=Google_Pixel_C_(google-smaug)&amp;oldid=47577</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 15 June 2023, at 18:06.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 13 August 2023, at 16:26.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

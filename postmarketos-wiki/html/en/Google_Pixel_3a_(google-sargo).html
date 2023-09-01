@@ -367,7 +367,8 @@ handset</td>
 <h2>
 <span id="Maintainer(s)"></span><span class="mw-headline" id="Maintainer.28s.29">Maintainer(s)</span>
 </h2>
-<ul><li><a href="../User:Flamingradian.html" title="User:Flamingradian">Flamingradian</a></li></ul>
+<ul><li>
+<a href="../User:Flamingradian.html" title="User:Flamingradian">Flamingradian</a> (non-XL devices)</li></ul>
 <h2><span class="mw-headline" id="Users_owning_this_device">Users owning this device</span></h2>
 <div style="-webkit-column-count: 2; -moz-column-count: 2; column-count: 2;"><ul style="margin-top: 0;">
 <li>
@@ -385,6 +386,8 @@ handset</td>
 <li>
 <a href="../User:Flamingradian.html" title="User:Flamingradian">Flamingradian</a> (<span class="cargoFieldName">Notes:</span> PVT 1.0, daily driver + mainlining target)</li>
 <li>
+<a href="../User:Froggo.html" title="User:Froggo">Froggo</a> (<span class="cargoFieldName">Notes:</span> 4+64GB, Verizon OEM Locked)</li>
+<li>
 <a href="../User:Humanleftswatch.html" title="User:Humanleftswatch">Humanleftswatch</a> (<span class="cargoFieldName">Notes:</span> Daily driver, running LineageOS-microg)</li>
 <li>
 <a href="../User:Ignapk.html" title="User:Ignapk">Ignapk</a> (<span class="cargoFieldName">Notes:</span> Daily driver)</li>
@@ -397,8 +400,6 @@ handset</td>
 <li><a href="../User:QC8086.html" title="User:QC8086">QC8086</a></li>
 <li>
 <a href="../User:Syboxez.html" title="User:Syboxez">Syboxez</a> (<span class="cargoFieldName">Notes:</span> Currently broken)</li>
-<li>
-<a href="../User:UltrasonicMadness.html" title="User:UltrasonicMadness">UltrasonicMadness</a> (<span class="cargoFieldName">Notes:</span> bonito XL model, runs Ubuntu Touch)</li>
 <li>
 <a href="../User:Vipaol.html" title="User:Vipaol">Vipaol</a> (<span class="cargoFieldName">Notes:</span> Daily driver, LOS for microG)</li>
 </ul></div>
@@ -440,11 +441,13 @@ fastboot: error: Command failed
 <p><br>
 </p>
 <h2><span class="mw-headline" id="Features">Features</span></h2>
-<h3><span class="mw-headline" id="Charging">Charging</span></h3>
+<h3><span class="mw-headline" id="Battery">Battery</span></h3>
+<p>The total charge may be incorrectly reported on the Pixel 3a XL.
+</p>
 <p>Support for charging was developed by the SDM845 mainlining community, with <a rel="nofollow" class="external text" href="https://gitlab.com/sdm845-mainline/linux/-/merge_requests/41">no thermals and only 1 A</a>.
 </p>
 <h3><span class="mw-headline" id="Display">Display</span></h3>
-<p>The panel works. Note that the XL variant has 2 different panels.
+<p>The panel works. Note that XL devices have 2 different, unsupported panels.
 </p>
 <p>The full panel driver is loaded late in the boot process so that unl0kr and osk-sdl work. This makes pbsplash small and makes it disappear.
 </p>
@@ -463,10 +466,14 @@ fastboot: error: Command failed
 <h3><span class="mw-headline" id="WiFi">WiFi</span></h3>
 <p>You don't get the same MAC address as on Android, even though it is possible to detect the MAC address that Android uses (somewhere in /sys/firmware/devicetree/base/chosen/cdt/cdb2/wlan_mac1). Instead, it is generated with the serial number.
 </p>
-<p>WiFi hotspots are on the same interface as the one used to connect to WiFi, so a hotspot cannot be set up over a WiFi connection.
+<p>WiFi hotspots are on the same interface as the one used to connect to WiFi, so a hotspot cannot be set up over a WiFi connection, unlike on Android.
+</p>
+<p>WoWLAN does not seem to work.
 </p>
 <h3><span class="mw-headline" id="Calls">Calls</span></h3>
 <p>It seems to be possible to initiate calls. However, this is useless because there is no call audio.
+</p>
+<p>Call audio requires extra drivers developed by the MSM8916 and SDM845 mainlining community, which have not been added.
 </p>
 <h3><span class="mw-headline" id="Audio">Audio</span></h3>
 <p>You can get audio (but not call audio) over Bluetooth and on the built-in speakers. The built-in speakers only support 16-bit audio.
@@ -480,6 +487,8 @@ fastboot: error: Command failed
 </p>
 <pre>$ echo 0 | sudo tee /sys/class/leds/led-0/brightness
 </pre>
+<p>There is currently not enough information in the devicetree to control flashlight from the Phosh quick settings.
+</p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li><a rel="nofollow" class="external text" href="https://github.com/LineageOS/android_kernel_google_msm-4.9">LineageOS Linux 4.9 kernel for sargo (3a) and bonito (3a XL)</a></li>
@@ -507,9 +516,9 @@ fastboot: error: Command failed
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)&amp;oldid=47030">https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)&amp;oldid=47030</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)&amp;oldid=47284">https://wiki.postmarketos.org/index.php?title=Google_Pixel_3a_(google-sargo)&amp;oldid=47284</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 29 July 2023, at 00:49.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 6 August 2023, at 23:00.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

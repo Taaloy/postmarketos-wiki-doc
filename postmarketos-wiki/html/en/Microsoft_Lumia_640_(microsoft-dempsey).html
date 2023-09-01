@@ -288,43 +288,43 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Keyboard</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Touchpad</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Full-sized USB-A port works (Usually applicable to SBCs and laptops).">USB-A</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;"><abbr title="Video and audio output with HDMI or Display Port works.">HDMI/DP</abbr></th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Ir TX</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Ir RX</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
 <th scope="row" style="text-align:left;">Stylus</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -336,7 +336,7 @@ armv7</td>
 <tr class="">
 <th scope="row" style="text-align:left;">Ethernet</th>
     <td class="" style="">
-<div></div>
+<div class="feature feature-unavailable">Unavailable</div>
 </td>
 </tr>
 <tr class="">
@@ -366,7 +366,7 @@ armv7</td>
 <li>
 <a href="../User:FieryFlames.html" title="User:FieryFlames">FieryFlames</a> (<span class="cargoFieldName">Notes:</span> Single SIM, UK variant)</li>
 <li>
-<a href="../User:Maxnet.html" title="User:Maxnet">Maxnet</a> (<span class="cargoFieldName">Notes:</span> rm-1077)</li>
+<a href="../User:Maxnet.html" title="User:Maxnet">Maxnet</a> (<span class="cargoFieldName">Notes:</span> rm-1077, unlocked bootloader)</li>
 <li>
 <a href="../User:Nobodywasishere.html" title="User:Nobodywasishere">Nobodywasishere</a> (<span class="cargoFieldName">Notes:</span> Actually the AT&amp;T LTE model but close enough)</li>
 <li>
@@ -391,6 +391,26 @@ armv7</td>
 <h3><span class="mw-headline" id="Unlocking_bootloader">Unlocking bootloader</span></h3>
 <p>See the general guide <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Windows_Phone#Guides">Unlocking the Bootloader</a> for instructions.
 </p>
+<h3><span class="mw-headline" id="Install_developer_menu_and_bootshim">Install developer menu and bootshim</span></h3>
+<p>After you have unlocked the bootloader of your phone, you will have to install the developer menu and bootshim onto your phone. This is made easy by the LumiaQuickStart script.
+</p>
+<ul>
+<li>Clone the LumiaQuickStart repo <a rel="nofollow" class="external autonumber" href="https://github.com/Mainline4Lumia/LumiaQuickStart">[1]</a>
+</li>
+<li>Use WPInternals to reboot your phone into mass storage mode.</li>
+<li>Run <code>install.ps1</code> as administrator. Provide the path to EFIESP (Windows might also have mounted it inside MainOS).</li>
+</ul>
+<p>After the script finishes, you should see a boot menu upon restart, which means we're ready to.
+</p>
+<h3><span class="mw-headline" id="Install_lk2nd">Install lk2nd</span></h3>
+<ul>
+<li>Download <code>emmc_appsboot.mbn</code> <a rel="nofollow" class="external autonumber" href="https://raw.githubusercontent.com/RDS5/mainline4lumia.github.io/main/data/emmc_appsboot.mbn.zip">[2]</a>
+</li>
+<li>Copy <code>emmc_appsboot.mbn</code> to your phone's EFIESP folder</li>
+<li>Unmount mass storage and restart your phone by holding the volume down and power buttons for a few seconds</li>
+</ul>
+<p>If all went well, you should enter lk2nd by pressing volume up on the bootmenu or holding volume up on the NOKIA bootlogo.
+</p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <h3><span class="mw-headline" id="Internal_links">Internal links</span></h3>
 <ul>
@@ -400,13 +420,13 @@ armv7</td>
 <h3><span class="mw-headline" id="External_links">External links</span></h3>
 <ul>
 <li>
-<a rel="nofollow" class="external autonumber" href="https://github.com/Mainline4Lumia/linux">[1]</a> Close to mainline linux kernel w/ support for dempsey and a few other msm8x26 lumias on msm8x26 branch. Use msm8x26-touchscreen branch for touchscreen, until it gets committed into msm8x26.</li>
+<a rel="nofollow" class="external autonumber" href="https://github.com/Mainline4Lumia/linux">[3]</a> Close to mainline linux kernel w/ support for dempsey and a few other msm8x26 lumias on msm8x26 branch. Use msm8x26-touchscreen branch for touchscreen, until it gets committed into msm8x26.</li>
 <li>
-<a rel="nofollow" class="external autonumber" href="https://github.com/Dominduchami/Lumia830Pkg">[2]</a> EDK2 for dempsey, tesla, makepeace and superman. This does boot Linux!</li>
+<a rel="nofollow" class="external autonumber" href="https://github.com/Dominduchami/Lumia830Pkg">[4]</a> EDK2 for dempsey, tesla, makepeace and superman. This does boot Linux!</li>
 <li>
-<a rel="nofollow" class="external autonumber" href="https://github.com/Mainline4Lumia/lk">[3]</a> LittleKernel for tesla and some other lumias. This does not boot Linux!! Useful for chain loading lk2nd to dump regulators when porting a lumia to linux.</li>
+<a rel="nofollow" class="external autonumber" href="https://github.com/Mainline4Lumia/lk">[5]</a> LittleKernel for tesla and some other lumias. This does not boot Linux!! Useful for chain loading lk2nd to dump regulators when porting a lumia to linux.</li>
 <li>
-<a rel="nofollow" class="external autonumber" href="https://github.com/imbushuo/boot-shim">[4]</a> Boot shim used to boot EDK2.</li>
+<a rel="nofollow" class="external autonumber" href="https://github.com/imbushuo/boot-shim">[6]</a> Boot shim used to boot EDK2.</li>
 <li><a rel="nofollow" class="external text" href="https://github.com/WolfLink115/edk2-msm8x26-lumia#how-to-compile">Compiling EDK2</a></li>
 <li><a rel="nofollow" class="external text" href="https://github.com/WolfLink115/edk2-msm8x26-lumia#how-to-install-windows-needed">Installing EDK2</a></li>
 <li><a rel="nofollow" class="external text" href="https://github.com/WolfLink115/edk2-msm8x26-lumia#how-to-boot-linux-from-emmc-on-lumia-640">Booting Linux from eMMC</a></li>
@@ -431,9 +451,9 @@ armv7</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Microsoft_Lumia_640_(microsoft-dempsey)&amp;oldid=44895">https://wiki.postmarketos.org/index.php?title=Microsoft_Lumia_640_(microsoft-dempsey)&amp;oldid=44895</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Microsoft_Lumia_640_(microsoft-dempsey)&amp;oldid=47431">https://wiki.postmarketos.org/index.php?title=Microsoft_Lumia_640_(microsoft-dempsey)&amp;oldid=47431</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 7 June 2023, at 16:08.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 9 August 2023, at 19:38.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

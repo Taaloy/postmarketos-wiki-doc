@@ -40,7 +40,7 @@
 </p>
 <p>Apart from purely practical insufficiencies, the cold hard truth is that the downstream code is simply not meant to be maintained or get used outside Android. The code quality is often several magnitudes worse, which makes maintenance rather complicated. Often large parts of the drivers are moved into proprietary parts in Android userspace - which are generally impossible to use without emulating the expected Android environment. At the end, the effort to make such drivers work properly on long term is often as much as rewriting them properly for mainline.
 </p>
-<p>Successfully mainlining an SoC or device means that you benefit from every improvement the Linux kernel has to offer, you can run a fairly standard Linux distro (in theory even <i>any</i> Linux distro) and benefit from kernel updates and improvements without needing to compile your own kernel or deal with frustrating patches. A notable easy-to-notice benefit of running mainline is minimal-effort-needed GPU support for almost all GPUs (except PowerVR unfortunately), which is needed for using modern phone DEs like Plasma Mobile or Phosh with acceptable performance. Lastly, mainlining is a terrific learning opportunity that you will never regret.
+<p>Successfully mainlining an SoC or device means that you benefit from every improvement the Linux kernel has to offer, you can run a fairly standard Linux distro (in theory even <i>any</i> Linux distro that has support for your device’s architecture) and benefit from kernel updates and improvements without needing to compile your own kernel or deal with frustrating patches. A notable easy-to-notice benefit of running mainline is minimal-effort-needed GPU support for almost all GPUs (except PowerVR unfortunately), which is needed for using modern phone DEs like Plasma Mobile or Phosh with acceptable performance. Lastly, mainlining is a terrific learning opportunity that you will never regret.
 </p>
 <p>If your device's SoC is in the list below there's a very decent chance that you can get the same functionality working on your device and eventually upstream your patches to the kernel, helping to build a solid base for other devices too!
 </p>
@@ -374,6 +374,28 @@
 <td class="field_Suspend"></td>
 </tr>
 <tr>
+<td class="field_SoC"><a href="../en/Amlogic_S905X3.html" title="Amlogic S905X3">Amlogic S905X3</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2019</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">Y</td>
+<td class="field_Display">Y</td>
+<td class="field_CPU">Y</td>
+<td class="field_GPU">Y</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio">Y</td>
+<td class="field_Video">Y</td>
+<td class="field_Thermal">Y</td>
+<td class="field_WiFi">-</td>
+<td class="field_BT">-</td>
+<td class="field_Modem">-</td>
+<td class="field_GPS">-</td>
+<td class="field_Camera">-</td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
 <td class="field_SoC"><a href="../en/Apple_M1.html" title="Apple M1">Apple M1 (T8103)</a></td>
 <td class="field_Arch">aarch64</td>
 <td class="field_Year">2020</td>
@@ -429,6 +451,28 @@
 <td class="field_GPU"></td>
 <td class="field_Pinctrl">Y</td>
 <td class="field_I²C">Y</td>
+<td class="field_Audio"></td>
+<td class="field_Video"></td>
+<td class="field_Thermal"></td>
+<td class="field_WiFi">-</td>
+<td class="field_BT">-</td>
+<td class="field_Modem">-</td>
+<td class="field_GPS">-</td>
+<td class="field_Camera"></td>
+<td class="field_Suspend"></td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/Broadcom_Kona.html" title="Broadcom Kona">Broadcom BCM28155</a></td>
+<td class="field_Arch">armv7</td>
+<td class="field_Year">2012</td>
+<td class="field_UART"></td>
+<td class="field_USB"></td>
+<td class="field_Storage"></td>
+<td class="field_Display"></td>
+<td class="field_CPU"></td>
+<td class="field_GPU"></td>
+<td class="field_Pinctrl"></td>
+<td class="field_I²C"></td>
 <td class="field_Audio"></td>
 <td class="field_Video"></td>
 <td class="field_Thermal"></td>
@@ -533,11 +577,11 @@
 <td class="field_Year">2014/2015</td>
 <td class="field_UART">Y</td>
 <td class="field_USB">Y</td>
-<td class="field_Storage">N</td>
+<td class="field_Storage">P</td>
 <td class="field_Display">N</td>
 <td class="field_CPU">P</td>
 <td class="field_GPU">N</td>
-<td class="field_Pinctrl"></td>
+<td class="field_Pinctrl">Y</td>
 <td class="field_I²C"></td>
 <td class="field_Audio">N</td>
 <td class="field_Video">N</td>
@@ -568,6 +612,28 @@
 <td class="field_BT">N</td>
 <td class="field_Modem">N</td>
 <td class="field_GPS">N</td>
+<td class="field_Camera">N</td>
+<td class="field_Suspend">N</td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/MediaTek_Helio_P90_(MT6779).html" title="MediaTek Helio P90 (MT6779)">MediaTek MediaTek Helio P90</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2018</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">N</td>
+<td class="field_Storage">N</td>
+<td class="field_Display">P</td>
+<td class="field_CPU">Y</td>
+<td class="field_GPU">N</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">N</td>
+<td class="field_Audio">Y</td>
+<td class="field_Video">N</td>
+<td class="field_Thermal">N</td>
+<td class="field_WiFi">N</td>
+<td class="field_BT">N</td>
+<td class="field_Modem">N</td>
+<td class="field_GPS"></td>
 <td class="field_Camera">N</td>
 <td class="field_Suspend">N</td>
 </tr>
@@ -634,6 +700,28 @@
 <td class="field_BT">N</td>
 <td class="field_Modem">N</td>
 <td class="field_GPS">N</td>
+<td class="field_Camera">N</td>
+<td class="field_Suspend">N</td>
+</tr>
+<tr>
+<td class="field_SoC"><a href="../en/MediaTek_MT6765.html" title="MediaTek MT6765">MediaTek MT6765</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2018/2020</td>
+<td class="field_UART">Y</td>
+<td class="field_USB">Y</td>
+<td class="field_Storage">P</td>
+<td class="field_Display">N</td>
+<td class="field_CPU">P</td>
+<td class="field_GPU">N</td>
+<td class="field_Pinctrl">Y</td>
+<td class="field_I²C">Y</td>
+<td class="field_Audio">N</td>
+<td class="field_Video">N</td>
+<td class="field_Thermal"></td>
+<td class="field_WiFi">-</td>
+<td class="field_BT">-</td>
+<td class="field_Modem">-</td>
+<td class="field_GPS">-</td>
 <td class="field_Camera">N</td>
 <td class="field_Suspend">N</td>
 </tr>
@@ -1155,9 +1243,9 @@
 <td class="field_GPU">Y</td>
 <td class="field_Pinctrl">P</td>
 <td class="field_I²C">Y</td>
-<td class="field_Audio">N</td>
-<td class="field_Video"></td>
-<td class="field_Thermal">N</td>
+<td class="field_Audio">P</td>
+<td class="field_Video">P</td>
+<td class="field_Thermal"></td>
 <td class="field_WiFi">Y</td>
 <td class="field_BT">Y</td>
 <td class="field_Modem">Y</td>
@@ -1304,9 +1392,9 @@
 <td class="field_UART">Y</td>
 <td class="field_USB">Y</td>
 <td class="field_Storage">Y</td>
-<td class="field_Display">P</td>
+<td class="field_Display">Y</td>
 <td class="field_CPU">Y</td>
-<td class="field_GPU"></td>
+<td class="field_GPU">Y</td>
 <td class="field_Pinctrl">Y</td>
 <td class="field_I²C">Y</td>
 <td class="field_Audio"></td>
@@ -1331,11 +1419,11 @@
 <td class="field_GPU">Y</td>
 <td class="field_Pinctrl">Y</td>
 <td class="field_I²C">Y</td>
-<td class="field_Audio"></td>
+<td class="field_Audio">P</td>
 <td class="field_Video"></td>
-<td class="field_Thermal"></td>
-<td class="field_WiFi"></td>
-<td class="field_BT"></td>
+<td class="field_Thermal">Y</td>
+<td class="field_WiFi">Y</td>
+<td class="field_BT">Y</td>
 <td class="field_Modem"></td>
 <td class="field_GPS"></td>
 <td class="field_Camera"></td>
@@ -1650,6 +1738,28 @@
 <td class="field_Suspend">Y</td>
 </tr>
 <tr>
+<td class="field_SoC"><a href="../en/Samsung_Exynos_990.html" title="Samsung Exynos 990">Samsung Exynos 990</a></td>
+<td class="field_Arch">aarch64</td>
+<td class="field_Year">2020</td>
+<td class="field_UART">N</td>
+<td class="field_USB">N</td>
+<td class="field_Storage">N</td>
+<td class="field_Display">P</td>
+<td class="field_CPU">P</td>
+<td class="field_GPU">N</td>
+<td class="field_Pinctrl">N</td>
+<td class="field_I²C">N</td>
+<td class="field_Audio">N</td>
+<td class="field_Video">N</td>
+<td class="field_Thermal">N</td>
+<td class="field_WiFi">N</td>
+<td class="field_BT">N</td>
+<td class="field_Modem">N</td>
+<td class="field_GPS"></td>
+<td class="field_Camera">N</td>
+<td class="field_Suspend">N</td>
+</tr>
+<tr>
 <td class="field_SoC"><a href="../en/ST-Ericsson_NovaThor_U8500.html" title="ST-Ericsson NovaThor U8500">ST-Ericsson NovaThor U8500</a></td>
 <td class="field_Arch">armv7</td>
 <td class="field_Year">2011</td>
@@ -1884,9 +1994,9 @@
 <p><b>Books:</b>
 </p>
 <ul>
-<li>Mastering Linux Device Driver Development: Write custom device drivers to support computer peripherals in Linux operating systems (2021, John Madieu) <a rel="nofollow" class="external text" href="https://www.packtpub.com/product/mastering-linux-device-driver-development/9781789342048">Packtpub (on SALE for $ 5)</a> <a rel="nofollow" class="external text" href="https://1lib.to/book/11637490/9a0f71">1lib.to</a>
+<li>Mastering Linux Device Driver Development: Write custom device drivers to support computer peripherals in Linux operating systems (2021, John Madieu) <a rel="nofollow" class="external text" href="https://www.packtpub.com/product/mastering-linux-device-driver-development/9781789342048">Packtpub (on SALE for $ 5)</a>
 </li>
-<li>Linux Driver Development for Embedded Processors - Second Edition: Learn to develop Linux embedded drivers with kernel 4.9 LTS (2018, Alberto Liberal De Los Ríos) <a rel="nofollow" class="external text" href="https://www.amazon.com/Linux-Driver-Development-Embedded-Processors/dp/1729321828">amazon.com</a> <a rel="nofollow" class="external text" href="https://1lib.to/book/5325784/29ef3d">1lib.to</a>
+<li>Linux Driver Development for Embedded Processors - Second Edition: Learn to develop Linux embedded drivers with kernel 4.9 LTS (2018, Alberto Liberal De Los Ríos) <a rel="nofollow" class="external text" href="https://www.amazon.com/Linux-Driver-Development-Embedded-Processors/dp/1729321828">amazon.com</a>
 </li>
 </ul>
 <p><b>Intro:</b>
@@ -2017,9 +2127,9 @@ For a tutorial on <code>git send-email</code> have a look at <a rel="nofollow" c
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Mainlining&amp;oldid=42932">https://wiki.postmarketos.org/index.php?title=Mainlining&amp;oldid=42932</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Mainlining&amp;oldid=47678">https://wiki.postmarketos.org/index.php?title=Mainlining&amp;oldid=47678</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 23 April 2023, at 14:27.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 17 August 2023, at 16:44.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>

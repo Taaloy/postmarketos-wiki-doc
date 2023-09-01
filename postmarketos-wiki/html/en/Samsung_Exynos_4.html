@@ -790,6 +790,16 @@ no</td>
 </table>
 <p><em>No results</em>
 </p>
+<h2><span class="mw-headline" id="USB_OTG">USB OTG</span></h2>
+<p>USB OTG does not currently work on any of the mainlined devices. This is due to at least three things:
+</p>
+<ul>
+<li>The MUIC driver doesn't detect OTG cables correctly; unlike the downstream driver, which responds only to 4 of the interrupts, this one listens to all of them, and one of the interrupts is falsely triggered causing it to think it's a charging cable instead of an ADC cable,</li>
+<li>The MUIC driver doesn't implement OTG support to allow for 1. disabling the charger, and 2. enabling power for non-powered hubs.</li>
+<li>The dwc2 (hs_otg) controller appears to only control peripheral mode; the EHCI and OHCI nodes must be enabled for host mode to work, but then peripheral mode stops working.</li>
+</ul>
+<p>Some work-in-progress patches to fix these issues can be found at <a rel="nofollow" class="external autonumber" href="https://github.com/refractionware/tab3-8.0-mainline/tree/tab3/wip-otg">[1]</a> (this fixes the first two issues, but not the last one).
+</p>
 <h2><span class="mw-headline" id="See_also">See also</span></h2>
 <ul>
 <li>On phonedb.net: <a rel="nofollow" class="external text" href="http://phonedb.net/index.php?m=processor&amp;id=269&amp;c=samsung_s5pc210_exynos_4_dual_4210__orion">Exynos 4210</a>, <a rel="nofollow" class="external text" href="https://phonedb.net/index.php?m=processor&amp;id=297&amp;c=samsung_exynos_4_dual_4212">Exynos 4212</a>, <a rel="nofollow" class="external text" href="http://phonedb.net/index.php?m=processor&amp;id=337&amp;c=samsung_exynos_4_quad_4412">Exynos 4412</a>, <a rel="nofollow" class="external text" href="http://phonedb.net/index.php?m=processor&amp;id=552&amp;c=samsung_exynos_4_quad_4415">Exynos 4415</a>
@@ -818,9 +828,9 @@ no</td>
 
 		<div id="footer" role="contentinfo" style="margin: 0">
 						<ul id="footer-info">
-								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Exynos_4&amp;oldid=47052">https://wiki.postmarketos.org/index.php?title=Samsung_Exynos_4&amp;oldid=47052</a>"</li>
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Exynos_4&amp;oldid=47606">https://wiki.postmarketos.org/index.php?title=Samsung_Exynos_4&amp;oldid=47606</a>"</li>
 		
-		<li id="footer-info-lastmod"> This page was last edited on 30 July 2023, at 16:39.</li>
+		<li id="footer-info-lastmod"> This page was last edited on 14 August 2023, at 08:12.</li>
 								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
 							<br>
 </ul>
