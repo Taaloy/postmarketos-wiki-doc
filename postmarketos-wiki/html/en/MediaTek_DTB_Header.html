@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>MediaTek DTB Header - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.34.2">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-MediaTek_DTB_Header rootpage-MediaTek_DTB_Header skin-vector action-view">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	
+	<div class="mw-indicators mw-body-content">
+</div>
+
+	<h1 id="firstHeading" class="firstHeading" lang="en">MediaTek DTB Header</h1>
+	
+	<div id="bodyContent" class="mw-body-content">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		
+		
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#p-search">Jump to search</a>
+		<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">
+<p>On at least some Mediatek-based devices, there is a 64-byte DTB header which can make porting slightly painful since the kernel does not generate it automatically and it's very confusing.
+</p>
+<p>While this appears to be entirely Mediatek-specific at first, it's actually a standardized Android DTB header format.
+</p>
+<h2><span class="mw-headline" id="Data_Structure">Data Structure</span></h2>
+<table class="wikitable">
+<tbody>
+<tr>
+<th>Length (bytes)</th>
+<th>Details
+</th>
+</tr>
+<tr>
+<td>4</td>
+<td>Magic bytes. Always 0xd7b7ab1e.
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Total size. Combination of the header size itself and all of the table entries. Device-specific.
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Header size. Always 0x00000020 in this case.
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Entry size. Always 0x00000020 in this case.
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td>The number of table entries. Always 0x00000001 in this case.
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Offset to the first table entry. Always 0x00000020 in this case.
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Page size. Always 0x00000800 in this case.
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td>DTBO image version. Always null bytes in this case - the current version is 0. This is where the table header ends, and the next bytes are for the table entry in the DTB header.
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td>DTB size. Device-specific.
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td>DTB offset. Always 0x00000040 in this case.
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Device ID. Unused.
+</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Device revision. Unused.
+</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Unused.
+</td>
+</tr>
+</tbody>
+</table>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<p><a rel="nofollow" class="external text" href="https://source.android.com/docs/core/architecture/dto/partitions#structures">The data structure information on the AOSP documentation website</a>
+</p>
+</div></div>
+		
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+		<div class="visualClear"></div>
+		
+	</div>
+</div>
+
+
+		<div id="footer" role="contentinfo" style="margin: 0">
+						<ul id="footer-info">
+								<li>Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=MediaTek_DTB_Header&amp;oldid=48437">https://wiki.postmarketos.org/index.php?title=MediaTek_DTB_Header&amp;oldid=48437</a>"</li>
+		
+		<li id="footer-info-lastmod"> This page was last edited on 17 September 2023, at 23:37.</li>
+								<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+							<br>
+</ul>
+						<ul id="footer-places">
+								<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html" title="PostmarketOS:Privacy policy">Privacy policy</a></li>
+								<li id="footer-places-about"><a href="../en/About_postmarketOS.html" class="mw-redirect" title="PostmarketOS:About">About postmarketOS</a></li>
+								<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html" title="PostmarketOS:General disclaimer">Disclaimers</a></li>
+								<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=MediaTek_DTB_Header&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+							</ul>
+										<ul id="footer-icons" class="noprint">
+										<li id="footer-copyrightico">
+						<a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31"></a>					</li>
+										<li id="footer-poweredbyico">
+						<a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31"></a>					</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		
+
+</body>
+</html>
