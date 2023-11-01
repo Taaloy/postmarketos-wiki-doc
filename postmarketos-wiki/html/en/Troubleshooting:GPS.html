@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Troubleshooting:GPS - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.39.5">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=1000">
+<link rel="icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Troubleshooting_GPS rootpage-Troubleshooting_GPS skin-vector action-view skin-vector-legacy vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-language-alert-in-sidebar-disabled vector-feature-sticky-header-disabled vector-feature-sticky-header-edit-disabled vector-feature-table-of-contents-disabled vector-feature-visual-enhancement-next-disabled">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	<div id="siteNotice"></div>
+	<div class="mw-indicators">
+	</div>
+	<h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-main">Troubleshooting:GPS</span></h1>
+	<div id="bodyContent" class="vector-body">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		<div id="contentSub2"></div>
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#searchInput">Jump to search</a>
+		<div id="mw-content-text" class="mw-body-content mw-content-ltr" lang="en" dir="ltr">
+<div class="mw-parser-output">
+<p>This page is intended to help with troubleshooting GPS issues.
+</p>
+<div id="toc" class="toc" role="navigation" aria-labelledby="mw-toc-heading">
+<input type="checkbox" role="button" id="toctogglecheckbox" class="toctogglecheckbox" style="display:none"><div class="toctitle" lang="en" dir="ltr">
+<h2 id="mw-toc-heading">Contents</h2>
+<span class="toctogglespan"><label class="toctogglelabel" for="toctogglecheckbox"></label></span>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1">
+<a href="#How_to_check_if_GPS_works"><span class="tocnumber">1</span> <span class="toctext">How to check if GPS works</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Using_ModemManager's_CLI"><span class="tocnumber">1.1</span> <span class="toctext">Using ModemManager's CLI</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Using_Satellite"><span class="tocnumber">1.2</span> <span class="toctext">Using Satellite</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#AGPS"><span class="tocnumber">2</span> <span class="toctext">AGPS</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Enabling_GPS_manually_in_ModemManager"><span class="tocnumber">3</span> <span class="toctext">Enabling GPS manually in ModemManager</span></a></li>
+<li class="toclevel-1 tocsection-6">
+<a href="#GPS_helper_daemons"><span class="tocnumber">4</span> <span class="toctext">GPS helper daemons</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#GeoClue"><span class="tocnumber">4.1</span> <span class="toctext">GeoClue</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#GPSD"><span class="tocnumber">4.2</span> <span class="toctext">GPSD</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9">
+<a href="#Troubleshooting"><span class="tocnumber">5</span> <span class="toctext">Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10">
+<a href="#Check_if_SIM_card_has_carrier_configuration_for_AGPS"><span class="tocnumber">5.1</span> <span class="toctext">Check if SIM card has carrier configuration for AGPS</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#Injecting_AGPS_data_manually_for_ModemManager"><span class="tocnumber">5.1.1</span> <span class="toctext">Injecting AGPS data manually for ModemManager</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-12"><a href="#Check_if_your_device_requires_SIM_for_GPS"><span class="tocnumber">5.2</span> <span class="toctext">Check if your device requires SIM for GPS</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="How_to_check_if_GPS_works">How to check if GPS works</span></h2>
+<h3>
+<span id="Using_ModemManager.27s_CLI"></span><span class="mw-headline" id="Using_ModemManager's_CLI">Using ModemManager's CLI</span>
+</h3>
+<pre>mmcli -m any --location-get </pre>
+<p>If you get no output, then you did not get a fix yet.
+</p>
+<h3><span class="mw-headline" id="Using_Satellite">Using Satellite</span></h3>
+<p><a rel="nofollow" class="external text" href="https://codeberg.org/tpikonen/satellite">Satellite</a> is a nice GUI app for testing GPS connectivity live.
+</p>
+<h2><span class="mw-headline" id="AGPS">AGPS</span></h2>
+<p>Normally, information about which satellites are where to expect (satellite almanac of orbit) is retrieved from the GPS satellites themselves and that can take at least roughly 12 min with a good signal.
+</p>
+<p>That's where A-GPS (assisted GPS) steps in, by downloading this data from the Internet instead.
+</p>
+<h2><span class="mw-headline" id="Enabling_GPS_manually_in_ModemManager">Enabling GPS manually in ModemManager</span></h2>
+<p>(TODO - is this needed? For my device with working GPS support, these steps were not necessary - if you know more about it, please verify and update this section)
+</p>
+<p><code>mmcli -m any --location-enable-gps-nmea</code> 
+</p>
+<p><code>mmcli -m any --location-enable-gps-raw</code>
+</p>
+<h2><span class="mw-headline" id="GPS_helper_daemons">GPS helper daemons</span></h2>
+<h3><span class="mw-headline" id="GeoClue">GeoClue</span></h3>
+<p>Many apps (ie. osmin, Gnome Maps) use geoclue to gather location info.
+<code>/usr/libexec/geoclue-2.0/demos/agent</code>
+</p>
+<h3><span class="mw-headline" id="GPSD">GPSD</span></h3>
+<p>According to <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/2340">this issue</a>, GPSD is not used by GNOME and KDE software stacks, and is effectively not necessary to work anymore. You may want to use GeoClue and NetworkManager+ModemManager stack instead.
+</p>
+<h2><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h2>
+<h3><span class="mw-headline" id="Check_if_SIM_card_has_carrier_configuration_for_AGPS">Check if SIM card has carrier configuration for AGPS</span></h3>
+<p>The carrier config selected by ModemManager (<code>mmcli -m any | grep 'carrier config'</code>) also contains configuration for A-GPS. It seems that pmOS supports only XTRA assistance method properly and SUPL (agps-msa, agps-msb) does not work correctly at the moment (TODO: needs to be confirmed, this is based on experience with OnePlus 6 model), and since the supported method depends on the carrier, you need a SIM card which supports XTRA.
+</p>
+<p>Whether the config is complete in that regard can be checked with 
+<code>mmcli -m any --location-status</code>
+as it should contain <i>assistance servers</i>. If not, you might experience not continuous and only infrequent GPS fixes and other problems regarding GPS.
+</p>
+<h4><span class="mw-headline" id="Injecting_AGPS_data_manually_for_ModemManager">Injecting AGPS data manually for ModemManager</span></h4>
+<p>In case your phone does not use AGPS, you can try to inject it manually. But usually it should not be needed - it's supposed to just work on pmOS with ModemManager.
+First, check URLs of assistance servers:
+</p>
+<pre>mmcli -m any --location-status</pre>
+<p>Then inject the downloaded file:
+</p>
+<pre>mmcli -m any --location-inject-assistance-data=(filename)</pre>
+<p>See <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/1505#note_1161541916">this comment thread</a> for more details.
+</p>
+<h3><span class="mw-headline" id="Check_if_your_device_requires_SIM_for_GPS">Check if your device requires SIM for GPS</span></h3>
+<p>Keep in mind that for some (many?) devices, GPS only works when a sim card is inserted. Such information is hopefully available in your device's page.
+</p>
+</div>
+</div>
+		<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Troubleshooting.html" title="Category:Troubleshooting">Troubleshooting</a></li></ul>
+</div></div>
+	</div>
+</div>
+
+<footer id="footer" class="mw-footer" role="contentinfo" style="margin: 0">
+	<ul id="footer-info">
+	<li data-nosnippet="">Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:GPS&amp;oldid=51233">https://wiki.postmarketos.org/index.php?title=Troubleshooting:GPS&amp;oldid=51233</a>"</li>
+<li id="footer-info-lastmod"> This page was last edited on 31 October 2023, at 10:22.</li>
+	<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+<br>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="../en/About_postmarketOS.html">About postmarketOS</a></li>
+	<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html">Disclaimers</a></li>
+	<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Troubleshooting:GPS&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31" loading="lazy"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31" loading="lazy"></a></li>
+</ul>
+
+</footer>
+
+</body>
+</html>

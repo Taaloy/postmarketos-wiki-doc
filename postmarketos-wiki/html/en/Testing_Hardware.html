@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Testing Hardware - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.39.5">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=1000">
+<link rel="icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Testing_Hardware rootpage-Testing_Hardware skin-vector action-view skin-vector-legacy vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-language-alert-in-sidebar-disabled vector-feature-sticky-header-disabled vector-feature-sticky-header-edit-disabled vector-feature-table-of-contents-disabled vector-feature-visual-enhancement-next-disabled">
+<div id="content" class="mw-body" role="main" style="margin: 0">
+	<a id="top"></a>
+	<div id="siteNotice"></div>
+	<div class="mw-indicators">
+	</div>
+	<h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-main">Testing Hardware</span></h1>
+	<div id="bodyContent" class="vector-body">
+		<div id="siteSub" class="noprint">From postmarketOS</div>
+		<div id="contentSub"></div>
+		<div id="contentSub2"></div>
+		
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">Jump to navigation</a>
+		<a class="mw-jump-link" href="#searchInput">Jump to search</a>
+		<div id="mw-content-text" class="mw-body-content mw-content-ltr" lang="en" dir="ltr">
+<div class="mw-parser-output">
+<p>This page described how to test hardware components of your device (for example if you're mainlining or there's a kernel or firmware change). Previously these topics were hidden across MR instructions and other Wiki pages, so collecting them here to simplify things.
+</p>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20" srcset="../Reference_icon.svg 1.5x ../Reference_icon.svg 2x"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Many of the commands suggested here require <code>sudo</code>, so switching to the root user can simplify testing if you're doing a lot of it (<code>sudo su</code>)</td>
+</tr></tbody></table>
+<h2><span class="mw-headline" id="Accelerometer">Accelerometer</span></h2>
+<p>Accelerometers should show up as one of the entries in <code>/sys/bus/iio/devices/</code>. The <code>in_*_raw</code> files can be read from directly to see the raw sensor readings.
+</p>
+<p>Since accelerometers are usually used for orienting the UI, you should also check that the device orientation is correct (see <a href="../PhoneRotation.png" title="File:PhoneRotation.png">File:PhoneRotation.png</a> for terminology):
+</p>
+<ol>
+<li>Install <code>iio-sensor-proxy</code>
+</li>
+<li>Restart the device</li>
+<li>Start the service: <code>rc-service iio-sensor-proxy start</code>
+</li>
+<li>Read orientation (see other command line options for raw values as well) using <code>monitor-sensor</code>
+</li>
+</ol>
+<h2><span class="mw-headline" id="Buttons">Buttons</span></h2>
+<p>Use <code>evtest</code>.
+</p>
+<h2><span class="mw-headline" id="SD_card">SD card</span></h2>
+<p>Check if the SD card shows up via <code>lsblk</code>.
+Check if <code>dmesg</code> outputs anything when inserting or removing the card.
+</p>
+</div>
+</div>
+		<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+	</div>
+</div>
+
+<footer id="footer" class="mw-footer" role="contentinfo" style="margin: 0">
+	<ul id="footer-info">
+	<li data-nosnippet="">Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Testing_Hardware&amp;oldid=49122">https://wiki.postmarketos.org/index.php?title=Testing_Hardware&amp;oldid=49122</a>"</li>
+<li id="footer-info-lastmod"> This page was last edited on 6 October 2023, at 07:07.</li>
+	<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+<br>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="../en/About_postmarketOS.html">About postmarketOS</a></li>
+	<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html">Disclaimers</a></li>
+	<li id="footer-places-mobileview"><a href="https://wiki.postmarketos.org/index.php?title=Testing_Hardware&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31" loading="lazy"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31" loading="lazy"></a></li>
+</ul>
+
+</footer>
+
+</body>
+</html>
