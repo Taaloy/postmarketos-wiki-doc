@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Rescuing/accessing a broken system booting from external medium - postmarketOS</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.39.7">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0">
+<link rel="icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Rescuing_accessing_a_broken_system_booting_from_external_medium rootpage-Rescuing_accessing_a_broken_system_booting_from_external_medium skin-vector-2022 action-view skin--responsive vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-language-alert-in-sidebar-disabled vector-feature-sticky-header-disabled vector-feature-sticky-header-edit-disabled vector-feature-table-of-contents-disabled vector-feature-visual-enhancement-next-disabled">
+<div class="mw-page-container">
+	<span id="top-page"></span>
+	<a class="mw-jump-link" href="#content">Jump to content</a>
+	<div class="mw-page-container-inner">
+		<input type="checkbox" id="mw-sidebar-checkbox" class="mw-checkbox-hack-checkbox">
+		<header class="mw-header">
+			<div class="mw-header-aside">
+			<label id="mw-sidebar-button" class="mw-checkbox-hack-button mw-ui-icon mw-ui-button mw-ui-quiet mw-ui-icon-element" for="mw-sidebar-checkbox" role="button" aria-controls="mw-panel" data-event-name="ui.sidebar" tabindex="0" title="Main menu">
+				<span>Toggle sidebar</span>
+			</label>
+			
+<a href="../en/Main_Page.html" class="mw-logo">
+	<img class="mw-logo-icon" src="/logo_50x50.svg" alt="" aria-hidden="true" height="50" width="50">
+	<span class="mw-logo-container">
+		<strong class="mw-logo-wordmark">postmarketOS</strong>
+	</span>
+</a>
+
+			</div>
+			<div class="mw-header-content">
+			
+<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses  vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+	<a href="../Special:Search.html" title="Search postmarketOS [f]" accesskey="f" class="mw-ui-button mw-ui-quiet mw-ui-icon mw-ui-icon-element mw-ui-icon-wikimedia-search search-toggle">
+		<span>Search</span>
+	</a>
+	
+	<div>
+		<form action="/index.php" id="searchform" class="vector-search-box-form">
+			<div id="simpleSearch" class="vector-search-box-inner" data-search-loc="header-moved">
+				<input class="vector-search-box-input" type="search" name="search" placeholder="Search postmarketOS" aria-label="Search postmarketOS" autocapitalize="sentences" title="Search postmarketOS [f]" accesskey="f" id="searchInput">
+				<input type="hidden" name="title" value="Special:Search">
+				<input id="mw-searchButton" class="searchButton mw-fallbackSearchButton" type="submit" name="fulltext" title="Search the pages for this text" value="Search">
+				<input id="searchButton" class="searchButton" type="submit" name="go" title="Go to a page with this exact name if it exists" value="Go">
+			</div>
+		</form>
+	</div>
+</div>
+
+			<nav class="vector-user-links" aria-label="Personal tools" role="navigation">
+	
+
+<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet mw-portlet-vector-user-menu-overflow vector-user-menu-overflow">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="pt-createaccount-2" class="user-links-collapsible-item mw-list-item"><a href="../Special:RequestAccount.html"><span>Request account</span></a></li></ul>
+		
+	</div>
+</div>
+
+	
+
+<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal vector-user-menu vector-user-menu-logged-out vector-menu-dropdown" title="More options">
+	<input type="checkbox" id="p-personal-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-personal" class="vector-menu-checkbox">
+	<label id="p-personal-label" for="p-personal-checkbox" class="vector-menu-heading mw-ui-button mw-ui-quiet mw-ui-icon mw-ui-icon-element mw-ui-icon-ellipsis mw-ui-icon-wikimedia-ellipsis">
+		<span class="vector-menu-heading-label">Personal tools</span>
+	</label>
+	<div class="vector-menu-content">
+		<div class="vector-user-menu-create-account"><a href="/index.php?title=Special:CreateAccount&amp;returnto=Rescuing%2Faccessing+a+broken+system+booting+from+external+medium" class="vector-menu-content-item user-links-collapsible-item" title="You are encouraged to create an account and log in; however, it is not mandatory"><span class="mw-ui-icon mw-ui-icon-userAdd mw-ui-icon-wikimedia-userAdd"></span> <span>Create account</span></a></div>
+<div class="vector-user-menu-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Rescuing%2Faccessing+a+broken+system+booting+from+external+medium" class="vector-menu-content-item vector-menu-content-item-login" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o"><span class="mw-ui-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn"></span> <span>Log in</span></a></div>
+
+		<ul class="vector-menu-content-list"></ul>
+		
+	</div>
+</div>
+
+</nav>
+
+			</div>
+		</header>
+		<div class="vector-sidebar-container ">
+			</div>
+		<div class="vector-sitenotice-container">
+			<div id="siteNotice"></div>
+		</div>
+		<input type="checkbox" id="vector-toc-collapsed-checkbox" class="mw-checkbox-hack-checkbox">
+		<div class="mw-table-of-contents-container">
+			<div class="vector-sticky-toc-container mw-sticky-header-element">
+				<nav id="mw-panel-toc" class="sidebar-toc" role="navigation" aria-labelledby="sidebar-toc-label" data-event-name="ui.sidebar-toc">
+	<div id="sidebar-toc-label" class="sidebar-toc-header">
+		<p class="sidebar-toc-title">
+		Contents
+		<button class="vector-toc-uncollapse-button">move to sidebar</button>
+		<button class="vector-toc-collapse-button">hide</button>
+		</p>
+	</div>
+	<ul class="sidebar-toc-contents" id="mw-panel-toc-list">
+		<li id="toc-mw-content-text" class="sidebar-toc-list-item sidebar-toc-level-1">
+			<a href="#top-page" class="sidebar-toc-link">
+				<div class="sidebar-toc-text">Beginning</div>
+			</a>
+		</li>
+		<li id="toc-Boot_postmarketOS_from_second_storage_medium" class="sidebar-toc-list-item sidebar-toc-level-1 sidebar-toc-list-item-expanded">
+			<a class="sidebar-toc-link" href="#Boot_postmarketOS_from_second_storage_medium">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1</span>Boot postmarketOS from second storage medium</div>
+			</a>
+			
+			<ul id="toc-Boot_postmarketOS_from_second_storage_medium-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Get_shell_access" class="sidebar-toc-list-item sidebar-toc-level-1 sidebar-toc-list-item-expanded">
+			<a class="sidebar-toc-link" href="#Get_shell_access">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2</span>Get shell access</div>
+			</a>
+			
+			<ul id="toc-Get_shell_access-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Mount_the_eMMC's_root_partition" class="sidebar-toc-list-item sidebar-toc-level-1 sidebar-toc-list-item-expanded">
+			<a class="sidebar-toc-link" href="#Mount_the_eMMC's_root_partition">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3</span>Mount the eMMC's root partition</div>
+			</a>
+			
+				<button aria-controls="toc-Mount_the_eMMC's_root_partition-sublist" class="mw-ui-icon mw-ui-icon-wikimedia-expand mw-ui-icon-small sidebar-toc-toggle">
+					Toggle Mount the eMMC's root partition subsection
+				</button>
+			
+			<ul id="toc-Mount_the_eMMC's_root_partition-sublist" class="sidebar-toc-list">
+				<li id="toc-a)_Encrypted" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#a)_Encrypted">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3.1</span>a) Encrypted</div>
+			</a>
+			
+			<ul id="toc-a)_Encrypted-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-b)_Not_Encrypted" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#b)_Not_Encrypted">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3.2</span>b) Not Encrypted</div>
+			</a>
+			
+			<ul id="toc-b)_Not_Encrypted-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Access_your_data" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#Access_your_data">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3.3</span>Access your data</div>
+			</a>
+			
+			<ul id="toc-Access_your_data-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id='toc-"Logging"_into_the_broken_system' class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#%22Logging%22_into_the_broken_system">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3.4</span>"Logging" into the broken system</div>
+			</a>
+			
+			<ul id='toc-"Logging"_into_the_broken_system-sublist' class="sidebar-toc-list">
+			</ul>
+		</li>
+	</ul>
+		</li>
+		<li id="toc-See_also" class="sidebar-toc-list-item sidebar-toc-level-1 sidebar-toc-list-item-expanded">
+			<a class="sidebar-toc-link" href="#See_also">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">4</span>See also</div>
+			</a>
+			
+			<ul id="toc-See_also-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+	</ul>
+</nav>
+
+			</div>
+		</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body" role="main" style="margin: 0">
+				<a id="top"></a>
+				<header class="mw-body-header">
+				
+				
+					<label id="vector-toc-collapsed-button" class="mw-ui-button mw-ui-quiet mw-ui-icon mw-ui-icon-element mw-ui-icon-wikimedia-listBullet mw-checkbox-hack-button" for="vector-toc-collapsed-checkbox" role="button" aria-controls="toc-toggle-list" data-event-name="vector.toc-toggle-list" tabindex="0" title="Table of Contents">
+						Toggle the table of contents
+					</label>
+				    <h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-main">Rescuing/accessing a broken system booting from external medium</span></h1>
+				</header>
+				<nav class="vector-article-toolbar" aria-label="Tools" role="navigation">
+					<div class="mw-article-toolbar-container">
+						<div id="left-navigation">
+							
+
+<div id="p-associated-pages" class="vector-menu mw-portlet mw-portlet-associated-pages vector-menu-tabs">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+<li id="ca-nstab-main" class="selected mw-list-item"><a href="../en/Rescuing_accessing_a_broken_system_booting_from_external_medium.html" title="View the content page [c]" accesskey="c"><span>Page</span></a></li>
+<li id="ca-talk" class="new mw-list-item"><a href="/index.php?title=Talk:Rescuing/accessing_a_broken_system_booting_from_external_medium&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page (page does not exist) [t]" accesskey="t"><span>Discussion</span></a></li>
+</ul>
+		
+	</div>
+</div>
+
+							
+
+<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet vector-menu-dropdown">
+	<input type="checkbox" id="p-variants-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-variants" class="vector-menu-checkbox" aria-label="Change language variant">
+	<label id="p-variants-label" for="p-variants-checkbox" class="vector-menu-heading ">
+		<span class="vector-menu-heading-label">English</span>
+	</label>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"></ul>
+		
+	</div>
+</div>
+
+						</div>
+						<div id="right-navigation" class="vector-collapsible ">
+							
+
+<div id="p-views" class="vector-menu mw-portlet mw-portlet-views vector-menu-tabs">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+<li id="ca-view" class="selected mw-list-item"><a href="../en/Rescuing_accessing_a_broken_system_booting_from_external_medium.html"><span>Read</span></a></li>
+<li id="ca-viewsource" class="mw-list-item"><a href="/index.php?title=Rescuing/accessing_a_broken_system_booting_from_external_medium&amp;action=edit" title="This page is protected.
+You can view its source [e]" accesskey="e"><span>View source</span></a></li>
+<li id="ca-history" class="mw-list-item"><a href="/index.php?title=Rescuing/accessing_a_broken_system_booting_from_external_medium&amp;action=history" title="Past revisions of this page [h]" accesskey="h"><span>View history</span></a></li>
+</ul>
+		
+	</div>
+</div>
+
+							
+
+<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions emptyPortlet vector-menu-dropdown vector-has-collapsible-items" title="More options">
+	<input type="checkbox" id="p-cactions-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-cactions" class="vector-menu-checkbox">
+	<label id="p-cactions-label" for="p-cactions-checkbox" class="vector-menu-heading ">
+		<span class="vector-menu-heading-label">More</span>
+	</label>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+<li id="ca-more-view" class="selected vector-more-collapsible-item mw-list-item"><a href="../en/Rescuing_accessing_a_broken_system_booting_from_external_medium.html"><span>Read</span></a></li>
+<li id="ca-more-viewsource" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Rescuing/accessing_a_broken_system_booting_from_external_medium&amp;action=edit"><span>View source</span></a></li>
+<li id="ca-more-history" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Rescuing/accessing_a_broken_system_booting_from_external_medium&amp;action=history"><span>View history</span></a></li>
+</ul>
+		
+	</div>
+</div>
+
+						</div>
+					</div>
+				</nav>
+				<div id="bodyContent" class="vector-body" data-mw-ve-target-container>
+					<div class="mw-body-subheader">
+					        <div class="mw-indicators">
+        </div>
+
+					    <div id="siteSub" class="noprint">From postmarketOS</div>
+					</div>
+					
+					
+					
+					<div id="mw-content-text" class="mw-body-content mw-content-ltr" lang="en" dir="ltr">
+<div class="mw-parser-output">
+<p>This article explains step-by-step how you can get into a broken postmarketOS install from a second storage medium, and recover data from there or fix the installation. One use case is fixing postmarketOS on the eMMC of the PinePhone with an SD card.
+</p>
+<tocplace></tocplace>
+<h3><span class="mw-headline" id="Boot_postmarketOS_from_second_storage_medium">Boot postmarketOS from second storage medium</span></h3>
+<p><a rel="nofollow" class="external text" href="https://postmarketos.org/download/">Download a postmarketOS image</a> and put it on the second storage medium. If there are no pre-built images for your device, build one yourself with <a href="../en/Pmbootstrap.html" title="Pmbootstrap">pmbootstrap</a>. Boot from the storage medium (in case of the PinePhone, it will automatically boot from the SD card once inserted.)
+</p>
+<h3><span class="mw-headline" id="Get_shell_access">Get shell access</span></h3>
+<ul>
+<li>Attach a serial cable (remember to set killswitches accordingly), or</li>
+<li>Attach an USB cable and use <a href="../en/SSH.html" title="SSH">SSH</a>, or</li>
+<li>Connect to Wi-Fi and use SSH, or</li>
+<li>Use the device itself (e.g. using a build with the <code>console</code> UI selected in <code>pmbootstrap</code>
+</li>
+</ul>
+<h3>
+<span id="Mount_the_eMMC.27s_root_partition"></span><span class="mw-headline" id="Mount_the_eMMC's_root_partition">Mount the eMMC's root partition</span>
+</h3>
+<p>Use <code>lsblk</code> to figure out which storage device is eMMC (if there are only two, it's the one where nothing is mounted). In this example, it is <code>/dev/mmcblk2</code>.
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>lsblk
+<span class="go">NAME         MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT</span>
+<span class="go">mmcblk0      179:0    0 59.5G  0 disk </span>
+<span class="go">├─mmcblk0p1  179:1    0  243M  0 part /boot</span>
+<span class="go">└─mmcblk0p2  179:2    0 59.2G  0 part /</span>
+<span class="go">mmcblk2      179:32   0 29.1G  0 disk </span>
+<span class="go">├─mmcblk2p1  179:33   0  121M  0 part </span>
+<span class="go">└─mmcblk2p2  179:34   0   29G  0 part </span>
+<span class="go">mmcblk2boot0 179:64   0    4M  1 disk </span>
+<span class="go">mmcblk2boot1 179:96   0    4M  1 disk</span>
+</pre></div>
+<p>You can also use <code>cgpt show</code> to figure out which partition is which.
+</p>
+<p><b>NOTE</b>: This is a different example from the above, this shows a separate kernel partition in addition to the <i>boot</i> and <i>root</i> filesystems.
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>sudo cgpt show /dev/mmcblk1
+<span class="go">WARNING: Primary GPT header is being ignored</span>
+<span class="go">       start        size    part  contents</span>
+<span class="go">           0           1          PMBR (Boot GUID: C3DADED4-C48D-D045-804D-38C6663496ED)</span>
+<span class="go">           1           1 IGNORED  Pri GPT header</span>
+<span class="go">    30777311          32          Sec GPT table</span>
+<span class="go">       24576       32768       1  Label: "pmOS_kernel"</span>
+<span class="go">                                  Type: ChromeOS kernel</span>
+<span class="go">                                  UUID: 6898A103-B1ED-6745-B62E-A61CC72D60CD</span>
+<span class="go">                                  Attr: priority=10 tries=5 successful=1 </span>
+<span class="go">       57344      524288       2  Label: "pmOS_boot"</span>
+<span class="go">                                  Type: Linux data</span>
+<span class="go">                                  UUID: 2BC8C937-EAE-A648-94C9-CD5C13A5F47E</span>
+<span class="go">      581632    30194688       3  Label: "pmOS_root"</span>
+<span class="go">                                  Type: Linux data</span>
+<span class="go">                                  UUID: 66765F29-1744-F240-942B-F9771D66A55AC</span>
+<span class="go">          64       16384      11  Label: "RWFW"</span>
+<span class="go">                                  Type: ChromeOS firmware</span>
+<span class="go">                                  UUID: 08432388-CADD-7147-86A8-7BDD112C9544</span>
+<span class="go">    30777343           1          Sec GPT header</span>
+</pre></div>
+<p>The key information here is, that <code>/dev/mmcblk1p1</code> is the kernel partition , <code>/dev/mmcblk1p2</code> is the <b>boot</b> partition, and finally <code>/dev/mmcblk1p3</code> contains the root filesystem (see why all this matters a few sections further below).
+</p>
+<h4>
+<span id="a.29_Encrypted"></span><span class="mw-headline" id="a)_Encrypted">a) Encrypted</span>
+</h4>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>sudo cryptsetup luksOpen /dev/mmcblk2p2 emmc
+<span class="go">Enter passphrase for /dev/mmcblk2p2:</span>
+<span class="gp">$ </span>sudo mount /dev/mapper/emmc /mnt
+</pre></div>
+<h4>
+<span id="b.29_Not_Encrypted"></span><span class="mw-headline" id="b)_Not_Encrypted">b) Not Encrypted</span>
+</h4>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>sudo mount /dev/mmcblk2p2 /mnt
+</pre></div>
+<h4><span class="mw-headline" id="Access_your_data">Access your data</span></h4>
+<p>If you only want to access (and presumably save/retrieve) the data on the broken system, after the above you'll find the broken system's root partition in <code>/mnt</code>:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> /mnt
+<span class="gp">$ </span>ls
+<span class="go">bin  boot  dev  etc  home  lib  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var</span>
+</pre></div>
+<h4>
+<span id=".22Logging.22_into_the_broken_system"></span><span class="mw-headline" id='"Logging"_into_the_broken_system'>"Logging" into the broken system</span>
+</h4>
+<p>Apart from the above, you'd want to mount your <code>/boot</code> partition too (you can find the device name by the <code>cgpt</code> labels, but the smallest partition is probably a good guess too (also, you've already found the root partition).
+</p>
+<p>You'll also want to make your running kernel's virtual filesystems accessible <i>within</i> the <code>/mnt</code> tree and then finally <code>chroot</code> to that directory. This means, you'll have the kernel running from the external device, but the filesystem tree (root all the rest) in use will be that of the broken system -- you're essentially making <code>/mnt</code> being your new <code>/</code>.
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>mount /dev/mmcblk2p1 /mnt/boot
+<span class="gp">$ </span>sudo mount -t proc proc /mnt/proc/
+<span class="gp">$ </span>sudo mount -t sysfs sys /mnt/sys/
+<span class="gp">$ </span>sudo mount --rbind /dev /mnt/dev/
+<span class="gp">$ </span>sudo mount --rbind /run /mnt/run/ <span class="c1"># Not strictly needed</span>
+</pre></div>
+<p>After preparing the filesystem tree in <code>/mnt</code> as described above, you can enter the broken system with:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>sudo chroot /mnt
+</pre></div>
+<p>At this point you'll be able to work as if you've booted the broken system: you an install/remove packages, fix broken packages, edit configuration files, and so on.
+</p>
+<p><b>NOTE</b>: The package installer (<code>apk</code>), more specifically the kernel package setup scripts, will refuse to flash the kernel partition when running <i>within</i> a <i>chroot</i>, so if you want to fix your kernel on the broken system, after (re)installing the appropriate kernel package in the chroot, you'd also want to flash the kernel image by hand: <code>dd if=/boot/vmlinuz.kpart of=/dev/mmcblk&lt;n&gt;p&lt;m&gt;.</code>
+</p>
+<p>After this, you can leave the chroot and reboot:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span><span class="nb">exit</span>
+<span class="gp">$ </span>reboot
+</pre></div>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li>
+<a rel="nofollow" class="external text" href="https://github.com/dreemurrs-embedded/Jumpdrive">Jumpdrive</a> allows similar access by exposing storage devices over USB to your PC</li></ul>
+</div>
+</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+				</div>
+			</main>
+			
+		</div>
+		<div class="mw-footer-container">
+			
+<footer id="footer" class="mw-footer" role="contentinfo" style="margin: 0">
+	<ul id="footer-info">
+	<li data-nosnippet="">Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Rescuing/accessing_a_broken_system_booting_from_external_medium&amp;oldid=58891">https://wiki.postmarketos.org/index.php?title=Rescuing/accessing_a_broken_system_booting_from_external_medium&amp;oldid=58891</a>"</li>
+<li id="footer-info-lastmod"> This page was last edited on 8 May 2024, at 12:21.</li>
+	<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+<br>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="../en/About_postmarketOS.html">About postmarketOS</a></li>
+	<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html">Disclaimers</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31" loading="lazy"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31" loading="lazy"></a></li>
+</ul>
+
+</footer>
+
+		</div>
+	</div> 
+</div> 
+
+</body>
+</html>
