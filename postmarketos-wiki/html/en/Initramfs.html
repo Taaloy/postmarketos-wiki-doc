@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Initramfs - postmarketOS Wiki</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.39.8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0">
+<link rel="icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Initramfs rootpage-Initramfs skin-vector-2022 action-view skin--responsive vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-language-alert-in-sidebar-disabled vector-feature-sticky-header-disabled vector-feature-sticky-header-edit-disabled vector-feature-table-of-contents-disabled vector-feature-visual-enhancement-next-disabled">
+<div class="mw-page-container">
+	<span id="top-page"></span>
+	<a class="mw-jump-link" href="#content">Jump to content</a>
+	<div class="mw-page-container-inner">
+		<input type="checkbox" id="mw-sidebar-checkbox" class="mw-checkbox-hack-checkbox">
+		<header class="mw-header">
+			<div class="mw-header-aside">
+			<label id="mw-sidebar-button" class="mw-checkbox-hack-button mw-ui-icon mw-ui-button mw-ui-quiet mw-ui-icon-element" for="mw-sidebar-checkbox" role="button" aria-controls="mw-panel" data-event-name="ui.sidebar" tabindex="0" title="Main menu">
+				<span>Toggle sidebar</span>
+			</label>
+			
+<a href="../en/Main_Page.html" class="mw-logo">
+	<img class="mw-logo-icon" src="/logo_50x50.svg" alt="" aria-hidden="true" height="50" width="50">
+	<span class="mw-logo-container">
+		<strong class="mw-logo-wordmark">postmarketOS Wiki</strong>
+	</span>
+</a>
+
+			</div>
+			<div class="mw-header-content">
+			
+<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses  vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+	<a href="../Special:Search.html" title="Search postmarketOS Wiki [f]" accesskey="f" class="mw-ui-button mw-ui-quiet mw-ui-icon mw-ui-icon-element mw-ui-icon-wikimedia-search search-toggle">
+		<span>Search</span>
+	</a>
+	
+	<div>
+		<form action="/index.php" id="searchform" class="vector-search-box-form">
+			<div id="simpleSearch" class="vector-search-box-inner" data-search-loc="header-moved">
+				<input class="vector-search-box-input" type="search" name="search" placeholder="Search postmarketOS Wiki" aria-label="Search postmarketOS Wiki" autocapitalize="sentences" title="Search postmarketOS Wiki [f]" accesskey="f" id="searchInput">
+				<input type="hidden" name="title" value="Special:Search">
+				<input id="mw-searchButton" class="searchButton mw-fallbackSearchButton" type="submit" name="fulltext" title="Search the pages for this text" value="Search">
+				<input id="searchButton" class="searchButton" type="submit" name="go" title="Go to a page with this exact name if it exists" value="Go">
+			</div>
+		</form>
+	</div>
+</div>
+
+			<nav class="vector-user-links" aria-label="Personal tools" role="navigation">
+	
+
+<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet mw-portlet-vector-user-menu-overflow vector-user-menu-overflow">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="pt-createaccount-2" class="user-links-collapsible-item mw-list-item"><a href="../Special:RequestAccount.html"><span>Request account</span></a></li></ul>
+		
+	</div>
+</div>
+
+	
+
+<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal vector-user-menu vector-user-menu-logged-out vector-menu-dropdown" title="More options">
+	<input type="checkbox" id="p-personal-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-personal" class="vector-menu-checkbox">
+	<label id="p-personal-label" for="p-personal-checkbox" class="vector-menu-heading mw-ui-button mw-ui-quiet mw-ui-icon mw-ui-icon-element mw-ui-icon-ellipsis mw-ui-icon-wikimedia-ellipsis">
+		<span class="vector-menu-heading-label">Personal tools</span>
+	</label>
+	<div class="vector-menu-content">
+		<div class="vector-user-menu-create-account"><a href="/index.php?title=Special:CreateAccount&amp;returnto=Initramfs" class="vector-menu-content-item user-links-collapsible-item" title="You are encouraged to create an account and log in; however, it is not mandatory"><span class="mw-ui-icon mw-ui-icon-userAdd mw-ui-icon-wikimedia-userAdd"></span> <span>Create account</span></a></div>
+<div class="vector-user-menu-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Initramfs" class="vector-menu-content-item vector-menu-content-item-login" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o"><span class="mw-ui-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn"></span> <span>Log in</span></a></div>
+
+		<ul class="vector-menu-content-list"></ul>
+		
+	</div>
+</div>
+
+</nav>
+
+			</div>
+		</header>
+		<div class="vector-sidebar-container ">
+			</div>
+		<div class="vector-sitenotice-container">
+			<div id="siteNotice"></div>
+		</div>
+		<input type="checkbox" id="vector-toc-collapsed-checkbox" class="mw-checkbox-hack-checkbox">
+		<div class="mw-table-of-contents-container">
+			<div class="vector-sticky-toc-container mw-sticky-header-element">
+				<nav id="mw-panel-toc" class="sidebar-toc" role="navigation" aria-labelledby="sidebar-toc-label" data-event-name="ui.sidebar-toc">
+	<div id="sidebar-toc-label" class="sidebar-toc-header">
+		<p class="sidebar-toc-title">
+		Contents
+		<button class="vector-toc-uncollapse-button">move to sidebar</button>
+		<button class="vector-toc-collapse-button">hide</button>
+		</p>
+	</div>
+	<ul class="sidebar-toc-contents" id="mw-panel-toc-list">
+		<li id="toc-mw-content-text" class="sidebar-toc-list-item sidebar-toc-level-1">
+			<a href="#top-page" class="sidebar-toc-link">
+				<div class="sidebar-toc-text">Beginning</div>
+			</a>
+		</li>
+		<li id="toc-Find_the_boot_and_root_partitions" class="sidebar-toc-list-item sidebar-toc-level-1 sidebar-toc-list-item-expanded">
+			<a class="sidebar-toc-link" href="#Find_the_boot_and_root_partitions">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1</span>Find the boot and root partitions</div>
+			</a>
+			
+			<ul id="toc-Find_the_boot_and_root_partitions-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Load_initramfs-extra" class="sidebar-toc-list-item sidebar-toc-level-1 sidebar-toc-list-item-expanded">
+			<a class="sidebar-toc-link" href="#Load_initramfs-extra">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2</span>Load initramfs-extra</div>
+			</a>
+			
+			<ul id="toc-Load_initramfs-extra-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Switch_root" class="sidebar-toc-list-item sidebar-toc-level-1 sidebar-toc-list-item-expanded">
+			<a class="sidebar-toc-link" href="#Switch_root">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3</span>Switch root</div>
+			</a>
+			
+			<ul id="toc-Switch_root-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-See_also" class="sidebar-toc-list-item sidebar-toc-level-1 sidebar-toc-list-item-expanded">
+			<a class="sidebar-toc-link" href="#See_also">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">4</span>See also</div>
+			</a>
+			
+				<button aria-controls="toc-See_also-sublist" class="mw-ui-icon mw-ui-icon-wikimedia-expand mw-ui-icon-small sidebar-toc-toggle">
+					Toggle See also subsection
+				</button>
+			
+			<ul id="toc-See_also-sublist" class="sidebar-toc-list">
+				<li id="toc-Internal_pages" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#Internal_pages">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">4.1</span>Internal pages</div>
+			</a>
+			
+			<ul id="toc-Internal_pages-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+	</ul>
+		</li>
+	</ul>
+</nav>
+
+			</div>
+		</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body" role="main" style="margin: 0">
+				<a id="top"></a>
+				<header class="mw-body-header">
+				
+				
+					<label id="vector-toc-collapsed-button" class="mw-ui-button mw-ui-quiet mw-ui-icon mw-ui-icon-element mw-ui-icon-wikimedia-listBullet mw-checkbox-hack-button" for="vector-toc-collapsed-checkbox" role="button" aria-controls="toc-toggle-list" data-event-name="vector.toc-toggle-list" tabindex="0" title="Table of Contents">
+						Toggle the table of contents
+					</label>
+				    <h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-main">Initramfs</span></h1>
+				</header>
+				<nav class="vector-article-toolbar" aria-label="Tools" role="navigation">
+					<div class="mw-article-toolbar-container">
+						<div id="left-navigation">
+							
+
+<div id="p-associated-pages" class="vector-menu mw-portlet mw-portlet-associated-pages vector-menu-tabs">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+<li id="ca-nstab-main" class="selected mw-list-item"><a href="../en/Initramfs.html" title="View the content page [c]" accesskey="c"><span>Page</span></a></li>
+<li id="ca-talk" class="new mw-list-item"><a href="/index.php?title=Talk:Initramfs&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page (page does not exist) [t]" accesskey="t"><span>Discussion</span></a></li>
+</ul>
+		
+	</div>
+</div>
+
+							
+
+<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet vector-menu-dropdown">
+	<input type="checkbox" id="p-variants-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-variants" class="vector-menu-checkbox" aria-label="Change language variant">
+	<label id="p-variants-label" for="p-variants-checkbox" class="vector-menu-heading ">
+		<span class="vector-menu-heading-label">English</span>
+	</label>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"></ul>
+		
+	</div>
+</div>
+
+						</div>
+						<div id="right-navigation" class="vector-collapsible ">
+							
+
+<div id="p-views" class="vector-menu mw-portlet mw-portlet-views vector-menu-tabs">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+<li id="ca-view" class="selected mw-list-item"><a href="../en/Initramfs.html"><span>Read</span></a></li>
+<li id="ca-viewsource" class="mw-list-item"><a href="/index.php?title=Initramfs&amp;action=edit" title="This page is protected.
+You can view its source [e]" accesskey="e"><span>View source</span></a></li>
+<li id="ca-history" class="mw-list-item"><a href="/index.php?title=Initramfs&amp;action=history" title="Past revisions of this page [h]" accesskey="h"><span>View history</span></a></li>
+</ul>
+		
+	</div>
+</div>
+
+							
+
+<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions emptyPortlet vector-menu-dropdown vector-has-collapsible-items" title="More options">
+	<input type="checkbox" id="p-cactions-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-cactions" class="vector-menu-checkbox">
+	<label id="p-cactions-label" for="p-cactions-checkbox" class="vector-menu-heading ">
+		<span class="vector-menu-heading-label">More</span>
+	</label>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+<li id="ca-more-view" class="selected vector-more-collapsible-item mw-list-item"><a href="../en/Initramfs.html"><span>Read</span></a></li>
+<li id="ca-more-viewsource" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Initramfs&amp;action=edit"><span>View source</span></a></li>
+<li id="ca-more-history" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Initramfs&amp;action=history"><span>View history</span></a></li>
+</ul>
+		
+	</div>
+</div>
+
+						</div>
+					</div>
+				</nav>
+				<div id="bodyContent" class="vector-body" data-mw-ve-target-container>
+					<div class="mw-body-subheader">
+					        <div class="mw-indicators">
+        </div>
+
+					    <div id="siteSub" class="noprint">From postmarketOS Wiki</div>
+					</div>
+					
+					
+					
+					<div id="mw-content-text" class="mw-body-content mw-content-ltr" lang="en" dir="ltr">
+<div class="mw-parser-output">
+<p><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/tree/master/main/postmarketos-initramfs">Initramfs</a> consists of busybox, a shell script and very few other command-line programs. 
+</p>
+<p><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/postmarketos-mkinitfs">postmarketos-mkinitfs</a> generates the initramfs .
+</p>
+<p>After then , postmarketos-mkinitfs would run <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/boot-deploy">boot-deploy</a> and boot-deploy would pack kernel and initramfs into a suitable format  and generate config for the bootloader if necessary.
+</p>
+<p>The initramfs takes care of many things during the early booting phase, such as setting up <a href="../en/USB_Network.html" title="USB Network">USB networking</a>, resizing the root partition. Some of the tasks are listed in detail here, for others refer to the source code for now and consider expanding this article. Furthermore, the initramfs supports hooks (which may be used to work around device specific quirks, for example).
+</p>
+<p>Here is a list of the boot process related to initramfs:
+</p>
+<ul>
+<li>Enable <code>set -x</code> if the verbose-initfs hook exists</li>
+<li>Load deviceinfo data</li>
+<li>Create busybox symlinks</li>
+<li>Mount <code>/dev</code>, <code>/proc</code> and <code>/sys</code>
+</li>
+<li>Redirect stdout to <code>/pmOS_init.log</code> and to the kernel log (dmesg)</li>
+<li>Modprobe modules listed in deviceinfo</li>
+<li>Enable mdev (busybox replacement for udev)</li>
+<li>Map subpartitions to block device</li>
+<li>Wait for /dev/fb0 to appear (if not disabled in deviceinfo) and set the framebuffer mode</li>
+<li>Execute hooks</li>
+<li>Show loading splash</li>
+<li>Start usb networking</li>
+<li>Find and mount the partition with the <code>pmOS_boot</code> label if not show "Boot partition not found" splash</li>
+<li>Unpack initramfs-extra from the boot partition if not show  "Initramfs-extra not found" splash</li>
+<li>Search for a partition with the label <code>pmOS_root</code>
+</li>
+<li>Try to resize the partition containing the root filesystem to the maximum size</li>
+<li>Start  <a href="../en/Unl0kr.html" title="Unl0kr">Unl0kr</a> if the rootfs is a luks partition</li>
+<li>Resize the root filesystem to match the partition it is in</li>
+<li>Mount the root filesystem</li>
+<li>Kill all processes running in the initramfs and pivot root to the real rootfs</li>
+</ul>
+<tocplace></tocplace>
+<h3><span class="mw-headline" id="Find_the_boot_and_root_partitions">Find the boot and root partitions</span></h3>
+<p>Due to the various possible <a href="../en/Partition_Layout.html" title="Partition Layout">partition layouts</a>, the initramfs script has to look in various places for the postmarketOS boot and root partitions.
+</p>
+<p>boot partition:
+</p>
+<ul>
+<li>
+<code>pmos_boot</code> kernel parameter (from the device specific bootloader)</li>
+<li>Any partition or subpartition with the <code>pmOS_boot</code> label</li>
+</ul>
+<p>root partition:
+</p>
+<ul>
+<li>
+<code>pmos_root</code> kernel parameter (from the device specific bootloader)</li>
+<li>Any partition or subpartition with the <code>pmOS_root</code> label</li>
+<li>Any partition or subpartition that is encrypted</li>
+</ul>
+<h3><span class="mw-headline" id="Load_initramfs-extra">Load initramfs-extra</span></h3>
+<p>Some Android devices require a very small initramfs, because otherwise the resulting <code>boot.img</code> file is too big for the Android boot partition. Therefore, we have split the initramfs into two parts, the tiny initramfs that is potentially placed in such a <code>boot.img</code> file (depending on the bootloader). And the initramfs-extra, which can hold bigger binaries, such as the UI to unlock an encrypted root partition (<a href="../en/Unl0kr.html" title="Unl0kr">Unl0kr</a>).
+</p>
+<h3><span class="mw-headline" id="Switch_root">Switch root</span></h3>
+<table role="text container" style="color: inherit; background-color: #f6efe5; border: 1px solid #ac6600; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center; line-height: 1;"><span style="white-space: nowrap;"><img alt="Note" src="../Reference_icon.svg" decoding="async" title="Note" width="20" height="20"></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">It will look like this, once <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/664">pmaports#664</a> is resolved.</td>
+</tr></tbody></table>
+<p>At the end of the initramfs script, the root partition is mounted at <code>/sysroot</code>, and the boot partition is mounted at <code>/sysroot/boot</code>. The latter is done, so <a href="../en/Category:Init.html" class="mw-redirect" title="Init">Init</a> does not need to figure out the correct boot partition later on. Afterwards, the busybox command <code>switch_root</code> is called to switch over and pass control to <a href="../en/Category:Init.html" class="mw-redirect" title="Init">Init</a>.
+</p>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<h3><span class="mw-headline" id="Internal_pages">Internal pages</span></h3>
+<ul class="mw-prefixindex-list">
+<li><a href="../en/Initramfs_Development.html" title="Initramfs/Development">Initramfs/Development</a></li>
+<li><a href="../en/Initramfs_Inspecting.html" title="Initramfs/Inspecting">Initramfs/Inspecting</a></li>
+</ul>
+</div>
+</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+				</div>
+			</main>
+			
+		</div>
+		<div class="mw-footer-container">
+			
+<footer id="footer" class="mw-footer" role="contentinfo" style="margin: 0">
+	<ul id="footer-info">
+	<li data-nosnippet="">Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Initramfs&amp;oldid=63999">https://wiki.postmarketos.org/index.php?title=Initramfs&amp;oldid=63999</a>"</li>
+<li id="footer-info-lastmod"> This page was last edited on 26 September 2024, at 12:46.</li>
+	<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+<br>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="../en/About_postmarketOS.html">About postmarketOS Wiki</a></li>
+	<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html">Disclaimers</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31" loading="lazy"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31" loading="lazy"></a></li>
+</ul>
+
+</footer>
+
+		</div>
+	</div> 
+</div> 
+
+</body>
+</html>

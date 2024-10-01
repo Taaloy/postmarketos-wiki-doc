@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Kernel configuration/Specific options - postmarketOS Wiki</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.39.8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0">
+<link rel="icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Kernel_configuration_Specific_options rootpage-Kernel_configuration_Specific_options skin-vector-2022 action-view skin--responsive vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-language-alert-in-sidebar-disabled vector-feature-sticky-header-disabled vector-feature-sticky-header-edit-disabled vector-feature-table-of-contents-disabled vector-feature-visual-enhancement-next-disabled">
+<div class="mw-page-container">
+	<span id="top-page"></span>
+	<a class="mw-jump-link" href="#content">Jump to content</a>
+	<div class="mw-page-container-inner">
+		<input type="checkbox" id="mw-sidebar-checkbox" class="mw-checkbox-hack-checkbox">
+		<header class="mw-header">
+			<div class="mw-header-aside">
+			<label id="mw-sidebar-button" class="mw-checkbox-hack-button mw-ui-icon mw-ui-button mw-ui-quiet mw-ui-icon-element" for="mw-sidebar-checkbox" role="button" aria-controls="mw-panel" data-event-name="ui.sidebar" tabindex="0" title="Main menu">
+				<span>Toggle sidebar</span>
+			</label>
+			
+<a href="../en/Main_Page.html" class="mw-logo">
+	<img class="mw-logo-icon" src="/logo_50x50.svg" alt="" aria-hidden="true" height="50" width="50">
+	<span class="mw-logo-container">
+		<strong class="mw-logo-wordmark">postmarketOS Wiki</strong>
+	</span>
+</a>
+
+			</div>
+			<div class="mw-header-content">
+			
+<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses  vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+	<a href="../Special:Search.html" title="Search postmarketOS Wiki [f]" accesskey="f" class="mw-ui-button mw-ui-quiet mw-ui-icon mw-ui-icon-element mw-ui-icon-wikimedia-search search-toggle">
+		<span>Search</span>
+	</a>
+	
+	<div>
+		<form action="/index.php" id="searchform" class="vector-search-box-form">
+			<div id="simpleSearch" class="vector-search-box-inner" data-search-loc="header-moved">
+				<input class="vector-search-box-input" type="search" name="search" placeholder="Search postmarketOS Wiki" aria-label="Search postmarketOS Wiki" autocapitalize="sentences" title="Search postmarketOS Wiki [f]" accesskey="f" id="searchInput">
+				<input type="hidden" name="title" value="Special:Search">
+				<input id="mw-searchButton" class="searchButton mw-fallbackSearchButton" type="submit" name="fulltext" title="Search the pages for this text" value="Search">
+				<input id="searchButton" class="searchButton" type="submit" name="go" title="Go to a page with this exact name if it exists" value="Go">
+			</div>
+		</form>
+	</div>
+</div>
+
+			<nav class="vector-user-links" aria-label="Personal tools" role="navigation">
+	
+
+<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet mw-portlet-vector-user-menu-overflow vector-user-menu-overflow">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="pt-createaccount-2" class="user-links-collapsible-item mw-list-item"><a href="../Special:RequestAccount.html"><span>Request account</span></a></li></ul>
+		
+	</div>
+</div>
+
+	
+
+<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal vector-user-menu vector-user-menu-logged-out vector-menu-dropdown" title="More options">
+	<input type="checkbox" id="p-personal-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-personal" class="vector-menu-checkbox">
+	<label id="p-personal-label" for="p-personal-checkbox" class="vector-menu-heading mw-ui-button mw-ui-quiet mw-ui-icon mw-ui-icon-element mw-ui-icon-ellipsis mw-ui-icon-wikimedia-ellipsis">
+		<span class="vector-menu-heading-label">Personal tools</span>
+	</label>
+	<div class="vector-menu-content">
+		<div class="vector-user-menu-create-account"><a href="/index.php?title=Special:CreateAccount&amp;returnto=Kernel+configuration%2FSpecific+options" class="vector-menu-content-item user-links-collapsible-item" title="You are encouraged to create an account and log in; however, it is not mandatory"><span class="mw-ui-icon mw-ui-icon-userAdd mw-ui-icon-wikimedia-userAdd"></span> <span>Create account</span></a></div>
+<div class="vector-user-menu-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Kernel+configuration%2FSpecific+options" class="vector-menu-content-item vector-menu-content-item-login" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o"><span class="mw-ui-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn"></span> <span>Log in</span></a></div>
+
+		<ul class="vector-menu-content-list"></ul>
+		
+	</div>
+</div>
+
+</nav>
+
+			</div>
+		</header>
+		<div class="vector-sidebar-container ">
+			</div>
+		<div class="vector-sitenotice-container">
+			<div id="siteNotice"></div>
+		</div>
+		<input type="checkbox" id="vector-toc-collapsed-checkbox" class="mw-checkbox-hack-checkbox">
+		<div class="mw-table-of-contents-container">
+			<div class="vector-sticky-toc-container mw-sticky-header-element">
+				<nav id="mw-panel-toc" class="sidebar-toc" role="navigation" aria-labelledby="sidebar-toc-label" data-event-name="ui.sidebar-toc">
+	<div id="sidebar-toc-label" class="sidebar-toc-header">
+		<p class="sidebar-toc-title">
+		Contents
+		<button class="vector-toc-uncollapse-button">move to sidebar</button>
+		<button class="vector-toc-collapse-button">hide</button>
+		</p>
+	</div>
+	<ul class="sidebar-toc-contents" id="mw-panel-toc-list">
+		<li id="toc-mw-content-text" class="sidebar-toc-list-item sidebar-toc-level-1">
+			<a href="#top-page" class="sidebar-toc-link">
+				<div class="sidebar-toc-text">Beginning</div>
+			</a>
+		</li>
+		<li id="toc-Required_to_be_enabled/disabled" class="sidebar-toc-list-item sidebar-toc-level-1">
+			<a class="sidebar-toc-link" href="#Required_to_be_enabled/disabled">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1</span>Required to be enabled/disabled</div>
+			</a>
+			
+				<button aria-controls="toc-Required_to_be_enabled/disabled-sublist" class="mw-ui-icon mw-ui-icon-wikimedia-expand mw-ui-icon-small sidebar-toc-toggle">
+					Toggle Required to be enabled/disabled subsection
+				</button>
+			
+			<ul id="toc-Required_to_be_enabled/disabled-sublist" class="sidebar-toc-list">
+				<li id="toc-CONFIG_DEVTMPFS" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_DEVTMPFS">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.1</span>CONFIG_DEVTMPFS</div>
+			</a>
+			
+			<ul id="toc-CONFIG_DEVTMPFS-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_TMPFS_POSIX_ACL" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_TMPFS_POSIX_ACL">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.2</span>CONFIG_TMPFS_POSIX_ACL</div>
+			</a>
+			
+			<ul id="toc-CONFIG_TMPFS_POSIX_ACL-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_VT" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_VT">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.3</span>CONFIG_VT</div>
+			</a>
+			
+			<ul id="toc-CONFIG_VT-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_DM_CRYPT" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_DM_CRYPT">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.4</span>CONFIG_DM_CRYPT</div>
+			</a>
+			
+			<ul id="toc-CONFIG_DM_CRYPT-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_EXT4_FS" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_EXT4_FS">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.5</span>CONFIG_EXT4_FS</div>
+			</a>
+			
+			<ul id="toc-CONFIG_EXT4_FS-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_UEVENT_HELPER" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_UEVENT_HELPER">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.6</span>CONFIG_UEVENT_HELPER</div>
+			</a>
+			
+			<ul id="toc-CONFIG_UEVENT_HELPER-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_KERNEL_GZIP,_CONFIG_KERNEL_XZ,_CONFIG_KERNEL_LZO_and_CONFIG_KERNEL_LZMA" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_KERNEL_GZIP,_CONFIG_KERNEL_XZ,_CONFIG_KERNEL_LZO_and_CONFIG_KERNEL_LZMA">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.7</span>CONFIG_KERNEL_GZIP, CONFIG_KERNEL_XZ, CONFIG_KERNEL_LZO and CONFIG_KERNEL_LZMA</div>
+			</a>
+			
+			<ul id="toc-CONFIG_KERNEL_GZIP,_CONFIG_KERNEL_XZ,_CONFIG_KERNEL_LZO_and_CONFIG_KERNEL_LZMA-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_ANDROID_PARANOID_NETWORK" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_ANDROID_PARANOID_NETWORK">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.8</span>CONFIG_ANDROID_PARANOID_NETWORK</div>
+			</a>
+			
+			<ul id="toc-CONFIG_ANDROID_PARANOID_NETWORK-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_PFT" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_PFT">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.9</span>CONFIG_PFT</div>
+			</a>
+			
+			<ul id="toc-CONFIG_PFT-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_SYSVIPC" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_SYSVIPC">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.10</span>CONFIG_SYSVIPC</div>
+			</a>
+			
+			<ul id="toc-CONFIG_SYSVIPC-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_USE_VFB" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_USE_VFB">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.11</span>CONFIG_USE_VFB</div>
+			</a>
+			
+			<ul id="toc-CONFIG_USE_VFB-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_KINETO_GAN" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_KINETO_GAN">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.12</span>CONFIG_KINETO_GAN</div>
+			</a>
+			
+			<ul id="toc-CONFIG_KINETO_GAN-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_BLK_DEV_INITRD" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_BLK_DEV_INITRD">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.13</span>CONFIG_BLK_DEV_INITRD</div>
+			</a>
+			
+			<ul id="toc-CONFIG_BLK_DEV_INITRD-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_BLK_DEV_RAM" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_BLK_DEV_RAM">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.14</span>CONFIG_BLK_DEV_RAM</div>
+			</a>
+			
+			<ul id="toc-CONFIG_BLK_DEV_RAM-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CGROUPS" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CGROUPS">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.15</span>CONFIG_CGROUPS</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CGROUPS-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_XTS" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_XTS">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.16</span>CONFIG_CRYPTO_XTS</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_XTS-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_SAMSUNG_TUI" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_SAMSUNG_TUI">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.17</span>CONFIG_SAMSUNG_TUI</div>
+			</a>
+			
+			<ul id="toc-CONFIG_SAMSUNG_TUI-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_SEC_RESTRICT_ROOTING" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_SEC_RESTRICT_ROOTING">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.18</span>CONFIG_SEC_RESTRICT_ROOTING</div>
+			</a>
+			
+			<ul id="toc-CONFIG_SEC_RESTRICT_ROOTING-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_TZDEV" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_TZDEV">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.19</span>CONFIG_TZDEV</div>
+			</a>
+			
+			<ul id="toc-CONFIG_TZDEV-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_INPUT_EVDEV" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_INPUT_EVDEV">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.20</span>CONFIG_INPUT_EVDEV</div>
+			</a>
+			
+			<ul id="toc-CONFIG_INPUT_EVDEV-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+	</ul>
+		</li>
+		<li id="toc-Optional" class="sidebar-toc-list-item sidebar-toc-level-1">
+			<a class="sidebar-toc-link" href="#Optional">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2</span>Optional</div>
+			</a>
+			
+				<button aria-controls="toc-Optional-sublist" class="mw-ui-icon mw-ui-icon-wikimedia-expand mw-ui-icon-small sidebar-toc-toggle">
+					Toggle Optional subsection
+				</button>
+			
+			<ul id="toc-Optional-sublist" class="sidebar-toc-list">
+				<li id="toc-CONFIG_INPUT_UINPUT" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_INPUT_UINPUT">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.1</span>CONFIG_INPUT_UINPUT</div>
+			</a>
+			
+			<ul id="toc-CONFIG_INPUT_UINPUT-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_LBDAF" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_LBDAF">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.2</span>CONFIG_LBDAF</div>
+			</a>
+			
+			<ul id="toc-CONFIG_LBDAF-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_USB_G_ANDROID" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_USB_G_ANDROID">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.3</span>CONFIG_USB_G_ANDROID</div>
+			</a>
+			
+			<ul id="toc-CONFIG_USB_G_ANDROID-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_USB_ETH" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_USB_ETH">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.4</span>CONFIG_USB_ETH</div>
+			</a>
+			
+			<ul id="toc-CONFIG_USB_ETH-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_USB_ETH_RNDIS" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_USB_ETH_RNDIS">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.5</span>CONFIG_USB_ETH_RNDIS</div>
+			</a>
+			
+			<ul id="toc-CONFIG_USB_ETH_RNDIS-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_MSM_KGSL" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_MSM_KGSL">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.6</span>CONFIG_MSM_KGSL</div>
+			</a>
+			
+			<ul id="toc-CONFIG_MSM_KGSL-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CMDLINE" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CMDLINE">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.7</span>CONFIG_CMDLINE</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CMDLINE-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_FHANDLE" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_FHANDLE">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.8</span>CONFIG_FHANDLE</div>
+			</a>
+			
+			<ul id="toc-CONFIG_FHANDLE-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_BUILD_ARM_APPENDED_DTB_IMAGE" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_BUILD_ARM_APPENDED_DTB_IMAGE">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.9</span>CONFIG_BUILD_ARM_APPENDED_DTB_IMAGE</div>
+			</a>
+			
+			<ul id="toc-CONFIG_BUILD_ARM_APPENDED_DTB_IMAGE-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_FW_LOADER_USER_HELPER" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_FW_LOADER_USER_HELPER">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.10</span>CONFIG_FW_LOADER_USER_HELPER</div>
+			</a>
+			
+			<ul id="toc-CONFIG_FW_LOADER_USER_HELPER-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_KEY_DH_OPERATIONS" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_KEY_DH_OPERATIONS">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.11</span>CONFIG_KEY_DH_OPERATIONS</div>
+			</a>
+			
+			<ul id="toc-CONFIG_KEY_DH_OPERATIONS-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_DH" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_DH">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.12</span>CONFIG_CRYPTO_DH</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_DH-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_DES" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_DES">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.13</span>CONFIG_CRYPTO_DES</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_DES-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_USER_API_SKCIPHER" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_USER_API_SKCIPHER">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.14</span>CONFIG_CRYPTO_USER_API_SKCIPHER</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_USER_API_SKCIPHER-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_USER_API_HASH" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_USER_API_HASH">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.15</span>CONFIG_CRYPTO_USER_API_HASH</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_USER_API_HASH-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_ECB" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_ECB">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.16</span>CONFIG_CRYPTO_ECB</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_ECB-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_MD4" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_MD4">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.17</span>CONFIG_CRYPTO_MD4</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_MD4-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_MD5" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_MD5">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.18</span>CONFIG_CRYPTO_MD5</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_MD5-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_CBC" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_CBC">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.19</span>CONFIG_CRYPTO_CBC</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_CBC-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_SHA1" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_SHA1">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.20</span>CONFIG_CRYPTO_SHA1</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_SHA1-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_SHA256" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_SHA256">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.21</span>CONFIG_CRYPTO_SHA256</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_SHA256-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_SHA512" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_SHA512">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.22</span>CONFIG_CRYPTO_SHA512</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_SHA512-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_AES" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_AES">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.23</span>CONFIG_CRYPTO_AES</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_AES-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_DES_2" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_DES_2">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.24</span>CONFIG_CRYPTO_DES</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_DES_2-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_CMAC" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_CMAC">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.25</span>CONFIG_CRYPTO_CMAC</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_CMAC-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_CRYPTO_HMAC" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_CRYPTO_HMAC">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.26</span>CONFIG_CRYPTO_HMAC</div>
+			</a>
+			
+			<ul id="toc-CONFIG_CRYPTO_HMAC-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_USER_NS" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_USER_NS">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.27</span>CONFIG_USER_NS</div>
+			</a>
+			
+			<ul id="toc-CONFIG_USER_NS-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_DEVPTS_MULTIPLE_INSTANCES" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_DEVPTS_MULTIPLE_INSTANCES">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.28</span>CONFIG_DEVPTS_MULTIPLE_INSTANCES</div>
+			</a>
+			
+			<ul id="toc-CONFIG_DEVPTS_MULTIPLE_INSTANCES-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-DRM_UDL" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#DRM_UDL">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.29</span>DRM_UDL</div>
+			</a>
+			
+			<ul id="toc-DRM_UDL-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-DRM_GUD" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#DRM_GUD">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.30</span>DRM_GUD</div>
+			</a>
+			
+			<ul id="toc-DRM_GUD-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-SECCOMP" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#SECCOMP">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2.31</span>SECCOMP</div>
+			</a>
+			
+			<ul id="toc-SECCOMP-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+	</ul>
+		</li>
+		<li id="toc-Anbox" class="sidebar-toc-list-item sidebar-toc-level-1">
+			<a class="sidebar-toc-link" href="#Anbox">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3</span>Anbox</div>
+			</a>
+			
+				<button aria-controls="toc-Anbox-sublist" class="mw-ui-icon mw-ui-icon-wikimedia-expand mw-ui-icon-small sidebar-toc-toggle">
+					Toggle Anbox subsection
+				</button>
+			
+			<ul id="toc-Anbox-sublist" class="sidebar-toc-list">
+				<li id="toc-CONFIG_SQUASHFS" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_SQUASHFS">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3.1</span>CONFIG_SQUASHFS</div>
+			</a>
+			
+			<ul id="toc-CONFIG_SQUASHFS-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_SQUASHFS_XZ" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_SQUASHFS_XZ">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3.2</span>CONFIG_SQUASHFS_XZ</div>
+			</a>
+			
+			<ul id="toc-CONFIG_SQUASHFS_XZ-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_SQUASHFS_XATTR" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_SQUASHFS_XATTR">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3.3</span>CONFIG_SQUASHFS_XATTR</div>
+			</a>
+			
+			<ul id="toc-CONFIG_SQUASHFS_XATTR-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_ASHMEM" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_ASHMEM">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3.4</span>CONFIG_ASHMEM</div>
+			</a>
+			
+			<ul id="toc-CONFIG_ASHMEM-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_BINDER_IPC" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_BINDER_IPC">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3.5</span>CONFIG_BINDER_IPC</div>
+			</a>
+			
+			<ul id="toc-CONFIG_BINDER_IPC-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_BINDERFS" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_BINDERFS">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3.6</span>CONFIG_BINDERFS</div>
+			</a>
+			
+			<ul id="toc-CONFIG_BINDERFS-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_ANDROID_BINDER_DEVICES" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_ANDROID_BINDER_DEVICES">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3.7</span>CONFIG_ANDROID_BINDER_DEVICES</div>
+			</a>
+			
+			<ul id="toc-CONFIG_ANDROID_BINDER_DEVICES-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CONFIG_TMPFS_XATTR" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#CONFIG_TMPFS_XATTR">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3.8</span>CONFIG_TMPFS_XATTR</div>
+			</a>
+			
+			<ul id="toc-CONFIG_TMPFS_XATTR-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-NETFILTER_XT_MATCH_COMMENT" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#NETFILTER_XT_MATCH_COMMENT">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3.9</span>NETFILTER_XT_MATCH_COMMENT</div>
+			</a>
+			
+			<ul id="toc-NETFILTER_XT_MATCH_COMMENT-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+	</ul>
+		</li>
+		<li id="toc-See_also" class="sidebar-toc-list-item sidebar-toc-level-1">
+			<a class="sidebar-toc-link" href="#See_also">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">4</span>See also</div>
+			</a>
+			
+			<ul id="toc-See_also-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+	</ul>
+</nav>
+
+			</div>
+		</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body" role="main" style="margin: 0">
+				<a id="top"></a>
+				<header class="mw-body-header">
+				
+				
+					<label id="vector-toc-collapsed-button" class="mw-ui-button mw-ui-quiet mw-ui-icon mw-ui-icon-element mw-ui-icon-wikimedia-listBullet mw-checkbox-hack-button" for="vector-toc-collapsed-checkbox" role="button" aria-controls="toc-toggle-list" data-event-name="vector.toc-toggle-list" tabindex="0" title="Table of Contents">
+						Toggle the table of contents
+					</label>
+				    <h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-main">Kernel configuration/Specific options</span></h1>
+				</header>
+				<nav class="vector-article-toolbar" aria-label="Tools" role="navigation">
+					<div class="mw-article-toolbar-container">
+						<div id="left-navigation">
+							
+
+<div id="p-associated-pages" class="vector-menu mw-portlet mw-portlet-associated-pages vector-menu-tabs">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+<li id="ca-nstab-main" class="selected mw-list-item"><a href="../en/Kernel_configuration_Specific_options.html" title="View the content page [c]" accesskey="c"><span>Page</span></a></li>
+<li id="ca-talk" class="new mw-list-item"><a href="/index.php?title=Talk:Kernel_configuration/Specific_options&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page (page does not exist) [t]" accesskey="t"><span>Discussion</span></a></li>
+</ul>
+		
+	</div>
+</div>
+
+							
+
+<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet vector-menu-dropdown">
+	<input type="checkbox" id="p-variants-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-variants" class="vector-menu-checkbox" aria-label="Change language variant">
+	<label id="p-variants-label" for="p-variants-checkbox" class="vector-menu-heading ">
+		<span class="vector-menu-heading-label">English</span>
+	</label>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"></ul>
+		
+	</div>
+</div>
+
+						</div>
+						<div id="right-navigation" class="vector-collapsible ">
+							
+
+<div id="p-views" class="vector-menu mw-portlet mw-portlet-views vector-menu-tabs">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+<li id="ca-view" class="selected mw-list-item"><a href="../en/Kernel_configuration_Specific_options.html"><span>Read</span></a></li>
+<li id="ca-viewsource" class="mw-list-item"><a href="/index.php?title=Kernel_configuration/Specific_options&amp;action=edit" title="This page is protected.
+You can view its source [e]" accesskey="e"><span>View source</span></a></li>
+<li id="ca-history" class="mw-list-item"><a href="/index.php?title=Kernel_configuration/Specific_options&amp;action=history" title="Past revisions of this page [h]" accesskey="h"><span>View history</span></a></li>
+</ul>
+		
+	</div>
+</div>
+
+							
+
+<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions emptyPortlet vector-menu-dropdown vector-has-collapsible-items" title="More options">
+	<input type="checkbox" id="p-cactions-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-cactions" class="vector-menu-checkbox">
+	<label id="p-cactions-label" for="p-cactions-checkbox" class="vector-menu-heading ">
+		<span class="vector-menu-heading-label">More</span>
+	</label>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+<li id="ca-more-view" class="selected vector-more-collapsible-item mw-list-item"><a href="../en/Kernel_configuration_Specific_options.html"><span>Read</span></a></li>
+<li id="ca-more-viewsource" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Kernel_configuration/Specific_options&amp;action=edit"><span>View source</span></a></li>
+<li id="ca-more-history" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Kernel_configuration/Specific_options&amp;action=history"><span>View history</span></a></li>
+</ul>
+		
+	</div>
+</div>
+
+						</div>
+					</div>
+				</nav>
+				<div id="bodyContent" class="vector-body" data-mw-ve-target-container>
+					<div class="mw-body-subheader">
+					        <div class="mw-indicators">
+        </div>
+
+					    <div id="siteSub" class="noprint">From postmarketOS Wiki</div>
+					</div>
+					
+					
+					
+					<div id="mw-content-text" class="mw-body-content mw-content-ltr" lang="en" dir="ltr">
+<div class="mw-parser-output">
+<div id="contentSub" style="margin-top: -8px; margin-bottom: 18px;">
+<span class="subpages">&lt; <a href="../en/Kernel_configuration.html" title="Kernel configuration">Kernel configuration</a></span>‎</div>
+<p>This article has additional information on lots of kernel config options, such as why we require them to be enabled or disabled in postmarketOS. See <a href="../en/Kernel_configuration.html" title="Kernel configuration">Kernel configuration</a> for an overview.
+</p>
+<p>pmbootstrap 2.x redirects to this page when your kernel is not passing the kconfig check. Not all options have a description here, and it is probably not a good effort of time to copy all of them here - look at kconfigcheck.toml or search the web for more information on these.
+</p>
+<tocplace></tocplace>
+<h2>
+<span id="Required_to_be_enabled.2Fdisabled"></span><span class="mw-headline" id="Required_to_be_enabled/disabled">Required to be enabled/disabled</span>
+</h2>
+<p>Enable or disable the following options to get postmarketOS working. Use <code>pmbootstrap kconfig check</code> to check which options need to be modified.
+</p>
+<h3><span class="mw-headline" id="CONFIG_DEVTMPFS">CONFIG_DEVTMPFS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>This adds support for the devtmpfs filesystem which should be mounted to /dev at startup. The kernel driver core creates device nodes for all registered devices in that filesystem. All device nodes are owned by root and have the default mode of 0600. Userspace can add and delete the nodes as needed.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/DEVTMPFS.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Generic Driver Options --&gt;
+    Maintain a devtmpfs filesystem to mount at /dev
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>This should always be set, otherwise you get this when you try SSH:
+</p>
+<pre>PTY allocation request failed on channel 0
+-ash: a: unknown operand</pre>
+<h3><span class="mw-headline" id="CONFIG_TMPFS_POSIX_ACL">CONFIG_TMPFS_POSIX_ACL</span></h3>
+<p><b> About</b>
+</p>
+<p><i>Support POSIX Access Control Lists (ACLs) for tmpfs-based filesystems.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/TMPFS_POSIX_ACL.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">File Systems --&gt;
+  Pseudo Filesystems --&gt;
+    Tmpfs virtual memory file system support (former shm fs) --&gt;
+      Tmpfs POSIX Access Control Lists
+</pre>
+<p><br>
+<b>pmOS specific</b>
+</p>
+<p>This is needed for some UIs (phosh) to be able to control bluetooth.
+</p>
+<h3><span class="mw-headline" id="CONFIG_VT">CONFIG_VT</span></h3>
+<p><b>About</b>
+</p>
+<p><i>If you say Y here, you will get support for terminal devices with display and keyboard devices. These are called "virtual" because you can run several virtual terminals (also called virtual consoles) on one physical terminal. This is rather useful, for example one virtual terminal can collect system messages and warnings, another one can be used for a text-mode user session, and a third could run an X session, all in parallel. Switching between virtual terminals is done with certain key combinations, usually Alt-&lt;function key&gt;.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/VT.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<p>It depends on <code>CONFIG_EXPERT</code>, so enable it first:
+</p>
+<pre class="shell">General setup --&gt;
+  Configure standard kernel features (expert users)
+</pre>
+<p>Then:
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Character Devices --&gt;
+    Enable TTY --&gt;
+      Virtual Terminal
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>This should always be set, otherwise you cannot get virtual terminal over USB.
+</p>
+<h3><span class="mw-headline" id="CONFIG_DM_CRYPT">CONFIG_DM_CRYPT</span></h3>
+<p><b>About</b>
+</p>
+<p><i>This device-mapper target allows you to create a device that transparently encrypts the data on it.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/DM_CRYPT.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Multiple devices driver support (RAID and LVM) --&gt;
+    Device mapper support --&gt;
+      Crypt target support
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>This should always be set, required for full disk encyption.
+</p>
+<h3><span class="mw-headline" id="CONFIG_EXT4_FS">CONFIG_EXT4_FS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>This is the next generation of the ext3 filesystem.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/EXT4_FS.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">File systems --&gt;
+  The Extended 4 (ext4) filesystem
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>This should always be set since pmbootstrap creates an ext4 rootfs.
+</p>
+<h3><span class="mw-headline" id="CONFIG_UEVENT_HELPER">CONFIG_UEVENT_HELPER</span></h3>
+<p><b>About</b>
+</p>
+<p><i>The uevent helper program is forked by the kernel for every uevent. Before the switch to the netlink-based uevent source, this was used to hook hotplug scripts into kernel device events. It usually pointed to a shell script at /sbin/hotplug. This should not be used today, because usual systems create many events at bootup or device discovery in a very short time frame. One forked process per event can create so many processes that it creates a high system load, or on smaller systems it is known to create out-of-memory situations during bootup.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/UEVENT_HELPER.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Generic Driver Options --&gt;
+    Support for uevent helper
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>This option should always be enabled on pmos kernels that are 3.16+, it's the config option that makes /proc/sys/kernel/hotplug appear.
+</p>
+<h3>
+<span id="CONFIG_KERNEL_GZIP.2C_CONFIG_KERNEL_XZ.2C_CONFIG_KERNEL_LZO_and_CONFIG_KERNEL_LZMA"></span><span class="mw-headline" id="CONFIG_KERNEL_GZIP,_CONFIG_KERNEL_XZ,_CONFIG_KERNEL_LZO_and_CONFIG_KERNEL_LZMA">CONFIG_KERNEL_GZIP, CONFIG_KERNEL_XZ, CONFIG_KERNEL_LZO and CONFIG_KERNEL_LZMA</span>
+</h3>
+<p><b>About</b>
+</p>
+<dl>
+<dt>GZIP</dt>
+<dd><i>The old and tried gzip compression. It provides a good balance between compression ratio and decompression speed.</i></dd>
+<dd><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/KERNEL_GZIP.html">Read more...</a></dd>
+<dt>XZ</dt>
+<dd><i>XZ uses the LZMA2 algorithm and instruction set specific BCJ filters which can improve compression ratio of executable code. The size of the kernel is about 30% smaller with XZ in comparison to gzip. The speed is about the same as with LZMA: The decompression speed of XZ is better than that of bzip2 but worse than gzip and LZO. Compression is slow.</i></dd>
+<dd><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/KERNEL_XZ.html">Read more...</a></dd>
+<dt>LZO</dt>
+<dd><i>Its compression ratio is the poorest among the choices. The kernel size is about 10% bigger than gzip; however its speed (both compression and decompression) is the fastest.</i></dd>
+<dd><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/KERNEL_LZO.html">Read more...</a></dd>
+<dt>LZMA</dt>
+<dd><i>This compression algorithm's ratio is best. Decompression speed is between gzip and bzip2. Compression is slowest. The kernel size is about 33% smaller with LZMA in comparison to gzip.</i></dd>
+<dd><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/KERNEL_LZMA.html">Read more...</a></dd>
+</dl>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General Setup --&gt;
+  Kernel compression mode --&gt;
+    Gzip
+    LZMA
+    XZ
+    LZO
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>You should set one of these to Y.
+</p>
+<ul>
+<li>Gzip: Works without specifying anything else.</li>
+<li>LZMA: If kernel compilation fails with this compression type, read <a href="../en/Troubleshooting:kernel.html#Kernel_compilation:_BusyBox_lzma_compression_fails" title="Troubleshooting:kernel">Troubleshooting:kernel#Kernel_compilation:_BusyBox_lzma_compression_fails</a>.</li>
+<li>XZ: Make sure to add <code>xz</code> to <code>makedepends</code> in the APKBUILD of your kernel package.</li>
+<li>LZO: If you get <code>lzop: high compression not compiled in</code> during compilation of the kernel you probably need <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/blob/b4c9f93f0d7be1272f6a67de2128558ce58e1077/aports/linux-samsung-i9070/02_reduce_lzo_compression.patch">this patch</a> or <a rel="nofollow" class="external text" href="https://gitlab.com/Max1Truc/pmaports/-/blob/master/device/testing/linux-klipad-rel/02_reduce_lzo_compression.patch">this other patch</a>.</li>
+</ul>
+<h3><span class="mw-headline" id="CONFIG_ANDROID_PARANOID_NETWORK">CONFIG_ANDROID_PARANOID_NETWORK</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Android adds a "paranoid network" option to the Linux kernel, which restricts access to some networking features depending on the group of the calling process. The list of groups that are allowed access to networking features is in the kernel source file: /include/linux/android_aids.h </i>
+Setting this config will enable the paranoid network security feature<i></i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://elinux.org/Android_Security#Paranoid_network-ing">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Networking Support --&gt;
+  Networking Options --&gt;
+    Only allow certain groups to create sockets
+</pre>
+<p><b>Android specific</b>
+</p>
+<p>This option should <b>not</b> be set in pmOS or any other OS not using Android security model.
+</p>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="CONFIG_PFT">CONFIG_PFT</span></h3>
+<p><b>About</b>
+</p>
+<p><i>This caused builds to fail with a modern GCC at least once, and while it originally was meant as security feature by Qualcomm, "it is unsupported by Qualcomm, and opens up to a wide range of potential attack surfaces that has not been audited by anyone." <a rel="nofollow" class="external autonumber" href="http://www.merproject.org/logs/%23sailfishos-porters/%23sailfishos-porters.2016-08-26.log.html#t2016-08-26T17:43:06">[1]</a>.</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Qualcomm MSM specific device drivers --&gt;
+    Per-File-Tagger driver
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Please disable it, so we have one less source for failing builds and enabling it has no benefit anyway.
+</p>
+<p><br>
+</p>
+<h3><span class="mw-headline" id="CONFIG_SYSVIPC">CONFIG_SYSVIPC</span></h3>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General Setup --&gt;
+  System V IPC
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Please enable it for postmarketOS, so busybox' syslogd can log to a ringbuffer in the kernel (fixes <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/808">#808</a>).
+</p>
+<h3><span class="mw-headline" id="CONFIG_USE_VFB">CONFIG_USE_VFB</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Weston and Plasma Mobile might choose to draw on this virtual frame buffer, just like it happened for the samsung-jflte (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/34">pmaports#34</a>). Disabling the USE_VFB option fixed this, so let's make sure we don't have that option enabled for any kernel.</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Graphics supports --&gt;
+    MSM Framebuffer support --&gt;
+      MSM Virtual Framebuffer support
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Please disable it, so we have one less source of failure.
+</p>
+<h3><span class="mw-headline" id="CONFIG_KINETO_GAN">CONFIG_KINETO_GAN</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Related to a proprietary "T-Mobile's WiFi-Calling" feature. It should not affect normal calls, so it should be safe to disable it.</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Network device support --&gt;
+    Kineto GAN virtual network interface
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Causes <code>sudo</code>, <code>ip</code> and other commands to hang (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1513">pmbootstrap#1513</a>). Please disable it.
+</p>
+<h3><span class="mw-headline" id="CONFIG_BLK_DEV_INITRD">CONFIG_BLK_DEV_INITRD</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Initial RAM filesystem and RAM disk (initramfs/initrd) support</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General setup --&gt;
+  Initial RAM filesystem and RAM disk (initramfs/initrd) support
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Required. See <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues/237">pmaports#237</a> for notes about changing the initramfs compression.
+</p>
+<h3><span class="mw-headline" id="CONFIG_BLK_DEV_RAM">CONFIG_BLK_DEV_RAM</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Enable this would make the kernel initial rootfs image as initramfs</i>
+</p>
+<p><b>pmOS specific</b>
+</p>
+<p>Need to Disable on some device because it is preventing the kernel to load cpio based inirid when the kernel is booted with uboot on some device.
+</p>
+<h3><span class="mw-headline" id="CONFIG_CGROUPS">CONFIG_CGROUPS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>This option adds support for grouping sets of processes together, for use with process control subsystems such as Cpusets, CFS, memory controls or device isolation.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/CGROUPS.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General setup --&gt;
+  Control Group support
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Required for elogind, and therefore necessary to be able to run most desktop environments.
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_XTS">CONFIG_CRYPTO_XTS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>XTS: IEEE1619/D16 narrow block cipher</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/CRYPTO_XTS.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Cryptographic API --&gt;
+  Length-preserving ciphers and modes --&gt;
+    XTS support
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Needed for the default cryptsetup cipher in pmbootstrap (<code>aes-xts-plain64</code>) (<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/1940">#1940</a>)
+</p>
+<h3><span class="mw-headline" id="CONFIG_SAMSUNG_TUI">CONFIG_SAMSUNG_TUI</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Provide methods for TUI such as acquisition of buffer to be used as secure frame buffer in Secure World and synchronization of display and touch device between Normal World and Secure World.</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Misc devices --&gt;
+    TUI HW Handler
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Needs to be disabled. Prevents device from booting.
+</p>
+<h3><span class="mw-headline" id="CONFIG_SEC_RESTRICT_ROOTING">CONFIG_SEC_RESTRICT_ROOTING</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Restrict unauthorized executions with root permission.</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Kernel hacking --&gt;
+  Samsung Rooting Restriction Feature
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Needs to be disabled. Blocks user from gaining root permissions.
+</p>
+<h3><span class="mw-headline" id="CONFIG_TZDEV">CONFIG_TZDEV</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Samsung TZ Based Secure OS interface driver</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Misc devices --&gt;
+    Samsung TZ Based Secure OS Support
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Needs to be disabled. Prevents device from booting.
+</p>
+<h3><span class="mw-headline" id="CONFIG_INPUT_EVDEV">CONFIG_INPUT_EVDEV</span></h3>
+<p><b>About</b>
+</p>
+<p><i>makes input device events accessible under char device 13:64+ - /dev/input/eventX in a generic way</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt; 
+  Input device support --&gt;
+    Generic input layer (needed for keyboard, mouse, ...) (INPUT [=y]) --&gt;
+      Event Interface
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Required by `pmbootstrap kconfig check`
+</p>
+<h2><span class="mw-headline" id="Optional">Optional</span></h2>
+<p>These kernel options are optional and for some devices required to fix some issues.
+</p>
+<h3><span class="mw-headline" id="CONFIG_INPUT_UINPUT">CONFIG_INPUT_UINPUT</span></h3>
+<p><b>About</b>
+</p>
+<p><i>User level driver support</i>
+</p>
+<p><i>fbkeyboard needs this to work</i>
+</p>
+<h3><span class="mw-headline" id="CONFIG_LBDAF">CONFIG_LBDAF</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Support for large (2TB+) block devices and files</i>
+</p>
+<p><i>The ext4 filesystem requires that this feature be enabled in order to support filesystems that have the huge_file feature enabled. Otherwise, it will refuse to mount in the read-write mode any filesystems that use the huge_file feature, which is enabled by default by mke2fs.ext4.</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">-*- Enable the block layer  ---&gt;
+    [*]   Support for large (2TB+) block devices and files
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>This is recommended for all 32bit (armhf, armv7, x86) devices. The option is not present on 64bit (aarch64, x86_64) devices.
+</p>
+<p>Without this option, it is not possible to mount ext4 partitions that have been created with the default settings. The postmarketOS SD card installation uses these default parameters. There doesn't seem to be a point in changing that to work around badly configured kernels: even if the postmarketOS installation did not require this option, you might come across an SD card with ext4, that does not work on your device.
+</p>
+<h3><span class="mw-headline" id="CONFIG_USB_G_ANDROID">CONFIG_USB_G_ANDROID</span></h3>
+<p><b>About</b>
+</p>
+<p><i>The Android Composite Gadget supports multiple USB functions: adb, acm, mass storage, mtp, accessory and rndis.</i>
+</p>
+<p><i>Each function can be configured and enabled/disabled dynamically from userspace through a sysfs interface.</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  USB Support --&gt;
+    USB Gadget Support --&gt;
+      USB Gadget Drivers --&gt;
+        Android Composite Gadget
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Enabling this option is needed for usb networking on some of the android kernels.
+</p>
+<h3><span class="mw-headline" id="CONFIG_USB_ETH">CONFIG_USB_ETH</span></h3>
+<p><b>About</b>
+</p>
+<p><i>This driver implements Ethernet style communication, in one of several ways:</i>
+</p>
+<ul>
+<li><i>The "Communication Device Class" (CDC) Ethernet Control Model. That protocol is often avoided with pure Ethernet adapters, in favor of simpler vendor-specific hardware, but is widely supported by firmware for smart network devices.</i></li>
+<li><i>On hardware can't implement that protocol, a simple CDC subset is used, placing fewer demands on USB.</i></li>
+<li><i>CDC Ethernet Emulation Model (EEM) is a newer standard that has a simpler interface that can be used by more USB hardware.</i></li>
+</ul>
+<p><i>RNDIS support is an additional option, more demanding than than subset.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/USB_ETH.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  USB Support --&gt;
+    USB Gadget Support --&gt;
+      USB Gadget Drivers --&gt;
+        Ethernet Gadget
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Most devices do not need this to be set. If telnet/SSH does not work you can try and set this option to Y.
+</p>
+<h3><span class="mw-headline" id="CONFIG_USB_ETH_RNDIS">CONFIG_USB_ETH_RNDIS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Microsoft Windows XP bundles the "Remote NDIS" (RNDIS) protocol, and Microsoft provides redistributable binary RNDIS drivers for older versions of Windows.</i>
+</p>
+<p><i>If you say "y" here, the Ethernet gadget driver will try to provide a second device configuration, supporting RNDIS to talk to such Microsoft USB hosts.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/USB_ETH_RNDIS.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  USB Support --&gt;
+    USB Gadget Support --&gt;
+      USB Gadget Drivers --&gt;
+        RNDIS Support
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Required if you set <code>CONFIG_USB_ETH</code> to 'Y'.
+</p>
+<h3><span class="mw-headline" id="CONFIG_MSM_KGSL">CONFIG_MSM_KGSL</span></h3>
+<p><b>About</b>
+</p>
+<p><i>3D graphics driver. Required to use hardware accelerated OpenGL ES 2.0 and 1.1.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://android.googlesource.com/kernel/msm/+/android-msm-mako-3.4-jb-mr1-kgsl/drivers/gpu/msm/Kconfig">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Graphics Support --&gt;
+    MSM 3D graphics Driver
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>If framebuffer does not work set this to 'N'
+</p>
+<h3><span class="mw-headline" id="CONFIG_CMDLINE">CONFIG_CMDLINE</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Enter arguments here that should be compiled into the kernel image and used at boot time. If the boot loader provides a command line at boot time, it is appended to this string to form the full kernel command line, when the system boots.</i>
+</p>
+<p><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/CMDLINE.html">Read more...</a>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General Setup --&gt;
+  Boot options --&gt;
+    Default kernel command string
+</pre>
+<p>or
+</p>
+<pre class="shell">  Boot options --&gt;
+    Default kernel command string
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>No
+</p>
+<h3><span class="mw-headline" id="CONFIG_FHANDLE">CONFIG_FHANDLE</span></h3>
+<p><b>About</b>
+</p>
+<p><i>open by fhandle syscalls</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General setup --&gt;
+  open by fhandle syscalls
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>If USB OTG isn't working for you, try enable this config.
+</p>
+<h3><span class="mw-headline" id="CONFIG_BUILD_ARM_APPENDED_DTB_IMAGE">CONFIG_BUILD_ARM_APPENDED_DTB_IMAGE</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Build a concatenated zImage/dtb by default</i>
+</p>
+<p><i>Enabling this option will cause a concatenated zImage and list of DTBs to be built by default (instead of a standalone zImage.)</i>
+</p>
+<p><i>The image will built in arch/arm/boot/zImage-dtb</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General Setup --&gt;
+  Boot options --&gt;
+    appended device tree blob to zImage
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Set this if your device needs an appended device tree. If you are unsure, use <code>extract-dtb</code> on an existing kernel image. Not to be confused with <code>CONFIG_ARM_APPENDED_DTB</code>!
+</p>
+<h3><span class="mw-headline" id="CONFIG_FW_LOADER_USER_HELPER">CONFIG_FW_LOADER_USER_HELPER</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Enable the firmware sysfs fallback mechanism found in drivers/base/firmware_loader/Kconfig</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Generic Driver Options --&gt;
+    Firmware loader --&gt;
+      Firmware loading facility (FW_LOADER [=y]) --&gt;
+        Enable the firmware sysfs fallback mechanism
+</pre>
+<p><b>pmOS specific</b>
+</p>
+<p>Prior to kernel version 3.7, the kernel had no capability of finding firmware itself so it had to call out to userspace to find the firmware for it. This changed with kernel 3.7 where the kernel gained "direct loading support" and where the userspace helper was only called as a fallback. In kernel 3.9 this functionality was put behind the kconfig option FW_LOADER_USER_HELPER which is what this patch checks to be enabled.
+</p>
+<p>Without this option, the udev rule present in postmarketos-base won't be notified that firmware needs to be loaded and as such can't call firmwareload.sh which loads firmware from /lib/firmware/postmarketos.
+</p>
+<h3><span class="mw-headline" id="CONFIG_KEY_DH_OPERATIONS">CONFIG_KEY_DH_OPERATIONS</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_DH">CONFIG_CRYPTO_DH</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_DES">CONFIG_CRYPTO_DES</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_USER_API_SKCIPHER">CONFIG_CRYPTO_USER_API_SKCIPHER</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_USER_API_HASH">CONFIG_CRYPTO_USER_API_HASH</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_ECB">CONFIG_CRYPTO_ECB</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_MD4">CONFIG_CRYPTO_MD4</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_MD5">CONFIG_CRYPTO_MD5</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_CBC">CONFIG_CRYPTO_CBC</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_SHA1">CONFIG_CRYPTO_SHA1</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_SHA256">CONFIG_CRYPTO_SHA256</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_SHA512">CONFIG_CRYPTO_SHA512</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_AES">CONFIG_CRYPTO_AES</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_DES_2">CONFIG_CRYPTO_DES</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_CMAC">CONFIG_CRYPTO_CMAC</span></h3>
+<p>↓ fallthrough
+</p>
+<h3><span class="mw-headline" id="CONFIG_CRYPTO_HMAC">CONFIG_CRYPTO_HMAC</span></h3>
+<p>↓ fallthrough
+</p>
+<p><b>About</b>
+</p>
+<p><i>These options enables ability to use <a rel="nofollow" class="external text" href="https://iwd.wiki.kernel.org/">iwd</a> daemon (wpa_supplicant replacement)</i>
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Security Options ---&gt;
+	[*] Enable access key retention support
+		[*] Diffie-Hellman operations on retained keys
+
+Cryptographic API  ---&gt;
+	[*] Diffie-Hellman algorithm
+	[*] DES and Triple DES EDE cipher algorithms
+	[*] User-space interface for symmetric key cipher algorithms</pre>
+<p><b>pmOS specific</b>
+Enable only on recent mainline kernels. After enabling these options, you can use iwd daemon (better performance) instead of wpa_supplicant.
+</p>
+<h3><span class="mw-headline" id="CONFIG_USER_NS">CONFIG_USER_NS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>User namespace</i>
+</p>
+<p><i>Required for BubbleWrap sandboxing used by The GNOME Web (Epiphany) and other software.</i>
+</p>
+<p><b>pmOS specific</b>
+</p>
+<p>Phosh environment must have it enabled for Web browser (Epiphany) being functional.
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">General setup ---&gt;
+  Namespaces support ---&gt;
+    [*] User namespace</pre>
+<h3><span class="mw-headline" id="CONFIG_DEVPTS_MULTIPLE_INSTANCES">CONFIG_DEVPTS_MULTIPLE_INSTANCES</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Support multiple instances of devpts</i>
+</p>
+<p><i>Required for BubbleWrap sandboxing used by The GNOME Web (Epiphany) and other software.</i>
+</p>
+<p><b>pmOS specific</b>
+</p>
+<p>Phosh environment must have it enabled for Web browser (Epiphany) being functional.
+</p>
+<p><b>Location in menu</b>
+</p>
+<pre class="shell">Device Drivers --&gt;
+  Character Devices --&gt;
+    Enable TTY --&gt;
+      Unix98 PTY support --&gt;
+        [*] Support multiple instances of devpts</pre>
+<h3><span class="mw-headline" id="DRM_UDL">DRM_UDL</span></h3>
+<p>See <a href="../en/Displaylink_UDL.html" title="Displaylink/UDL">Displaylink/UDL</a>
+</p>
+<h3><span class="mw-headline" id="DRM_GUD">DRM_GUD</span></h3>
+<p>See <a href="../en/GUD.html" title="GUD">GUD</a>
+</p>
+<h3><span class="mw-headline" id="SECCOMP">SECCOMP</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Enable seccomp to safely compute untrusted bytecode</i>
+</p>
+<p><i>Required for BubbleWrap sandboxing used by The GNOME Web (Epiphany) and other software.</i>
+</p>
+<p><b>pmOS specific</b>
+</p>
+<p>Phosh environment must have it enabled for Web browser (Epiphany) being functional.
+</p>
+<h2><span class="mw-headline" id="Anbox">Anbox</span></h2>
+<p>To enable Anbox support, some options are required
+</p>
+<h3><span class="mw-headline" id="CONFIG_SQUASHFS">CONFIG_SQUASHFS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Squashfs is a highly compressed read-only filesystem for Linux.  It uses zlib, lzo or xz compression to compress both files, inodes and directories. squashfs is intended for general read-only filesystem use, for archival use (i.e. in cases where a .tar.gz file may be used), and in embedded systems where low overhead is needed.</i>
+</p>
+<p><b>Anbox specific</b>
+</p>
+<p>Anbox uses a squashfs to store the Android rootfs.
+</p>
+<h3><span class="mw-headline" id="CONFIG_SQUASHFS_XZ">CONFIG_SQUASHFS_XZ</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Squashfs support for reading squashfs file systems compressed with XZ compression.  XZ gives better compression than the default zlib compression, at the expense of greater CPU and memory overhead.</i>
+</p>
+<p><b>Anbox specific</b>
+</p>
+<p>Anbox uses a <i>xz-compressed</i> squashfs.
+</p>
+<h3><span class="mw-headline" id="CONFIG_SQUASHFS_XATTR">CONFIG_SQUASHFS_XATTR</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Squashfs support for extended attributes (xattrs). Xattrs are name:value pairs associated with inodes by the kernel or by users (see the <a rel="nofollow" class="external text" href="https://www.systutorials.com/docs/linux/man/5-attr/">attr(5)</a> manual page).</i>
+</p>
+<p><b>Anbox specific</b>
+</p>
+<p>For some reason, even if the squashfs is created with <code>-no-xattrs</code>,
+Anbox seems to fail badly without.
+</p>
+<h3><span class="mw-headline" id="CONFIG_ASHMEM">CONFIG_ASHMEM</span></h3>
+<p><b>About</b>
+</p>
+<p><i>The ashmem subsystem is a new shared memory allocator, similar to POSIX SHM but with different behavior and sporting a simpler file-based API.</i>
+</p>
+<p><i>It is, in theory, a good memory allocator for low-memory devices, because it can discard shared memory units when under memory pressure.</i>
+</p>
+<p><b>Anbox specific</b>
+</p>
+<p>Android requires it, so you need it to run Anbox.
+</p>
+<h3><span class="mw-headline" id="CONFIG_BINDER_IPC">CONFIG_BINDER_IPC</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Binder is used in Android for both communication between processes and remote method invocation. This means one Android process can call a method/routine in another Android process, using Binder to identify, invoke and pass arguments between said processes.</i>
+</p>
+<p><b>Anbox specific</b>
+</p>
+<p>Android uses it to communicate between process. It must be present for Anbox to work.
+</p>
+<h3><span class="mw-headline" id="CONFIG_BINDERFS">CONFIG_BINDERFS</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Binderfs is a pseudo-filesystem for the Android Binder IPC driver which can be mounted per-ipc namespace allowing to run multiple instances of Android. Each binderfs mount initially only contains a binder-control device. It can be used to dynamically allocate new binder IPC devices via ioctls.</i>
+</p>
+<p><b>Anbox-on-postmarketOS specific</b>
+</p>
+<p>It should <b>not</b> be set, because binderfs support in Anbox is broken in postmarketOS. For now, we just use regular binder instead because we don't need several binders.
+</p>
+<p>It could be an incompatibility with musl. In <code>sys/ioctl.h</code>, the ioctl function is prototyped as such: <code>int ioctl(int, int, ...);</code>, in accordance to POSIX. On the hand, in the linux programmer manual, ioctl is of type <code>int ioctl(int, unsigned long, ...);</code>. GCC warns about it: "Warning: overflow in conversion from 'long unsigned int' to 'int' change value from 3238552065 to -1056415231", but according to dalias on #musl it should be harmless.
+</p>
+<h3><span class="mw-headline" id="CONFIG_ANDROID_BINDER_DEVICES">CONFIG_ANDROID_BINDER_DEVICES</span></h3>
+<p><b>About</b>
+</p>
+<p><i>Default value for the binder.devices parameter. The binder.devices parameter is a comma-separated list of strings that specifies the names of the binder device nodes that will be created. Each binder device has its own context manager, and is therefore logically separated from the other devices.</i>
+</p>
+<p><b>Anbox specific</b>
+</p>
+<p>This must contain <code>binder</code>, as Anbox expects <code>/dev/binder</code>.
+</p>
+<p>It should also contain <code>hwbinder</code> to be future-proof (as it will be required for Android 10).
+</p>
+<h3><span class="mw-headline" id="CONFIG_TMPFS_XATTR">CONFIG_TMPFS_XATTR</span></h3>
+<p><b>About</b>
+</p>
+<p>Xattr support for tmpfs.
+</p>
+<p><b>Anbox specific</b>
+</p>
+<p>Android requires it because it sets xattr on files in /dev, which is a tmpfs. Otherwise you get errors such as this in <code>/var/lib/anbox/console.log</code> :
+</p>
+<pre>libc: fsetxattr failed to set context (u:object_r:dalvik_prop:s0) for "/dev/__properties__/u:object_r:dalvik_prop:s0"
+libc: fsetxattr failed to set context (u:object_r:config_prop:s0) for "/dev/__properties__/u:object_r:config_prop:s0"
+</pre>
+<h3><span class="mw-headline" id="NETFILTER_XT_MATCH_COMMENT">NETFILTER_XT_MATCH_COMMENT</span></h3>
+<p><b>About</b>
+</p>
+<p>It allows putting comments in iptables rules. It's a dummy module that ignore its <code>--comment=</code> argument.
+</p>
+<p>depends on NETFILTER, NETFILTER_XTABLES and NETFILTER_ADVANCED.
+</p>
+<p><b>pmOS specific</b>
+</p>
+<p>It is a requirement of anbox-bridge.sh, which we use in the openRC init script. Anbox won't start without that. 
+</p>
+<h1><span class="mw-headline" id="See_also">See also</span></h1>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://cateee.net/lkddb/web-lkddb/">Linux Kernel Driver Database</a></li>
+<li><a rel="nofollow" class="external text" href="https://www.cnx-software.com/2013/05/23/how-to-find-configuration-options-quickly-in-make-menuconfig/">How to find configuration options quickly in make menuconfig</a></li>
+<li><a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Compiling_kernels_with_envkernel.sh">Compiling kernels with envkernel.sh</a></li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/issues/2190">#2190</a> make it easy to change kernel config options with pmbootstrap</li>
+</ul>
+</div>
+</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li></ul>
+</div></div>
+				</div>
+			</main>
+			
+		</div>
+		<div class="mw-footer-container">
+			
+<footer id="footer" class="mw-footer" role="contentinfo" style="margin: 0">
+	<ul id="footer-info">
+	<li data-nosnippet="">Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Kernel_configuration/Specific_options&amp;oldid=63302">https://wiki.postmarketos.org/index.php?title=Kernel_configuration/Specific_options&amp;oldid=63302</a>"</li>
+<li id="footer-info-lastmod"> This page was last edited on 14 September 2024, at 03:34.</li>
+	<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+<br>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="../en/About_postmarketOS.html">About postmarketOS Wiki</a></li>
+	<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html">Disclaimers</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31" loading="lazy"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31" loading="lazy"></a></li>
+</ul>
+
+</footer>
+
+		</div>
+	</div> 
+</div> 
+
+</body>
+</html>

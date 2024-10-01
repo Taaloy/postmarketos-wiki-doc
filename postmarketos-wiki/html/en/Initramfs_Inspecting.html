@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Initramfs/Inspecting - postmarketOS Wiki</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.39.8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0">
+<link rel="icon" href="/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="postmarketOS Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Initramfs_Inspecting rootpage-Initramfs_Inspecting skin-vector-2022 action-view skin--responsive vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-language-alert-in-sidebar-disabled vector-feature-sticky-header-disabled vector-feature-sticky-header-edit-disabled vector-feature-table-of-contents-disabled vector-feature-visual-enhancement-next-disabled">
+<div class="mw-page-container">
+	<span id="top-page"></span>
+	<a class="mw-jump-link" href="#content">Jump to content</a>
+	<div class="mw-page-container-inner">
+		<input type="checkbox" id="mw-sidebar-checkbox" class="mw-checkbox-hack-checkbox">
+		<header class="mw-header">
+			<div class="mw-header-aside">
+			<label id="mw-sidebar-button" class="mw-checkbox-hack-button mw-ui-icon mw-ui-button mw-ui-quiet mw-ui-icon-element" for="mw-sidebar-checkbox" role="button" aria-controls="mw-panel" data-event-name="ui.sidebar" tabindex="0" title="Main menu">
+				<span>Toggle sidebar</span>
+			</label>
+			
+<a href="../en/Main_Page.html" class="mw-logo">
+	<img class="mw-logo-icon" src="/logo_50x50.svg" alt="" aria-hidden="true" height="50" width="50">
+	<span class="mw-logo-container">
+		<strong class="mw-logo-wordmark">postmarketOS Wiki</strong>
+	</span>
+</a>
+
+			</div>
+			<div class="mw-header-content">
+			
+<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses  vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+	<a href="../Special:Search.html" title="Search postmarketOS Wiki [f]" accesskey="f" class="mw-ui-button mw-ui-quiet mw-ui-icon mw-ui-icon-element mw-ui-icon-wikimedia-search search-toggle">
+		<span>Search</span>
+	</a>
+	
+	<div>
+		<form action="/index.php" id="searchform" class="vector-search-box-form">
+			<div id="simpleSearch" class="vector-search-box-inner" data-search-loc="header-moved">
+				<input class="vector-search-box-input" type="search" name="search" placeholder="Search postmarketOS Wiki" aria-label="Search postmarketOS Wiki" autocapitalize="sentences" title="Search postmarketOS Wiki [f]" accesskey="f" id="searchInput">
+				<input type="hidden" name="title" value="Special:Search">
+				<input id="mw-searchButton" class="searchButton mw-fallbackSearchButton" type="submit" name="fulltext" title="Search the pages for this text" value="Search">
+				<input id="searchButton" class="searchButton" type="submit" name="go" title="Go to a page with this exact name if it exists" value="Go">
+			</div>
+		</form>
+	</div>
+</div>
+
+			<nav class="vector-user-links" aria-label="Personal tools" role="navigation">
+	
+
+<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet mw-portlet-vector-user-menu-overflow vector-user-menu-overflow">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"><li id="pt-createaccount-2" class="user-links-collapsible-item mw-list-item"><a href="../Special:RequestAccount.html"><span>Request account</span></a></li></ul>
+		
+	</div>
+</div>
+
+	
+
+<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal vector-user-menu vector-user-menu-logged-out vector-menu-dropdown" title="More options">
+	<input type="checkbox" id="p-personal-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-personal" class="vector-menu-checkbox">
+	<label id="p-personal-label" for="p-personal-checkbox" class="vector-menu-heading mw-ui-button mw-ui-quiet mw-ui-icon mw-ui-icon-element mw-ui-icon-ellipsis mw-ui-icon-wikimedia-ellipsis">
+		<span class="vector-menu-heading-label">Personal tools</span>
+	</label>
+	<div class="vector-menu-content">
+		<div class="vector-user-menu-create-account"><a href="/index.php?title=Special:CreateAccount&amp;returnto=Initramfs%2FInspecting" class="vector-menu-content-item user-links-collapsible-item" title="You are encouraged to create an account and log in; however, it is not mandatory"><span class="mw-ui-icon mw-ui-icon-userAdd mw-ui-icon-wikimedia-userAdd"></span> <span>Create account</span></a></div>
+<div class="vector-user-menu-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Initramfs%2FInspecting" class="vector-menu-content-item vector-menu-content-item-login" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o"><span class="mw-ui-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn"></span> <span>Log in</span></a></div>
+
+		<ul class="vector-menu-content-list"></ul>
+		
+	</div>
+</div>
+
+</nav>
+
+			</div>
+		</header>
+		<div class="vector-sidebar-container ">
+			</div>
+		<div class="vector-sitenotice-container">
+			<div id="siteNotice"></div>
+		</div>
+		<input type="checkbox" id="vector-toc-collapsed-checkbox" class="mw-checkbox-hack-checkbox">
+		<div class="mw-table-of-contents-container">
+			<div class="vector-sticky-toc-container mw-sticky-header-element">
+				<nav id="mw-panel-toc" class="sidebar-toc" role="navigation" aria-labelledby="sidebar-toc-label" data-event-name="ui.sidebar-toc">
+	<div id="sidebar-toc-label" class="sidebar-toc-header">
+		<p class="sidebar-toc-title">
+		Contents
+		<button class="vector-toc-uncollapse-button">move to sidebar</button>
+		<button class="vector-toc-collapse-button">hide</button>
+		</p>
+	</div>
+	<ul class="sidebar-toc-contents" id="mw-panel-toc-list">
+		<li id="toc-mw-content-text" class="sidebar-toc-list-item sidebar-toc-level-1">
+			<a href="#top-page" class="sidebar-toc-link">
+				<div class="sidebar-toc-text">Beginning</div>
+			</a>
+		</li>
+		<li id="toc-Enable_the_debug_shell" class="sidebar-toc-list-item sidebar-toc-level-1 sidebar-toc-list-item-expanded">
+			<a class="sidebar-toc-link" href="#Enable_the_debug_shell">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1</span>Enable the debug shell</div>
+			</a>
+			
+				<button aria-controls="toc-Enable_the_debug_shell-sublist" class="mw-ui-icon mw-ui-icon-wikimedia-expand mw-ui-icon-small sidebar-toc-toggle">
+					Toggle Enable the debug shell subsection
+				</button>
+			
+			<ul id="toc-Enable_the_debug_shell-sublist" class="sidebar-toc-list">
+				<li id="toc-For_all_devices" class="sidebar-toc-list-item sidebar-toc-level-2">
+			<a class="sidebar-toc-link" href="#For_all_devices">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">1.1</span>For all devices</div>
+			</a>
+			
+			<ul id="toc-For_all_devices-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+	</ul>
+		</li>
+		<li id="toc-Using_the_debug_shell" class="sidebar-toc-list-item sidebar-toc-level-1 sidebar-toc-list-item-expanded">
+			<a class="sidebar-toc-link" href="#Using_the_debug_shell">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">2</span>Using the debug shell</div>
+			</a>
+			
+			<ul id="toc-Using_the_debug_shell-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Enable_initramfs-extra" class="sidebar-toc-list-item sidebar-toc-level-1 sidebar-toc-list-item-expanded">
+			<a class="sidebar-toc-link" href="#Enable_initramfs-extra">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">3</span>Enable initramfs-extra</div>
+			</a>
+			
+			<ul id="toc-Enable_initramfs-extra-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Disable_the_debug_shell" class="sidebar-toc-list-item sidebar-toc-level-1 sidebar-toc-list-item-expanded">
+			<a class="sidebar-toc-link" href="#Disable_the_debug_shell">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">4</span>Disable the debug shell</div>
+			</a>
+			
+			<ul id="toc-Disable_the_debug_shell-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Tips_and_tricks" class="sidebar-toc-list-item sidebar-toc-level-1 sidebar-toc-list-item-expanded">
+			<a class="sidebar-toc-link" href="#Tips_and_tricks">
+				<div class="sidebar-toc-text">
+				<span class="sidebar-toc-numb">5</span>Tips and tricks</div>
+			</a>
+			
+			<ul id="toc-Tips_and_tricks-sublist" class="sidebar-toc-list">
+			</ul>
+		</li>
+	</ul>
+</nav>
+
+			</div>
+		</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body" role="main" style="margin: 0">
+				<a id="top"></a>
+				<header class="mw-body-header">
+				
+				
+					<label id="vector-toc-collapsed-button" class="mw-ui-button mw-ui-quiet mw-ui-icon mw-ui-icon-element mw-ui-icon-wikimedia-listBullet mw-checkbox-hack-button" for="vector-toc-collapsed-checkbox" role="button" aria-controls="toc-toggle-list" data-event-name="vector.toc-toggle-list" tabindex="0" title="Table of Contents">
+						Toggle the table of contents
+					</label>
+				    <h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-main">Initramfs/Inspecting</span></h1>
+				</header>
+				<nav class="vector-article-toolbar" aria-label="Tools" role="navigation">
+					<div class="mw-article-toolbar-container">
+						<div id="left-navigation">
+							
+
+<div id="p-associated-pages" class="vector-menu mw-portlet mw-portlet-associated-pages vector-menu-tabs">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+<li id="ca-nstab-main" class="selected mw-list-item"><a href="../en/Initramfs_Inspecting.html" title="View the content page [c]" accesskey="c"><span>Page</span></a></li>
+<li id="ca-talk" class="new mw-list-item"><a href="/index.php?title=Talk:Initramfs/Inspecting&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page (page does not exist) [t]" accesskey="t"><span>Discussion</span></a></li>
+</ul>
+		
+	</div>
+</div>
+
+							
+
+<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet vector-menu-dropdown">
+	<input type="checkbox" id="p-variants-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-variants" class="vector-menu-checkbox" aria-label="Change language variant">
+	<label id="p-variants-label" for="p-variants-checkbox" class="vector-menu-heading ">
+		<span class="vector-menu-heading-label">English</span>
+	</label>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list"></ul>
+		
+	</div>
+</div>
+
+						</div>
+						<div id="right-navigation" class="vector-collapsible ">
+							
+
+<div id="p-views" class="vector-menu mw-portlet mw-portlet-views vector-menu-tabs">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+<li id="ca-view" class="selected mw-list-item"><a href="../en/Initramfs_Inspecting.html"><span>Read</span></a></li>
+<li id="ca-viewsource" class="mw-list-item"><a href="/index.php?title=Initramfs/Inspecting&amp;action=edit" title="This page is protected.
+You can view its source [e]" accesskey="e"><span>View source</span></a></li>
+<li id="ca-history" class="mw-list-item"><a href="/index.php?title=Initramfs/Inspecting&amp;action=history" title="Past revisions of this page [h]" accesskey="h"><span>View history</span></a></li>
+</ul>
+		
+	</div>
+</div>
+
+							
+
+<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions emptyPortlet vector-menu-dropdown vector-has-collapsible-items" title="More options">
+	<input type="checkbox" id="p-cactions-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-p-cactions" class="vector-menu-checkbox">
+	<label id="p-cactions-label" for="p-cactions-checkbox" class="vector-menu-heading ">
+		<span class="vector-menu-heading-label">More</span>
+	</label>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+<li id="ca-more-view" class="selected vector-more-collapsible-item mw-list-item"><a href="../en/Initramfs_Inspecting.html"><span>Read</span></a></li>
+<li id="ca-more-viewsource" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Initramfs/Inspecting&amp;action=edit"><span>View source</span></a></li>
+<li id="ca-more-history" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Initramfs/Inspecting&amp;action=history"><span>View history</span></a></li>
+</ul>
+		
+	</div>
+</div>
+
+						</div>
+					</div>
+				</nav>
+				<div id="bodyContent" class="vector-body" data-mw-ve-target-container>
+					<div class="mw-body-subheader">
+					        <div class="mw-indicators">
+        </div>
+
+					    <div id="siteSub" class="noprint">From postmarketOS Wiki</div>
+					</div>
+					
+					
+					
+					<div id="mw-content-text" class="mw-body-content mw-content-ltr" lang="en" dir="ltr">
+<div class="mw-parser-output">
+<p>This page explains how to connect to your device when it has booted to the <a href="../en/Initramfs-development.html" class="mw-redirect" title="Initramfs-development">initramfs</a> by enabling the <b>debug-shell</b>. This is useful if you want to know more about the boot process, simply inspect the initramfs or if you want to debug why something doesn't work.
+</p>
+<tocplace></tocplace>
+<h3><span class="mw-headline" id="Enable_the_debug_shell">Enable the debug shell</span></h3>
+<p>The debug shell can be enabled by adding <code>pmos.debug-shell</code> to the kernel cmdline, or by holding <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> during boot. If using the button method, you must wait until after the device bootloader finishes and Linux has started booting (usually the display flickering or displaying the tux penguins is a good indicator of this). If using a device with a keyboard, you may also press <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Left ctrl</span>, though this has been reported to be somewhat unreliable due to when the keyboard drivers load.
+</p>
+<p>If your device doesn't boot yet, and you're building an Android <code>boot.img</code>, this can be done by adding <code>deviceinfo_kernel_cmdline="pmos.debug-shell"</code> (or editing the existing option) to the deviceinfo file in pmaports and running <code>pmbootstrap flasher boot</code>.
+</p>
+<p>For devices booting with GRUB or systemd-boot, hold <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">e</span> during boot to get to a prompt to edit the cmdline.
+</p>
+<h4><span class="mw-headline" id="For_all_devices">For all devices</span></h4>
+<p>In the device rootfs (either on a shell on your real device, or via <code>pmbootstrap chroot -r</code> <a href="../en/Installation_Using_pmbootstrap.html" title="Installation/Using pmbootstrap">after building an image</a>, edit <code>/etc/deviceinfo</code>, uncomment <code>deviceinfo_kernel_cmdline_append</code> and add <code>pmos.debug-shell</code>, it should look something like the following:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="go">/ # cat /etc/deviceinfo</span>
+<span class="gp"># </span>Override settings from /usr/share/deviceinfo/deviceinfo with this file.
+<span class="gp"># </span>After modifying: Some settings require running <span class="s2">"mkinitfs"</span> as root and/or
+<span class="gp"># </span>a reboot to apply.
+<span class="gp"># </span>Reference: https://postmarketos.org/deviceinfo
+
+<span class="gp"># </span>Examples:
+<span class="go">deviceinfo_kernel_cmdline_append="pmos.debug-shell PMOS_NOSPLASH"</span>
+<span class="gp"># </span><span class="nv">deviceinfo_usb_network_function</span><span class="o">=</span><span class="s2">"ncm.usb0"</span>
+</pre></div>
+<p>Make sure you run <code>mkinitfs</code> after editing the file!
+</p>
+<h3><span class="mw-headline" id="Using_the_debug_shell">Using the debug shell</span></h3>
+<p>The debug shell will spawn a getty (an interactive shell) on all available/enabled consoles, if your device has a working USB port, it will also create a serial gadget device in addition to the usual network gadget. On Linux this can be accessed via any serial monitor, but picocom is suggested (it should be available via your package manager). Check <code>sudo dmesg -w</code> on your host PC and look for the most recently appeared <b>ttyACM</b> device, likely <b>ttyACM0</b>, then connect as follows:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>picocom -b <span class="m">115200</span> /dev/ttyACM0
+
+<span class="go">postmarketOS debug shell</span>
+<span class="go">https://postmarketos.org/debug-shell</span>
+
+<span class="go">  Device: QEMU amd64 (qemu-amd64)</span>
+<span class="go">  Kernel: 6.9.5-0-edge</span>
+<span class="go">  OS ver: edge</span>
+<span class="go">  initrd: 3.1.0-r1</span>
+
+<span class="go">Run 'pmos_continue_boot' to continue booting.</span>
+</pre></div>
+<p>You may also connect via telnet:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>telnet <span class="m">172</span>.16.42.1
+<span class="go">Trying 172.16.42.1...</span>
+<span class="go">Connected to 172.16.42.1.</span>
+<span class="go">Escape character is '^]'.</span>
+
+
+<span class="go">postmarketOS debug shell</span>
+<span class="go">https://postmarketos.org/debug-shell</span>
+
+<span class="go">  Device: QEMU amd64 (qemu-amd64)</span>
+<span class="go">  Kernel: 6.9.5-0-edge</span>
+<span class="go">  OS ver: edge</span>
+<span class="go">  initrd: 3.1.0-r1</span>
+
+<span class="go">Run 'pmos_continue_boot' to continue booting.</span>
+</pre></div>
+<p>If the telnet command does not work out of the box, read <a href="../en/USB_Network.html" class="mw-redirect" title="Connect via USB Networking in the Initramfs">connect via USB Networking in the Initramfs</a>.
+</p>
+<p>In the debug shell, the additional programs <code>evtest</code>, <code>fftest</code> and <code>fbdebug</code> can be made available by also installing the debug-shell hook (the <code>postmarketos-mkinitfs-hook-debug-shell</code> package) (see <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmbootstrap/-/merge_requests/1358">!1358</a>).
+</p>
+<p>To step through the boot process, you can execute commands in order listed in <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/blob/master/main/postmarketos-initramfs/init.sh">postmarketos-initramfs/init.sh</a>, starting with the line <code>mount_subpartitions</code> and below (everything above it was already executed before entering debug-shell). Make sure the commands are available, see the first 2 commands in the next section.
+</p>
+<p>To continue the boot process as normal, run the <code>pmos_continue_boot</code> command. This will close the telnet connection and continue the boot process.
+</p>
+<h3><span class="mw-headline" id="Enable_initramfs-extra">Enable initramfs-extra</span></h3>
+<p>To enable functionality from <code>initramfs-extra</code>, run the following commands in the telnet shell:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp"># </span>. /usr/share/misc/source_deviceinfo
+<span class="gp"># </span>mount_boot_partition /boot
+<span class="go">Mount boot partition (/dev/dm-0)</span>
+<span class="gp"># </span>extract_initramfs_extra /boot/initramfs-extra
+<span class="go">Extract /boot/initramfs-extra</span>
+<span class="go">24128 blocks</span>
+</pre></div>
+<h3><span class="mw-headline" id="Disable_the_debug_shell">Disable the debug shell</span></h3>
+<p>If you added the debug-shell hook and are rebuilding the initramfs on your PC, uninstall it with
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>pmbootstrap initfs hook_del debug-shell
+<span class="gp">$ </span>pmbootstrap flasher flash_kernel
+</pre></div>
+<p>Otherwise, simply remove the <code>pmos.debug-shell</code> argument from your kernel cmdline.
+</p>
+<h3><span class="mw-headline" id="Tips_and_tricks">Tips and tricks</span></h3>
+<ul>
+<li>
+<a href="../en/Initramfs_Development.html" class="mw-redirect" title="Initramfs development">Initramfs development</a> has more generalize information about working with initfs.</li>
+<li><a rel="nofollow" class="external text" href="https://web.archive.org/web/20230924150444/www.microhowto.info/howto/copy_a_file_from_one_machine_to_another_using_netcat.html">copy files to/from the initramfs with <code>nc</code> while it is running</a></li>
+</ul>
+</div>
+</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+				</div>
+			</main>
+			
+		</div>
+		<div class="mw-footer-container">
+			
+<footer id="footer" class="mw-footer" role="contentinfo" style="margin: 0">
+	<ul id="footer-info">
+	<li data-nosnippet="">Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Initramfs/Inspecting&amp;oldid=63972">https://wiki.postmarketos.org/index.php?title=Initramfs/Inspecting&amp;oldid=63972</a>"</li>
+<li id="footer-info-lastmod"> This page was last edited on 26 September 2024, at 11:42.</li>
+	<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+<br>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="../en/About_postmarketOS.html">About postmarketOS Wiki</a></li>
+	<li id="footer-places-disclaimer"><a href="../en/PostmarketOS:General_disclaimer.html">Disclaimers</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31" loading="lazy"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/"><img src="../poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="" width="88" height="31" loading="lazy"></a></li>
+</ul>
+
+</footer>
+
+		</div>
+	</div> 
+</div> 
+
+</body>
+</html>
