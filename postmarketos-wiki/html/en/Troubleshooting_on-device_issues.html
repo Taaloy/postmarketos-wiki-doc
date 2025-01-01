@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html class="client-nojs vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-sticky-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-0 vector-feature-appearance-pinned-clientpref-1 vector-feature-night-mode-disabled skin-theme-clientpref-day vector-toc-available" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Troubleshooting on-device issues - postmarketOS Wiki</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.43.0">
+<meta name="robots" content="max-image-preview:standard">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0">
+<link rel="search" type="application/opensearchdescription+xml" href="/rest.php/v1/search" title="postmarketOS Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="skin--responsive skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Troubleshooting_on-device_issues rootpage-Troubleshooting_on-device_issues skin-vector-2022 action-view">
+<a class="mw-jump-link" href="#bodyContent">Jump to content</a>
+<div class="vector-header-container">
+	<header class="vector-header mw-header">
+		<div class="vector-header-start">
+			<nav class="vector-main-menu-landmark" aria-label="Site">
+				
+<div id="vector-main-menu-dropdown" class="vector-dropdown vector-main-menu-dropdown vector-button-flush-left vector-button-flush-right">
+	<input type="checkbox" id="vector-main-menu-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-main-menu-dropdown" class="vector-dropdown-checkbox " aria-label="Main menu">
+	<label id="vector-main-menu-dropdown-label" for="vector-main-menu-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-menu mw-ui-icon-wikimedia-menu"></span>
+
+<span class="vector-dropdown-label-text">Main menu</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+				<div id="vector-main-menu-unpinned-container" class="vector-unpinned-container">
+		
+<div id="vector-main-menu" class="vector-main-menu vector-pinnable-element">
+	<div class="vector-pinnable-header vector-main-menu-pinnable-header vector-pinnable-header-unpinned" data-feature-name="main-menu-pinned" data-pinnable-element-id="vector-main-menu" data-pinned-container-id="vector-main-menu-pinned-container" data-unpinned-container-id="vector-main-menu-unpinned-container">
+	<div class="vector-pinnable-header-label">Main menu</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-main-menu.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-main-menu.unpin">hide</button>
+</div>
+
+	
+<div id="p-navigation" class="vector-menu mw-portlet mw-portlet-navigation">
+	<div class="vector-menu-heading">
+		Navigation
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-mainpage-description" class="mw-list-item"><a href="../en/Main_Page.html" title="Visit the main page [z]" accesskey="z"><span>Main page</span></a></li>
+<li id="n-Devices" class="mw-list-item"><a href="../en/Devices.html"><span>Devices</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	
+</div>
+
+				</div>
+
+	</div>
+</div>
+
+		</nav>
+			
+<a href="../en/Main_Page.html" class="mw-logo">
+	<img class="mw-logo-icon" src="/logo_50x50.svg" alt="" aria-hidden="true" height="50" width="50">
+	<span class="mw-logo-container skin-invert">
+		<strong class="mw-logo-wordmark">postmarketOS Wiki</strong>
+	</span>
+</a>
+
+		</div>
+		<div class="vector-header-end">
+			
+<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+	<a href="../Special:Search.html" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only search-toggle" title="Search postmarketOS Wiki [f]" accesskey="f"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search"></span>
+
+<span>Search</span>
+	</a>
+	<div class="vector-typeahead-search-container">
+		<div class="cdx-typeahead-search cdx-typeahead-search--show-thumbnail cdx-typeahead-search--auto-expand-width">
+			<form action="/index.php" id="searchform" class="cdx-search-input cdx-search-input--has-end-button">
+				<div id="simpleSearch" class="cdx-search-input__input-wrapper" data-search-loc="header-moved">
+					<div class="cdx-text-input cdx-text-input--has-start-icon">
+						<input class="cdx-text-input__input" type="search" name="search" placeholder="Search postmarketOS Wiki" aria-label="Search postmarketOS Wiki" autocapitalize="sentences" title="Search postmarketOS Wiki [f]" accesskey="f" id="searchInput">
+						<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
+					</div>
+					<input type="hidden" name="title" value="Special:Search">
+				</div>
+				<button class="cdx-button cdx-search-input__end-button">Search</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+			<nav class="vector-user-links vector-user-links-wide" aria-label="Personal tools">
+	<div class="vector-user-links-main">
+	
+<div id="p-vector-user-menu-preferences" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-userpage" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	<nav class="vector-appearance-landmark" aria-label="Appearance">
+		
+<div id="vector-appearance-dropdown" class="vector-dropdown " title="Change the appearance of the page's font size, width, and color">
+	<input type="checkbox" id="vector-appearance-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-appearance-dropdown" class="vector-dropdown-checkbox " aria-label="Appearance">
+	<label id="vector-appearance-dropdown-label" for="vector-appearance-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-appearance mw-ui-icon-wikimedia-appearance"></span>
+
+<span class="vector-dropdown-label-text">Appearance</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+			<div id="vector-appearance-unpinned-container" class="vector-unpinned-container">
+				
+			</div>
+		
+	</div>
+</div>
+
+	</nav>
+	
+<div id="p-vector-user-menu-notifications" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="pt-login-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item">
+<a data-mw="interface" href="/index.php?title=Special:UserLogin&amp;returnto=Troubleshooting+on-device+issues" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o" class=""><span>Log in</span></a>
+</li>
+<li id="pt-createaccount-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item">
+<a data-mw="interface" href="../Special:RequestAccount.html" title="You are encouraged to create an account and log in; however, it is not mandatory" class=""><span>Request account</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	</div>
+	
+<div id="vector-user-links-dropdown" class="vector-dropdown vector-user-menu vector-button-flush-right vector-user-menu-logged-out user-links-collapsible-item" title="More options">
+	<input type="checkbox" id="vector-user-links-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-user-links-dropdown" class="vector-dropdown-checkbox " aria-label="Personal tools">
+	<label id="vector-user-links-dropdown-label" for="vector-user-links-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-ellipsis mw-ui-icon-wikimedia-ellipsis"></span>
+
+<span class="vector-dropdown-label-text">Personal tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+		
+<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal user-links-collapsible-item" title="User menu">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="pt-login" class="user-links-collapsible-item mw-list-item"><a href="/index.php?title=Special:UserLogin&amp;returnto=Troubleshooting+on-device+issues" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o"><span class="vector-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn"></span> <span>Log in</span></a></li>
+<li id="pt-createaccount" class="user-links-collapsible-item mw-list-item"><a href="../Special:RequestAccount.html" title="You are encouraged to create an account and log in; however, it is not mandatory"><span>Request account</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+</nav>
+
+		</div>
+	</header>
+</div>
+<div class="mw-page-container">
+	<div class="mw-page-container-inner">
+		<div class="vector-sitenotice-container">
+			<div id="siteNotice"></div>
+		</div>
+		<div class="vector-column-start">
+			<div class="vector-main-menu-container">
+		</div>
+	<div class="vector-sticky-pinned-container">
+				<nav id="mw-panel-toc" aria-label="Contents" data-event-name="ui.sidebar-toc" class="mw-table-of-contents-container vector-toc-landmark">
+					<div id="vector-toc-pinned-container" class="vector-pinned-container">
+					<div id="vector-toc" class="vector-toc vector-pinnable-element">
+	<div class="vector-pinnable-header vector-toc-pinnable-header vector-pinnable-header-pinned" data-feature-name="toc-pinned" data-pinnable-element-id="vector-toc">
+	<h2 class="vector-pinnable-header-label">Contents</h2>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-toc.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-toc.unpin">hide</button>
+</div>
+
+
+	<ul class="vector-toc-contents" id="mw-panel-toc-list">
+		<li id="toc-mw-content-text" class="vector-toc-list-item vector-toc-level-1">
+			<a href="#" class="vector-toc-link">
+				<div class="vector-toc-text">Beginning</div>
+			</a>
+		</li>
+		<li id="toc-Navigating_this_page" class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#Navigating_this_page">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">1</span>
+				<span>Navigating this page</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Navigating_this_page-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Navigating this page subsection</span>
+			</button>
+		
+		<ul id="toc-Navigating_this_page-sublist" class="vector-toc-list">
+			<li id="toc-Other_troubleshooting_pages" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Other_troubleshooting_pages">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">1.1</span>
+					<span>Other troubleshooting pages</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Other_troubleshooting_pages-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Searching_for_specific_issues" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Searching_for_specific_issues">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">1.2</span>
+					<span>Searching for specific issues</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Searching_for_specific_issues-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Note_about_command_examples" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Note_about_command_examples">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">1.3</span>
+					<span>Note about command examples</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Note_about_command_examples-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-General_information" class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#General_information">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">2</span>
+				<span>General information</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-General_information-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle General information subsection</span>
+			</button>
+		
+		<ul id="toc-General_information-sublist" class="vector-toc-list">
+			<li id="toc-Checking_your_device's_wiki_page" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Checking_your_device's_wiki_page">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.1</span>
+					<span>Checking your device's wiki page</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Checking_your_device's_wiki_page-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Making_sure_your_system_is_up-to-date" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Making_sure_your_system_is_up-to-date">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.2</span>
+					<span>Making sure your system is up-to-date</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Making_sure_your_system_is_up-to-date-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Looking_through_reported_issues" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Looking_through_reported_issues">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.3</span>
+					<span>Looking through reported issues</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Looking_through_reported_issues-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Connecting_to_the_device" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Connecting_to_the_device">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.4</span>
+					<span>Connecting to the device</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Connecting_to_the_device-sublist" class="vector-toc-list">
+				<li id="toc-Running_apps_over_SSH" class="vector-toc-list-item vector-toc-level-3">
+			<a class="vector-toc-link" href="#Running_apps_over_SSH">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.4.1</span>
+					<span>Running apps over SSH</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Running_apps_over_SSH-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+		</li>
+		<li id="toc-TTYescape" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#TTYescape">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.5</span>
+					<span>TTYescape</span>
+				</div>
+			</a>
+			
+			<ul id="toc-TTYescape-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Force_reboot" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Force_reboot">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.6</span>
+					<span>Force reboot</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Force_reboot-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-Getting_logs" class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#Getting_logs">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">3</span>
+				<span>Getting logs</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Getting_logs-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-Boot_issues" class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#Boot_issues">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">4</span>
+				<span>Boot issues</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Boot_issues-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Boot issues subsection</span>
+			</button>
+		
+		<ul id="toc-Boot_issues-sublist" class="vector-toc-list">
+			<li id="toc-Getting_logs_during_boot" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Getting_logs_during_boot">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.1</span>
+					<span>Getting logs during boot</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Getting_logs_during_boot-sublist" class="vector-toc-list">
+				<li id="toc-Serial_debugging" class="vector-toc-list-item vector-toc-level-3">
+			<a class="vector-toc-link" href="#Serial_debugging">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.1.1</span>
+					<span>Serial debugging</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Serial_debugging-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Kernel_logs_from_previous_boot" class="vector-toc-list-item vector-toc-level-3">
+			<a class="vector-toc-link" href="#Kernel_logs_from_previous_boot">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.1.2</span>
+					<span>Kernel logs from previous boot</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Kernel_logs_from_previous_boot-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+		</li>
+		<li id="toc-Device_is_stuck_on_manufacturer_logo_/_doesn't_get_to_postmarketOS_boot_splash" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Device_is_stuck_on_manufacturer_logo_/_doesn't_get_to_postmarketOS_boot_splash">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.2</span>
+					<span>Device is stuck on manufacturer logo / doesn't get to postmarketOS boot splash</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Device_is_stuck_on_manufacturer_logo_/_doesn't_get_to_postmarketOS_boot_splash-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Device_is_stuck_on_postmarketOS_boot_splash" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Device_is_stuck_on_postmarketOS_boot_splash">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.3</span>
+					<span>Device is stuck on postmarketOS boot splash</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Device_is_stuck_on_postmarketOS_boot_splash-sublist" class="vector-toc-list">
+				<li id='toc-"ERROR:_boot_partition_not_found,_retrying..."' class="vector-toc-list-item vector-toc-level-3">
+			<a class="vector-toc-link" href="#%22ERROR:_boot_partition_not_found,_retrying...%22">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.3.1</span>
+					<span>"ERROR: boot partition not found, retrying..."</span>
+				</div>
+			</a>
+			
+			<ul id='toc-"ERROR:_boot_partition_not_found,_retrying..."-sublist' class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+		</li>
+		<li id='toc-UI_does_not_boot,_device_is_stuck_on_TTY_"login:"_screen_or_blank_screen_with_blinking_cursor' class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#UI_does_not_boot,_device_is_stuck_on_TTY_%22login:%22_screen_or_blank_screen_with_blinking_cursor">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.4</span>
+					<span>UI does not boot, device is stuck on TTY "login:" screen or blank screen with blinking cursor</span>
+				</div>
+			</a>
+			
+			<ul id='toc-UI_does_not_boot,_device_is_stuck_on_TTY_"login:"_screen_or_blank_screen_with_blinking_cursor-sublist' class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-Application/general_usage_issues" class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#Application/general_usage_issues">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">5</span>
+				<span>Application/general usage issues</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Application/general_usage_issues-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Application/general usage issues subsection</span>
+			</button>
+		
+		<ul id="toc-Application/general_usage_issues-sublist" class="vector-toc-list">
+			<li id="toc-Issues_with_particular_components" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Issues_with_particular_components">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.1</span>
+					<span>Issues with particular components</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Issues_with_particular_components-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Getting_app/interface_logs" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Getting_app/interface_logs">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.2</span>
+					<span>Getting app/interface logs</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Getting_app/interface_logs-sublist" class="vector-toc-list">
+				<li id="toc-Display_manager_log" class="vector-toc-list-item vector-toc-level-3">
+			<a class="vector-toc-link" href="#Display_manager_log">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.2.1</span>
+					<span>Display manager log</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Display_manager_log-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+		</li>
+		<li id="toc-Getting_logs_from_apps" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Getting_logs_from_apps">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.3</span>
+					<span>Getting logs from apps</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Getting_logs_from_apps-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id='toc-"File_not_found"_while_running_binary_from_terminal,_despite_it_being_there' class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#%22File_not_found%22_while_running_binary_from_terminal,_despite_it_being_there">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.4</span>
+					<span>"File not found" while running binary from terminal, despite it being there</span>
+				</div>
+			</a>
+			
+			<ul id='toc-"File_not_found"_while_running_binary_from_terminal,_despite_it_being_there-sublist' class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Glitchy_graphics_in_apps" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Glitchy_graphics_in_apps">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.5</span>
+					<span>Glitchy graphics in apps</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Glitchy_graphics_in_apps-sublist" class="vector-toc-list">
+				<li id="toc-Persisting_custom_variables" class="vector-toc-list-item vector-toc-level-3">
+			<a class="vector-toc-link" href="#Persisting_custom_variables">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.5.1</span>
+					<span>Persisting custom variables</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Persisting_custom_variables-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Glitchy_graphics_in_Firefox" class="vector-toc-list-item vector-toc-level-3">
+			<a class="vector-toc-link" href="#Glitchy_graphics_in_Firefox">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.5.2</span>
+					<span>Glitchy graphics in Firefox</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Glitchy_graphics_in_Firefox-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+		</li>
+		<li id="toc-ERROR:_unsupported_'crypto_LUKS'_filesystem_(/dev/mmcblk2p2)" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#ERROR:_unsupported_'crypto_LUKS'_filesystem_(/dev/mmcblk2p2)">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.6</span>
+					<span>ERROR: unsupported 'crypto_LUKS' filesystem (/dev/mmcblk2p2)</span>
+				</div>
+			</a>
+			
+			<ul id="toc-ERROR:_unsupported_'crypto_LUKS'_filesystem_(/dev/mmcblk2p2)-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-Package_management_(apk)_issues" class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#Package_management_(apk)_issues">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">6</span>
+				<span>Package management (apk) issues</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Package_management_(apk)_issues-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Package management (apk) issues subsection</span>
+			</button>
+		
+		<ul id="toc-Package_management_(apk)_issues-sublist" class="vector-toc-list">
+			<li id="toc-Things_to_check" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Things_to_check">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">6.1</span>
+					<span>Things to check</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Things_to_check-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id='toc-"ERROR:_temporary_error_(try_again_later)"_when_trying_to_add_a_package' class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#%22ERROR:_temporary_error_(try_again_later)%22_when_trying_to_add_a_package">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">6.2</span>
+					<span>"ERROR: temporary error (try again later)" when trying to add a package</span>
+				</div>
+			</a>
+			
+			<ul id='toc-"ERROR:_temporary_error_(try_again_later)"_when_trying_to_add_a_package-sublist' class="vector-toc-list">
+			</ul>
+		</li>
+		<li id='toc-"ERROR:_unable_to_select_packages"_when_trying_to_add/upgrade_a_package' class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#%22ERROR:_unable_to_select_packages%22_when_trying_to_add/upgrade_a_package">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">6.3</span>
+					<span>"ERROR: unable to select packages" when trying to add/upgrade a package</span>
+				</div>
+			</a>
+			
+			<ul id='toc-"ERROR:_unable_to_select_packages"_when_trying_to_add/upgrade_a_package-sublist' class="vector-toc-list">
+			</ul>
+		</li>
+		<li id='toc-"1_error;_XXXX_MiB_in_XXX_packages"_but_no_visible_error' class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#%221_error;_XXXX_MiB_in_XXX_packages%22_but_no_visible_error">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">6.4</span>
+					<span>"1 error; XXXX MiB in XXX packages" but no visible error</span>
+				</div>
+			</a>
+			
+			<ul id='toc-"1_error;_XXXX_MiB_in_XXX_packages"_but_no_visible_error-sublist' class="vector-toc-list">
+			</ul>
+		</li>
+		<li id='toc-"package_not_found",_even_though_it_is_in_the_repositories' class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#%22package_not_found%22,_even_though_it_is_in_the_repositories">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">6.5</span>
+					<span>"package not found", even though it is in the repositories</span>
+				</div>
+			</a>
+			
+			<ul id='toc-"package_not_found",_even_though_it_is_in_the_repositories-sublist' class="vector-toc-list">
+			</ul>
+		</li>
+		<li id='toc-"ERROR:_BAD_signature"_when_trying_to_add_a_package' class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#%22ERROR:_BAD_signature%22_when_trying_to_add_a_package">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">6.6</span>
+					<span>"ERROR: BAD signature" when trying to add a package</span>
+				</div>
+			</a>
+			
+			<ul id='toc-"ERROR:_BAD_signature"_when_trying_to_add_a_package-sublist' class="vector-toc-list">
+			</ul>
+		</li>
+		<li id='toc-"WARNING:_opening_from_cache_...:_UNTRUSTED_signature"' class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#%22WARNING:_opening_from_cache_...:_UNTRUSTED_signature%22">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">6.7</span>
+					<span>"WARNING: opening from cache ...: UNTRUSTED signature"</span>
+				</div>
+			</a>
+			
+			<ul id='toc-"WARNING:_opening_from_cache_...:_UNTRUSTED_signature"-sublist' class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-See_also" class="vector-toc-list-item vector-toc-level-1">
+		<a class="vector-toc-link" href="#See_also">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">7</span>
+				<span>See also</span>
+			</div>
+		</a>
+		
+		<ul id="toc-See_also-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+</ul>
+</div>
+
+					</div>
+		</nav>
+			</div>
+		</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body" style="margin: 0">
+				<header class="mw-body-header vector-page-titlebar">
+					<nav aria-label="Contents" class="vector-toc-landmark">
+						
+<div id="vector-page-titlebar-toc" class="vector-dropdown vector-page-titlebar-toc vector-button-flush-left">
+	<input type="checkbox" id="vector-page-titlebar-toc-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-titlebar-toc" class="vector-dropdown-checkbox " aria-label="Toggle the table of contents">
+	<label id="vector-page-titlebar-toc-label" for="vector-page-titlebar-toc-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-listBullet mw-ui-icon-wikimedia-listBullet"></span>
+
+<span class="vector-dropdown-label-text">Toggle the table of contents</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+							<div id="vector-page-titlebar-toc-unpinned-container" class="vector-unpinned-container">
+			</div>
+		
+	</div>
+</div>
+
+					</nav>
+					<h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-main">Troubleshooting on-device issues</span></h1>
+				</header>
+				<div class="vector-page-toolbar">
+					<div class="vector-page-toolbar-container">
+						<div id="left-navigation">
+							<nav aria-label="Namespaces">
+								
+<div id="p-associated-pages" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-associated-pages">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-nstab-main" class="selected vector-tab-noicon mw-list-item"><a href="../en/Troubleshooting_on-device_issues.html" title="View the content page [c]" accesskey="c"><span>Page</span></a></li>
+<li id="ca-talk" class="new vector-tab-noicon mw-list-item"><a href="/index.php?title=Talk:Troubleshooting_on-device_issues&amp;action=edit&amp;redlink=1" rel="discussion" class="new" title="Discussion about the content page (page does not exist) [t]" accesskey="t"><span>Discussion</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+								
+<div id="vector-variants-dropdown" class="vector-dropdown emptyPortlet">
+	<input type="checkbox" id="vector-variants-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-variants-dropdown" class="vector-dropdown-checkbox " aria-label="Change language variant">
+	<label id="vector-variants-dropdown-label" for="vector-variants-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">English</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+					
+<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+						<div id="right-navigation" class="vector-collapsible">
+							<nav aria-label="Views">
+								
+<div id="p-views" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-views">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-view" class="selected vector-tab-noicon mw-list-item"><a href="../en/Troubleshooting_on-device_issues.html"><span>Read</span></a></li>
+<li id="ca-viewsource" class="vector-tab-noicon mw-list-item"><a href="/index.php?title=Troubleshooting_on-device_issues&amp;action=edit" title="This page is protected.
+You can view its source [e]" accesskey="e"><span>View source</span></a></li>
+<li id="ca-history" class="vector-tab-noicon mw-list-item"><a href="/index.php?title=Troubleshooting_on-device_issues&amp;action=history" title="Past revisions of this page [h]" accesskey="h"><span>View history</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+							</nav>
+				
+							<nav class="vector-page-tools-landmark" aria-label="Page tools">
+								
+<div id="vector-page-tools-dropdown" class="vector-dropdown vector-page-tools-dropdown">
+	<input type="checkbox" id="vector-page-tools-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-tools-dropdown" class="vector-dropdown-checkbox " aria-label="Tools">
+	<label id="vector-page-tools-dropdown-label" for="vector-page-tools-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">Tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+									<div id="vector-page-tools-unpinned-container" class="vector-unpinned-container">
+						
+<div id="vector-page-tools" class="vector-page-tools vector-pinnable-element">
+	<div class="vector-pinnable-header vector-page-tools-pinnable-header vector-pinnable-header-unpinned" data-feature-name="page-tools-pinned" data-pinnable-element-id="vector-page-tools" data-pinned-container-id="vector-page-tools-pinned-container" data-unpinned-container-id="vector-page-tools-unpinned-container">
+	<div class="vector-pinnable-header-label">Tools</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-page-tools.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-page-tools.unpin">hide</button>
+</div>
+
+	
+<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions vector-has-collapsible-items" title="More options">
+	<div class="vector-menu-heading">
+		Actions
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-more-view" class="selected vector-more-collapsible-item mw-list-item"><a href="../en/Troubleshooting_on-device_issues.html"><span>Read</span></a></li>
+<li id="ca-more-viewsource" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Troubleshooting_on-device_issues&amp;action=edit"><span>View source</span></a></li>
+<li id="ca-more-history" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Troubleshooting_on-device_issues&amp;action=history"><span>View history</span></a></li>
+<li id="ca-cargo-purge" class="mw-list-item"><a href="/index.php?title=Troubleshooting_on-device_issues&amp;action=purge"><span>Purge cache</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-tb" class="vector-menu mw-portlet mw-portlet-tb">
+	<div class="vector-menu-heading">
+		General
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="t-whatlinkshere" class="mw-list-item"><a href="../Special:WhatLinksHere_Troubleshooting_on-device_issues.html" title="A list of all wiki pages that link here [j]" accesskey="j"><span>What links here</span></a></li>
+<li id="t-recentchangeslinked" class="mw-list-item"><a href="../Special:RecentChangesLinked_Troubleshooting_on-device_issues.html" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k"><span>Related changes</span></a></li>
+<li id="t-specialpages" class="mw-list-item"><a href="../Special:SpecialPages.html" title="A list of all special pages [q]" accesskey="q"><span>Special pages</span></a></li>
+<li id="t-print" class="mw-list-item"><a href="javascript:print();" rel="alternate" title="Printable version of this page [p]" accesskey="p"><span>Printable version</span></a></li>
+<li id="t-permalink" class="mw-list-item"><a href="/index.php?title=Troubleshooting_on-device_issues&amp;oldid=67545" title="Permanent link to this revision of this page"><span>Permanent link</span></a></li>
+<li id="t-info" class="mw-list-item"><a href="/index.php?title=Troubleshooting_on-device_issues&amp;action=info" title="More information about this page"><span>Page information</span></a></li>
+<li id="t-cargopagevalueslink" class="mw-list-item"><a href="/index.php?title=Troubleshooting_on-device_issues&amp;action=pagevalues" rel="cargo-pagevalues"><span>Cargo data</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-The_usual_wiki_links" class="vector-menu mw-portlet mw-portlet-The_usual_wiki_links">
+	<div class="vector-menu-heading">
+		The usual wiki links
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-Editor's-Guide" class="mw-list-item"><a href="../en/Help:Wiki_editor's_guide.html"><span>Editor's Guide</span></a></li>
+<li id="n-recentchanges" class="mw-list-item"><a href="../Special:RecentChanges.html" title="A list of recent changes in the wiki [r]" accesskey="r"><span>Recent changes</span></a></li>
+<li id="n-randompage" class="mw-list-item"><a href="../Special:Random.html" title="Load a random page [x]" accesskey="x"><span>Random page</span></a></li>
+<li id="n-Templates" class="mw-list-item"><a href="../en/PostmarketOS:Templates.html"><span>Templates</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+									</div>
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="vector-column-end">
+					<div class="vector-sticky-pinned-container">
+						<nav class="vector-page-tools-landmark" aria-label="Page tools">
+							<div id="vector-page-tools-pinned-container" class="vector-pinned-container">
+				
+							</div>
+		</nav>
+						<nav class="vector-appearance-landmark" aria-label="Appearance">
+							<div id="vector-appearance-pinned-container" class="vector-pinned-container">
+				<div id="vector-appearance" class="vector-appearance vector-pinnable-element">
+	<div class="vector-pinnable-header vector-appearance-pinnable-header vector-pinnable-header-pinned" data-feature-name="appearance-pinned" data-pinnable-element-id="vector-appearance" data-pinned-container-id="vector-appearance-pinned-container" data-unpinned-container-id="vector-appearance-unpinned-container">
+	<div class="vector-pinnable-header-label">Appearance</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-appearance.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-appearance.unpin">hide</button>
+</div>
+
+
+</div>
+
+							</div>
+		</nav>
+					</div>
+				</div>
+				<div id="bodyContent" class="vector-body" aria-labelledby="firstHeading" data-mw-ve-target-container>
+					<div class="vector-body-before-content">
+							<div class="mw-indicators">
+		</div>
+
+						<div id="siteSub" class="noprint">From postmarketOS Wiki</div>
+					</div>
+					<div id="contentSub"><div id="mw-content-subtitle"></div></div>
+					
+					
+					<div id="mw-content-text" class="mw-body-content">
+<div class="mw-content-ltr mw-parser-output" lang="en" dir="ltr">
+<table role="text container" style="color: #1c1607; background-color: #fff9ea; border: 1px solid #f2bc20; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center; line-height: 1;"><span style="white-space: nowrap;"><span typeof="mw:File"><span title="Hint"><img alt="Hint" src="../Hint_icon.svg" decoding="async" width="20" height="20" class="mw-file-element"></span></span></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">If you get stuck or need assistance, you can join our <a href="../en/Matrix_and_IRC.html" title="Matrix and IRC">Matrix/IRC</a> chats (use the <i>#postmarketOS</i> channel for general support questions).</td>
+</tr></tbody></table>
+<p>This page provides an overview of methods for troubleshooting on-device issues, with a focus on existing ports.
+</p>
+<meta property="mw:PageProp/toc">
+<h2><span class="mw-headline" id="Navigating_this_page">Navigating this page</span></h2>
+<p>You can browse the different sections of this page by clicking the relevant links in the table of contents, located on the sidebar, or click one of the following quick links:
+</p>
+<p><a href="#General_information">#General information</a> · <a href="#Boot_issues">#Boot issues</a> · <a href="#Interface_issues">#Interface issues</a> · <a href="#Application/general_usage_issues">#Application/general usage issues</a> · <a href="#Package_management_(apk)_issues">#Package management (apk) issues</a>
+</p>
+<h3><span class="mw-headline" id="Other_troubleshooting_pages">Other troubleshooting pages</span></h3>
+<ul><li>For help with pmbootstrap (e.g. if you're installing postmarketOS with pmbootstrap), see <a href="../en/Pmbootstrap_Troubleshooting.html" title="Pmbootstrap/Troubleshooting">pmbootstrap/Troubleshooting</a>.</li></ul>
+<h3><span class="mw-headline" id="Searching_for_specific_issues">Searching for specific issues</span></h3>
+<p>If you want to search for a specific section or error, you can use your browser's "find in page" option:
+</p>
+<ul>
+<li>
+<b>Firefox</b>: <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">≡</span> Menu → Find in page</li>
+<li>
+<b>Chromium</b>: <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">≡</span> Menu → Find and edit → Find</li>
+</ul>
+<p>If you have a keyboard connected, you can also use <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Ctrl</span>+<span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">F</span> to open the search bar.
+</p>
+<h3><span class="mw-headline" id="Note_about_command_examples">Note about command examples</span></h3>
+<p>On this wiki, you may find commands prefixed with <code>$</code> or <code>#</code>. These characters shouldn't be copied - they indicate whether that command should be run as a regular user (<code>$</code>), or as root (<code>#</code>; in which case, you may need to prefix the command with <code>sudo</code>).
+</p>
+<p>For example, the following tells you to execute the command "ls" as a regular user:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>ls
+</pre></div>
+<p>The following tells you to execute the command "apk update" as root (<code>sudo apk update</code>):
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp"># </span>apk<span class="w"> </span>update
+</pre></div>
+<h2><span class="mw-headline" id="General_information">General information</span></h2>
+<h3>
+<span id="Checking_your_device.27s_wiki_page"></span><span class="mw-headline" id="Checking_your_device's_wiki_page">Checking your device's wiki page</span>
+</h3>
+<p>The wiki page for your device contains information about supported features, and could have information about the issue you're experiencing. Find your device's wiki page by looking through the <a href="../en/Devices.html" title="Devices">Devices</a> page or using the search feature on the wiki.
+</p>
+<p>The page for the device's chipset/SoC can often be useful as well, as it contains information that more broadly applies to all devices with the chipset. The chipset page is linked on your device's wiki page; click the SoC name in the device infobox.
+</p>
+<h3><span class="mw-headline" id="Making_sure_your_system_is_up-to-date">Making sure your system is up-to-date</span></h3>
+<p>In some cases, the issue you're dealing with may have been fixed in a newer version. For this reason, it's worth making sure that your system is up-to-date before you try to troubleshoot your issue.
+</p>
+<p>To upgrade your packages, run:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp"># </span>apk<span class="w"> </span>upgrade<span class="w"> </span>-a
+<span class="gp"># </span>apk<span class="w"> </span>fix
+</pre></div>
+<p>You should also reboot after performing an upgrade.
+</p>
+<p>The <code>-a</code> switch allows for package <i>downgrades</i>, in case a package was downgraded in the upstream repository or if you were testing a package version from outside the upstream repository. The second command fixes any installation errors, if any appear (sometimes this can happen e.g. when a new package replaces another one).
+</p>
+<p>If you're on a stable release, make sure you're on the latest available release. Currently, the latest stable release is <b>v24.12</b>. You can check which release you're on by running the following command:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>cat<span class="w"> </span>/etc/os-release<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>VERSION
+</pre></div>
+<p>If the version is <code>edge</code>, you're on the edge branch. If you see a version number, check if there isn't a newer version available; if there is, see <a href="../en/Upgrade_to_a_newer_postmarketOS_release.html" title="Upgrade to a newer postmarketOS release">Upgrade to a newer postmarketOS release</a>.
+</p>
+<h3><span class="mw-headline" id="Looking_through_reported_issues">Looking through reported issues</span></h3>
+<p>Most issues in postmarketOS are reported to the <b><a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues">pmaports issue tracker</a></b>. It's worth checking if somebody hasn't already encountered the same issue as you.
+</p>
+<p>If your issue hasn't been reported yet, you are encouraged to report it; this way, developers can be notified about issues they may have missed, and other users will have an easier time troubleshooting their devices. For an overview of where and how to report issues, as well as what information to include, see <b><a href="../en/How_to_report_issues.html" title="How to report issues">How to report issues</a></b>.
+</p>
+<h3><span class="mw-headline" id="Connecting_to_the_device">Connecting to the device</span></h3>
+<p>postmarketOS can set up a <a href="../en/USB_Network.html" title="USB Network">network over USB</a>; the device's IP address on this network is <b><code>172.16.42.1</code></b>. This network can be used to <b>connect to the device over SSH</b>. To do so, plug the device into your computer via USB, and run the following command on the computer (replace <code>user</code> with the username you set on the device):
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>ssh<span class="w"> </span>user@172.16.42.1
+</pre></div>
+<p>If you have trouble connecting to your device, see <a href="../en/USB_Network.html#Troubleshooting" title="USB Network">USB Network#Troubleshooting</a>.
+</p>
+<p>You can also <b>upload files over SFTP</b>. Use an SFTP client like FileZilla; your file manager of choice (Nautilus/Files, Dolphin, Thunar...) may also have support for SFTP connections.
+</p>
+<h4><span class="mw-headline" id="Running_apps_over_SSH">Running apps over SSH</span></h4>
+<p>Note that you may need to set some environment variables if you're trying to run graphical applications on the device over SSH. For a full list of environment variables set on your system, you can run <code>env</code> in a terminal on the device.
+</p>
+<p>For graphical apps, you'll likely need to set at least the following:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span><span class="nb">export</span><span class="w"> </span><span class="nv">DISPLAY</span><span class="o">=</span>:0
+<span class="gp">$ </span><span class="nb">export</span><span class="w"> </span><span class="nv">WAYLAND_DISPLAY</span><span class="o">=</span>wayland-0
+<span class="gp">$ </span><span class="nb">export</span><span class="w"> </span><span class="nv">XDG_RUNTIME_DIR</span><span class="o">=</span><span class="s2">"/run/user/</span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span><span class="s2">"</span>
+</pre></div>
+<h3><span class="mw-headline" id="TTYescape">TTYescape</span></h3>
+<div class="hatnote" role="note" style="padding-left: 1.5em; margin-bottom: 0.5em; font-style: italic;">Full article: <a href="../en/TTYescape.html" title="TTYescape">TTYescape</a>
+</div>
+<p>With TTYescape, if your device is frozen, and you need to access the command line without connecting to the device remotely, you can <b>switch to the TTY by holding down <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> and pressing <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> 3 times</b>.
+</p>
+<p>TTYescape is installed by default on Phosh, Plasma Mobile, GNOME Mobile and sxmo (sway). On other UIs, you can follow the instructions in <a href="../en/TTYescape.html#Installation" title="TTYescape">TTYescape#Installation</a> to install and enable it.
+</p>
+<h3><span class="mw-headline" id="Force_reboot">Force reboot</span></h3>
+<p>For phones and tablets, you can force-reboot the device by <b>holding down <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Power</span> for at least 10 seconds</b>. On some devices (e.g. most Samsung devices after 2014) you may also need to hold down the <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> button at the same time. In some rarer cases, you may need to hold the power button for a full minute or longer.
+</p>
+<p>You can also run the following command in the terminal:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span>b<span class="w"> </span>&gt;<span class="w"> </span>/proc/sysrq-trigger
+</pre></div>
+<h2><span class="mw-headline" id="Getting_logs">Getting logs</span></h2>
+<p>Depending on the issue you're facing, there are different ways to get the logs (messages from apps/services/the kernel etc.):
+</p>
+<ul>
+<li>
+<b>Kernel logs</b> - contain messages printed by the Linux kernel; useful in debugging driver-related issues. Run <code>sudo dmesg</code> or <code>sudo cat /proc/kmsg</code> if the former doesn't work.
+<ul><li>You can also watch the logs update live with the <code>-w</code> flag: <code>sudo dmesg -w</code>.</li></ul>
+</li>
+<li>
+<b>System log</b> - contains messages from system services. Run <code>logread</code> (note that this also contains kernel logs).
+<ul>
+<li>You can also watch the system log update live by passing the <code>-F</code> flag (or <code>-f</code> to not show old messages).</li>
+<li>
+<code>logread</code> truncates its output by default; you can pass the <code>-n 0</code> flag to it to show all logs.</li>
+</ul>
+</li>
+</ul>
+<p>There are also other log files that may be of interest depending on what you're troubleshooting; see <a href="#Getting_logs_during_boot">#Getting logs during boot</a>, <a href="#Getting_app/interface_logs">#Getting app/interface logs</a> and the linked articles in <a href="#Issues_with_particular_components">#Issues with particular components</a>.
+</p>
+<h2><span class="mw-headline" id="Boot_issues">Boot issues</span></h2>
+<div class="hatnote" role="note" style="padding-left: 1.5em; margin-bottom: 0.5em; font-style: italic;"><i>See also: <a href="../en/Troubleshooting_on-device_issues_Booting_problems.html" title="Troubleshooting on-device issues/Booting problems">Troubleshooting on-device issues/Booting problems</a></i></div>
+<p>The exact methods of troubleshooting non-booting devices depend on the stage of the boot process that it fails on.
+</p>
+<h3><span class="mw-headline" id="Getting_logs_during_boot">Getting logs during boot</span></h3>
+<p>The initramfs is able to expose a <code>PMOS_LOGS</code> storage device when the device is plugged into a PC. This uses the USB mass storage gadget, and as such may not be supported by all kernels (it should work for devices with (close to) mainline kernels, likely won't work on downstream). See the README.txt file in the mounted folder, or read <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/merge_requests/4646">pmaports!4646</a> for more information.
+</p>
+<p>If not, check if you're able to SSH into the device as described in <a href="#Connecting_to_the_device">#Connecting to the device</a>, and fetch the logs that way.
+</p>
+<p>If the boot process fails early enough that SSH is not yet available, it's also possible to enable the <i>debug shell</i> by holding down the <span class="nowrap" title="This is not a clickable button; it illustrates the button one should find." style="padding:.2em .6em; border:1px solid; border-color:#AAA #555 #555 #AAA; border-radius: 3px; background-color: #F2F2F2;">Volume Down</span> button during boot - this will enable a telnet shell. See <a href="../en/Initramfs_Inspecting.html" title="Initramfs/Inspecting">Initramfs/Inspecting</a> for full instructions and more information.
+</p>
+<h4><span class="mw-headline" id="Serial_debugging">Serial debugging</span></h4>
+<div class="hatnote" role="note" style="padding-left: 1.5em; margin-bottom: 0.5em; font-style: italic;">Full article: <a href="../en/Serial_debugging.html" title="Serial debugging">Serial debugging</a>
+</div>
+<p>For debugging very early boot issues, including kernel crashes, it's useful to have a way to do <a href="../en/Serial_debugging.html" title="Serial debugging">serial debugging</a>. This usually involves putting together a special cable that, when connected to a USB-UART converter, will get logs from the device's bootloader and the kernel.
+</p>
+<p>This is mostly meant for more advanced users and developers; in most cases, such cables can't be purchased ready-made. If you're a regular user, this option is an absolute last resort.
+</p>
+<h4><span class="mw-headline" id="Kernel_logs_from_previous_boot">Kernel logs from previous boot</span></h4>
+<p>On some devices, it is possible to retrieve the kernel log from the previous boot. Depending on the kernel used on the device, this can be accessed from another working install (or from anything running the same kernel, e.g. in TWRP) in one of two ways:
+</p>
+<ul>
+<li>By reading <code>/proc/last_kmsg</code>.</li>
+<li>By mounting the <code>pstore</code> partition and reading its contents: <div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp"># </span>mkdir<span class="w"> </span>/tmp/pstore
+<span class="gp"># </span>mount<span class="w"> </span>-t<span class="w"> </span>pstore<span class="w"> </span>-o<span class="w"> </span><span class="nv">kmsg_bytes</span><span class="o">=</span><span class="m">16000</span><span class="w"> </span>-<span class="w"> </span>/tmp/pstore
+</pre></div>
+</li>
+</ul>
+<h3>
+<span id="Device_is_stuck_on_manufacturer_logo_.2F_doesn.27t_get_to_postmarketOS_boot_splash"></span><span class="mw-headline" id="Device_is_stuck_on_manufacturer_logo_/_doesn't_get_to_postmarketOS_boot_splash">Device is stuck on manufacturer logo / doesn't get to postmarketOS boot splash</span>
+</h3>
+<ul>
+<li>Check if the display is listed as working on your device's wiki page.</li>
+<li>Plug the device into your computer. Are there any messages in <code>dmesg</code> when you plug it in? Does it appear in <code>lsusb</code>?</li>
+<li>If a device appears, check if it establishes a network connection with your computer. Run <code>ip a</code> on your computer - you should see a "usb0" or similar device, with IP addresses in the range of <code>172.16.42.XXX</code>.
+<ul>
+<li>If you see a device in <code>ip a</code>, check if you can connect to it with <code>ssh 172.16.42.1</code>, or <code>telnet 172.16.42.1</code>.</li>
+<li>If you see a device but can't connect to it, see <a href="../en/Troubleshooting_on-device_issues_Booting_problems.html#Network_troubleshooting" title="Troubleshooting on-device issues/Booting problems">Troubleshooting on-device issues/Booting problems#Network troubleshooting</a>.</li>
+</ul>
+</li>
+<li>
+<b>Report an issue to the <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues">pmaports repo</a>.</b> If you managed to connect to the device, attach logs; see <a href="#Getting_logs_during_boot">#Getting logs during boot</a>.</li>
+</ul>
+<h3><span class="mw-headline" id="Device_is_stuck_on_postmarketOS_boot_splash">Device is stuck on postmarketOS boot splash</span></h3>
+<figure typeof="mw:File/Thumb"><a href="../Samsung-lt01_boot_partition_not_found.jpg" class="mw-file-description"><img src="../Samsung-lt01_boot_partition_not_found.jpg" decoding="async" width="200" height="234" class="mw-file-element" srcset="../300px-Samsung-lt01_boot_partition_not_found.jpg 1.5x ../400px-Samsung-lt01_boot_partition_not_found.jpg 2x"></a><figcaption>A tablet displaying the "ERROR: Boot partition not found, retrying..." message.</figcaption></figure>
+<h4>
+<span id=".22ERROR:_boot_partition_not_found.2C_retrying....22"></span><span class="mw-headline" id='"ERROR:_boot_partition_not_found,_retrying..."'>"ERROR: boot partition not found, retrying..."</span>
+</h4>
+<p>This usually happens when postmarketOS cannot find the partition that the rootfs has been installed to, or after a broken kernel upgrade (if the module necessary to mount the filesystem on the boot partition is missing). The "boot partition" in this message refers to the <i>boot subpartition of the pmOS partition</i> (see <a href="../en/Partition_Layout.html" class="mw-redirect" title="Partition layout">Partition layout</a>).
+</p>
+<p>Usually, this happens if the rootfs hasn't been flashed or was corrupted. Make sure that the rootfs has been flashed correctly, reflash if needed.
+</p>
+<p>If you flashed the rootfs to an SD card or another external storage medium, make sure the correct medium is plugged into the device. If you flashed a pre-built image to the SD card, note that some devices may need additional steps to prepare the system image before flashing the standard image to an SD card - check your device's wiki page.
+</p>
+<p>In some rare cases, this may be a bug in the initramfs code; if so, open an issue in the <a rel="nofollow" class="external text" href="https://gitlab.com/postmarketOS/pmaports/-/issues">pmaports repository</a>, and provide logs (see <a href="#Getting_logs_during_boot">#Getting logs during boot</a>).
+</p>
+<h3>
+<span id="UI_does_not_boot.2C_device_is_stuck_on_TTY_.22login:.22_screen_or_blank_screen_with_blinking_cursor"></span><span class="mw-headline" id='UI_does_not_boot,_device_is_stuck_on_TTY_"login:"_screen_or_blank_screen_with_blinking_cursor'>UI does not boot, device is stuck on TTY "login:" screen or blank screen with blinking cursor</span>
+</h3>
+<p>After the splash screen disappears, the user interface attempts to load. If it returns to a TTY login screen, or you get a blank screen with a blinking/static cursor in the top left corner, then the UI has failed to launch. See <a href="#Interface_issues">#Interface issues</a> for debugging steps.
+</p>
+<h2>
+<span id="Application.2Fgeneral_usage_issues"></span><span class="mw-headline" id="Application/general_usage_issues">Application/general usage issues</span>
+</h2>
+<h3><span class="mw-headline" id="Issues_with_particular_components">Issues with particular components</span></h3>
+<p>There are separate wiki pages for troubleshooting various components:
+</p>
+<ul>
+<li>
+<b>Audio</b>: TODO (<a href="../en/Audio.html" title="Audio">Audio</a>, but no concrete troubleshooting section other than a hint; ALSA UCM in <a href="../en/Alsa_UCM.html" title="Alsa UCM">Alsa UCM</a>, nothing about Pulseaudio or Pipewire...)</li>
+<li>
+<b>Bluetooth</b>: <a href="../en/Bluetooth.html#Troubleshooting" title="Bluetooth">Bluetooth#Troubleshooting</a>
+</li>
+<li>
+<b>Display</b>: TODO (<a href="../en/Display.html" title="Display">Display</a>, points to <a href="../en/Display_Troubleshooting.html" title="Display/Troubleshooting">Display/Troubleshooting</a> which is mostly downstream-related; also <a href="../en/Screen_Calibration.html" title="Screen Calibration">Screen Calibration</a> though not entirely related, but should be integrated into the former?)</li>
+<li>
+<b>GPS</b>: <a href="../en/GPS.html" title="GPS">GPS</a>
+</li>
+<li>
+<b>Touchscreen</b>: TODO (<a href="../en/Touchscreen.html" title="Touchscreen">Touchscreen</a>)</li>
+<li>
+<b>WiFi</b>: <a href="../en/WiFi.html#Troubleshooting" title="WiFi">WiFi#Troubleshooting</a>, <a href="../en/WiFi.html#Debugging" title="WiFi">WiFi#Debugging</a> (TODO - needs cleanups. Most of the WiFi page is for bringing it up on downstream...)</li>
+</ul>
+<p>If you do not find an answer to your problems there, read on for more generic troubleshooting instructions.
+</p>
+<h3>
+<span id="Getting_app.2Finterface_logs"></span><span class="mw-headline" id="Getting_app/interface_logs">Getting app/interface logs</span>
+</h3>
+<p>Logs from the desktop environment/user interface and some running services/apps are stored in the session log. Depending on the display manager, this log is located in:
+</p>
+<ul>
+<li>
+<b>tinydm</b> (Phosh, Plasma Mobile, Sxmo and more) - <code>~/.local/state/tinydm.log</code> (or <code>$XDG_STATE_HOME/tinydm.log</code>)</li>
+<li>
+<b>lightdm</b> (Xfce4, MATE) - <code>~/.xsession-errors</code> (and <code>~/.xsession-errors.old</code>)</li>
+<li>
+<b>gdm</b> (GNOME, GNOME Mobile) - <code>~/.cache/gdm/session.log</code>
+</li>
+</ul>
+<p>Errors from background services (bluetoothd for Bluetooth, wpa_supplicant/iwd for WiFi, ModemManager/ofono for the modem, PulseAudio/Pipewire for audio, etc.) can be found in <code>logread</code> (see notes in main <a href="#Getting_logs">#Getting logs</a> session).
+</p>
+<h4><span class="mw-headline" id="Display_manager_log">Display manager log</span></h4>
+<p>For troubleshooting issues with user interfaces not starting up, it's useful to look at the display manager log. Depending on the display manager, this log is located in:
+</p>
+<ul>
+<li>
+<b>tinydm</b> - does not have such a log (it is shared with the session log mentioned above).</li>
+<li>
+<b>lightdm</b> - files in <code>/var/log/lightdm/</code>
+</li>
+<li>
+<b>gdm</b> - <code>/var/log/gdm/greeter.log</code> (older logs in <code>/var/log/gdm/greeter.log.X</code>)</li>
+</ul>
+<p>For Xorg-based environments (Xfce4, MATE, Sxmo), the Xorg log in <code>/var/log/Xorg.0.log</code> is useful for figuring out startup issues.
+</p>
+<h3><span class="mw-headline" id="Getting_logs_from_apps">Getting logs from apps</span></h3>
+<p>Many applications will print out various information when run from the command line.
+</p>
+<p>You can pipe the output of the app/command into a file by doing:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>your-command<span class="w"> </span><span class="p">&amp;</span>&gt;<span class="w"> </span>logfile
+</pre></div>
+<p>The <code>&amp;</code> in <code>&amp;&gt;</code> ensures that both the standard output and error streams are captured.
+</p>
+<p>Note that when capturing logs with this method, you will no longer see the logs printed out live as the app runs. If you need to see the logs while the app is running, you can run:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>your-command<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>logfile
+</pre></div>
+<p><code>2&gt;&amp;1</code> here is necessary for tee to pick up messages from the error stream.
+</p>
+<p>If the application closes with a "Segmentation fault" or similar, you'll need to get a backtrace so that the developers can tell what went wrong; see the guide in <a href="../en/Troubleshooting_Capturing_a_backtrace_with_GDB.html" title="Troubleshooting/Capturing a backtrace with GDB">Troubleshooting/Capturing a backtrace with GDB</a>.
+</p>
+<h3>
+<span id=".22File_not_found.22_while_running_binary_from_terminal.2C_despite_it_being_there"></span><span class="mw-headline" id='"File_not_found"_while_running_binary_from_terminal,_despite_it_being_there'>"File not found" while running binary from terminal, despite it being there</span>
+</h3>
+<p>This is caused by the binary being linked to a library that isn't installed, and usually appears when trying to run a binary compiled for glibc (the GNU libc) instead of musl (the libc that Alpine Linux/postmarketOS uses).
+</p>
+<p>If it's the latter, try to recompile the software yourself, or ask the developer for a version of the binary compiled against musl, or install <code>gcompat</code>.
+</p>
+<h3><span class="mw-headline" id="Glitchy_graphics_in_apps">Glitchy graphics in apps</span></h3>
+<p>Sometimes, due to bugs in the GPU drivers, applications may appear to "glitch out" or crash entirely. This often happens with Firefox, as well as any games or apps requiring 3D graphics.
+</p>
+<p>In particular, Adreno 300 series GPUs (used in e.g. the <a href="../en/Qualcomm_Snapdragon_410_412_(MSM8916).html" class="mw-redirect" title="Qualcomm Snapdragon 410 (MSM8916)">Qualcomm Snapdragon 410 (MSM8916)</a>) are known to struggle with this.
+</p>
+<p>To work around these issues, you can try the following:
+</p>
+<ul>
+<li>
+<b>Forcing an older OpenGLES version</b>; run the app from the command line with <code>MESA_GLES_VERSION_OVERRIDE=2.0 appname</code>
+</li>
+<li>
+<b>Forcing software rendering</b>; run the app from the command line with <code>LIBGL_ALWAYS_SOFTWARE=true appname</code>
+</li>
+</ul>
+<p>You can find a full list of relevant environment variables in the <a rel="nofollow" class="external text" href="https://docs.mesa3d.org/envvars.html">Mesa documentation</a>.
+</p>
+<h4><span class="mw-headline" id="Persisting_custom_variables">Persisting custom variables</span></h4>
+<p>If setting one of those variables fixes your app, you can persist the changes by adding a manual override in the app's <code>.desktop</code> file.
+</p>
+<ul>
+<li>Find the <code>.desktop</code> file for the application; see the files in <code>/usr/share/applications</code>.</li>
+<li>Copy your app's <code>.desktop</code> file to <code>~/.local/share/applications/</code> (you may need to create this directory first).</li>
+<li>Open the <code>.desktop</code> file in a text editor; find the line that starts with <code>Exec</code> and modify it to match the format of <code>Exec=env VARIABLE_NAME=value appname</code>.
+<ul><li>Example: <code>Exec=/usr/lib/firefox/firefox %u</code> becomes <code>Exec=env LIBGL_ALWAYS_SOFTWARE=true /usr/lib/firefox/firefox %u</code>.</li></ul>
+</li>
+</ul>
+<h4><span class="mw-headline" id="Glitchy_graphics_in_Firefox">Glitchy graphics in Firefox</span></h4>
+<p>In particular, Firefox can struggle with hardware acceleration, making it completely unusable. To disable hardware acceleration:
+</p>
+<ul>
+<li>Run Firefox from the command line, disabling software rendering: <code>LIBGL_ALWAYS_SOFTWARE=true firefox-esr</code> (or <code>firefox</code> if you use the non-ESR version)</li>
+<li>Go into the settings, search for "hardware acceleration"</li>
+<li>Uncheck "Use hardware acceleration when available"</li>
+</ul>
+<h3>
+<span id="ERROR:_unsupported_.27crypto_LUKS.27_filesystem_.28.2Fdev.2Fmmcblk2p2.29"></span><span class="mw-headline" id="ERROR:_unsupported_'crypto_LUKS'_filesystem_(/dev/mmcblk2p2)">ERROR: unsupported 'crypto_LUKS' filesystem (/dev/mmcblk2p2)</span>
+</h3>
+<p>See <a rel="nofollow" class="external text" href="https://gitlab.postmarketos.org/postmarketOS/postmarketos-release-upgrade/-/issues/15">postmarketos-release-upgrade#15</a>.
+</p>
+<h2>
+<span id="Package_management_.28apk.29_issues"></span><span class="mw-headline" id="Package_management_(apk)_issues">Package management (apk) issues</span>
+</h2>
+<div class="hatnote" role="note" style="padding-left: 1.5em; margin-bottom: 0.5em; font-style: italic;"><i>See also: <a href="../en/Terminal_cheat_sheet.html#Package_management" title="Terminal cheat sheet">Terminal cheat sheet#Package management</a></i></div>
+<p>This section details troubleshooting steps related to working with the <b>apk package manager</b>. apk is the package manager used by postmarketOS and the distribution it extends, Alpine Linux. The name stands for "Alpine package keeper" <i>(no relation to the Android .apk format)</i>.
+</p>
+<table role="text container" style="color: inherit; background-color: #fee7e6; border: 1px solid #d33; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center; line-height: 1;"><span style="white-space: nowrap;"><span typeof="mw:File"><span title="Icon"><img alt="Icon" src="../Red_warning_icon.svg" decoding="async" width="20" height="20" class="mw-file-element"></span></span></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>WARNING:</b> Never install packages from untrusted sources!</td>
+</tr></tbody></table>
+<h3><span class="mw-headline" id="Things_to_check">Things to check</span></h3>
+<ul>
+<li>Make sure you have a working internet connection, and that your system clock/date and timezone are set up correctly.</li>
+<li>Run <code>sudo apk update</code> to update the repo index.</li>
+<li>Upgrade your system with <code>sudo apk upgrade -a</code>. The <code>-a</code> flag allows for downgrades to get your device to match the packages available in the repositories; as such, using it is recommended.</li>
+</ul>
+<h3>
+<span id=".22ERROR:_temporary_error_.28try_again_later.29.22_when_trying_to_add_a_package"></span><span class="mw-headline" id='"ERROR:_temporary_error_(try_again_later)"_when_trying_to_add_a_package'>"ERROR: temporary error (try again later)" when trying to add a package</span>
+</h3>
+<p>This is usually indicative of a network issue; check your internet connection.
+</p>
+<p>In some cases, it could also be caused by the used package mirror being down.
+</p>
+<h3>
+<span id=".22ERROR:_unable_to_select_packages.22_when_trying_to_add.2Fupgrade_a_package"></span><span class="mw-headline" id='"ERROR:_unable_to_select_packages"_when_trying_to_add/upgrade_a_package'>"ERROR: unable to select packages" when trying to add/upgrade a package</span>
+</h3>
+<div class="hatnote" role="note" style="padding-left: 1.5em; margin-bottom: 0.5em; font-style: italic;"><i>See also: <a href="../en/Troubleshooting_package_dependency_issues.html" title="Troubleshooting package dependency issues">Troubleshooting package dependency issues</a></i></div>
+<p>You may see an error similar to this:
+</p>
+<pre>ERROR: unable to select packages:
+  package-1.2.3-r1:
+    breaks: app1-3.4.5-r0[package~0.1.2] app2-3.4.5-r0[package~0.1.2]
+    satisfies: app3-3.4.5-r0[package~1.2.3] app4-3.4.5-r0[package~1.2.3]
+</pre>
+<p>This happens when a library is upgraded, but the packages that depend on it haven't been rebuilt yet. Common examples of libraries that often cause this issue include <code>webkit2gtk-*</code>, <code>icu</code> and <code>python3</code>. Sometimes, the process of rebuilding the affected packages can take a while; try again in a few hours.
+</p>
+<p>Make sure to run <code>sudo apk update</code> to update the package index from the repository.
+</p>
+<p>Usually, large rebuilds affecting many packages are mentioned on the <a rel="nofollow" class="external text" href="https://postmarketos.org/edge">edge blog</a>. You can also see the <a rel="nofollow" class="external text" href="https://build.alpinelinux.org">Alpine Linux builder status</a> for an overview of what's currently being built.
+</p>
+<p>If the issue persists for longer, try upgrading your system with <code>sudo apk upgrade -a</code>.
+</p>
+<h3>
+<span id=".221_error.3B_XXXX_MiB_in_XXX_packages.22_but_no_visible_error"></span><span class="mw-headline" id='"1_error;_XXXX_MiB_in_XXX_packages"_but_no_visible_error'>"1 error; XXXX MiB in XXX packages" but no visible error</span>
+</h3>
+<p>Sometimes, if a package installation/upgrade fails on a previous command, the error carries over to all subsequent apk operations - that's the "1 error" mentioned in the line.
+</p>
+<p>To try to fix this, run <code>sudo apk fix</code>. This command will attempt to reinstall the package(s) affected by the error, and if it fails, it will print the error again.
+</p>
+<p>In some cases, an upgrade may also help; run <code>sudo apk upgrade -a</code>.
+</p>
+<h3>
+<span id=".22package_not_found.22.2C_even_though_it_is_in_the_repositories"></span><span class="mw-headline" id='"package_not_found",_even_though_it_is_in_the_repositories'>"package not found", even though it is in the repositories</span>
+</h3>
+<p>You can search for packages on <a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org">pkgs.alpinelinux.org</a> (or <a rel="nofollow" class="external text" href="https://pkgs.postmarketos.org">pkgs.postmarketos.org</a> for pmOS-specific packages). If you see that a package is listed there, but you can't install it:
+</p>
+<ul>
+<li>Make sure you have a working internet connection.</li>
+<li>Run <code>sudo apk update</code> to update the repo index.</li>
+<li>Check which architectures the package is available for - it may not be available for your device. (Your device's architecture is listed in the infobox on its device page.)</li>
+<li>Check which category the package belongs to. Packages in the <code>testing</code> category are only available on postmarketOS edge.</li>
+</ul>
+<h3>
+<span id=".22ERROR:_BAD_signature.22_when_trying_to_add_a_package"></span><span class="mw-headline" id='"ERROR:_BAD_signature"_when_trying_to_add_a_package'>"ERROR: BAD signature" when trying to add a package</span>
+</h3>
+<p>This can sometimes happen if a repo mirror hasn't been fully updated yet. Run <code>sudo apk update</code> and try again, or try in a few minutes.
+</p>
+<h3>
+<span id=".22WARNING:_opening_from_cache_...:_UNTRUSTED_signature.22"></span><span class="mw-headline" id='"WARNING:_opening_from_cache_...:_UNTRUSTED_signature"'>"WARNING: opening from cache ...: UNTRUSTED signature"</span>
+</h3>
+<ul>
+<li>Make sure that your system clock is set up correctly</li>
+<li>Run <code>sudo apk update</code>
+</li>
+</ul>
+<h2><span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="../en/Pmbootstrap_Troubleshooting.html" title="Pmbootstrap/Troubleshooting">pmbootstrap/Troubleshooting</a></li>
+<li><a href="../en/How_to_report_issues.html" title="How to report issues">How to report issues</a></li>
+</ul>
+</div>
+</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../en/Category:Troubleshooting.html" title="Category:Troubleshooting">Troubleshooting</a></li>
+<li><a href="../en/Category:Technical_Reference.html" title="Category:Technical Reference">Technical Reference</a></li>
+</ul>
+</div></div>
+				</div>
+			</main>
+			
+		</div>
+		<div class="mw-footer-container">
+			
+<footer id="footer" class="mw-footer" style="margin: 0">
+	<ul id="footer-info">
+	<li data-nosnippet="">Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting_on-device_issues&amp;oldid=67545">https://wiki.postmarketos.org/index.php?title=Troubleshooting_on-device_issues&amp;oldid=67545</a>"</li>
+<li id="footer-info-lastmod"> This page was last edited on 18 December 2024, at 19:45.</li>
+	<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+<br>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="../en/About_postmarketOS.html">About postmarketOS Wiki</a></li>
+	<li id="footer-places-disclaimers"><a href="../en/PostmarketOS:General_disclaimer.html">Disclaimers</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31" loading="lazy"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="../poweredby_mediawiki.svg" alt="Powered by MediaWiki" width="88" height="31" loading="lazy"></a></li>
+</ul>
+
+</footer>
+
+		</div>
+	</div> 
+</div> 
+<div class="vector-settings" id="p-dock-bottom">
+	<ul></ul>
+</div>
+</body>
+</html>

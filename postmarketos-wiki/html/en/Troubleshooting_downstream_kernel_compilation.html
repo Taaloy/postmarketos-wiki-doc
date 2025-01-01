@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html class="client-nojs vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-sticky-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-0 vector-feature-appearance-pinned-clientpref-1 vector-feature-night-mode-disabled skin-theme-clientpref-day vector-toc-available" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Troubleshooting downstream kernel compilation - postmarketOS Wiki</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.43.0">
+<meta name="robots" content="max-image-preview:standard">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0">
+<link rel="search" type="application/opensearchdescription+xml" href="/rest.php/v1/search" title="postmarketOS Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="skin--responsive skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Troubleshooting_downstream_kernel_compilation rootpage-Troubleshooting_downstream_kernel_compilation skin-vector-2022 action-view">
+<a class="mw-jump-link" href="#bodyContent">Jump to content</a>
+<div class="vector-header-container">
+	<header class="vector-header mw-header">
+		<div class="vector-header-start">
+			<nav class="vector-main-menu-landmark" aria-label="Site">
+				
+<div id="vector-main-menu-dropdown" class="vector-dropdown vector-main-menu-dropdown vector-button-flush-left vector-button-flush-right">
+	<input type="checkbox" id="vector-main-menu-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-main-menu-dropdown" class="vector-dropdown-checkbox " aria-label="Main menu">
+	<label id="vector-main-menu-dropdown-label" for="vector-main-menu-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-menu mw-ui-icon-wikimedia-menu"></span>
+
+<span class="vector-dropdown-label-text">Main menu</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+				<div id="vector-main-menu-unpinned-container" class="vector-unpinned-container">
+		
+<div id="vector-main-menu" class="vector-main-menu vector-pinnable-element">
+	<div class="vector-pinnable-header vector-main-menu-pinnable-header vector-pinnable-header-unpinned" data-feature-name="main-menu-pinned" data-pinnable-element-id="vector-main-menu" data-pinned-container-id="vector-main-menu-pinned-container" data-unpinned-container-id="vector-main-menu-unpinned-container">
+	<div class="vector-pinnable-header-label">Main menu</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-main-menu.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-main-menu.unpin">hide</button>
+</div>
+
+	
+<div id="p-navigation" class="vector-menu mw-portlet mw-portlet-navigation">
+	<div class="vector-menu-heading">
+		Navigation
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-mainpage-description" class="mw-list-item"><a href="../en/Main_Page.html" title="Visit the main page [z]" accesskey="z"><span>Main page</span></a></li>
+<li id="n-Devices" class="mw-list-item"><a href="../en/Devices.html"><span>Devices</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	
+</div>
+
+				</div>
+
+	</div>
+</div>
+
+		</nav>
+			
+<a href="../en/Main_Page.html" class="mw-logo">
+	<img class="mw-logo-icon" src="/logo_50x50.svg" alt="" aria-hidden="true" height="50" width="50">
+	<span class="mw-logo-container skin-invert">
+		<strong class="mw-logo-wordmark">postmarketOS Wiki</strong>
+	</span>
+</a>
+
+		</div>
+		<div class="vector-header-end">
+			
+<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+	<a href="../Special:Search.html" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only search-toggle" title="Search postmarketOS Wiki [f]" accesskey="f"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search"></span>
+
+<span>Search</span>
+	</a>
+	<div class="vector-typeahead-search-container">
+		<div class="cdx-typeahead-search cdx-typeahead-search--show-thumbnail cdx-typeahead-search--auto-expand-width">
+			<form action="/index.php" id="searchform" class="cdx-search-input cdx-search-input--has-end-button">
+				<div id="simpleSearch" class="cdx-search-input__input-wrapper" data-search-loc="header-moved">
+					<div class="cdx-text-input cdx-text-input--has-start-icon">
+						<input class="cdx-text-input__input" type="search" name="search" placeholder="Search postmarketOS Wiki" aria-label="Search postmarketOS Wiki" autocapitalize="sentences" title="Search postmarketOS Wiki [f]" accesskey="f" id="searchInput">
+						<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
+					</div>
+					<input type="hidden" name="title" value="Special:Search">
+				</div>
+				<button class="cdx-button cdx-search-input__end-button">Search</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+			<nav class="vector-user-links vector-user-links-wide" aria-label="Personal tools">
+	<div class="vector-user-links-main">
+	
+<div id="p-vector-user-menu-preferences" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-userpage" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	<nav class="vector-appearance-landmark" aria-label="Appearance">
+		
+<div id="vector-appearance-dropdown" class="vector-dropdown " title="Change the appearance of the page's font size, width, and color">
+	<input type="checkbox" id="vector-appearance-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-appearance-dropdown" class="vector-dropdown-checkbox " aria-label="Appearance">
+	<label id="vector-appearance-dropdown-label" for="vector-appearance-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-appearance mw-ui-icon-wikimedia-appearance"></span>
+
+<span class="vector-dropdown-label-text">Appearance</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+			<div id="vector-appearance-unpinned-container" class="vector-unpinned-container">
+				
+			</div>
+		
+	</div>
+</div>
+
+	</nav>
+	
+<div id="p-vector-user-menu-notifications" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="pt-login-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item">
+<a data-mw="interface" href="/index.php?title=Special:UserLogin&amp;returnto=Troubleshooting+downstream+kernel+compilation" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o" class=""><span>Log in</span></a>
+</li>
+<li id="pt-createaccount-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item">
+<a data-mw="interface" href="../Special:RequestAccount.html" title="You are encouraged to create an account and log in; however, it is not mandatory" class=""><span>Request account</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	</div>
+	
+<div id="vector-user-links-dropdown" class="vector-dropdown vector-user-menu vector-button-flush-right vector-user-menu-logged-out user-links-collapsible-item" title="More options">
+	<input type="checkbox" id="vector-user-links-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-user-links-dropdown" class="vector-dropdown-checkbox " aria-label="Personal tools">
+	<label id="vector-user-links-dropdown-label" for="vector-user-links-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-ellipsis mw-ui-icon-wikimedia-ellipsis"></span>
+
+<span class="vector-dropdown-label-text">Personal tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+		
+<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal user-links-collapsible-item" title="User menu">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="pt-login" class="user-links-collapsible-item mw-list-item"><a href="/index.php?title=Special:UserLogin&amp;returnto=Troubleshooting+downstream+kernel+compilation" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o"><span class="vector-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn"></span> <span>Log in</span></a></li>
+<li id="pt-createaccount" class="user-links-collapsible-item mw-list-item"><a href="../Special:RequestAccount.html" title="You are encouraged to create an account and log in; however, it is not mandatory"><span>Request account</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+</nav>
+
+		</div>
+	</header>
+</div>
+<div class="mw-page-container">
+	<div class="mw-page-container-inner">
+		<div class="vector-sitenotice-container">
+			<div id="siteNotice"></div>
+		</div>
+		<div class="vector-column-start">
+			<div class="vector-main-menu-container">
+		</div>
+	<div class="vector-sticky-pinned-container">
+				<nav id="mw-panel-toc" aria-label="Contents" data-event-name="ui.sidebar-toc" class="mw-table-of-contents-container vector-toc-landmark">
+					<div id="vector-toc-pinned-container" class="vector-pinned-container">
+					<div id="vector-toc" class="vector-toc vector-pinnable-element">
+	<div class="vector-pinnable-header vector-toc-pinnable-header vector-pinnable-header-pinned" data-feature-name="toc-pinned" data-pinnable-element-id="vector-toc">
+	<h2 class="vector-pinnable-header-label">Contents</h2>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-toc.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-toc.unpin">hide</button>
+</div>
+
+
+	<ul class="vector-toc-contents" id="mw-panel-toc-list">
+		<li id="toc-mw-content-text" class="vector-toc-list-item vector-toc-level-1">
+			<a href="#" class="vector-toc-link">
+				<div class="vector-toc-text">Beginning</div>
+			</a>
+		</li>
+		<li id="toc-Patching_the_kernel" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Patching_the_kernel">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">1</span>
+				<span>Patching the kernel</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Patching_the_kernel-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Patching the kernel subsection</span>
+			</button>
+		
+		<ul id="toc-Patching_the_kernel-sublist" class="vector-toc-list">
+			<li id="toc-Making_patches_from_commits" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Making_patches_from_commits">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">1.1</span>
+					<span>Making patches from commits</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Making_patches_from_commits-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-Booting_the_kernel_with_specific_arguments" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Booting_the_kernel_with_specific_arguments">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">2</span>
+				<span>Booting the kernel with specific arguments</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Booting_the_kernel_with_specific_arguments-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-TLS_(SSL/HTTPS)_is_broken!" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#TLS_(SSL/HTTPS)_is_broken!">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">3</span>
+				<span>TLS (SSL/HTTPS) is broken!</span>
+			</div>
+		</a>
+		
+		<ul id="toc-TLS_(SSL/HTTPS)_is_broken!-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-Kernel_compilation_issues" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Kernel_compilation_issues">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">4</span>
+				<span>Kernel compilation issues</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Kernel_compilation_issues-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Kernel compilation issues subsection</span>
+			</button>
+		
+		<ul id="toc-Kernel_compilation_issues-sublist" class="vector-toc-list">
+			<li id="toc-PTY_allocation_request_failed" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#PTY_allocation_request_failed">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.1</span>
+					<span>PTY allocation request failed</span>
+				</div>
+			</a>
+			
+			<ul id="toc-PTY_allocation_request_failed-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-CROSS_COMPILE_ARM32_not_defined_or_empty,_the_compat_vDSO_will_not_be_built" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#CROSS_COMPILE_ARM32_not_defined_or_empty,_the_compat_vDSO_will_not_be_built">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.2</span>
+					<span>CROSS_COMPILE_ARM32 not defined or empty, the compat vDSO will not be built</span>
+				</div>
+			</a>
+			
+			<ul id="toc-CROSS_COMPILE_ARM32_not_defined_or_empty,_the_compat_vDSO_will_not_be_built-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-(some_header_file):_No_such_file_or_directory" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#(some_header_file):_No_such_file_or_directory">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.3</span>
+					<span>(some header file): No such file or directory</span>
+				</div>
+			</a>
+			
+			<ul id="toc-(some_header_file):_No_such_file_or_directory-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-linux/types.h:_No_such_file_or_directory" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#linux/types.h:_No_such_file_or_directory">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.4</span>
+					<span>linux/types.h: No such file or directory</span>
+				</div>
+			</a>
+			
+			<ul id="toc-linux/types.h:_No_such_file_or_directory-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-thumb_conditional_instruction_should_be_in_IT_block" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#thumb_conditional_instruction_should_be_in_IT_block">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.5</span>
+					<span>thumb conditional instruction should be in IT block</span>
+				</div>
+			</a>
+			
+			<ul id="toc-thumb_conditional_instruction_should_be_in_IT_block-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-BusyBox_lzma_compression_fails" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#BusyBox_lzma_compression_fails">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.6</span>
+					<span>BusyBox lzma compression fails</span>
+				</div>
+			</a>
+			
+			<ul id="toc-BusyBox_lzma_compression_fails-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-xz:_not_found" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#xz:_not_found">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.7</span>
+					<span>xz: not found</span>
+				</div>
+			</a>
+			
+			<ul id="toc-xz:_not_found-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Error:_.err_encountered_in_assembler_messages" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Error:_.err_encountered_in_assembler_messages">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.8</span>
+					<span>Error: .err encountered in assembler messages</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Error:_.err_encountered_in_assembler_messages-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Android_Kernel_compilation_fails_on_warnings_(not_on_errors)_(-Werror)" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Android_Kernel_compilation_fails_on_warnings_(not_on_errors)_(-Werror)">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.9</span>
+					<span>Android Kernel compilation fails on warnings (not on errors) (-Werror)</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Android_Kernel_compilation_fails_on_warnings_(not_on_errors)_(-Werror)-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Error:_selected_processor_does_not_support_ARM_mode_`smc_#0'" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Error:_selected_processor_does_not_support_ARM_mode_%60smc_#0'">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.10</span>
+					<span>Error: selected processor does not support ARM mode `smc #0'</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Error:_selected_processor_does_not_support_ARM_mode_`smc_#0'-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-Downstream_kernel_issues_by_manufacturer" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Downstream_kernel_issues_by_manufacturer">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">5</span>
+				<span>Downstream kernel issues by manufacturer</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Downstream_kernel_issues_by_manufacturer-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Downstream kernel issues by manufacturer subsection</span>
+			</button>
+		
+		<ul id="toc-Downstream_kernel_issues_by_manufacturer-sublist" class="vector-toc-list">
+			<li id="toc-Mediatek" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Mediatek">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.1</span>
+					<span>Mediatek</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Mediatek-sublist" class="vector-toc-list">
+				<li id="toc-../tools/dct/DrvGen:_No_such_file_or_directory" class="vector-toc-list-item vector-toc-level-3">
+			<a class="vector-toc-link" href="#../tools/dct/DrvGen:_No_such_file_or_directory">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.1.1</span>
+					<span>../tools/dct/DrvGen: No such file or directory</span>
+				</div>
+			</a>
+			
+			<ul id="toc-../tools/dct/DrvGen:_No_such_file_or_directory-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+		</li>
+		<li id="toc-Qualcomm" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Qualcomm">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.2</span>
+					<span>Qualcomm</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Qualcomm-sublist" class="vector-toc-list">
+				<li id="toc-undefined_reference_to_kgsl_iommu_sync_lock" class="vector-toc-list-item vector-toc-level-3">
+			<a class="vector-toc-link" href="#undefined_reference_to_kgsl_iommu_sync_lock">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.2.1</span>
+					<span>undefined reference to kgsl_iommu_sync_lock</span>
+				</div>
+			</a>
+			
+			<ul id="toc-undefined_reference_to_kgsl_iommu_sync_lock-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-X11_does_not_work_on_Qualcomm_devices" class="vector-toc-list-item vector-toc-level-3">
+			<a class="vector-toc-link" href="#X11_does_not_work_on_Qualcomm_devices">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.2.2</span>
+					<span>X11 does not work on Qualcomm devices</span>
+				</div>
+			</a>
+			
+			<ul id="toc-X11_does_not_work_on_Qualcomm_devices-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-MSM_framebuffer_doesn't_work" class="vector-toc-list-item vector-toc-level-3">
+			<a class="vector-toc-link" href="#MSM_framebuffer_doesn't_work">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.2.3</span>
+					<span>MSM framebuffer doesn't work</span>
+				</div>
+			</a>
+			
+			<ul id="toc-MSM_framebuffer_doesn't_work-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-Building_the_kernel_with_Android's_build_system" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Building_the_kernel_with_Android's_build_system">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">6</span>
+				<span>Building the kernel with Android's build system</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Building_the_kernel_with_Android's_build_system-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-External_resources" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#External_resources">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">7</span>
+				<span>External resources</span>
+			</div>
+		</a>
+		
+		<ul id="toc-External_resources-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+</ul>
+</div>
+
+					</div>
+		</nav>
+			</div>
+		</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body" style="margin: 0">
+				<header class="mw-body-header vector-page-titlebar">
+					<nav aria-label="Contents" class="vector-toc-landmark">
+						
+<div id="vector-page-titlebar-toc" class="vector-dropdown vector-page-titlebar-toc vector-button-flush-left">
+	<input type="checkbox" id="vector-page-titlebar-toc-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-titlebar-toc" class="vector-dropdown-checkbox " aria-label="Toggle the table of contents">
+	<label id="vector-page-titlebar-toc-label" for="vector-page-titlebar-toc-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-listBullet mw-ui-icon-wikimedia-listBullet"></span>
+
+<span class="vector-dropdown-label-text">Toggle the table of contents</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+							<div id="vector-page-titlebar-toc-unpinned-container" class="vector-unpinned-container">
+			</div>
+		
+	</div>
+</div>
+
+					</nav>
+					<h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-main">Troubleshooting downstream kernel compilation</span></h1>
+				</header>
+				<div class="vector-page-toolbar">
+					<div class="vector-page-toolbar-container">
+						<div id="left-navigation">
+							<nav aria-label="Namespaces">
+								
+<div id="p-associated-pages" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-associated-pages">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-nstab-main" class="selected vector-tab-noicon mw-list-item"><a href="../en/Troubleshooting_downstream_kernel_compilation.html" title="View the content page [c]" accesskey="c"><span>Page</span></a></li>
+<li id="ca-talk" class="new vector-tab-noicon mw-list-item"><a href="/index.php?title=Talk:Troubleshooting_downstream_kernel_compilation&amp;action=edit&amp;redlink=1" rel="discussion" class="new" title="Discussion about the content page (page does not exist) [t]" accesskey="t"><span>Discussion</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+								
+<div id="vector-variants-dropdown" class="vector-dropdown emptyPortlet">
+	<input type="checkbox" id="vector-variants-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-variants-dropdown" class="vector-dropdown-checkbox " aria-label="Change language variant">
+	<label id="vector-variants-dropdown-label" for="vector-variants-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">English</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+					
+<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+						<div id="right-navigation" class="vector-collapsible">
+							<nav aria-label="Views">
+								
+<div id="p-views" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-views">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-view" class="selected vector-tab-noicon mw-list-item"><a href="../en/Troubleshooting_downstream_kernel_compilation.html"><span>Read</span></a></li>
+<li id="ca-viewsource" class="vector-tab-noicon mw-list-item"><a href="/index.php?title=Troubleshooting_downstream_kernel_compilation&amp;action=edit" title="This page is protected.
+You can view its source [e]" accesskey="e"><span>View source</span></a></li>
+<li id="ca-history" class="vector-tab-noicon mw-list-item"><a href="/index.php?title=Troubleshooting_downstream_kernel_compilation&amp;action=history" title="Past revisions of this page [h]" accesskey="h"><span>View history</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+							</nav>
+				
+							<nav class="vector-page-tools-landmark" aria-label="Page tools">
+								
+<div id="vector-page-tools-dropdown" class="vector-dropdown vector-page-tools-dropdown">
+	<input type="checkbox" id="vector-page-tools-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-tools-dropdown" class="vector-dropdown-checkbox " aria-label="Tools">
+	<label id="vector-page-tools-dropdown-label" for="vector-page-tools-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">Tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+									<div id="vector-page-tools-unpinned-container" class="vector-unpinned-container">
+						
+<div id="vector-page-tools" class="vector-page-tools vector-pinnable-element">
+	<div class="vector-pinnable-header vector-page-tools-pinnable-header vector-pinnable-header-unpinned" data-feature-name="page-tools-pinned" data-pinnable-element-id="vector-page-tools" data-pinned-container-id="vector-page-tools-pinned-container" data-unpinned-container-id="vector-page-tools-unpinned-container">
+	<div class="vector-pinnable-header-label">Tools</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-page-tools.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-page-tools.unpin">hide</button>
+</div>
+
+	
+<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions vector-has-collapsible-items" title="More options">
+	<div class="vector-menu-heading">
+		Actions
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-more-view" class="selected vector-more-collapsible-item mw-list-item"><a href="../en/Troubleshooting_downstream_kernel_compilation.html"><span>Read</span></a></li>
+<li id="ca-more-viewsource" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Troubleshooting_downstream_kernel_compilation&amp;action=edit"><span>View source</span></a></li>
+<li id="ca-more-history" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Troubleshooting_downstream_kernel_compilation&amp;action=history"><span>View history</span></a></li>
+<li id="ca-cargo-purge" class="mw-list-item"><a href="/index.php?title=Troubleshooting_downstream_kernel_compilation&amp;action=purge"><span>Purge cache</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-tb" class="vector-menu mw-portlet mw-portlet-tb">
+	<div class="vector-menu-heading">
+		General
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="t-whatlinkshere" class="mw-list-item"><a href="../Special:WhatLinksHere_Troubleshooting_downstream_kernel_compilation.html" title="A list of all wiki pages that link here [j]" accesskey="j"><span>What links here</span></a></li>
+<li id="t-recentchangeslinked" class="mw-list-item"><a href="../Special:RecentChangesLinked_Troubleshooting_downstream_kernel_compilation.html" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k"><span>Related changes</span></a></li>
+<li id="t-specialpages" class="mw-list-item"><a href="../Special:SpecialPages.html" title="A list of all special pages [q]" accesskey="q"><span>Special pages</span></a></li>
+<li id="t-print" class="mw-list-item"><a href="javascript:print();" rel="alternate" title="Printable version of this page [p]" accesskey="p"><span>Printable version</span></a></li>
+<li id="t-permalink" class="mw-list-item"><a href="/index.php?title=Troubleshooting_downstream_kernel_compilation&amp;oldid=67475" title="Permanent link to this revision of this page"><span>Permanent link</span></a></li>
+<li id="t-info" class="mw-list-item"><a href="/index.php?title=Troubleshooting_downstream_kernel_compilation&amp;action=info" title="More information about this page"><span>Page information</span></a></li>
+<li id="t-cargopagevalueslink" class="mw-list-item"><a href="/index.php?title=Troubleshooting_downstream_kernel_compilation&amp;action=pagevalues" rel="cargo-pagevalues"><span>Cargo data</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-The_usual_wiki_links" class="vector-menu mw-portlet mw-portlet-The_usual_wiki_links">
+	<div class="vector-menu-heading">
+		The usual wiki links
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-Editor's-Guide" class="mw-list-item"><a href="../en/Help:Wiki_editor's_guide.html"><span>Editor's Guide</span></a></li>
+<li id="n-recentchanges" class="mw-list-item"><a href="../Special:RecentChanges.html" title="A list of recent changes in the wiki [r]" accesskey="r"><span>Recent changes</span></a></li>
+<li id="n-randompage" class="mw-list-item"><a href="../Special:Random.html" title="Load a random page [x]" accesskey="x"><span>Random page</span></a></li>
+<li id="n-Templates" class="mw-list-item"><a href="../en/PostmarketOS:Templates.html"><span>Templates</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+									</div>
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="vector-column-end">
+					<div class="vector-sticky-pinned-container">
+						<nav class="vector-page-tools-landmark" aria-label="Page tools">
+							<div id="vector-page-tools-pinned-container" class="vector-pinned-container">
+				
+							</div>
+		</nav>
+						<nav class="vector-appearance-landmark" aria-label="Appearance">
+							<div id="vector-appearance-pinned-container" class="vector-pinned-container">
+				<div id="vector-appearance" class="vector-appearance vector-pinnable-element">
+	<div class="vector-pinnable-header vector-appearance-pinnable-header vector-pinnable-header-pinned" data-feature-name="appearance-pinned" data-pinnable-element-id="vector-appearance" data-pinned-container-id="vector-appearance-pinned-container" data-unpinned-container-id="vector-appearance-unpinned-container">
+	<div class="vector-pinnable-header-label">Appearance</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-appearance.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-appearance.unpin">hide</button>
+</div>
+
+
+</div>
+
+							</div>
+		</nav>
+					</div>
+				</div>
+				<div id="bodyContent" class="vector-body" aria-labelledby="firstHeading" data-mw-ve-target-container>
+					<div class="vector-body-before-content">
+							<div class="mw-indicators">
+		</div>
+
+						<div id="siteSub" class="noprint">From postmarketOS Wiki</div>
+					</div>
+					<div id="contentSub"><div id="mw-content-subtitle"></div></div>
+					
+					
+					<div id="mw-content-text" class="mw-body-content">
+<div class="mw-content-ltr mw-parser-output" lang="en" dir="ltr">
+<p>Here are some common kernel compilation problems listed. For debugging a kernel that compiles, but does not boot, see <a href="../en/Troubleshooting_on-device_issues_Booting_problems.html" class="mw-redirect" title="Troubleshooting:boot">Troubleshooting:boot</a>.
+</p>
+<meta property="mw:PageProp/toc">
+<h2><span class="mw-headline" id="Patching_the_kernel">Patching the kernel</span></h2>
+<div class="hatnote" role="note" style="padding-left: 1.5em; margin-bottom: 0.5em; font-style: italic;"><i>See also: <a href="../en/Patching.html" title="Patching">Patching</a></i></div>
+<p>In many cases, the issue that you're experiencing with kernel compilation can be fixed by a patch. Sometimes, other kernels already in pmOS might've had the same issue; for example, if you get a specific error, you can look for patches that mention it in pmaports with <code>grep -iR "error message" ~/.local/var/pmbootstrap/cache_git/pmaports/device</code>.
+</p>
+<p>To apply a patch to a kernel, place the <code>.patch</code> file containing the patch in your <code>device/category/linux-vendor-flavor</code> folder and add the patch name to the <code>source</code> variable in your <code>APKBUILD</code> file.
+</p>
+<h3><span class="mw-headline" id="Making_patches_from_commits">Making patches from commits</span></h3>
+<p>If you want to apply a commit from a git repository as a patch, you have multiple options:
+</p>
+<ul>
+<li>If it's a GitHub or GitLab commit, you can get a patch file by appending <code>.patch</code> to the URL of the commit.
+<ul><li>This also works with pull requests/merge requests.</li></ul>
+</li>
+<li>You can also clone the git repository, then run <code>git format-patch -1 &lt;commit&gt;</code> (replace <code>&lt;commit&gt;</code> with the commit ID; you can also get multiple patches preceeding the given patch by changing the number from <code>1</code>).</li>
+</ul>
+<h2><span class="mw-headline" id="Booting_the_kernel_with_specific_arguments">Booting the kernel with specific arguments</span></h2>
+<p>You can configure <code>CONFIG_CMDLINE</code> so that the arguments are permanent (you may also need to set <code>CONFIG_CMDLINE_EXTEND</code> to append the cmdline to the one provided by the bootloader, or <code>CONFIG_CMDLINE_FORCE</code> to overwrite it (alternatively, unset <code>CONFIG_CMDLINE_FROM_BOOTLOADER</code>)).
+</p>
+<p>On some devices, you can change it at boot time using fastboot or pmbootstrap, for example:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>fastboot<span class="w"> </span>boot<span class="w"> </span>-c<span class="w"> </span><span class="s2">"console=ttyHSL0,115200,n8"</span>
+<span class="go">...</span>
+<span class="gp">$ </span>pmbootstrap<span class="w"> </span>flasher<span class="w"> </span>boot<span class="w"> </span>--cmdline<span class="w"> </span><span class="s2">"quiet"</span>
+</pre></div>
+<h2>
+<span id="TLS_.28SSL.2FHTTPS.29_is_broken.21"></span><span class="mw-headline" id="TLS_(SSL/HTTPS)_is_broken!">TLS (SSL/HTTPS) is broken!</span>
+</h2>
+<p>If you see messages like these, when trying to access HTTPS pages, read on:
+</p>
+<pre>Connecting to pastebin.com (104.20.209.21:443)
+ssl_client: pastebin.com: TLS connect failed
+wget: error getting response: Connection reset by peer
+</pre>
+<p>You are probably running an older kernel (pre 3.17), which does not yet have the "getrandom" syscall. This is required by modern openssl/libressl versions (Alpine was on libressl for a long time, then switched back to openssl). Check your kernel version, and if that is the case, and <a href="../en/Mainlining_Guide.html" class="mw-redirect" title="The Mainline Kernel">mainlining</a> is not feasible for you, consider backporting the getrandom syscall like done in <a rel="nofollow" class="external text" href="https://gitlab.postmarketos.org/postmarketOS/pmaports/-/merge_requests/69">pmaports!69</a>. This issue was discussed in <a rel="nofollow" class="external text" href="https://gitlab.postmarketos.org/postmarketOS/pmaports/-/issues/107">pmaports#107</a>.
+</p>
+<h2><span class="mw-headline" id="Kernel_compilation_issues">Kernel compilation issues</span></h2>
+<h3><span class="mw-headline" id="PTY_allocation_request_failed">PTY allocation request failed</span></h3>
+<pre>PTY allocation request failed on channel 0
+-ash: a: unknown operand</pre>
+<p>Go to <a href="../en/Kernel_configuration.html" title="Kernel configuration">kernel configuration</a>, you have probably missed <code>CONFIG_DEVTMPFS</code>!
+</p>
+<h3>
+<span id="CROSS_COMPILE_ARM32_not_defined_or_empty.2C_the_compat_vDSO_will_not_be_built"></span><span class="mw-headline" id="CROSS_COMPILE_ARM32_not_defined_or_empty,_the_compat_vDSO_will_not_be_built">CROSS_COMPILE_ARM32 not defined or empty, the compat vDSO will not be built</span>
+</h3>
+<p>Disable <code>CONFIG_COMPAT_VDSO</code> in the kernel config.
+</p>
+<h3>
+<span id=".28some_header_file.29:_No_such_file_or_directory"></span><span class="mw-headline" id="(some_header_file):_No_such_file_or_directory">(some header file): No such file or directory</span>
+</h3>
+<p>Busybox's <code>zip</code> implementation does not extract symlinks. There are two workarounds. One is to use another archive type (typically kernel sources are downloaded from GitHub, where you can also get the source as <code>.tar.gz</code> - simply by changing the extension in the URL).
+</p>
+<p>The other workaround is to add <code>unzip</code> to the makedepends, so it uses the original unzip instead of the busybox version.
+</p>
+<p>(This has been fixed in busybox in the meantime.)
+</p>
+<h3>
+<span id="linux.2Ftypes.h:_No_such_file_or_directory"></span><span class="mw-headline" id="linux/types.h:_No_such_file_or_directory">linux/types.h: No such file or directory</span>
+</h3>
+<p>Add <code>linux-headers</code> to makedepends of linux-* APKBUILD.
+</p>
+<h3><span class="mw-headline" id="thumb_conditional_instruction_should_be_in_IT_block">thumb conditional instruction should be in IT block</span></h3>
+<pre>arch/arm/crypto/aesbs-core.S:449: Error: thumb conditional instruction should be in IT block -- `addeq r6,r6,#0x10'
+arch/arm/crypto/aesbs-core.S:904: Error: thumb conditional instruction should be in IT block -- `addeq r6,r6,#0x10'
+arch/arm/crypto/aesbs-core.S:2100: Error: thumb conditional instruction should be in IT block -- `subne r9,#0x10'
+</pre>
+<p>You can fix it by disabling <code>CONFIG_CRYPTO_AES_ARM_BS</code> with:
+</p>
+<div class="mw-highlight mw-highlight-lang-bash mw-content-ltr" dir="ltr"><pre><span></span>pmbootstrap<span class="w"> </span>kconfig<span class="w"> </span>edit
+</pre></div>
+<p>Then go to <code>Cryptographic API</code> and disable <code>Bit sliced AES using NEON instructions</code>.
+</p>
+<p>On some other devices, like Huawei P7, you might also need to disable all CRYPTO flags containing ARM (<code>CONFIG_CRYPTO_{algorithm name}_ARM</code>), which are ARM NEON optimizations.
+</p>
+<p>This was first noticed in <a rel="nofollow" class="external text" href="https://gitlab.postmarketos.org/postmarketOS/pmaports/-/merge_requests/144">pmaports!144</a>.
+</p>
+<h3><span class="mw-headline" id="BusyBox_lzma_compression_fails">BusyBox lzma compression fails</span></h3>
+<p>In case you get the following output:
+</p>
+<pre>LZMA    arch/arm/boot/compressed/piggy.lzma
+lzma: unrecognized option: 9
+BusyBox v1.26.2 (2017-06-11 06:37:13 GMT) multi-call binary.
+
+Usage: lzma -d [-cf] [FILE]...
+
+Decompress FILE (or stdin)
+
+        -d      Decompress
+        -c      Write to stdout
+        -f      Force</pre>
+<p>In the BusyBox version shipped with Alpine Linux, only lower compression levels are enabled (to reduce the binary size). The kernel you're building is configured to compress with LZMA at the highest compression level. Pick one of the following solutions:
+</p>
+<ul>
+<li>Add <code>xz</code> to the <code>makedepends=</code> line. Then the "real" lzma binary will be used instead of the Busybox version. This is <b>recommended</b>, because then your kernel will get built most similar to how it is built elsewhere, so you have the lowest risk of introducing a reason for the kernel not to boot (because the kernel is too big in size or something like that)</li>
+<li>Reduce the compression ratio by adding <a rel="nofollow" class="external text" href="https://gitlab.postmarketos.org/postmarketOS/pmaports/-/blob/master/device/testing/linux-samsung-i9070/02_reduce_lzo_compression.patch">this patch</a>. This will not introduce any dependency, but increase the kernel size.</li>
+<li>Use another compression algorithm (run <code>pmbootstrap menuconfig linux-...</code> and change it there). Gzip should work, but will produce a big kernel, because pmbootstrap currently installs a workaround to always use the fastest compression method (<code>-1</code>), when the most compressing one (<code>-9</code>) is chosen. This will increase the kernel size the most.</li>
+</ul>
+<h3><span class="mw-headline" id="xz:_not_found">xz: not found</span></h3>
+<p>If you see something like this in the logs:
+</p>
+<pre>  XZKERN  arch/arm/boot/compressed/piggy.xzkern
+/home/pmos/build/src/android_kernel_samsung_msm8226-3fa1853ed5d6c3a8ef5a2fda9822705243bbc256/scripts/xz_wrap.sh: exec: line 23: xz: not found
+</pre>
+<p>It's similar to the "BusyBox lzma compression fails" issue above: some things are compressed with LZMA and will need <code>xz</code> installed. Add it to the <code>makedepends</code> of your <code>APKBUILD</code>.
+</p>
+<h3><span class="mw-headline" id="Error:_.err_encountered_in_assembler_messages">Error: .err encountered in assembler messages</span></h3>
+<p>If compilation errors out on something like this in logs:
+</p>
+<pre>/tmp/ccmAkEIJ.s: Assembler messages:
+/tmp/ccmAkEIJ.s:2280: Error: .err encountered
+</pre>
+<p>Then <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Downstream_kernel_specific_package#GCC_version">older version of GCC</a> should be used for compilation.
+</p>
+<h3>
+<span id="Android_Kernel_compilation_fails_on_warnings_.28not_on_errors.29_.28-Werror.29"></span><span class="mw-headline" id="Android_Kernel_compilation_fails_on_warnings_(not_on_errors)_(-Werror)">Android Kernel compilation fails on warnings (not on errors) (-Werror)</span>
+</h3>
+<p>Don't even bother fixing all those warnings, there are too many of them and we don't want the outdated Android kernels in the long run anyway! When you generate your kernel APKBUILD with <code>pmbootstrap init</code>, then you should have code in the <code>prepare()</code> that automatically removes the <code>-Werror</code> parameter in all Makefiles.
+</p>
+<p>Example from <a rel="nofollow" class="external text" href="https://gitlab.postmarketos.org/postmarketOS/pmaports/-/blob/master/device/testing/linux-asus-z00vd/APKBUILD">linux-asus-z00vd</a>:
+</p>
+<div class="mw-highlight mw-highlight-lang-bash mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># Remove -Werror from all makefiles</span>
+<span class="nb">local</span><span class="w"> </span>i
+<span class="nb">local</span><span class="w"> </span><span class="nv">makefiles</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span>Makefile<span class="k">)</span>
+<span class="s2">    </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span>Kbuild<span class="k">)</span><span class="s2">"</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$makefiles</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s/-Werror-/-W/g'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$i</span><span class="s2">"</span>
+<span class="w">    </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s/-Werror//g'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$i</span><span class="s2">"</span>
+<span class="k">done</span>
+</pre></div>
+<h3>
+<span id="Error:_selected_processor_does_not_support_ARM_mode_.60smc_.230.27"></span><span class="mw-headline" id="Error:_selected_processor_does_not_support_ARM_mode_`smc_#0'">Error: selected processor does not support ARM mode `smc #0'</span>
+</h3>
+<p>Try this patch: <a rel="nofollow" class="external free" href="https://github.com/imoseyon/leanKernel-galaxy-nexus/pull/6">https://github.com/imoseyon/leanKernel-galaxy-nexus/pull/6</a>
+</p>
+<h2><span class="mw-headline" id="Downstream_kernel_issues_by_manufacturer">Downstream kernel issues by manufacturer</span></h2>
+<h3><span class="mw-headline" id="Mediatek">Mediatek</span></h3>
+<h4>
+<span id="...2Ftools.2Fdct.2FDrvGen:_No_such_file_or_directory"></span><span class="mw-headline" id="../tools/dct/DrvGen:_No_such_file_or_directory">../tools/dct/DrvGen: No such file or directory</span>
+</h4>
+<p>This error is specific to Mediatek kernels and it occures when DrvGen tries to load libc6.so library it has been linked against but Alpine chroot doesn't support libc.
+One of the solutions is to copy <a rel="nofollow" class="external text" href="https://gitlab.postmarketos.org/postmarketOS/pmaports/-/blob/master/device/testing/linux-vernee-k506/python3dct.patch">python3dct.patch</a> to your linux-... directory and activate it in the APKBUILD. This patch replaces precompiled DrvGen with a python3 version.
+</p>
+<h3><span class="mw-headline" id="Qualcomm">Qualcomm</span></h3>
+<h4><span class="mw-headline" id="undefined_reference_to_kgsl_iommu_sync_lock">undefined reference to kgsl_iommu_sync_lock</span></h4>
+<pre>drivers/built-in.o:(.data.rel+0x68c): undefined reference to kgsl_iommu_sync_lock'
+drivers/built-in.o:(.data.rel+0x690): undefined reference to kgsl_iommu_sync_unlock'</pre>
+<p>You need to apply the <a rel="nofollow" class="external text" href="https://gitlab.postmarketos.org/postmarketOS/pmaports/-/blob/master/device/testing/linux-lg-mako/02_gpu-msm-fix-gcc5-compile.patch">gpu-msm-fix-gcc5-compile.patch</a> patch.
+</p>
+<h4><span class="mw-headline" id="X11_does_not_work_on_Qualcomm_devices">X11 does not work on Qualcomm devices</span></h4>
+<p>Try apply this <a rel="nofollow" class="external text" href="https://gitlab/postmarketOS/pmaports/-/blob/master/device/testing/linux-xiaomi-santoni/fix-xorg-mdss-update-fb-info.patch">patch</a>.
+</p>
+<h4>
+<span id="MSM_framebuffer_doesn.27t_work"></span><span class="mw-headline" id="MSM_framebuffer_doesn't_work">MSM framebuffer doesn't work</span>
+</h4>
+<p>We found out that removing the 3D driver support makes the MSM framebuffer work. See <a rel="nofollow" class="external text" href="https://gitlab.postmarketos.org/postmarketOS/pmbootstrap/-/merge_requests/66">!66</a>.
+</p>
+<pre>CONFIG_MSM_KGSL=n</pre>
+<h2>
+<span id="Building_the_kernel_with_Android.27s_build_system"></span><span class="mw-headline" id="Building_the_kernel_with_Android's_build_system">Building the kernel with Android's build system</span>
+</h2>
+<p>It might be useful for debugging to build Android's kernel with Android's build system.
+</p>
+<p>You can follow the LineageOS building guide for your device (see <a rel="nofollow" class="external text" href="https://wiki.lineageos.org/devices/titan/build">this</a> for titan device as example).
+</p>
+<p>The process should be similar for other devices:
+</p>
+<div class="mw-highlight mw-highlight-lang-bash mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># make some directories</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>~/bin
+mkdir<span class="w"> </span>-p<span class="w"> </span>~/android/lineage
+
+<span class="c1"># download the 'repo' tool</span>
+curl<span class="w"> </span>https://storage.googleapis.com/git-repo-downloads/repo<span class="w"> </span>&gt;<span class="w"> </span>~/bin/repo
+chmod<span class="w"> </span>a+x<span class="w"> </span>~/bin/repo
+
+<span class="c1"># clone LineageOS</span>
+<span class="nb">cd</span><span class="w"> </span>~/android/lineage
+~/bin/repo<span class="w"> </span>init<span class="w"> </span>-u<span class="w"> </span>https://github.com/LineageOS/android.git<span class="w"> </span>-b<span class="w"> </span>cm-14.1
+
+<span class="c1"># Download the rest of dependencies (this will take a while and about *TODO* GB of disk space)</span>
+~/bin/repo<span class="w"> </span>sync
+
+<span class="c1"># now prepare the build for your device (replace 'titan' with the device you want to for the kernel for)</span>
+<span class="nb">source</span><span class="w"> </span>build/envsetup.sh
+breakfast<span class="w"> </span>titan
+
+<span class="c1"># Now instead of following the rest of the guide (which will compile both Android and the kernel</span>
+<span class="c1">#  for your device), simply compile the kernel:</span>
+mka<span class="w"> </span>kernel
+
+<span class="c1"># This command will also generate the device tree, initramfs and boot.img images</span>
+mka<span class="w"> </span>bootimage
+</pre></div>
+<p>You can check the <code>$OUT</code> environment variable and cd into it. In the case of titan the interesting generated files are:
+</p>
+<ul>
+<li>
+<code>~/android/lineage/out/target/product/titan/boot.img</code> (boot image ready to be flashed: kernel + initramfs)</li>
+<li>
+<code>~/android/lineage/out/target/product/titan/dt.img</code> (device trees)</li>
+<li>
+<code>~/android/lineage/out/target/product/titan/kernel</code> (linux image)</li>
+<li>
+<code>~/android/lineage/out/target/product/titan/ramdisk.img</code> (compressed initramfs)</li>
+</ul>
+<p>The defconfig used is available at <code>~/android/lineage/kernel/motorola/msm8226/arch/arm/configs/titan_defconfig</code>
+</p>
+<h2><span class="mw-headline" id="External_resources">External resources</span></h2>
+<ul><li><a rel="nofollow" class="external text" href="http://docs.halium.org/en/latest/porting/common-kernel-build-errors.html">Halium Docs</a></li></ul>
+</div>
+</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Categories</a>: <ul>
+<li><a href="../en/Category:Pages_using_deprecated_source_tags.html" title="Category:Pages using deprecated source tags">Pages using deprecated source tags</a></li>
+<li><a href="../en/Category:Troubleshooting.html" title="Category:Troubleshooting">Troubleshooting</a></li>
+</ul>
+</div></div>
+				</div>
+			</main>
+			
+		</div>
+		<div class="mw-footer-container">
+			
+<footer id="footer" class="mw-footer" style="margin: 0">
+	<ul id="footer-info">
+	<li data-nosnippet="">Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting_downstream_kernel_compilation&amp;oldid=67475">https://wiki.postmarketos.org/index.php?title=Troubleshooting_downstream_kernel_compilation&amp;oldid=67475</a>"</li>
+<li id="footer-info-lastmod"> This page was last edited on 17 December 2024, at 14:24.</li>
+	<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+<br>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="../en/About_postmarketOS.html">About postmarketOS Wiki</a></li>
+	<li id="footer-places-disclaimers"><a href="../en/PostmarketOS:General_disclaimer.html">Disclaimers</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31" loading="lazy"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="../poweredby_mediawiki.svg" alt="Powered by MediaWiki" width="88" height="31" loading="lazy"></a></li>
+</ul>
+
+</footer>
+
+		</div>
+	</div> 
+</div> 
+<div class="vector-settings" id="p-dock-bottom">
+	<ul></ul>
+</div>
+</body>
+</html>

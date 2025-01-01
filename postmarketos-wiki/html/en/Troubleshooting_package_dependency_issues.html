@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html class="client-nojs vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-sticky-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-0 vector-feature-appearance-pinned-clientpref-1 vector-feature-night-mode-disabled skin-theme-clientpref-day vector-toc-available" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Troubleshooting package dependency issues - postmarketOS Wiki</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.43.0">
+<meta name="robots" content="max-image-preview:standard">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0">
+<link rel="search" type="application/opensearchdescription+xml" href="/rest.php/v1/search" title="postmarketOS Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="skin--responsive skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Troubleshooting_package_dependency_issues rootpage-Troubleshooting_package_dependency_issues skin-vector-2022 action-view">
+<a class="mw-jump-link" href="#bodyContent">Jump to content</a>
+<div class="vector-header-container">
+	<header class="vector-header mw-header">
+		<div class="vector-header-start">
+			<nav class="vector-main-menu-landmark" aria-label="Site">
+				
+<div id="vector-main-menu-dropdown" class="vector-dropdown vector-main-menu-dropdown vector-button-flush-left vector-button-flush-right">
+	<input type="checkbox" id="vector-main-menu-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-main-menu-dropdown" class="vector-dropdown-checkbox " aria-label="Main menu">
+	<label id="vector-main-menu-dropdown-label" for="vector-main-menu-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-menu mw-ui-icon-wikimedia-menu"></span>
+
+<span class="vector-dropdown-label-text">Main menu</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+				<div id="vector-main-menu-unpinned-container" class="vector-unpinned-container">
+		
+<div id="vector-main-menu" class="vector-main-menu vector-pinnable-element">
+	<div class="vector-pinnable-header vector-main-menu-pinnable-header vector-pinnable-header-unpinned" data-feature-name="main-menu-pinned" data-pinnable-element-id="vector-main-menu" data-pinned-container-id="vector-main-menu-pinned-container" data-unpinned-container-id="vector-main-menu-unpinned-container">
+	<div class="vector-pinnable-header-label">Main menu</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-main-menu.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-main-menu.unpin">hide</button>
+</div>
+
+	
+<div id="p-navigation" class="vector-menu mw-portlet mw-portlet-navigation">
+	<div class="vector-menu-heading">
+		Navigation
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-mainpage-description" class="mw-list-item"><a href="../en/Main_Page.html" title="Visit the main page [z]" accesskey="z"><span>Main page</span></a></li>
+<li id="n-Devices" class="mw-list-item"><a href="../en/Devices.html"><span>Devices</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	
+</div>
+
+				</div>
+
+	</div>
+</div>
+
+		</nav>
+			
+<a href="../en/Main_Page.html" class="mw-logo">
+	<img class="mw-logo-icon" src="/logo_50x50.svg" alt="" aria-hidden="true" height="50" width="50">
+	<span class="mw-logo-container skin-invert">
+		<strong class="mw-logo-wordmark">postmarketOS Wiki</strong>
+	</span>
+</a>
+
+		</div>
+		<div class="vector-header-end">
+			
+<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+	<a href="../Special:Search.html" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only search-toggle" title="Search postmarketOS Wiki [f]" accesskey="f"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search"></span>
+
+<span>Search</span>
+	</a>
+	<div class="vector-typeahead-search-container">
+		<div class="cdx-typeahead-search cdx-typeahead-search--show-thumbnail cdx-typeahead-search--auto-expand-width">
+			<form action="/index.php" id="searchform" class="cdx-search-input cdx-search-input--has-end-button">
+				<div id="simpleSearch" class="cdx-search-input__input-wrapper" data-search-loc="header-moved">
+					<div class="cdx-text-input cdx-text-input--has-start-icon">
+						<input class="cdx-text-input__input" type="search" name="search" placeholder="Search postmarketOS Wiki" aria-label="Search postmarketOS Wiki" autocapitalize="sentences" title="Search postmarketOS Wiki [f]" accesskey="f" id="searchInput">
+						<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
+					</div>
+					<input type="hidden" name="title" value="Special:Search">
+				</div>
+				<button class="cdx-button cdx-search-input__end-button">Search</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+			<nav class="vector-user-links vector-user-links-wide" aria-label="Personal tools">
+	<div class="vector-user-links-main">
+	
+<div id="p-vector-user-menu-preferences" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-userpage" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	<nav class="vector-appearance-landmark" aria-label="Appearance">
+		
+<div id="vector-appearance-dropdown" class="vector-dropdown " title="Change the appearance of the page's font size, width, and color">
+	<input type="checkbox" id="vector-appearance-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-appearance-dropdown" class="vector-dropdown-checkbox " aria-label="Appearance">
+	<label id="vector-appearance-dropdown-label" for="vector-appearance-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-appearance mw-ui-icon-wikimedia-appearance"></span>
+
+<span class="vector-dropdown-label-text">Appearance</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+			<div id="vector-appearance-unpinned-container" class="vector-unpinned-container">
+				
+			</div>
+		
+	</div>
+</div>
+
+	</nav>
+	
+<div id="p-vector-user-menu-notifications" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="pt-login-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item">
+<a data-mw="interface" href="/index.php?title=Special:UserLogin&amp;returnto=Troubleshooting+package+dependency+issues" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o" class=""><span>Log in</span></a>
+</li>
+<li id="pt-createaccount-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item">
+<a data-mw="interface" href="../Special:RequestAccount.html" title="You are encouraged to create an account and log in; however, it is not mandatory" class=""><span>Request account</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	</div>
+	
+<div id="vector-user-links-dropdown" class="vector-dropdown vector-user-menu vector-button-flush-right vector-user-menu-logged-out user-links-collapsible-item" title="More options">
+	<input type="checkbox" id="vector-user-links-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-user-links-dropdown" class="vector-dropdown-checkbox " aria-label="Personal tools">
+	<label id="vector-user-links-dropdown-label" for="vector-user-links-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-ellipsis mw-ui-icon-wikimedia-ellipsis"></span>
+
+<span class="vector-dropdown-label-text">Personal tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+		
+<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal user-links-collapsible-item" title="User menu">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="pt-login" class="user-links-collapsible-item mw-list-item"><a href="/index.php?title=Special:UserLogin&amp;returnto=Troubleshooting+package+dependency+issues" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o"><span class="vector-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn"></span> <span>Log in</span></a></li>
+<li id="pt-createaccount" class="user-links-collapsible-item mw-list-item"><a href="../Special:RequestAccount.html" title="You are encouraged to create an account and log in; however, it is not mandatory"><span>Request account</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+</nav>
+
+		</div>
+	</header>
+</div>
+<div class="mw-page-container">
+	<div class="mw-page-container-inner">
+		<div class="vector-sitenotice-container">
+			<div id="siteNotice"></div>
+		</div>
+		<div class="vector-column-start">
+			<div class="vector-main-menu-container">
+		</div>
+	<div class="vector-sticky-pinned-container">
+				<nav id="mw-panel-toc" aria-label="Contents" data-event-name="ui.sidebar-toc" class="mw-table-of-contents-container vector-toc-landmark">
+					<div id="vector-toc-pinned-container" class="vector-pinned-container">
+					<div id="vector-toc" class="vector-toc vector-pinnable-element">
+	<div class="vector-pinnable-header vector-toc-pinnable-header vector-pinnable-header-pinned" data-feature-name="toc-pinned" data-pinnable-element-id="vector-toc">
+	<h2 class="vector-pinnable-header-label">Contents</h2>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-toc.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-toc.unpin">hide</button>
+</div>
+
+
+	<ul class="vector-toc-contents" id="mw-panel-toc-list">
+		<li id="toc-mw-content-text" class="vector-toc-list-item vector-toc-level-1">
+			<a href="#" class="vector-toc-link">
+				<div class="vector-toc-text">Beginning</div>
+			</a>
+		</li>
+		<li id="toc-Why_does_this_happen?" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Why_does_this_happen?">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">1</span>
+				<span>Why does this happen?</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Why_does_this_happen?-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Why does this happen? subsection</span>
+			</button>
+		
+		<ul id="toc-Why_does_this_happen?-sublist" class="vector-toc-list">
+			<li id="toc-Alpine_Linux" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Alpine_Linux">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">1.1</span>
+					<span>Alpine Linux</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Alpine_Linux-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-postmarketOS" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#postmarketOS">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">1.2</span>
+					<span>postmarketOS</span>
+				</div>
+			</a>
+			
+			<ul id="toc-postmarketOS-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-Update_your_package_index" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Update_your_package_index">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">2</span>
+				<span>Update your package index</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Update_your_package_index-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-Find_the_package_name" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Find_the_package_name">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">3</span>
+				<span>Find the package name</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Find_the_package_name-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Find the package name subsection</span>
+			</button>
+		
+		<ul id="toc-Find_the_package_name-sublist" class="vector-toc-list">
+			<li id="toc-apk" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#apk">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">3.1</span>
+					<span>apk</span>
+				</div>
+			</a>
+			
+			<ul id="toc-apk-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-pmbootstrap" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#pmbootstrap">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">3.2</span>
+					<span>pmbootstrap</span>
+				</div>
+			</a>
+			
+			<ul id="toc-pmbootstrap-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-Find_out_where_the_package_comes_from" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Find_out_where_the_package_comes_from">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">4</span>
+				<span>Find out where the package comes from</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Find_out_where_the_package_comes_from-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-Trigger_a_rebuild" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Trigger_a_rebuild">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">5</span>
+				<span>Trigger a rebuild</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Trigger_a_rebuild-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Trigger a rebuild subsection</span>
+			</button>
+		
+		<ul id="toc-Trigger_a_rebuild-sublist" class="vector-toc-list">
+			<li id="toc-postmarketOS_2" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#postmarketOS_2">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.1</span>
+					<span>postmarketOS</span>
+				</div>
+			</a>
+			
+			<ul id="toc-postmarketOS_2-sublist" class="vector-toc-list">
+				<li id="toc-Cross_compilers" class="vector-toc-list-item vector-toc-level-3">
+			<a class="vector-toc-link" href="#Cross_compilers">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.1.1</span>
+					<span>Cross compilers</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Cross_compilers-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+		</li>
+		<li id="toc-Alpine_Linux_2" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Alpine_Linux_2">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.2</span>
+					<span>Alpine Linux</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Alpine_Linux_2-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-See_also" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#See_also">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">6</span>
+				<span>See also</span>
+			</div>
+		</a>
+		
+		<ul id="toc-See_also-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+</ul>
+</div>
+
+					</div>
+		</nav>
+			</div>
+		</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body" style="margin: 0">
+				<header class="mw-body-header vector-page-titlebar">
+					<nav aria-label="Contents" class="vector-toc-landmark">
+						
+<div id="vector-page-titlebar-toc" class="vector-dropdown vector-page-titlebar-toc vector-button-flush-left">
+	<input type="checkbox" id="vector-page-titlebar-toc-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-titlebar-toc" class="vector-dropdown-checkbox " aria-label="Toggle the table of contents">
+	<label id="vector-page-titlebar-toc-label" for="vector-page-titlebar-toc-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-listBullet mw-ui-icon-wikimedia-listBullet"></span>
+
+<span class="vector-dropdown-label-text">Toggle the table of contents</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+							<div id="vector-page-titlebar-toc-unpinned-container" class="vector-unpinned-container">
+			</div>
+		
+	</div>
+</div>
+
+					</nav>
+					<h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-main">Troubleshooting package dependency issues</span></h1>
+				</header>
+				<div class="vector-page-toolbar">
+					<div class="vector-page-toolbar-container">
+						<div id="left-navigation">
+							<nav aria-label="Namespaces">
+								
+<div id="p-associated-pages" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-associated-pages">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-nstab-main" class="selected vector-tab-noicon mw-list-item"><a href="../en/Troubleshooting_package_dependency_issues.html" title="View the content page [c]" accesskey="c"><span>Page</span></a></li>
+<li id="ca-talk" class="new vector-tab-noicon mw-list-item"><a href="/index.php?title=Talk:Troubleshooting_package_dependency_issues&amp;action=edit&amp;redlink=1" rel="discussion" class="new" title="Discussion about the content page (page does not exist) [t]" accesskey="t"><span>Discussion</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+								
+<div id="vector-variants-dropdown" class="vector-dropdown emptyPortlet">
+	<input type="checkbox" id="vector-variants-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-variants-dropdown" class="vector-dropdown-checkbox " aria-label="Change language variant">
+	<label id="vector-variants-dropdown-label" for="vector-variants-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">English</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+					
+<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+						<div id="right-navigation" class="vector-collapsible">
+							<nav aria-label="Views">
+								
+<div id="p-views" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-views">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-view" class="selected vector-tab-noicon mw-list-item"><a href="../en/Troubleshooting_package_dependency_issues.html"><span>Read</span></a></li>
+<li id="ca-viewsource" class="vector-tab-noicon mw-list-item"><a href="/index.php?title=Troubleshooting_package_dependency_issues&amp;action=edit" title="This page is protected.
+You can view its source [e]" accesskey="e"><span>View source</span></a></li>
+<li id="ca-history" class="vector-tab-noicon mw-list-item"><a href="/index.php?title=Troubleshooting_package_dependency_issues&amp;action=history" title="Past revisions of this page [h]" accesskey="h"><span>View history</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+							</nav>
+				
+							<nav class="vector-page-tools-landmark" aria-label="Page tools">
+								
+<div id="vector-page-tools-dropdown" class="vector-dropdown vector-page-tools-dropdown">
+	<input type="checkbox" id="vector-page-tools-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-tools-dropdown" class="vector-dropdown-checkbox " aria-label="Tools">
+	<label id="vector-page-tools-dropdown-label" for="vector-page-tools-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">Tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+									<div id="vector-page-tools-unpinned-container" class="vector-unpinned-container">
+						
+<div id="vector-page-tools" class="vector-page-tools vector-pinnable-element">
+	<div class="vector-pinnable-header vector-page-tools-pinnable-header vector-pinnable-header-unpinned" data-feature-name="page-tools-pinned" data-pinnable-element-id="vector-page-tools" data-pinned-container-id="vector-page-tools-pinned-container" data-unpinned-container-id="vector-page-tools-unpinned-container">
+	<div class="vector-pinnable-header-label">Tools</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-page-tools.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-page-tools.unpin">hide</button>
+</div>
+
+	
+<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions vector-has-collapsible-items" title="More options">
+	<div class="vector-menu-heading">
+		Actions
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-more-view" class="selected vector-more-collapsible-item mw-list-item"><a href="../en/Troubleshooting_package_dependency_issues.html"><span>Read</span></a></li>
+<li id="ca-more-viewsource" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Troubleshooting_package_dependency_issues&amp;action=edit"><span>View source</span></a></li>
+<li id="ca-more-history" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Troubleshooting_package_dependency_issues&amp;action=history"><span>View history</span></a></li>
+<li id="ca-cargo-purge" class="mw-list-item"><a href="/index.php?title=Troubleshooting_package_dependency_issues&amp;action=purge"><span>Purge cache</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-tb" class="vector-menu mw-portlet mw-portlet-tb">
+	<div class="vector-menu-heading">
+		General
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="t-whatlinkshere" class="mw-list-item"><a href="../Special:WhatLinksHere_Troubleshooting_package_dependency_issues.html" title="A list of all wiki pages that link here [j]" accesskey="j"><span>What links here</span></a></li>
+<li id="t-recentchangeslinked" class="mw-list-item"><a href="../Special:RecentChangesLinked_Troubleshooting_package_dependency_issues.html" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k"><span>Related changes</span></a></li>
+<li id="t-specialpages" class="mw-list-item"><a href="../Special:SpecialPages.html" title="A list of all special pages [q]" accesskey="q"><span>Special pages</span></a></li>
+<li id="t-print" class="mw-list-item"><a href="javascript:print();" rel="alternate" title="Printable version of this page [p]" accesskey="p"><span>Printable version</span></a></li>
+<li id="t-permalink" class="mw-list-item"><a href="/index.php?title=Troubleshooting_package_dependency_issues&amp;oldid=67383" title="Permanent link to this revision of this page"><span>Permanent link</span></a></li>
+<li id="t-info" class="mw-list-item"><a href="/index.php?title=Troubleshooting_package_dependency_issues&amp;action=info" title="More information about this page"><span>Page information</span></a></li>
+<li id="t-cargopagevalueslink" class="mw-list-item"><a href="/index.php?title=Troubleshooting_package_dependency_issues&amp;action=pagevalues" rel="cargo-pagevalues"><span>Cargo data</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-The_usual_wiki_links" class="vector-menu mw-portlet mw-portlet-The_usual_wiki_links">
+	<div class="vector-menu-heading">
+		The usual wiki links
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-Editor's-Guide" class="mw-list-item"><a href="../en/Help:Wiki_editor's_guide.html"><span>Editor's Guide</span></a></li>
+<li id="n-recentchanges" class="mw-list-item"><a href="../Special:RecentChanges.html" title="A list of recent changes in the wiki [r]" accesskey="r"><span>Recent changes</span></a></li>
+<li id="n-randompage" class="mw-list-item"><a href="../Special:Random.html" title="Load a random page [x]" accesskey="x"><span>Random page</span></a></li>
+<li id="n-Templates" class="mw-list-item"><a href="../en/PostmarketOS:Templates.html"><span>Templates</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+									</div>
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="vector-column-end">
+					<div class="vector-sticky-pinned-container">
+						<nav class="vector-page-tools-landmark" aria-label="Page tools">
+							<div id="vector-page-tools-pinned-container" class="vector-pinned-container">
+				
+							</div>
+		</nav>
+						<nav class="vector-appearance-landmark" aria-label="Appearance">
+							<div id="vector-appearance-pinned-container" class="vector-pinned-container">
+				<div id="vector-appearance" class="vector-appearance vector-pinnable-element">
+	<div class="vector-pinnable-header vector-appearance-pinnable-header vector-pinnable-header-pinned" data-feature-name="appearance-pinned" data-pinnable-element-id="vector-appearance" data-pinned-container-id="vector-appearance-pinned-container" data-unpinned-container-id="vector-appearance-unpinned-container">
+	<div class="vector-pinnable-header-label">Appearance</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-appearance.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-appearance.unpin">hide</button>
+</div>
+
+
+</div>
+
+							</div>
+		</nav>
+					</div>
+				</div>
+				<div id="bodyContent" class="vector-body" aria-labelledby="firstHeading" data-mw-ve-target-container>
+					<div class="vector-body-before-content">
+							<div class="mw-indicators">
+		</div>
+
+						<div id="siteSub" class="noprint">From postmarketOS Wiki</div>
+					</div>
+					<div id="contentSub"><div id="mw-content-subtitle"></div></div>
+					
+					
+					<div id="mw-content-text" class="mw-body-content">
+<div class="mw-content-ltr mw-parser-output" lang="en" dir="ltr">
+<p>Here's a step-by-step guide to resolving <code>Could not find dependency</code> errors coming from <code>pmbootstrap</code>, as well as <code>unsatisfiable constraints</code> errors coming from <code>apk</code>.
+</p>
+<meta property="mw:PageProp/toc">
+<h2>
+<span id="Why_does_this_happen.3F"></span><span class="mw-headline" id="Why_does_this_happen?">Why does this happen?</span>
+</h2>
+<p>The errors indicate that there is an issue with the binary package repositories either of postmarketOS or of Alpine Linux. pmOS Edge is built upon Alpine's "edge" repository (as in <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Bleeding_edge_technology">bleeding edge</a>), so a certain amount of breakage is expected.
+</p>
+<p>In most cases a library (e.g. <code>libcrypto.so</code> from libressl/openssl) has been updated with an incompatible change (<a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Soname">soname bump</a>), and a package that was built against the previous version did not get rebuilt yet.
+</p>
+<p>Triggering rebuilds is done by both Alpine and pmOS by increasing the <code>pkgrel</code> in the <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/APKBUILD_Reference"><code>APKBUILD</code></a>.
+</p>
+<h3><span class="mw-headline" id="Alpine_Linux">Alpine Linux</span></h3>
+<p>The package maintainers from Alpine trigger a rebuild for all packages that depend on a certain library at the same time as they update that library. But building packages takes time, and when a big number of packages depend on such a library, build bots may even get stuck at a package that used to compile fine a few months ago, but doesn't compile in the current environment (let's say because they don't build with the latest GCC version that Alpine has packaged).
+</p>
+<p>There is a dedicated build bot for each architecture and branch combination (e.g. <code>build-edge-armhf</code>), and once it is stuck, it won't continue with compiling other packages in the queue. If you have some time to spare, you could actually help out with getting these packages to compile again by finding out which one is failing on <a rel="nofollow" class="external text" href="http://build.alpinelinux.org/">build.alpinelinux.org</a> (click the packages to see the build logs) and assisting Alpine developers in <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/Alpine_Linux:IRC">#alpine-devel</a>. However, the quick workaround is rebuilding just the packages you need, as explained below.
+</p>
+<h3><span class="mw-headline" id="postmarketOS">postmarketOS</span></h3>
+<p>For postmarketOS packages, we need to trigger the rebuild manually, as soon as a library gets updated in Alpine on which one of our packages depend. We have a test case in place, that detects such breakage and we fix it in <code>master</code> and our binary repository as soon as we see it, typically within a day.
+</p>
+<h2><span class="mw-headline" id="Update_your_package_index">Update your package index</span></h2>
+<p>Maybe the issue has already been resolved in the package repositories of postmarketOS or Alpine. <code>pmbootstrap</code> will automatically download the newest package indexes when they are older than four hours. Force it to download the currrent index files with:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>pmbootstrap<span class="w"> </span>update
+</pre></div>
+<p>From inside the postmarketOS installation, you can do the same with:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>sudo<span class="w"> </span>apk<span class="w"> </span>update
+</pre></div>
+<h2><span class="mw-headline" id="Find_the_package_name">Find the package name</span></h2>
+<h3><span class="mw-headline" id="apk">apk</span></h3>
+<p>All packages are mentioned that depend on the shared library. Find the package that depends on the lower version of it. In the example below, this is <code>g++-armhf-6.4.0-r5[libstdc++=6.4.0-r5]</code> (the higher version would be <code>libstdc++=6.4.0-r6</code>). This means the package that needs to be rebuilt is <code>g++-armhf</code>.
+</p>
+<pre>ERROR: unsatisfiable constraints:
+libstdc++-6.4.0-r6:
+breaks:
+g++-armhf-6.4.0-r5[libstdc++=6.4.0-r5]
+satisfies: world[libstdc++]
+g++-6.4.0-r6[libstdc++=6.4.0-r6]
+g++-6.4.0-r6[libstdc++=6.4.0-r6]
+gcc-6.4.0-r6[so:libstdc++.so.6]
+lzip-1.19-r1[so:libstdc++.so.6]
+gcc-6.4.0-r6:
+breaks: g++-armhf-6.4.0-r5[gcc=6.4.0-r5]
+satisfies: world[gcc]
+g++-6.4.0-r6[gcc=6.4.0-r6]
+build-base-0.5-r0[gcc]
+</pre>
+<h3><span class="mw-headline" id="pmbootstrap">pmbootstrap</span></h3>
+<p>Here the package depending on the dependency that was not found is not mentioned:
+</p>
+<pre>[21:38:23] ERROR: Could not find dependency 'so:libcrypto.so.42' in any aports folder or APKINDEX. See: &lt;https://postmarketos.org/depends&gt;
+[21:38:23] Run 'pmbootstrap log' for details.
+[21:38:23] See also: &lt;https://postmarketos.org/troubleshooting&gt;
+</pre>
+<p>In order to see it, run your last <code>pmbootstrap</code> command again, but with verbose mode (<code>-v</code>). For example:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>pmbootstrap<span class="w"> </span>-v<span class="w"> </span>install
+</pre></div>
+<p>After it crashed at the same point, check <code>pmbootstrap log</code> for a line like the following (on the right should be the library you are interested in). The "????" is the package we are looking for. If you're having a hard time looking through the whole log, you can use <code>pmbootstrap log -c</code> to clear it.
+</p>
+<pre>????: depends on: so:libcrypto.so.42
+</pre>
+<h2><span class="mw-headline" id="Find_out_where_the_package_comes_from">Find out where the package comes from</span></h2>
+<p>We need to know if the package comes from postmarketOS or Alpine Linux. The fastest way to do this is to search on <a rel="nofollow" class="external text" href="https://pkgs.postmarketos.org">pkgs.postmarketos.org</a> - if the package appears there, then it's coming from postmarketOS. If it isn't there, check <a rel="nofollow" class="external text" href="https://pkgs.alpinelinux.org">pkgs.alpinelinux.org</a>.
+</p>
+<p>Alternatively, you can change into your <code>pmbootstrap</code> workdir folder (by default that's <code>~/.local/var/pmbootstrap</code>, and search for the package:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>find<span class="w"> </span>cache_git/pmaports<span class="w"> </span>-name<span class="w"> </span><span class="s2">"hello-world"</span>
+<span class="go">cache_git/pmaports/main/hello-world</span>
+</pre></div>
+<p>If you can find it, the package comes from postmarketOS. Otherwise from Alpine.
+</p>
+<h2><span class="mw-headline" id="Trigger_a_rebuild">Trigger a rebuild</span></h2>
+<h3><span class="mw-headline" id="postmarketOS_2">postmarketOS</span></h3>
+<p>It might be, that we marked the package for rebuild already, so pull the latest changes from the master branch (or rebase if you are on your own branch):
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>git<span class="w"> </span>pull
+</pre></div>
+<p>Then try again. If the problem persists, mark all postmarketOS packages with broken dependencies for rebuild:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>pmbootstrap<span class="w"> </span>pkgrel_bump<span class="w"> </span>--auto
+</pre></div>
+<p>When you execute the command that caused the error next time, the package should get built locally and the problem should be gone.
+</p>
+<h4><span class="mw-headline" id="Cross_compilers">Cross compilers</span></h4>
+<p>This is a special case, because we generate the cross compilers directly from Alpine: If the error has <code>libstdc++</code> and <code>gcc-armhf</code> involved, regenerate your <code>gcc-armhf</code> aport based on the latest <code>gcc</code> aport from Alpine (replace armhf with aarch64 etc. as necessary):
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>pmbootstrap<span class="w"> </span>aportgen<span class="w"> </span>gcc-armhf
+</pre></div>
+<h3><span class="mw-headline" id="Alpine_Linux_2">Alpine Linux</span></h3>
+<p>Clone Alpine's packages to a folder outside of your <code>pmbootstrap</code> folder:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>~/code
+<span class="gp">$ </span>git<span class="w"> </span>clone<span class="w"> </span>https://git.alpinelinux.org/cgit/aports
+</pre></div>
+<p>Find the package in question:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>find<span class="w"> </span>-name<span class="w"> </span>uboot-tools
+<span class="go">./testing/uboot-tools</span>
+</pre></div>
+<p>Build it with <code>pmbootstrap</code> for the architecture in question (replace the path to <code>pmbootstrap</code> accordigly):
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>cp<span class="w"> </span>-r<span class="w"> </span>./testing/uboot-tools<span class="w"> </span>~/code/pmbootstrap/cache_git/pmaports/temp/
+<span class="gp">$ </span>pmbootstrap<span class="w"> </span>build<span class="w"> </span>uboot-tools<span class="w"> </span>--arch<span class="o">=</span>armhf
+<span class="gp">$ </span>rm<span class="w"> </span>-r<span class="w"> </span>~/code/pmbootstrap/cache_git/pmaports/temp/uboot_tools
+</pre></div>
+<h1><span class="mw-headline" id="See_also">See also</span></h1>
+<ul>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.postmarketos.org/postmarketOS/pmbootstrap/-/issues/1408">#1408</a> nokia-n900: pmbootstrap install fails for libcrypto.so.42</li>
+<li>
+<a rel="nofollow" class="external text" href="https://gitlab.postmarketos.org/postmarketOS/pmbootstrap/-/issues/1684">#1684</a> Dependency conflict blocks generation of hammerhead image</li>
+</ul>
+</div>
+</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Troubleshooting.html" title="Category:Troubleshooting">Troubleshooting</a></li></ul>
+</div></div>
+				</div>
+			</main>
+			
+		</div>
+		<div class="mw-footer-container">
+			
+<footer id="footer" class="mw-footer" style="margin: 0">
+	<ul id="footer-info">
+	<li data-nosnippet="">Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Troubleshooting_package_dependency_issues&amp;oldid=67383">https://wiki.postmarketos.org/index.php?title=Troubleshooting_package_dependency_issues&amp;oldid=67383</a>"</li>
+<li id="footer-info-lastmod"> This page was last edited on 16 December 2024, at 20:12.</li>
+	<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+<br>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="../en/About_postmarketOS.html">About postmarketOS Wiki</a></li>
+	<li id="footer-places-disclaimers"><a href="../en/PostmarketOS:General_disclaimer.html">Disclaimers</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31" loading="lazy"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="../poweredby_mediawiki.svg" alt="Powered by MediaWiki" width="88" height="31" loading="lazy"></a></li>
+</ul>
+
+</footer>
+
+		</div>
+	</div> 
+</div> 
+<div class="vector-settings" id="p-dock-bottom">
+	<ul></ul>
+</div>
+</body>
+</html>
