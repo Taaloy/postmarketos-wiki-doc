@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html class="client-nojs vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-sticky-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-0 vector-feature-appearance-pinned-clientpref-1 vector-feature-night-mode-disabled skin-theme-clientpref-day vector-toc-available" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Encrypting a partition with systemd - postmarketOS Wiki</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.43.0">
+<meta name="robots" content="max-image-preview:standard">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0">
+<link rel="search" type="application/opensearchdescription+xml" href="/rest.php/v1/search" title="postmarketOS Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="skin--responsive skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Encrypting_a_partition_with_systemd rootpage-Encrypting_a_partition_with_systemd skin-vector-2022 action-view">
+<a class="mw-jump-link" href="#bodyContent">Jump to content</a>
+<div class="vector-header-container">
+	<header class="vector-header mw-header">
+		<div class="vector-header-start">
+			<nav class="vector-main-menu-landmark" aria-label="Site">
+				
+<div id="vector-main-menu-dropdown" class="vector-dropdown vector-main-menu-dropdown vector-button-flush-left vector-button-flush-right">
+	<input type="checkbox" id="vector-main-menu-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-main-menu-dropdown" class="vector-dropdown-checkbox " aria-label="Main menu">
+	<label id="vector-main-menu-dropdown-label" for="vector-main-menu-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-menu mw-ui-icon-wikimedia-menu"></span>
+
+<span class="vector-dropdown-label-text">Main menu</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+				<div id="vector-main-menu-unpinned-container" class="vector-unpinned-container">
+		
+<div id="vector-main-menu" class="vector-main-menu vector-pinnable-element">
+	<div class="vector-pinnable-header vector-main-menu-pinnable-header vector-pinnable-header-unpinned" data-feature-name="main-menu-pinned" data-pinnable-element-id="vector-main-menu" data-pinned-container-id="vector-main-menu-pinned-container" data-unpinned-container-id="vector-main-menu-unpinned-container">
+	<div class="vector-pinnable-header-label">Main menu</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-main-menu.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-main-menu.unpin">hide</button>
+</div>
+
+	
+<div id="p-navigation" class="vector-menu mw-portlet mw-portlet-navigation">
+	<div class="vector-menu-heading">
+		Navigation
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-mainpage-description" class="mw-list-item"><a href="../en/Main_Page.html" title="Visit the main page [z]" accesskey="z"><span>Main page</span></a></li>
+<li id="n-Devices" class="mw-list-item"><a href="../en/Devices.html"><span>Devices</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	
+</div>
+
+				</div>
+
+	</div>
+</div>
+
+		</nav>
+			
+<a href="../en/Main_Page.html" class="mw-logo">
+	<img class="mw-logo-icon" src="/logo_50x50.svg" alt="" aria-hidden="true" height="50" width="50">
+	<span class="mw-logo-container skin-invert">
+		<strong class="mw-logo-wordmark">postmarketOS Wiki</strong>
+	</span>
+</a>
+
+		</div>
+		<div class="vector-header-end">
+			
+<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+	<a href="../Special:Search.html" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only search-toggle" title="Search postmarketOS Wiki [f]" accesskey="f"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search"></span>
+
+<span>Search</span>
+	</a>
+	<div class="vector-typeahead-search-container">
+		<div class="cdx-typeahead-search cdx-typeahead-search--show-thumbnail cdx-typeahead-search--auto-expand-width">
+			<form action="/index.php" id="searchform" class="cdx-search-input cdx-search-input--has-end-button">
+				<div id="simpleSearch" class="cdx-search-input__input-wrapper" data-search-loc="header-moved">
+					<div class="cdx-text-input cdx-text-input--has-start-icon">
+						<input class="cdx-text-input__input" type="search" name="search" placeholder="Search postmarketOS Wiki" aria-label="Search postmarketOS Wiki" autocapitalize="sentences" title="Search postmarketOS Wiki [f]" accesskey="f" id="searchInput">
+						<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
+					</div>
+					<input type="hidden" name="title" value="Special:Search">
+				</div>
+				<button class="cdx-button cdx-search-input__end-button">Search</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+			<nav class="vector-user-links vector-user-links-wide" aria-label="Personal tools">
+	<div class="vector-user-links-main">
+	
+<div id="p-vector-user-menu-preferences" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-userpage" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	<nav class="vector-appearance-landmark" aria-label="Appearance">
+		
+<div id="vector-appearance-dropdown" class="vector-dropdown " title="Change the appearance of the page's font size, width, and color">
+	<input type="checkbox" id="vector-appearance-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-appearance-dropdown" class="vector-dropdown-checkbox " aria-label="Appearance">
+	<label id="vector-appearance-dropdown-label" for="vector-appearance-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-appearance mw-ui-icon-wikimedia-appearance"></span>
+
+<span class="vector-dropdown-label-text">Appearance</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+			<div id="vector-appearance-unpinned-container" class="vector-unpinned-container">
+				
+			</div>
+		
+	</div>
+</div>
+
+	</nav>
+	
+<div id="p-vector-user-menu-notifications" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="pt-login-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item">
+<a data-mw="interface" href="/index.php?title=Special:UserLogin&amp;returnto=Encrypting+a+partition+with+systemd" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o" class=""><span>Log in</span></a>
+</li>
+<li id="pt-createaccount-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item">
+<a data-mw="interface" href="../Special:RequestAccount.html" title="You are encouraged to create an account and log in; however, it is not mandatory" class=""><span>Request account</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	</div>
+	
+<div id="vector-user-links-dropdown" class="vector-dropdown vector-user-menu vector-button-flush-right vector-user-menu-logged-out user-links-collapsible-item" title="More options">
+	<input type="checkbox" id="vector-user-links-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-user-links-dropdown" class="vector-dropdown-checkbox " aria-label="Personal tools">
+	<label id="vector-user-links-dropdown-label" for="vector-user-links-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-ellipsis mw-ui-icon-wikimedia-ellipsis"></span>
+
+<span class="vector-dropdown-label-text">Personal tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+		
+<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal user-links-collapsible-item" title="User menu">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="pt-login" class="user-links-collapsible-item mw-list-item"><a href="/index.php?title=Special:UserLogin&amp;returnto=Encrypting+a+partition+with+systemd" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o"><span class="vector-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn"></span> <span>Log in</span></a></li>
+<li id="pt-createaccount" class="user-links-collapsible-item mw-list-item"><a href="../Special:RequestAccount.html" title="You are encouraged to create an account and log in; however, it is not mandatory"><span>Request account</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+</nav>
+
+		</div>
+	</header>
+</div>
+<div class="mw-page-container">
+	<div class="mw-page-container-inner">
+		<div class="vector-sitenotice-container">
+			<div id="siteNotice"></div>
+		</div>
+		<div class="vector-column-start">
+			<div class="vector-main-menu-container">
+		</div>
+	<div class="vector-sticky-pinned-container">
+				<nav id="mw-panel-toc" aria-label="Contents" data-event-name="ui.sidebar-toc" class="mw-table-of-contents-container vector-toc-landmark">
+					<div id="vector-toc-pinned-container" class="vector-pinned-container">
+					<div id="vector-toc" class="vector-toc vector-pinnable-element">
+	<div class="vector-pinnable-header vector-toc-pinnable-header vector-pinnable-header-pinned" data-feature-name="toc-pinned" data-pinnable-element-id="vector-toc">
+	<h2 class="vector-pinnable-header-label">Contents</h2>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-toc.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-toc.unpin">hide</button>
+</div>
+
+
+	<ul class="vector-toc-contents" id="mw-panel-toc-list">
+		<li id="toc-mw-content-text" class="vector-toc-list-item vector-toc-level-1">
+			<a href="#" class="vector-toc-link">
+				<div class="vector-toc-text">Beginning</div>
+			</a>
+		</li>
+		<li id="toc-Introduction" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Introduction">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">1</span>
+				<span>Introduction</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Introduction-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-How_to_find_the_partition_to_encrypt?" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#How_to_find_the_partition_to_encrypt?">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">2</span>
+				<span>How to find the partition to encrypt?</span>
+			</div>
+		</a>
+		
+		<ul id="toc-How_to_find_the_partition_to_encrypt?-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-Create_the_encrypted_partition" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Create_the_encrypted_partition">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">3</span>
+				<span>Create the encrypted partition</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Create_the_encrypted_partition-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-Manual_Usage" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Manual_Usage">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">4</span>
+				<span>Manual Usage</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Manual_Usage-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Manual Usage subsection</span>
+			</button>
+		
+		<ul id="toc-Manual_Usage-sublist" class="vector-toc-list">
+			<li id="toc-Opening_and_mounting_the_encrypted_partition" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Opening_and_mounting_the_encrypted_partition">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.1</span>
+					<span>Opening and mounting the encrypted partition</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Opening_and_mounting_the_encrypted_partition-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Closing_the_encrypted_partition" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Closing_the_encrypted_partition">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.2</span>
+					<span>Closing the encrypted partition</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Closing_the_encrypted_partition-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-Automatic_Usage" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Automatic_Usage">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">5</span>
+				<span>Automatic Usage</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Automatic_Usage-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+</ul>
+</div>
+
+					</div>
+		</nav>
+			</div>
+		</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body" style="margin: 0">
+				<header class="mw-body-header vector-page-titlebar">
+					<nav aria-label="Contents" class="vector-toc-landmark">
+						
+<div id="vector-page-titlebar-toc" class="vector-dropdown vector-page-titlebar-toc vector-button-flush-left">
+	<input type="checkbox" id="vector-page-titlebar-toc-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-titlebar-toc" class="vector-dropdown-checkbox " aria-label="Toggle the table of contents">
+	<label id="vector-page-titlebar-toc-label" for="vector-page-titlebar-toc-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-listBullet mw-ui-icon-wikimedia-listBullet"></span>
+
+<span class="vector-dropdown-label-text">Toggle the table of contents</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+							<div id="vector-page-titlebar-toc-unpinned-container" class="vector-unpinned-container">
+			</div>
+		
+	</div>
+</div>
+
+					</nav>
+					<h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-main">Encrypting a partition with systemd</span></h1>
+				</header>
+				<div class="vector-page-toolbar">
+					<div class="vector-page-toolbar-container">
+						<div id="left-navigation">
+							<nav aria-label="Namespaces">
+								
+<div id="p-associated-pages" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-associated-pages">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-nstab-main" class="selected vector-tab-noicon mw-list-item"><a href="../en/Encrypting_a_partition_with_systemd.html" title="View the content page [c]" accesskey="c"><span>Page</span></a></li>
+<li id="ca-talk" class="new vector-tab-noicon mw-list-item"><a href="/index.php?title=Talk:Encrypting_a_partition_with_systemd&amp;action=edit&amp;redlink=1" rel="discussion" class="new" title="Discussion about the content page (page does not exist) [t]" accesskey="t"><span>Discussion</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+								
+<div id="vector-variants-dropdown" class="vector-dropdown emptyPortlet">
+	<input type="checkbox" id="vector-variants-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-variants-dropdown" class="vector-dropdown-checkbox " aria-label="Change language variant">
+	<label id="vector-variants-dropdown-label" for="vector-variants-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">English</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+					
+<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+						<div id="right-navigation" class="vector-collapsible">
+							<nav aria-label="Views">
+								
+<div id="p-views" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-views">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-view" class="selected vector-tab-noicon mw-list-item"><a href="../en/Encrypting_a_partition_with_systemd.html"><span>Read</span></a></li>
+<li id="ca-viewsource" class="vector-tab-noicon mw-list-item"><a href="/index.php?title=Encrypting_a_partition_with_systemd&amp;action=edit" title="This page is protected.
+You can view its source [e]" accesskey="e"><span>View source</span></a></li>
+<li id="ca-history" class="vector-tab-noicon mw-list-item"><a href="/index.php?title=Encrypting_a_partition_with_systemd&amp;action=history" title="Past revisions of this page [h]" accesskey="h"><span>View history</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+							</nav>
+				
+							<nav class="vector-page-tools-landmark" aria-label="Page tools">
+								
+<div id="vector-page-tools-dropdown" class="vector-dropdown vector-page-tools-dropdown">
+	<input type="checkbox" id="vector-page-tools-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-tools-dropdown" class="vector-dropdown-checkbox " aria-label="Tools">
+	<label id="vector-page-tools-dropdown-label" for="vector-page-tools-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">Tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+									<div id="vector-page-tools-unpinned-container" class="vector-unpinned-container">
+						
+<div id="vector-page-tools" class="vector-page-tools vector-pinnable-element">
+	<div class="vector-pinnable-header vector-page-tools-pinnable-header vector-pinnable-header-unpinned" data-feature-name="page-tools-pinned" data-pinnable-element-id="vector-page-tools" data-pinned-container-id="vector-page-tools-pinned-container" data-unpinned-container-id="vector-page-tools-unpinned-container">
+	<div class="vector-pinnable-header-label">Tools</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-page-tools.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-page-tools.unpin">hide</button>
+</div>
+
+	
+<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions vector-has-collapsible-items" title="More options">
+	<div class="vector-menu-heading">
+		Actions
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-more-view" class="selected vector-more-collapsible-item mw-list-item"><a href="../en/Encrypting_a_partition_with_systemd.html"><span>Read</span></a></li>
+<li id="ca-more-viewsource" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Encrypting_a_partition_with_systemd&amp;action=edit"><span>View source</span></a></li>
+<li id="ca-more-history" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Encrypting_a_partition_with_systemd&amp;action=history"><span>View history</span></a></li>
+<li id="ca-cargo-purge" class="mw-list-item"><a href="/index.php?title=Encrypting_a_partition_with_systemd&amp;action=purge"><span>Purge cache</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-tb" class="vector-menu mw-portlet mw-portlet-tb">
+	<div class="vector-menu-heading">
+		General
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="t-whatlinkshere" class="mw-list-item"><a href="../Special:WhatLinksHere_Encrypting_a_partition_with_systemd.html" title="A list of all wiki pages that link here [j]" accesskey="j"><span>What links here</span></a></li>
+<li id="t-recentchangeslinked" class="mw-list-item"><a href="../Special:RecentChangesLinked_Encrypting_a_partition_with_systemd.html" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k"><span>Related changes</span></a></li>
+<li id="t-specialpages" class="mw-list-item"><a href="../Special:SpecialPages.html" title="A list of all special pages [q]" accesskey="q"><span>Special pages</span></a></li>
+<li id="t-print" class="mw-list-item"><a href="javascript:print();" rel="alternate" title="Printable version of this page [p]" accesskey="p"><span>Printable version</span></a></li>
+<li id="t-permalink" class="mw-list-item"><a href="/index.php?title=Encrypting_a_partition_with_systemd&amp;oldid=70003" title="Permanent link to this revision of this page"><span>Permanent link</span></a></li>
+<li id="t-info" class="mw-list-item"><a href="/index.php?title=Encrypting_a_partition_with_systemd&amp;action=info" title="More information about this page"><span>Page information</span></a></li>
+<li id="t-cargopagevalueslink" class="mw-list-item"><a href="/index.php?title=Encrypting_a_partition_with_systemd&amp;action=pagevalues" rel="cargo-pagevalues"><span>Cargo data</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-The_usual_wiki_links" class="vector-menu mw-portlet mw-portlet-The_usual_wiki_links">
+	<div class="vector-menu-heading">
+		The usual wiki links
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-Editor's-Guide" class="mw-list-item"><a href="../en/Help:Wiki_editor's_guide.html"><span>Editor's Guide</span></a></li>
+<li id="n-recentchanges" class="mw-list-item"><a href="../Special:RecentChanges.html" title="A list of recent changes in the wiki [r]" accesskey="r"><span>Recent changes</span></a></li>
+<li id="n-randompage" class="mw-list-item"><a href="../Special:Random.html" title="Load a random page [x]" accesskey="x"><span>Random page</span></a></li>
+<li id="n-Templates" class="mw-list-item"><a href="../en/PostmarketOS:Templates.html"><span>Templates</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+									</div>
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="vector-column-end">
+					<div class="vector-sticky-pinned-container">
+						<nav class="vector-page-tools-landmark" aria-label="Page tools">
+							<div id="vector-page-tools-pinned-container" class="vector-pinned-container">
+				
+							</div>
+		</nav>
+						<nav class="vector-appearance-landmark" aria-label="Appearance">
+							<div id="vector-appearance-pinned-container" class="vector-pinned-container">
+				<div id="vector-appearance" class="vector-appearance vector-pinnable-element">
+	<div class="vector-pinnable-header vector-appearance-pinnable-header vector-pinnable-header-pinned" data-feature-name="appearance-pinned" data-pinnable-element-id="vector-appearance" data-pinned-container-id="vector-appearance-pinned-container" data-unpinned-container-id="vector-appearance-unpinned-container">
+	<div class="vector-pinnable-header-label">Appearance</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-appearance.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-appearance.unpin">hide</button>
+</div>
+
+
+</div>
+
+							</div>
+		</nav>
+					</div>
+				</div>
+				<div id="bodyContent" class="vector-body" aria-labelledby="firstHeading" data-mw-ve-target-container>
+					<div class="vector-body-before-content">
+							<div class="mw-indicators">
+		</div>
+
+						<div id="siteSub" class="noprint">From postmarketOS Wiki</div>
+					</div>
+					<div id="contentSub"><div id="mw-content-subtitle"></div></div>
+					
+					
+					<div id="mw-content-text" class="mw-body-content">
+<div class="mw-content-ltr mw-parser-output" lang="en" dir="ltr">
+<p>Sorry if this is known by everybody.
+</p>
+<p>Please take this as a draft for an improvement of the wiki pages, which don’t cover the ways to do things with systemd.
+</p>
+<p><span id="introduction"></span>
+</p>
+<meta property="mw:PageProp/toc">
+<h1><span class="mw-headline" id="Introduction">Introduction</span></h1>
+<p>I wanted to encrypt the SD card of my very old samsung-rossa phone. I checked both the <a rel="nofollow" class="external text" href="https://wiki.alpinelinux.org/wiki/LVM_on_LUKS#Mounting_additional_encrypted_filesystems_at_boot">Alpine Wiki</a> and the <a rel="nofollow" class="external text" href="https://wiki.postmarketos.org/wiki/Full_disk_encryption">PmOS FDE</a> pages, and they don’t mention systemd solutions. As I am familiar with encrypting partitions in my Debian computers I thought I could try and write a tutorial of how to do it using the systemd tools on a postmarketOS phone. It would be great to be able to start contributing to the project.
+</p>
+<p>Basically this is no longer accurate
+</p>
+<blockquote><p>Alpine, like Gentoo, uses the <code>dmcrypt</code> service rather than <code>/etc/crypttab</code>.
+</p></blockquote>
+<p>Alpine maybe, in postmarketOS you can choose now. I’m going to go <i>the crypttab way</i>.
+</p>
+<p><span id="how-to-find-the-partition-to-encrypt"></span>
+</p>
+<h1>
+<span id="How_to_find_the_partition_to_encrypt.3F"></span><span class="mw-headline" id="How_to_find_the_partition_to_encrypt?">How to find the partition to encrypt?</span>
+</h1>
+<p>First of all you’ll have find the partition you want to encrypt. <code>lsblk</code> is your tool.
+</p>
+<pre># lsblk -a -f
+NAME          FSTYPE FSVER LABEL     UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+loop0
+loop1
+loop2
+loop3
+loop4
+loop5
+loop6
+loop7
+mmcblk1
+└─mmcblk1p1   ext4                   61de6b0d-dcd6-4049-9fe8-3a15872992b5    3.6G     1% /run/media/my_user/61de6b0d-dcd6-4049-9fe8-3a15872992b5
+mmcblk0
+├─mmcblk0p1   vfat                   00BC-614E                              51.1M    20% /lib/firmware/msm-firmware-loader/mnt/apnhlos
+├─mmcblk0p2   vfat                   00BC-614E                              19.6M    69% /lib/firmware/msm-firmware-loader/mnt/modem
+├─mmcblk0p3
+├─mmcblk0p4
+├─mmcblk0p5
+├─mmcblk0p6
+├─mmcblk0p7
+├─mmcblk0p8
+├─mmcblk0p9
+├─mmcblk0p10
+├─mmcblk0p11
+├─mmcblk0p12
+├─mmcblk0p13  ext4                   57f8f4bc-abf4-655f-bf67-946fc0f9f25b
+├─mmcblk0p14
+├─mmcblk0p15
+├─mmcblk0p16
+├─mmcblk0p17
+├─mmcblk0p18
+├─mmcblk0p19
+├─mmcblk0p20
+├─mmcblk0p21
+├─mmcblk0p22  ext4                   57f8f4bc-abf4-655f-bf67-946fc0f9f25b    3.7M     0% /lib/firmware/msm-firmware-loader/mnt/persist
+├─mmcblk0p23  ext4                   57f8f4bc-abf4-655f-bf67-946fc0f9f25b
+├─mmcblk0p24
+├─mmcblk0p25  ext4                   57f8f4bc-abf4-655f-bf67-946fc0f9f25b
+├─mmcblk0p26  ext4                   57f8f4bc-abf4-655f-bf67-946fc0f9f25b
+└─mmcblk0p27
+  ├─userdata1 ext2         pmOS_boot 404cb4cc-292b-41b0-84ce-491cdecc565c    144M    31% /boot
+  └─userdata2 ext4         pmOS_root 2327129a-45ee-4bdc-8eaa-f15751d19703  515.4M    84% /
+mmcblk0boot0
+mmcblk0boot1</pre>
+<p>You are going to encrypt the 4Gb card <code>/dev/mmcblk1p1</code>. As it was already in use (but not encrypted) first I must unmount it
+</p>
+<pre># umount /run/media/my_user/61de6b0d-dcd6-4049-9fe8-3a15872992b5/</pre>
+<p><span id="create-the-encrypted-partition"></span>
+</p>
+<h1><span class="mw-headline" id="Create_the_encrypted_partition">Create the encrypted partition</span></h1>
+<pre># cryptsetup luksFormat --type luks2 /dev/mmcblk1p1</pre>
+<p>We have created a <i>container</i>. Now
+</p>
+<pre># cryptsetup open /dev/mmcblk1p1 secrets_crypt</pre>
+<p>creates <code>/dev/mapper/secrets_crypt</code>.
+</p>
+<pre># lsblk -m -T -f
+NAME                SIZE OWNER GROUP MODE       FSTYPE      FSVER LABEL     UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+mmcblk1              29G root  disk  brw-rw----                                                                                 
+└─mmcblk1p1         3.9G root  disk  brw-rw---- crypto_LUKS                 4e946a1e-444d-4aa2-a716-d7327b6349ba                
+  └─secretos_crypt  3.9G root  root  brw------- ext4                        4fe1078f-3e52-4296-9f88-0444c6e12997
+...</pre>
+<p>Take note: <code>UUID=4fe1078f-3e52-4296-9f88-0444c6e12997</code> (the numbering of disks and partitions can change, the UUID is unique).
+</p>
+<p>Format it
+</p>
+<pre># mkfs.ext4 /dev/mapper/secrets_crypt</pre>
+<p>Check
+</p>
+<pre># cryptsetup status /dev/mapper/secrets_crypt
+/dev/mapper/secrets_crypt is active.
+  type:    LUKS2
+  cipher:  aes-xts-plain64
+  keysize: 512 bits
+  key location: keyring
+  device:  /dev/mmcblk1p1
+  sector size:  512
+  offset:  32768 sectors
+  size:    8216576 sectors
+  mode:    read/write</pre>
+<h1><span class="mw-headline" id="Manual_Usage">
+Manual Usage
+</span></h1>
+<h3><span class="mw-headline" id="Opening_and_mounting_the_encrypted_partition">
+Opening and mounting the encrypted partition
+</span></h3>
+<pre># cryptsetup open UUID=4e946a1e-444d-4aa2-a716-d7327b6349ba secrets_crypt</pre>
+<p>which is equivalent to
+</p>
+<pre># (just in case)
+#  systemd-cryptsetup detach secrets_crypt
+ 
+#  systemd-cryptsetup attach secrets_crypt /dev/disk/by-uuid/4e946a1e-444d-4aa2-a716-d7327b6349ba /root/.secrets_key luks,nofail
+Set cipher aes, mode xts-plain64, key size 512 bits for device /dev/disk/by-uuid/4e946a1e-444d-4aa2-a716-d7327b6349ba.</pre>
+<p>Now mount it
+</p>
+<pre># mount -t ext4 /dev/mapper/secrets_crypt /mnt/.secrets</pre>
+<h3><span class="mw-headline" id="Closing_the_encrypted_partition">
+Closing the encrypted partition
+</span></h3>
+<pre># umount /mnt/.secrets
+ 
+# cryptsetup close secrets_crypt</pre>
+<h1><span class="mw-headline" id="Automatic_Usage">
+Automatic Usage
+</span></h1>
+<p>We don’t want to have to open and mount the partition every time we are going to use it, but want it mounted at boot.
+</p>
+<p>Create a Key File only known to root (the Key File mentioned in the tutorials above). You can use the method in the tutorials
+</p>
+<pre># dd bs=512 count=4 if=/dev/urandom of=/root/.secrets_key iflag=fullblock
+ 
+# chmod 400 /root/.secrets_key</pre>
+<p>Add the key
+</p>
+<pre># cryptsetup luksAddKey UUID="4e946a1e-444d-4aa2-a716-d7327b6349ba" /root/.secrets_key</pre>
+<pre># systemd-cryptenroll /dev/mmcblk1p1
+   SLOT TYPE
+   0 password
+   1 password</pre>
+<p>The first password is the one you used to create the LUKS volume, the second one is the key file.
+</p>
+<p>Add or create the information to <code>/etc/crypttab</code>
+</p>
+<pre>secrets_crypt    UUID=4e946a1e-444d-4aa2-a716-d7327b6349ba   /root/.secrets_key     luks,nofail</pre>
+<p>The following step has to do -my guess- with the service not having a preset. I have to create the rule to start the service with the information provided in <code>crypttab</code>.
+</p>
+<pre># /usr/lib/systemd/system-generators/systemd-cryptsetup-generator  /etc/systemd/system</pre>
+<p>I don’t know if the subdirectory is the correct one - postmarketOS admins?
+</p>
+<p>Rebooted. Did it work?
+</p>
+<p>You can list all generated unit files using
+</p>
+<pre># systemctl list-unit-files | grep systemd-cryptsetup
+systemd-cryptsetup@secrets_crypt.service   enabled         disabled</pre>
+<pre># systemctl status systemd-cryptsetup@secrets_crypt.service
+● systemd-cryptsetup@secrets_crypt.service - Cryptography Setup for secrets_crypt
+     Loaded: loaded (/etc/crypttab; enabled; preset: disabled)
+     Active: active (exited) since Sat 2025-02-01 10:03:25 CET; 6min ago
+ Invocation: 60fbc3a29448409fa6121523c243c281
+       Docs: man:crypttab(5)
+             man:systemd-cryptsetup-generator(8)
+             man:systemd-cryptsetup@.service(8)
+   Main PID: 954 (code=exited, status=0/SUCCESS)
+   Mem peak: 69.6M
+        CPU: 4.746s
+ 
+Feb 01 10:03:23 samsung-rossa systemd[1]: Starting Cryptography Setup for secrets_crypt...
+Feb 01 10:03:23 samsung-rossa systemd-cryptsetup[954]: Set cipher aes, mode xts-plain64, key size 512 bits for device /dev/disk/by-uuid/4e946a1e-444d-4aa2-a716-d7327b6349ba.
+Feb 01 10:03:25 samsung-rossa systemd[1]: Finished Cryptography Setup for secrets_crypt.</pre>
+<p>This means that the command has worked (is <i>enabled</i>) and that there was no preset fot it - is wasn’t foreseen by the admins.
+</p>
+<p>But does it really work?
+</p>
+<pre># echo "this is a text" &gt; /mnt/.secrets/test.txt
+
+# ls -l /mnt/.secrets/test.txt 
+-rw-r--r--    1 root     root            15 Feb  3 12:42 /mnt/.secretos/test.txt</pre>
+<p>It does!
+</p>
+<p>The following step is to use a hardware token, but that would be the subject of a new post.
+</p>
+<p>I hope this was useful to anybody.
+</p>
+</div>
+</div>
+					<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+				</div>
+			</main>
+			
+		</div>
+		<div class="mw-footer-container">
+			
+<footer id="footer" class="mw-footer" style="margin: 0">
+	<ul id="footer-info">
+	<li data-nosnippet="">Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Encrypting_a_partition_with_systemd&amp;oldid=70003">https://wiki.postmarketos.org/index.php?title=Encrypting_a_partition_with_systemd&amp;oldid=70003</a>"</li>
+<li id="footer-info-lastmod"> This page was last edited on 3 February 2025, at 16:09.</li>
+	<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+<br>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="../en/About_postmarketOS.html">About postmarketOS Wiki</a></li>
+	<li id="footer-places-disclaimers"><a href="../en/PostmarketOS:General_disclaimer.html">Disclaimers</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31" loading="lazy"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="../poweredby_mediawiki.svg" alt="Powered by MediaWiki" width="88" height="31" loading="lazy"></a></li>
+</ul>
+
+</footer>
+
+		</div>
+	</div> 
+</div> 
+<div class="vector-settings" id="p-dock-bottom">
+	<ul></ul>
+</div>
+</body>
+</html>
