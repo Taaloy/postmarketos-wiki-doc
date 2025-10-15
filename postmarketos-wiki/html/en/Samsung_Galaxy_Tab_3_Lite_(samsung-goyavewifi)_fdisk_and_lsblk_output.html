@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html class="client-nojs vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-sticky-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-0 vector-feature-appearance-pinned-clientpref-1 vector-feature-night-mode-disabled skin-theme-clientpref-day vector-toc-not-available" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Samsung Galaxy Tab 3 Lite (samsung-goyavewifi)/fdisk and lsblk output - postmarketOS Wiki</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.43.4">
+<meta name="robots" content="max-image-preview:standard">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0">
+<link rel="search" type="application/opensearchdescription+xml" href="/rest.php/v1/search" title="postmarketOS Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="skin--responsive skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Samsung_Galaxy_Tab_3_Lite_samsung-goyavewifi_fdisk_and_lsblk_output rootpage-Samsung_Galaxy_Tab_3_Lite_samsung-goyavewifi_fdisk_and_lsblk_output skin-vector-2022 action-view">
+<a class="mw-jump-link" href="#bodyContent">Jump to content</a>
+<div class="vector-header-container">
+	<header class="vector-header mw-header">
+		<div class="vector-header-start">
+			<nav class="vector-main-menu-landmark" aria-label="Site">
+				
+<div id="vector-main-menu-dropdown" class="vector-dropdown vector-main-menu-dropdown vector-button-flush-left vector-button-flush-right">
+	<input type="checkbox" id="vector-main-menu-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-main-menu-dropdown" class="vector-dropdown-checkbox " aria-label="Main menu">
+	<label id="vector-main-menu-dropdown-label" for="vector-main-menu-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-menu mw-ui-icon-wikimedia-menu"></span>
+
+<span class="vector-dropdown-label-text">Main menu</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+				<div id="vector-main-menu-unpinned-container" class="vector-unpinned-container">
+		
+<div id="vector-main-menu" class="vector-main-menu vector-pinnable-element">
+	<div class="vector-pinnable-header vector-main-menu-pinnable-header vector-pinnable-header-unpinned" data-feature-name="main-menu-pinned" data-pinnable-element-id="vector-main-menu" data-pinned-container-id="vector-main-menu-pinned-container" data-unpinned-container-id="vector-main-menu-unpinned-container">
+	<div class="vector-pinnable-header-label">Main menu</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-main-menu.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-main-menu.unpin">hide</button>
+</div>
+
+	
+<div id="p-navigation" class="vector-menu mw-portlet mw-portlet-navigation">
+	<div class="vector-menu-heading">
+		Navigation
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-mainpage-description" class="mw-list-item"><a href="../en/Main_Page.html" title="Visit the main page [z]" accesskey="z"><span>Main page</span></a></li>
+<li id="n-Devices" class="mw-list-item"><a href="../en/Devices.html"><span>Devices</span></a></li>
+<li id="n-Installation" class="mw-list-item"><a href="../en/Installation.html"><span>Installation</span></a></li>
+<li id="n-Troubleshooting" class="mw-list-item"><a href="../en/Category:Troubleshooting.html"><span>Troubleshooting</span></a></li>
+<li id="n-Guides" class="mw-list-item"><a href="../en/Category:Guide.html"><span>Guides</span></a></li>
+<li id="n-Interfaces" class="mw-list-item"><a href="../en/Category:Interface.html"><span>Interfaces</span></a></li>
+<li id="n-Applications" class="mw-list-item"><a href="../en/Applications_by_category.html"><span>Applications</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	
+<div id="p-Wiki" class="vector-menu mw-portlet mw-portlet-Wiki">
+	<div class="vector-menu-heading">
+		Wiki
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-Editor's-guide" class="mw-list-item"><a href="../en/Help:Wiki_editor's_guide.html"><span>Editor's guide</span></a></li>
+<li id="n-Rules-&amp;-style-guide" class="mw-list-item"><a href="../en/Help:Wiki_editor's_guide_Wiki_rules_and_style_guide.html"><span>Rules &amp; style guide</span></a></li>
+<li id="n-recentchanges" class="mw-list-item"><a href="../Special:RecentChanges.html" title="A list of recent changes in the wiki [r]" accesskey="r"><span>Recent changes</span></a></li>
+<li id="n-randompage" class="mw-list-item"><a href="../Special:Random.html" title="Load a random page [x]" accesskey="x"><span>Random page</span></a></li>
+<li id="n-Templates" class="mw-list-item"><a href="../en/PostmarketOS:Templates.html"><span>Templates</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+				</div>
+
+	</div>
+</div>
+
+		</nav>
+			
+<a href="../en/Main_Page.html" class="mw-logo">
+	<img class="mw-logo-icon" src="/logo_50x50.svg" alt="" aria-hidden="true" height="50" width="50">
+	<span class="mw-logo-container skin-invert">
+		<strong class="mw-logo-wordmark">postmarketOS Wiki</strong>
+	</span>
+</a>
+
+		</div>
+		<div class="vector-header-end">
+			
+<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+	<a href="../Special:Search.html" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only search-toggle" title="Search postmarketOS Wiki [f]" accesskey="f"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search"></span>
+
+<span>Search</span>
+	</a>
+	<div class="vector-typeahead-search-container">
+		<div class="cdx-typeahead-search cdx-typeahead-search--show-thumbnail cdx-typeahead-search--auto-expand-width">
+			<form action="/index.php" id="searchform" class="cdx-search-input cdx-search-input--has-end-button">
+				<div id="simpleSearch" class="cdx-search-input__input-wrapper" data-search-loc="header-moved">
+					<div class="cdx-text-input cdx-text-input--has-start-icon">
+						<input class="cdx-text-input__input" type="search" name="search" placeholder="Search postmarketOS Wiki" aria-label="Search postmarketOS Wiki" autocapitalize="sentences" title="Search postmarketOS Wiki [f]" accesskey="f" id="searchInput">
+						<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
+					</div>
+					<input type="hidden" name="title" value="Special:Search">
+				</div>
+				<button class="cdx-button cdx-search-input__end-button">Search</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+			<nav class="vector-user-links vector-user-links-wide" aria-label="Personal tools">
+	<div class="vector-user-links-main">
+	
+<div id="p-vector-user-menu-preferences" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-userpage" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	<nav class="vector-appearance-landmark" aria-label="Appearance">
+		
+<div id="vector-appearance-dropdown" class="vector-dropdown " title="Change the appearance of the page's font size, width, and color">
+	<input type="checkbox" id="vector-appearance-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-appearance-dropdown" class="vector-dropdown-checkbox " aria-label="Appearance">
+	<label id="vector-appearance-dropdown-label" for="vector-appearance-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-appearance mw-ui-icon-wikimedia-appearance"></span>
+
+<span class="vector-dropdown-label-text">Appearance</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+			<div id="vector-appearance-unpinned-container" class="vector-unpinned-container">
+				
+			</div>
+		
+	</div>
+</div>
+
+	</nav>
+	
+<div id="p-vector-user-menu-notifications" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="pt-login-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item">
+<a data-mw="interface" href="/index.php?title=Special:UserLogin&amp;returnto=Samsung+Galaxy+Tab+3+Lite+%28samsung-goyavewifi%29%2Ffdisk+and+lsblk+output" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o" class=""><span>Log in</span></a>
+</li>
+<li id="pt-createaccount-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item">
+<a data-mw="interface" href="../Special:RequestAccount.html" title="You are encouraged to create an account and log in; however, it is not mandatory" class=""><span>Request account</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	</div>
+	
+<div id="vector-user-links-dropdown" class="vector-dropdown vector-user-menu vector-button-flush-right vector-user-menu-logged-out user-links-collapsible-item" title="More options">
+	<input type="checkbox" id="vector-user-links-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-user-links-dropdown" class="vector-dropdown-checkbox " aria-label="Personal tools">
+	<label id="vector-user-links-dropdown-label" for="vector-user-links-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-ellipsis mw-ui-icon-wikimedia-ellipsis"></span>
+
+<span class="vector-dropdown-label-text">Personal tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+		
+<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal user-links-collapsible-item" title="User menu">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="pt-login" class="user-links-collapsible-item mw-list-item"><a href="/index.php?title=Special:UserLogin&amp;returnto=Samsung+Galaxy+Tab+3+Lite+%28samsung-goyavewifi%29%2Ffdisk+and+lsblk+output" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o"><span class="vector-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn"></span> <span>Log in</span></a></li>
+<li id="pt-createaccount" class="user-links-collapsible-item mw-list-item"><a href="../Special:RequestAccount.html" title="You are encouraged to create an account and log in; however, it is not mandatory"><span>Request account</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+</nav>
+
+		</div>
+	</header>
+</div>
+<div class="mw-page-container">
+	<div class="mw-page-container-inner">
+		<div class="vector-sitenotice-container">
+			<div id="siteNotice"></div>
+		</div>
+		<div class="vector-column-start">
+			<div class="vector-main-menu-container">
+		</div>
+</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body" style="margin: 0">
+				<header class="mw-body-header vector-page-titlebar">
+					<h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-main">Samsung Galaxy Tab 3 Lite (samsung-goyavewifi)/fdisk and lsblk output</span></h1>
+				</header>
+				<div class="vector-page-toolbar">
+					<div class="vector-page-toolbar-container">
+						<div id="left-navigation">
+							<nav aria-label="Namespaces">
+								
+<div id="p-associated-pages" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-associated-pages">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-nstab-main" class="selected vector-tab-noicon mw-list-item"><a href="../en/Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)_fdisk_and_lsblk_output.html" title="View the content page [c]" accesskey="c"><span>Page</span></a></li>
+<li id="ca-talk" class="new vector-tab-noicon mw-list-item"><a href="/index.php?title=Talk:Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)/fdisk_and_lsblk_output&amp;action=edit&amp;redlink=1" rel="discussion" class="new" title="Discussion about the content page (page does not exist) [t]" accesskey="t"><span>Discussion</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+								
+<div id="vector-variants-dropdown" class="vector-dropdown emptyPortlet">
+	<input type="checkbox" id="vector-variants-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-variants-dropdown" class="vector-dropdown-checkbox " aria-label="Change language variant">
+	<label id="vector-variants-dropdown-label" for="vector-variants-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">English</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+					
+<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+						<div id="right-navigation" class="vector-collapsible">
+							<nav aria-label="Views">
+								
+<div id="p-views" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-views">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-view" class="selected vector-tab-noicon mw-list-item"><a href="../en/Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)_fdisk_and_lsblk_output.html"><span>Read</span></a></li>
+<li id="ca-viewsource" class="vector-tab-noicon mw-list-item"><a href="/index.php?title=Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)/fdisk_and_lsblk_output&amp;action=edit" title="This page is protected.
+You can view its source [e]" accesskey="e"><span>View source</span></a></li>
+<li id="ca-history" class="vector-tab-noicon mw-list-item"><a href="/index.php?title=Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)/fdisk_and_lsblk_output&amp;action=history" title="Past revisions of this page [h]" accesskey="h"><span>View history</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+							</nav>
+				
+							<nav class="vector-page-tools-landmark" aria-label="Page tools">
+								
+<div id="vector-page-tools-dropdown" class="vector-dropdown vector-page-tools-dropdown">
+	<input type="checkbox" id="vector-page-tools-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-tools-dropdown" class="vector-dropdown-checkbox " aria-label="Tools">
+	<label id="vector-page-tools-dropdown-label" for="vector-page-tools-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">Tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+									<div id="vector-page-tools-unpinned-container" class="vector-unpinned-container">
+						
+<div id="vector-page-tools" class="vector-page-tools vector-pinnable-element">
+	<div class="vector-pinnable-header vector-page-tools-pinnable-header vector-pinnable-header-unpinned" data-feature-name="page-tools-pinned" data-pinnable-element-id="vector-page-tools" data-pinned-container-id="vector-page-tools-pinned-container" data-unpinned-container-id="vector-page-tools-unpinned-container">
+	<div class="vector-pinnable-header-label">Tools</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-page-tools.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-page-tools.unpin">hide</button>
+</div>
+
+	
+<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions emptyPortlet vector-has-collapsible-items" title="More options">
+	<div class="vector-menu-heading">
+		Actions
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-more-view" class="selected vector-more-collapsible-item mw-list-item"><a href="../en/Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)_fdisk_and_lsblk_output.html"><span>Read</span></a></li>
+<li id="ca-more-viewsource" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)/fdisk_and_lsblk_output&amp;action=edit"><span>View source</span></a></li>
+<li id="ca-more-history" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)/fdisk_and_lsblk_output&amp;action=history"><span>View history</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-tb" class="vector-menu mw-portlet mw-portlet-tb">
+	<div class="vector-menu-heading">
+		General
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="t-whatlinkshere" class="mw-list-item"><a href="../Special:WhatLinksHere_Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)_fdisk_and_lsblk_output.html" title="A list of all wiki pages that link here [j]" accesskey="j"><span>What links here</span></a></li>
+<li id="t-recentchangeslinked" class="mw-list-item"><a href="../Special:RecentChangesLinked_Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)_fdisk_and_lsblk_output.html" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k"><span>Related changes</span></a></li>
+<li id="t-specialpages" class="mw-list-item"><a href="../Special:SpecialPages.html" title="A list of all special pages [q]" accesskey="q"><span>Special pages</span></a></li>
+<li id="t-print" class="mw-list-item"><a href="javascript:print();" rel="alternate" title="Printable version of this page [p]" accesskey="p"><span>Printable version</span></a></li>
+<li id="t-permalink" class="mw-list-item"><a href="/index.php?title=Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)/fdisk_and_lsblk_output&amp;oldid=83091" title="Permanent link to this revision of this page"><span>Permanent link</span></a></li>
+<li id="t-info" class="mw-list-item"><a href="/index.php?title=Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)/fdisk_and_lsblk_output&amp;action=info" title="More information about this page"><span>Page information</span></a></li>
+<li id="t-cargopagevalueslink" class="mw-list-item"><a href="/index.php?title=Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)/fdisk_and_lsblk_output&amp;action=pagevalues" rel="cargo-pagevalues"><span>Cargo data</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+									</div>
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="vector-column-end">
+					<div class="vector-sticky-pinned-container">
+						<nav class="vector-page-tools-landmark" aria-label="Page tools">
+							<div id="vector-page-tools-pinned-container" class="vector-pinned-container">
+				
+							</div>
+		</nav>
+						<nav class="vector-appearance-landmark" aria-label="Appearance">
+							<div id="vector-appearance-pinned-container" class="vector-pinned-container">
+				<div id="vector-appearance" class="vector-appearance vector-pinnable-element">
+	<div class="vector-pinnable-header vector-appearance-pinnable-header vector-pinnable-header-pinned" data-feature-name="appearance-pinned" data-pinnable-element-id="vector-appearance" data-pinned-container-id="vector-appearance-pinned-container" data-unpinned-container-id="vector-appearance-unpinned-container">
+	<div class="vector-pinnable-header-label">Appearance</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-appearance.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-appearance.unpin">hide</button>
+</div>
+
+
+</div>
+
+							</div>
+		</nav>
+					</div>
+				</div>
+				<div id="bodyContent" class="vector-body" aria-labelledby="firstHeading" data-mw-ve-target-container>
+					<div class="vector-body-before-content">
+							<div class="mw-indicators">
+		</div>
+
+						<div id="siteSub" class="noprint">From postmarketOS Wiki</div>
+					</div>
+					<div id="contentSub"><div id="mw-content-subtitle"></div></div>
+					
+					
+					<div id="mw-content-text" class="mw-body-content">
+<div class="mw-content-ltr mw-parser-output" lang="en" dir="ltr">
+<ul><li>fdisk output</li></ul>
+<pre>dido@katanakralligi ~ % sudo fdisk -l
+GPT PMBR size mismatch (15253503 != 15269887) will be corrected by write.
+The backup GPT table is corrupt, but the primary appears OK, so that will be used.
+The backup GPT table is not on the end of the device.
+Disk /dev/mmcblk0: 7.28 GiB, 7818182656 bytes, 15269888 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 52444E41-494F-2044-4D4D-43204449534B
+Device            Start      End  Sectors  Size Type
+/dev/mmcblk0p1     8192    12287     4096    2M Microsoft basic data
+/dev/mmcblk0p2    12288    16383     4096    2M Microsoft basic data
+/dev/mmcblk0p3    16384    18431     2048    1M Microsoft basic data
+/dev/mmcblk0p4    18432    20479     2048    1M Microsoft basic data
+/dev/mmcblk0p5    20480    22527     2048    1M Microsoft basic data
+/dev/mmcblk0p6    22528    24575     2048    1M Microsoft basic data
+/dev/mmcblk0p7    24576    32767     8192    4M Microsoft basic data
+/dev/mmcblk0p8    32768    49151    16384    8M Microsoft basic data
+/dev/mmcblk0p9    49152    65535    16384    8M Microsoft basic data
+/dev/mmcblk0p10   65536    73727     8192    4M Microsoft basic data
+/dev/mmcblk0p11   73728    75775     2048    1M Microsoft basic data
+/dev/mmcblk0p12   75776    77823     2048    1M Microsoft basic data
+/dev/mmcblk0p13   77824    79871     2048    1M Microsoft basic data
+/dev/mmcblk0p14   79872    81919     2048    1M Microsoft basic data
+/dev/mmcblk0p15   81920    83967     2048    1M Microsoft basic data
+/dev/mmcblk0p16   83968    88063     4096    2M Microsoft basic data
+/dev/mmcblk0p17   88064   129023    40960   20M Microsoft basic data
+/dev/mmcblk0p18  129024   139263    10240    5M Microsoft basic data
+/dev/mmcblk0p19  139264   141311     2048    1M Microsoft basic data
+/dev/mmcblk0p20  141312   174079    32768   16M Microsoft basic data
+/dev/mmcblk0p21  174080   206847    32768   16M Microsoft basic data
+/dev/mmcblk0p22  206848   616447   409600  200M Microsoft basic data
+/dev/mmcblk0p23  616448  3688447  3072000  1.5G Microsoft basic data
+/dev/mmcblk0p24 3688448  3713023    24576   12M Microsoft basic data
+/dev/mmcblk0p25 3713024 15239167 11526144  5.5G Microsoft basic data
+Disk /dev/mmcblk0rpmb: 4 MiB, 4194304 bytes, 8192 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk /dev/mmcblk0boot1: 4 MiB, 4194304 bytes, 8192 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk /dev/mmcblk0boot0: 4 MiB, 4194304 bytes, 8192 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk /dev/mmcblk1: 14.41 GiB, 15476981760 bytes, 30228480 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 15ABED9C-4A0D-46E7-A919-7041E3FACB4C
+Device          Start      End  Sectors  Size Type
+/dev/mmcblk1p1 499712 30226431 29726720 14.2G Linux root (ARM)
+Disk /dev/mapper/mmcblk0p25p1: 243 MiB, 254803968 bytes, 497664 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk /dev/mapper/mmcblk0p25p2: 5.26 GiB, 5645516288 bytes, 11026399 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+dido@katanakralligi ~ %
+</pre>
+<pre>NAME             MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS                  
+mmcblk0          179:0    0  7.3G  0 disk
+├─mmcblk0p1      179:1    0    2M  0 part
+├─mmcblk0p2      179:2    0    2M  0 part
+├─mmcblk0p3      179:3    0    1M  0 part
+├─mmcblk0p4      179:4    0    1M  0 part
+├─mmcblk0p5      179:5    0    1M  0 part
+├─mmcblk0p6      179:6    0    1M  0 part
+├─mmcblk0p7      179:7    0    4M  0 part
+├─mmcblk0p8      179:8    0    8M  0 part
+├─mmcblk0p9      179:9    0    8M  0 part
+├─mmcblk0p10     179:10   0    4M  0 part
+├─mmcblk0p11     179:11   0    1M  0 part
+├─mmcblk0p12     179:12   0    1M  0 part
+├─mmcblk0p13     179:13   0    1M  0 part
+├─mmcblk0p14     179:14   0    1M  0 part
+├─mmcblk0p15     179:15   0    1M  0 part
+├─mmcblk0p16     179:16   0    2M  0 part
+├─mmcblk0p17     179:17   0   20M  0 part
+├─mmcblk0p18     179:18   0    5M  0 part
+├─mmcblk0p19     179:19   0    1M  0 part
+├─mmcblk0p20     179:20   0   16M  0 part
+├─mmcblk0p21     179:21   0   16M  0 part
+├─mmcblk0p22     179:22   0  200M  0 part
+├─mmcblk0p23     179:23   0  1.5G  0 part /system
+├─mmcblk0p24     179:24   0   12M  0 part
+└─mmcblk0p25     179:25   0  5.5G  0 part
+  ├─mmcblk0p25p1 254:0    0  243M  0 part /boot
+  └─mmcblk0p25p2 254:1    0  5.3G  0 part /
+mmcblk0boot0     179:32   0    4M  1 disk
+mmcblk0boot1     179:64   0    4M  1 disk
+mmcblk0rpmb      179:96   0    4M  0 disk
+mmcblk1          179:128  0 14.4G  0 disk
+└─mmcblk1p1      179:129  0 14.2G  0 part
+zram0            253:0    0    0B  0 disk
+</pre>
+</div>
+</div>
+					<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>
+				</div>
+			</main>
+			
+		</div>
+		<div class="mw-footer-container">
+			
+<footer id="footer" class="mw-footer" style="margin: 0">
+	<ul id="footer-info">
+	<li data-nosnippet="">Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)/fdisk_and_lsblk_output&amp;oldid=83091">https://wiki.postmarketos.org/index.php?title=Samsung_Galaxy_Tab_3_Lite_(samsung-goyavewifi)/fdisk_and_lsblk_output&amp;oldid=83091</a>"</li>
+<li id="footer-info-lastmod"> This page was last edited on 8 September 2025, at 12:50.</li>
+	<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+<br>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="../en/About_postmarketOS.html">About postmarketOS Wiki</a></li>
+	<li id="footer-places-disclaimers"><a href="../en/PostmarketOS:General_disclaimer.html">Disclaimers</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31" loading="lazy"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="../poweredby_mediawiki.svg" alt="Powered by MediaWiki" width="88" height="31" loading="lazy"></a></li>
+</ul>
+
+</footer>
+
+		</div>
+	</div> 
+</div> 
+<div class="vector-settings" id="p-dock-bottom">
+	<ul></ul>
+</div>
+</body>
+</html>
