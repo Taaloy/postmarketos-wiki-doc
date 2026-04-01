@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html class="client-nojs vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-sticky-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-0 vector-feature-appearance-pinned-clientpref-1 vector-feature-night-mode-disabled skin-theme-clientpref-day vector-toc-available" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Porting to a new device/Kernel package/Downstream - postmarketOS Wiki</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.43.6">
+<meta name="robots" content="max-image-preview:standard">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0">
+<link rel="search" type="application/opensearchdescription+xml" href="/rest.php/v1/search" title="postmarketOS Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="skin--responsive skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Porting_to_a_new_device_Kernel_package_Downstream rootpage-Porting_to_a_new_device_Kernel_package_Downstream skin-vector-2022 action-view">
+<a class="mw-jump-link" href="#bodyContent">Jump to content</a>
+<div class="vector-header-container">
+	<header class="vector-header mw-header">
+		<div class="vector-header-start">
+			<nav class="vector-main-menu-landmark" aria-label="Site">
+				
+<div id="vector-main-menu-dropdown" class="vector-dropdown vector-main-menu-dropdown vector-button-flush-left vector-button-flush-right">
+	<input type="checkbox" id="vector-main-menu-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-main-menu-dropdown" class="vector-dropdown-checkbox " aria-label="Main menu">
+	<label id="vector-main-menu-dropdown-label" for="vector-main-menu-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-menu mw-ui-icon-wikimedia-menu"></span>
+
+<span class="vector-dropdown-label-text">Main menu</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+				<div id="vector-main-menu-unpinned-container" class="vector-unpinned-container">
+		
+<div id="vector-main-menu" class="vector-main-menu vector-pinnable-element">
+	<div class="vector-pinnable-header vector-main-menu-pinnable-header vector-pinnable-header-unpinned" data-feature-name="main-menu-pinned" data-pinnable-element-id="vector-main-menu" data-pinned-container-id="vector-main-menu-pinned-container" data-unpinned-container-id="vector-main-menu-unpinned-container">
+	<div class="vector-pinnable-header-label">Main menu</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-main-menu.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-main-menu.unpin">hide</button>
+</div>
+
+	
+<div id="p-navigation" class="vector-menu mw-portlet mw-portlet-navigation">
+	<div class="vector-menu-heading">
+		Navigation
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-mainpage-description" class="mw-list-item"><a href="../en/Main_Page.html" title="Visit the main page [z]" accesskey="z"><span>Main page</span></a></li>
+<li id="n-Devices" class="mw-list-item"><a href="../en/Devices.html"><span>Devices</span></a></li>
+<li id="n-Installation" class="mw-list-item"><a href="../en/Installation.html"><span>Installation</span></a></li>
+<li id="n-Troubleshooting" class="mw-list-item"><a href="../en/Category:Troubleshooting.html"><span>Troubleshooting</span></a></li>
+<li id="n-Guides" class="mw-list-item"><a href="../en/Category:Guide.html"><span>Guides</span></a></li>
+<li id="n-Interfaces" class="mw-list-item"><a href="../en/Category:Interface.html"><span>Interfaces</span></a></li>
+<li id="n-Applications" class="mw-list-item"><a href="../en/Applications_by_category.html"><span>Applications</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	
+<div id="p-Wiki" class="vector-menu mw-portlet mw-portlet-Wiki">
+	<div class="vector-menu-heading">
+		Wiki
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-Editor's-guide" class="mw-list-item"><a href="../en/Help:Wiki_editor's_guide.html"><span>Editor's guide</span></a></li>
+<li id="n-Rules-&amp;-style-guide" class="mw-list-item"><a href="../en/Help:Wiki_editor's_guide_Wiki_rules_and_style_guide.html"><span>Rules &amp; style guide</span></a></li>
+<li id="n-recentchanges" class="mw-list-item"><a href="../Special:RecentChanges.html" title="A list of recent changes in the wiki [r]" accesskey="r"><span>Recent changes</span></a></li>
+<li id="n-randompage" class="mw-list-item"><a href="../Special:Random.html" title="Load a random page [x]" accesskey="x"><span>Random page</span></a></li>
+<li id="n-Templates" class="mw-list-item"><a href="../en/PostmarketOS:Templates.html"><span>Templates</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+				</div>
+
+	</div>
+</div>
+
+		</nav>
+			
+<a href="../en/Main_Page.html" class="mw-logo">
+	<img class="mw-logo-icon" src="/logo_50x50.svg" alt="" aria-hidden="true" height="50" width="50">
+	<span class="mw-logo-container skin-invert">
+		<strong class="mw-logo-wordmark">postmarketOS Wiki</strong>
+	</span>
+</a>
+
+		</div>
+		<div class="vector-header-end">
+			
+<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+	<a href="../Special:Search.html" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only search-toggle" title="Search postmarketOS Wiki [f]" accesskey="f"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search"></span>
+
+<span>Search</span>
+	</a>
+	<div class="vector-typeahead-search-container">
+		<div class="cdx-typeahead-search cdx-typeahead-search--show-thumbnail cdx-typeahead-search--auto-expand-width">
+			<form action="/index.php" id="searchform" class="cdx-search-input cdx-search-input--has-end-button">
+				<div id="simpleSearch" class="cdx-search-input__input-wrapper" data-search-loc="header-moved">
+					<div class="cdx-text-input cdx-text-input--has-start-icon">
+						<input class="cdx-text-input__input" type="search" name="search" placeholder="Search postmarketOS Wiki" aria-label="Search postmarketOS Wiki" autocapitalize="sentences" title="Search postmarketOS Wiki [f]" accesskey="f" id="searchInput">
+						<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
+					</div>
+					<input type="hidden" name="title" value="Special:Search">
+				</div>
+				<button class="cdx-button cdx-search-input__end-button">Search</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+			<nav class="vector-user-links vector-user-links-wide" aria-label="Personal tools">
+	<div class="vector-user-links-main">
+	
+<div id="p-vector-user-menu-preferences" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-userpage" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	<nav class="vector-appearance-landmark" aria-label="Appearance">
+		
+<div id="vector-appearance-dropdown" class="vector-dropdown " title="Change the appearance of the page's font size, width, and color">
+	<input type="checkbox" id="vector-appearance-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-appearance-dropdown" class="vector-dropdown-checkbox " aria-label="Appearance">
+	<label id="vector-appearance-dropdown-label" for="vector-appearance-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-appearance mw-ui-icon-wikimedia-appearance"></span>
+
+<span class="vector-dropdown-label-text">Appearance</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+			<div id="vector-appearance-unpinned-container" class="vector-unpinned-container">
+				
+			</div>
+		
+	</div>
+</div>
+
+	</nav>
+	
+<div id="p-vector-user-menu-notifications" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="pt-login-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item">
+<a data-mw="interface" href="/index.php?title=Special:UserLogin&amp;returnto=Porting+to+a+new+device%2FKernel+package%2FDownstream" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o" class=""><span>Log in</span></a>
+</li>
+<li id="pt-createaccount-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item">
+<a data-mw="interface" href="../Special:RequestAccount.html" title="You are encouraged to create an account and log in; however, it is not mandatory" class=""><span>Request account</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	</div>
+	
+<div id="vector-user-links-dropdown" class="vector-dropdown vector-user-menu vector-button-flush-right vector-user-menu-logged-out user-links-collapsible-item" title="More options">
+	<input type="checkbox" id="vector-user-links-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-user-links-dropdown" class="vector-dropdown-checkbox " aria-label="Personal tools">
+	<label id="vector-user-links-dropdown-label" for="vector-user-links-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-ellipsis mw-ui-icon-wikimedia-ellipsis"></span>
+
+<span class="vector-dropdown-label-text">Personal tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+		
+<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal user-links-collapsible-item" title="User menu">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="pt-login" class="user-links-collapsible-item mw-list-item"><a href="/index.php?title=Special:UserLogin&amp;returnto=Porting+to+a+new+device%2FKernel+package%2FDownstream" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o"><span class="vector-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn"></span> <span>Log in</span></a></li>
+<li id="pt-createaccount" class="user-links-collapsible-item mw-list-item"><a href="../Special:RequestAccount.html" title="You are encouraged to create an account and log in; however, it is not mandatory"><span>Request account</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+</nav>
+
+		</div>
+	</header>
+</div>
+<div class="mw-page-container">
+	<div class="mw-page-container-inner">
+		<div class="vector-sitenotice-container">
+			<div id="siteNotice"></div>
+		</div>
+		<div class="vector-column-start">
+			<div class="vector-main-menu-container">
+		</div>
+	<div class="vector-sticky-pinned-container">
+				<nav id="mw-panel-toc" aria-label="Contents" data-event-name="ui.sidebar-toc" class="mw-table-of-contents-container vector-toc-landmark">
+					<div id="vector-toc-pinned-container" class="vector-pinned-container">
+					<div id="vector-toc" class="vector-toc vector-pinnable-element">
+	<div class="vector-pinnable-header vector-toc-pinnable-header vector-pinnable-header-pinned" data-feature-name="toc-pinned" data-pinnable-element-id="vector-toc">
+	<h2 class="vector-pinnable-header-label">Contents</h2>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-toc.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-toc.unpin">hide</button>
+</div>
+
+
+	<ul class="vector-toc-contents" id="mw-panel-toc-list">
+		<li id="toc-mw-content-text" class="vector-toc-list-item vector-toc-level-1">
+			<a href="#" class="vector-toc-link">
+				<div class="vector-toc-text">Beginning</div>
+			</a>
+		</li>
+		<li id="toc-Finding_the_downstream_kernel_source" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Finding_the_downstream_kernel_source">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">1</span>
+				<span>Finding the downstream kernel source</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Finding_the_downstream_kernel_source-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Finding the downstream kernel source subsection</span>
+			</button>
+		
+		<ul id="toc-Finding_the_downstream_kernel_source-sublist" class="vector-toc-list">
+			<li id="toc-Looking_on_GitHub" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Looking_on_GitHub">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">1.1</span>
+					<span>Looking on GitHub</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Looking_on_GitHub-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Getting_the_kernel_from_the_manufacturer" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Getting_the_kernel_from_the_manufacturer">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">1.2</span>
+					<span>Getting the kernel from the manufacturer</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Getting_the_kernel_from_the_manufacturer-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-Filling_the_kernel_APKBUILD" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Filling_the_kernel_APKBUILD">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">2</span>
+				<span>Filling the kernel APKBUILD</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Filling_the_kernel_APKBUILD-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Filling the kernel APKBUILD subsection</span>
+			</button>
+		
+		<ul id="toc-Filling_the_kernel_APKBUILD-sublist" class="vector-toc-list">
+			<li id="toc-Setting_the_source_location" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Setting_the_source_location">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.1</span>
+					<span>Setting the source location</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Setting_the_source_location-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Getting_the_kernel_version" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Getting_the_kernel_version">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.2</span>
+					<span>Getting the kernel version</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Getting_the_kernel_version-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Finding_the_defconfig" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Finding_the_defconfig">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.3</span>
+					<span>Finding the defconfig</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Finding_the_defconfig-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Finding_the_DTB" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Finding_the_DTB">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.4</span>
+					<span>Finding the DTB</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Finding_the_DTB-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-Generating_the_checksums_and_downloading_the_sources" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Generating_the_checksums_and_downloading_the_sources">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">3</span>
+				<span>Generating the checksums and downloading the sources</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Generating_the_checksums_and_downloading_the_sources-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-Kernel_configuration" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Kernel_configuration">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">4</span>
+				<span>Kernel configuration</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Kernel_configuration-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Kernel configuration subsection</span>
+			</button>
+		
+		<ul id="toc-Kernel_configuration-sublist" class="vector-toc-list">
+			<li id="toc-Editing_the_config" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Editing_the_config">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.1</span>
+					<span>Editing the config</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Editing_the_config-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Removing_failed_patches" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Removing_failed_patches">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.2</span>
+					<span>Removing failed patches</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Removing_failed_patches-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id='toc-"Install_ncurses_(ncurses-devel)_and_try_again."_message' class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#%22Install_ncurses_(ncurses-devel)_and_try_again.%22_message">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.3</span>
+					<span>"Install ncurses (ncurses-devel) and try again." message</span>
+				</div>
+			</a>
+			
+			<ul id='toc-"Install_ncurses_(ncurses-devel)_and_try_again."_message-sublist' class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Navigating_through_the_configuration_TUI" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Navigating_through_the_configuration_TUI">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">4.4</span>
+					<span>Navigating through the configuration TUI</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Navigating_through_the_configuration_TUI-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-Building_the_kernel_and_fixing_build_errors" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Building_the_kernel_and_fixing_build_errors">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">5</span>
+				<span>Building the kernel and fixing build errors</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Building_the_kernel_and_fixing_build_errors-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Building the kernel and fixing build errors subsection</span>
+			</button>
+		
+		<ul id="toc-Building_the_kernel_and_fixing_build_errors-sublist" class="vector-toc-list">
+			<li id="toc-Finding_errors_in_the_logs" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Finding_errors_in_the_logs">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.1</span>
+					<span>Finding errors in the logs</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Finding_errors_in_the_logs-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Finding_patches" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Finding_patches">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">5.2</span>
+					<span>Finding patches</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Finding_patches-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+</div>
+
+					</div>
+		</nav>
+			</div>
+		</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body" style="margin: 0">
+				<header class="mw-body-header vector-page-titlebar">
+					<nav aria-label="Contents" class="vector-toc-landmark">
+						
+<div id="vector-page-titlebar-toc" class="vector-dropdown vector-page-titlebar-toc vector-button-flush-left">
+	<input type="checkbox" id="vector-page-titlebar-toc-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-titlebar-toc" class="vector-dropdown-checkbox " aria-label="Toggle the table of contents">
+	<label id="vector-page-titlebar-toc-label" for="vector-page-titlebar-toc-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-listBullet mw-ui-icon-wikimedia-listBullet"></span>
+
+<span class="vector-dropdown-label-text">Toggle the table of contents</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+							<div id="vector-page-titlebar-toc-unpinned-container" class="vector-unpinned-container">
+			</div>
+		
+	</div>
+</div>
+
+					</nav>
+					<h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-main">Porting to a new device/Kernel package/Downstream</span></h1>
+				</header>
+				<div class="vector-page-toolbar">
+					<div class="vector-page-toolbar-container">
+						<div id="left-navigation">
+							<nav aria-label="Namespaces">
+								
+<div id="p-associated-pages" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-associated-pages">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-nstab-main" class="selected vector-tab-noicon mw-list-item"><a href="../en/Porting_to_a_new_device_Kernel_package_Downstream.html" title="View the content page [c]" accesskey="c"><span>Page</span></a></li>
+<li id="ca-talk" class="new vector-tab-noicon mw-list-item"><a href="/index.php?title=Talk:Porting_to_a_new_device/Kernel_package/Downstream&amp;action=edit&amp;redlink=1" rel="discussion" class="new" title="Discussion about the content page (page does not exist) [t]" accesskey="t"><span>Discussion</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+								
+<div id="vector-variants-dropdown" class="vector-dropdown emptyPortlet">
+	<input type="checkbox" id="vector-variants-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-variants-dropdown" class="vector-dropdown-checkbox " aria-label="Change language variant">
+	<label id="vector-variants-dropdown-label" for="vector-variants-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">English</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+					
+<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+						<div id="right-navigation" class="vector-collapsible">
+							<nav aria-label="Views">
+								
+<div id="p-views" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-views">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-view" class="selected vector-tab-noicon mw-list-item"><a href="../en/Porting_to_a_new_device_Kernel_package_Downstream.html"><span>Read</span></a></li>
+<li id="ca-viewsource" class="vector-tab-noicon mw-list-item"><a href="/index.php?title=Porting_to_a_new_device/Kernel_package/Downstream&amp;action=edit" title="This page is protected.
+You can view its source [e]" accesskey="e"><span>View source</span></a></li>
+<li id="ca-history" class="vector-tab-noicon mw-list-item"><a href="/index.php?title=Porting_to_a_new_device/Kernel_package/Downstream&amp;action=history" title="Past revisions of this page [h]" accesskey="h"><span>View history</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+							</nav>
+				
+							<nav class="vector-page-tools-landmark" aria-label="Page tools">
+								
+<div id="vector-page-tools-dropdown" class="vector-dropdown vector-page-tools-dropdown">
+	<input type="checkbox" id="vector-page-tools-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-tools-dropdown" class="vector-dropdown-checkbox " aria-label="Tools">
+	<label id="vector-page-tools-dropdown-label" for="vector-page-tools-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">Tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+									<div id="vector-page-tools-unpinned-container" class="vector-unpinned-container">
+						
+<div id="vector-page-tools" class="vector-page-tools vector-pinnable-element">
+	<div class="vector-pinnable-header vector-page-tools-pinnable-header vector-pinnable-header-unpinned" data-feature-name="page-tools-pinned" data-pinnable-element-id="vector-page-tools" data-pinned-container-id="vector-page-tools-pinned-container" data-unpinned-container-id="vector-page-tools-unpinned-container">
+	<div class="vector-pinnable-header-label">Tools</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-page-tools.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-page-tools.unpin">hide</button>
+</div>
+
+	
+<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions emptyPortlet vector-has-collapsible-items" title="More options">
+	<div class="vector-menu-heading">
+		Actions
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-more-view" class="selected vector-more-collapsible-item mw-list-item"><a href="../en/Porting_to_a_new_device_Kernel_package_Downstream.html"><span>Read</span></a></li>
+<li id="ca-more-viewsource" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Porting_to_a_new_device/Kernel_package/Downstream&amp;action=edit"><span>View source</span></a></li>
+<li id="ca-more-history" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Porting_to_a_new_device/Kernel_package/Downstream&amp;action=history"><span>View history</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-tb" class="vector-menu mw-portlet mw-portlet-tb">
+	<div class="vector-menu-heading">
+		General
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="t-whatlinkshere" class="mw-list-item"><a href="../Special:WhatLinksHere_Porting_to_a_new_device_Kernel_package_Downstream.html" title="A list of all wiki pages that link here [j]" accesskey="j"><span>What links here</span></a></li>
+<li id="t-recentchangeslinked" class="mw-list-item"><a href="../Special:RecentChangesLinked_Porting_to_a_new_device_Kernel_package_Downstream.html" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k"><span>Related changes</span></a></li>
+<li id="t-specialpages" class="mw-list-item"><a href="../Special:SpecialPages.html" title="A list of all special pages [q]" accesskey="q"><span>Special pages</span></a></li>
+<li id="t-print" class="mw-list-item"><a href="javascript:print();" rel="alternate" title="Printable version of this page [p]" accesskey="p"><span>Printable version</span></a></li>
+<li id="t-permalink" class="mw-list-item"><a href="/index.php?title=Porting_to_a_new_device/Kernel_package/Downstream&amp;oldid=96393" title="Permanent link to this revision of this page"><span>Permanent link</span></a></li>
+<li id="t-info" class="mw-list-item"><a href="/index.php?title=Porting_to_a_new_device/Kernel_package/Downstream&amp;action=info" title="More information about this page"><span>Page information</span></a></li>
+<li id="t-cargopagevalueslink" class="mw-list-item"><a href="/index.php?title=Porting_to_a_new_device/Kernel_package/Downstream&amp;action=pagevalues" rel="cargo-pagevalues"><span>Cargo data</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+									</div>
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="vector-column-end">
+					<div class="vector-sticky-pinned-container">
+						<nav class="vector-page-tools-landmark" aria-label="Page tools">
+							<div id="vector-page-tools-pinned-container" class="vector-pinned-container">
+				
+							</div>
+		</nav>
+						<nav class="vector-appearance-landmark" aria-label="Appearance">
+							<div id="vector-appearance-pinned-container" class="vector-pinned-container">
+				<div id="vector-appearance" class="vector-appearance vector-pinnable-element">
+	<div class="vector-pinnable-header vector-appearance-pinnable-header vector-pinnable-header-pinned" data-feature-name="appearance-pinned" data-pinnable-element-id="vector-appearance" data-pinned-container-id="vector-appearance-pinned-container" data-unpinned-container-id="vector-appearance-unpinned-container">
+	<div class="vector-pinnable-header-label">Appearance</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-appearance.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-appearance.unpin">hide</button>
+</div>
+
+
+</div>
+
+							</div>
+		</nav>
+					</div>
+				</div>
+				<div id="bodyContent" class="vector-body" aria-labelledby="firstHeading" data-mw-ve-target-container>
+					<div class="vector-body-before-content">
+							<div class="mw-indicators">
+		</div>
+
+						<div id="siteSub" class="noprint">From postmarketOS Wiki</div>
+					</div>
+					<div id="contentSub"><div id="mw-content-subtitle"></div></div>
+					
+					
+					<div id="mw-content-text" class="mw-body-content">
+<div class="mw-content-ltr mw-parser-output" lang="en" dir="ltr">
+<div id="contentSub" style="margin-top: -8px; margin-bottom: 18px;">
+<span class="subpages">&lt; <a href="../en/Porting_to_a_new_device.html" title="Porting to a new device">Porting to a new device</a></span>‎</div>
+<p>This part of the guide goes over the process of packaging a downstream (vendor) kernel in postmarketOS.
+</p>
+<meta property="mw:PageProp/toc">
+<h2><span class="mw-headline" id="Finding_the_downstream_kernel_source">Finding the downstream kernel source</span></h2>
+<p>In order to port postmarketOS to the device, we need to be able to build the Linux kernel from source.
+</p>
+<h3><span class="mw-headline" id="Looking_on_GitHub">Looking on GitHub</span></h3>
+<ul><li>If your device has a LineageOS/TWRP/other Android port, most likely someone has uploaded the kernel sources they used to make the port; look on sites like <a rel="nofollow" class="external text" href="https://github.com/">GitHub</a> (search for repositories named <code>android_<b>kernel</b>_(vendor)_(codename)</code>.
+<ul>
+<li>Do not confuse this with the <code>android_<i>device</i>_...</code> repositories, which contain Android-specific build files.</li>
+<li>Some devices use shared kernels for an SoC or family of devices, typically named <code>android_kernel_(vendor)_(SoC codename)</code>. Look on the same profile/org that has the <code>android_<i>device</i>_...</code> repo for your device.</li>
+</ul>
+</li></ul>
+<h3><span class="mw-headline" id="Getting_the_kernel_from_the_manufacturer">Getting the kernel from the manufacturer</span></h3>
+<ul><li>If the kernel is not on GitHub, try looking on the manufacturer's page; some manufacturers have open source download centers with OSS source code, including the Linux kernel.
+<ul>
+<li>If you find the kernel on the manufacturer's website, <b>mirror it somewhere else</b> - there's no guarantee that the link will always be active. Ports with dead kernel source links will be archived.</li>
+<li>
+<b>Do not fork the kernel and add patches there</b>. Patches can be applied to the kernel tree in the APKBUILD file; there is no need to create yet another downstream fork, further contributing to the problem of out-of-date forks.</li>
+</ul>
+</li></ul>
+<table class="mw-collapsible mw-collapsed wikitable">
+<tbody>
+<tr>
+<th colspan="2">Source code downloads for various manufacturers 
+</th>
+</tr>
+<tr>
+<td>Fairphone</td>
+<td>
+<a rel="nofollow" class="external text" href="https://code.fairphone.com/index.html">"Kernel Source Code" links at code.fairphone.com</a>
+</td>
+</tr>
+<tr>
+<td>Motorola</td>
+<td>
+<a rel="nofollow" class="external text" href="https://github.com/MotorolaMobilityLLC">MotorolaMobilityLLC on GitHub</a>
+</td>
+</tr>
+<tr>
+<td>Lenovo</td>
+<td>
+<a rel="nofollow" class="external text" href="https://support.lenovo.com/us/en/solutions/ht511330-lenovo-open-source-portal">support.lenovo.com</a>
+</td>
+</tr>
+<tr>
+<td>Samsung</td>
+<td>
+<a rel="nofollow" class="external text" href="https://opensource.samsung.com">opensource.samsung.com</a>
+</td>
+</tr>
+<tr>
+<td>Sony</td>
+<td>
+<a rel="nofollow" class="external text" href="https://developerworld.wpp.developer.sony.com/open-source/aosp-on-xperia-open-devices/downloads/open-source-archives">developerworld.wpp.developer.sony.com</a>
+</td>
+</tr>
+<tr>
+<td>Xiaomi</td>
+<td>
+<a rel="nofollow" class="external text" href="https://github.com/MiCode/Xiaomi_Kernel_OpenSource">MiCode/Xiaomi_Kernel_OpenSource on GitHub</a>
+</td>
+</tr>
+</tbody>
+</table>
+<p>For many devices, especially from small companies, kernel sources are not publicly available. The Linux kernel is licensed under the GPL license, which requires manufacturers to provide source code of their fork; try e-mailing their support.
+</p>
+<p>You may be able to use a kernel for another device with the same SoC; however, you will have to write your own kernel config and it might be missing some drivers. Ask for advice in the porting channel.
+</p>
+<style data-mw-deduplicate="TemplateStyles:r79875"></style>
+<table role="text container" class="icon-box box-note" style="--ib-background: #f6efe5; --ib-background-dark: #261c09; --ib-border-color: #ac6600; --ib-border-color-dark: #6a481c; border-width: 1px; border-style: solid; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center; line-height: 1;"><span style="white-space: nowrap;"><span typeof="mw:File"><span title="Note"><img alt="Note" src="../Reference_icon.svg" decoding="async" width="20" height="20" class="mw-file-element"></span></span></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Prebuilt kernels, such as kernels extracted directly from the device, <b>will not work</b>. Kernels built for Android are usually missing kernel configuration options needed by postmarketOS. Even if they aren't, a port using a prebuilt kernel will not get accepted into upstream pmaports. <small>If you want to test your luck, there is a wiki page with instructions: <a href="../en/Using_prebuilt_kernels.html" title="Using prebuilt kernels">Using prebuilt kernels</a>, however it's not guaranteed to work.</small>
+</td>
+</tr></tbody></table>
+<h2><span class="mw-headline" id="Filling_the_kernel_APKBUILD">Filling the kernel <code>APKBUILD</code></span></h2>
+<p>During <code>pmbootstrap init</code>, pmbootstrap generates a basic kernel package from a template. We need to modify the package to use our kernel sources and config.
+</p>
+<p>Open the generated package directory:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>~/.local/var/pmbootstrap/cache_git/pmaports/device/downstream/linux-vendor-codename/
+</pre></div>
+<p>(replace <code><i>vendor</i>-<i>codename</i></code>
+</p>
+<p>The directory contains the following files:
+</p>
+<ul>
+<li>
+<code>APKBUILD</code> - the main build script;</li>
+<li>A few <code>.patch</code> files - these contain patches to apply on top of the kernel sources.
+<ul><li>By default, pmbootstrap adds some patches that are necessary to get older kernel versions to build with newer gcc versions. These might be unnecessary for your kernel version - we will remove them later.</li></ul>
+</li>
+</ul>
+<h3><span class="mw-headline" id="Setting_the_source_location">Setting the source location</span></h3>
+<p>For the build process to work, and for the CI/package builder to be able to build the kernel, we need to specify where to look for the kernel source code.
+</p>
+<p>pmbootstrap automatically generates a "source" section:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># Source</span>
+<span class="nv">_repository</span><span class="o">=</span><span class="s2">"(CHANGEME!)"</span>
+<span class="nv">_commit</span><span class="o">=</span><span class="s2">"ffffffffffffffffffffffffffffffffffffffff"</span>
+<span class="nv">_config</span><span class="o">=</span><span class="s2">"config-</span><span class="nv">$_flavor</span><span class="s2">.</span><span class="nv">$arch</span><span class="s2">"</span>
+<span class="nv">source</span><span class="o">=</span><span class="s2">"</span>
+<span class="s2">	</span><span class="nv">$pkgname</span><span class="s2">-</span><span class="nv">$_commit</span><span class="s2">.tar.gz::https://github.com/(CHANGEME!)/</span><span class="nv">$_repository</span><span class="s2">/archive/</span><span class="nv">$_commit</span><span class="s2">.tar.gz</span>
+<span class="s2">    ...</span>
+<span class="s2">    (xxx).patch</span>
+<span class="s2">    </span><span class="nv">$_config</span>
+<span class="s2">    "</span>
+</pre></div>
+<ul>
+<li>
+<b>If your kernel is on GitHub</b>, replace <code>(CHANGEME!)</code> in the URL with the user/organization, set the <code>_repository</code> variable to the repository name, and <code>_commit</code> to the latest commit in the repository (see the image to the right for a guide on where to find the commit hash).</li>
+<li>
+<b>If your kernel is on GitLab</b>, replace the URL with <code>https://gitlab.com/FIXME/$_repository/-/archive/$_commit.tar.gz</code>, then follow the rest of the instructions above.</li>
+<li>
+<b>If your kernel is available as a raw .tar.gz file or other archive</b>, remove the <code>_repository</code> and <code>_commit</code> variables and replace the <code>$pkgname-$_commit.tar.gz::...</code> line with the URL to the tarball.</li>
+</ul>
+<h3><span class="mw-headline" id="Getting_the_kernel_version">Getting the kernel version</span></h3>
+<p>The version of the kernel needs to be set in the metadata. To find the kernel version, open the <code>Makefile</code> file in the kernel repository and find the following lines:
+</p>
+<div class="mw-highlight mw-highlight-lang-makefile mw-content-ltr" dir="ltr"><pre><span></span><span class="nv">VERSION</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span>
+<span class="nv">PATCHLEVEL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span>
+<span class="nv">SUBLEVEL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+<span class="nv">EXTRAVERSION</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-rc6
+</pre></div>
+<p>In this example, the version number is <code>6.16.0-rc6</code>. In many cases, the <code>EXTRAVERSION</code> will be empty - in those cases, it should be left out (in this example, <code>6.16.0</code>).
+</p>
+<p>Open the <code>APKBUILD</code> file and update the <code>pkgver</code> variable accordingly.
+</p>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r79875">
+<table role="text container" class="icon-box box-note" style="--ib-background: #f6efe5; --ib-background-dark: #261c09; --ib-border-color: #ac6600; --ib-border-color-dark: #6a481c; border-width: 1px; border-style: solid; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center; line-height: 1;"><span style="white-space: nowrap;"><span typeof="mw:File"><span title="Note"><img alt="Note" src="../Reference_icon.svg" decoding="async" width="20" height="20" class="mw-file-element"></span></span></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">Keep <code>pkgrel</code> set to <code>0</code>. This variable is specific to the kernel package and  is incremented whenever the package has been modified/needed to be rebuilt, but without the kernel version changing.</td>
+</tr></tbody></table>
+<h3><span class="mw-headline" id="Finding_the_defconfig">Finding the defconfig</span></h3>
+<p>The <b>defconfig</b> file, referred to as the <b>kernel config</b>, defines which drivers and features are built into the kernel. 
+</p>
+<p>In the kernel, defconfig files are stored in the <code>arch/{arm,arm64}/configs</code> directory. Look for a file with your device's model number or codename.
+</p>
+<ul>
+<li>In CyanogenMod/LineageOS kernels, the correct defconfig file is usually prefixed with <code>cyanogenmod_</code> or <code>lineage_</code>.</li>
+<li>In some kernels, there's a <code>build.config</code> file in the repository root; that file contains a <code>DEFCONFIG=</code> line that has the defconfig name.</li>
+<li>If your device has an accompanying <code>android_device_...</code> repository, you can find the defconfig name in the <code>TARGET_KERNEL_CONFIG</code> variable in <code>BoardConfig.mk</code>.</li>
+<li>In case you can't find the kernel config in the kernel sources, you might be able to get it from the device itself (note that this requires the device to be rooted):<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>adb<span class="w"> </span>shell<span class="w">  </span><span class="c1"># Connect to the device over ADB</span>
+<span class="gp"># </span>su<span class="w">         </span><span class="c1"># Switch to superuser mode</span>
+<span class="gp"># </span>cp<span class="w"> </span>/proc/config.gz<span class="w"> </span>/sdcard/config.gz<span class="w">  </span><span class="c1"># Copy /proc/config.gz to a location we can pull it from</span>
+<span class="gp"># </span><span class="nb">exit</span><span class="w">       </span><span class="c1"># Exit the ADB session</span>
+<span class="gp">$ </span>adb<span class="w"> </span>pull<span class="w"> </span>/sdcard/config.gz<span class="w">  </span><span class="c1"># Pull the file from the device</span>
+<span class="gp">$ </span>gzip<span class="w"> </span>-d<span class="w"> </span>config.gz<span class="w">           </span><span class="c1"># Unpack</span>
+</pre></div>
+</li>
+</ul>
+<p>Once you find the defconfig file, <b>copy it into the kernel package directory</b> and rename it to <code>config-<i>vendor</i>-<i>codename</i>.<i>arch</i></code>; replace <i>arch</i> with the architecture in the device package - usually armv7 or aarch64.
+</p>
+<p>Then, update the comment at the top of the APKBUILD file by replacing <code>FIXME</code> with the original filename of the defconfig file (or "config.gz dumped from device" if you used the last method):
+</p>
+<div class="mw-highlight mw-highlight-lang-shell mw-content-ltr" dir="ltr"><pre><span></span><span class="c1"># Kernel config based on: FIXME</span>
+</pre></div>
+<h3><span class="mw-headline" id="Finding_the_DTB">Finding the DTB</span></h3>
+<p>For most devices from 2015 onwards and virtually all 64-bit devices, hardware configuration is stored in a Device Tree Blob (DTB), compiled from a Device Tree Source (DTS) file located under <code>arch/arm/boot/dts/</code> or <code>arch/arm64/boot/dts/</code>.
+</p>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r79875">
+<table role="text container" class="icon-box box-note" style="--ib-background: #f6efe5; --ib-background-dark: #261c09; --ib-border-color: #ac6600; --ib-border-color-dark: #6a481c; border-width: 1px; border-style: solid; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center; line-height: 1;"><span style="white-space: nowrap;"><span typeof="mw:File"><span title="Note"><img alt="Note" src="../Reference_icon.svg" decoding="async" width="20" height="20" class="mw-file-element"></span></span></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">For some recent Android devices, the DTS sources are kept in a separate vendor repository, typically called <code>vendor_proprietary_(SoC vendor name)</code> (e.g. <code>vendor_proprietary_qcom</code> for Qualcomm.</td>
+</tr></tbody></table>
+<p>You can verify if the kernel uses device trees by booting the device and checking if either <code>/sys/firmware/devicetree</code> or <code>/proc/device-tree</code> exist.
+</p>
+<p>For information on how to find the DTS file in the kernel, or how to extract it from the device if it's not in the kernel, see <a href="../en/Device_Tree_(dtb).html#Where_can_I_find_a_dts_for_my_device?" title="Device Tree (dtb)">Device Tree (dtb)#Where can I find a dts for my device?</a>. You will need the name of the .dts file later.
+</p>
+<h2><span class="mw-headline" id="Generating_the_checksums_and_downloading_the_sources">Generating the checksums and downloading the sources</span></h2>
+<p>In order to verify that the source files haven't changed, the APKBUILD file stores the sha256sum checksums of each of the source files (see the <code>sha256sum</code> variable at the very bottom of the file).
+</p>
+<p>pmbootstrap can download the source files and generate these checksums automatically. To do this, run:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>pmbootstrap<span class="w"> </span>checksum<span class="w"> </span>linux-vendor-codename
+</pre></div>
+<p>This will take a while on first run, as pmbootstrap needs to download the kernel tarball. Future runs will be quicker - the downloaded file will be cached, and used for future checksum calculations as well as the building process.
+</p>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r79875">
+<table role="text container" class="icon-box box-note" style="--ib-background: #f6efe5; --ib-background-dark: #261c09; --ib-border-color: #ac6600; --ib-border-color-dark: #6a481c; border-width: 1px; border-style: solid; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center; line-height: 1;"><span style="white-space: nowrap;"><span typeof="mw:File"><span title="Note"><img alt="Note" src="../Reference_icon.svg" decoding="async" width="20" height="20" class="mw-file-element"></span></span></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">The checksums are only used for source files. If you modify the APKBUILD and don't modify the source files (or add/remove source files to the APKBUILD), you don't need to re-run the checksum generation command.</td>
+</tr></tbody></table>
+<p>If at this stage you encounter an error, check if your source URL is set correctly. The actual download URL, with all variables replaced, is visible in the log.
+</p>
+<h2><span class="mw-headline" id="Kernel_configuration">Kernel configuration</span></h2>
+<p>There are some kernel configuration options that postmarketOS requires that Android kernels don't set by default. Additionally, some kernel config options are known to not play nice with a non-Android userspace. To make the process of fixing up the kernel config easier, pmbootstrap has the <code>kconfig check</code> command:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>pmbootstrap<span class="w"> </span>kconfig<span class="w"> </span>check<span class="w"> </span>linux-vendor-codename
+</pre></div>
+<p>If the config check fails, this command will print the options that need to be changed:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="go">WARNING: config-vendor-codename.arch: CONFIG_ANDROID_PARANOID_NETWORK should *not* be set (category:default)</span>
+<span class="go">WARNING: config-vendor-codename.arch: CONFIG_DEVTMPFS should be set (category:default)</span>
+<span class="go">WARNING: config-vendor-codename.arch: CONFIG_DEVPTS_MULTIPLE_INSTANCES should be set (category:default)</span>
+<span class="go">ERROR: kconfig check failed! More info: https://postmarketos.org/kconfig</span>
+</pre></div>
+<p>Copy this list to a text editor and keep it handy - we will need to adjust these config options in a second.
+</p>
+<h3><span class="mw-headline" id="Editing_the_config">Editing the config</span></h3>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r79875">
+<table role="text container" class="icon-box box-warning" style="--ib-background: #fee7e6; --ib-background-dark: #3e1a19; --ib-border-color: #d33; --ib-border-color-dark: #a21717; border-width: 1px; border-style: solid; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center; line-height: 1;"><span style="white-space: nowrap;"><span typeof="mw:File"><span title="Warning"><img alt="Warning" src="../Red_warning_icon.svg" decoding="async" width="20" height="20" class="mw-file-element"></span></span></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<b>WARNING:</b> Do not modify the kernel config options directly in the <code>config-<i>vendor</i>-<i>codename</i>.<i>arch</i></code> file. This will not correctly enable the dependencies of the config option, and your changes will be silently ignored.</td>
+</tr></tbody></table>
+<p>The Linux kernel's build system provides interactive TUI interfaces for modifying the kernel configuration.
+</p>
+<p>pmbootstrap provides a convenient wrapper that automatically opens the configuration interface for the kernel package, and saves the changed config file:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>pmbootstrap<span class="w"> </span>kconfig<span class="w"> </span>edit<span class="w"> </span>linux-vendor-codename
+</pre></div>
+<p>You can select one of two interfaces:
+</p>
+<ul>
+<li>
+<b>menuconfig</b> — the classic ncurses terminal UI; used by default.</li>
+<li>
+<b>nconfig</b> — an alternative ncurses interface with an improved search experience; to use it, pass the <code>-n</code> flag to the above command.</li>
+</ul>
+<h3><span class="mw-headline" id="Removing_failed_patches">Removing failed patches</span></h3>
+<p>Since menuconfig is ran in the kernel tree, the kernel source code needs to be extracted first. The extraction process also applies the patches - thus, when you run this command for the first time, you might see an error like this in the logs:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="go">&gt;&gt;&gt; linux-wiki-example: Unpacking /var/cache/distfiles/linux-vendor-codename-ffff.tar.gz...</span>
+<span class="go">&gt;&gt;&gt; linux-vendor-codename: 02_this_patch_fails.patch</span>
+<span class="go">patching file arch/arm/mach-msm/perf_trace_counters.h</span>
+<span class="go">Hunk #1 FAILED at 121.</span>
+<span class="go">1 out of 1 hunk FAILED -- saving rejects to file arch/arm/mach-msm/perf_trace_counters.h.rej</span>
+<span class="go">&gt;&gt;&gt; ERROR: linux-vendor-codename: all failed</span>
+</pre></div>
+<p>If that happens, remove the failing patch from the <code>source=</code> variable in the <code>APKBUILD</code>, delete the patch file from the same folder and correct the checksums:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>nano<span class="w"> </span>APKBUILD<span class="w"> </span><span class="c1"># remove 02_this_patch_fails.patch from the "source=" variable</span>
+<span class="gp">$ </span>rm<span class="w"> </span>02_this_patch_fails.patch
+<span class="gp">$ </span>pmbootstrap<span class="w"> </span>checksum<span class="w"> </span>linux-vendor-codename
+</pre></div>
+<p>Afterwards, run <code>pmbootstrap kconfig edit</code> again.
+</p>
+<h3>
+<span id=".22Install_ncurses_.28ncurses-devel.29_and_try_again..22_message"></span><span class="mw-headline" id='"Install_ncurses_(ncurses-devel)_and_try_again."_message'>"Install ncurses (ncurses-devel) and try again." message</span>
+</h3>
+<p>With some older kernels, <code>pmbootstrap kconfig edit</code> may fail to start, showing a message about missing ncurses. In those cases, you may need to add either the first or both of the following patches:
+</p>
+<ul>
+<li><a rel="nofollow" class="external text" href="https://gitlab.postmarketos.org/postmarketOS/pmaports/blob/master/device/.shared-patches/linux/fix-check-lxdialog.patch">device/.shared-patches/linux/fix-check-lxdialog.patch</a></li>
+<li><a rel="nofollow" class="external text" href="https://gitlab.postmarketos.org/postmarketOS/pmaports/blob/master/device/.shared-patches/linux/fix-check-lxdialog-makefile.patch">device/.shared-patches/linux/fix-check-lxdialog-makefile.patch</a></li>
+</ul>
+<p>See <a href="../en/Troubleshooting_downstream_kernel_compilation.html#Patching_the_kernel" title="Troubleshooting downstream kernel compilation">Troubleshooting downstream kernel compilation#Patching the kernel</a> for instructions on how to apply them.
+</p>
+<p>Alternatively, you can use nconfig instead of menuconfig.
+</p>
+<h3><span class="mw-headline" id="Navigating_through_the_configuration_TUI">Navigating through the configuration TUI</span></h3>
+<p>Both interfaces share the same basic controls:
+</p>
+<table class="wikitable">
+<tbody>
+<tr>
+<th>Key</th>
+<th>Action
+</th>
+</tr>
+<tr>
+<td>Arrow keys</td>
+<td>Move through the menu list
+</td>
+</tr>
+<tr>
+<td>
+<style data-mw-deduplicate="TemplateStyles:r79923">.mw-parser-output .button-tmpl{padding:.2em .6em;border:1px solid;border-top-color:light-dark(#aaa,#3b4753);border-right-color:light-dark(#555,#353d46);border-bottom-color:light-dark(#555,#353d46);border-left-color:light-dark(#aaa,#3b4753);background-color:light-dark(#f2f2f2,#1A1A1A);border-radius:3px}</style>
+<span class="nowrap button-tmpl" title="This is not a clickable button; it illustrates the button one should find.">Enter</span> / <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r79923">
+<span class="nowrap button-tmpl" title="This is not a clickable button; it illustrates the button one should find.">Space</span>
+</td>
+<td>Open a submenu or toggle a boolean option
+</td>
+</tr>
+<tr>
+<td>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r79923">
+<span class="nowrap button-tmpl" title="This is not a clickable button; it illustrates the button one should find.">Escape</span> (press twice)</td>
+<td>Go back one menu level; exit from the top-level menu
+</td>
+</tr>
+<tr>
+<td>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r79923">
+<span class="nowrap button-tmpl" title="This is not a clickable button; it illustrates the button one should find.">/</span>
+</td>
+<td>Open the search dialog
+</td>
+</tr>
+</tbody>
+</table>
+<p>Options are displayed using the following notation:
+</p>
+<table class="wikitable">
+<tbody>
+<tr>
+<th>Notation</th>
+<th>Meaning
+</th>
+</tr>
+<tr>
+<td><code>[ ]</code></td>
+<td>Option is disabled
+</td>
+</tr>
+<tr>
+<td><code>[*]</code></td>
+<td>Option is enabled (for drivers - the driver is compiled into the kernel)
+</td>
+</tr>
+<tr>
+<td><code>[M]</code></td>
+<td>Option is enabled as a loadable module (only available for driver options)
+</td>
+</tr>
+</tbody>
+</table>
+<p>For each kernel option that you need to change, find it in the list and use Enter/Space to change the value.
+</p>
+<p>The list at <a href="../en/Kernel_configuration_Specific_options.html" title="Kernel configuration/Specific options">Kernel configuration/Specific options</a> shows which menus you have to enter to find the option. If your option is missing from the article, you can press <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r79923"><span class="nowrap button-tmpl" title="This is not a clickable button; it illustrates the button one should find.">/</span> to open search (enter the config option without the <code>CONFIG_</code> prefix).
+</p>
+<p>Once you have set all of the kernel configuration options, exit menuconfig (if asked, save changes). Then, run <code>pmbootstrap kconfig check</code> again:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>pmbootstrap<span class="w"> </span>kconfig<span class="w"> </span>check<span class="w"> </span>linux-vendor-codename
+</pre></div>
+<p>Repeat until all warnings are gone:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="go">kconfig check succeeded!</span>
+<span class="go">NOTE: chroot is still active (use 'pmbootstrap shutdown' as necessary)</span>
+<span class="go">DONE!</span>
+</pre></div>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r79875">
+<table role="text container" class="icon-box box-note" style="--ib-background: #f6efe5; --ib-background-dark: #261c09; --ib-border-color: #ac6600; --ib-border-color-dark: #6a481c; border-width: 1px; border-style: solid; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center; line-height: 1;"><span style="white-space: nowrap;"><span typeof="mw:File"><span title="Note"><img alt="Note" src="../Reference_icon.svg" decoding="async" width="20" height="20" class="mw-file-element"></span></span></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">
+<code>pmbootstrap kconfig edit</code> automatically regenerates the checksums once it's done, so you don't need to run <code>pmbootstrap checksum</code> manually.</td>
+</tr></tbody></table>
+<h2><span class="mw-headline" id="Building_the_kernel_and_fixing_build_errors">Building the kernel and fixing build errors</span></h2>
+<p>The next step is to try building the kernel package. To do so, run:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>pmbootstrap<span class="w"> </span>build<span class="w"> </span>linux-vendor-codename
+</pre></div>
+<p>The build logs will appear in <code>pmbootstrap log</code>; make sure to monitor it for any errors.
+</p>
+<p>It is very likely that the build will fail. postmarketOS uses much newer versions of GCC and other build tools than what your kernel was intended to be compiled with; thus, you will need to patch it to get it to compile succesfully.
+</p>
+<h3><span class="mw-headline" id="Finding_errors_in_the_logs">Finding errors in the logs</span></h3>
+<p>If the build stops because of an error, <code>pmbootstrap build linux-vendor-codename</code> will show this error:
+</p>
+<pre>[00:00:00] =&gt; edge/linux-vendor-codename: Building package (cross compiling: cross-native)
+[00:00:00] NOTE: The failed command's output is above the ^^^ line in the log file: /home/user/.local/var/pmbootstrap/log.txt
+[00:00:00] ERROR: Couldn't build aarch64/linux-vendor-codename-6.16.0-rc6-r0.apk!
+</pre>
+<p>Open the pmbootstrap log and search for messages that contain "error" or "fail".
+</p>
+<p>The most common errors are compilation errors:
+</p>
+<pre>In file included from arch/arm/mach-msm/perf_trace_counters.h:127:0,
+                 from arch/arm/mach-msm/perf_trace_counters.c:14:
+include/trace/define_trace.h:79:43: fatal error: ./perf_trace_counters.h: No such file or directory
+</pre>
+<p>or linker errors, right at the end of the build process:
+</p>
+<pre>drivers/built-in.o: In function `.LANCHOR1':
+msm_iommu_sec.c:(.data+0x9298): undefined reference to `kgsl_iommu_sync_lock'
+msm_iommu_sec.c:(.data+0x929c): undefined reference to `kgsl_iommu_sync_unlock'
+Makefile:877: recipe for target '.tmp_vmlinux1' failed
+make: *** [.tmp_vmlinux1] Error 1
+</pre>
+<p>If after compilation you see the following warning
+</p>
+<pre>[00:00:00] WARNING: Some checksums didn't match, run 'pmbootstrap checksum linux-vendor-codename' to fix them.
+</pre>
+<p>then you forgot to regenerate checksums after modifying one of the non-APKBUILD files in the package - run <code>pmbootstrap checksum linux-vendor-codename</code> and try building again.
+</p>
+<h3><span class="mw-headline" id="Finding_patches">Finding patches</span></h3>
+<p>In order to fix the build errors, we will need to patch the kernel.
+</p>
+<p>In many cases, other people have encountered the same issue before, and patches are already available.
+</p>
+<p>Instructions on how to patch the kernel and how to find/create patches can be found on the following page:
+</p>
+<div style="margin: 1.5em; display: flex; gap: 0.5em; align-items: center; flex-wrap: wrap; justify-content: center;">
+<style data-mw-deduplicate="TemplateStyles:r79917">.mw-parser-output .large-link-box{background-color:var(--background-color-neutral-subtle,#f8f9fa);color:var(--color-emphasized,#101418);border:1px solid var(--border-color-subtle,#c8ccd1);border-spacing:3px;padding:0.2em;font-size:88%;line-height:1.5em;margin:0;padding-top:0.7em;vertical-align:middle;display:inline-block;text-align:center}</style>
+<div class="large-link-box" style="width: 22em;">
+<p><span typeof="mw:File"><a href="../en/Troubleshooting_downstream_kernel_compilation.html" title="Troubleshooting downstream kernel compilation"><img src="../Icon-numix-light-emblem-important.svg" decoding="async" width="72" height="72" class="mw-file-element"></a></span>
+</p>
+<p style="font-size: 1.5em; padding-top: 0.2em; padding-bottom: 0.7em; margin: 0;"><strong><a href="../en/Troubleshooting_downstream_kernel_compilation.html" title="Troubleshooting downstream kernel compilation">Troubleshooting downstream kernel compilation</a></strong></p>
+</div>
+</div>
+<style data-mw-deduplicate="TemplateStyles:r94566">.mw-parser-output .pmos-prevnext-container>a:hover,.mw-parser-output .pmos-prevnext-container>a:active,.mw-parser-output .pmos-prevnext-container>a:focus{text-decoration:none}.mw-parser-output .pmos-prevnext-container{display:grid;grid-template-columns:1fr 1fr;gap:0.85em;margin:1.25em 0}.mw-parser-output .pmos-prevnext-button{color:inherit;border:1px solid var(--border-color-muted,#dadde3);background:var(--background-color-interactive-subtle,#f8f9fa);padding:0.65em 1em;display:flex;flex-direction:column}.mw-parser-output .pmos-prevnext-button:hover{filter:brightness(0.975)}.mw-parser-output .pmos-prevnext-button:hover .link{text-decoration:underline}.mw-parser-output .pmos-prevnext-prev .subtitle::before{content:"←";margin-right:0.3em;opacity:0.65}.mw-parser-output .pmos-prevnext-next{text-align:right}.mw-parser-output .pmos-prevnext-next .subtitle::after{content:"→";margin-left:0.3em;opacity:0.65}.mw-parser-output .pmos-prevnext-button .subtitle{color:var(--color-subtle,#54595d);font-size:0.9em}.mw-parser-output .pmos-prevnext-button .link{font-size:1.35em;font-weight:bold}@media(max-width:768px){.mw-parser-output .pmos-prevnext-container{grid-template-columns:1fr}.mw-parser-output .pmos-prevnext-next{text-align:left}}@media screen and (prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .pmos-prevnext-button:hover{filter:brightness(1.125)}}html.skin-theme-clientpref-night .mw-parser-output .pmos-prevnext-button:hover{filter:brightness(1.125)}</style>
+<div class="pmos-prevnext-container">
+<a href="../en/Porting_to_a_new_device_Kernel_package.html" title="Porting to a new device/Kernel package"><div class="pmos-prevnext-button pmos-prevnext-prev">
+<span class="subtitle">Previous page</span><span class="link">Kernel package</span>
+</div></a><a href="../en/Porting_to_a_new_device_Device_package.html" title="Porting to a new device/Device package"><div class="pmos-prevnext-button pmos-prevnext-next">
+<span class="subtitle">Next page</span><span class="link">Device package</span>
+</div></a>
+</div>
+</div>
+</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+				</div>
+			</main>
+			
+		</div>
+		<div class="mw-footer-container">
+			
+<footer id="footer" class="mw-footer" style="margin: 0">
+	<ul id="footer-info">
+	<li data-nosnippet="">Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Porting_to_a_new_device/Kernel_package/Downstream&amp;oldid=96393">https://wiki.postmarketos.org/index.php?title=Porting_to_a_new_device/Kernel_package/Downstream&amp;oldid=96393</a>"</li>
+<li id="footer-info-lastmod"> This page was last edited on 28 March 2026, at 15:57.</li>
+	<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+<br>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="../en/About_postmarketOS.html">About postmarketOS Wiki</a></li>
+	<li id="footer-places-disclaimers"><a href="../en/PostmarketOS:General_disclaimer.html">Disclaimers</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31" loading="lazy"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="../poweredby_mediawiki.svg" alt="Powered by MediaWiki" width="88" height="31" loading="lazy"></a></li>
+</ul>
+
+</footer>
+
+		</div>
+	</div> 
+</div> 
+<div class="vector-settings" id="p-dock-bottom">
+	<ul></ul>
+</div>
+</body>
+</html>

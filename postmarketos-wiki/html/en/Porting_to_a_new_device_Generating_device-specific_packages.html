@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html class="client-nojs vector-feature-language-in-header-enabled vector-feature-language-in-main-page-header-disabled vector-feature-sticky-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-0 vector-feature-appearance-pinned-clientpref-1 vector-feature-night-mode-disabled skin-theme-clientpref-day vector-toc-available" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Porting to a new device/Generating device-specific packages - postmarketOS Wiki</title>
+<link rel="stylesheet" href="../PostmarketOSWikiOffline.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<meta name="generator" content="MediaWiki 1.43.6">
+<meta name="robots" content="max-image-preview:standard">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0">
+<link rel="search" type="application/opensearchdescription+xml" href="/rest.php/v1/search" title="postmarketOS Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.postmarketos.org/api.php?action=rsd">
+<link rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<link rel="alternate" type="application/atom+xml" title="postmarketOS Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom">
+</head>
+<body class="skin--responsive skin-vector skin-vector-search-vue mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Porting_to_a_new_device_Generating_device-specific_packages rootpage-Porting_to_a_new_device_Generating_device-specific_packages skin-vector-2022 action-view">
+<a class="mw-jump-link" href="#bodyContent">Jump to content</a>
+<div class="vector-header-container">
+	<header class="vector-header mw-header">
+		<div class="vector-header-start">
+			<nav class="vector-main-menu-landmark" aria-label="Site">
+				
+<div id="vector-main-menu-dropdown" class="vector-dropdown vector-main-menu-dropdown vector-button-flush-left vector-button-flush-right">
+	<input type="checkbox" id="vector-main-menu-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-main-menu-dropdown" class="vector-dropdown-checkbox " aria-label="Main menu">
+	<label id="vector-main-menu-dropdown-label" for="vector-main-menu-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-menu mw-ui-icon-wikimedia-menu"></span>
+
+<span class="vector-dropdown-label-text">Main menu</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+				<div id="vector-main-menu-unpinned-container" class="vector-unpinned-container">
+		
+<div id="vector-main-menu" class="vector-main-menu vector-pinnable-element">
+	<div class="vector-pinnable-header vector-main-menu-pinnable-header vector-pinnable-header-unpinned" data-feature-name="main-menu-pinned" data-pinnable-element-id="vector-main-menu" data-pinned-container-id="vector-main-menu-pinned-container" data-unpinned-container-id="vector-main-menu-unpinned-container">
+	<div class="vector-pinnable-header-label">Main menu</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-main-menu.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-main-menu.unpin">hide</button>
+</div>
+
+	
+<div id="p-navigation" class="vector-menu mw-portlet mw-portlet-navigation">
+	<div class="vector-menu-heading">
+		Navigation
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-mainpage-description" class="mw-list-item"><a href="../en/Main_Page.html" title="Visit the main page [z]" accesskey="z"><span>Main page</span></a></li>
+<li id="n-Devices" class="mw-list-item"><a href="../en/Devices.html"><span>Devices</span></a></li>
+<li id="n-Installation" class="mw-list-item"><a href="../en/Installation.html"><span>Installation</span></a></li>
+<li id="n-Troubleshooting" class="mw-list-item"><a href="../en/Category:Troubleshooting.html"><span>Troubleshooting</span></a></li>
+<li id="n-Guides" class="mw-list-item"><a href="../en/Category:Guide.html"><span>Guides</span></a></li>
+<li id="n-Interfaces" class="mw-list-item"><a href="../en/Category:Interface.html"><span>Interfaces</span></a></li>
+<li id="n-Applications" class="mw-list-item"><a href="../en/Applications_by_category.html"><span>Applications</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	
+<div id="p-Wiki" class="vector-menu mw-portlet mw-portlet-Wiki">
+	<div class="vector-menu-heading">
+		Wiki
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="n-Editor's-guide" class="mw-list-item"><a href="../en/Help:Wiki_editor's_guide.html"><span>Editor's guide</span></a></li>
+<li id="n-Rules-&amp;-style-guide" class="mw-list-item"><a href="../en/Help:Wiki_editor's_guide_Wiki_rules_and_style_guide.html"><span>Rules &amp; style guide</span></a></li>
+<li id="n-recentchanges" class="mw-list-item"><a href="../Special:RecentChanges.html" title="A list of recent changes in the wiki [r]" accesskey="r"><span>Recent changes</span></a></li>
+<li id="n-randompage" class="mw-list-item"><a href="../Special:Random.html" title="Load a random page [x]" accesskey="x"><span>Random page</span></a></li>
+<li id="n-Templates" class="mw-list-item"><a href="../en/PostmarketOS:Templates.html"><span>Templates</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+				</div>
+
+	</div>
+</div>
+
+		</nav>
+			
+<a href="../en/Main_Page.html" class="mw-logo">
+	<img class="mw-logo-icon" src="/logo_50x50.svg" alt="" aria-hidden="true" height="50" width="50">
+	<span class="mw-logo-container skin-invert">
+		<strong class="mw-logo-wordmark">postmarketOS Wiki</strong>
+	</span>
+</a>
+
+		</div>
+		<div class="vector-header-end">
+			
+<div id="p-search" role="search" class="vector-search-box-vue  vector-search-box-collapses vector-search-box-show-thumbnail vector-search-box-auto-expand-width vector-search-box">
+	<a href="../Special:Search.html" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only search-toggle" title="Search postmarketOS Wiki [f]" accesskey="f"><span class="vector-icon mw-ui-icon-search mw-ui-icon-wikimedia-search"></span>
+
+<span>Search</span>
+	</a>
+	<div class="vector-typeahead-search-container">
+		<div class="cdx-typeahead-search cdx-typeahead-search--show-thumbnail cdx-typeahead-search--auto-expand-width">
+			<form action="/index.php" id="searchform" class="cdx-search-input cdx-search-input--has-end-button">
+				<div id="simpleSearch" class="cdx-search-input__input-wrapper" data-search-loc="header-moved">
+					<div class="cdx-text-input cdx-text-input--has-start-icon">
+						<input class="cdx-text-input__input" type="search" name="search" placeholder="Search postmarketOS Wiki" aria-label="Search postmarketOS Wiki" autocapitalize="sentences" title="Search postmarketOS Wiki [f]" accesskey="f" id="searchInput">
+						<span class="cdx-text-input__icon cdx-text-input__start-icon"></span>
+					</div>
+					<input type="hidden" name="title" value="Special:Search">
+				</div>
+				<button class="cdx-button cdx-search-input__end-button">Search</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+			<nav class="vector-user-links vector-user-links-wide" aria-label="Personal tools">
+	<div class="vector-user-links-main">
+	
+<div id="p-vector-user-menu-preferences" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-userpage" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	<nav class="vector-appearance-landmark" aria-label="Appearance">
+		
+<div id="vector-appearance-dropdown" class="vector-dropdown " title="Change the appearance of the page's font size, width, and color">
+	<input type="checkbox" id="vector-appearance-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-appearance-dropdown" class="vector-dropdown-checkbox " aria-label="Appearance">
+	<label id="vector-appearance-dropdown-label" for="vector-appearance-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-appearance mw-ui-icon-wikimedia-appearance"></span>
+
+<span class="vector-dropdown-label-text">Appearance</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+			<div id="vector-appearance-unpinned-container" class="vector-unpinned-container">
+				
+			</div>
+		
+	</div>
+</div>
+
+	</nav>
+	
+<div id="p-vector-user-menu-notifications" class="vector-menu mw-portlet emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+	
+<div id="p-vector-user-menu-overflow" class="vector-menu mw-portlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			<li id="pt-login-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item">
+<a data-mw="interface" href="/index.php?title=Special:UserLogin&amp;returnto=Porting+to+a+new+device%2FGenerating+device-specific+packages" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o" class=""><span>Log in</span></a>
+</li>
+<li id="pt-createaccount-2" class="user-links-collapsible-item mw-list-item user-links-collapsible-item">
+<a data-mw="interface" href="../Special:RequestAccount.html" title="You are encouraged to create an account and log in; however, it is not mandatory" class=""><span>Request account</span></a>
+</li>
+
+			
+		</ul>
+		
+	</div>
+</div>
+
+	</div>
+	
+<div id="vector-user-links-dropdown" class="vector-dropdown vector-user-menu vector-button-flush-right vector-user-menu-logged-out user-links-collapsible-item" title="More options">
+	<input type="checkbox" id="vector-user-links-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-user-links-dropdown" class="vector-dropdown-checkbox " aria-label="Personal tools">
+	<label id="vector-user-links-dropdown-label" for="vector-user-links-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-ellipsis mw-ui-icon-wikimedia-ellipsis"></span>
+
+<span class="vector-dropdown-label-text">Personal tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+		
+<div id="p-personal" class="vector-menu mw-portlet mw-portlet-personal user-links-collapsible-item" title="User menu">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="pt-login" class="user-links-collapsible-item mw-list-item"><a href="/index.php?title=Special:UserLogin&amp;returnto=Porting+to+a+new+device%2FGenerating+device-specific+packages" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o"><span class="vector-icon mw-ui-icon-logIn mw-ui-icon-wikimedia-logIn"></span> <span>Log in</span></a></li>
+<li id="pt-createaccount" class="user-links-collapsible-item mw-list-item"><a href="../Special:RequestAccount.html" title="You are encouraged to create an account and log in; however, it is not mandatory"><span>Request account</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+	
+	</div>
+</div>
+
+</nav>
+
+		</div>
+	</header>
+</div>
+<div class="mw-page-container">
+	<div class="mw-page-container-inner">
+		<div class="vector-sitenotice-container">
+			<div id="siteNotice"></div>
+		</div>
+		<div class="vector-column-start">
+			<div class="vector-main-menu-container">
+		</div>
+	<div class="vector-sticky-pinned-container">
+				<nav id="mw-panel-toc" aria-label="Contents" data-event-name="ui.sidebar-toc" class="mw-table-of-contents-container vector-toc-landmark">
+					<div id="vector-toc-pinned-container" class="vector-pinned-container">
+					<div id="vector-toc" class="vector-toc vector-pinnable-element">
+	<div class="vector-pinnable-header vector-toc-pinnable-header vector-pinnable-header-pinned" data-feature-name="toc-pinned" data-pinnable-element-id="vector-toc">
+	<h2 class="vector-pinnable-header-label">Contents</h2>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-toc.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-toc.unpin">hide</button>
+</div>
+
+
+	<ul class="vector-toc-contents" id="mw-panel-toc-list">
+		<li id="toc-mw-content-text" class="vector-toc-list-item vector-toc-level-1">
+			<a href="#" class="vector-toc-link">
+				<div class="vector-toc-text">Beginning</div>
+			</a>
+		</li>
+		<li id="toc-Installing_pmbootstrap" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Installing_pmbootstrap">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">1</span>
+				<span>Installing pmbootstrap</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Installing_pmbootstrap-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+	<li id="toc-Initializing_pmbootstrap_and_generating_the_initial_packages" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Initializing_pmbootstrap_and_generating_the_initial_packages">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">2</span>
+				<span>Initializing pmbootstrap and generating the initial packages</span>
+			</div>
+		</a>
+		
+			<button aria-controls="toc-Initializing_pmbootstrap_and_generating_the_initial_packages-sublist" class="cdx-button cdx-button--weight-quiet cdx-button--icon-only vector-toc-toggle">
+				<span class="vector-icon mw-ui-icon-wikimedia-expand"></span>
+				<span>Toggle Initializing pmbootstrap and generating the initial packages subsection</span>
+			</button>
+		
+		<ul id="toc-Initializing_pmbootstrap_and_generating_the_initial_packages-sublist" class="vector-toc-list">
+			<li id="toc-Choosing_the_vendor/codename" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Choosing_the_vendor/codename">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.1</span>
+					<span>Choosing the vendor/codename</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Choosing_the_vendor/codename-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Selecting_the_flash_method" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Selecting_the_flash_method">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.2</span>
+					<span>Selecting the flash method</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Selecting_the_flash_method-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Analyzing_a_boot.img" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Analyzing_a_boot.img">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.3</span>
+					<span>Analyzing a boot.img</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Analyzing_a_boot.img-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+		<li id="toc-Remaining_pmbootstrap_configuration" class="vector-toc-list-item vector-toc-level-2">
+			<a class="vector-toc-link" href="#Remaining_pmbootstrap_configuration">
+				<div class="vector-toc-text">
+					<span class="vector-toc-numb">2.4</span>
+					<span>Remaining pmbootstrap configuration</span>
+				</div>
+			</a>
+			
+			<ul id="toc-Remaining_pmbootstrap_configuration-sublist" class="vector-toc-list">
+			</ul>
+		</li>
+	</ul>
+	</li>
+	<li id="toc-Watching_the_pmbootstrap_log" class="vector-toc-list-item vector-toc-level-1 vector-toc-list-item-expanded">
+		<a class="vector-toc-link" href="#Watching_the_pmbootstrap_log">
+			<div class="vector-toc-text">
+				<span class="vector-toc-numb">3</span>
+				<span>Watching the pmbootstrap log</span>
+			</div>
+		</a>
+		
+		<ul id="toc-Watching_the_pmbootstrap_log-sublist" class="vector-toc-list">
+		</ul>
+	</li>
+</ul>
+</div>
+
+					</div>
+		</nav>
+			</div>
+		</div>
+		<div class="mw-content-container">
+			<main id="content" class="mw-body" style="margin: 0">
+				<header class="mw-body-header vector-page-titlebar">
+					<nav aria-label="Contents" class="vector-toc-landmark">
+						
+<div id="vector-page-titlebar-toc" class="vector-dropdown vector-page-titlebar-toc vector-button-flush-left">
+	<input type="checkbox" id="vector-page-titlebar-toc-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-titlebar-toc" class="vector-dropdown-checkbox " aria-label="Toggle the table of contents">
+	<label id="vector-page-titlebar-toc-label" for="vector-page-titlebar-toc-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet cdx-button--icon-only " aria-hidden="true"><span class="vector-icon mw-ui-icon-listBullet mw-ui-icon-wikimedia-listBullet"></span>
+
+<span class="vector-dropdown-label-text">Toggle the table of contents</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+							<div id="vector-page-titlebar-toc-unpinned-container" class="vector-unpinned-container">
+			</div>
+		
+	</div>
+</div>
+
+					</nav>
+					<h1 id="firstHeading" class="firstHeading mw-first-heading"><span class="mw-page-title-main">Porting to a new device/Generating device-specific packages</span></h1>
+				</header>
+				<div class="vector-page-toolbar">
+					<div class="vector-page-toolbar-container">
+						<div id="left-navigation">
+							<nav aria-label="Namespaces">
+								
+<div id="p-associated-pages" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-associated-pages">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-nstab-main" class="selected vector-tab-noicon mw-list-item"><a href="../en/Porting_to_a_new_device_Generating_device-specific_packages.html" title="View the content page [c]" accesskey="c"><span>Page</span></a></li>
+<li id="ca-talk" class="new vector-tab-noicon mw-list-item"><a href="/index.php?title=Talk:Porting_to_a_new_device/Generating_device-specific_packages&amp;action=edit&amp;redlink=1" rel="discussion" class="new" title="Discussion about the content page (page does not exist) [t]" accesskey="t"><span>Discussion</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+								
+<div id="vector-variants-dropdown" class="vector-dropdown emptyPortlet">
+	<input type="checkbox" id="vector-variants-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-variants-dropdown" class="vector-dropdown-checkbox " aria-label="Change language variant">
+	<label id="vector-variants-dropdown-label" for="vector-variants-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">English</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+					
+<div id="p-variants" class="vector-menu mw-portlet mw-portlet-variants emptyPortlet">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			
+		</ul>
+		
+	</div>
+</div>
+
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+						<div id="right-navigation" class="vector-collapsible">
+							<nav aria-label="Views">
+								
+<div id="p-views" class="vector-menu vector-menu-tabs mw-portlet mw-portlet-views">
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-view" class="selected vector-tab-noicon mw-list-item"><a href="../en/Porting_to_a_new_device_Generating_device-specific_packages.html"><span>Read</span></a></li>
+<li id="ca-viewsource" class="vector-tab-noicon mw-list-item"><a href="/index.php?title=Porting_to_a_new_device/Generating_device-specific_packages&amp;action=edit" title="This page is protected.
+You can view its source [e]" accesskey="e"><span>View source</span></a></li>
+<li id="ca-history" class="vector-tab-noicon mw-list-item"><a href="/index.php?title=Porting_to_a_new_device/Generating_device-specific_packages&amp;action=history" title="Past revisions of this page [h]" accesskey="h"><span>View history</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+							</nav>
+				
+							<nav class="vector-page-tools-landmark" aria-label="Page tools">
+								
+<div id="vector-page-tools-dropdown" class="vector-dropdown vector-page-tools-dropdown">
+	<input type="checkbox" id="vector-page-tools-dropdown-checkbox" role="button" aria-haspopup="true" data-event-name="ui.dropdown-vector-page-tools-dropdown" class="vector-dropdown-checkbox " aria-label="Tools">
+	<label id="vector-page-tools-dropdown-label" for="vector-page-tools-dropdown-checkbox" class="vector-dropdown-label cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-quiet" aria-hidden="true"><span class="vector-dropdown-label-text">Tools</span>
+	</label>
+	<div class="vector-dropdown-content">
+
+
+									<div id="vector-page-tools-unpinned-container" class="vector-unpinned-container">
+						
+<div id="vector-page-tools" class="vector-page-tools vector-pinnable-element">
+	<div class="vector-pinnable-header vector-page-tools-pinnable-header vector-pinnable-header-unpinned" data-feature-name="page-tools-pinned" data-pinnable-element-id="vector-page-tools" data-pinned-container-id="vector-page-tools-pinned-container" data-unpinned-container-id="vector-page-tools-unpinned-container">
+	<div class="vector-pinnable-header-label">Tools</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-page-tools.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-page-tools.unpin">hide</button>
+</div>
+
+	
+<div id="p-cactions" class="vector-menu mw-portlet mw-portlet-cactions emptyPortlet vector-has-collapsible-items" title="More options">
+	<div class="vector-menu-heading">
+		Actions
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="ca-more-view" class="selected vector-more-collapsible-item mw-list-item"><a href="../en/Porting_to_a_new_device_Generating_device-specific_packages.html"><span>Read</span></a></li>
+<li id="ca-more-viewsource" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Porting_to_a_new_device/Generating_device-specific_packages&amp;action=edit"><span>View source</span></a></li>
+<li id="ca-more-history" class="vector-more-collapsible-item mw-list-item"><a href="/index.php?title=Porting_to_a_new_device/Generating_device-specific_packages&amp;action=history"><span>View history</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+<div id="p-tb" class="vector-menu mw-portlet mw-portlet-tb">
+	<div class="vector-menu-heading">
+		General
+	</div>
+	<div class="vector-menu-content">
+		
+		<ul class="vector-menu-content-list">
+			
+			<li id="t-whatlinkshere" class="mw-list-item"><a href="../Special:WhatLinksHere_Porting_to_a_new_device_Generating_device-specific_packages.html" title="A list of all wiki pages that link here [j]" accesskey="j"><span>What links here</span></a></li>
+<li id="t-recentchangeslinked" class="mw-list-item"><a href="../Special:RecentChangesLinked_Porting_to_a_new_device_Generating_device-specific_packages.html" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k"><span>Related changes</span></a></li>
+<li id="t-specialpages" class="mw-list-item"><a href="../Special:SpecialPages.html" title="A list of all special pages [q]" accesskey="q"><span>Special pages</span></a></li>
+<li id="t-print" class="mw-list-item"><a href="javascript:print();" rel="alternate" title="Printable version of this page [p]" accesskey="p"><span>Printable version</span></a></li>
+<li id="t-permalink" class="mw-list-item"><a href="/index.php?title=Porting_to_a_new_device/Generating_device-specific_packages&amp;oldid=96391" title="Permanent link to this revision of this page"><span>Permanent link</span></a></li>
+<li id="t-info" class="mw-list-item"><a href="/index.php?title=Porting_to_a_new_device/Generating_device-specific_packages&amp;action=info" title="More information about this page"><span>Page information</span></a></li>
+<li id="t-cargopagevalueslink" class="mw-list-item"><a href="/index.php?title=Porting_to_a_new_device/Generating_device-specific_packages&amp;action=pagevalues" rel="cargo-pagevalues"><span>Cargo data</span></a></li>
+		</ul>
+		
+	</div>
+</div>
+
+</div>
+
+									</div>
+				
+	</div>
+</div>
+
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="vector-column-end">
+					<div class="vector-sticky-pinned-container">
+						<nav class="vector-page-tools-landmark" aria-label="Page tools">
+							<div id="vector-page-tools-pinned-container" class="vector-pinned-container">
+				
+							</div>
+		</nav>
+						<nav class="vector-appearance-landmark" aria-label="Appearance">
+							<div id="vector-appearance-pinned-container" class="vector-pinned-container">
+				<div id="vector-appearance" class="vector-appearance vector-pinnable-element">
+	<div class="vector-pinnable-header vector-appearance-pinnable-header vector-pinnable-header-pinned" data-feature-name="appearance-pinned" data-pinnable-element-id="vector-appearance" data-pinned-container-id="vector-appearance-pinned-container" data-unpinned-container-id="vector-appearance-unpinned-container">
+	<div class="vector-pinnable-header-label">Appearance</div>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-pin-button" data-event-name="pinnable-header.vector-appearance.pin">move to sidebar</button>
+	<button class="vector-pinnable-header-toggle-button vector-pinnable-header-unpin-button" data-event-name="pinnable-header.vector-appearance.unpin">hide</button>
+</div>
+
+
+</div>
+
+							</div>
+		</nav>
+					</div>
+				</div>
+				<div id="bodyContent" class="vector-body" aria-labelledby="firstHeading" data-mw-ve-target-container>
+					<div class="vector-body-before-content">
+							<div class="mw-indicators">
+		</div>
+
+						<div id="siteSub" class="noprint">From postmarketOS Wiki</div>
+					</div>
+					<div id="contentSub"><div id="mw-content-subtitle"></div></div>
+					
+					
+					<div id="mw-content-text" class="mw-body-content">
+<div class="mw-content-ltr mw-parser-output" lang="en" dir="ltr">
+<div id="contentSub" style="margin-top: -8px; margin-bottom: 18px;">
+<span class="subpages">&lt; <a href="../en/Porting_to_a_new_device.html" title="Porting to a new device">Porting to a new device</a></span>‎</div>
+<p>The first step of the porting process is to <b>generate the initial device package and kernel package</b> using pmbootstrap. The rough outline of the steps is:
+</p>
+<ul>
+<li>Install pmbootstrap, the postmarketOS build tool;</li>
+<li>Run <code>pmbootstrap init</code> to initialize it and tell it what device we're working with;</li>
+<li>Let pmbootstrap generate the device package (and for downstream kernels, the kernel package).</li>
+</ul>
+<meta property="mw:PageProp/toc">
+<h2><span class="mw-headline" id="Installing_pmbootstrap">Installing pmbootstrap</span></h2>
+<div class="hatnote" role="note" style="padding-left: 1.5em; margin-bottom: 0.5em; font-style: italic;"><i>See also: <a href="../en/Pmbootstrap_Installation.html" title="Pmbootstrap/Installation">Pmbootstrap/Installation</a></i></div>
+<p>We will be using pmbootstrap, the postmarketOS build tool, during the porting process.
+</p>
+<p>Your distro may already have pmbootstrap available in its repositories. If it doesn't, or the packaged version is too old, you can also <a href="../en/Pmbootstrap_Installation.html#Symlink_method" title="Pmbootstrap/Installation">install it from Git</a>.
+</p>
+<p>If you've already installed pmbootstrap before, run this command to update the local clone of the pmaports repository to the latest version:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>pmbootstrap<span class="w"> </span>pull
+</pre></div>
+<h2><span class="mw-headline" id="Initializing_pmbootstrap_and_generating_the_initial_packages">Initializing pmbootstrap and generating the initial packages</span></h2>
+<p>To begin the porting process, we must first initialize pmbootstrap and tell it what device we're working on. In this step, pmbootstrap will detect that we're trying to create a new port and generate the base for our device-specific packages for us.
+</p>
+<p>To begin the process, run:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>pmbootstrap<span class="w"> </span>init
+</pre></div>
+<style data-mw-deduplicate="TemplateStyles:r79875"></style>
+<table role="text container" class="icon-box box-hint" style="--ib-color: #1c1607; --ib-color-dark: #ece7da; --ib-background: #fff9ea; --ib-background-dark: #463405; --ib-border-color: #f2bc20; --ib-border-color-dark: #5c470a; border-width: 1px; border-style: solid; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center; line-height: 1;"><span style="white-space: nowrap;"><span typeof="mw:File"><span title="Hint"><img alt="Hint" src="../Hint_icon.svg" decoding="async" width="20" height="20" class="mw-file-element"></span></span></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">When using pmbootstrap init, you will be prompted to answer some questions. In each prompt, the default answer is shown between brackets - to use the default, don't type anything and press Enter/Return. For example:
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="go">Continue? (y/n) [y]:</span>
+</pre></div>
+Pressing Enter/Return here will select <code>y</code>.</td>
+</tr></tbody></table>
+<p>You will be asked to answer some questions to get your environment set up:
+</p>
+<ul>
+<li>Where to place the <b>work path</b> - this is where pmbootstrap will download files and set up chroots.
+<ul>
+<li>For most users, the default suggested location (<code>~/.local/var/pmbootstrap</code>) is fine, but you can optionally move it e.g. to an external drive if more space is needed.</li>
+<li>Note that only standard Linux filesystems like ext4 are supported - NTFS, VirtualBox shared folders and various exotic filesystems will not work. You should also have about ~10GB of free space.</li>
+</ul>
+</li>
+<li>The <b>release channel</b> to use - select <b><code>edge</code></b> here. <code>edge</code> is the development branch of postmarketOS, and where new device ports go when upstreaming them.</li>
+</ul>
+<h3>
+<span id="Choosing_the_vendor.2Fcodename"></span><span class="mw-headline" id="Choosing_the_vendor/codename">Choosing the vendor/codename</span>
+</h3>
+<p>You will be asked for the <b>vendor</b> (manufacturer) and <b>codename</b> of your device.
+</p>
+<ul>
+<li>The vendor will usually be the manufacturer's name, in lowercase. (If you're not sure, see how other devices from the same vendor do it.)</li>
+<li>The codename can be found in one of the following places:
+<ul>
+<li>If your device is supported by a custom Android ROM, like LineageOS, the <code>android_device_...</code> repo contains the vendor and codename in its name.</li>
+<li>If all else fails, you might be able to find the codename by looking up your device's name/model number followed by "codename".</li>
+</ul>
+</li>
+</ul>
+<p>At this point, you will get the following message:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="go">[07:07:09] You are about to do a new device port for 'vendor-codename'.</span>
+<span class="go">[07:07:09] Continue? (y/n) [y]:</span>
+</pre></div>
+<p>Answer <code>y</code> here. You will be asked to answer some questions about the port and the device (see also: <a href="../en/How_to_find_device-specific_information.html" title="How to find device-specific information">How to find device-specific information</a>):
+</p>
+<ul>
+<li>
+<b>Kernel: downstream or mainline</b> - see <a href="../en/Porting_to_a_new_device.html#Downstream_or_(close_to)_mainline_kernel" title="Porting to a new device">Porting to a new device#Downstream or (close to) mainline kernel</a>.</li>
+<li>
+<b>Device architecture</b> - aarch64 for 64-bit ARM, armv7 for 32-bit ARM. armhf is very rare, and only applies to very old ARMv6 devices with floating point units (FPUs).</li>
+<li>
+<b>Manufacturer</b>, <b>Name</b>, <b>Year</b> - metadata of the device, saved to the deviceinfo file and displayed in the OS.</li>
+<li>
+<b>Chassis</b> - <code>handset</code> for phones, <code>tablet</code> for tablets, <code>laptop</code> for laptops.</li>
+<li>
+<b>Does the device have a sdcard or other external storage medium? (y/n)</b> - <code>y</code> if your device has an SD card slot or similar, <code>n</code> otherwise.</li>
+</ul>
+<h3><span class="mw-headline" id="Selecting_the_flash_method">Selecting the flash method</span></h3>
+<p>You will be prompted to select a flash method; this is what is used by <code>pmbootstrap flasher</code> to know which set of commands to use to perform its operations.
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="go">[06:01:08] Which flash method does the device support?</span>
+<span class="go">[06:01:08] Flash method (0xffff/fastboot/heimdall/mtkclient/none/rkdeveloptool/uuu) [none]:</span>
+</pre></div>
+<ul>
+<li>
+<b>fastboot</b> - the most commonly used flashing format for most Android devices. If you use the <code>fastboot</code> command to communicate with the bootloader, select this option.</li>
+<li>
+<b>heimdall</b> - implements the Odin protocol used in Samsung's Download Mode (all Android-based Samsung devices).</li>
+<li>SoC-specific options (try fastboot first, if available):
+<ul>
+<li>
+<b>mtkclient</b> - used to flash directly to Mediatek devices, including ones with locked/broken bootloaders</li>
+<li>
+<b>rkdeveloptool</b> - used to flash directly to Rockchip devices with Rockchip's own download mode.</li>
+<li>
+<b>uuu</b> - used to flash directly to NXP devices with their own download mode.</li>
+</ul>
+</li>
+</ul>
+<p>If your device does not support flashing over USB with a command, or its flashing method is not listed, select <b>none</b>. The selected flash method can be changed later by modifying the deviceinfo file.
+</p>
+<h3><span class="mw-headline" id="Analyzing_a_boot.img">Analyzing a boot.img</span></h3>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r79875">
+<table role="text container" class="icon-box box-hint" style="--ib-color: #1c1607; --ib-color-dark: #ece7da; --ib-background: #fff9ea; --ib-background-dark: #463405; --ib-border-color: #f2bc20; --ib-border-color-dark: #5c470a; border-width: 1px; border-style: solid; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center; line-height: 1;"><span style="white-space: nowrap;"><span typeof="mw:File"><span title="Hint"><img alt="Hint" src="../Hint_icon.svg" decoding="async" width="20" height="20" class="mw-file-element"></span></span></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">If you're working with a non-Android device, you can skip this step.</td>
+</tr></tbody></table>
+<p>To get the remaining flasher information, pmbootstrap needs to analyze a boot.img file. You can get this file from any Android ROM, or use a recovery image like TWRP instead.
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="go">[06:26:07] You can analyze a known working boot.img file to automatically fill out the flasher information for your deviceinfo file. Either specify the path to an image or press return to skip this step (you can do it later with 'pmbootstrap bootimg_analyze').</span>
+<span class="go">[06:26:07] Path:</span>
+</pre></div>
+<p>You can either pass the path to the boot.img file here directly, or leave it empty for now and run <code>pmbootstrap bootimg_analyze path/to/boot.img</code> later.
+</p>
+<h3><span class="mw-headline" id="Remaining_pmbootstrap_configuration">Remaining pmbootstrap configuration</span></h3>
+<p>At this point, the device-specific packages will be generated:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="go">[06:28:49] *** pmaport generated: /home/user/.local/var/pmbootstrap/cache_git/pmaports/device/downstream/device-vendor-codename</span>
+<span class="go">[06:28:49] *** pmaport generated: /home/user/.local/var/pmbootstrap/cache_git/pmaports/device/downstream/linux-vendor-codename</span>
+</pre></div>
+<p>Keep these locations in mind; you will need to modify the files in them shortly.
+</p>
+<p>Afterwards, pmbootstrap will ask you the usual setup questions. For most questions, the defaults are fine; if you have any doubts, follow the steps from <a href="../en/Installation_Using_pmbootstrap.html#Initializing_pmbootstrap" title="Installation/Using pmbootstrap">Installation/Using pmbootstrap#Initializing pmbootstrap</a>.
+</p>
+<link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r79875">
+<table role="text container" class="icon-box box-hint" style="--ib-color: #1c1607; --ib-color-dark: #ece7da; --ib-background: #fff9ea; --ib-background-dark: #463405; --ib-border-color: #f2bc20; --ib-border-color-dark: #5c470a; border-width: 1px; border-style: solid; margin: 4px 0; border-collapse: collapse;"><tbody><tr>
+<td style="padding: 2px 0 2px 0.9em; text-align: center; line-height: 1;"><span style="white-space: nowrap;"><span typeof="mw:File"><span title="Hint"><img alt="Hint" src="../Hint_icon.svg" decoding="async" width="20" height="20" class="mw-file-element"></span></span></span></td>
+<td style="padding: 0.35em 0.9em; width: 100%;">When you're asked to select the <b>user interface</b> to install - <code>xfce4</code> is a good first choice for both downstream and (close to) mainline ports.</td>
+</tr></tbody></table>
+<h2><span class="mw-headline" id="Watching_the_pmbootstrap_log">Watching the pmbootstrap log</span></h2>
+<p>Throughout this guide, you might see references to "the pmbootstrap log". Some information that is useful when porting, such as download or build errors, is only printed to the pmbootstrap log and not displayed immediately to the user.
+</p>
+<p>It is recommended to run the following command in another terminal to watch the logs update live:
+</p>
+<div class="mw-highlight mw-highlight-lang-shell-session mw-content-ltr" dir="ltr"><pre><span></span><span class="gp">$ </span>pmbootstrap<span class="w"> </span>log
+</pre></div>
+<p>The log can also be found in the work directory (<code>~/.local/var/pmbootstrap/log.txt</code> by default).
+</p>
+<style data-mw-deduplicate="TemplateStyles:r94566">.mw-parser-output .pmos-prevnext-container>a:hover,.mw-parser-output .pmos-prevnext-container>a:active,.mw-parser-output .pmos-prevnext-container>a:focus{text-decoration:none}.mw-parser-output .pmos-prevnext-container{display:grid;grid-template-columns:1fr 1fr;gap:0.85em;margin:1.25em 0}.mw-parser-output .pmos-prevnext-button{color:inherit;border:1px solid var(--border-color-muted,#dadde3);background:var(--background-color-interactive-subtle,#f8f9fa);padding:0.65em 1em;display:flex;flex-direction:column}.mw-parser-output .pmos-prevnext-button:hover{filter:brightness(0.975)}.mw-parser-output .pmos-prevnext-button:hover .link{text-decoration:underline}.mw-parser-output .pmos-prevnext-prev .subtitle::before{content:"←";margin-right:0.3em;opacity:0.65}.mw-parser-output .pmos-prevnext-next{text-align:right}.mw-parser-output .pmos-prevnext-next .subtitle::after{content:"→";margin-left:0.3em;opacity:0.65}.mw-parser-output .pmos-prevnext-button .subtitle{color:var(--color-subtle,#54595d);font-size:0.9em}.mw-parser-output .pmos-prevnext-button .link{font-size:1.35em;font-weight:bold}@media(max-width:768px){.mw-parser-output .pmos-prevnext-container{grid-template-columns:1fr}.mw-parser-output .pmos-prevnext-next{text-align:left}}@media screen and (prefers-color-scheme:dark){html.skin-theme-clientpref-os .mw-parser-output .pmos-prevnext-button:hover{filter:brightness(1.125)}}html.skin-theme-clientpref-night .mw-parser-output .pmos-prevnext-button:hover{filter:brightness(1.125)}</style>
+<div class="pmos-prevnext-container">
+<a href="../en/Porting_to_a_new_device.html" title="Porting to a new device"><div class="pmos-prevnext-button pmos-prevnext-prev">
+<span class="subtitle">Previous page</span><span class="link">Introduction</span>
+</div></a><a href="../en/Porting_to_a_new_device_Kernel_package.html" title="Porting to a new device/Kernel package"><div class="pmos-prevnext-button pmos-prevnext-next">
+<span class="subtitle">Next page</span><span class="link">Kernel package</span>
+</div></a>
+</div>
+</div>
+</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks">
+<a href="../Special:Categories.html" title="Special:Categories">Category</a>: <ul><li><a href="../en/Category:Guide.html" title="Category:Guide">Guide</a></li></ul>
+</div></div>
+				</div>
+			</main>
+			
+		</div>
+		<div class="mw-footer-container">
+			
+<footer id="footer" class="mw-footer" style="margin: 0">
+	<ul id="footer-info">
+	<li data-nosnippet="">Retrieved from "<a dir="ltr" href="https://wiki.postmarketos.org/index.php?title=Porting_to_a_new_device/Generating_device-specific_packages&amp;oldid=96391">https://wiki.postmarketos.org/index.php?title=Porting_to_a_new_device/Generating_device-specific_packages&amp;oldid=96391</a>"</li>
+<li id="footer-info-lastmod"> This page was last edited on 28 March 2026, at 15:57.</li>
+	<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> unless otherwise noted.</li>
+<br>
+</ul>
+
+	<ul id="footer-places">
+	<li id="footer-places-privacy"><a href="../en/PostmarketOS:Privacy_policy.html">Privacy policy</a></li>
+	<li id="footer-places-about"><a href="../en/About_postmarketOS.html">About postmarketOS Wiki</a></li>
+	<li id="footer-places-disclaimers"><a href="../en/PostmarketOS:General_disclaimer.html">Disclaimers</a></li>
+</ul>
+
+	<ul id="footer-icons" class="noprint">
+	<li id="footer-copyrightico"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="../cc-by-sa.png" alt="Creative Commons Attribution-ShareAlike" width="88" height="31" loading="lazy"></a></li>
+	<li id="footer-poweredbyico"><a href="https://www.mediawiki.org/" class="cdx-button cdx-button--fake-button cdx-button--size-large cdx-button--fake-button--enabled"><img src="../poweredby_mediawiki.svg" alt="Powered by MediaWiki" width="88" height="31" loading="lazy"></a></li>
+</ul>
+
+</footer>
+
+		</div>
+	</div> 
+</div> 
+<div class="vector-settings" id="p-dock-bottom">
+	<ul></ul>
+</div>
+</body>
+</html>
